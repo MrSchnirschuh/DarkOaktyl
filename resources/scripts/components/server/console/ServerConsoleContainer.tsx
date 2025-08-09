@@ -9,12 +9,27 @@ import PowerButtons from '@/components/server/console/PowerButtons';
 import ServerDetailsBlock from '@/components/server/console/ServerDetailsBlock';
 import StatGraphs from '@/components/server/console/StatGraphs';
 import Features from '@feature/Features';
-import { ServerContext } from '@/state/server';
+import { ServerContext, ServerStatus } from '@/state/server';
 import classNames from 'classnames';
 import { usePersistedState } from '@/plugins/usePersistedState';
 import { useStoreState } from '@/state/hooks';
+import Pill from '@/components/elements/Pill';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircle, faDownload, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import EditServerDialog from './EditServerDialog';
 
 export type PowerAction = 'start' | 'stop' | 'restart' | 'kill';
+
+function statusToColor(status: ServerStatus): string {
+    switch (status) {
+        case 'running':
+            return 'text-green-500';
+        case 'offline':
+            return 'text-red-500';
+        default:
+            return 'text-yellow-500';
+    };
+};
 
 function ServerConsoleContainer() {
     const user = useStoreState(state => state.user.data!);
@@ -26,6 +41,7 @@ function ServerConsoleContainer() {
     const isTransferring = ServerContext.useStoreState(state => state.server.data!.isTransferring);
     const eggFeatures = ServerContext.useStoreState(state => state.server.data!.eggFeatures, isEqual);
     const isNodeUnderMaintenance = ServerContext.useStoreState(state => state.server.data!.isNodeUnderMaintenance);
+    const status = ServerContext.useStoreState(state => state.status.value);
 
     return (
         <ServerContentBlock title={'Console'} showFlashKey={'console:share'}>
@@ -34,13 +50,21 @@ function ServerConsoleContainer() {
                     {isNodeUnderMaintenance
                         ? 'The node of this server is currently under maintenance and all actions are unavailable.'
                         : isInstalling
-                        ? 'This server is currently running its installation process and most actions are unavailable.'
-                        : 'This server is currently being transferred to another node and all actions are unavailable.'}
+                            ? 'This server is currently running its installation process and most actions are unavailable.'
+                            : 'This server is currently being transferred to another node and all actions are unavailable.'}
                 </Alert>
             )}
             <div className={'mb-4 grid grid-cols-4 gap-4'}>
                 <div className={'hidden pr-4 sm:col-span-2 sm:block lg:col-span-3'}>
-                    <h1 className={'font-header text-2xl leading-relaxed text-slate-50 line-clamp-1'}>{name}</h1>
+                    <div className={'flex items-center space-x-2'}>
+                        <h1 className={'font-header text-2xl leading-relaxed text-slate-50 line-clamp-1'}>{name}</h1>
+                        <Pill>
+                            {isInstalling && <><FontAwesomeIcon icon={faDownload} className={'my-auto mr-1'} />Installing</>}
+                            {isTransferring && <><FontAwesomeIcon icon={faSpinner} className={'animate-spin my-auto mr-1'} />Transferring</>}
+                            {!isInstalling && !isTransferring && <><FontAwesomeIcon icon={faCircle} className={classNames('my-auto mr-1 w-2', statusToColor(status))} />{status}</>}
+                        </Pill>
+                        <EditServerDialog />
+                    </div>
                     <p className={'text-sm line-clamp-2'}>{description ?? uuid}</p>
                 </div>
                 <div className={'col-span-4 self-end sm:col-span-2 lg:col-span-1'}>

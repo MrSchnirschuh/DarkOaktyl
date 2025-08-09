@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { ServerContext } from '@/state/server';
-import TitledGreyBox from '@elements/TitledGreyBox';
 import { reinstallServer } from '@/api/server';
 import { Actions, useStoreActions } from 'easy-peasy';
 import { ApplicationStore } from '@/state';
@@ -37,7 +36,7 @@ export default () => {
     }, []);
 
     return (
-        <TitledGreyBox title={'Reinstall Server'} css={tw`relative`}>
+        <>
             <Dialog.Confirm
                 open={modalVisible}
                 title={'Confirm server reinstallation'}
@@ -45,22 +44,20 @@ export default () => {
                 onClose={() => setModalVisible(false)}
                 onConfirmed={reinstall}
             >
+                <div css={tw`text-sm rounded-lg p-4 bg-yellow-500/25 mb-4`}>
+                    Reinstalling your server will stop it, and then re-run the installation script that initially set it
+                    up.&nbsp;
+                    <strong css={tw`font-medium`}>
+                        Some files may be deleted or modified during this process, please back up your data before
+                        continuing.
+                    </strong>
+                </div>
                 Your server will be stopped and some files may be deleted or modified during this process, are you sure
                 you wish to continue?
             </Dialog.Confirm>
-            <p css={tw`text-sm`}>
-                Reinstalling your server will stop it, and then re-run the installation script that initially set it
-                up.&nbsp;
-                <strong css={tw`font-medium`}>
-                    Some files may be deleted or modified during this process, please back up your data before
-                    continuing.
-                </strong>
-            </p>
-            <div css={tw`mt-6 text-right`}>
-                <Button.Danger variant={Button.Variants.Secondary} onClick={() => setModalVisible(true)}>
-                    Reinstall Server
-                </Button.Danger>
-            </div>
-        </TitledGreyBox>
+            <Button.Danger type={'button'} variant={Button.Variants.Secondary} onClick={() => setModalVisible(true)}>
+                Reinstall Server
+            </Button.Danger>
+        </>
     );
 };

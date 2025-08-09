@@ -1,6 +1,6 @@
 import { lazy } from 'react';
 import { route, type ServerRouteDefinition } from '@/routers/routes/utils';
-import { ArchiveIcon, CashIcon, ClockIcon, CogIcon, DatabaseIcon, EyeIcon, FolderOpenIcon, PlayIcon, TerminalIcon, UsersIcon, WifiIcon } from '@heroicons/react/outline';
+import { ArchiveIcon, CashIcon, ClockIcon, DatabaseIcon, EyeIcon, FolderOpenIcon, PlayIcon, TerminalIcon, UsersIcon, WifiIcon } from '@heroicons/react/outline';
 
 const ServerConsoleContainer = lazy(() => import('@/components/server/console/ServerConsoleContainer'));
 const FileManagerContainer = lazy(() => import('@/components/server/files/FileManagerContainer'));
@@ -12,7 +12,6 @@ const UsersContainer = lazy(() => import('@/components/server/users/UsersContain
 const BackupContainer = lazy(() => import('@/components/server/backups/BackupContainer'));
 const NetworkContainer = lazy(() => import('@/components/server/network/NetworkContainer'));
 const StartupContainer = lazy(() => import('@/components/server/startup/StartupContainer'));
-const SettingsContainer = lazy(() => import('@/components/server/settings/SettingsContainer'));
 const ServerActivityLogContainer = lazy(() => import('@/components/server/ServerActivityLogContainer'));
 const ServerBillingContainer = lazy(() => import('@/components/server/billing/ServerBillingContainer'));
 
@@ -27,7 +26,6 @@ const server: ServerRouteDefinition[] = [
     route('backups/*', BackupContainer, { permission: 'backup.*', name: 'Backups', icon: ArchiveIcon }),
     route('network/*', NetworkContainer, { permission: 'allocation.*', name: 'Network', icon: WifiIcon }),
     route('startup/*', StartupContainer, { permission: 'startup.*', name: 'Startup', icon: PlayIcon }),
-    route('settings/*', SettingsContainer, { permission: ['settings.*', 'file.sftp'], name: 'Settings', icon: CogIcon }),
     route('activity/*', ServerActivityLogContainer, { permission: 'activity.*', name: 'Activity', icon: EyeIcon }),
     route('billing/*', ServerBillingContainer, {
         permission: 'billing.*',
