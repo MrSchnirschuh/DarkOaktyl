@@ -2,7 +2,7 @@ import TransferListener from '@/components/server/TransferListener';
 import { Fragment, useEffect, useState } from 'react';
 import { NavLink, Route, Routes, useParams } from 'react-router-dom';
 import WebsocketHandler from '@/components/server/WebsocketHandler';
-import { ServerContext } from '@/state/server';
+import { ServerContext, ServerStatus } from '@/state/server';
 import Spinner from '@elements/Spinner';
 import { NotFound, ServerError, Suspended } from '@elements/ScreenBlock';
 import { httpErrorToHuman } from '@/api/http';
@@ -18,6 +18,23 @@ import Sidebar from '@elements/Sidebar';
 import { usePersistedState } from '@/plugins/usePersistedState';
 import CollapsedIcon from '@/assets/images/logo.png';
 import { CogIcon, DesktopComputerIcon, PuzzleIcon, ReplyIcon } from '@heroicons/react/outline';
+import SidebarControls from '@/components/server/console/SidebarControls';
+import classNames from 'classnames';
+
+function statusToColor(status: ServerStatus): string {
+    switch (status) {
+        case 'running':
+            return 'border-green-500';
+        case 'offline':
+            return 'border-red-500';
+        case 'starting':
+            return 'border-yellow-500';
+        case 'stopping':
+            return 'border-yellow-500';
+        default:
+            return 'border-gray-500';
+    };
+};
 
 function ServerRouter() {
     const params = useParams<'id'>();
@@ -35,6 +52,7 @@ function ServerRouter() {
     const [collapsed, setCollapsed] = usePersistedState<boolean>(`sidebar_user_${user.uuid}`, false);
     const server = ServerContext.useStoreState(state => state.server.data);
     const billable = server?.orderId;
+    const status = ServerContext.useStoreState(state => state.status.value);
 
     useEffect(() => {
         clearServerState();
@@ -93,7 +111,7 @@ function ServerRouter() {
                             <img src={CollapsedIcon} className={'mt-4 w-12'} alt={'Everest Icon'} />
                         )}
                     </div>
-                    <Sidebar.Wrapper theme={theme}>
+                    <Sidebar.Wrapper theme={theme} className={'mb-auto'}>
                         <NavLink to={'/'} end className={'mb-[18px]'}>
                             <DesktopComputerIcon />
                             <span>Dashboard</span>
@@ -114,6 +132,9 @@ function ServerRouter() {
                             </NavLink>
                         )}
                     </Sidebar.Wrapper>
+                    <Sidebar.User className={classNames('border-t', statusToColor(status))}>
+                        {server && <SidebarControls />}
+                    </Sidebar.User>
                 </Sidebar>
                 {!server?.uuid || !server?.id ? (
                     error ? (
@@ -127,7 +148,7 @@ function ServerRouter() {
                         <TransferListener />
                         <WebsocketHandler />
                         {inConflictState &&
-                        (!rootAdmin || (rootAdmin && !location.pathname.endsWith(`/server/${server?.id}`))) ? (
+                            (!rootAdmin || (rootAdmin && !location.pathname.endsWith(`/server/${server?.id}`))) ? (
                             <ConflictStateRenderer />
                         ) : (
                             <ErrorBoundary>
