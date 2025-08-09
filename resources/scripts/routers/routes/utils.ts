@@ -11,6 +11,7 @@ export interface RouteDefinition {
 }
 
 export interface ServerRouteDefinition extends RouteDefinition {
+    category?: 'general' | 'data' | 'configuration' | null;
     permission?: string | string[];
 }
 

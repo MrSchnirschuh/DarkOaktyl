@@ -17,15 +17,15 @@ const ServerBillingContainer = lazy(() => import('@/components/server/billing/Se
 
 const server: ServerRouteDefinition[] = [
     route('', ServerConsoleContainer, { permission: 'control.console', name: 'Console', end: true, icon: TerminalIcon }),
-    route('files/*', FileManagerContainer, { permission: 'file.*', name: 'Files', icon: FolderOpenIcon }),
+    route('files/*', FileManagerContainer, { permission: 'file.*', name: 'Files', icon: FolderOpenIcon, category: 'data' }),
     route('files/:action/*', FileEditContainer, { permission: 'file.*' }),
-    route('databases/*', DatabasesContainer, { permission: 'database.*', name: 'Databases', icon: DatabaseIcon }),
-    route('schedules/*', ScheduleContainer, { permission: 'schedule.*', name: 'Schedules', icon: ClockIcon }),
-    route('schedules/:id/*', ScheduleEditContainer, { permission: 'schedule.*' }),
-    route('users/*', UsersContainer, { permission: 'user.*', name: 'Users', icon: UsersIcon }),
-    route('backups/*', BackupContainer, { permission: 'backup.*', name: 'Backups', icon: ArchiveIcon }),
-    route('network/*', NetworkContainer, { permission: 'allocation.*', name: 'Network', icon: WifiIcon }),
-    route('startup/*', StartupContainer, { permission: 'startup.*', name: 'Startup', icon: PlayIcon }),
+    route('databases/*', DatabasesContainer, { permission: 'database.*', name: 'Databases', icon: DatabaseIcon, category: 'data' }),
+    route('schedules/*', ScheduleContainer, { permission: 'schedule.*', name: 'Schedules', icon: ClockIcon, category: 'configuration' }),
+    route('schedules/:id/*', ScheduleEditContainer, { permission: 'schedule.*', category: 'configuration' }),
+    route('users/*', UsersContainer, { permission: 'user.*', name: 'Users', icon: UsersIcon, category: 'configuration' }),
+    route('backups/*', BackupContainer, { permission: 'backup.*', name: 'Backups', icon: ArchiveIcon, category: 'data' }),
+    route('network/*', NetworkContainer, { permission: 'allocation.*', name: 'Network', icon: WifiIcon, category: 'configuration' }),
+    route('startup/*', StartupContainer, { permission: 'startup.*', name: 'Startup', icon: PlayIcon, category: 'configuration' }),
     route('activity/*', ServerActivityLogContainer, { permission: 'activity.*', name: 'Activity', icon: EyeIcon }),
     route('billing/*', ServerBillingContainer, {
         permission: 'billing.*',

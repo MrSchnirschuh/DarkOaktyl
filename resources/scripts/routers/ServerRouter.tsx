@@ -54,6 +54,8 @@ function ServerRouter() {
     const billable = server?.orderId;
     const status = ServerContext.useStoreState(state => state.status.value);
 
+    const categories = ['data', 'configuration'] as const;
+
     useEffect(() => {
         clearServerState();
     }, []);
@@ -118,13 +120,29 @@ function ServerRouter() {
                         </NavLink>
                         <Sidebar.Section>Server {server?.uuid?.slice(0, 8)}</Sidebar.Section>
                         {routes.server
-                            .filter(route => route.name && (!route.condition || route.condition({ billable })))
+                            .filter(route => !route.category && route.name && (!route.condition || route.condition({ billable })))
                             .map(route => (
-                                <NavLink to={`/server/${server?.id}/${route.path}`} key={route.path} end={route.end}>
+                                <NavLink to={route.path} key={route.path} end={route.end}>
                                     <Sidebar.Icon icon={route.icon ?? PuzzleIcon} />
                                     <span>{route.name}</span>
                                 </NavLink>
                             ))}
+                        {categories.map(category => {
+                            const categoryRoutes = routes.server.filter(route => route.category === category && route.name);
+                            if (categoryRoutes.length === 0) return null;
+
+                            return (
+                                <Fragment key={category}>
+                                    <Sidebar.Section>{category[0]!.toUpperCase() + category.slice(1)}</Sidebar.Section>
+                                    {categoryRoutes.map(route => (
+                                        <NavLink to={route.path} key={route.path} end={route.end}>
+                                            <Sidebar.Icon icon={route.icon ?? PuzzleIcon} />
+                                            <span>{route.name}</span>
+                                        </NavLink>
+                                    ))}
+                                </Fragment>
+                            );
+                        })}
                         {user.rootAdmin && (
                             <NavLink to={`/admin/servers/${server?.id}`}>
                                 <ReplyIcon />
@@ -143,7 +161,7 @@ function ServerRouter() {
                         <Spinner size="large" centered />
                     )
                 ) : (
-                    <div className={'flex-1 overflow-x-hidden p-4 lg:p-8'}>
+                    <div className={'flex-1 overflow-x-hidden px-4 lg:px-8'}>
                         <InstallListener />
                         <TransferListener />
                         <WebsocketHandler />
