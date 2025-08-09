@@ -99,7 +99,7 @@ function ServerRouter() {
                             <span>Dashboard</span>
                         </NavLink>
                         <Sidebar.Section>Server {server?.uuid?.slice(0, 8)}</Sidebar.Section>
-                        {routes.account
+                        {routes.server
                             .filter(route => route.name && (!route.condition || route.condition({ billable })))
                             .map(route => (
                                 <NavLink to={`/server/${server?.id}/${route.path}`} key={route.path} end={route.end}>
