@@ -16,6 +16,7 @@ import { EverestSettings } from '@/state/everest';
 import Onboarding from '@/components/Onboarding';
 import SpeedDial from '@elements/SpeedDial';
 import SetupContainer from './setup/SetupContainer';
+import { usePersistedState } from '@/plugins/usePersistedState';
 
 const AdminRouter = lazy(() => import('@/routers/AdminRouter'));
 const AuthenticationRouter = lazy(() => import('@/routers/AuthenticationRouter'));
@@ -43,6 +44,7 @@ interface ExtendedWindow extends Window {
 }
 
 function App() {
+    const [setup, _setSetup] = usePersistedState<boolean>('setup', false);
     const { PterodactylUser, SiteConfiguration, EverestConfiguration, ThemeConfiguration } = window as ExtendedWindow;
 
     if (PterodactylUser && !store.getState().user.data) {
@@ -87,7 +89,7 @@ function App() {
             <GlobalStylesheet />
             <StoreProvider store={store}>
                 <ProgressBar />
-                {PterodactylUser?.root_admin && !SiteConfiguration?.setup ? (
+                {PterodactylUser?.root_admin && !setup ? (
                     <SetupContainer />
                 ) : (
                     <>
