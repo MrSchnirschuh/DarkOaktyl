@@ -83,7 +83,10 @@ export default () => {
                     </Formik>
                 </Can>
             </Dialog>
-            <PencilAltIcon className={'text-white/50 hover:text-gray-200 transition duration-300 w-4'} onClick={() => setOpen(true)} />
+            <PencilAltIcon
+                className={'text-white/50 hover:text-gray-200 transition duration-300 w-4'}
+                onClick={() => setOpen(true)}
+            />
         </>
-    )
-}
+    );
+};

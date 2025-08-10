@@ -28,8 +28,8 @@ function statusToColor(status: ServerStatus): string {
             return 'text-red-500';
         default:
             return 'text-yellow-500';
-    };
-};
+    }
+}
 
 function ServerConsoleContainer() {
     const user = useStoreState(state => state.user.data!);
@@ -50,8 +50,8 @@ function ServerConsoleContainer() {
                     {isNodeUnderMaintenance
                         ? 'The node of this server is currently under maintenance and all actions are unavailable.'
                         : isInstalling
-                            ? 'This server is currently running its installation process and most actions are unavailable.'
-                            : 'This server is currently being transferred to another node and all actions are unavailable.'}
+                        ? 'This server is currently running its installation process and most actions are unavailable.'
+                        : 'This server is currently being transferred to another node and all actions are unavailable.'}
                 </Alert>
             )}
             <div className={'mb-4 flex justify-between gap-4 bg-black/50 rounded-lg p-5'}>
@@ -59,9 +59,27 @@ function ServerConsoleContainer() {
                     <div className={'flex items-center space-x-2'}>
                         <h1 className={'font-header text-2xl leading-relaxed text-slate-50 line-clamp-1'}>{name}</h1>
                         <Pill>
-                            {isInstalling && <><FontAwesomeIcon icon={faDownload} className={'my-auto mr-1'} />Installing</>}
-                            {isTransferring && <><FontAwesomeIcon icon={faSpinner} className={'animate-spin my-auto mr-1'} />Transferring</>}
-                            {!isInstalling && !isTransferring && <><FontAwesomeIcon icon={faCircle} className={classNames('my-auto mr-1 w-2', statusToColor(status))} />{status}</>}
+                            {isInstalling && (
+                                <>
+                                    <FontAwesomeIcon icon={faDownload} className={'my-auto mr-1'} />
+                                    Installing
+                                </>
+                            )}
+                            {isTransferring && (
+                                <>
+                                    <FontAwesomeIcon icon={faSpinner} className={'animate-spin my-auto mr-1'} />
+                                    Transferring
+                                </>
+                            )}
+                            {!isInstalling && !isTransferring && (
+                                <>
+                                    <FontAwesomeIcon
+                                        icon={faCircle}
+                                        className={classNames('my-auto mr-1 w-2', statusToColor(status))}
+                                    />
+                                    {status}
+                                </>
+                            )}
                         </Pill>
                         <EditServerDialog />
                     </div>

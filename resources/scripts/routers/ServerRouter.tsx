@@ -33,8 +33,8 @@ function statusToColor(status: ServerStatus): string {
             return 'border-yellow-500';
         default:
             return 'border-gray-500';
-    };
-};
+    }
+}
 
 function ServerRouter() {
     const params = useParams<'id'>();
@@ -120,7 +120,12 @@ function ServerRouter() {
                         </NavLink>
                         <Sidebar.Section>Server {server?.uuid?.slice(0, 8)}</Sidebar.Section>
                         {routes.server
-                            .filter(route => !route.category && route.name && (!route.condition || route.condition({ billable })))
+                            .filter(
+                                route =>
+                                    !route.category &&
+                                    route.name &&
+                                    (!route.condition || route.condition({ billable })),
+                            )
                             .map(route => (
                                 <NavLink to={route.path} key={route.path} end={route.end}>
                                     <Sidebar.Icon icon={route.icon ?? PuzzleIcon} />
@@ -128,7 +133,9 @@ function ServerRouter() {
                                 </NavLink>
                             ))}
                         {categories.map(category => {
-                            const categoryRoutes = routes.server.filter(route => route.category === category && route.name);
+                            const categoryRoutes = routes.server.filter(
+                                route => route.category === category && route.name,
+                            );
                             if (categoryRoutes.length === 0) return null;
 
                             return (
@@ -166,7 +173,7 @@ function ServerRouter() {
                         <TransferListener />
                         <WebsocketHandler />
                         {inConflictState &&
-                            (!rootAdmin || (rootAdmin && !location.pathname.endsWith(`/server/${server?.id}`))) ? (
+                        (!rootAdmin || (rootAdmin && !location.pathname.endsWith(`/server/${server?.id}`))) ? (
                             <ConflictStateRenderer />
                         ) : (
                             <ErrorBoundary>
