@@ -63,9 +63,9 @@ export const rawDataToNode = ({ attributes, meta }: FractalResponseData): Node =
     createdAt: new Date(attributes.created_at),
     updatedAt: new Date(attributes.updated_at),
 
-    memoryUsedPercent: meta.utilization.memory ?? 0,
-    diskUsedPercent: meta.utilization.disk ?? 0,
-    allocationsUsedPercent: meta.utilization.allocations ?? 0,
+    memoryUsedPercent: meta?.utilization.memory ?? 0,
+    diskUsedPercent: meta?.utilization.disk ?? 0,
+    allocationsUsedPercent: meta?.utilization.allocations ?? 0,
 
     relations: {
         // eslint-disable-next-line camelcase

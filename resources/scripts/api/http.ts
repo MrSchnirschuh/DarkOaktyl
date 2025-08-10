@@ -49,7 +49,7 @@ export interface FractalResponseData {
         [k: string]: any;
         relationships?: Record<string, FractalResponseData | FractalResponseList | null | undefined>;
     };
-    meta: any;
+    meta?: any;
 }
 
 export interface FractalResponseList {
