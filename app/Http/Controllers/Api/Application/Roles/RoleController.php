@@ -118,7 +118,7 @@ class RoleController extends ApplicationApiController
     {
         // Use DB::transaction to ensure both changes happen successfully, or not at all.
         DB::transaction(function () use ($role) {
-            User::where('admin_role_id', $role->id)->update(['admin_role_id' => null]);
+            User::where('admin_role_id', $role->id)->update(['admin_role_id' => null, 'root_admin' => false]);
 
             $role->delete();
         });

@@ -50,8 +50,8 @@ export default ({ roleId, onDeleted }: Props) => {
                 buttonType={'danger'}
             >
                 <SpinnerOverlay visible={loading} />
-                Are you sure you want to delete this role? All administrators with this role assigned will have full
-                access.
+                Are you sure you want to delete this role? All users with this role will have all their access revoked.
+                You must create a new role and assign it to each user in order to give them access again.
             </Dialog.Confirm>
 
             <Button.Danger type={'button'} size={Button.Sizes.Small} onClick={() => setVisible(true)}>
