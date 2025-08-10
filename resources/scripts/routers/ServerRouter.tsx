@@ -151,7 +151,7 @@ function ServerRouter() {
                             );
                         })}
                         {user.rootAdmin && (
-                            <NavLink to={`/admin/servers/${server?.id}`}>
+                            <NavLink to={`/admin/servers/${server?.internalId}`}>
                                 <ReplyIcon />
                                 <span>View as Admin</span>
                             </NavLink>
