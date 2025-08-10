@@ -2,7 +2,6 @@ import { memo } from 'react';
 import isEqual from 'react-fast-compare';
 import { Alert } from '@elements/alert';
 import Can from '@elements/Can';
-import ServerContentBlock from '@elements/ServerContentBlock';
 import Spinner from '@elements/Spinner';
 import Console from '@/components/server/console/Console';
 import PowerButtons from '@/components/server/console/PowerButtons';
@@ -17,6 +16,7 @@ import Pill from '@/components/elements/Pill';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle, faDownload, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import EditServerDialog from './EditServerDialog';
+import PageContentBlock from '@/components/elements/PageContentBlock';
 
 export type PowerAction = 'start' | 'stop' | 'restart' | 'kill';
 
@@ -44,7 +44,7 @@ function ServerConsoleContainer() {
     const status = ServerContext.useStoreState(state => state.status.value);
 
     return (
-        <ServerContentBlock title={'Console'} showFlashKey={'console:share'}>
+        <PageContentBlock title={'Server Console'} showFlashKey={'console:share'}>
             {(isNodeUnderMaintenance || isInstalling || isTransferring) && (
                 <Alert type={'warning'} className={'mb-4'}>
                     {isNodeUnderMaintenance
@@ -109,7 +109,7 @@ function ServerConsoleContainer() {
                 )}
             </div>
             <Features enabled={eggFeatures} />
-        </ServerContentBlock>
+        </PageContentBlock>
     );
 }
 

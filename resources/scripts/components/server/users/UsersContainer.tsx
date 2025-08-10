@@ -9,8 +9,8 @@ import FlashMessageRender from '@/components/FlashMessageRender';
 import { getSubusers } from '@/api/server/subusers';
 import { httpErrorToHuman } from '@/api/http';
 import Can from '@elements/Can';
-import ServerContentBlock from '@elements/ServerContentBlock';
 import tw from 'twin.macro';
+import PageContentBlock from '@/components/elements/PageContentBlock';
 
 export default () => {
     const [loading, setLoading] = useState(true);
@@ -50,7 +50,7 @@ export default () => {
     }
 
     return (
-        <ServerContentBlock title={'Users'}>
+        <PageContentBlock title={'Subusers'} header description={'Control the access of other users to this server.'}>
             <FlashMessageRender byKey={'users'} css={tw`mb-4`} />
             {!subusers.length ? (
                 <p css={tw`text-center text-sm text-neutral-300`}>It looks like you don&apos;t have any subusers.</p>
@@ -67,6 +67,6 @@ export default () => {
                     {limit > 0 && limit > subusers.length && <AddSubuserButton css={tw`w-full sm:w-auto`} />}
                 </div>
             </Can>
-        </ServerContentBlock>
+        </PageContentBlock>
     );
 };

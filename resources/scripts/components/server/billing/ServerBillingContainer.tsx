@@ -3,7 +3,6 @@ import Label from '@elements/Label';
 import { Link } from 'react-router-dom';
 import ContentBox from '@elements/ContentBox';
 import { ServerContext } from '@/state/server';
-import ServerContentBlock from '@elements/ServerContentBlock';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { getOrder } from '@/api/billing/orders';
@@ -15,6 +14,7 @@ import { Alert } from '@elements/alert';
 import PaymentContainer from './PaymentContainer';
 import { useStoreState } from '@/state/hooks';
 import { Order } from '@/api/definitions/billing';
+import PageContentBlock from '@/components/elements/PageContentBlock';
 
 function futureDate(days: number): string {
     const today = new Date();
@@ -61,7 +61,11 @@ export default () => {
     }, [order]);
 
     return (
-        <ServerContentBlock title={'Server Billing'}>
+        <PageContentBlock
+            title={'Server Billing'}
+            header
+            description={'Control your billing settings for this server.'}
+        >
             {(!product || !order) && !loading && (
                 <Alert type={'warning'} className={'mb-6'}>
                     The {!order ? 'order you made ' : 'plan you purchased '}
@@ -112,6 +116,6 @@ export default () => {
                     )}
                 </ContentBox>
             </div>
-        </ServerContentBlock>
+        </PageContentBlock>
     );
 };

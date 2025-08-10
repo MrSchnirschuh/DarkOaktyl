@@ -8,11 +8,13 @@ export interface PageContentBlockProps {
     children?: ReactNode;
 
     title?: string;
+    header?: boolean;
+    description?: string;
     className?: string;
     showFlashKey?: string;
 }
 
-function PageContentBlock({ title, showFlashKey, className, children }: PageContentBlockProps) {
+function PageContentBlock({ title, header, description, showFlashKey, className, children }: PageContentBlockProps) {
     useEffect(() => {
         if (title) {
             document.title = title;
@@ -23,6 +25,12 @@ function PageContentBlock({ title, showFlashKey, className, children }: PageCont
         <>
             <ContentContainer css={tw`my-4 sm:my-10`} className={className}>
                 {showFlashKey && <FlashMessageRender byKey={showFlashKey} css={tw`mb-4`} />}
+                {header && (
+                    <div className={'text-3xl lg:text-5xl font-bold mt-8 mb-12'}>
+                        {title}
+                        {description && <p className={'text-gray-400 font-normal text-sm mt-1'}>{description}</p>}
+                    </div>
+                )}
                 {children}
             </ContentContainer>
 

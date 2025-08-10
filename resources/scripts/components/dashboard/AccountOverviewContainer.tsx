@@ -29,11 +29,7 @@ export default () => {
     const { state } = useLocation();
 
     return (
-        <PageContentBlock title="Account Overview">
-            <div className={'text-3xl lg:text-5xl font-bold mt-8 mb-12'}>
-                Your Account
-                <p className={'text-gray-400 font-normal text-sm mt-1'}>Update your email, password, or setup 2-FA.</p>
-            </div>
+        <PageContentBlock title="Account Overview" header description={'Update your email, password, or setup 2-FA.'}>
             {state?.twoFactorRedirect && (
                 <MessageBox title="2-Factor Required" type="error">
                     Your account must have two-factor authentication enabled in order to continue.

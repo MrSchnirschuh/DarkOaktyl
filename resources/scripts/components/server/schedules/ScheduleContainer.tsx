@@ -10,7 +10,7 @@ import Can from '@elements/Can';
 import useFlash from '@/plugins/useFlash';
 import tw from 'twin.macro';
 import { Button } from '@elements/button/index';
-import ServerContentBlock from '@elements/ServerContentBlock';
+import PageContentBlock from '@/components/elements/PageContentBlock';
 
 function ScheduleContainer() {
     const server = ServerContext.useStoreState(state => state.server.data!);
@@ -34,7 +34,7 @@ function ScheduleContainer() {
     }, []);
 
     return (
-        <ServerContentBlock title={'Schedules'}>
+        <PageContentBlock title={'Schedules'} header description={'Create and edit automatic tasks for your server.'}>
             <FlashMessageRender byKey={'schedules'} css={tw`mb-4`} />
             {!schedules.length && loading ? (
                 <Spinner size={'large'} centered />
@@ -63,7 +63,7 @@ function ScheduleContainer() {
                     </Can>
                 </>
             )}
-        </ServerContentBlock>
+        </PageContentBlock>
     );
 }
 

@@ -8,8 +8,8 @@ import BackupRow from '@/components/server/backups/BackupRow';
 import tw from 'twin.macro';
 import { getBackups, Context } from '@/api/server/backups';
 import { ServerContext } from '@/state/server';
-import ServerContentBlock from '@elements/ServerContentBlock';
 import Pagination from '@elements/Pagination';
+import PageContentBlock from '@/components/elements/PageContentBlock';
 
 const BackupContainer = () => {
     const { page, setPage } = useContext(Context);
@@ -33,7 +33,7 @@ const BackupContainer = () => {
     }
 
     return (
-        <ServerContentBlock title={'Backups'}>
+        <PageContentBlock title={'Backups'} header description={'Keep your data safe with backups.'}>
             <FlashMessageRender byKey={'backups'} css={tw`mb-4`} />
             <Pagination data={backups} onPageSelect={setPage}>
                 {({ items }) =>
@@ -71,7 +71,7 @@ const BackupContainer = () => {
                     )}
                 </div>
             </Can>
-        </ServerContentBlock>
+        </PageContentBlock>
     );
 };
 

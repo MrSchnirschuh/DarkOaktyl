@@ -27,14 +27,8 @@ export default () => {
     }, [error, data]);
 
     return (
-        <PageContentBlock title={'SSH Keys'}>
+        <PageContentBlock title={'SSH Keys'} header description={'Create, use and delete SSH keys to access servers.'}>
             <FlashMessageRender byKey={'account'} />
-            <div className={'text-3xl lg:text-5xl font-bold mt-8 mb-12'}>
-                SSH Key Control
-                <p className={'text-gray-400 font-normal text-sm mt-1'}>
-                    Create, use and delete SSH keys to access servers.
-                </p>
-            </div>
             <div css={tw`md:flex flex-nowrap my-10`}>
                 <ContentBox title={'Add SSH Key'} css={tw`flex-none w-full md:w-1/2`}>
                     <CreateSSHKeyForm />

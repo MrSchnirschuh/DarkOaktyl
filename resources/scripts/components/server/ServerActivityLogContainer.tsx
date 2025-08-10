@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useActivityLogs } from '@/api/server/activity';
-import ServerContentBlock from '@elements/ServerContentBlock';
 import { useFlashKey } from '@/plugins/useFlash';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import Spinner from '@elements/Spinner';
@@ -12,6 +11,7 @@ import classNames from 'classnames';
 import { styles as btnStyles } from '@elements/button/index';
 import { XCircleIcon } from '@heroicons/react/solid';
 import useLocationHash from '@/plugins/useLocationHash';
+import PageContentBlock from '../elements/PageContentBlock';
 
 export default () => {
     const { hash } = useLocationHash();
@@ -32,7 +32,7 @@ export default () => {
     }, [error]);
 
     return (
-        <ServerContentBlock title={'Activity Log'}>
+        <PageContentBlock title={'Activity Log'} header description={'View recent activity on your server.'}>
             <FlashMessageRender byKey={'server:activity'} />
             {(filters.filters?.event || filters.filters?.ip) && (
                 <div className={'mb-2 flex justify-end'}>
@@ -64,6 +64,6 @@ export default () => {
                     onPageSelect={page => setFilters(value => ({ ...value, page }))}
                 />
             )}
-        </ServerContentBlock>
+        </PageContentBlock>
     );
 };

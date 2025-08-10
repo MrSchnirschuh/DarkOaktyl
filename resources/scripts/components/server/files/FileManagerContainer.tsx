@@ -17,7 +17,6 @@ import useFileManagerSwr from '@/plugins/useFileManagerSwr';
 import FileManagerStatus from '@/components/server/files/FileManagerStatus';
 import MassActionsBar from '@/components/server/files/MassActionsBar';
 import UploadButton from '@/components/server/files/UploadButton';
-import ServerContentBlock from '@elements/ServerContentBlock';
 import { useStoreActions, useStoreState } from '@/state/hooks';
 import ErrorBoundary from '@elements/ErrorBoundary';
 import { FileActionCheckbox } from '@/components/server/files/SelectFileCheckbox';
@@ -33,6 +32,7 @@ import Input from '@/components/elements/Input';
 import Label from '@/components/elements/Label';
 import TitledGreyBox from '@/components/elements/TitledGreyBox';
 import { ip } from '@/lib/formatters';
+import PageContentBlock from '@/components/elements/PageContentBlock';
 
 const sortFiles = (files: FileObject[]): FileObject[] => {
     const sortedFiles: FileObject[] = files
@@ -74,7 +74,12 @@ export default () => {
     }
 
     return (
-        <ServerContentBlock title={'File Manager'} showFlashKey={'files'}>
+        <PageContentBlock
+            title={'File Manager'}
+            header
+            description={'Control your files and folders via the UI.'}
+            showFlashKey={'files'}
+        >
             <ErrorBoundary>
                 <div className={'mb-4 flex flex-wrap-reverse md:flex-nowrap'}>
                     <FileManagerBreadcrumbs
@@ -172,6 +177,6 @@ export default () => {
                     </TitledGreyBox>
                 </Can>
             </div>
-        </ServerContentBlock>
+        </PageContentBlock>
     );
 };

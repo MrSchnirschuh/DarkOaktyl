@@ -72,13 +72,9 @@ export default () => {
     }, [error]);
 
     return (
-        <PageContentBlock title={'Dashboard'}>
+        <PageContentBlock title={`Welcome to ${name}`} header description={`Signed in as ${user.email}`}>
             <DashboardAlert />
             {open && <ServerGroupDialog open={open} setOpen={setOpen} groups={groups} setGroups={setGroups} />}
-            <div className={'text-3xl lg:text-5xl font-bold mt-8 mb-12'}>
-                Welcome to {name}
-                <p className={'text-gray-400 font-normal text-sm mt-1'}>Signed in as {user.email}</p>
-            </div>
             <FlashMessageRender className={'my-4'} byKey={'dashboard'} />
             <div className={'grid lg:grid-cols-3 gap-4'}>
                 <div className="relative overflow-x-auto lg:col-span-2">

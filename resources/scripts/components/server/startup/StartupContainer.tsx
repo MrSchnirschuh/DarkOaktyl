@@ -3,7 +3,6 @@ import * as React from 'react';
 import TitledGreyBox from '@elements/TitledGreyBox';
 import tw from 'twin.macro';
 import VariableBox from '@/components/server/startup/VariableBox';
-import ServerContentBlock from '@elements/ServerContentBlock';
 import Spinner from '@elements/Spinner';
 import { ServerError } from '@elements/ScreenBlock';
 import { httpErrorToHuman } from '@/api/http';
@@ -15,6 +14,7 @@ import Input from '@elements/Input';
 import { setImage, getServerStartup } from '@/api/server/startup';
 import InputSpinner from '@elements/InputSpinner';
 import useFlash from '@/plugins/useFlash';
+import PageContentBlock from '@/components/elements/PageContentBlock';
 
 const StartupContainer = () => {
     const [loading, setLoading] = useState(false);
@@ -83,7 +83,12 @@ const StartupContainer = () => {
             <ServerError title={'Oops!'} message={httpErrorToHuman(error)} onRetry={() => mutate()} />
         )
     ) : (
-        <ServerContentBlock title={'Startup Settings'} showFlashKey={'startup:image'}>
+        <PageContentBlock
+            title={'Startup Settings'}
+            header
+            description={'Control startup variables for your server.'}
+            showFlashKey={'startup:image'}
+        >
             <div css={tw`md:flex`}>
                 <TitledGreyBox title={'Startup Command'} css={tw`flex-1`}>
                     <div css={tw`px-1 py-2`}>
@@ -130,7 +135,7 @@ const StartupContainer = () => {
                     <VariableBox key={variable.envVariable} variable={variable} />
                 ))}
             </div>
-        </ServerContentBlock>
+        </PageContentBlock>
     );
 };
 

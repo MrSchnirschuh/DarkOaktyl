@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import Spinner from '@elements/Spinner';
 import { useFlashKey } from '@/plugins/useFlash';
-import ServerContentBlock from '@elements/ServerContentBlock';
 import { ServerContext } from '@/state/server';
 import AllocationRow from '@/components/server/network/AllocationRow';
 import { Button } from '@elements/button';
@@ -11,6 +10,7 @@ import Can from '@elements/Can';
 import SpinnerOverlay from '@elements/SpinnerOverlay';
 import isEqual from 'react-fast-compare';
 import { useDeepCompareEffect } from '@/plugins/useDeepCompareEffect';
+import PageContentBlock from '@/components/elements/PageContentBlock';
 
 const NetworkContainer = () => {
     const [loading, setLoading] = useState(false);
@@ -50,7 +50,12 @@ const NetworkContainer = () => {
     };
 
     return (
-        <ServerContentBlock showFlashKey={'server:network'} title={'Network'}>
+        <PageContentBlock
+            showFlashKey={'server:network'}
+            title={'Network'}
+            header
+            description={'Assign, edit and remove ports from this server.'}
+        >
             {!data ? (
                 <Spinner size={'large'} centered />
             ) : (
@@ -76,7 +81,7 @@ const NetworkContainer = () => {
                     )}
                 </>
             )}
-        </ServerContentBlock>
+        </PageContentBlock>
     );
 };
 

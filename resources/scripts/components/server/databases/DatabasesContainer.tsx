@@ -9,9 +9,9 @@ import CreateDatabaseButton from '@/components/server/databases/CreateDatabaseBu
 import Can from '@elements/Can';
 import useFlash from '@/plugins/useFlash';
 import tw from 'twin.macro';
-import ServerContentBlock from '@elements/ServerContentBlock';
 import { useDeepMemoize } from '@/plugins/useDeepMemoize';
 import FadeTransition from '@elements/transitions/FadeTransition';
+import PageContentBlock from '@/components/elements/PageContentBlock';
 
 export default () => {
     const uuid = ServerContext.useStoreState(state => state.server.data!.uuid);
@@ -37,7 +37,7 @@ export default () => {
     }, []);
 
     return (
-        <ServerContentBlock title={'Databases'}>
+        <PageContentBlock title={'Databases'} header description={'Assign databases directly to your server.'}>
             <FlashMessageRender byKey={'databases'} css={tw`mb-4`} />
             {!databases.length && loading ? (
                 <Spinner size={'large'} centered />
@@ -75,6 +75,6 @@ export default () => {
                     </>
                 </FadeTransition>
             )}
-        </ServerContentBlock>
+        </PageContentBlock>
     );
 };
