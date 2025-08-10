@@ -41,7 +41,7 @@ export const rawDataToAllocation = ({ attributes }: FractalResponseData): Alloca
 });
 
 export interface Filters {
-    ip?: string;
+    search?: string;
     /* eslint-disable camelcase */
     server_id?: string;
     /* eslint-enable camelcase */

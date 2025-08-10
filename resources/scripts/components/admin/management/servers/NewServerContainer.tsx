@@ -9,8 +9,7 @@ import { object } from 'yup';
 import type { Egg } from '@/api/admin/egg';
 import type { CreateServerRequest } from '@/api/admin/servers/createServer';
 import createServer from '@/api/admin/servers/createServer';
-import type { Allocation, Node } from '@/api/admin/node';
-import { getAllocations } from '@/api/admin/node';
+import type { Node } from '@/api/admin/node';
 import AdminBox from '@elements/AdminBox';
 import NodeSelect from '@admin/management/servers/NodeSelect';
 import {
@@ -25,12 +24,15 @@ import { Button } from '@elements/button';
 import Field from '@elements/Field';
 import FormikSwitch from '@elements/FormikSwitch';
 import Label from '@elements/Label';
-import Select from '@elements/Select';
 import SpinnerOverlay from '@elements/SpinnerOverlay';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import useFlash from '@/plugins/useFlash';
 import AdminContentBlock from '@elements/AdminContentBlock';
 import { WithRelationships } from '@/api/admin';
+import { AsyncSelectField } from '@/components/elements/SelectField';
+import type { Option } from '@elements/SelectField';
+import getAllocations from '@/api/admin/nodes/getAllocations';
+import { Alert } from '@/components/elements/alert';
 
 function InternalForm() {
     const {
@@ -42,7 +44,6 @@ function InternalForm() {
 
     const [egg, setEgg] = useState<WithRelationships<Egg, 'variables'> | undefined>(undefined);
     const [node, setNode] = useState<Node | undefined>(undefined);
-    const [allocations, setAllocations] = useState<Allocation[] | undefined>(undefined);
 
     useEffect(() => {
         if (egg === undefined) {
@@ -54,14 +55,20 @@ function InternalForm() {
         setFieldValue('image', Object.values(egg.dockerImages)[0] ?? '');
     }, [egg]);
 
-    useEffect(() => {
-        if (node === undefined) {
+    const loadOptions = async (inputValue: string, callback: (options: Option[]) => void) => {
+        if (!node) {
+            callback([] as Option[]);
             return;
         }
 
-        // server_id: 0 filters out assigned allocations
-        getAllocations(node.id, 100, { filters: { server_id: '0' } }).then(setAllocations);
-    }, [node]);
+        const allocations = await getAllocations(node.id, { search: inputValue, server_id: '0' });
+
+        callback(
+            allocations.map(a => {
+                return { value: a.id.toString(), label: a.getDisplayText() };
+            }),
+        );
+    };
 
     return (
         <Form>
@@ -85,32 +92,16 @@ function InternalForm() {
                         <div className="grid grid-cols-1 gap-4 lg:gap-6">
                             <div>
                                 <Label htmlFor={'allocation.default'}>Primary Allocation</Label>
-                                <Select
-                                    id={'allocation.default'}
-                                    name={'allocation.default'}
-                                    disabled={node === undefined}
-                                    onChange={e => setFieldValue('allocation.default', Number(e.currentTarget.value))}
-                                >
-                                    {node === undefined ? (
-                                        <option value="">Select a node...</option>
-                                    ) : (
-                                        <option value="">Select an allocation...</option>
-                                    )}
-                                    {allocations?.map(a => (
-                                        <option key={a.id} value={a.id.toString()}>
-                                            {a.getDisplayText()}
-                                        </option>
-                                    ))}
-                                </Select>
+                                {!node ? (
+                                    <Alert type={'info'}>Select a node to view allocations.</Alert>
+                                ) : (
+                                    <AsyncSelectField
+                                        id={'allocation.default'}
+                                        name={'allocation.default'}
+                                        loadOptions={loadOptions}
+                                    />
+                                )}
                             </div>
-                            {/*<div>*/}
-                            {/*    /!* TODO: Multi-select *!/*/}
-                            {/*    <Label htmlFor={'allocation.additional'}>Additional Allocations</Label>*/}
-                            {/*    <Select id={'allocation.additional'} name={'allocation.additional'} disabled={node === null}>*/}
-                            {/*        {node === null ? <option value="">Select a node...</option> : <option value="">Select additional allocations...</option>}*/}
-                            {/*        {allocations?.map(a => <option key={a.id} value={a.id.toString()}>{a.getDisplayText()}</option>)}*/}
-                            {/*    </Select>*/}
-                            {/*</div>*/}
                         </div>
                     </AdminBox>
                     <ServerResourceBox />

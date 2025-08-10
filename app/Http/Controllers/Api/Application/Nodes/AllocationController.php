@@ -50,6 +50,12 @@ class AllocationController extends ApplicationApiController
                         $query->where('server_id', '=', $value);
                     }
                 }),
+                AllowedFilter::callback('search', function (Builder $query, $value) {
+                    $query->where(function ($q) use ($value) {
+                        $q->where('ip', 'like', "%{$value}%")
+                        ->orWhere('port', 'like', "%{$value}%");
+                    });
+                }),
             ])
             ->allowedSorts(['id', 'ip', 'port', 'server_id'])
             ->paginate($perPage);

@@ -20,7 +20,7 @@ export default () => {
             return;
         }
 
-        const allocations = await getAllocations(server.nodeId, { ip: inputValue, server_id: '0' });
+        const allocations = await getAllocations(server.nodeId, { search: inputValue, server_id: '0' });
 
         callback(
             allocations.map(a => {
