@@ -34,9 +34,6 @@ const NestsContainer = lazy(() => import('@/components/admin/service/nests/Nests
 const NestEditContainer = lazy(() => import('@/components/admin/service/nests/NestEditContainer'));
 const NewEggContainer = lazy(() => import('@/components/admin/service/nests/NewEggContainer'));
 const EggRouter = lazy(() => import('@/components/admin/service/nests/eggs/EggRouter'));
-const MountsContainer = lazy(() => import('@/components/admin/service/mounts/MountsContainer'));
-const NewMountContainer = lazy(() => import('@/components/admin/service/mounts/NewMountContainer'));
-const MountEditContainer = lazy(() => import('@/components/admin/service/mounts/MountEditContainer'));
 
 const admin: AdminRouteDefinition[] = [
     /**
@@ -97,9 +94,6 @@ const admin: AdminRouteDefinition[] = [
     route('nests/:nestId', NestEditContainer),
     route('nests/:nestId/new', NewEggContainer),
     route('nests/:nestId/eggs/:id/*', EggRouter),
-    route('mounts', MountsContainer, { name: 'Mounts', icon: Icon.FolderIcon, category: 'services' }),
-    route('mounts/new', NewMountContainer),
-    route('mounts/:id', MountEditContainer),
 ];
 
 export default admin;

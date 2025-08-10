@@ -245,30 +245,6 @@ Route::middleware([AdminSubject::class])->group(function () {
 
     /*
     |--------------------------------------------------------------------------
-    | Mount Controller Routes
-    |--------------------------------------------------------------------------
-    |
-    | Endpoint: /api/application/mounts
-    |
-    */
-    Route::group(['prefix' => '/mounts'], function () {
-        Route::get('/', [Application\Mounts\MountController::class, 'index']);
-        Route::get('/{mount:id}', [Application\Mounts\MountController::class, 'view']);
-
-        Route::post('/', [Application\Mounts\MountController::class, 'store']);
-
-        Route::put('/{mount:id}/eggs', [Application\Mounts\MountController::class, 'addEggs']);
-        Route::put('/{mount:id}/nodes', [Application\Mounts\MountController::class, 'addNodes']);
-
-        Route::patch('/{mount:id}', [Application\Mounts\MountController::class, 'update']);
-
-        Route::delete('/{mount:id}', [Application\Mounts\MountController::class, 'delete']);
-        Route::delete('/{mount:id}/eggs', [Application\Mounts\MountController::class, 'deleteEggs']);
-        Route::delete('/{mount:id}/nodes', [Application\Mounts\MountController::class, 'deleteNodes']);
-    });
-
-    /*
-    |--------------------------------------------------------------------------
     | Nest Controller Routes
     |--------------------------------------------------------------------------
     |
