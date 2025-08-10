@@ -9,6 +9,8 @@ import { Context } from '@admin/management/nodes/NodeRouter';
 import { Alert } from '@elements/alert';
 import {
     faBarChart,
+    faChartBar,
+    faExclamationTriangle,
     faHdd,
     faMemory,
     faMicrochip,
@@ -23,6 +25,7 @@ import Input from '@elements/Input';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Tooltip from '@elements/tooltip/Tooltip';
 import getNodeUtilization, { NodeUtilization } from '@/api/admin/nodes/getNodeUtilization';
+import { useStoreState } from '@/state/hooks';
 
 const Code = ({ className, children }: { className?: string; children: ReactNode }) => {
     return (
@@ -59,6 +62,26 @@ const ResourceBox = ({
         </div>
     </div>
 );
+
+const AllocatedBox = ({ title, percent }: { title: string; percent?: number }) => {
+    const { colors } = useStoreState(state => state.theme.data!);
+
+    return (
+        <div className={'w-full grid grid-cols-[1fr_auto]'}>
+            <Label>{title}</Label>
+            <Label>
+                {(percent ?? 0) > 80 && (
+                    <FontAwesomeIcon icon={faExclamationTriangle} className={'text-yellow-500/50 mr-1'} />
+                )}
+                {percent}%
+            </Label>
+
+            <div className="col-span-2 w-full rounded-full h-2.5" style={{ backgroundColor: colors.headers }}>
+                <div className="h-2.5 rounded-full" style={{ width: percent, backgroundColor: colors.primary }}></div>
+            </div>
+        </div>
+    );
+};
 
 export default () => {
     const { clearFlashes } = useFlash();
@@ -101,14 +124,14 @@ export default () => {
     }
 
     return (
-        <div className={'grid lg:grid-cols-2 gap-4'}>
+        <div className={'grid lg:grid-cols-3 gap-4'}>
             {error ? (
                 <Alert type={'danger'} className={'col-span-2'}>
                     We were unable to connect to this node, so no information can be displayed.
                 </Alert>
             ) : (
                 <>
-                    <AdminBox title={'Node Information'} icon={faServer}>
+                    <AdminBox title={'System Information'} icon={faServer}>
                         <table>
                             <tbody>
                                 <tr>
@@ -159,23 +182,33 @@ export default () => {
                             </tbody>
                         </table>
                     </AdminBox>
-                    <AdminBox icon={faMicrochip} title={'Node Resources'} css={tw`w-full relative`}>
+                    <AdminBox icon={faMicrochip} title={'Resources'} css={tw`w-full relative`}>
                         <div css={tw`md:w-full md:flex md:flex-row mb-6`}>
                             <div css={tw`md:w-full md:flex md:flex-col md:mr-4 mb-6 md:mb-0`}>
                                 <Label>Memory Limit</Label>
-                                <Input disabled placeholder={node.memory.toString()}></Input>
+                                <Input disabled placeholder={`${(node.memory / 1024).toString()} GiB`}></Input>
                             </div>
 
                             <div css={tw`md:w-full md:flex md:flex-col md:ml-4 mb-6 md:mb-0`}>
                                 <Label>Disk Limit</Label>
-                                <Input disabled placeholder={node.disk.toString()}></Input>
+                                <Input disabled placeholder={`${(node.disk / 1024).toString()} GiB`}></Input>
                             </div>
                         </div>
                         <div css={tw`md:w-full md:flex md:flex-row mb-6`}>
-                            <div css={tw`md:w-full md:flex md:flex-col md:ml-4 mb-6 md:mb-0`}>
+                            <div css={tw`md:w-full md:flex md:flex-col mb-6 md:mb-0`}>
                                 <Label>FQDN Address</Label>
-                                <Input disabled placeholder={node.fqdn}></Input>
+                                <Input
+                                    disabled
+                                    placeholder={`${node.scheme}://${node.fqdn}:${node.listenPortHTTP}`}
+                                ></Input>
                             </div>
+                        </div>
+                    </AdminBox>
+                    <AdminBox icon={faChartBar} title={'Allocation Information'} css={tw`w-full relative`}>
+                        <div className={'grid space-y-6'}>
+                            <AllocatedBox title={'Memory allocated to servers'} percent={node.memoryUsedPercent} />
+                            <AllocatedBox title={'Disk allocated to servers'} percent={node.diskUsedPercent} />
+                            <AllocatedBox title={'Used Allocations'} percent={node.allocationsUsedPercent} />
                         </div>
                     </AdminBox>
                     {utilization && (

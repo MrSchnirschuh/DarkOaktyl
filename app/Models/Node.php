@@ -249,6 +249,13 @@ class Node extends Model
         $this->loadSum('servers as sum_memory', 'memory');
         $this->loadSum('servers as sum_disk', 'disk');
 
+        $this->loadCount([
+            'allocations as total_allocations',
+            'allocations as used_allocations' => function ($query) {
+                $query->whereNotNull('server_id');
+            }
+        ]);
+
         return $this;
     }
 
@@ -263,5 +270,34 @@ class Node extends Model
         $diskLimit = $this->disk * (1.0 + ($this->disk_overallocate / 100.0));
 
         return ($this->sum_memory + $memory) <= $memoryLimit && ($this->sum_disk + $disk) <= $diskLimit;
+    }
+
+    /**
+     * Returns an array of memory, disk and allocations used compared to the total limit
+     * as a percent rounded to 1.S.F.
+     */
+    public function getPercentUtilization(): array
+    {
+        $sums = $this->loadServerSums();
+        $memoryUsed = $sums->sum_memory;
+        $diskUsed = $sums->sum_disk;
+
+        $memoryPercent = $this->memory > 0
+            ? ($memoryUsed / $this->memory) * 100
+            : 0;
+
+        $diskPercent = $this->disk > 0
+            ? ($diskUsed / $this->memory) * 100
+            : 0;
+
+        $allocationsPercent = $sums->total_allocations > 0
+            ? ($sums->used_allocations / $sums->total_allocations) * 100
+            : 0;
+    
+        return [
+            'memory' => round($memoryPercent, 1),
+            'disk' => round($diskPercent, 1),
+            'allocations' => round($allocationsPercent, 1),
+        ];
     }
 }

@@ -58,6 +58,7 @@ class NodeController extends ApplicationApiController
     public function view(GetNodeRequest $request, Node $node): array
     {
         return $this->fractal->item($node)
+            ->addMeta(['utilization' => $node->getPercentUtilization()])
             ->transformWith(NodeTransformer::class)
             ->toArray();
     }

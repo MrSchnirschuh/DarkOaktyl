@@ -29,12 +29,16 @@ export interface Node {
     createdAt: Date;
     updatedAt: Date;
 
+    memoryUsedPercent?: number;
+    diskUsedPercent?: number;
+    allocationsUsedPercent?: number;
+
     relations: {
         databaseHost: Database | undefined;
     };
 }
 
-export const rawDataToNode = ({ attributes }: FractalResponseData): Node => ({
+export const rawDataToNode = ({ attributes, meta }: FractalResponseData): Node => ({
     id: attributes.id,
     uuid: attributes.uuid,
     public: attributes.public,
@@ -58,6 +62,10 @@ export const rawDataToNode = ({ attributes }: FractalResponseData): Node => ({
     deployable: attributes.deployable,
     createdAt: new Date(attributes.created_at),
     updatedAt: new Date(attributes.updated_at),
+
+    memoryUsedPercent: meta.utilization.memory ?? 0,
+    diskUsedPercent: meta.utilization.disk ?? 0,
+    allocationsUsedPercent: meta.utilization.allocations ?? 0,
 
     relations: {
         // eslint-disable-next-line camelcase
