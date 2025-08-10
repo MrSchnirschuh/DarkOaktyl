@@ -20,6 +20,7 @@ import CollapsedIcon from '@/assets/images/logo.png';
 import { CogIcon, DesktopComputerIcon, PuzzleIcon, ReplyIcon } from '@heroicons/react/outline';
 import SidebarControls from '@/components/server/console/SidebarControls';
 import classNames from 'classnames';
+import NavigationBar from '@/components/NavigationBar';
 
 function statusToColor(status: ServerStatus): string {
     switch (status) {
@@ -168,10 +169,11 @@ function ServerRouter() {
                         <Spinner size="large" centered />
                     )
                 ) : (
-                    <div className={'flex-1 overflow-x-hidden px-4 lg:px-8'}>
+                    <div className={'flex-1 overflow-x-hidden'}>
                         <InstallListener />
                         <TransferListener />
                         <WebsocketHandler />
+                        <NavigationBar />
                         {inConflictState &&
                         (!rootAdmin || (rootAdmin && !location.pathname.endsWith(`/server/${server?.id}`))) ? (
                             <ConflictStateRenderer />
