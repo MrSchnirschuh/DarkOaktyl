@@ -14,8 +14,17 @@ import NetworkingBox from '@admin/management/servers/settings/NetworkingBox';
 import ServerResourceBox from '@admin/management/servers/settings/ServerResourceBox';
 import { Button } from '@elements/button';
 import { useStoreState } from '@/state/hooks';
+import TitledGreyBox from '@/components/elements/TitledGreyBox';
+import { faLayerGroup } from '@fortawesome/free-solid-svg-icons';
+import { useEffect, useState } from 'react';
+import getNode from '@/api/admin/nodes/getNode';
+import { Node } from '@/api/admin/nodes/getNodes';
+import Spinner from '@/components/elements/Spinner';
+import NodeStatus from '../nodes/NodeStatus';
+import { NavLink } from 'react-router-dom';
 
 export default () => {
+    const [node, setNode] = useState<Node | undefined>();
     const { data: server } = useServerFromRoute();
     const { secondary } = useStoreState(state => state.theme.data!.colors);
     const { clearFlashes, clearAndAddHttpError } = useStoreActions(actions => actions.flashes);
@@ -39,6 +48,10 @@ export default () => {
             })
             .then(() => setSubmitting(false));
     };
+
+    useEffect(() => {
+        getNode(server.nodeId).then(node => setNode(node));
+    }, []);
 
     return (
         <Formik
@@ -79,6 +92,15 @@ export default () => {
 
                         <div css={tw`flex flex-col`}>
                             <ServerResourceBox />
+                            <TitledGreyBox title={'Node Information'} icon={faLayerGroup} className={'mt-6'}>
+                                {!node ? (
+                                    <Spinner size={'large'} centered />
+                                ) : (
+                                    <NavLink to={`/admin/nodes/${node.id}`} className={'text-blue-400'}>
+                                        {node.name} &bull; {node.scheme}://{node.fqdn} <NodeStatus node={node.id} />
+                                    </NavLink>
+                                )}
+                            </TitledGreyBox>
 
                             <div
                                 style={{ backgroundColor: secondary }}
