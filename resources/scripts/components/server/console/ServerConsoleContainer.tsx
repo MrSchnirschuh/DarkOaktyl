@@ -54,7 +54,7 @@ function ServerConsoleContainer() {
                             : 'This server is currently being transferred to another node and all actions are unavailable.'}
                 </Alert>
             )}
-            <div className={'mb-4 grid grid-cols-4 gap-4'}>
+            <div className={'mb-4 flex justify-between gap-4 bg-black/50 rounded-lg p-5'}>
                 <div className={'hidden pr-4 sm:col-span-2 sm:block lg:col-span-3'}>
                     <div className={'flex items-center space-x-2'}>
                         <h1 className={'font-header text-2xl leading-relaxed text-slate-50 line-clamp-1'}>{name}</h1>
@@ -67,9 +67,9 @@ function ServerConsoleContainer() {
                     </div>
                     <p className={'text-sm line-clamp-2'}>{description ?? uuid}</p>
                 </div>
-                <div className={'col-span-4 self-end sm:col-span-2 lg:col-span-1'}>
+                <div className={'my-auto'}>
                     <Can action={['control.start', 'control.stop', 'control.restart']} matchAny>
-                        <PowerButtons className={'flex space-x-2 sm:justify-center'} />
+                        <PowerButtons className={' flex space-x-2 sm:justify-center'} />
                     </Can>
                 </div>
             </div>

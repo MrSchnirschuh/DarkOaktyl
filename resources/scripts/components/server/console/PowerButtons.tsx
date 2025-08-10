@@ -5,7 +5,7 @@ import Can from '@elements/Can';
 import { ServerContext } from '@/state/server';
 import { PowerAction } from '@/components/server/console/ServerConsoleContainer';
 import { Dialog } from '@elements/dialog';
-import { PlayIcon, StopIcon, DotsCircleHorizontalIcon, BanIcon } from '@heroicons/react/outline';
+import { PlayIcon, StopIcon, BanIcon, RefreshIcon } from '@heroicons/react/outline';
 import SaveButton from '@/components/server/console/SaveButton';
 
 interface PowerButtonProps {
@@ -53,14 +53,14 @@ export default ({ className }: PowerButtonProps) => {
             </Dialog.Confirm>
             <SaveButton />
             <Can action={'control.start'}>
-                <Button.Text disabled={status !== 'offline'} onClick={onButtonClick.bind(this, 'start')}>
+                <Button.Success disabled={status !== 'offline'} onClick={onButtonClick.bind(this, 'start')}>
                     <PlayIcon className={'w-5 mr-1'} /> Start
-                </Button.Text>
+                </Button.Success>
             </Can>
             <Can action={'control.restart'}>
-                <Button.Text disabled={!status} onClick={onButtonClick.bind(this, 'restart')}>
-                    <DotsCircleHorizontalIcon className={'w-5 mr-1'} /> Restart
-                </Button.Text>
+                <Button.Dark disabled={!status} onClick={onButtonClick.bind(this, 'restart')}>
+                    <RefreshIcon className={'w-5 mr-1'} /> Restart
+                </Button.Dark>
             </Can>
             <Can action={'control.stop'}>
                 <Button.Danger

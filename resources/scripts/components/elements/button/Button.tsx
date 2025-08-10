@@ -64,6 +64,16 @@ const WarnButton = forwardRef<HTMLButtonElement, ButtonProps>(({ className, ...p
     <Button ref={ref} className={classNames(styles.warn, className)} {...props} />
 ));
 
+const SuccessButton = forwardRef<HTMLButtonElement, ButtonProps>(({ className, ...props }, ref) => (
+    // @ts-expect-error not sure how to get this correct
+    <Button ref={ref} className={classNames(styles.success, className)} {...props} />
+));
+
+const DarkButton = forwardRef<HTMLButtonElement, ButtonProps>(({ className, ...props }, ref) => (
+    // @ts-expect-error not sure how to get this correct
+    <Button ref={ref} className={classNames(styles.dark, className)} {...props} />
+));
+
 const _Button = Object.assign(StandardButton, {
     Sizes: Options.Size,
     Shapes: Options.Shape,
@@ -72,6 +82,8 @@ const _Button = Object.assign(StandardButton, {
     Danger: DangerButton,
     Info: InfoButton,
     Warn: WarnButton,
+    Success: SuccessButton,
+    Dark: DarkButton,
 });
 
 export default _Button;
