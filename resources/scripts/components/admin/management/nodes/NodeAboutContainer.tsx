@@ -77,7 +77,10 @@ const AllocatedBox = ({ title, percent }: { title: string; percent?: number }) =
             </Label>
 
             <div className="col-span-2 w-full rounded-full h-2.5" style={{ backgroundColor: colors.headers }}>
-                <div className="h-2.5 rounded-full" style={{ width: percent, backgroundColor: colors.primary }}></div>
+                <div
+                    className="h-2.5 rounded-full"
+                    style={{ width: `${percent ?? 0}%`, backgroundColor: colors.primary }}
+                ></div>
             </div>
         </div>
     );
