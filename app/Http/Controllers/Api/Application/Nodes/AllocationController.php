@@ -53,7 +53,8 @@ class AllocationController extends ApplicationApiController
                 AllowedFilter::callback('search', function (Builder $query, $value) {
                     $query->where(function ($q) use ($value) {
                         $q->where('ip', 'like', "%{$value}%")
-                        ->orWhere('port', 'like', "%{$value}%");
+                        ->orWhere('port', 'like', "%{$value}%")
+                        ->orWhere('ip_alias', 'like', "%{$value}%");
                     });
                 }),
             ])
