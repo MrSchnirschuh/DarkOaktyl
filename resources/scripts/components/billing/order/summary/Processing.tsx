@@ -33,10 +33,10 @@ export default () => {
 
         processOrder(intent, renewal)
             .then(() => {
-                navigate('/billing/success');
+                navigate('/account/billing/success');
             })
             .catch(() => {
-                navigate('/billing/cancel');
+                navigate('/account/billing/cancel');
             });
     }, []);
 

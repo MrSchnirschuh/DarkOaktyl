@@ -182,7 +182,7 @@ export default () => {
                                                 />
                                             </div>
                                             <div className={'text-center mt-6'}>
-                                                <Link to={`/billing/order/${product.id}`}>
+                                                <Link to={`/account/billing/order/${product.id}`}>
                                                     <Button size={Button.Sizes.Large} className={'w-full'}>
                                                         Configure
                                                     </Button>

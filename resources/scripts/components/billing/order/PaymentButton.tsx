@@ -38,7 +38,7 @@ export default (data: Props) => {
             stripe.confirmPayment({
                 elements,
                 confirmParams: {
-                    return_url: window.location.origin + '/billing/processing',
+                    return_url: window.location.origin + '/account/billing/processing',
                 },
             });
         });
