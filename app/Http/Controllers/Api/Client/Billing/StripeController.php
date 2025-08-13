@@ -135,10 +135,6 @@ class StripeController extends ClientApiController
      */
     public function process(Request $request): Response
     {
-        // Hate doing this, but gives Stripe's API time to catch up
-        // and process the payment.
-        sleep(2);
-
         $order = Order::where('user_id', $request->user()->id)->latest()->first();
         $intent = $this->stripe->paymentIntents->retrieve($request->input('intent'));
 

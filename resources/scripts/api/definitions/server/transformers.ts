@@ -20,7 +20,7 @@ export default class Transformers {
         description: data.description ? (data.description.length > 0 ? data.description : null) : null,
         limits: { ...data.limits },
         eggFeatures: data.egg_features || [],
-        orderId: data.order_id,
+        billingProductId: data.billing_product_id,
         daysUntilRenewal: data.days_until_renewal,
         featureLimits: { ...data.feature_limits },
         isTransferring: data.is_transferring,

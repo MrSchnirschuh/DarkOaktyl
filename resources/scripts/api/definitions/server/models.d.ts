@@ -27,7 +27,7 @@ interface Server {
         threads: string;
     };
     eggFeatures: string[];
-    orderId: number;
+    billingProductId?: number;
     daysUntilRenewal: number;
     featureLimits: {
         databases: number;

@@ -9,9 +9,7 @@ import ServerErrorSvg from '@/assets/images/server_error.svg';
 import { useStoreState } from '@/state/hooks';
 import { useNavigate } from 'react-router-dom';
 import PaymentContainer from '../server/billing/PaymentContainer';
-import { getOrder } from '@/api/billing/orders';
 import { Product, getProduct } from '@/api/billing/products';
-import { Order } from '@/api/billing/orders';
 import { useState, useEffect } from 'react';
 import Spinner from './Spinner';
 
@@ -94,29 +92,21 @@ const NotFound = ({ title, message, onBack }: Partial<Pick<ScreenBlockProps, 'ti
 );
 
 const Suspended = ({ days, id }: { days: number; id?: number }) => {
-    const [order, setOrder] = useState<Order>();
     const [product, setProduct] = useState<Product>();
 
     const navigate = useNavigate();
+    const currency = useStoreState(state => state.everest.data!.billing.currency.symbol);
     const { secondary } = useStoreState(state => state.theme.data!.colors);
 
     useEffect(() => {
-        getOrder(id!)
-            .then(data => setOrder(data))
-            .catch(error => {
-                console.error(error);
-            });
+        if (id) {
+            getProduct(id)
+                .then(data => setProduct(data))
+                .catch(error => {
+                    console.error(error);
+                });
+        }
     }, []);
-
-    useEffect(() => {
-        if (!order) return;
-
-        getProduct(order.product_id)
-            .then(data => setProduct(data))
-            .catch(error => {
-                console.error(error);
-            });
-    }, [order]);
 
     if (!product) return <Spinner centered />;
 
@@ -138,7 +128,11 @@ const Suspended = ({ days, id }: { days: number; id?: number }) => {
                         <span className={'font-bold'}>in {days + 7} day(s) </span>
                         if you do not choose to pay the monthly cost for your server.
                         <div className={'mt-2 text-gray-300 font-semibold'}>
-                            Your outstanding balance is <span className={'text-white'}>${product.price}</span>
+                            Your outstanding balance is:
+                            <span className={'text-white ml-2 font-bold'}>
+                                {currency}
+                                {product.price}
+                            </span>
                         </div>
                     </p>
                     <div className={'mt-6'}>

@@ -52,7 +52,7 @@ function ServerRouter() {
     const clearServerState = ServerContext.useStoreActions(actions => actions.clearServerState);
     const [collapsed, setCollapsed] = usePersistedState<boolean>(`sidebar_user_${user.uuid}`, false);
     const server = ServerContext.useStoreState(state => state.server.data);
-    const billable = server?.orderId;
+    const billable = server?.billingProductId;
     const status = ServerContext.useStoreState(state => state.status.value);
 
     const categories = ['data', 'configuration'] as const;
@@ -78,8 +78,8 @@ function ServerRouter() {
         };
     }, [params.id]);
 
-    if (server?.status === 'suspended' && billable)
-        return <Suspended id={server.orderId} days={server.daysUntilRenewal ?? 0} />;
+    if (billable && server.daysUntilRenewal < 0)
+        return <Suspended id={server.billingProductId} days={server.daysUntilRenewal ?? 0} />;
 
     return (
         <Fragment key={'server-router'}>

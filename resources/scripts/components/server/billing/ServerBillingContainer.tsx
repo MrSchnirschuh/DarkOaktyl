@@ -5,7 +5,6 @@ import ContentBox from '@elements/ContentBox';
 import { ServerContext } from '@/state/server';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { getOrder } from '@/api/billing/orders';
 import useFlash from '@/plugins/useFlash';
 import { getProduct } from '@/api/billing/products';
 import { Product } from '@/api/billing/products';
@@ -26,39 +25,27 @@ function futureDate(days: number): string {
 }
 
 export default () => {
-    const [order, setOrder] = useState<Order>();
     const [product, setProduct] = useState<Product>();
     const [loading, setLoading] = useState<boolean>(true);
 
     const { clearFlashes } = useFlash();
     const settings = useStoreState(s => s.everest.data!.billing);
-    const orderId = ServerContext.useStoreState(s => s.server.data!.orderId);
+    const billingProductId = ServerContext.useStoreState(s => s.server.data!.billingProductId);
     const daysUntilRenewal = ServerContext.useStoreState(s => s.server.data!.daysUntilRenewal);
 
     useEffect(() => {
         clearFlashes();
 
-        getOrder(orderId)
-            .then(data => setOrder(data))
-            .catch(error => {
-                setLoading(false);
-                console.error(error);
-            });
+        if (billingProductId) {
+            getProduct(billingProductId)
+                .then(data => setProduct(data))
+                .then(() => setLoading(false))
+                .catch(error => {
+                    setLoading(false);
+                    console.error(error);
+                });
+        }
     }, []);
-
-    useEffect(() => {
-        if (!order) return;
-
-        console.log(order);
-
-        getProduct(order.product_id)
-            .then(data => setProduct(data))
-            .then(() => setLoading(false))
-            .catch(error => {
-                setLoading(false);
-                console.error(error);
-            });
-    }, [order]);
 
     return (
         <PageContentBlock
@@ -66,10 +53,9 @@ export default () => {
             header
             description={'Control your billing settings for this server.'}
         >
-            {(!product || !order) && !loading && (
+            {!product && !loading && (
                 <Alert type={'warning'} className={'mb-6'}>
-                    The {!order ? 'order you made ' : 'plan you purchased '}
-                    no longer exists, so some details may not be shown.
+                    The product package you purchase initially no longer exists, so some details may not be shown.
                 </Alert>
             )}
             <div className={'grid lg:grid-cols-3 gap-4'}>
@@ -93,7 +79,7 @@ export default () => {
                                 {settings.currency.symbol}
                                 {product ? product.price : '...'} {settings.currency.code.toUpperCase()} every 30 days
                             </p>
-                            <Link to={'/billing/orders'} className={'text-green-400 text-xs'}>
+                            <Link to={'/account/billing/orders'} className={'text-green-400 text-xs'}>
                                 View order <FontAwesomeIcon icon={faArrowRight} />
                             </Link>
                         </div>

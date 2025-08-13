@@ -53,7 +53,7 @@ class CreateServerService
                 'startup' => $egg->startup,
                 'environment' => $environment,
                 'image' => current($egg->docker_images),
-                'order_id' => $order->id,
+                'billing_product_id' => $product->id,
                 'days_until_renewal' => 30,
                 'database_limit' => $product->database_limit,
                 'backup_limit' => $product->backup_limit,
