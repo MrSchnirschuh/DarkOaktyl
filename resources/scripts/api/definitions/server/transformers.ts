@@ -44,14 +44,14 @@ export default class Transformers {
         completedAt: attributes.completed_at ? new Date(attributes.completed_at) : null,
     });
 
-    static toDatabase = (data: any): Models.Database => ({
-        id: data.id,
-        name: data.name,
-        username: data.username,
-        databaseHostId: data.database_host_id,
-        connectionString: `${data.host.address}:${data.host.port}`,
-        allowConnectionsFrom: data.connections_from,
-        password: data.relationships.password?.attributes?.password,
+    static toDatabase = ({ attributes }: FractalResponseData): Models.Database => ({
+        id: attributes.id,
+        name: attributes.name,
+        username: attributes.username,
+        databaseHostId: attributes.database_host_id,
+        connectionString: `${attributes.host.address}:${attributes.host.port}`,
+        allowConnectionsFrom: attributes.connections_from,
+        password: attributes.relationships?.password?.object,
     });
 
     static toSubuser = (data: FractalResponseData): Models.Subuser => ({
