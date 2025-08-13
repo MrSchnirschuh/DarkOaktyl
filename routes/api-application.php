@@ -316,8 +316,7 @@ Route::middleware([AdminSubject::class])->group(function () {
         Route::post('/{server:id}/unsuspend', [Application\Servers\ServerManagementController::class, 'unsuspend']);
         Route::post('/{server:id}/reinstall', [Application\Servers\ServerManagementController::class, 'reinstall']);
 
-        Route::delete('/{server:id}', [Application\Servers\ServerController::class, 'delete']);
-        Route::delete('/{server:id}/{force?}', [Application\Servers\ServerController::class, 'delete']);
+        Route::post('/{server:id}/delete', [Application\Servers\ServerController::class, 'delete']);
 
         // Database Management Endpoint
         Route::group(['prefix' => '/{server:id}/databases'], function () {

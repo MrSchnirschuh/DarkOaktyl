@@ -17,6 +17,7 @@ use Everest\Http\Requests\Api\Application\Servers\GetServerRequest;
 use Everest\Http\Requests\Api\Application\Servers\GetServersRequest;
 use Everest\Http\Requests\Api\Application\Servers\ServerWriteRequest;
 use Everest\Http\Requests\Api\Application\Servers\StoreServerRequest;
+use Everest\Http\Requests\Api\Application\Servers\DeleteServerRequest;
 use Everest\Http\Controllers\Api\Application\ApplicationApiController;
 use Everest\Http\Requests\Api\Application\Servers\UpdateServerRequest;
 
@@ -94,9 +95,11 @@ class ServerController extends ApplicationApiController
      * @throws \Everest\Exceptions\DisplayException
      * @throws \Throwable
      */
-    public function delete(ServerWriteRequest $request, Server $server, string $force = ''): Response
+    public function delete(DeleteServerRequest $request, Server $server): Response
     {
-        $this->deletionService->withForce($force === 'force')->handle($server);
+        $force = (boolean) $request->input('force') ?? false;
+
+        $this->deletionService->withForce($force)->handle($server);
 
         Activity::event('admin:servers:delete')
             ->property('server', $server)

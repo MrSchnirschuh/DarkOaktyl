@@ -16,7 +16,6 @@ import {
     CogIcon,
     DatabaseIcon,
     ExternalLinkIcon,
-    FolderIcon,
     ShieldExclamationIcon,
 } from '@heroicons/react/outline';
 import { useStoreState } from '@/state/hooks';
@@ -70,7 +69,6 @@ export default () => {
                     name={'Databases'}
                     icon={DatabaseIcon}
                 />
-                <SubNavigationLink to={`/admin/servers/${params.id}/mounts`} name={'Mounts'} icon={FolderIcon} />
                 <SubNavigationLink
                     to={`/admin/servers/${params.id}/manage`}
                     name={'Manage'}
