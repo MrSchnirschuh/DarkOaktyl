@@ -20,8 +20,7 @@ export default () => (
         <TitledGreyBox icon={faExclamationTriangle} title={'Important Information'} className={'mb-8'}>
             Pending orders are automatically set to expired and deleted after 7 days, making them no longer visible in
             the admin area. If you wish to remove billing orders from Jexactyl manually, you must make a database query
-            to do so. Removing orders is NOT recommended, as users will not be able to renew their server if their
-            original order is deleted.
+            to do so. Removing orders manually is not recommended.
         </TitledGreyBox>
         <OrdersTable />
     </AdminContentBlock>

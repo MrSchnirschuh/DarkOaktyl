@@ -11,7 +11,7 @@ class CreateOrderService
     /**
      * Process the creation of an order.
      */
-    public function create(string $intent, User $user, Product $product, ?string $status = Order::STATUS_EXPIRED, ?bool $renewal = false): Order
+    public function create(string $intent, User $user, Product $product, ?string $status = Order::STATUS_EXPIRED, ?string $type): Order
     {
         $order = new Order();
         $uuid = uuid_create();
@@ -23,7 +23,7 @@ class CreateOrderService
         $order->total = $product->price;
         $order->status = $status ?? Order::STATUS_EXPIRED;
         $order->product_id = $product->id;
-        $order->is_renewal = $renewal ?? false;
+        $order->type = $type;
 
         $order->saveOrFail();
 

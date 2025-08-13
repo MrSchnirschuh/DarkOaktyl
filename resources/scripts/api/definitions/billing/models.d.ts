@@ -1,4 +1,5 @@
 import { Model } from '@definitions';
+import { OrderType } from '@/api/billing/orders/types';
 
 interface Order extends Model {
     id: number;
@@ -8,6 +9,6 @@ interface Order extends Model {
     total: number;
     product_id: number;
     status: OrderStatus;
-    is_renewal: boolean;
+    type: OrderType;
     created_at: Date;
 }

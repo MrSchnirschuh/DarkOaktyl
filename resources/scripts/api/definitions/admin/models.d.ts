@@ -1,5 +1,6 @@
 import { ModelWithRelationships, Model, UUID } from '@/api/definitions';
 import { Server } from '@/api/admin/server';
+import { OrderType } from '@/api/billing/orders/types';
 
 type BillingExceptionType = 'payment' | 'deployment' | 'storefront';
 type OrderStatus = 'pending' | 'expired' | 'failed' | 'processed';
@@ -101,7 +102,7 @@ interface Order extends Model {
     total: number;
     status: OrderStatus;
     product_id: number;
-    is_renewal: boolean;
+    type: OrderType;
     threat_index: number;
     created_at: Date;
     updated_at?: Date | null;

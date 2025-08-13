@@ -124,7 +124,7 @@ class StripeController extends ClientApiController
             $request->user(),
             $product,
             Order::STATUS_PENDING,
-            boolval($request->input('renewal') ?? false),
+            $this->getOrderType($request),
         );
 
         return $this->returnNoContent();
@@ -163,7 +163,7 @@ class StripeController extends ClientApiController
         }
 
         // Process the renewal or product purchase
-        if ($order->is_renewal && ((int) $intent->metadata->server_id != 0)) {
+        if ($order->type === Order::TYPE_REN && ((int) $intent->metadata->server_id != 0)) {
             $server = Server::findOrFail((int) $intent->metadata->server_id);
 
             $server->update([
@@ -205,5 +205,21 @@ class StripeController extends ClientApiController
         ]);
 
         return $this->returnNoContent();
+    }
+
+    /**
+     * Determine whether an order is a NEW, UPGRADE or RENEWAL.
+     */
+    private function getOrderType(Request $request): mixed
+    {
+        $type = null;
+
+        if ($request->has('renewal') && $request->boolean('renewal')) {
+            $type = Order::TYPE_REN;
+        } else {
+            $type = Order::TYPE_NEW;
+        };
+
+        return $type;
     }
 }

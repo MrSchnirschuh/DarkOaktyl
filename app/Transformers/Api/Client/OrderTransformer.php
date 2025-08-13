@@ -27,7 +27,7 @@ class OrderTransformer extends Transformer
             'total' => $model->total,
             'status' => $model->status,
             'product_id' => $model->product_id,
-            'is_renewal' => $model->is_renewal,
+            'type' => $model->type ?? '?',
             'created_at' => $model->created_at,
             'updated_at' => $model->updated_at,
         ];

@@ -12,7 +12,7 @@ use Everest\Models\Model;
  * @property float $total
  * @property string $status
  * @property int $product_id
- * @property bool $is_renewal
+ * @property string $type
  * @property int $threat_index
  * @property string $payment_intent_id
  * @property \Carbon\Carbon $created_at
@@ -24,6 +24,10 @@ class Order extends Model
     public const STATUS_EXPIRED = 'expired';
     public const STATUS_PENDING = 'pending';
     public const STATUS_PROCESSED = 'processed';
+
+    public const TYPE_NEW = 'new';
+    public const TYPE_UPG = 'upg';
+    public const TYPE_REN = 'ren';
 
     /**
      * The resource name for this model when it is transformed into an
@@ -41,7 +45,7 @@ class Order extends Model
      */
     protected $fillable = [
         'name', 'user_id', 'description', 'payment_intent_id',
-        'total', 'status', 'product_id', 'is_renewal', 'threat_index',
+        'total', 'status', 'product_id', 'type', 'threat_index',
     ];
 
     /**
@@ -51,7 +55,6 @@ class Order extends Model
         'user_id' => 'int',
         'total' => 'float',
         'product_id' => 'int',
-        'is_renewal' => 'bool',
         'threat_index' => 'int',
     ];
 
@@ -62,7 +65,7 @@ class Order extends Model
         'total' => 'required|min:0',
         'status' => 'required|in:expired,pending,failed,processed',
         'product_id' => 'exists:products,id',
-        'is_renewal' => 'nullable|bool',
+        'type' => 'required|in:new,upg,ren',
         'threat_index' => 'nullable|int|min:-1|max:100',
         'payment_intent_id' => 'required|string|unique:orders,payment_intent_id',
     ];

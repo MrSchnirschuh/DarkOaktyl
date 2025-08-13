@@ -160,7 +160,7 @@ export default class Transformers {
         total: data.total,
         status: data.status,
         product_id: data.product_id,
-        is_renewal: data.is_renewal,
+        type: data.type,
         threat_index: data.threat_index,
         created_at: new Date(data.created_at),
         updated_at: data.updated_at ? new Date(data.updated_at) : null,

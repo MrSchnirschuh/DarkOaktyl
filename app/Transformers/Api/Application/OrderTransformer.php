@@ -28,7 +28,7 @@ class OrderTransformer extends Transformer
             'total' => $model->total,
             'status' => $model->status,
             'product_id' => $model->product_id,
-            'is_renewal' => $model->is_renewal,
+            'type' => $model->type ?? '?',
             'payment_intent_id' => $model->payment_intent_id,
             'threat_index' => $model->threat_index,
             'created_at' => $model->created_at->toAtomString(),

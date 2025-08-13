@@ -114,8 +114,8 @@ function OrderTable() {
                                     <TableHeader name={'Payment State'} />
                                     <TableHeader
                                         name={'Order Type'}
-                                        direction={sort === 'is_renewal' ? (sortDirection ? 1 : 2) : null}
-                                        onClick={() => setSort('is_renewal')}
+                                        direction={sort === 'type' ? (sortDirection ? 1 : 2) : null}
+                                        onClick={() => setSort('type')}
                                     />
                                 </TableHead>
                                 <TableBody>
@@ -145,8 +145,11 @@ function OrderTable() {
                                                     </Pill>
                                                 </td>
                                                 <td className={'pr-12 py-4 text-center'}>
-                                                    <Pill size={'small'} type={order.is_renewal ? 'info' : 'success'}>
-                                                        {order.is_renewal ? 'Upgrade' : 'New Server'}
+                                                    <Pill
+                                                        size={'small'}
+                                                        type={order.type === 'new' ? 'success' : 'info'}
+                                                    >
+                                                        {order.type.toUpperCase()}
                                                     </Pill>
                                                 </td>
                                             </TableRow>
