@@ -110,7 +110,7 @@ export default () => {
                                                     plan and choose options like amount of CPU, memory and which game
                                                     you&apos;d like to run.
                                                     <div className={'text-right'}>
-                                                        <Link to={'/billing/order'}>
+                                                        <Link to={'/account/billing/order'}>
                                                             <Button className={'w-1/2 text-white font-normal'}>
                                                                 View Options{' '}
                                                                 <FontAwesomeIcon
