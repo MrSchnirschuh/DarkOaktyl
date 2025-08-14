@@ -24,7 +24,7 @@ interface Values {
 
 function RegisterContainer() {
     const ref = useRef<Reaptcha>(null);
-    const [token, setToken] = useState('');
+    const token = useRef('');
 
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const { enabled: recaptchaEnabled, siteKey } = useStoreState(state => state.settings.data!.recaptcha);
@@ -49,9 +49,9 @@ function RegisterContainer() {
             return;
         }
 
-        register({ ...values, recaptchaData: token })
+        register({ ...values, recaptchaData: token.current })
             .then(() => {
-                login({ ...values, recaptchaData: token }).then(() => {
+                login({ ...values, recaptchaData: token.current }).then(() => {
                     // @ts-expect-error this is valid
                     window.location = '/';
                 });
@@ -59,7 +59,7 @@ function RegisterContainer() {
             .catch(error => {
                 console.error(error);
 
-                setToken('');
+                token.current = '';
                 if (ref.current) ref.current.reset();
 
                 setSubmitting(false);
@@ -135,12 +135,12 @@ function RegisterContainer() {
                             size={'invisible'}
                             sitekey={siteKey || '_invalid_key'}
                             onVerify={response => {
-                                setToken(response);
+                                token.current = response;
                                 submitForm();
                             }}
                             onExpire={() => {
                                 setSubmitting(false);
-                                setToken('');
+                                token.current = '';
                             }}
                         />
                     )}
