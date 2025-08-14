@@ -287,7 +287,7 @@ class Node extends Model
             : 0;
 
         $diskPercent = $this->disk > 0
-            ? ($diskUsed / $this->memory) * 100
+            ? ($diskUsed / $this->disk) * 100
             : 0;
 
         $allocationsPercent = $sums->total_allocations > 0
