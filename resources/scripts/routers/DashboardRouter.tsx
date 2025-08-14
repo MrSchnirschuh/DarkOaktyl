@@ -47,7 +47,7 @@ function DashboardRouter() {
                             key={route.route}
                             icon={route.icon ?? PuzzleIcon}
                             text={route.name}
-                            linkTo={route.path}
+                            linkTo={route.path !== '' ? `/account/${route.path}` : ''}
                             end={route.end}
                         />
                     ))}
