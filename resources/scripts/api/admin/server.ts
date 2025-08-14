@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import http from '@/api/http';
 import { Model, UUID, withRelationships, WithRelationships } from '@/api/admin/index';
 import { Allocation, Node } from '@/api/admin/node';
-import { Transformers, User } from '@definitions/admin';
+import { Product, Transformers, User } from '@definitions/admin';
 import { Egg, EggVariable } from '@/api/admin/egg';
 import { Nest } from '@/api/admin/nest';
 import { type Database } from '@definitions/server';
@@ -55,6 +55,8 @@ export interface Server extends Model {
         image: string;
         environment: Record<string, string>;
     };
+    daysUntilRenewal?: number;
+    billingProductId?: number;
     createdAt: Date;
     updatedAt: Date;
     relationships: {
@@ -65,6 +67,7 @@ export interface Server extends Model {
         user?: User;
         variables?: ServerVariable[];
         databases?: Database[];
+        product?: Product;
     };
 }
 
@@ -81,11 +84,19 @@ type LoadedServer = WithRelationships<Server, 'allocations' | 'user' | 'node'>;
 export const getServer = async (id: number | string): Promise<LoadedServer> => {
     const { data } = await http.get(`/api/application/servers/${id}`, {
         params: {
-            include: ['allocations', 'user', 'node', 'variables', 'databases'],
+            include: ['allocations', 'user', 'node', 'variables', 'databases', 'product'],
         },
     });
 
-    return withRelationships(Transformers.toServer(data), 'allocations', 'user', 'node', 'variables', 'databases');
+    return withRelationships(
+        Transformers.toServer(data),
+        'allocations',
+        'user',
+        'node',
+        'variables',
+        'databases',
+        'product',
+    );
 };
 
 /**

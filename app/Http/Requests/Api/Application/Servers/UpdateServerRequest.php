@@ -34,6 +34,9 @@ class UpdateServerRequest extends ApplicationApiRequest
             'feature_limits.databases' => $rules['database_limit'],
             'feature_limits.subusers' => $rules['subuser_limit'],
 
+            'days_until_renewal' => $rules['days_until_renewal'],
+            'billing_product_id' => $rules['billing_product_id'],
+
             'allocation_id' => 'bail|exists:allocations,id',
             'add_allocations' => 'bail|array',
             'add_allocations.*' => 'integer',
@@ -69,6 +72,9 @@ class UpdateServerRequest extends ApplicationApiRequest
             'backup_limit' => array_get($data, 'feature_limits.backups'),
             'database_limit' => array_get($data, 'feature_limits.databases'),
             'subuser_limit' => array_get($data, 'feature_limits.subusers'),
+
+            'days_until_renewal' => array_get($data, 'days_until_renewal'),
+            'billing_product_id' => array_get($data, 'billing_product_id'),
 
             'allocation_id' => array_get($data, 'allocation_id'),
             'add_allocations' => array_get($data, 'add_allocations'),

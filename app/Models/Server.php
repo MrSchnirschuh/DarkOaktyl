@@ -2,6 +2,7 @@
 
 namespace Everest\Models;
 
+use Everest\Models\Billing\Product;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Query\JoinClause;
 use Znck\Eloquent\Traits\BelongsToThrough;
@@ -248,6 +249,14 @@ class Server extends Model
     public function allocation(): HasOne
     {
         return $this->hasOne(Allocation::class, 'id', 'allocation_id');
+    }
+
+    /**
+     * Gets information for the product associated with this server.
+     */
+    public function product(): HasOne
+    {
+        return $this->hasOne(Product::class, 'id', 'billing_product_id');
     }
 
     /**

@@ -42,7 +42,7 @@ function transform<T>(
 export default class Transformers {
     static toServer = ({ attributes }: FractalResponseData): Server => {
         const { oom_killer, ...limits } = attributes.limits;
-        const { allocations, egg, nest, node, user, variables, databases } = attributes.relationships || {};
+        const { allocations, egg, nest, node, user, variables, databases, product } = attributes.relationships || {};
 
         return {
             id: attributes.id,
@@ -60,6 +60,8 @@ export default class Transformers {
             limits: { ...limits, oomKiller: oom_killer },
             featureLimits: attributes.feature_limits,
             container: attributes.container,
+            daysUntilRenewal: attributes.days_until_renewal,
+            billingProductId: attributes.billing_product_id,
             createdAt: new Date(attributes.created_at),
             updatedAt: new Date(attributes.updated_at),
             relationships: {
@@ -70,6 +72,7 @@ export default class Transformers {
                 user: transform(user as FractalResponseData | undefined, this.toUser),
                 variables: transform(variables as FractalResponseList | undefined, this.toServerEggVariable),
                 databases: transform(databases as FractalResponseList | undefined, this.toServerDatabase),
+                product: transform(product as FractalResponseData | undefined, this.toProduct),
             },
         };
     };

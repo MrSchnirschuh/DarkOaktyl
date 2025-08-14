@@ -27,6 +27,7 @@ class ServerTransformer extends Transformer
         'node',
         'databases',
         'transfer',
+        'product',
     ];
 
     /**
@@ -83,6 +84,8 @@ class ServerTransformer extends Transformer
                 'image' => $model->image,
                 'environment' => $this->environmentService->handle($model),
             ],
+            'days_until_renewal' => $model->days_until_renewal,
+            'billing_product_id' => $model->billing_product_id,
             'created_at' => self::formatTimestamp($model->created_at),
             'updated_at' => self::formatTimestamp($model->updated_at),
         ];
@@ -182,5 +185,17 @@ class ServerTransformer extends Transformer
         }
 
         return $this->collection($server->databases, new ServerDatabaseTransformer());
+    }
+
+    /**
+     * Return a generic array with product information for this server.
+     */
+    public function includeProduct(Server $server): Item|NullResource
+    {
+        if (!$this->authorize(AdminAcl::RESOURCE_SERVERS)) {
+            return $this->null();
+        }
+
+        return $this->item($server->product, new ProductTransformer());
     }
 }

@@ -202,6 +202,7 @@ class StripeController extends ClientApiController
         // Mark the order as processed
         $order->update([
             'status' => Order::STATUS_PROCESSED,
+            'name' => $order->name . substr($server->uuid, 0, 8),
         ]);
 
         return $this->returnNoContent();

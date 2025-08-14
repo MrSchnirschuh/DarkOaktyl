@@ -23,6 +23,9 @@ export interface Values {
         subusers: number;
     };
 
+    daysUntilRenewal?: number;
+    billingProductId?: number;
+
     allocationId: number;
     addAllocations: number[];
     removeAllocations: number[];
@@ -53,6 +56,9 @@ export default (id: number, server: Partial<Values>, include: string[] = []): Pr
                     databases: server.featureLimits?.databases,
                     subusers: server.featureLimits?.subusers,
                 },
+
+                days_until_renewal: server.daysUntilRenewal,
+                billing_product_id: server.billingProductId,
 
                 allocation_id: server.allocationId,
                 add_allocations: server.addAllocations,

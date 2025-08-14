@@ -14,18 +14,24 @@ import { useServerFromRoute } from '@/api/admin/server';
 import {
     AdjustmentsIcon,
     CogIcon,
+    CurrencyDollarIcon,
     DatabaseIcon,
     ExternalLinkIcon,
+    InformationCircleIcon,
+    ServerIcon,
     ShieldExclamationIcon,
 } from '@heroicons/react/outline';
 import { useStoreState } from '@/state/hooks';
 import ServerDatabases from './ServerDatabases';
+import ServerBillingContainer from './billing/ServerBillingContainer';
+import Pill from '@/components/elements/Pill';
 
 export default () => {
     const params = useParams<'id'>();
 
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const theme = useStoreState(state => state.theme.data!);
+    const { billing } = useStoreState(state => state.everest.data!);
     const { data: server, error, isValidating, mutate } = useServerFromRoute();
 
     useEffect(() => {
@@ -57,6 +63,19 @@ export default () => {
                         {server.uuid}
                     </p>
                 </div>
+                <div className={'my-auto ml-2 flex space-x-2'}>
+                    <Pill type={'warn'}>
+                        <ServerIcon className={'w-3 mr-1'} /> {server.relationships.allocations[0]?.getDisplayText()}
+                    </Pill>
+                    {billing.enabled && server.billingProductId && (
+                        <Pill type={'info'}>
+                            <CurrencyDollarIcon className={'w-3 mr-1'} /> Billable
+                        </Pill>
+                    )}
+                    <Pill type={'success'}>
+                        <InformationCircleIcon className={'w-3 mr-1'} /> {server.status ?? 'Active'}
+                    </Pill>
+                </div>
             </div>
 
             <FlashMessageRender byKey={'server'} css={tw`mb-4`} />
@@ -70,18 +89,29 @@ export default () => {
                     icon={DatabaseIcon}
                 />
                 <SubNavigationLink
+                    to={`/admin/servers/${params.id}/billing`}
+                    name={'Billing'}
+                    icon={CurrencyDollarIcon}
+                    disabled={!billing.enabled}
+                />
+                <SubNavigationLink
                     to={`/admin/servers/${params.id}/manage`}
                     name={'Manage'}
                     icon={ShieldExclamationIcon}
                 />
-                <SubNavigationLink to={`/server/${server.uuid.split('-')[0]}`} name={'View'} icon={ExternalLinkIcon} />
+                <SubNavigationLink
+                    to={`/server/${server.uuid.split('-')[0]}`}
+                    name={'View as user'}
+                    icon={ExternalLinkIcon}
+                />
             </SubNavigation>
 
             <Routes>
-                <Route path="" element={<ServerSettingsContainer />} />
-                <Route path="startup" element={<ServerStartupContainer />} />
+                <Route path={''} element={<ServerSettingsContainer />} />
+                <Route path={'startup'} element={<ServerStartupContainer />} />
                 <Route path={'databases'} element={<ServerDatabases />} />
-                <Route path="manage" element={<ServerManageContainer />} />
+                <Route path={'billing'} element={<ServerBillingContainer />} />
+                <Route path={'manage'} element={<ServerManageContainer />} />
             </Routes>
         </AdminContentBlock>
     );

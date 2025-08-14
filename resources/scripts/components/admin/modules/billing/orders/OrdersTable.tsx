@@ -62,7 +62,7 @@ function getColor(index: number) {
     else return 'success';
 }
 
-function OrderTable() {
+function OrderTable({ minimal }: { minimal?: boolean }) {
     const { data: orders, error } = useGetOrders();
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const { setSort, sort, setPage, sortDirection, setFilters } = useContext(OrderContext);
@@ -72,7 +72,7 @@ function OrderTable() {
             if (query.length < 2) {
                 setFilters(null);
             } else {
-                setFilters({ description: query });
+                if (!minimal) setFilters({ description: query });
             }
             return resolve();
         });
@@ -95,17 +95,19 @@ function OrderTable() {
                         <div css={tw`overflow-x-auto`}>
                             <table css={tw`w-full table-auto`}>
                                 <TableHead>
-                                    <TableHeader
-                                        name={'ID'}
-                                        direction={sort === 'id' ? (sortDirection ? 1 : 2) : null}
-                                        onClick={() => setSort('id')}
-                                    />
+                                    {!minimal && (
+                                        <TableHeader
+                                            name={'ID'}
+                                            direction={sort === 'id' ? (sortDirection ? 1 : 2) : null}
+                                            onClick={() => setSort('id')}
+                                        />
+                                    )}
                                     <TableHeader
                                         name={'Total Price'}
                                         direction={sort === 'total' ? (sortDirection ? 1 : 2) : null}
                                         onClick={() => setSort('total')}
                                     />
-                                    <TableHeader name={'Description'} />
+                                    {!minimal && <TableHeader name={'Description'} />}
                                     <TableHeader
                                         name={'Created At'}
                                         direction={sort === 'created_at' ? (sortDirection ? 1 : 2) : null}
@@ -117,11 +119,13 @@ function OrderTable() {
                                         direction={sort === 'type' ? (sortDirection ? 1 : 2) : null}
                                         onClick={() => setSort('type')}
                                     />
-                                    <TableHeader
-                                        name={'Threat Index'}
-                                        direction={sort === 'threat_index' ? (sortDirection ? 1 : 2) : null}
-                                        onClick={() => setSort('threat_index')}
-                                    />
+                                    {!minimal && (
+                                        <TableHeader
+                                            name={'Threat Index'}
+                                            direction={sort === 'threat_index' ? (sortDirection ? 1 : 2) : null}
+                                            onClick={() => setSort('threat_index')}
+                                        />
+                                    )}
                                     <TableHeader />
                                 </TableHead>
                                 <TableBody>
@@ -129,17 +133,23 @@ function OrderTable() {
                                         orders.items.length > 0 &&
                                         orders.items.map(order => (
                                             <TableRow key={order.id}>
-                                                <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
-                                                    <CopyOnClick text={order.id}>
-                                                        <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>
-                                                            {order.id}
-                                                        </code>
-                                                    </CopyOnClick>
-                                                </td>
-                                                <td className={'px-6 py-4 text-white font-bold'}>${order.total}/mo</td>
-                                                <td className={'px-6 py-4'}>
-                                                    {order.name.slice(0, 8)} {order.description}
-                                                </td>
+                                                {!minimal && (
+                                                    <td
+                                                        css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}
+                                                    >
+                                                        <CopyOnClick text={order.id}>
+                                                            <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>
+                                                                {order.id}
+                                                            </code>
+                                                        </CopyOnClick>
+                                                    </td>
+                                                )}
+                                                <td className={'px-6 py-4 text-white font-bold'}>${order.total}</td>
+                                                {!minimal && (
+                                                    <td className={'px-6 py-4'}>
+                                                        {order.name.slice(0, 8)} {order.description}
+                                                    </td>
+                                                )}
                                                 <td className={'px-6 py-4'}>
                                                     {formatDistanceToNowStrict(order.created_at, { addSuffix: true })}
                                                 </td>
@@ -156,25 +166,27 @@ function OrderTable() {
                                                         {order.type.toUpperCase()}
                                                     </Pill>
                                                 </td>
-                                                <td className={'pr-12 py-4 text-right'}>
-                                                    <Pill
-                                                        size={'small'}
-                                                        type={
-                                                            order.threat_index > 0
-                                                                ? getColor(order.threat_index)
-                                                                : 'unknown'
-                                                        }
-                                                    >
-                                                        {order.threat_index < 0 ? (
-                                                            <span className={'text-xs inline-flex my-1'}>
-                                                                <Spinner size={'small'} />
-                                                                &nbsp;Processing
-                                                            </span>
-                                                        ) : (
-                                                            `${order.threat_index}/100`
-                                                        )}
-                                                    </Pill>
-                                                </td>
+                                                {!minimal && (
+                                                    <td className={'pr-12 py-4 text-right'}>
+                                                        <Pill
+                                                            size={'small'}
+                                                            type={
+                                                                order.threat_index > 0
+                                                                    ? getColor(order.threat_index)
+                                                                    : 'unknown'
+                                                            }
+                                                        >
+                                                            {order.threat_index < 0 ? (
+                                                                <span className={'text-xs inline-flex my-1'}>
+                                                                    <Spinner size={'small'} />
+                                                                    &nbsp;Processing
+                                                                </span>
+                                                            ) : (
+                                                                `${order.threat_index}/100`
+                                                            )}
+                                                        </Pill>
+                                                    </td>
+                                                )}
                                             </TableRow>
                                         ))}
                                 </TableBody>
@@ -188,12 +200,12 @@ function OrderTable() {
     );
 }
 
-export default () => {
-    const hooks = useTableHooks<OrderFilters>();
+export default ({ name, minimal }: { name?: string; minimal?: boolean }) => {
+    const hooks = useTableHooks<OrderFilters>({ name: name });
 
     return (
         <OrderContext.Provider value={hooks}>
-            <OrderTable />
+            <OrderTable minimal={minimal} />
         </OrderContext.Provider>
     );
 };
