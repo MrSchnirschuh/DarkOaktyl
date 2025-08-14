@@ -219,7 +219,7 @@ class StripeController extends ClientApiController
             $type = Order::TYPE_REN;
         } else {
             $type = Order::TYPE_NEW;
-        };
+        }
 
         return $type;
     }

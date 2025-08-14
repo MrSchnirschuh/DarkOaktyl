@@ -253,7 +253,7 @@ class Node extends Model
             'allocations as total_allocations',
             'allocations as used_allocations' => function ($query) {
                 $query->whereNotNull('server_id');
-            }
+            },
         ]);
 
         return $this;
@@ -293,7 +293,7 @@ class Node extends Model
         $allocationsPercent = $sums->total_allocations > 0
             ? ($sums->used_allocations / $sums->total_allocations) * 100
             : 0;
-    
+
         return [
             'memory' => round($memoryPercent, 1),
             'disk' => round($diskPercent, 1),

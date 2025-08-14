@@ -79,7 +79,7 @@ export default () => {
                             </p>
                         </div>
                         <div className={'absolute top-2 right-2'}>
-                            <EditServerBillingDialog server={server} product={product} />
+                            <EditServerBillingDialog server={server} />
                         </div>
                     </div>
                 </AdminBox>

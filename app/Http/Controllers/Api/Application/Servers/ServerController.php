@@ -15,10 +15,9 @@ use Everest\Transformers\Api\Application\ServerTransformer;
 use Everest\Exceptions\Http\QueryValueOutOfRangeHttpException;
 use Everest\Http\Requests\Api\Application\Servers\GetServerRequest;
 use Everest\Http\Requests\Api\Application\Servers\GetServersRequest;
-use Everest\Http\Requests\Api\Application\Servers\ServerWriteRequest;
 use Everest\Http\Requests\Api\Application\Servers\StoreServerRequest;
-use Everest\Http\Requests\Api\Application\Servers\DeleteServerRequest;
 use Everest\Http\Controllers\Api\Application\ApplicationApiController;
+use Everest\Http\Requests\Api\Application\Servers\DeleteServerRequest;
 use Everest\Http\Requests\Api\Application\Servers\UpdateServerRequest;
 
 class ServerController extends ApplicationApiController
@@ -97,7 +96,7 @@ class ServerController extends ApplicationApiController
      */
     public function delete(DeleteServerRequest $request, Server $server): Response
     {
-        $force = (boolean) $request->input('force') ?? false;
+        $force = (bool) $request->input('force') ?? false;
 
         $this->deletionService->withForce($force)->handle($server);
 

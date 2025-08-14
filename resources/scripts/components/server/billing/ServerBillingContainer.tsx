@@ -12,7 +12,6 @@ import SpinnerOverlay from '@elements/SpinnerOverlay';
 import { Alert } from '@elements/alert';
 import PaymentContainer from './PaymentContainer';
 import { useStoreState } from '@/state/hooks';
-import { Order } from '@/api/definitions/billing';
 import PageContentBlock from '@/components/elements/PageContentBlock';
 
 function futureDate(days: number): string {

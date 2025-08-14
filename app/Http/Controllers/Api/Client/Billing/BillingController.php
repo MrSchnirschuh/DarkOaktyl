@@ -38,7 +38,7 @@ class BillingController extends ClientApiController
 
         foreach ($nodes as $node) {
             $hasFreeAllocation = $node->allocations()->whereNull('server_id')->exists();
-            if (! $hasFreeAllocation) {
+            if (!$hasFreeAllocation) {
                 continue;
             }
 
