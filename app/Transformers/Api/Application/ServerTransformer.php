@@ -84,8 +84,8 @@ class ServerTransformer extends Transformer
                 'image' => $model->image,
                 'environment' => $this->environmentService->handle($model),
             ],
-            'days_until_renewal' => $model->days_until_renewal,
             'billing_product_id' => $model->billing_product_id,
+            'renewal_date' =>  self::formatTimestamp($model->renewal_date),
             'created_at' => self::formatTimestamp($model->created_at),
             'updated_at' => self::formatTimestamp($model->updated_at),
         ];

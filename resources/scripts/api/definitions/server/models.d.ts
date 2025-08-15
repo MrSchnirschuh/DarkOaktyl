@@ -28,7 +28,7 @@ interface Server {
     };
     eggFeatures: string[];
     billingProductId?: number;
-    daysUntilRenewal: number;
+    renewalDate?: Date | undefined;
     featureLimits: {
         databases: number;
         allocations: number;

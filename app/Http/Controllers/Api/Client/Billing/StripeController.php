@@ -2,6 +2,7 @@
 
 namespace Everest\Http\Controllers\Api\Client\Billing;
 
+use Carbon\Carbon;
 use Stripe\StripeClient;
 use Everest\Models\Server;
 use Illuminate\Http\Request;
@@ -167,7 +168,7 @@ class StripeController extends ClientApiController
             $server = Server::findOrFail((int) $intent->metadata->server_id);
 
             $server->update([
-                'days_until_renewal' => $server->days_until_renewal + 30,
+                'renewal_date' => $server->renewal_date->addDays(30),
                 'status' => $server->isSuspended() ? null : $server->status,
             ]);
         } else {

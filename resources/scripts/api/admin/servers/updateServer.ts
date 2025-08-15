@@ -23,7 +23,7 @@ export interface Values {
         subusers: number;
     };
 
-    daysUntilRenewal?: number;
+    renewalDate?: Date | undefined;
     billingProductId?: number;
 
     allocationId: number;
@@ -57,7 +57,7 @@ export default (id: number, server: Partial<Values>, include: string[] = []): Pr
                     subusers: server.featureLimits?.subusers,
                 },
 
-                days_until_renewal: server.daysUntilRenewal,
+                renewal_date: server.renewalDate,
                 billing_product_id: server.billingProductId,
 
                 allocation_id: server.allocationId,

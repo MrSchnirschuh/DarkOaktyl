@@ -13,14 +13,24 @@ import { Alert } from '@elements/alert';
 import PaymentContainer from './PaymentContainer';
 import { useStoreState } from '@/state/hooks';
 import PageContentBlock from '@/components/elements/PageContentBlock';
+import { format } from 'date-fns';
 
-function futureDate(days: number): string {
-    const today = new Date();
-    const futureDate = new Date(today);
+function timeUntil(targetDate: Date | string) {
+    const date = targetDate instanceof Date ? targetDate : new Date(targetDate);
 
-    futureDate.setDate(today.getDate() + days);
+    const now = new Date();
+    const diffMs = date.getTime() - now.getTime();
 
-    return futureDate.toDateString();
+    return {
+        days: Math.floor(diffMs / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((diffMs / (1000 * 60 * 60)) % 24),
+    };
+}
+
+function addDays(date: Date | string, days: number) {
+    const d = date instanceof Date ? new Date(date) : new Date(date);
+    d.setDate(d.getDate() + days);
+    return d;
 }
 
 export default () => {
@@ -30,7 +40,7 @@ export default () => {
     const { clearFlashes } = useFlash();
     const settings = useStoreState(s => s.everest.data!.billing);
     const billingProductId = ServerContext.useStoreState(s => s.server.data!.billingProductId);
-    const daysUntilRenewal = ServerContext.useStoreState(s => s.server.data!.daysUntilRenewal);
+    const renewalDate = ServerContext.useStoreState(s => s.server.data!.renewalDate);
 
     useEffect(() => {
         clearFlashes();
@@ -58,37 +68,50 @@ export default () => {
                 </Alert>
             )}
             <div className={'grid lg:grid-cols-3 gap-4'}>
-                <ContentBox title={'Summary'}>
-                    <SpinnerOverlay visible={loading} />
-                    <div>
-                        <Label>Next renewal due</Label>
-                        <p className={'text-gray-400 text-sm'}>
-                            {futureDate(daysUntilRenewal)} ({daysUntilRenewal} days until due)
-                        </p>
-                    </div>
-                    <div className={'my-6'}>
-                        <Label>Your package</Label>
-                        <p className={'text-gray-400 text-sm'}>{product ? product.name : 'Unknown'}</p>
-                        <p className={'text-gray-500 text-xs'}>{product && product.description}</p>
-                    </div>
-                    <div>
-                        <Label>Plan cost</Label>
-                        <div className={'flex justify-between'}>
+                {!renewalDate ? (
+                    <Alert type={'danger'}>
+                        There is no present renewal date for your server. Please contact an administrator.
+                    </Alert>
+                ) : (
+                    <ContentBox title={'Summary'}>
+                        <SpinnerOverlay visible={loading} />
+                        <div>
+                            <Label>Next renewal due</Label>
                             <p className={'text-gray-400 text-sm'}>
-                                {settings.currency.symbol}
-                                {product ? product.price : '...'} {settings.currency.code.toUpperCase()} every 30 days
+                                {new Date(renewalDate).toLocaleDateString()}
+                                {' - '}
+                                {timeUntil(renewalDate).days} days, {timeUntil(renewalDate).hours} hours
                             </p>
-                            <Link to={'/account/billing/orders'} className={'text-green-400 text-xs'}>
-                                View order <FontAwesomeIcon icon={faArrowRight} />
-                            </Link>
                         </div>
-                    </div>
-                </ContentBox>
+                        <div className={'my-6'}>
+                            <Label>Your package</Label>
+                            <p className={'text-gray-400 text-sm'}>{product ? product.name : 'Unknown'}</p>
+                            <p className={'text-gray-500 text-xs'}>{product && product.description}</p>
+                        </div>
+                        <div>
+                            <Label>Plan cost</Label>
+                            <div className={'flex justify-between'}>
+                                <p className={'text-gray-400 text-sm'}>
+                                    {settings.currency.symbol}
+                                    {product ? product.price : '...'} {settings.currency.code.toUpperCase()} every 30
+                                    days
+                                </p>
+                                <Link to={'/account/billing/orders'} className={'text-green-400 text-xs'}>
+                                    View order <FontAwesomeIcon icon={faArrowRight} />
+                                </Link>
+                            </div>
+                        </div>
+                    </ContentBox>
+                )}
                 <ContentBox title={'Renew Server'} className={'lg:col-span-2'}>
                     <div className={'mb-4'}>
                         <p className={'text-gray-400 text-xs'}>
                             If you renew now, your server will be active for a further 30 days, making your next renewal
-                            date {futureDate(daysUntilRenewal + 30)} ({daysUntilRenewal + 30} days).
+                            date
+                            <strong className={'ml-1'}>
+                                {renewalDate ? format(addDays(renewalDate, 30), 'do MMMM yyyy') : 'Unknown'}
+                            </strong>
+                            .
                         </p>
                     </div>
                     {!product ? (

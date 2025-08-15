@@ -8,13 +8,16 @@ import { useStoreState } from '@/state/hooks';
 import { faCashRegister } from '@fortawesome/free-solid-svg-icons';
 import EditServerBillingDialog from './EditServerBillingDialog';
 
-function futureDate(days: number): string {
-    const today = new Date();
-    const futureDate = new Date(today);
+function timeUntil(targetDate: Date | string) {
+    const date = targetDate instanceof Date ? targetDate : new Date(targetDate);
 
-    futureDate.setDate(today.getDate() + days);
+    const now = new Date();
+    const diffMs = date.getTime() - now.getTime();
 
-    return futureDate.toDateString();
+    return {
+        days: Math.floor(diffMs / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((diffMs / (1000 * 60 * 60)) % 24),
+    };
 }
 
 export default () => {
@@ -54,11 +57,14 @@ export default () => {
                         <div>
                             <Label>Next Renewal Due</Label>
                             <p className={'text-gray-400'}>
-                                {!server.billingProductId ? (
+                                {!server.renewalDate ? (
                                     'None'
                                 ) : (
                                     <>
-                                        {futureDate(server.daysUntilRenewal!)} ({server.daysUntilRenewal} days)
+                                        {new Date(server.renewalDate).toLocaleDateString()}
+                                        {' - '}
+                                        {timeUntil(server.renewalDate).days} days, {timeUntil(server.renewalDate).hours}{' '}
+                                        hours
                                     </>
                                 )}
                             </p>

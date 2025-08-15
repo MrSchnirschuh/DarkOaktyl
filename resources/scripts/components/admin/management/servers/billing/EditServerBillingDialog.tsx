@@ -1,6 +1,5 @@
 import { Server } from '@/api/admin/server';
 import updateServer, { Values } from '@/api/admin/servers/updateServer';
-import { Product } from '@/api/definitions/admin';
 import { Button } from '@/components/elements/button';
 import { Dialog } from '@/components/elements/dialog';
 import Input from '@/components/elements/Input';
@@ -12,12 +11,31 @@ import { useState } from 'react';
 
 export default ({ server }: { server: Server }) => {
     const [open, setOpen] = useState<boolean>(true);
-
     const [billable, setBillable] = useState<boolean>(Boolean(server.billingProductId));
-    const [days, setDays] = useState<number>(server.daysUntilRenewal ?? 0);
+
+    const [renewalDateStr, setRenewalDateStr] = useState<string>(
+        server.renewalDate
+            ? new Date(server.renewalDate).toISOString().slice(0, 16)
+            : new Date().toISOString().slice(0, 16),
+    );
+
+    const localStrToUTC = (localStr: string): Date => {
+        const localDate = new Date(localStr);
+        return new Date(localDate.getTime() - localDate.getTimezoneOffset() * 60000);
+    };
 
     const submit = () => {
-        updateServer(server.id, { ...(server as unknown as Partial<Values>), daysUntilRenewal: days })
+        if (!renewalDateStr) {
+            console.error('No date selected');
+            return;
+        }
+
+        const utcDate = localStrToUTC(renewalDateStr);
+
+        updateServer(server.id, {
+            ...(server as unknown as Partial<Values>),
+            renewalDate: utcDate,
+        })
             .then(() => window.location.reload())
             .catch(error => console.log(error.message));
     };
@@ -25,7 +43,7 @@ export default ({ server }: { server: Server }) => {
     return (
         <>
             <Dialog open={open} onClose={() => setOpen(false)} title={'Edit Server Billing'}>
-                <Formik onSubmit={() => undefined} initialValues={{}}>
+                <Formik onSubmit={submit} initialValues={{}}>
                     <Form>
                         <div className={'grid space-y-6'}>
                             <div>
@@ -38,6 +56,7 @@ export default ({ server }: { server: Server }) => {
                                     </span>
                                 </div>
                                 <button
+                                    type="button"
                                     onClick={() => setBillable(true)}
                                     className={classNames(
                                         billable ? 'bg-black/50' : 'bg-black/25',
@@ -47,6 +66,7 @@ export default ({ server }: { server: Server }) => {
                                     Enabled
                                 </button>
                                 <button
+                                    type="button"
                                     onClick={() => setBillable(false)}
                                     className={classNames(
                                         !billable ? 'bg-black/50' : 'bg-black/25',
@@ -56,28 +76,34 @@ export default ({ server }: { server: Server }) => {
                                     Disabled
                                 </button>
                             </div>
+
                             <div>
                                 <div className={'flex'}>
                                     <Label>
-                                        <ClockIcon className={'w-4 inline-flex'} /> Days until Renewal
+                                        <ClockIcon className={'w-4 inline-flex'} /> Renewal Date
                                     </Label>
                                     <span className={'ml-2 italic text-gray-400 text-sm'}>
-                                        How many days should there be left?
+                                        Adjust when this server will renew.
                                     </span>
                                 </div>
                                 <Input
-                                    defaultValue={days}
-                                    type={'number'}
-                                    onChange={e => setDays(Number(e.currentTarget.value))}
-                                ></Input>
+                                    type="datetime-local"
+                                    value={renewalDateStr}
+                                    onChange={e => setRenewalDateStr(e.target.value)}
+                                />
+                                <p>Server will be set to next renew on: {renewalDateStr.split('T')[0]}</p>
                             </div>
+
                             <div className={'ml-auto'}>
-                                <Button onClick={submit}>Save Changes</Button>
+                                <Button type="button" onClick={submit}>
+                                    Save Changes
+                                </Button>
                             </div>
                         </div>
                     </Form>
                 </Formik>
             </Dialog>
+
             <Button size={Button.Sizes.Small} onClick={() => setOpen(true)}>
                 Edit <PencilAltIcon className={'ml-1 w-4'} />
             </Button>

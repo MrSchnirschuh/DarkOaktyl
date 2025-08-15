@@ -21,7 +21,7 @@ export default class Transformers {
         limits: { ...data.limits },
         eggFeatures: data.egg_features || [],
         billingProductId: data.billing_product_id,
-        daysUntilRenewal: data.days_until_renewal,
+        renewalDate: data.renewal_date,
         featureLimits: { ...data.feature_limits },
         isTransferring: data.is_transferring,
         variables: ((data.relationships?.variables as FractalResponseList | undefined)?.data || []).map(

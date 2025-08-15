@@ -40,7 +40,7 @@ use Everest\Exceptions\Http\Server\ServerStateConflictException;
  * @property string|null $startup
  * @property string $image
  * @property int|null $billing_product_id
- * @property int|null $days_until_renewal
+ * @property \Illuminate\Support\Carbon|null $renewal_date
  * @property int|null $allocation_limit
  * @property int|null $database_limit
  * @property int $backup_limit
@@ -171,7 +171,7 @@ class Server extends Model
         'skip_scripts' => 'sometimes|boolean',
         'image' => 'required|string|max:191',
         'billing_product_id' => 'nullable|int|exists:products,id',
-        'days_until_renewal' => 'nullable|int',
+        'renewal_date' => 'nullable|date',
         'database_limit' => 'present|nullable|integer|min:0',
         'allocation_limit' => 'sometimes|nullable|integer|min:0',
         'backup_limit' => 'present|nullable|integer|min:0',
@@ -196,7 +196,7 @@ class Server extends Model
         'nest_id' => 'integer',
         'egg_id' => 'integer',
         'billing_product_id' => 'integer',
-        'days_until_renewal' => 'integer',
+        'renewal_date' => 'datetime',
         'database_limit' => 'integer',
         'allocation_limit' => 'integer',
         'backup_limit' => 'integer',

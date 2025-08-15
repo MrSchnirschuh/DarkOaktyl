@@ -78,8 +78,8 @@ function ServerRouter() {
         };
     }, [params.id]);
 
-    if (billable && server.daysUntilRenewal < 0)
-        return <Suspended id={server.billingProductId} days={server.daysUntilRenewal ?? 0} />;
+    if (billable && server.renewalDate < 0)
+        return <Suspended id={server.billingProductId} days={server.renewalDate ?? 0} />;
 
     return (
         <Fragment key={'server-router'}>

@@ -55,7 +55,7 @@ export interface Server extends Model {
         image: string;
         environment: Record<string, string>;
     };
-    daysUntilRenewal?: number;
+    renewalDate?: Date | undefined;
     billingProductId?: number;
     createdAt: Date;
     updatedAt: Date;

@@ -62,7 +62,6 @@ class ServerTransformer extends Transformer
             'docker_image' => $server->image,
             'egg_features' => $server->egg->inherit_features,
             'billing_product_id' => $server->billing_product_id,
-            'days_until_renewal' => $server->days_until_renewal,
             'feature_limits' => [
                 'databases' => $server->database_limit,
                 'allocations' => $server->allocation_limit,
@@ -70,6 +69,7 @@ class ServerTransformer extends Transformer
                 'subusers' => $server->subuser_limit,
             ],
             'status' => $server->status,
+            'renewal_date' => self::formatTimestamp($server->renewal_date),
             'is_transferring' => !is_null($server->transfer),
         ];
     }

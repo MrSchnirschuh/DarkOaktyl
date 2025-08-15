@@ -2,6 +2,7 @@
 
 namespace Everest\Services\Billing;
 
+use Carbon\Carbon;
 use Everest\Models\Egg;
 use Stripe\StripeObject;
 use Everest\Models\Server;
@@ -54,7 +55,7 @@ class CreateServerService
                 'environment' => $environment,
                 'image' => current($egg->docker_images),
                 'billing_product_id' => $product->id,
-                'days_until_renewal' => 30,
+                'renewal_date' => Carbon::now()->addDays(30),
                 'database_limit' => $product->database_limit,
                 'backup_limit' => $product->backup_limit,
                 'allocation_limit' => $product->allocation_limit,
