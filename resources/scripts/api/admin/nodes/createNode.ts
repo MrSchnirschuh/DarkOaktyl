@@ -11,6 +11,7 @@ export interface Values {
     public: boolean;
     daemonBase: string;
     deployable: boolean;
+    deployableFree: boolean;
 
     memory: number;
     memoryOverallocate: number;

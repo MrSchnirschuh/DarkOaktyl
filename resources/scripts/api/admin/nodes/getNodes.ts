@@ -26,6 +26,7 @@ export interface Node {
     uploadSize: number;
     daemonBase: string;
     deployable: boolean;
+    deployableFree: boolean;
     createdAt: Date;
     updatedAt: Date;
 
@@ -60,6 +61,7 @@ export const rawDataToNode = ({ attributes, meta }: FractalResponseData): Node =
     uploadSize: attributes.upload_size,
     daemonBase: attributes.daemon_base,
     deployable: attributes.deployable,
+    deployableFree: attributes.deployable_free,
     createdAt: new Date(attributes.created_at),
     updatedAt: new Date(attributes.updated_at),
 

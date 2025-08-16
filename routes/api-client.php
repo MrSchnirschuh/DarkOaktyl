@@ -70,7 +70,7 @@ Route::prefix('/')->middleware([SuspendedAccount::class])->group(function () {
     });
 
     Route::prefix('/billing')->group(function () {
-        Route::get('/nodes', [Client\Billing\NodesController::class, 'index']);
+        Route::post('/nodes/{product:id}', [Client\Billing\NodesController::class, 'index']);
         Route::get('/categories', [Client\Billing\CategoryController::class, 'index']);
 
         Route::get('/categories/{id}', [Client\Billing\ProductController::class, 'index']);

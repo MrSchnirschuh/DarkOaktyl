@@ -23,6 +23,7 @@ class StoreNodeRequest extends ApplicationApiRequest
             'behind_proxy',
             'public',
             'deployable',
+            'deployable_free',
 
             'listen_port_http',
             'public_port_http',

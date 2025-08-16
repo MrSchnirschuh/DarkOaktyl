@@ -3,6 +3,8 @@
 namespace Everest\Http\Controllers\Api\Client\Billing;
 
 use Everest\Models\Node;
+use Illuminate\Http\Request;
+use Everest\Models\Billing\Product;
 use Everest\Models\Billing\BillingException;
 use Everest\Transformers\Api\Client\NodeTransformer;
 use Everest\Http\Controllers\Api\Client\ClientApiController;
@@ -18,11 +20,13 @@ class NodesController extends ClientApiController
     /**
      * Returns all the nodes that the server can be deployed to.
      */
-    public function index(): array
+    public function index(Request $request, Product $product): array
     {
-        $nodes = Node::where('deployable', true)->get();
+        $free = (float) $product->price === 0.00;
 
-        if ($nodes->isEmpty()) {
+        $nodes = Node::where($free ? 'deployable_free' : 'deployable', true)->get();
+
+        if ($nodes->isEmpty() && !$free) {
             BillingException::create([
                 'title' => 'No deployable nodes found',
                 'exception_type' => BillingException::TYPE_DEPLOYMENT,

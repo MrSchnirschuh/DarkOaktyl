@@ -16,10 +16,11 @@ import type { ApplicationStore } from '@/state';
 import NodeBillingContainer from './NodeBillingContainer';
 import { PlusIcon } from '@heroicons/react/outline';
 
-type Values2 = Omit<Omit<Values, 'behindProxy'>, 'public' | 'deployable'> & {
+type Values2 = Omit<Omit<Values, 'behindProxy'>, 'public' | 'deployable' | 'deployableFree'> & {
     behindProxy: string;
     public: string;
     deployable: string;
+    deployableFree: string;
 };
 
 const initialValues: Values2 = {
@@ -32,6 +33,7 @@ const initialValues: Values2 = {
     public: 'true',
     daemonBase: '/var/lib/pterodactyl/volumes',
     deployable: 'false',
+    deployableFree: 'false',
 
     listenPortHTTP: 8080,
     publicPortHTTP: 8080,
@@ -59,6 +61,7 @@ export default () => {
             behindProxy: values2.behindProxy === 'true',
             public: values2.public === 'true',
             deployable: values2.deployable === 'true',
+            deployableFree: values2.deployableFree === 'true',
         };
 
         createNode(values)

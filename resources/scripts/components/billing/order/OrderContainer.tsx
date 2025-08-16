@@ -74,7 +74,7 @@ export default () => {
                 setProduct(productData);
 
                 // Fetch nodes
-                const nodesData = await getNodes();
+                const nodesData = await getNodes(productData.id);
                 setNodes(nodesData);
                 setSelectedNode(Number(nodesData[0]?.id) ?? 0);
 

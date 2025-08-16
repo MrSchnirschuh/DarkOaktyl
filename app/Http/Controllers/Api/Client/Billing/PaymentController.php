@@ -4,6 +4,7 @@ namespace Everest\Http\Controllers\Api\Client\Billing;
 
 use Carbon\Carbon;
 use Stripe\StripeClient;
+use Everest\Models\Node;
 use Everest\Models\Server;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -96,6 +97,10 @@ class PaymentController extends ClientApiController
     {
         $product = Product::findOrFail($id);
         $intent = $this->stripe->paymentIntents->retrieve($request->input('intent'));
+
+        if (!Node::findOrFail($request->input('node_id'))->deployable) {
+            throw new DisplayException('Paid servers cannot be deployed to this node.');
+        }
 
         if (!$intent) {
             BillingException::create([

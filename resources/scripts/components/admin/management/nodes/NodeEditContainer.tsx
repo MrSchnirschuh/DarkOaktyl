@@ -26,6 +26,7 @@ interface Values {
     behindProxy: string; // Yes, this is technically a boolean.
     public: string; // Yes, this is technically a boolean.
     deployable: string; // Yes, this is technically a boolean.
+    deployableFree: string;
     daemonBase: string; // This value cannot be updated once a node has been created.
 
     memory: number;
@@ -66,6 +67,7 @@ export default () => {
             behindProxy: values.behindProxy === 'true',
             public: values.public === 'true',
             deployable: values.deployable === 'true',
+            deployableFree: values.deployableFree === 'true',
             databaseHostId: values.databaseHostId,
         };
 
@@ -89,6 +91,7 @@ export default () => {
                 behindProxy: node.behindProxy ? 'true' : 'false',
                 public: node.public ? 'true' : 'false',
                 deployable: node.deployable ? 'true' : 'false',
+                deployableFree: node.deployableFree ? 'true' : 'false',
                 daemonBase: node.daemonBase,
 
                 listenPortHTTP: node.listenPortHTTP,

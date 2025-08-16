@@ -2,6 +2,7 @@
 
 namespace Everest\Http\Controllers\Api\Client\Billing;
 
+use Everest\Models\Node;
 use Everest\Models\Server;
 use Illuminate\Http\Request;
 use Everest\Models\Billing\Order;
@@ -38,6 +39,10 @@ class FreeProductController extends ClientApiController
 
         if ($user->servers()->where('billing_product_id', $request->input('product'))->count() > 0) {
             throw new DisplayException('You already own one of this free product. Nice try!');
+        }
+
+        if (!Node::findOrFail($request->input('node'))->deployable_free) {
+            throw new DisplayException('Free servers cannot be deployed to this node.');
         }
 
         $order = $this->orderService->create(null, $user, $product, Order::STATUS_PENDING, $this->getOrderType($request));
