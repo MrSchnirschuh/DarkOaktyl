@@ -98,6 +98,10 @@ class PaymentController extends ClientApiController
         $product = Product::findOrFail($id);
         $intent = $this->stripe->paymentIntents->retrieve($request->input('intent'));
 
+        if (config('modules.billing.enabled') !== '1') {
+            throw new DisplayException('The billing module is not enabled.');
+        };
+
         if (!Node::findOrFail($request->input('node_id'))->deployable) {
             throw new DisplayException('Paid servers cannot be deployed to this node.');
         }
@@ -143,6 +147,8 @@ class PaymentController extends ClientApiController
     {
         $order = Order::where('user_id', $request->user()->id)->latest()->first();
         $intent = $this->stripe->paymentIntents->retrieve($request->input('intent'));
+
+        if (!$this->settings->get('settings::modules:billing:enabled'))
 
         if (!$intent) {
             throw new DisplayException('Unable to fetch payment intent from Stripe.');
