@@ -69,9 +69,7 @@ export default () => {
             )}
             <div className={'grid lg:grid-cols-3 gap-4'}>
                 {!renewalDate ? (
-                    <Alert type={'danger'}>
-                        There is no present renewal date for your server. Please contact an administrator.
-                    </Alert>
+                    <Alert type={'warning'}>There is no present renewal date for your server.</Alert>
                 ) : (
                     <ContentBox title={'Summary'}>
                         <SpinnerOverlay visible={loading} />
@@ -120,7 +118,13 @@ export default () => {
                             server, you&apos;ll need to speak to an administrator.
                         </Alert>
                     ) : (
-                        <PaymentContainer id={Number(product!.id)} />
+                        <>
+                            {product.price === 0 ? (
+                                <>You cannot renew a free server. It will be renewed automatically.</>
+                            ) : (
+                                <PaymentContainer id={Number(product.id)} />
+                            )}
+                        </>
                     )}
                 </ContentBox>
             </div>

@@ -17,7 +17,7 @@ use Everest\Services\Billing\CreateServerService;
 use Everest\Http\Controllers\Api\Client\ClientApiController;
 use Everest\Contracts\Repository\SettingsRepositoryInterface;
 
-class StripeController extends ClientApiController
+class PaymentController extends ClientApiController
 {
     public function __construct(
         private CreateOrderService $orderService,

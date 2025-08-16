@@ -1,7 +1,7 @@
 import http, { FractalResponseData } from '@/api/http';
 
 export interface Product {
-    id: string;
+    id: number;
     name: string;
     icon?: string;
     price: number;

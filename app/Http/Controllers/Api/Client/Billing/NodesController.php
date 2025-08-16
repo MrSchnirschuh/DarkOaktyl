@@ -8,7 +8,7 @@ use Everest\Transformers\Api\Client\NodeTransformer;
 use Everest\Http\Controllers\Api\Client\ClientApiController;
 use Everest\Repositories\Wings\DaemonConfigurationRepository;
 
-class BillingController extends ClientApiController
+class NodesController extends ClientApiController
 {
     public function __construct(private DaemonConfigurationRepository $repository)
     {
@@ -18,7 +18,7 @@ class BillingController extends ClientApiController
     /**
      * Returns all the nodes that the server can be deployed to.
      */
-    public function nodes(): array
+    public function index(): array
     {
         $nodes = Node::where('deployable', true)->get();
 

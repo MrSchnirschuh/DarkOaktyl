@@ -1,6 +1,6 @@
 import Spinner from '@elements/Spinner';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useStoreState } from '@/state/hooks';
 import { Product } from '@/api/billing/products';
 import { getProduct } from '@/api/billing/products';
@@ -29,6 +29,9 @@ import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe, Stripe } from '@stripe/stripe-js';
 import { getPublicKey } from '@/api/billing/key';
 import { EggVariable } from '@/api/definitions/server';
+import { Button } from '@/components/elements/button';
+import processUnpaidOrder from '@/api/billing/processUnpaidOrder';
+import FlashMessageRender from '@/components/FlashMessageRender';
 
 const LimitBox = ({ icon, content }: { icon: IconDefinition; content: string }) => {
     return (
@@ -43,7 +46,8 @@ export default () => {
     const params = useParams<'id'>();
 
     const vars = new Map<string, string>();
-    const { clearFlashes } = useFlash();
+    const { clearFlashes, clearAndAddHttpError } = useFlash();
+    const navigate = useNavigate();
 
     const [stripe, setStripe] = useState<Stripe | null>(null);
     const [intent, setIntent] = useState<PaymentIntent | null>(null);
@@ -53,6 +57,14 @@ export default () => {
     const [eggs, setEggs] = useState<EggVariable[] | undefined>();
 
     const { colors } = useStoreState(state => state.theme.data!);
+
+    const createFree = () => {
+        if (product) {
+            processUnpaidOrder(product.id, selectedNode)
+                .then(() => navigate('/'))
+                .catch(error => clearAndAddHttpError({ key: 'account:billing:order', error }));
+        }
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -66,14 +78,16 @@ export default () => {
                 setNodes(nodesData);
                 setSelectedNode(Number(nodesData[0]?.id) ?? 0);
 
-                // Fetch payment intent
-                const intentData = await getIntent(Number(params.id));
-                setIntent({ id: intentData.id, secret: intentData.secret });
+                if (productData.price !== 0) {
+                    // Fetch payment intent
+                    const intentData = await getIntent(Number(params.id));
+                    setIntent({ id: intentData.id, secret: intentData.secret });
 
-                // Fetch Stripe public key and initialize Stripe
-                const stripePublicKey = await getPublicKey(Number(params.id));
-                const stripeInstance = await loadStripe(stripePublicKey.key);
-                setStripe(stripeInstance);
+                    // Fetch Stripe public key and initialize Stripe
+                    const stripePublicKey = await getPublicKey(Number(params.id));
+                    const stripeInstance = await loadStripe(stripePublicKey.key);
+                    setStripe(stripeInstance);
+                }
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -93,10 +107,11 @@ export default () => {
             .catch(error => console.error(error));
     }, [product]);
 
-    if (!product || !intent || !stripe) return <Spinner centered />;
+    if (!product) return <Spinner centered />;
+    if (product.price !== 0 && (!intent || !stripe)) return <Spinner centered />;
 
     const options = {
-        clientSecret: intent.secret,
+        clientSecret: intent?.secret,
         appearance: {
             theme: 'night',
             variables: {
@@ -107,6 +122,7 @@ export default () => {
 
     return (
         <PageContentBlock title={'Your Order'}>
+            <FlashMessageRender byKey={'account:billing:order'} className={'mb-4'} />
             {/* @ts-expect-error this is fine, stripe library is just weird */}
             <Elements stripe={stripe} options={options}>
                 <div className={'text-3xl lg:text-5xl font-bold mt-8 mb-12'}>
@@ -188,14 +204,25 @@ export default () => {
                                     <div className={'h-px bg-gray-700 rounded-full'} />
                                 </>
                             )}
-                            <div className={'w-full mt-8'}>
-                                <PaymentButton
-                                    selectedNode={selectedNode}
-                                    product={product}
-                                    vars={vars}
-                                    intent={intent}
-                                />
-                            </div>
+                            {product.price !== 0 && intent ? (
+                                <div className={'w-full mt-8'}>
+                                    <PaymentButton
+                                        selectedNode={selectedNode}
+                                        product={product}
+                                        vars={vars}
+                                        intent={intent}
+                                    />
+                                </div>
+                            ) : (
+                                <div className={'flex w-full mt-8'}>
+                                    <p className={'font-semibold text-gray-400'}>
+                                        As this product is free, no purchase needs to be made via our payment gateways.
+                                    </p>
+                                    <Button className={'ml-auto'} onClick={createFree}>
+                                        Create Server
+                                    </Button>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

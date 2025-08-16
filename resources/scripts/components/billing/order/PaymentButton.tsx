@@ -17,8 +17,8 @@ interface Props {
 export default (data: Props) => {
     const stripe = useStripe();
     const elements = useElements();
-    const { clearFlashes } = useFlash();
     const [loading, setLoading] = useState(false);
+    const { clearFlashes, clearAndAddHttpError } = useFlash();
 
     const handleSubmit = async (event: FormEvent) => {
         clearFlashes();
@@ -34,14 +34,16 @@ export default (data: Props) => {
             intent: data.intent.id,
             node_id: data.selectedNode!,
             vars: variables,
-        }).then(() => {
-            stripe.confirmPayment({
-                elements,
-                confirmParams: {
-                    return_url: window.location.origin + '/account/billing/processing',
-                },
-            });
-        });
+        })
+            .then(() => {
+                stripe.confirmPayment({
+                    elements,
+                    confirmParams: {
+                        return_url: window.location.origin + '/account/billing/processing',
+                    },
+                });
+            })
+            .catch(error => clearAndAddHttpError({ key: 'account:billing:order', error }));
     };
 
     return (

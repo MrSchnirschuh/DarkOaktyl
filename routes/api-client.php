@@ -70,18 +70,20 @@ Route::prefix('/')->middleware([SuspendedAccount::class])->group(function () {
     });
 
     Route::prefix('/billing')->group(function () {
-        Route::get('/nodes', [Client\Billing\BillingController::class, 'nodes']);
+        Route::get('/nodes', [Client\Billing\NodesController::class, 'index']);
         Route::get('/categories', [Client\Billing\CategoryController::class, 'index']);
 
         Route::get('/categories/{id}', [Client\Billing\ProductController::class, 'index']);
         Route::get('/products/{id}', [Client\Billing\ProductController::class, 'view']);
         Route::get('/products/{id}/variables', [Client\Billing\EggController::class, 'index']);
 
-        Route::get('/products/{id}/key', [Client\Billing\StripeController::class, 'publicKey']);
+        Route::get('/products/{id}/key', [Client\Billing\PaymentController::class, 'publicKey']);
 
-        Route::post('/products/{id}/intent', [Client\Billing\StripeController::class, 'intent']);
-        Route::put('/products/{id}/intent', [Client\Billing\StripeController::class, 'updateIntent']);
-        Route::post('/process', [Client\Billing\StripeController::class, 'process'])->name('api:client.billing.process');
+        Route::post('/products/{id}/intent', [Client\Billing\PaymentController::class, 'intent']);
+        Route::put('/products/{id}/intent', [Client\Billing\PaymentController::class, 'updateIntent']);
+
+        Route::post('/process', [Client\Billing\PaymentController::class, 'process'])->name('api:client.billing.process');
+        Route::post('/process/free', [Client\Billing\FreeProductController::class, 'process']);
 
         Route::get('/orders', [Client\Billing\OrderController::class, 'index']);
         Route::get('/orders/{id}', [Client\Billing\OrderController::class, 'view']);

@@ -20,6 +20,7 @@ import { useEffect, useState } from 'react';
 import { getCategory } from '@/api/admin/billing/categories';
 import { Product } from '@/api/definitions/admin';
 import { ProductValues } from '@/api/admin/billing/types';
+import { Alert } from '@/components/elements/alert';
 
 export default ({ product }: { product?: Product }) => {
     const navigate = useNavigate();
@@ -59,10 +60,10 @@ export default ({ product }: { product?: Product }) => {
 
     useEffect(() => {
         getCategory(Number(params.id)).then(category => setUuid(category.uuid));
-    });
+    }, [params.id]);
 
     return (
-        <AdminContentBlock title={'New Product'}>
+        <AdminContentBlock title={product ? 'Edit Product' : 'New Product'}>
             <div css={tw`w-full flex flex-row items-center m-8`}>
                 {product?.icon ? (
                     <img src={product.icon} className={'ww-8 h-8 mr-4'} />
@@ -92,12 +93,11 @@ export default ({ product }: { product?: Product }) => {
                 onSubmit={submit}
                 initialValues={{
                     categoryUuid: uuid!,
-
                     name: product?.name ?? 'Plan Name',
                     icon: product?.icon ?? undefined,
-                    price: product?.price ?? 9.99,
+                    // @ts-expect-error this is fine
+                    price: product?.price?.toString() ?? '9.99',
                     description: product?.description ?? 'This is a server plan.',
-
                     limits: {
                         cpu: product?.limits.cpu ?? 100,
                         memory: product?.limits.memory ?? 1024,
@@ -110,7 +110,7 @@ export default ({ product }: { product?: Product }) => {
                 validationSchema={object().shape({
                     name: string().required().max(191).min(3),
                     icon: string().nullable().max(191).min(3),
-                    price: number().required().min(0),
+                    price: number().typeError('Price must be a number').required().min(0, 'Price cannot be negative'),
                     description: string().nullable().max(191).min(3),
                     limits: object().shape({
                         cpu: number().required().min(10),
@@ -122,7 +122,7 @@ export default ({ product }: { product?: Product }) => {
                     }),
                 })}
             >
-                {({ isSubmitting, isValid }) => (
+                {({ values, isSubmitting, isValid, handleChange }) => (
                     <Form>
                         <div css={tw`grid grid-cols-1 lg:grid-cols-2 gap-4`}>
                             <div css={tw`w-full flex flex-col mr-0 lg:mr-2`}>
@@ -152,7 +152,8 @@ export default ({ product }: { product?: Product }) => {
                                         <Field
                                             id={'price'}
                                             name={'price'}
-                                            type={'text'}
+                                            type={'text'} // changed from number to text
+                                            onChange={handleChange}
                                             label={'Monthly Cost'}
                                             description={
                                                 'The cost of this product monthly in the selected billing currency.'
@@ -174,14 +175,14 @@ export default ({ product }: { product?: Product }) => {
                                             name={'limits.memory'}
                                             type={'text'}
                                             label={'Memory Limit (MB)'}
-                                            description={'The amount of a memory a server is allowed to use.'}
+                                            description={'The amount of memory a server is allowed to use.'}
                                         />
                                         <Field
                                             id={'limits.disk'}
                                             name={'limits.disk'}
                                             type={'text'}
                                             label={'Disk Limit (MB)'}
-                                            description={'The amount of a disk a server is allowed to use.'}
+                                            description={'The amount of disk a server is allowed to use.'}
                                         />
                                     </FieldRow>
                                 </AdminBox>
@@ -212,6 +213,19 @@ export default ({ product }: { product?: Product }) => {
                                         />
                                     </FieldRow>
                                 </AdminBox>
+                                {/* Dynamic alerts based on price */}
+                                {Number(values.price) === 0 && (
+                                    <Alert type={'warning'} className={'mt-4'}>
+                                        You have set this product to be free. Please confirm this choice before
+                                        proceeding, otherwise users will be able to use this plan without payment.
+                                    </Alert>
+                                )}
+                                {Number(values.price) === 0 && (
+                                    <Alert type={'info'} className={'mt-4'}>
+                                        As this product is free, users will only be able to use it once to prevent
+                                        abuse.
+                                    </Alert>
+                                )}
                                 <div css={tw`rounded shadow-md mt-4 py-2 pr-6`} style={{ backgroundColor: secondary }}>
                                     <div css={tw`text-right`}>
                                         {product && <ProductDeleteButton product={product} />}
