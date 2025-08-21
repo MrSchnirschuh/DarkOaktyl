@@ -2,9 +2,8 @@
 
 namespace Everest\Http\Controllers\Api\Client\Billing;
 
-use Carbon\Carbon;
-use Stripe\StripeClient;
 use Everest\Models\Node;
+use Stripe\StripeClient;
 use Everest\Models\Server;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -100,7 +99,7 @@ class PaymentController extends ClientApiController
 
         if (config('modules.billing.enabled') !== '1') {
             throw new DisplayException('The billing module is not enabled.');
-        };
+        }
 
         if (!Node::findOrFail($request->input('node_id'))->deployable) {
             throw new DisplayException('Paid servers cannot be deployed to this node.');
@@ -148,16 +147,16 @@ class PaymentController extends ClientApiController
         $order = Order::where('user_id', $request->user()->id)->latest()->first();
         $intent = $this->stripe->paymentIntents->retrieve($request->input('intent'));
 
-        if (!$this->settings->get('settings::modules:billing:enabled'))
-
-        if (!$intent) {
-            throw new DisplayException('Unable to fetch payment intent from Stripe.');
-            BillingException::create([
-                'order_id' => $order->id,
-                'exception_type' => BillingException::TYPE_DEPLOYMENT,
-                'title' => 'Unable to fetch PaymentIntent while processing order',
-                'description' => 'Check Stripe Dashboard and ask in the Jexactyl Discord for support',
-            ]);
+        if (!$this->settings->get('settings::modules:billing:enabled')) {
+            if (!$intent) {
+                throw new DisplayException('Unable to fetch payment intent from Stripe.');
+                BillingException::create([
+                    'order_id' => $order->id,
+                    'exception_type' => BillingException::TYPE_DEPLOYMENT,
+                    'title' => 'Unable to fetch PaymentIntent while processing order',
+                    'description' => 'Check Stripe Dashboard and ask in the Jexactyl Discord for support',
+                ]);
+            }
         }
 
         // Check if order has already been processed

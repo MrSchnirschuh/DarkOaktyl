@@ -18,9 +18,7 @@ class FreeProductController extends ClientApiController
     public function __construct(
         private CreateServerService $serverCreation,
         private CreateOrderService $orderService
-        
-    )
-    {
+    ) {
         parent::__construct();
     }
 
@@ -35,11 +33,11 @@ class FreeProductController extends ClientApiController
 
         if (config('modules.billing.enabled') !== '1') {
             throw new DisplayException('The billing module is not enabled.');
-        };
+        }
 
         if ((float) $product->price !== 0.0) {
             throw new DisplayException('This product holds a value greater than zero.');
-        };
+        }
 
         if ($user->servers()->where('billing_product_id', $request->input('product'))->count() > 0) {
             throw new DisplayException('You already own one of this free product. Nice try!');
