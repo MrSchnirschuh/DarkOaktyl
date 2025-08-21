@@ -65,7 +65,11 @@ function DashboardRouter() {
                     {!collapsed ? (
                         <h1 className={'text-2xl text-neutral-50 whitespace-nowrap font-medium'}>{name}</h1>
                     ) : (
-                        <img src={CollapsedIcon} className={'mt-4 w-12'} alt={'Everest Icon'} />
+                        <img
+                            src={'https://avatars.githubusercontent.com/u/91636558'}
+                            className={'mt-4 w-12'}
+                            alt={'Logo'}
+                        />
                     )}
                 </div>
                 <Sidebar.Wrapper theme={theme}>

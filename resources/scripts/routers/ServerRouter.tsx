@@ -16,7 +16,6 @@ import PermissionRoute from '@elements/PermissionRoute';
 import routes from '@/routers/routes';
 import Sidebar from '@elements/Sidebar';
 import { usePersistedState } from '@/plugins/usePersistedState';
-import CollapsedIcon from '@/assets/images/logo.png';
 import { CogIcon, DesktopComputerIcon, PuzzleIcon, ReplyIcon } from '@heroicons/react/outline';
 import SidebarControls from '@/components/server/console/SidebarControls';
 import classNames from 'classnames';
@@ -78,8 +77,8 @@ function ServerRouter() {
         };
     }, [params.id]);
 
-    if (billable && server.renewalDate < 0)
-        return <Suspended id={server.billingProductId} days={server.renewalDate ?? 0} />;
+    if (billable && server.renewalDate && server.renewalDate.getTime() < new Date().getTime())
+        return <Suspended id={server.billingProductId} date={server.renewalDate} />;
 
     return (
         <Fragment key={'server-router'}>
@@ -111,7 +110,11 @@ function ServerRouter() {
                         {!collapsed ? (
                             <h1 className={'text-2xl text-neutral-50 whitespace-nowrap font-medium'}>{name}</h1>
                         ) : (
-                            <img src={CollapsedIcon} className={'mt-4 w-12'} alt={'Everest Icon'} />
+                            <img
+                                src={'https://avatars.githubusercontent.com/u/91636558'}
+                                className={'mt-4 w-12'}
+                                alt={'Logo'}
+                            />
                         )}
                     </div>
                     <Sidebar.Wrapper theme={theme} className={'mb-auto'}>

@@ -91,7 +91,7 @@ const NotFound = ({ title, message, onBack }: Partial<Pick<ScreenBlockProps, 'ti
     />
 );
 
-const Suspended = ({ days, id }: { days: number; id?: number }) => {
+const Suspended = ({ date, id }: { date: Date; id?: number }) => {
     const [product, setProduct] = useState<Product>();
 
     const navigate = useNavigate();
@@ -125,7 +125,7 @@ const Suspended = ({ days, id }: { days: number; id?: number }) => {
                     <h2 css={tw`text-white font-bold text-4xl`}>Suspended - No Payment</h2>
                     <p css={tw`text-sm text-neutral-400 mt-2`}>
                         Your server has been suspended due to a lack of payment. Your server will be deleted{' '}
-                        <span className={'font-bold'}>in {days + 7} day(s) </span>
+                        <span className={'font-bold'}>on {date.toDateString()}</span>
                         if you do not choose to pay the monthly cost for your server.
                         <div className={'mt-2 text-gray-300 font-semibold'}>
                             Your outstanding balance is:
