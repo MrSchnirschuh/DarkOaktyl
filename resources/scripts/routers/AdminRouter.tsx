@@ -1,7 +1,6 @@
 import { useStoreState } from 'easy-peasy';
 import { NavLink, Route, Routes } from 'react-router-dom';
 import Avatar from '@/components/Avatar';
-import CollapsedIcon from '@/assets/images/logo.png';
 import Sidebar from '@elements/Sidebar';
 import AdminIndicators from '@admin/AdminIndicators';
 import { usePersistedState } from '@/plugins/usePersistedState';
@@ -47,7 +46,11 @@ function AdminRouter() {
                     {!collapsed ? (
                         <h1 className={'text-2xl text-neutral-50 whitespace-nowrap font-medium'}>{settings.name}</h1>
                     ) : (
-                        <img src={CollapsedIcon} className={'mt-4 w-12'} />
+                        <img
+                            src={'https://avatars.githubusercontent.com/u/91636558'}
+                            className={'mt-4 w-12'}
+                            alt={'Logo'}
+                        />
                     )}
                 </div>
                 <Sidebar.Wrapper theme={theme} $admin>

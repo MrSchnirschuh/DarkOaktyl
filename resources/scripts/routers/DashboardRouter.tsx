@@ -5,7 +5,6 @@ import { NotFound } from '@elements/ScreenBlock';
 import Spinner from '@elements/Spinner';
 import routes from '@/routers/routes';
 import { useStoreState } from '@/state/hooks';
-import CollapsedIcon from '@/assets/images/logo.png';
 import { usePersistedState } from '@/plugins/usePersistedState';
 import Sidebar from '@elements/Sidebar';
 import { CogIcon, DesktopComputerIcon, ExternalLinkIcon, LogoutIcon, PuzzleIcon } from '@heroicons/react/outline';
