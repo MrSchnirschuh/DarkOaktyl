@@ -7,13 +7,11 @@ import ThemeSelect from './ThemeSelect';
 import MigrationChecker from './MigrationChecker';
 import ModeSelection from './ModeSelection';
 import { finishSetup } from '@/api/setup';
-import { usePersistedState } from '@/plugins/usePersistedState';
 
 export default () => {
     const [stage, setStage] = useState<number>(1);
     const { primary } = useStoreState(s => s.theme.data!.colors);
     const [fadeIn, setFadeIn] = useState(false);
-    const [_setup, setSetup] = usePersistedState<boolean>('setup', false);
 
     useEffect(() => {
         setFadeIn(true);
@@ -21,7 +19,6 @@ export default () => {
 
     const doFinish = () => {
         finishSetup().then(() => {
-            setSetup(true);
             window.location.reload();
         });
     };
