@@ -85,7 +85,7 @@ function RegisterContainer() {
                         label={'Username'}
                         icon={faIdBadge}
                         name={'username'}
-                        placeholder={'jexactyl_user'}
+                        placeholder={'user_account'}
                         disabled={isSubmitting}
                     />
                     <div css={tw`mt-6`}>
@@ -94,7 +94,7 @@ function RegisterContainer() {
                             label={'Email Address'}
                             icon={faAt}
                             name={'email'}
-                            placeholder={'user@jexactyl.com'}
+                            placeholder={'user@jexpanel.com'}
                             disabled={isSubmitting}
                         />
                     </div>

@@ -102,7 +102,7 @@ function LoginContainer() {
                         label={'Username or Email'}
                         name={'username'}
                         disabled={isSubmitting}
-                        placeholder={'user@jexactyl.com'}
+                        placeholder={'user@jexpanel.com'}
                     />
                     <div css={tw`mt-6`}>
                         <Label>
