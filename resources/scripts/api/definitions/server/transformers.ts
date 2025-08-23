@@ -156,7 +156,7 @@ export default class Transformers {
             createdAt: new Date(attributes.created_at),
             updatedAt: new Date(attributes.updated_at),
             // @ts-expect-error this is fine
-            tasks: (attributes.relationships?.tasks?.data || []).map((row: any) => this.toServerTask(row.attributes)),
+            tasks: (attributes.relationships?.tasks?.data || []).map((row: any) => this.toTask(row.attributes)),
         };
     };
 }
