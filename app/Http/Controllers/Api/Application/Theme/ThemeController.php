@@ -42,4 +42,19 @@ class ThemeController extends ApplicationApiController
 
         return $this->returnNoContent();
     }
+
+    /**
+     * Delete a single theme color key (used for removing presets cleanly).
+     */
+    public function deleteColor(Request $request): Response
+    {
+        $key = $request->input('key');
+        if (! $key) {
+            return $this->returnNoContent();
+        }
+
+        $this->settings->forget('theme::colors:' . $key);
+
+        return $this->returnNoContent();
+    }
 }

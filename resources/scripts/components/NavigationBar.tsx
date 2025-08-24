@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faHeart, faIdBadge } from '@fortawesome/free-solid-svg-icons';
-import { useStoreState } from 'easy-peasy';
+import { useStoreState, useStoreActions } from '@/state/hooks';
 import SearchContainer from '@/components/dashboard/search/SearchContainer';
 import tw from 'twin.macro';
 import styled from 'styled-components';
 import { SiteTheme } from '@/state/theme';
 import { Link, useLocation } from 'react-router-dom';
-import { ChevronRightIcon, HomeIcon } from '@heroicons/react/outline';
+import { ChevronRightIcon, HomeIcon, SunIcon, MoonIcon } from '@heroicons/react/outline';
 import { useActivityLogs } from '@/api/account/activity';
 import Spinner from './elements/Spinner';
 import { formatDistanceToNow } from 'date-fns';
@@ -34,12 +34,15 @@ const NavigationBar = () => {
 
     const location = useLocation();
     const theme = useStoreState(state => state.theme.data!);
+    const currentMode = useStoreState(s => s.theme.mode ?? 'dark');
+    const setMode = useStoreActions(a => a.theme.setMode);
     const user = useStoreState(state => state.user.data!);
     const { data } = useActivityLogs({ page: 1 }, { revalidateOnMount: true, revalidateOnFocus: false });
 
     const pathnames = location.pathname.split('/').filter(Boolean);
 
     useEffect(() => {
+        // Use a less aggressive interval to reduce re-renders (was 75ms, which can be expensive).
         const interval = setInterval(() => {
             setWidth(prev => {
                 if (prev >= 80) {
@@ -48,7 +51,7 @@ const NavigationBar = () => {
                 }
                 return prev + 1;
             });
-        }, 75);
+        }, 300);
         return () => clearInterval(interval);
     }, []);
 
@@ -120,6 +123,20 @@ const NavigationBar = () => {
             <div className="px-8 flex h-[3.5rem] w-full items-center">
                 {renderBreadcrumbs()}
                 <RightNavigation className="flex h-full items-center justify-center ml-auto" theme={theme}>
+                    <div className="mr-4 flex items-center">
+                        <button
+                            type="button"
+                            onClick={() => setMode(currentMode === 'dark' ? 'light' : 'dark')}
+                            className={'p-0 rounded hover:bg-neutral-700/20'}
+                            aria-label={currentMode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+                        >
+                            {currentMode === 'dark' ? (
+                                <MoonIcon className="w-5 h-5 text-neutral-300" />
+                            ) : (
+                                <SunIcon className="w-5 h-5 text-white" />
+                            )}
+                        </button>
+                    </div>
                     <div className="relative">
                         <div
                             className="absolute top-0 h-px transition-all duration-[250ms] ease-in-out"

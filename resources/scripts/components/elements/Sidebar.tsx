@@ -15,7 +15,8 @@ const Wrapper = styled.div<{ theme: SiteTheme; $admin?: boolean }>`
     ${tw`w-full flex flex-col px-4`};
 
     & > a {
-        ${tw`w-full flex flex-row items-center text-neutral-300 cursor-pointer select-none px-4`};
+        ${tw`w-full flex flex-row items-center cursor-pointer select-none px-4`};
+        color: ${({ theme }) => theme.colors.text};
         ${tw`hover:text-neutral-50`};
         height: ${({ $admin }) => ($admin ? '2.5rem' : '4rem')};
         ${tw`transition ease-in-out delay-200 duration-200`};
@@ -58,7 +59,8 @@ const Sidebar = styled.div<{ $collapsed?: boolean; theme: SiteTheme }>`
 
     & > a,
     & > span > a {
-        ${tw`h-10 w-full flex flex-row items-center text-neutral-300 cursor-pointer select-none px-8`};
+        ${tw`h-10 w-full flex flex-row items-center cursor-pointer select-none px-8`};
+        color: ${({ theme }) => theme.colors.text};
         ${tw`hover:text-neutral-50`};
 
         & > svg {

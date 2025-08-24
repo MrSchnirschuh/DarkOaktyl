@@ -72,7 +72,7 @@ export default () => {
     }, [error]);
 
     return (
-        <PageContentBlock title={`Welcome to ${name}`} header description={`Signed in as ${user.email}`}>
+        <PageContentBlock title={`Welcome to ${name}`} header description={`Signed in as ${user.username}`}>
             <DashboardAlert />
             {open && <ServerGroupDialog open={open} setOpen={setOpen} groups={groups} setGroups={setGroups} />}
             <FlashMessageRender className={'my-4'} byKey={'dashboard'} />

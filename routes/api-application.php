@@ -182,6 +182,7 @@ Route::middleware([AdminSubject::class])->group(function () {
     */
     Route::group(['prefix' => '/theme'], function () {
         Route::put('/colors', [Application\Theme\ThemeController::class, 'colors']);
+        Route::delete('/colors', [Application\Theme\ThemeController::class, 'deleteColor']);
 
         Route::post('/reset', [Application\Theme\ThemeController::class, 'reset']);
     });

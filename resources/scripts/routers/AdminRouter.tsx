@@ -15,6 +15,7 @@ import { Fragment } from 'react';
 
 function AdminRouter() {
     const theme = useStoreState(state => state.theme.data!);
+    const currentMode = useStoreState(s => s.theme.mode ?? 'dark');
     const user = useStoreState(state => state.user.data!);
     const settings = useStoreState(state => state.settings.data!);
 
@@ -47,7 +48,7 @@ function AdminRouter() {
                         <h1 className={'text-2xl text-neutral-50 whitespace-nowrap font-medium'}>{settings.name}</h1>
                     ) : (
                         <img
-                            src={'https://avatars.githubusercontent.com/u/91636558'}
+                            src={theme.colors[`logo_panel_${currentMode}`] || theme.colors['logo_panel'] || 'https://avatars.githubusercontent.com/u/91636558'}
                             className={'mt-4 w-12'}
                             alt={'Logo'}
                         />
@@ -87,7 +88,7 @@ function AdminRouter() {
                                     {user.roleName === 'None' ? 'Root Admin' : user.roleName}
                                 </Pill>
                             </div>
-                            {user.email}
+                            {user.username}
                         </span>
                     </div>
                 </Sidebar.User>

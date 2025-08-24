@@ -9,6 +9,7 @@ import { SiteSettings } from '@/state/settings';
 import Spinner from '@elements/Spinner';
 import ProgressBar from '@elements/ProgressBar';
 import GlobalStylesheet from '@/assets/css/GlobalStylesheet';
+import ThemeVars from '@/components/ThemeVars';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AuthenticatedRoute from '@elements/AuthenticatedRoute';
 import { NotFound } from '@elements/ScreenBlock';
@@ -68,6 +69,8 @@ function App() {
 
     if (!store.getState().theme.data) {
         store.getActions().theme.setTheme(ThemeConfiguration!);
+        // Apply default mode overrides (if the ThemeConfiguration includes per-mode keys).
+        store.getActions().theme.setMode('dark');
     }
 
     if (!store.getState().everest.data) {
@@ -88,6 +91,7 @@ function App() {
         <>
             <GlobalStylesheet />
             <StoreProvider store={store}>
+                <ThemeVars />
                 <ProgressBar />
                 {PterodactylUser?.root_admin && !SiteConfiguration?.setup ? (
                     <SetupContainer />

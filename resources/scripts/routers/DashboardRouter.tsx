@@ -118,7 +118,7 @@ function DashboardRouter() {
                             }
                         >
                             <div className={'text-gray-400 text-sm'}>Welcome back,</div>
-                            {user.email}
+                            {user.username}
                         </span>
                     </div>
                 </Sidebar.User>
