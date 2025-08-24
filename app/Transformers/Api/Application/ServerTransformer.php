@@ -196,6 +196,10 @@ class ServerTransformer extends Transformer
             return $this->null();
         }
 
+        if (!$server->product) {
+            return $this->null();
+        }
+
         return $this->item($server->product, new ProductTransformer());
     }
 }
