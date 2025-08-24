@@ -39,7 +39,7 @@ export default () => {
     if (!enabled) return <></>;
 
     return (
-        <div className="hidden md:block fixed bottom-6 right-6">
+        <div className="hidden md:block fixed bottom-6 right-6" style={{ zIndex: 9999 }}>
             {open && (
                 <div className="flex flex-col items-center mb-4 space-y-2">
                     {ai && <QuickAction icon={faMagicWandSparkles} link={'/admin/ai'} tooltip={'Ask AI'} />}

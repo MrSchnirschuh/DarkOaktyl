@@ -72,7 +72,10 @@ export default class Transformers {
                 user: transform(user as FractalResponseData | undefined, this.toUser),
                 variables: transform(variables as FractalResponseList | undefined, this.toServerEggVariable),
                 databases: transform(databases as FractalResponseList | undefined, this.toServerDatabase),
-                product: transform(product as FractalResponseData | undefined, this.toProduct),
+                product:
+                    product && product.object !== 'null_resource'
+                        ? transform(product as FractalResponseData | undefined, this.toProduct)
+                        : undefined,
             },
         };
     };

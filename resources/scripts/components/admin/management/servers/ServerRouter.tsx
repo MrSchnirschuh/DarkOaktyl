@@ -92,7 +92,7 @@ export default () => {
                     to={`/admin/servers/${params.id}/billing`}
                     name={'Billing'}
                     icon={CurrencyDollarIcon}
-                    disabled={!billing.enabled}
+                    disabled={!billing.enabled || !server.billingProductId}
                 />
                 <SubNavigationLink
                     to={`/admin/servers/${params.id}/manage`}

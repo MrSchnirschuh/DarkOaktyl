@@ -10,7 +10,7 @@ import { Form, Formik } from 'formik';
 import { useState } from 'react';
 
 export default ({ server }: { server: Server }) => {
-    const [open, setOpen] = useState<boolean>(true);
+    const [open, setOpen] = useState<boolean>(false);
     const [billable, setBillable] = useState<boolean>(Boolean(server.billingProductId));
 
     const [renewalDateStr, setRenewalDateStr] = useState<string>(

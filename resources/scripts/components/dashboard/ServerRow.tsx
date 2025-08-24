@@ -60,7 +60,7 @@ const UtilBox = ({
                     <FontAwesomeIcon icon={icon} className={'my-auto mr-1'} size={'xs'} />
                     <p className={'my-auto'}>
                         {utilised > -1
-                            ? `${utilised}%`
+                            ? `${utilised === Infinity ? 0 : utilised}%`
                             : `Server is ${server?.isTransferring ? 'transferring' : server?.status ?? 'offline'}`}
                     </p>
                 </p>
