@@ -82,6 +82,8 @@ function App() {
         );
     }
 
+    const hasAdminRole: boolean = (PterodactylUser?.root_admin || Boolean(PterodactylUser?.admin_role_id)) ?? false;
+
     return (
         <>
             <GlobalStylesheet />
@@ -114,7 +116,7 @@ function App() {
                                                 <AuthenticatedRoute>
                                                     <Spinner.Suspense>
                                                         <ServerContext.Provider>
-                                                            <SpeedDial />
+                                                            {hasAdminRole && <SpeedDial />}
                                                             <ServerRouter />
                                                         </ServerContext.Provider>
                                                     </Spinner.Suspense>
@@ -138,7 +140,7 @@ function App() {
                                             element={
                                                 <AuthenticatedRoute>
                                                     <Spinner.Suspense>
-                                                        <SpeedDial />
+                                                        {hasAdminRole && <SpeedDial />}
                                                         <DashboardRouter />
                                                     </Spinner.Suspense>
                                                 </AuthenticatedRoute>
