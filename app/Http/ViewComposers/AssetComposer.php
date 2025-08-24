@@ -13,6 +13,7 @@ class AssetComposer
     {
         $view->with('siteConfiguration', [
             'name' => config('app.name') ?? 'Everest',
+            'logo' => config('app.logo') ?? null,
             'mode' => config('app.mode') ?? 'standard',
             'setup' => config('app.setup') ?? false,
             'debug' => env('APP_DEBUG') ?? false,

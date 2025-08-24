@@ -6,7 +6,7 @@ import Field from '@elements/Field';
 import { Button } from '@elements/button';
 import { GeneralSettings, updateGeneralSettings } from '@/api/admin/settings';
 import { useStoreActions, useStoreState } from '@/state/hooks';
-import { faPaintBrush, faPlusCircle, faRecycle, faShapes } from '@fortawesome/free-solid-svg-icons';
+import { faPaintBrush, faPlusCircle, faRecycle, faShapes, faImage } from '@fortawesome/free-solid-svg-icons';
 import useFlash from '@/plugins/useFlash';
 import { useEffect } from 'react';
 import FlashMessageRender from '@/components/FlashMessageRender';
@@ -48,6 +48,7 @@ export default () => {
             onSubmit={submit}
             initialValues={{
                 name: settings.name,
+                logo: settings.logo,
                 indicators: settings.indicators,
                 auto_update: settings.auto_update,
                 speed_dial: settings.speed_dial,
@@ -60,6 +61,12 @@ export default () => {
                         <Field id={'name'} name={'name'} type={'text'} description={''} />
                         <p className={'text-gray-400 text-xs mt-1.5'}>
                             Configure the name of this Panel to suit your needs.
+                        </p>
+                    </AdminBox>
+                    <AdminBox title={'Application Logo'} icon={faImage}>
+                        <Field id={'logo'} name={'logo'} type={'url'} description={''} />
+                        <p className={'text-gray-400 text-xs mt-1.5'}>
+                            Configure the logo of this Panel to suit your needs.
                         </p>
                     </AdminBox>
                     <AdminBox title={'Automatic Updates'} icon={faRecycle}>

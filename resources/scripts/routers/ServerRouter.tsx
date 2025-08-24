@@ -46,6 +46,7 @@ function ServerRouter() {
     const user = useStoreState(state => state.user.data!);
     const theme = useStoreState(state => state.theme.data!);
     const name = useStoreState(state => state.settings.data!.name);
+    const logo = useStoreState(state => state.settings.data!.logo);
     const inConflictState = ServerContext.useStoreState(state => state.server.inConflictState);
     const getServer = ServerContext.useStoreActions(actions => actions.server.getServer);
     const clearServerState = ServerContext.useStoreActions(actions => actions.clearServerState);
@@ -111,7 +112,7 @@ function ServerRouter() {
                             <h1 className={'text-2xl text-neutral-50 whitespace-nowrap font-medium'}>{name}</h1>
                         ) : (
                             <img
-                                src={'https://avatars.githubusercontent.com/u/91636558'}
+                                src={logo?.toString() || 'https://avatars.githubusercontent.com/u/91636558'}
                                 className={'mt-4 w-12'}
                                 alt={'Logo'}
                             />
