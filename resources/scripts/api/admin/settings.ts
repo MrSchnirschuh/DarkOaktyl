@@ -3,6 +3,7 @@ import { PanelMode } from '@/state/settings';
 
 export interface GeneralSettings {
     name: string;
+    logo: URL | null;
     auto_update: boolean;
     indicators: boolean;
     speed_dial: boolean;

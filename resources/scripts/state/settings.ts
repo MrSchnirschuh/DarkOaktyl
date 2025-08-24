@@ -4,6 +4,7 @@ export type PanelMode = 'standard' | 'personal' | undefined;
 
 export interface SiteSettings {
     name: string;
+    logo: URL | null;
     mode: PanelMode;
     debug: boolean;
     locale: string;

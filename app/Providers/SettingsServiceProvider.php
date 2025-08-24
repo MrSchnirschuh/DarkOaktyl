@@ -18,6 +18,7 @@ class SettingsServiceProvider extends ServiceProvider
     protected array $keys = [
         // Jexactyl-specific keys
         'app:name',
+        'app:logo',
         'app:mode',
         'app:setup',
         'app:locale',

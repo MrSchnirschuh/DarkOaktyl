@@ -17,7 +17,7 @@ import NavigationBar from '@/components/NavigationBar';
 
 function DashboardRouter() {
     const user = useStoreState(s => s.user.data!);
-    const { name } = useStoreState(s => s.settings.data!);
+    const { name, logo } = useStoreState(s => s.settings.data!);
     const theme = useStoreState(state => state.theme.data!);
     const [links, setLinks] = useState<CustomLink[] | null>();
     const flags = useStoreState(state => state.everest.data!);
@@ -65,7 +65,7 @@ function DashboardRouter() {
                         <h1 className={'text-2xl text-neutral-50 whitespace-nowrap font-medium'}>{name}</h1>
                     ) : (
                         <img
-                            src={'https://avatars.githubusercontent.com/u/91636558'}
+                            src={logo?.toString() || 'https://avatars.githubusercontent.com/u/91636558'}
                             className={'mt-4 w-12'}
                             alt={'Logo'}
                         />
