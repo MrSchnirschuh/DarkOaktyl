@@ -91,8 +91,12 @@ export default () => {
                             )}
                             {showOnlyAdmin ? 'Other' : 'Your'} Servers
                         </div>
-                        <Button.Text size={Button.Sizes.Small} className={'mt-1'}>
-                            <FontAwesomeIcon icon={faList} onClick={() => setOpen({ open: 'index' })} />
+                        <Button.Text
+                            size={Button.Sizes.Small}
+                            className={'mt-1'}
+                            onClick={() => setOpen({ open: 'index' })}
+                        >
+                            <FontAwesomeIcon icon={faList} />
                         </Button.Text>
                     </h2>
                     <ContentBox>

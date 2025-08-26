@@ -50,7 +50,7 @@ export default ({ activity, children }: Props) => {
             className={'group grid grid-cols-10 py-4 last:rounded-b last:border-0 border-b-2 border-black/50'}
             style={{ backgroundColor: colors.secondary }}
         >
-            <div className={'hidden select-none items-center justify-center sm:col-span-1 sm:flex'}>
+            <div className={'hidden select-none items-center justify-center 2xl:col-span-1 2xl:flex'}>
                 <div className={'flex h-10 w-10 items-center overflow-hidden rounded-full bg-slate-600'}>
                     <Avatar name={actor?.uuid || 'system'} />
                 </div>
