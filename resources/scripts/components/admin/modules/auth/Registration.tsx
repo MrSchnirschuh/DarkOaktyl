@@ -31,7 +31,12 @@ export default () => {
         <AdminBox title={'Registration Module'} icon={faUserPlus} byKey={'auth:registration'} status={status}>
             <div>
                 <Label>Allow User Registration</Label>
-                <Select id={'enabled'} name={'enabled'} onChange={e => update('enabled', e.target.value)}>
+                <Select
+                    id={'enabled'}
+                    name={'enabled'}
+                    onChange={e => update('enabled', e.target.value)}
+                    autoComplete={'off'}
+                >
                     <option value={1} selected={settings.enabled}>
                         Enabled
                     </option>

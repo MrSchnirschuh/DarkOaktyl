@@ -68,6 +68,7 @@ export default () => {
             <div>
                 <Label>Client Identifier {!settings.clientId && <RequiredFieldIcon />}</Label>
                 <Input
+                    autoComplete={'off'}
                     id={'client_id'}
                     type={'password'}
                     name={'client_id'}
@@ -89,6 +90,7 @@ export default () => {
             <div className={'my-6'}>
                 <Label>Client Secret {!settings.clientSecret && <RequiredFieldIcon />}</Label>
                 <Input
+                    autoComplete={'off'}
                     id={'client_secret'}
                     type={'password'}
                     name={'client_secret'}

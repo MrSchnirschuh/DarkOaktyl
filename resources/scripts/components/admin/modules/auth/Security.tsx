@@ -29,7 +29,12 @@ export default () => {
         <AdminBox title={'Security Module'} icon={faLock} byKey={'auth:security'} status={status}>
             <div>
                 <Label>Force Two-Factor Authentication</Label>
-                <Select id={'force2fa'} name={'force2fa'} onChange={e => update('force2fa', e.target.value)}>
+                <Select
+                    id={'force2fa'}
+                    name={'force2fa'}
+                    onChange={e => update('force2fa', e.target.value)}
+                    autoComplete={'off'}
+                >
                     <option value={1} selected={settings.force2fa}>
                         Enabled
                     </option>
@@ -46,6 +51,7 @@ export default () => {
                     id={'attempts'}
                     type={'number'}
                     name={'attempts'}
+                    autoComplete={'off'}
                     onChange={e => update('attempts', e.target.value)}
                 />
                 <p className={'text-xs text-gray-400 mt-1'}>

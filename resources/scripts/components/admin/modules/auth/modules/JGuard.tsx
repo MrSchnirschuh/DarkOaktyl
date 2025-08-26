@@ -65,6 +65,7 @@ export default () => {
             <div>
                 <Label>Automatic approval delay</Label>
                 <Input
+                    autoComplete={'off'}
                     id={'delay'}
                     type={'text'}
                     name={'delay'}

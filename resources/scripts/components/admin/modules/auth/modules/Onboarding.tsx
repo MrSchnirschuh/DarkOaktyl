@@ -67,6 +67,7 @@ export default () => {
             <div>
                 <Label>Content</Label>
                 <Input
+                    autoComplete={'off'}
                     id={'content'}
                     type={'text'}
                     name={'content'}
