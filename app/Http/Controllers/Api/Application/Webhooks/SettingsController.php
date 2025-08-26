@@ -2,10 +2,10 @@
 
 namespace Everest\Http\Controllers\Api\Application\Webhooks;
 
+use Everest\Models\Setting;
 use Illuminate\Http\Request;
 use Everest\Facades\Activity;
 use Illuminate\Http\Response;
-use Everest\Contracts\Repository\SettingsRepositoryInterface;
 use Everest\Http\Controllers\Api\Application\ApplicationApiController;
 
 class SettingsController extends ApplicationApiController
@@ -13,9 +13,8 @@ class SettingsController extends ApplicationApiController
     /**
      * SettingsController constructor.
      */
-    public function __construct(
-        private SettingsRepositoryInterface $settings
-    ) {
+    public function __construct()
+    {
         parent::__construct();
     }
 
@@ -26,7 +25,7 @@ class SettingsController extends ApplicationApiController
      */
     public function update(Request $request): Response
     {
-        $this->settings->set('settings::modules:webhooks:' . $request->input('key'), $request->input('value'));
+        Setting::set('settings::modules:webhooks:' . $request->input('key'), $request->input('value'));
 
         Activity::event('admin:webhooks:update')
             ->property('settings', $request->all())

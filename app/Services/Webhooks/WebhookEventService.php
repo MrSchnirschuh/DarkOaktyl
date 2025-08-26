@@ -28,7 +28,7 @@ class WebhookEventService
     public function send(User $user, WebhookEvent $event): void
     {
         $color = $this->theme->get('theme::colors:primary');
-        $url = $this->settings->get('settings::modules:webhooks:url');
+        $url = config('modules.webhooks.url');
 
         if (!$url) {
             throw new DisplayException('No Webhook URL has been defined.');

@@ -2,8 +2,8 @@
 
 namespace Everest\Http\Controllers\Api\Application\Settings;
 
+use Everest\Models\Setting;
 use Illuminate\Http\Response;
-use Everest\Contracts\Repository\SettingsRepositoryInterface;
 use Everest\Http\Controllers\Api\Application\ApplicationApiController;
 use Everest\Http\Requests\Api\Application\Settings\GeneralSettingsRequest;
 
@@ -12,9 +12,8 @@ class GeneralController extends ApplicationApiController
     /**
      * GeneralController constructor.
      */
-    public function __construct(
-        private SettingsRepositoryInterface $settings
-    ) {
+    public function __construct()
+    {
         parent::__construct();
     }
 
@@ -26,7 +25,7 @@ class GeneralController extends ApplicationApiController
     public function update(GeneralSettingsRequest $request): Response
     {
         foreach ($request->normalize() as $key => $value) {
-            $this->settings->set('settings::app:' . $key, $value);
+            Setting::set('settings::app:' . $key, $value);
         }
 
         return $this->returnNoContent();

@@ -2,9 +2,9 @@
 
 namespace Everest\Http\Controllers\Api\Application\Setup;
 
+use Everest\Models\Setting;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
-use Everest\Contracts\Repository\SettingsRepositoryInterface;
 use Everest\Http\Controllers\Api\Application\ApplicationApiController;
 
 class SetupController extends ApplicationApiController
@@ -12,7 +12,7 @@ class SetupController extends ApplicationApiController
     /**
      * SetupController constructor.
      */
-    public function __construct(private SettingsRepositoryInterface $settings)
+    public function __construct()
     {
         parent::__construct();
     }
@@ -39,7 +39,7 @@ class SetupController extends ApplicationApiController
      */
     public function finish(): Response
     {
-        $this->settings->set('settings::app:setup', true);
+        Setting::set('settings::app:setup', true);
 
         return $this->returnNoContent();
     }

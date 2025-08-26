@@ -3,13 +3,13 @@
 namespace Everest\Http\Controllers\Api\Application\Tickets;
 
 use Everest\Models\Ticket;
+use Everest\Models\Setting;
 use Illuminate\Http\Request;
 use Everest\Facades\Activity;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Spatie\QueryBuilder\QueryBuilder;
 use Everest\Transformers\Api\Application\TicketTransformer;
-use Everest\Contracts\Repository\SettingsRepositoryInterface;
 use Everest\Exceptions\Http\QueryValueOutOfRangeHttpException;
 use Everest\Http\Controllers\Api\Application\ApplicationApiController;
 
@@ -18,9 +18,8 @@ class TicketController extends ApplicationApiController
     /**
      * TicketController constructor.
      */
-    public function __construct(
-        private SettingsRepositoryInterface $settings
-    ) {
+    public function __construct()
+    {
         parent::__construct();
     }
 
@@ -101,7 +100,7 @@ class TicketController extends ApplicationApiController
      */
     public function settings(Request $request): Response
     {
-        $this->settings->set('settings::modules:tickets:' . $request->input('key'), $request->input('value'));
+        Setting::set('settings::modules:tickets:' . $request->input('key'), $request->input('value'));
 
         Activity::event('admin:tickets:settings')
             ->property('settings', $request->all())

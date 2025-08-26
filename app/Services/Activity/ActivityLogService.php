@@ -152,7 +152,7 @@ class ActivityLogService
     {
         $activity = $this->getActivity();
 
-        if ($this->settings->get('settings::modules:webhooks:enabled')) {
+        if (config('modules.webhooks.enabled')) {
             try {
                 $user = User::findOrFail($activity->actor_id);
                 $event = WebhookEvent::where('key', $activity->event)->first();

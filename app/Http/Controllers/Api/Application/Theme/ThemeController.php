@@ -26,7 +26,7 @@ class ThemeController extends ApplicationApiController
      */
     public function colors(Request $request): Response
     {
-        $this->settings->set('theme::colors:' . $request->input('key'), $request->input('value'));
+        $this->theme->set('theme::colors:' . $request->input('key'), $request->input('value'));
 
         return $this->returnNoContent();
     }
@@ -36,7 +36,7 @@ class ThemeController extends ApplicationApiController
      */
     public function reset(): Response
     {
-        foreach ($this->settings->all() as $setting) {
+        foreach ($this->theme->all() as $setting) {
             $setting->delete();
         }
 

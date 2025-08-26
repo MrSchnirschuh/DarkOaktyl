@@ -3,12 +3,12 @@
 namespace Everest\Http\Controllers\Api\Application\AI;
 
 use GeminiAPI\Client;
+use Everest\Models\Setting;
 use Everest\Facades\Activity;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use GeminiAPI\Resources\Parts\TextPart;
 use Everest\Http\Requests\Api\Application\AI\AIQueryRequest;
-use Everest\Contracts\Repository\SettingsRepositoryInterface;
 use Everest\Http\Requests\Api\Application\AI\AISettingsRequest;
 use Everest\Http\Controllers\Api\Application\ApplicationApiController;
 
@@ -17,9 +17,8 @@ class SettingsController extends ApplicationApiController
     /**
      * SettingsController constructor.
      */
-    public function __construct(
-        private SettingsRepositoryInterface $settings
-    ) {
+    public function __construct()
+    {
         parent::__construct();
     }
 
@@ -35,7 +34,7 @@ class SettingsController extends ApplicationApiController
                 continue;
             }
 
-            $this->settings->set('settings::modules:ai:' . $key, $value);
+            Setting::set('settings::modules:ai:' . $key, $value);
         }
 
         Activity::event('admin:ai:update')
