@@ -2,7 +2,7 @@ import http from '@/api/http';
 import { AxiosError } from 'axios';
 import useSWR, { SWRResponse } from 'swr';
 import { useParams } from 'react-router-dom';
-import { Product, Transformers } from '@/api/definitions/admin';
+import { Product, Transformers } from '@definitions/admin';
 import { ProductFilters, ProductValues } from './types';
 import { createPaginatedHook, createContext } from '@/api';
 

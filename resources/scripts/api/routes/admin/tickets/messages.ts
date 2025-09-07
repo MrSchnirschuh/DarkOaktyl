@@ -1,6 +1,6 @@
 import http from '@/api/http';
 import { TicketMessageFilters } from '@/api/routes/admin/tickets/types';
-import { TicketMessage, Transformers } from '@/api/definitions/admin';
+import { TicketMessage, Transformers } from '@definitions/admin';
 import { createPaginatedHook, createContext } from '@/api';
 
 export const Context = createContext<TicketMessageFilters>();

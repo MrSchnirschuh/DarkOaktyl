@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react';
-import { type Schedule, type Task } from '@/api/definitions/server';
+import { type Schedule, type Task } from '@definitions/server';
 import { Field as FormikField, Form, Formik, FormikHelpers, useField } from 'formik';
 import { ServerContext } from '@/state/server';
 import { modifyTask } from '@/api/routes/server/tasks';

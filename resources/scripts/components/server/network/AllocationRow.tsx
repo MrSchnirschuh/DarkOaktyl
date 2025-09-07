@@ -8,7 +8,7 @@ import { Textarea } from '@elements/Input';
 import Can from '@elements/Can';
 import { Button } from '@elements/button/index';
 import GreyRowBox from '@elements/GreyRowBox';
-import { type Allocation } from '@/api/definitions/server';
+import { type Allocation } from '@definitions/server';
 import styled from 'styled-components';
 import { debounce } from 'debounce';
 import { setAllocationNotes, setPrimaryAllocation, getAllocations } from '@/api/routes/server/allocations';

@@ -12,7 +12,7 @@ import styled from 'styled-components';
 import tw from 'twin.macro';
 import { ip } from '@/lib/formatters';
 import { Dialog, DialogProps } from '@elements/dialog';
-import { Server } from '@/api/definitions/server';
+import { Server } from '@definitions/server';
 import Input from '@elements/Input';
 
 type Props = DialogProps;

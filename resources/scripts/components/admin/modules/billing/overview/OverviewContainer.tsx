@@ -10,7 +10,7 @@ import RevenueChart from './RevenueChart';
 import Select from '@elements/Select';
 import SetupStripe from '@admin/modules/billing/guides/SetupStripe';
 import { getBillingAnalytics } from '@/api/routes/admin/billing';
-import { BillingAnalytics, Order } from '@/api/definitions/admin';
+import { BillingAnalytics, Order } from '@definitions/admin';
 
 export default () => {
     const now = new Date();

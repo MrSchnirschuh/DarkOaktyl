@@ -1,6 +1,6 @@
 import http, { PaginatedResult, getPaginationSet } from '@/api/http';
-import { type ApiKey } from '@/api/definitions/admin';
-import { Transformers } from '@/api/definitions/admin';
+import { type ApiKey } from '@definitions/admin';
+import { Transformers } from '@definitions/admin';
 import useSWR from 'swr';
 import { createContext } from '@/api';
 import { useContext } from 'react';

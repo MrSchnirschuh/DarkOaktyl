@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { type Schedule, type Task } from '@/api/definitions/server';
+import { type Schedule, type Task } from '@definitions/server';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faArrowCircleDown,

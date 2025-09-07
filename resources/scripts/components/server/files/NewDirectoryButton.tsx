@@ -14,7 +14,7 @@ import FlashMessageRender from '@/components/FlashMessageRender';
 import { Dialog, DialogWrapperContext } from '@elements/dialog';
 import Code from '@elements/Code';
 import asDialog from '@/hoc/asDialog';
-import { FileObject } from '@/api/definitions/server';
+import { FileObject } from '@definitions/server';
 
 interface Values {
     directoryName: string;

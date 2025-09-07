@@ -3,7 +3,7 @@ import ConfirmationModal from '@elements/ConfirmationModal';
 import { ServerContext } from '@/state/server';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import { type Subuser } from '@/api/definitions/server';
+import { type Subuser } from '@definitions/server';
 import { deleteSubuser } from '@/api/routes/server/subusers';
 import { Actions, useStoreActions } from 'easy-peasy';
 import { ApplicationStore } from '@/state';

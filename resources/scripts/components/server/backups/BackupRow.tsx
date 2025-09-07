@@ -9,7 +9,7 @@ import BackupContextMenu from '@/components/server/backups/BackupContextMenu';
 import tw from 'twin.macro';
 import GreyRowBox from '@elements/GreyRowBox';
 import { getBackups } from '@/api/routes/server/backups';
-import { type Backup } from '@/api/definitions/server';
+import { type Backup } from '@definitions/server';
 import { SocketEvent } from '@/components/server/events';
 import { useState } from 'react';
 

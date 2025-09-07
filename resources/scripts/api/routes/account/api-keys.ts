@@ -1,5 +1,5 @@
 import http from '@/api/http';
-import { ApiKey, Transformers } from '@definitions/user';
+import { ApiKey, Transformers } from '@definitions/account';
 
 const getApiKeys = (): Promise<ApiKey[]> => {
     return new Promise((resolve, reject) => {

@@ -1,5 +1,5 @@
 import http from '@/api/http';
-import { ApiKeyPermission } from '@/api/definitions/admin';
+import { ApiKeyPermission } from '@definitions/admin';
 
 export interface Values {
     memo: string;

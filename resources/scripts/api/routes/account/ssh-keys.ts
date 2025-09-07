@@ -3,7 +3,7 @@ import type { SWRConfiguration } from 'swr';
 import useSWR from 'swr';
 
 import http, { FractalResponseList } from '@/api/http';
-import { SSHKey, Transformers } from '@definitions/user';
+import { SSHKey, Transformers } from '@definitions/account';
 import { useUserSWRKey } from '@/plugins/useSWRKey';
 
 const useSSHKeys = (config?: SWRConfiguration<SSHKey[], AxiosError>) => {

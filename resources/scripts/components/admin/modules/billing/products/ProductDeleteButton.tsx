@@ -8,7 +8,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Product } from '@/api/definitions/admin';
+import { Product } from '@definitions/admin';
 
 export default ({ product }: { product: Product }) => {
     const navigate = useNavigate();

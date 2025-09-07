@@ -22,15 +22,13 @@ import useFlash from '@/plugins/useFlash';
 import PaymentButton from './PaymentButton';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe, Stripe } from '@stripe/stripe-js';
-import { EggVariable } from '@/api/definitions/server';
+import { EggVariable } from '@definitions/server';
 import { Button } from '@elements/button';
 import FlashMessageRender from '@/components/FlashMessageRender';
-import { getIntent, PaymentIntent } from '@/api/routes/account/billing/intent';
-import processUnpaidOrder from '@/api/routes/account/billing/processUnpaidOrder';
-import { getProduct, Product } from '@/api/routes/account/billing/products';
-import getNodes, { type Node } from '@/api/routes/account/billing/getNodes';
-import { getPublicKey } from '@/api/routes/account/billing/key';
-import getProductVariables from '@/api/routes/account/billing/getProductVariables';
+import { Product, StripeIntent, type Node } from '@definitions/account/billing';
+import { processUnpaidOrder } from '@/api/routes/account/billing/orders/process';
+import { getProduct, getProductVariables, getViableNodes } from '@/api/routes/account/billing/products';
+import { getStripeIntent, getStripeKey } from '@/api/routes/account/billing/orders/stripe';
 
 const LimitBox = ({ icon, content }: { icon: IconDefinition; content: string }) => {
     return (
@@ -49,7 +47,7 @@ export default () => {
     const navigate = useNavigate();
 
     const [stripe, setStripe] = useState<Stripe | null>(null);
-    const [intent, setIntent] = useState<PaymentIntent | null>(null);
+    const [intent, setIntent] = useState<StripeIntent | null>(null);
     const [nodes, setNodes] = useState<Node[] | undefined>();
     const [selectedNode, setSelectedNode] = useState<number>(0);
     const [product, setProduct] = useState<Product | undefined>();
@@ -73,17 +71,17 @@ export default () => {
                 setProduct(productData);
 
                 // Fetch nodes
-                const nodesData = await getNodes(productData.id);
+                const nodesData = await getViableNodes(productData.id);
                 setNodes(nodesData);
                 setSelectedNode(Number(nodesData[0]?.id) ?? 0);
 
                 if (productData.price !== 0) {
                     // Fetch payment intent
-                    const intentData = await getIntent(Number(params.id));
+                    const intentData = await getStripeIntent(Number(params.id));
                     setIntent({ id: intentData.id, secret: intentData.secret });
 
                     // Fetch Stripe public key and initialize Stripe
-                    const stripePublicKey = await getPublicKey(Number(params.id));
+                    const stripePublicKey = await getStripeKey(Number(params.id));
                     const stripeInstance = await loadStripe(stripePublicKey.key);
                     setStripe(stripeInstance);
                 }

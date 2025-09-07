@@ -4,14 +4,14 @@ import { Button } from '@elements/button';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import SpinnerOverlay from '@elements/SpinnerOverlay';
-import { Product } from '@/api/routes/account/billing/products';
-import { PaymentIntent, updateIntent } from '@/api/routes/account/billing/intent';
+import { Product, StripeIntent } from '@definitions/account/billing';
+import { updateStripeIntent } from '@/api/routes/account/billing/orders/stripe';
 
 interface Props {
     selectedNode?: number;
     product: Product;
     vars: Map<string, string>;
-    intent: PaymentIntent;
+    intent: StripeIntent;
 }
 
 export default (data: Props) => {
@@ -29,7 +29,7 @@ export default (data: Props) => {
 
         const variables = Array.from(data.vars, ([key, value]) => ({ key, value }));
 
-        await updateIntent({
+        await updateStripeIntent({
             id: Number(data.product.id),
             intent: data.intent.id,
             node_id: data.selectedNode!,

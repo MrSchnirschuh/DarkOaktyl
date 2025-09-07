@@ -3,7 +3,7 @@ import useFlash from '@/plugins/useFlash';
 import { Button } from '@elements/button';
 import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import SpinnerOverlay from '@elements/SpinnerOverlay';
-import { updateIntent } from '@/api/routes/account/billing/intent';
+import { updateStripeIntent } from '@/api/routes/account/billing/orders/stripe';
 
 export default ({
     id,
@@ -29,7 +29,7 @@ export default ({
 
         if (!stripe || !elements) return;
 
-        updateIntent({ id: id!, intent, serverId, renewal }).then(() => {
+        updateStripeIntent({ id: id!, intent, serverId, renewal }).then(() => {
             stripe.confirmPayment({
                 elements,
                 confirmParams: {

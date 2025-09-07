@@ -7,7 +7,7 @@ import { Actions, useStoreActions } from 'easy-peasy';
 import { ApplicationStore } from '@/state';
 import { httpErrorToHuman } from '@/api/http';
 import SpinnerOverlay from '@elements/SpinnerOverlay';
-import { type ApiKey } from '@definitions/user';
+import { type ApiKey } from '@definitions/account';
 import tw from 'twin.macro';
 import { Button } from '@elements/button';
 import Input, { Textarea } from '@elements/Input';

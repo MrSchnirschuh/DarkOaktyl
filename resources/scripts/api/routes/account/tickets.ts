@@ -2,7 +2,7 @@ import { AxiosError } from 'axios';
 import useSWR, { SWRConfiguration, SWRResponse } from 'swr';
 import { useUserSWRKey } from '@/plugins/useSWRKey';
 import http, { FractalResponseList } from '@/api/http';
-import { Transformers, Ticket } from '@definitions/user';
+import { Transformers, Ticket } from '@definitions/account';
 import { useParams } from 'react-router-dom';
 
 const useTickets = (config?: SWRConfiguration<Ticket[], AxiosError>) => {

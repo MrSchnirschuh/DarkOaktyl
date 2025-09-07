@@ -13,7 +13,7 @@ import { usePermissions } from '@/plugins/usePermissions';
 import { join } from 'pathe';
 import { bytesToString } from '@/lib/formatters';
 import styles from './style.module.css';
-import { FileObject } from '@/api/definitions/server';
+import { FileObject } from '@definitions/server';
 import { useStoreState } from '@/state/hooks';
 import classNames from 'classnames';
 

@@ -1,9 +1,9 @@
-import { Node } from '@/api/routes/account/billing/getNodes';
 import { useStoreState } from '@/state/hooks';
 import { Dispatch, SetStateAction } from 'react';
 import GreyRowBox from '@elements/GreyRowBox';
 import { CheckCircleIcon, ServerIcon } from '@heroicons/react/solid';
 import classNames from 'classnames';
+import { type Node } from '@definitions/account/billing';
 
 interface Props {
     node: Node;

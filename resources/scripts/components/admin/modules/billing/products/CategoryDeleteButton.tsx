@@ -6,7 +6,7 @@ import { Dialog } from '@elements/dialog';
 import useFlash from '@/plugins/useFlash';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Category } from '@/api/definitions/admin';
+import { Category } from '@definitions/admin';
 
 export default ({ category }: { category: Category }) => {
     const navigate = useNavigate();

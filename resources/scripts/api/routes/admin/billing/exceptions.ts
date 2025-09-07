@@ -1,5 +1,5 @@
 import http from '@/api/http';
-import { BillingException, Transformers } from '@/api/definitions/admin';
+import { BillingException, Transformers } from '@definitions/admin';
 import { BillingExceptionFilters } from '@/api/routes/admin/billing/types';
 import { createContext, createPaginatedHook } from '@/api';
 

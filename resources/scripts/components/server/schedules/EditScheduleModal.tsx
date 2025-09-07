@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { type Schedule } from '@/api/definitions/server';
+import { type Schedule } from '@definitions/server';
 import Field from '@elements/Field';
 import { Form, Formik, FormikHelpers } from 'formik';
 import FormikSwitch from '@elements/FormikSwitch';

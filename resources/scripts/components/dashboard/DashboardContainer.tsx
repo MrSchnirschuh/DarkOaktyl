@@ -21,7 +21,7 @@ import { Button } from '@elements/button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleArrowRight, faList } from '@fortawesome/free-solid-svg-icons';
 import { getServerGroups } from '@/api/routes/server/groups';
-import { type ServerGroup } from '@/api/definitions/server';
+import { type ServerGroup } from '@definitions/server';
 import ServerGroupDialog, { VisibleDialog } from '@/components/dashboard/groups/ServerGroupDialog';
 import ActivityLogContainer from './activity/ActivityLogContainer';
 

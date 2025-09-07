@@ -1,4 +1,4 @@
-import { type Schedule } from '@/api/definitions/server';
+import { type Schedule } from '@definitions/server';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 import { format } from 'date-fns';

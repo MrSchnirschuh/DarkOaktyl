@@ -1,6 +1,6 @@
 import http from '@/api/http';
 import { TicketFilters, Values } from '@/api/routes/admin/tickets/types';
-import { Ticket, Transformers } from '@/api/definitions/admin';
+import { Ticket, Transformers } from '@definitions/admin';
 import { SWRResponse } from 'swr';
 import { AxiosError } from 'axios';
 import useSWR from 'swr';

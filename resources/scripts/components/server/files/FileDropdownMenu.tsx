@@ -6,7 +6,7 @@ import { ServerContext } from '@/state/server';
 import { join } from 'pathe';
 import { deleteFiles, copyFile, getFileDownloadUrl, compressFiles, decompressFiles } from '@/api/routes/server/files';
 import Can from '@elements/Can';
-import { type FileObject } from '@/api/definitions/server';
+import { type FileObject } from '@definitions/server';
 import useFlash from '@/plugins/useFlash';
 import tw from 'twin.macro';
 import useFileManagerSwr from '@/plugins/useFileManagerSwr';

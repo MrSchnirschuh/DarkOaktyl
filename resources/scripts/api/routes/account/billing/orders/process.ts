@@ -1,7 +1,15 @@
-import http from '@/api/http';
 import { Server } from '@definitions/server';
+import http from '@/api/http';
 
-export default (
+export const processPaidOrder = (intent: string, renewal?: boolean): Promise<string> => {
+    return new Promise((resolve, reject) => {
+        http.post(`/api/client/billing/process`, { intent, renewal })
+            .then(({ data }) => resolve(data))
+            .catch(reject);
+    });
+};
+
+export const processUnpaidOrder = (
     product: number,
     node?: number,
     renewal?: boolean,

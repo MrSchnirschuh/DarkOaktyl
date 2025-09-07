@@ -19,8 +19,9 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { Alert } from '@elements/alert';
-import getCategories, { Category } from '@/api/routes/account/billing/getCategories';
-import { getProducts, Product } from '@/api/routes/account/billing/products';
+import { getProducts } from '@/api/routes/account/billing/products';
+import { getCategories } from '@/api/routes/account/billing/categories';
+import { Category, Product } from '@definitions/account/billing';
 
 interface LimitProps {
     icon: IconDefinition;

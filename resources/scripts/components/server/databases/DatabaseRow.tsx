@@ -11,7 +11,7 @@ import { deleteDatabase } from '@/api/routes/server/databases';
 import { httpErrorToHuman } from '@/api/http';
 import RotatePasswordButton from '@/components/server/databases/RotatePasswordButton';
 import Can from '@elements/Can';
-import { type Database } from '@/api/definitions/server';
+import { type Database } from '@definitions/server';
 import useFlash from '@/plugins/useFlash';
 import tw from 'twin.macro';
 import { Button } from '@elements/button';

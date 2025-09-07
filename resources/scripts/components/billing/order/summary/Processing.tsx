@@ -2,10 +2,10 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useStoreState } from '@/state/hooks';
 import PageContentBlock from '@elements/PageContentBlock';
 import { useEffect } from 'react';
-import processOrder from '@/api/routes/account/billing/processOrder';
 import useFlash from '@/plugins/useFlash';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import Spinner from '@elements/Spinner';
+import { processPaidOrder } from '@/api/routes/account/billing/orders/process';
 
 export default () => {
     const location = useLocation();
@@ -31,7 +31,7 @@ export default () => {
             return;
         }
 
-        processOrder(intent, renewal)
+        processPaidOrder(intent, renewal)
             .then(() => {
                 navigate('/account/billing/success');
             })

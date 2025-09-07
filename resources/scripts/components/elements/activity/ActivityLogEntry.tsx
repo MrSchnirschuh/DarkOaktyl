@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Tooltip from '@elements/tooltip/Tooltip';
 import Translate from '@elements/Translate';
 import { format, formatDistanceToNowStrict } from 'date-fns';
-import { ActivityLog } from '@definitions/user';
+import { ActivityLog } from '@definitions/account';
 import ActivityLogMetaButton from '@elements/activity/ActivityLogMetaButton';
 import { FolderOpenIcon, TerminalIcon } from '@heroicons/react/solid';
 import classNames from 'classnames';

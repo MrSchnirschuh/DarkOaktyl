@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef } from 'react';
-import { type Subuser } from '@/api/definitions/server';
+import { type Subuser } from '@definitions/server';
 import { Form, Formik } from 'formik';
 import { array, object, string } from 'yup';
 import Field from '@elements/Field';

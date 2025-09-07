@@ -3,7 +3,7 @@ import useSWR, { SWRResponse } from 'swr';
 import { withRelationships } from '@/api/routes/admin';
 import { useParams } from 'react-router-dom';
 import http from '@/api/http';
-import { Category, Transformers } from '@/api/definitions/admin';
+import { Category, Transformers } from '@definitions/admin';
 import { CategoryFilters, CategoryValues } from './types';
 import { createPaginatedHook, createContext } from '@/api';
 

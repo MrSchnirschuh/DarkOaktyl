@@ -1,6 +1,6 @@
 import { FractalResponseData, FractalResponseList } from '@/api/http';
 import { transform } from '@definitions/helpers';
-import * as Models from '@definitions/user/models';
+import * as Models from '@definitions/account/models';
 
 export default class Transformers {
     static toSSHKey = ({ attributes }: FractalResponseData): Models.SSHKey => {

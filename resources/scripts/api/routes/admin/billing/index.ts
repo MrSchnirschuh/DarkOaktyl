@@ -1,4 +1,4 @@
-import { BillingAnalytics } from '@/api/definitions/admin';
+import { BillingAnalytics } from '@definitions/admin';
 import http from '@/api/http';
 
 export const getBillingAnalytics = (): Promise<BillingAnalytics> => {

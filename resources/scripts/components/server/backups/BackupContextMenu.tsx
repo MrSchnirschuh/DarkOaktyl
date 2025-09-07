@@ -13,7 +13,7 @@ import useFlash from '@/plugins/useFlash';
 import { deleteBackup, restoreBackup, getBackups } from '@/api/routes/server/backups';
 import Can from '@elements/Can';
 import tw from 'twin.macro';
-import { type Backup } from '@/api/definitions/server';
+import { type Backup } from '@definitions/server';
 import { ServerContext } from '@/state/server';
 import Input from '@elements/Input';
 import http, { httpErrorToHuman } from '@/api/http';

@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { EggVariable } from '@/api/definitions/server';
+import { EggVariable } from '@definitions/server';
 import TitledGreyBox from '@elements/TitledGreyBox';
 import Input from '@elements/Input';
 import Switch from '@elements/Switch';

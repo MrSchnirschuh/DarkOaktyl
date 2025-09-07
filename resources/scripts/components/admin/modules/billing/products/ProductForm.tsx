@@ -18,7 +18,7 @@ import { CubeIcon } from '@heroicons/react/outline';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { getCategory } from '@/api/routes/admin/billing/categories';
-import { Product } from '@/api/definitions/admin';
+import { Product } from '@definitions/admin';
 import { ProductValues } from '@/api/routes/admin/billing/types';
 import { Alert } from '@elements/alert';
 

@@ -4,7 +4,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { faPlus, faPlusCircle, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { addServerToGroup, deleteServerGroup, getServerGroups } from '@/api/routes/server/groups';
-import { type ServerGroup } from '@/api/definitions/server';
+import { type ServerGroup } from '@definitions/server';
 import ModifyServerGroup from '@/components/dashboard/groups/ModifyServerGroup';
 import Pill from '@elements/Pill';
 import Spinner from '@elements/Spinner';

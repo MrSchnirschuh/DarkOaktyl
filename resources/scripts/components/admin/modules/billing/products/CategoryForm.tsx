@@ -21,7 +21,7 @@ import type { Egg } from '@/api/routes/admin/egg';
 import { ShoppingCartIcon } from '@heroicons/react/outline';
 import CategoryDeleteButton from './CategoryDeleteButton';
 import { getEgg } from '@/api/routes/admin/egg';
-import { Category } from '@/api/definitions/admin';
+import { Category } from '@definitions/admin';
 import { CategoryValues } from '@/api/routes/admin/billing/types';
 
 interface Props {

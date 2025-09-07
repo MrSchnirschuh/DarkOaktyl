@@ -1,4 +1,4 @@
-import { Order, Transformers } from '@/api/definitions/admin';
+import { Order, Transformers } from '@definitions/admin';
 import { OrderFilters } from './types';
 import { createPaginatedHook, createContext } from '@/api';
 

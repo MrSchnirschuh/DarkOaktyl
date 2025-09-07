@@ -1,5 +1,5 @@
 import http from '@/api/http';
-import { Order, Transformers } from '@definitions/billing';
+import { Order, Transformers } from '@definitions/account/billing';
 import { createPaginatedHook, createContext } from '@/api';
 import { type OrderFilters } from '@/api/routes/account/billing/orders/types';
 

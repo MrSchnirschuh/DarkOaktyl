@@ -1,5 +1,5 @@
 import { memo, useState } from 'react';
-import { EggVariable } from '@/api/definitions/server';
+import { EggVariable } from '@definitions/server';
 import TitledGreyBox from '@elements/TitledGreyBox';
 import { usePermissions } from '@/plugins/usePermissions';
 import InputSpinner from '@elements/InputSpinner';

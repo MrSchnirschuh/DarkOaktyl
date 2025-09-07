@@ -22,7 +22,7 @@ import { formatDistanceToNowStrict } from 'date-fns';
 import { Button } from '@elements/button';
 import { CheckCircleIcon } from '@heroicons/react/outline';
 import Pill, { PillStatus } from '@elements/Pill';
-import { BillingExceptionType } from '@/api/definitions/admin';
+import { BillingExceptionType } from '@definitions/admin';
 
 function getColor(type: BillingExceptionType): PillStatus {
     switch (type) {

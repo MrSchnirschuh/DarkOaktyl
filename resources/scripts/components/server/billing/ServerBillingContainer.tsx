@@ -12,7 +12,8 @@ import PaymentContainer from './PaymentContainer';
 import { useStoreState } from '@/state/hooks';
 import PageContentBlock from '@elements/PageContentBlock';
 import { format } from 'date-fns';
-import { getProduct, Product } from '@/api/routes/account/billing/products';
+import { getProduct } from '@/api/routes/account/billing/products';
+import { Product } from '@definitions/account/billing';
 
 function timeUntil(targetDate: Date | string) {
     const date = targetDate instanceof Date ? targetDate : new Date(targetDate);
