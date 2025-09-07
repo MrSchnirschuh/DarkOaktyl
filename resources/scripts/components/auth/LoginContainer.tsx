@@ -154,17 +154,21 @@ function LoginContainer() {
                     )}
                     <div className={'mt-4 w-full grid gap-4 grid-cols-2'}>
                         {modules.discord.enabled && (
-                            <Button.Info onClick={() => useOauth('discord')} size={Button.Sizes.Small}>
+                            <Button.Info type={'button'} onClick={() => useOauth('discord')} size={Button.Sizes.Small}>
                                 <FontAwesomeIcon icon={faDiscord} className={'mr-2 my-auto'} /> Use Discord SSO
                             </Button.Info>
                         )}
                         {modules.google.enabled && (
-                            <Button.Text onClick={() => useOauth('google')} size={Button.Sizes.Small}>
+                            <Button.Text type={'button'} onClick={() => useOauth('google')} size={Button.Sizes.Small}>
                                 <FontAwesomeIcon icon={faGoogle} className={'mr-2 my-auto'} /> Use Google SSO
                             </Button.Text>
                         )}
                         {registration && (
-                            <Button.Text onClick={() => navigate('/auth/register')} size={Button.Sizes.Small}>
+                            <Button.Text
+                                type={'button'}
+                                onClick={() => navigate('/auth/register')}
+                                size={Button.Sizes.Small}
+                            >
                                 <FontAwesomeIcon icon={faEnvelope} className={'mr-2 my-auto'} /> Register with Email
                             </Button.Text>
                         )}
