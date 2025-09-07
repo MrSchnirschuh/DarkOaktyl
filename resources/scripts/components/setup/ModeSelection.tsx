@@ -1,7 +1,7 @@
 import PersonalModeSvg from '@/assets/images/themed/PersonalModeSvg';
 import StandardMoveSvg from '@/assets/images/themed/StandardMoveSvg';
 import { useStoreActions, useStoreState } from '@/state/hooks';
-import { Button } from '@elements/button';
+import { Button } from '@/elements/button';
 import { PanelMode } from '@/state/settings';
 import { updateModeSettings } from '@/api/routes/admin/settings';
 

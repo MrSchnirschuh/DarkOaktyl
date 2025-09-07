@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faHeart, faIdBadge } from '@fortawesome/free-solid-svg-icons';
 import { useStoreState } from 'easy-peasy';
-import SearchContainer from '@/components/dashboard/search/SearchContainer';
+import SearchContainer from '@/components/account/search/SearchContainer';
 import tw from 'twin.macro';
 import styled from 'styled-components';
 import { SiteTheme } from '@/state/theme';
 import { Link, useLocation } from 'react-router-dom';
 import { ChevronRightIcon, HomeIcon } from '@heroicons/react/outline';
 import { useActivityLogs } from '@/api/routes/account/activity';
-import Spinner from '@elements/Spinner';
+import Spinner from '@/elements/Spinner';
 import { formatDistanceToNow } from 'date-fns';
 
 const RightNavigation = styled.div<{ theme: SiteTheme }>`

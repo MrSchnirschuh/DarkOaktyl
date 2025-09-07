@@ -13,9 +13,9 @@ import AdminTable, {
     TableHead,
     TableHeader,
     useTableHooks,
-} from '@elements/AdminTable';
+} from '@/elements/AdminTable';
 import DeleteAllocationButton from '@admin/management/nodes/allocations/DeleteAllocationButton';
-import CopyOnClick from '@elements/CopyOnClick';
+import CopyOnClick from '@/elements/CopyOnClick';
 import useFlash from '@/plugins/useFlash';
 import { useStoreState } from '@/state/hooks';
 

@@ -9,12 +9,12 @@ import { object, string } from 'yup';
 
 import { login, externalLogin } from '@/api/routes/auth/login';
 import LoginFormContainer from '@/components/auth/LoginFormContainer';
-import Field from '@elements/Field';
-import { Button } from '@elements/button';
+import Field from '@/elements/Field';
+import { Button } from '@/elements/button';
 import useFlash from '@/plugins/useFlash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDiscord, faGoogle } from '@fortawesome/free-brands-svg-icons';
-import Label from '@elements/Label';
+import Label from '@/elements/Label';
 import { faAt, faEnvelope, faKey } from '@fortawesome/free-solid-svg-icons';
 
 interface Values {

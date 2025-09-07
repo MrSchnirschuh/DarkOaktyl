@@ -1,18 +1,18 @@
 import { useContext, useEffect, useState } from 'react';
 import { type Schedule } from '@definitions/server';
-import Field from '@elements/Field';
+import Field from '@/elements/Field';
 import { Form, Formik, FormikHelpers } from 'formik';
-import FormikSwitch from '@elements/FormikSwitch';
+import FormikSwitch from '@/elements/FormikSwitch';
 import { modifySchedule } from '@/api/routes/server/schedules';
 import { ServerContext } from '@/state/server';
 import { httpErrorToHuman } from '@/api/http';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import useFlash from '@/plugins/useFlash';
 import tw from 'twin.macro';
-import { Button } from '@elements/button/index';
+import { Button } from '@/elements/button/index';
 import ModalContext from '@/context/ModalContext';
 import asModal from '@/hoc/asModal';
-import Switch from '@elements/Switch';
+import Switch from '@/elements/Switch';
 import ScheduleCheatsheetCards from '@/components/server/schedules/ScheduleCheatsheetCards';
 import { useStoreState } from '@/state/hooks';
 

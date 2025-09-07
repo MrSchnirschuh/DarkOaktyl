@@ -2,16 +2,16 @@ import { useState } from 'react';
 import useFlash from '@/plugins/useFlash';
 import useStatus from '@/plugins/useStatus';
 import { useStoreState } from '@/state/hooks';
-import Label from '@elements/Label';
-import Input from '@elements/Input';
-import AdminBox from '@elements/AdminBox';
+import Label from '@/elements/Label';
+import Input from '@/elements/Input';
+import AdminBox from '@/elements/AdminBox';
 import { TrashIcon } from '@heroicons/react/outline';
-import { Dialog } from '@elements/dialog';
+import { Dialog } from '@/elements/dialog';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import FlashMessageRender from '@/components/FlashMessageRender';
-import RequiredFieldIcon from '@elements/RequiredFieldIcon';
+import RequiredFieldIcon from '@/elements/RequiredFieldIcon';
 import { toggleModule, updateModule } from '@/api/routes/admin/auth/module';
-import { Alert } from '@elements/alert';
+import { Alert } from '@/elements/alert';
 
 export default () => {
     const { status, setStatus } = useStatus();

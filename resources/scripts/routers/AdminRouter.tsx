@@ -1,15 +1,15 @@
 import { useStoreState } from 'easy-peasy';
 import { NavLink, Route, Routes } from 'react-router-dom';
 import Avatar from '@/components/Avatar';
-import Sidebar from '@elements/Sidebar';
+import Sidebar from '@/elements/Sidebar';
 import AdminIndicators from '@admin/AdminIndicators';
 import { usePersistedState } from '@/plugins/usePersistedState';
-import MobileSidebar from '@elements/MobileSidebar';
-import Pill from '@elements/Pill';
-import ErrorBoundary from '@elements/ErrorBoundary';
+import MobileSidebar from '@/elements/MobileSidebar';
+import Pill from '@/elements/Pill';
+import ErrorBoundary from '@/elements/ErrorBoundary';
 import routes from './routes';
-import Spinner from '@elements/Spinner';
-import { NotFound } from '@elements/ScreenBlock';
+import Spinner from '@/elements/Spinner';
+import { NotFound } from '@/elements/ScreenBlock';
 import { PuzzleIcon, ReplyIcon } from '@heroicons/react/outline';
 import { Fragment } from 'react';
 

@@ -12,8 +12,8 @@ import AdminTable, {
     TableHead,
     TableHeader,
     useTableHooks,
-} from '@elements/AdminTable';
-import CopyOnClick from '@elements/CopyOnClick';
+} from '@/elements/AdminTable';
+import CopyOnClick from '@/elements/CopyOnClick';
 import useFlash from '@/plugins/useFlash';
 import { useStoreState } from '@/state/hooks';
 

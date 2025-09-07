@@ -4,8 +4,8 @@ import tw from 'twin.macro';
 
 import ServerManageContainer from '@admin/management/servers/manage/ServerManageContainer';
 import ServerStartupContainer from '@admin/management/servers/ServerStartupContainer';
-import AdminContentBlock from '@elements/AdminContentBlock';
-import Spinner from '@elements/Spinner';
+import AdminContentBlock from '@/elements/AdminContentBlock';
+import Spinner from '@/elements/Spinner';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import { SubNavigation, SubNavigationLink } from '@admin/SubNavigation';
 import ServerSettingsContainer from '@admin/management/servers/ServerSettingsContainer';
@@ -24,7 +24,7 @@ import {
 import { useStoreState } from '@/state/hooks';
 import ServerDatabases from './ServerDatabases';
 import ServerBillingContainer from './billing/ServerBillingContainer';
-import Pill from '@elements/Pill';
+import Pill from '@/elements/Pill';
 
 export default () => {
     const params = useParams<'id'>();

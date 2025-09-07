@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Button } from '@elements/button';
+import { Button } from '@/elements/button';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Dialog } from '@elements/dialog';
-import SpinnerOverlay from '@elements/SpinnerOverlay';
+import { Dialog } from '@/elements/dialog';
+import SpinnerOverlay from '@/elements/SpinnerOverlay';
 import useFlash from '@/plugins/useFlash';
-import Switch from '@elements/Switch';
-import { Alert } from '@elements/alert';
+import Switch from '@/elements/Switch';
+import { Alert } from '@/elements/alert';
 import { importBillingConfiguration } from '@/api/routes/admin/billing/config';
 
 export default () => {

@@ -6,11 +6,11 @@ import tw from 'twin.macro';
 
 import { exportEgg } from '@/api/routes/admin/egg';
 import FlashMessageRender from '@/components/FlashMessageRender';
-import { Button } from '@elements/button';
-import { Variant } from '@elements/button/types';
-import { Editor } from '@elements/editor';
-import Modal from '@elements/Modal';
-import SpinnerOverlay from '@elements/SpinnerOverlay';
+import { Button } from '@/elements/button';
+import { Variant } from '@/elements/button/types';
+import { Editor } from '@/elements/editor';
+import Modal from '@/elements/Modal';
+import SpinnerOverlay from '@/elements/SpinnerOverlay';
 import useFlash from '@/plugins/useFlash';
 
 export default ({ className }: { className?: string }) => {

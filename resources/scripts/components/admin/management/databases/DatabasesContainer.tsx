@@ -1,12 +1,12 @@
 import type { Filters } from '@/api/routes/admin/databases/getDatabases';
 import { Context as DatabasesContext } from '@/api/routes/admin/databases/getDatabases';
-import { useTableHooks } from '@elements/AdminTable';
+import { useTableHooks } from '@/elements/AdminTable';
 import DatabasesTable from './DatabasesTable';
 import { useNavigate } from 'react-router-dom';
-import { Button } from '@elements/button';
+import { Button } from '@/elements/button';
 import { PlusIcon } from '@heroicons/react/outline';
-import AdminContentBlock from '@elements/AdminContentBlock';
-import { Dialog } from '@elements/dialog';
+import AdminContentBlock from '@/elements/AdminContentBlock';
+import { Dialog } from '@/elements/dialog';
 import { useState } from 'react';
 import createDatabase from '@/api/routes/admin/databases/createDatabase';
 import { useStoreActions } from '@/state/hooks';

@@ -1,13 +1,13 @@
 import { getRolePermisisons, updateRole } from '@/api/routes/admin/roles';
-import Spinner from '@elements/Spinner';
+import Spinner from '@/elements/Spinner';
 import { useEffect, useState } from 'react';
 import { PanelPermissions } from '@/state/server/permissions';
-import AdminBox from '@elements/AdminBox';
-import Checkbox from '@elements/inputs/Checkbox';
-import Tooltip from '@elements/tooltip/Tooltip';
-import { Button } from '@elements/button';
+import AdminBox from '@/elements/AdminBox';
+import Checkbox from '@/elements/inputs/Checkbox';
+import Tooltip from '@/elements/tooltip/Tooltip';
+import { Button } from '@/elements/button';
 import { UserRole } from '@definitions/admin';
-import SpinnerOverlay from '@elements/SpinnerOverlay';
+import SpinnerOverlay from '@/elements/SpinnerOverlay';
 
 export default ({ role }: { role: UserRole }) => {
     const [permissions, setPermissions] = useState<PanelPermissions>();

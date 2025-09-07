@@ -1,12 +1,12 @@
 import { Actions, useStoreActions } from 'easy-peasy';
 import { useState } from 'react';
 import { deleteRole } from '@/api/routes/admin/roles';
-import { Button } from '@elements/button';
+import { Button } from '@/elements/button';
 import { ApplicationStore } from '@/state';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { Dialog } from '@elements/dialog';
-import SpinnerOverlay from '@elements/SpinnerOverlay';
+import { Dialog } from '@/elements/dialog';
+import SpinnerOverlay from '@/elements/SpinnerOverlay';
 
 interface Props {
     roleId: number;

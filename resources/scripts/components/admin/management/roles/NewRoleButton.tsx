@@ -4,11 +4,11 @@ import tw from 'twin.macro';
 import { object, string } from 'yup';
 import { getRoles, createRole } from '@/api/routes/admin/roles';
 import FlashMessageRender from '@/components/FlashMessageRender';
-import { Button } from '@elements/button';
-import Field from '@elements/Field';
+import { Button } from '@/elements/button';
+import Field from '@/elements/Field';
 import useFlash from '@/plugins/useFlash';
-import { Dialog } from '@elements/dialog';
-import SpinnerOverlay from '@elements/SpinnerOverlay';
+import { Dialog } from '@/elements/dialog';
+import SpinnerOverlay from '@/elements/SpinnerOverlay';
 
 interface Values {
     name: string;

@@ -10,12 +10,12 @@ import AdminTable, {
     TableHeader,
     TableRow,
     useTableHooks,
-} from '@elements/AdminTable';
+} from '@/elements/AdminTable';
 import { Dispatch, SetStateAction, useContext } from 'react';
 import tw from 'twin.macro';
 import { VisibleDialog } from './LinksContainer';
-import Pill from '@elements/Pill';
-import { Button } from '@elements/button';
+import Pill from '@/elements/Pill';
+import { Button } from '@/elements/button';
 import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 

@@ -7,10 +7,10 @@ import tw from 'twin.macro';
 import getEggs from '@/api/routes/admin/nests/getEggs';
 import importEgg from '@/api/routes/admin/nests/importEgg';
 import useFlash from '@/plugins/useFlash';
-import { Button } from '@elements/button';
-import { Size, Variant } from '@elements/button/types';
-import { Editor } from '@elements/editor';
-import Modal from '@elements/Modal';
+import { Button } from '@/elements/button';
+import { Size, Variant } from '@/elements/button/types';
+import { Editor } from '@/elements/editor';
+import Modal from '@/elements/Modal';
 import FlashMessageRender from '@/components/FlashMessageRender';
 
 export default ({ className }: { className?: string }) => {

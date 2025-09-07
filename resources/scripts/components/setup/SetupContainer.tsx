@@ -1,4 +1,4 @@
-import { Button } from '@elements/button';
+import { Button } from '@/elements/button';
 import { useStoreState } from '@/state/hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight, faCheckCircle, faXmark } from '@fortawesome/free-solid-svg-icons';

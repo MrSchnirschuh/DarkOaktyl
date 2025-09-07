@@ -11,15 +11,15 @@ import { object } from 'yup';
 
 import { useEggFromRoute } from '@/api/routes/admin/egg';
 import updateEgg from '@/api/routes/admin/eggs/updateEgg';
-import AdminBox from '@elements/AdminBox';
+import AdminBox from '@/elements/AdminBox';
 import EggDeleteButton from '@admin/service/nests/eggs/EggDeleteButton';
 import EggExportButton from '@admin/service/nests/eggs/EggExportButton';
-import { Button } from '@elements/button';
-import { Editor } from '@elements/editor';
-import Field, { TextareaField } from '@elements/Field';
-import Input from '@elements/Input';
-import Label from '@elements/Label';
-import SpinnerOverlay from '@elements/SpinnerOverlay';
+import { Button } from '@/elements/button';
+import { Editor } from '@/elements/editor';
+import Field, { TextareaField } from '@/elements/Field';
+import Input from '@/elements/Input';
+import Label from '@/elements/Label';
+import SpinnerOverlay from '@/elements/SpinnerOverlay';
 import useFlash from '@/plugins/useFlash';
 import { useStoreState } from '@/state/hooks';
 

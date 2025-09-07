@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import useFlash from '@/plugins/useFlash';
-import Label from '@elements/Label';
-import Input from '@elements/Input';
-import AdminBox from '@elements/AdminBox';
-import Spinner from '@elements/Spinner';
+import Label from '@/elements/Label';
+import Input from '@/elements/Input';
+import AdminBox from '@/elements/AdminBox';
+import Spinner from '@/elements/Spinner';
 import { CheckCircleIcon, TrashIcon } from '@heroicons/react/outline';
 import FlashMessageRender from '@/components/FlashMessageRender';
-import { Dialog } from '@elements/dialog';
+import { Dialog } from '@/elements/dialog';
 import { faDoorOpen } from '@fortawesome/free-solid-svg-icons';
 import { useStoreState } from '@/state/hooks';
-import { Alert } from '@elements/alert';
+import { Alert } from '@/elements/alert';
 import { toggleModule, updateModule } from '@/api/routes/admin/auth/module';
 
 export default () => {

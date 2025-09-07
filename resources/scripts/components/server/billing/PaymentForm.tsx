@@ -1,8 +1,8 @@
 import { FormEvent, useState } from 'react';
 import useFlash from '@/plugins/useFlash';
-import { Button } from '@elements/button';
+import { Button } from '@/elements/button';
 import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import SpinnerOverlay from '@elements/SpinnerOverlay';
+import SpinnerOverlay from '@/elements/SpinnerOverlay';
 import { updateStripeIntent } from '@/api/routes/account/billing/orders/stripe';
 
 export default ({

@@ -1,13 +1,13 @@
 import { Form, Formik } from 'formik';
 import tw from 'twin.macro';
-import AdminBox from '@elements/AdminBox';
-import Field from '@elements/Field';
-import { Button } from '@elements/button';
+import AdminBox from '@/elements/AdminBox';
+import Field from '@/elements/Field';
+import { Button } from '@/elements/button';
 import { useStoreState } from '@/state/hooks';
 import useFlash from '@/plugins/useFlash';
 import { useEffect } from 'react';
 import FlashMessageRender from '@/components/FlashMessageRender';
-import Label from '@elements/Label';
+import Label from '@/elements/Label';
 import { faLink } from '@fortawesome/free-solid-svg-icons';
 import ToggleWebhooksButton from './ToggleWebhooksButton';
 import { update } from '@/api/routes/admin/webhooks';

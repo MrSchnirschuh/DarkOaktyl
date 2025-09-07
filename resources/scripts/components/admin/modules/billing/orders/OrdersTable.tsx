@@ -1,4 +1,4 @@
-import Pill, { PillStatus } from '@elements/Pill';
+import Pill, { PillStatus } from '@/elements/Pill';
 import { useGetOrders, Context as OrderContext } from '@/api/routes/admin/billing/orders';
 import AdminTable, {
     ContentWrapper,
@@ -10,13 +10,13 @@ import AdminTable, {
     Loading,
     NoItems,
     useTableHooks,
-} from '@elements/AdminTable';
-import CopyOnClick from '@elements/CopyOnClick';
+} from '@/elements/AdminTable';
+import CopyOnClick from '@/elements/CopyOnClick';
 import tw from 'twin.macro';
 import { useContext, useEffect } from 'react';
 import useFlash from '@/plugins/useFlash';
 import { formatDistanceToNowStrict } from 'date-fns';
-import Spinner from '@elements/Spinner';
+import Spinner from '@/elements/Spinner';
 import { OrderFilters } from '@/api/routes/admin/billing/types';
 
 export function format(date: number): string {

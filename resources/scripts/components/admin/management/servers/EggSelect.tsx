@@ -5,8 +5,8 @@ import { useEffect, useState } from 'react';
 import type { WithRelationships } from '@/api/routes/admin';
 import type { Egg } from '@/api/routes/admin/egg';
 import { searchEggs } from '@/api/routes/admin/egg';
-import Label from '@elements/Label';
-import Select from '@elements/Select';
+import Label from '@/elements/Label';
+import Select from '@/elements/Select';
 
 interface Props {
     nestId?: number;

@@ -1,10 +1,10 @@
 import useFlash from '@/plugins/useFlash';
-import Label from '@elements/Label';
-import Select from '@elements/Select';
-import AdminBox from '@elements/AdminBox';
+import Label from '@/elements/Label';
+import Select from '@/elements/Select';
+import AdminBox from '@/elements/AdminBox';
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { useStoreState } from '@/state/hooks';
-import { Alert } from '@elements/alert';
+import { Alert } from '@/elements/alert';
 import useStatus from '@/plugins/useStatus';
 import { updateModule } from '@/api/routes/admin/auth/module';
 

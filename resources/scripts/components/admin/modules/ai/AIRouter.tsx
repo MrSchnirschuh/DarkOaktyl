@@ -1,8 +1,8 @@
 import { useStoreState } from '@/state/hooks';
 import { Route, Routes } from 'react-router-dom';
 import { CogIcon, SparklesIcon } from '@heroicons/react/outline';
-import AdminContentBlock from '@elements/AdminContentBlock';
-import { NotFound } from '@elements/ScreenBlock';
+import AdminContentBlock from '@/elements/AdminContentBlock';
+import { NotFound } from '@/elements/ScreenBlock';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import { SubNavigation, SubNavigationLink } from '@admin/SubNavigation';
 import EnableAI from '@admin/modules/ai/EnableAI';

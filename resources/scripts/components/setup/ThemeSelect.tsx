@@ -1,7 +1,7 @@
 import updateColors from '@/api/routes/admin/theme/updateColors';
 import useStatus from '@/plugins/useStatus';
 import { useStoreActions, useStoreState } from '@/state/hooks';
-import AdminBox from '@elements/AdminBox';
+import AdminBox from '@/elements/AdminBox';
 import { faCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { CheckCircleIcon } from '@heroicons/react/outline';

@@ -3,12 +3,12 @@ import { useStoreActions } from 'easy-peasy';
 import type { FormikHelpers } from 'formik';
 import { Form, Formik } from 'formik';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import Field, { FieldRow } from '@elements/Field';
+import Field, { FieldRow } from '@/elements/Field';
 import tw from 'twin.macro';
-import AdminContentBlock from '@elements/AdminContentBlock';
-import { Button } from '@elements/button';
+import AdminContentBlock from '@/elements/AdminContentBlock';
+import { Button } from '@/elements/button';
 import type { ApplicationStore } from '@/state';
-import AdminBox from '@elements/AdminBox';
+import AdminBox from '@/elements/AdminBox';
 import { object, string, number } from 'yup';
 import { faArrowLeft, faBell, faMicrochip, faPuzzlePiece } from '@fortawesome/free-solid-svg-icons';
 import { useStoreState } from '@/state/hooks';
@@ -20,7 +20,7 @@ import { useEffect, useState } from 'react';
 import { getCategory } from '@/api/routes/admin/billing/categories';
 import { Product } from '@definitions/admin';
 import { ProductValues } from '@/api/routes/admin/billing/types';
-import { Alert } from '@elements/alert';
+import { Alert } from '@/elements/alert';
 
 export default ({ product }: { product?: Product }) => {
     const navigate = useNavigate();

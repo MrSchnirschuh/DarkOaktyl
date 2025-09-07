@@ -1,7 +1,7 @@
 import tw from 'twin.macro';
 import { Link, NavLink } from 'react-router-dom';
 import { useContext } from 'react';
-import AdminContentBlock from '@elements/AdminContentBlock';
+import AdminContentBlock from '@/elements/AdminContentBlock';
 import AdminTable, {
     ContentWrapper,
     Loading,
@@ -12,9 +12,9 @@ import AdminTable, {
     TableHeader,
     TableRow,
     useTableHooks,
-} from '@elements/AdminTable';
-import { Button } from '@elements/button';
-import CopyOnClick from '@elements/CopyOnClick';
+} from '@/elements/AdminTable';
+import { Button } from '@/elements/button';
+import CopyOnClick from '@/elements/CopyOnClick';
 import { differenceInHours, format, formatDistanceToNow } from 'date-fns';
 import classNames from 'classnames';
 import { useStoreState } from '@/state/hooks';

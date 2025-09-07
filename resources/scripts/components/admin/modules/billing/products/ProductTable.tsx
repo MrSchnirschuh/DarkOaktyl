@@ -8,8 +8,8 @@ import AdminTable, {
     TableHeader,
     TableRow,
     useTableHooks,
-} from '@elements/AdminTable';
-import CopyOnClick from '@elements/CopyOnClick';
+} from '@/elements/AdminTable';
+import CopyOnClick from '@/elements/CopyOnClick';
 import { differenceInHours, format, formatDistanceToNow } from 'date-fns';
 import { NavLink, useParams } from 'react-router-dom';
 import tw from 'twin.macro';

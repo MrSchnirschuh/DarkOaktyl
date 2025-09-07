@@ -1,4 +1,4 @@
-import { Button } from '@elements/button';
+import { Button } from '@/elements/button';
 import { useStoreState } from '@/state/hooks';
 import { updateSettings } from '@/api/routes/admin/billing';
 

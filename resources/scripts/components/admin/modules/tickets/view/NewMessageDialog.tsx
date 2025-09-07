@@ -3,12 +3,12 @@ import type { Actions } from 'easy-peasy';
 import { useStoreActions } from 'easy-peasy';
 import type { FormikHelpers } from 'formik';
 import type { ApplicationStore } from '@/state';
-import { Dialog } from '@elements/dialog';
-import SpinnerOverlay from '@elements/SpinnerOverlay';
+import { Dialog } from '@/elements/dialog';
+import SpinnerOverlay from '@/elements/SpinnerOverlay';
 import { useState } from 'react';
-import { Button } from '@elements/button';
+import { Button } from '@/elements/button';
 import FlashMessageRender from '@/components/FlashMessageRender';
-import { TextareaField } from '@elements/Field';
+import { TextareaField } from '@/elements/Field';
 import { createMessage } from '@/api/routes/admin/tickets/messages';
 
 const initialValues: { message: string } = {

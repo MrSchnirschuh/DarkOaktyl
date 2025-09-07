@@ -9,11 +9,11 @@ import AdminTable, {
     Loading,
     NoItems,
     useTableHooks,
-} from '@elements/AdminTable';
+} from '@/elements/AdminTable';
 import { useContext } from 'react';
-import CopyOnClick from '@elements/CopyOnClick';
+import CopyOnClick from '@/elements/CopyOnClick';
 import { Link } from 'react-router-dom';
-import { Button } from '@elements/button';
+import { Button } from '@/elements/button';
 import { useGetApiKeys, Context as ApiContext, ContextFilters } from '@/api/routes/admin/api/getApiKeys';
 import { differenceInHours, format, formatDistanceToNow } from 'date-fns';
 import DeleteApiKeyButton from './DeleteApiKeyButton';

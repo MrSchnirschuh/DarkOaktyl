@@ -2,16 +2,16 @@ import { useEffect, useState } from 'react';
 import { useActivityLogs } from '@/api/routes/server/activity';
 import { useFlashKey } from '@/plugins/useFlash';
 import FlashMessageRender from '@/components/FlashMessageRender';
-import Spinner from '@elements/Spinner';
-import ActivityLogEntry from '@elements/activity/ActivityLogEntry';
-import PaginationFooter from '@elements/table/PaginationFooter';
+import Spinner from '@/elements/Spinner';
+import ActivityLogEntry from '@/elements/activity/ActivityLogEntry';
+import PaginationFooter from '@/elements/table/PaginationFooter';
 import { ActivityLogFilters } from '@/api/routes/account/activity';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
-import { styles as btnStyles } from '@elements/button/index';
+import { styles as btnStyles } from '@/elements/button/index';
 import { XCircleIcon } from '@heroicons/react/solid';
 import useLocationHash from '@/plugins/useLocationHash';
-import PageContentBlock from '@elements/PageContentBlock';
+import PageContentBlock from '@/elements/PageContentBlock';
 
 export default () => {
     const { hash } = useLocationHash();

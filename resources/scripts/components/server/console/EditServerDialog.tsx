@@ -1,14 +1,14 @@
-import { Button } from '@elements/button';
-import { Dialog } from '@elements/dialog';
-import FormikFieldWrapper from '@elements/FormikFieldWrapper';
-import { Textarea } from '@elements/Input';
-import Label from '@elements/Label';
-import SpinnerOverlay from '@elements/SpinnerOverlay';
+import { Button } from '@/elements/button';
+import { Dialog } from '@/elements/dialog';
+import FormikFieldWrapper from '@/elements/FormikFieldWrapper';
+import { Textarea } from '@/elements/Input';
+import Label from '@/elements/Label';
+import SpinnerOverlay from '@/elements/SpinnerOverlay';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { Field as FormikField, Form, useFormikContext, FormikHelpers, Formik } from 'formik';
 import { useState } from 'react';
 import tw from 'twin.macro';
-import Field from '@elements/Field';
+import Field from '@/elements/Field';
 import { ServerContext } from '@/state/server';
 import { ApplicationStore } from '@/state';
 import { useStoreActions } from '@/state/hooks';
@@ -16,7 +16,7 @@ import { Actions } from 'easy-peasy';
 import { renameServer } from '@/api/routes/server';
 import { httpErrorToHuman } from '@/api/http';
 import { object, string } from 'yup';
-import Can from '@elements/Can';
+import Can from '@/elements/Can';
 import ReinstallServerDialog from './ReinstallServerDialog';
 
 interface Values {

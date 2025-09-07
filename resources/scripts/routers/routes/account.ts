@@ -2,19 +2,19 @@ import { lazy } from 'react';
 import * as Icon from '@heroicons/react/outline';
 import { route, type RouteDefinition } from '@/routers/routes/utils';
 
-const AccountApiContainer = lazy(() => import('@/components/dashboard/AccountApiContainer'));
-const AccountSSHContainer = lazy(() => import('@/components/dashboard/ssh/AccountSSHContainer'));
-const AccountOverviewContainer = lazy(() => import('@/components/dashboard/AccountOverviewContainer'));
+const AccountApiContainer = lazy(() => import('@/components/account/AccountApiContainer'));
+const AccountSSHContainer = lazy(() => import('@/components/account/ssh/AccountSSHContainer'));
+const AccountOverviewContainer = lazy(() => import('@/components/account/AccountOverviewContainer'));
 
-const TicketContainer = lazy(() => import('@/components/dashboard/tickets/TicketContainer'));
-const ViewTicketContainer = lazy(() => import('@/components/dashboard/tickets/view/ViewTicketContainer'));
+const TicketContainer = lazy(() => import('@/components/account/tickets/TicketContainer'));
+const ViewTicketContainer = lazy(() => import('@/components/account/tickets/view/ViewTicketContainer'));
 
-const ProductsContainer = lazy(() => import('@/components/billing/ProductsContainer'));
-const OrderContainer = lazy(() => import('@/components/billing/order/OrderContainer'));
-const OrdersContainer = lazy(() => import('@/components/billing/orders/OrdersContainer'));
-const Processing = lazy(() => import('@/components/billing/order/summary/Processing'));
-const Success = lazy(() => import('@/components/billing/order/summary/Success'));
-const Cancel = lazy(() => import('@/components/billing/order/summary/Cancel'));
+const ProductsContainer = lazy(() => import('@/components/account/billing/ProductsContainer'));
+const OrderContainer = lazy(() => import('@/components/account/billing/order/OrderContainer'));
+const OrdersContainer = lazy(() => import('@/components/account/billing/orders/OrdersContainer'));
+const Processing = lazy(() => import('@/components/account/billing/order/summary/Processing'));
+const Success = lazy(() => import('@/components/account/billing/order/summary/Success'));
+const Cancel = lazy(() => import('@/components/account/billing/order/summary/Cancel'));
 
 const account: RouteDefinition[] = [
     /**

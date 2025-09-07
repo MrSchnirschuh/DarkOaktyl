@@ -1,14 +1,14 @@
 import { useState } from 'react';
-import AdminBox from '@elements/AdminBox';
-import { Button } from '@elements/button';
+import AdminBox from '@/elements/AdminBox';
+import { Button } from '@/elements/button';
 import ToggleFeatureButton from './ToggleFeatureButton';
 import { faDollar, faExchange, faKey, faPowerOff } from '@fortawesome/free-solid-svg-icons';
 import { useStoreActions, useStoreState } from '@/state/hooks';
 import { faPaypal, faStripe } from '@fortawesome/free-brands-svg-icons';
 import SetupPayPal from './guides/SetupPayPal';
 import SetupLink from './guides/SetupLink';
-import Label from '@elements/Label';
-import Select from '@elements/Select';
+import Label from '@/elements/Label';
+import Select from '@/elements/Select';
 import currencyDictionary from '@/assets/currency';
 import SetupStripe from './guides/SetupStripe';
 import ExportConfigButton from './config/ExportConfigButton';

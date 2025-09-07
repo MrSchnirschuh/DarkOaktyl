@@ -9,8 +9,8 @@ import { object, string } from 'yup';
 import { requestPasswordReset } from '@/api/routes/auth/password-reset';
 import { httpErrorToHuman } from '@/api/http';
 import LoginFormContainer from '@/components/auth/LoginFormContainer';
-import { Button } from '@elements/button';
-import Field from '@elements/Field';
+import { Button } from '@/elements/button';
+import Field from '@/elements/Field';
 import useFlash from '@/plugins/useFlash';
 
 interface Values {

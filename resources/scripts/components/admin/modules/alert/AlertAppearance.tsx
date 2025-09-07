@@ -1,5 +1,5 @@
-import { Alert } from '@elements/alert';
-import AdminBox from '@elements/AdminBox';
+import { Alert } from '@/elements/alert';
+import AdminBox from '@/elements/AdminBox';
 import { useStoreActions, useStoreState } from '@/state/hooks';
 import { faCircle, faDesktop, faList } from '@fortawesome/free-solid-svg-icons';
 import FlashMessageRender from '@/components/FlashMessageRender';
@@ -11,7 +11,7 @@ import { AlertPosition } from '@/state/everest';
 import useFlash from '@/plugins/useFlash';
 import MessageBox, { FlashMessageType } from '@/components/MessageBox';
 import useStatus from '@/plugins/useStatus';
-import { Dialog } from '@elements/dialog';
+import { Dialog } from '@/elements/dialog';
 import { capitalize } from '@/lib/strings';
 
 const DemoBox = ({ children, selected }: { children: ReactNode; selected: boolean }) => {

@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { ServerContext } from '@/state/server';
-import Modal from '@elements/Modal';
+import Modal from '@/elements/Modal';
 import tw from 'twin.macro';
-import { Button } from '@elements/button';
+import { Button } from '@/elements/button';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import useFlash from '@/plugins/useFlash';
 import { SocketEvent, SocketRequest } from '@/components/server/events';
-import Field from '@elements/Field';
+import Field from '@/elements/Field';
 import { updateStartupVariable } from '@/api/routes/server/startup';
 import { Form, Formik } from 'formik';
 

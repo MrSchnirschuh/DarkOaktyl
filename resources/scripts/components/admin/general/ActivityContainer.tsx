@@ -1,15 +1,15 @@
-import AdminContentBlock from '@elements/AdminContentBlock';
+import AdminContentBlock from '@/elements/AdminContentBlock';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import { useEffect, useState } from 'react';
 import { useFlashKey } from '@/plugins/useFlash';
 import { Link } from 'react-router-dom';
-import PaginationFooter from '@elements/table/PaginationFooter';
+import PaginationFooter from '@/elements/table/PaginationFooter';
 import { DesktopComputerIcon, XCircleIcon } from '@heroicons/react/solid';
-import Spinner from '@elements/Spinner';
-import { styles as btnStyles } from '@elements/button/index';
+import Spinner from '@/elements/Spinner';
+import { styles as btnStyles } from '@/elements/button/index';
 import classNames from 'classnames';
-import ActivityLogEntry from '@elements/activity/ActivityLogEntry';
-import Tooltip from '@elements/tooltip/Tooltip';
+import ActivityLogEntry from '@/elements/activity/ActivityLogEntry';
+import Tooltip from '@/elements/tooltip/Tooltip';
 import useLocationHash from '@/plugins/useLocationHash';
 import { ActivityLogFilters, useActivityLogs } from '@/api/routes/admin/activity';
 

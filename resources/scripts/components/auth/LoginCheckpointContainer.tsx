@@ -7,8 +7,8 @@ import tw from 'twin.macro';
 
 import { checkpoint } from '@/api/routes/auth/login';
 import LoginFormContainer from '@/components/auth/LoginFormContainer';
-import { Button } from '@elements/button';
-import Field from '@elements/Field';
+import { Button } from '@/elements/button';
+import Field from '@/elements/Field';
 import useFlash from '@/plugins/useFlash';
 import type { FlashStore } from '@/state/flashes';
 

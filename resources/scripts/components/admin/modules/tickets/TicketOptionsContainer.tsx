@@ -1,14 +1,14 @@
 import { Form, Formik } from 'formik';
 import tw from 'twin.macro';
 
-import AdminBox from '@elements/AdminBox';
-import Field from '@elements/Field';
-import { Button } from '@elements/button';
+import AdminBox from '@/elements/AdminBox';
+import Field from '@/elements/Field';
+import { Button } from '@/elements/button';
 import { useStoreState } from '@/state/hooks';
 import useFlash from '@/plugins/useFlash';
 import { useEffect } from 'react';
 import FlashMessageRender from '@/components/FlashMessageRender';
-import Label from '@elements/Label';
+import Label from '@/elements/Label';
 import { faFirstOrder } from '@fortawesome/free-brands-svg-icons';
 import ToggleTicketsButton from './ToggleTicketsButton';
 import { updateTicketSettings } from '@/api/routes/admin/tickets';

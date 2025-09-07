@@ -1,6 +1,6 @@
 import { useFormikContext } from 'formik';
 import { useState, useEffect } from 'react';
-import SearchableSelect, { Option } from '@elements/SearchableSelect';
+import SearchableSelect, { Option } from '@/elements/SearchableSelect';
 import type { UserRole } from '@definitions/admin';
 import { searchRoles } from '@/api/routes/admin/roles';
 

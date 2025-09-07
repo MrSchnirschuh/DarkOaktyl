@@ -1,19 +1,19 @@
 import { Suspense, useEffect, useState } from 'react';
 import { NavLink, Route, Routes } from 'react-router-dom';
-import DashboardContainer from '@/components/dashboard/DashboardContainer';
-import { NotFound } from '@elements/ScreenBlock';
-import Spinner from '@elements/Spinner';
+import { NotFound } from '@/elements/ScreenBlock';
+import Spinner from '@/elements/Spinner';
 import routes from '@/routers/routes';
 import { useStoreState } from '@/state/hooks';
 import { usePersistedState } from '@/plugins/usePersistedState';
-import Sidebar from '@elements/Sidebar';
+import Sidebar from '@/elements/Sidebar';
 import { CogIcon, DesktopComputerIcon, ExternalLinkIcon, LogoutIcon, PuzzleIcon } from '@heroicons/react/outline';
 import Avatar from '@/components/Avatar';
-import MobileSidebar from '@elements/MobileSidebar';
+import MobileSidebar from '@/elements/MobileSidebar';
 import { CustomLink } from '@/api/routes/admin/links';
 import { getLinks } from '@/api/getLinks';
 import http from '@/api/http';
 import NavigationBar from '@/components/NavigationBar';
+import DashboardContainer from '@/components/account/DashboardContainer';
 
 function DashboardRouter() {
     const user = useStoreState(s => s.user.data!);

@@ -1,12 +1,12 @@
 import { Form, Formik } from 'formik';
-import { Button } from '@elements/button';
+import { Button } from '@/elements/button';
 import { useStoreState } from '@/state/hooks';
-import Field from '@elements/Field';
-import { Dialog } from '@elements/dialog';
+import Field from '@/elements/Field';
+import { Dialog } from '@/elements/dialog';
 import useFlash from '@/plugins/useFlash';
 import FlashMessageRender from './FlashMessageRender';
 import { setupAccount } from '@/api/routes/account';
-import { Alert } from '@elements/alert';
+import { Alert } from '@/elements/alert';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 

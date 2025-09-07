@@ -1,4 +1,4 @@
-import { Button } from '@elements/button';
+import { Button } from '@/elements/button';
 import useFlash from '@/plugins/useFlash';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

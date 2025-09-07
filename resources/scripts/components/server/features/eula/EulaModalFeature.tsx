@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { ServerContext } from '@/state/server';
-import Modal from '@elements/Modal';
+import Modal from '@/elements/Modal';
 import tw from 'twin.macro';
-import { Button } from '@elements/button';
+import { Button } from '@/elements/button';
 import { saveFileContents } from '@/api/routes/server/files';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import useFlash from '@/plugins/useFlash';

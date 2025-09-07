@@ -9,19 +9,19 @@ import AdminTable, {
     TableHeader,
     TableRow,
     useTableHooks,
-} from '@elements/AdminTable';
+} from '@/elements/AdminTable';
 import { useContext, useState } from 'react';
 import {
     Context as BillingExceptionContext,
     resolveBillingException,
     useGetBillingExceptions,
 } from '@/api/routes/admin/billing/exceptions';
-import CopyOnClick from '@elements/CopyOnClick';
+import CopyOnClick from '@/elements/CopyOnClick';
 import tw from 'twin.macro';
 import { formatDistanceToNowStrict } from 'date-fns';
-import { Button } from '@elements/button';
+import { Button } from '@/elements/button';
 import { CheckCircleIcon } from '@heroicons/react/outline';
-import Pill, { PillStatus } from '@elements/Pill';
+import Pill, { PillStatus } from '@/elements/Pill';
 import { BillingExceptionType } from '@definitions/admin';
 
 function getColor(type: BillingExceptionType): PillStatus {

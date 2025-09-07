@@ -11,7 +11,7 @@ import createNode from '@/api/routes/admin/nodes/createNode';
 import NodeLimitContainer from '@admin/management/nodes/NodeLimitContainer';
 import NodeListenContainer from '@admin/management/nodes/NodeListenContainer';
 import NodeSettingsContainer from '@admin/management/nodes/NodeSettingsContainer';
-import { Button } from '@elements/button';
+import { Button } from '@/elements/button';
 import type { ApplicationStore } from '@/state';
 import NodeBillingContainer from './NodeBillingContainer';
 import { PlusIcon } from '@heroicons/react/outline';

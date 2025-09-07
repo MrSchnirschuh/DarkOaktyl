@@ -11,15 +11,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getBackupUrl } from '@/api/routes/server/backups';
 import useFlash from '@/plugins/useFlash';
 import { deleteBackup, restoreBackup, getBackups } from '@/api/routes/server/backups';
-import Can from '@elements/Can';
+import Can from '@/elements/Can';
 import tw from 'twin.macro';
 import { type Backup } from '@definitions/server';
 import { ServerContext } from '@/state/server';
-import Input from '@elements/Input';
+import Input from '@/elements/Input';
 import http, { httpErrorToHuman } from '@/api/http';
-import { Dialog } from '@elements/dialog';
-import { Button } from '@elements/button';
-import SpinnerOverlay from '@elements/SpinnerOverlay';
+import { Dialog } from '@/elements/dialog';
+import { Button } from '@/elements/button';
+import SpinnerOverlay from '@/elements/SpinnerOverlay';
 
 interface Props {
     backup: Backup;
