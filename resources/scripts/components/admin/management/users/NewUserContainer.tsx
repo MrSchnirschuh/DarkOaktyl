@@ -8,7 +8,7 @@ import type { UpdateUserValues } from '@/api/routes/admin/users';
 import { createUser } from '@/api/routes/admin/users';
 import AdminContentBlock from '@/elements/AdminContentBlock';
 import UserForm from '@admin/management/users/view/UserForm';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import type { ApplicationStore } from '@/state';
 
 export default () => {

@@ -2,8 +2,8 @@ import { forwardRef, useEffect, useState } from 'react';
 import * as React from 'react';
 import { Form } from 'formik';
 import styled from 'styled-components';
-import { breakpoint } from '@/theme';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import { breakpoint } from '@/assets/theme';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import tw from 'twin.macro';
 
 type Props = React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFormElement>, HTMLFormElement> & {

@@ -1,9 +1,9 @@
 import tw, { css, styled } from 'twin.macro';
 
-import { withSubComponents } from '@/components/helpers';
 import { SiteTheme } from '@/state/theme';
 import { useStoreState } from '@/state/hooks';
 import React from 'react';
+import { withSubComponents } from '@/lib/helpers';
 
 const Icon: React.FC<{ icon: React.ElementType }> = ({ icon: Icon }) => {
     const theme = useStoreState(s => s.theme.data!);

@@ -3,7 +3,7 @@ import { EggVariable } from '@definitions/server';
 import TitledGreyBox from '@/elements/TitledGreyBox';
 import Input from '@/elements/Input';
 import Switch from '@/elements/Switch';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import Select from '@/elements/Select';
 import isEqual from 'react-fast-compare';
 

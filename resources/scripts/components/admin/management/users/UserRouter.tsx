@@ -10,7 +10,7 @@ import { SubNavigation, SubNavigationLink } from '@admin/SubNavigation';
 import UserAboutContainer from '@admin/management/users/view/AboutContainer';
 import UserServers from '@admin/management/users/view/ServersContainer';
 import Spinner from '@/elements/Spinner';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import type { ApplicationStore } from '@/state';
 import type { User } from '@definitions/admin';
 import { CogIcon, ServerIcon, UserIcon } from '@heroicons/react/outline';

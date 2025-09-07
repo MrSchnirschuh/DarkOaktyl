@@ -3,7 +3,7 @@ import { useState } from 'react';
 import tw from 'twin.macro';
 import { object, string } from 'yup';
 import { getRoles, createRole } from '@/api/routes/admin/roles';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import { Button } from '@/elements/button';
 import Field from '@/elements/Field';
 import useFlash from '@/plugins/useFlash';

@@ -16,6 +16,12 @@
             "@feature/*": [
                 "./resources/scripts/components/server/features/*"
             ],
+            "@account/*": [
+                "./resources/scripts/components/account/*"
+            ],
+            "@server/*": [
+                "./resources/scripts/components/server/*"
+            ],
             "@admin/*": [
                 "./resources/scripts/components/admin/*"
             ]

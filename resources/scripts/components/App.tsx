@@ -13,9 +13,9 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AuthenticatedRoute from '@/elements/AuthenticatedRoute';
 import { NotFound } from '@/elements/ScreenBlock';
 import { EverestSettings } from '@/state/everest';
-import Onboarding from '@/components/Onboarding';
+import Onboarding from '@account/Onboarding';
 import SpeedDial from '@/elements/SpeedDial';
-import SetupContainer from './setup/SetupContainer';
+import SetupContainer from './admin/setup/SetupContainer';
 
 const AdminRouter = lazy(() => import('@/routers/AdminRouter'));
 const AuthenticationRouter = lazy(() => import('@/routers/AuthenticationRouter'));

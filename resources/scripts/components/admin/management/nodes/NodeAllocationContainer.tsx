@@ -6,7 +6,7 @@ import AdminBox from '@/elements/AdminBox';
 import AllocationTable from '@admin/management/nodes/allocations/AllocationTable';
 import CreateAllocationForm from '@admin/management/nodes/allocations/CreateAllocationForm';
 import DeleteAllAllocationsButton from './allocations/DeleteAllAllocationsButton';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 
 export default () => {
     const params = useParams<'id'>();

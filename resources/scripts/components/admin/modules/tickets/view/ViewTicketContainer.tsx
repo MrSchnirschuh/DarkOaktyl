@@ -10,7 +10,7 @@ import { Form, Formik } from 'formik';
 import type { FormikHelpers } from 'formik';
 import useFlash from '@/plugins/useFlash';
 import { Button } from '@/elements/button';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import Select from '@/elements/Select';
 import Label from '@/elements/Label';
 import { useState } from 'react';

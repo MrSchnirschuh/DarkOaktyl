@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import EditSubuserModal from '@/components/server/users/EditSubuserModal';
+import EditSubuserModal from '@server/users/EditSubuserModal';
 import { Button } from '@/elements/button/index';
 
 export default () => {

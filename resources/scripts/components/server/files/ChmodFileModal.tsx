@@ -1,4 +1,3 @@
-import { fileBitsToString } from '@/helpers';
 import useFileManagerSwr from '@/plugins/useFileManagerSwr';
 import Modal, { RequiredModalProps } from '@/elements/Modal';
 import { Form, Formik, FormikHelpers } from 'formik';
@@ -8,6 +7,7 @@ import { ServerContext } from '@/state/server';
 import tw from 'twin.macro';
 import { Button } from '@/elements/button';
 import useFlash from '@/plugins/useFlash';
+import { fileBitsToString } from '@/lib/strings';
 
 interface FormikValues {
     mode: string;

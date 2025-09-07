@@ -1,5 +1,5 @@
 import { deleteCategory } from '@/api/routes/admin/billing/categories';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import Input from '@/elements/Input';
 import { Button } from '@/elements/button';
 import { Dialog } from '@/elements/dialog';

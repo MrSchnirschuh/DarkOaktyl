@@ -12,7 +12,7 @@ import getDatabase from '@/api/routes/admin/databases/getDatabase';
 import updateDatabase from '@/api/routes/admin/databases/updateDatabase';
 import AdminContentBlock from '@/elements/AdminContentBlock';
 import Spinner from '@/elements/Spinner';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import AdminBox from '@/elements/AdminBox';
 import { Button } from '@/elements/button';
 import Field from '@/elements/Field';

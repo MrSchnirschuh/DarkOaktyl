@@ -1,6 +1,6 @@
 import Pill, { PillStatus } from '@/elements/Pill';
 import PageContentBlock from '@/elements/PageContentBlock';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import { useContext, useEffect } from 'react';
 import useFlash from '@/plugins/useFlash';
 import AdminTable, {

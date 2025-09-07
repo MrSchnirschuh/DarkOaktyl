@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import { CogIcon, SparklesIcon } from '@heroicons/react/outline';
 import AdminContentBlock from '@/elements/AdminContentBlock';
 import { NotFound } from '@/elements/ScreenBlock';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import { SubNavigation, SubNavigationLink } from '@admin/SubNavigation';
 import EnableAI from '@admin/modules/ai/EnableAI';
 import OverviewContainer from '@admin/modules/ai/OverviewContainer';

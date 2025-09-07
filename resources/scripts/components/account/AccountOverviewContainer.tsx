@@ -1,12 +1,12 @@
 import ContentBox from '@/elements/ContentBox';
-import UpdatePasswordForm from '@/components/account/forms/UpdatePasswordForm';
-import UpdateEmailAddressForm from '@/components/account/forms/UpdateEmailAddressForm';
-import ConfigureTwoFactorForm from '@/components/account/forms/ConfigureTwoFactorForm';
+import UpdatePasswordForm from '@account/forms/UpdatePasswordForm';
+import UpdateEmailAddressForm from '@account/forms/UpdateEmailAddressForm';
+import ConfigureTwoFactorForm from '@account/forms/ConfigureTwoFactorForm';
 import PageContentBlock from '@/elements/PageContentBlock';
 import tw from 'twin.macro';
-import { breakpoint } from '@/theme';
+import { breakpoint } from '@/assets/theme';
 import styled from 'styled-components';
-import MessageBox from '@/components/MessageBox';
+import MessageBox from '@/elements/MessageBox';
 import { useLocation } from 'react-router-dom';
 
 const Container = styled.div`

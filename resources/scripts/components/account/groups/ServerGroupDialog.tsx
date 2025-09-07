@@ -5,11 +5,11 @@ import { faPlus, faPlusCircle, faTrash } from '@fortawesome/free-solid-svg-icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { addServerToGroup, deleteServerGroup, getServerGroups } from '@/api/routes/server/groups';
 import { type ServerGroup } from '@definitions/server';
-import ModifyServerGroup from '@/components/account/groups/ModifyServerGroup';
+import ModifyServerGroup from '@account/groups/ModifyServerGroup';
 import Pill from '@/elements/Pill';
 import Spinner from '@/elements/Spinner';
 import useFlash from '@/plugins/useFlash';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 
 export interface VisibleDialog {
     open: 'index' | 'modify' | 'delete' | 'add' | 'none';

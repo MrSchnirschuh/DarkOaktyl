@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import ContentBox from '@/elements/ContentBox';
-import CreateApiKeyForm from '@/components/account/forms/CreateApiKeyForm';
+import CreateApiKeyForm from '@account/forms/CreateApiKeyForm';
 import SpinnerOverlay from '@/elements/SpinnerOverlay';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faKey, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { getApiKeys, deleteApiKey } from '@/api/routes/account/api-keys';
 import { type ApiKey } from '@definitions/user';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import { format } from 'date-fns';
 import PageContentBlock from '@/elements/PageContentBlock';
 import tw from 'twin.macro';

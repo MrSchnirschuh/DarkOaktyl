@@ -8,7 +8,7 @@ import EnableTicketsContainer from './EnableTicketsContainer';
 import { CogIcon, TicketIcon } from '@heroicons/react/outline';
 import { SubNavigation, SubNavigationLink } from '@admin/SubNavigation';
 import AdminContentBlock from '@/elements/AdminContentBlock';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import TicketOptionsContainer from './TicketOptionsContainer';
 
 export default () => {

@@ -13,7 +13,7 @@ import {
 import { deleteTask } from '@/api/routes/server/tasks';
 import { httpErrorToHuman } from '@/api/http';
 import SpinnerOverlay from '@/elements/SpinnerOverlay';
-import TaskDetailsModal from '@/components/server/schedules/TaskDetailsModal';
+import TaskDetailsModal from '@server/schedules/TaskDetailsModal';
 import Can from '@/elements/Can';
 import useFlash from '@/plugins/useFlash';
 import { ServerContext } from '@/state/server';

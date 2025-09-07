@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { ServerContext } from '@/state/server';
 import { Button } from '@/elements/button';
 import { SparklesIcon } from '@heroicons/react/outline';
-import { SocketEvent } from '@/components/server/events';
+import { SocketEvent } from '@server/events';
 import Dialog from '@/elements/dialog/Dialog';
 import Spinner from '@/elements/Spinner';
 import { handleQuery } from '@/api/routes/server/ai';

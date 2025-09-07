@@ -3,9 +3,9 @@ import { useStoreState } from 'easy-peasy';
 import { ApplicationStore } from '@/state';
 import tw from 'twin.macro';
 import { Button } from '@/elements/button/index';
-import SetupTOTPDialog from '@/components/account/forms/SetupTOTPDialog';
-import RecoveryTokensDialog from '@/components/account/forms/RecoveryTokensDialog';
-import DisableTOTPDialog from '@/components/account/forms/DisableTOTPDialog';
+import SetupTOTPDialog from '@account/forms/SetupTOTPDialog';
+import RecoveryTokensDialog from '@account/forms/RecoveryTokensDialog';
+import DisableTOTPDialog from '@account/forms/DisableTOTPDialog';
 import { useFlashKey } from '@/plugins/useFlash';
 
 export default () => {

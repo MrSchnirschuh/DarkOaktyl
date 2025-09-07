@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import tw from 'twin.macro';
 import { object, string } from 'yup';
 import { getRole, updateRole } from '@/api/routes/admin/roles';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import AdminBox from '@/elements/AdminBox';
 import AdminContentBlock from '@/elements/AdminContentBlock';
 import RoleDeleteButton from '@/components/admin/management/roles/RoleDeleteButton';

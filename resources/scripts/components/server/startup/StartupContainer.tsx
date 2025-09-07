@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import * as React from 'react';
 import TitledGreyBox from '@/elements/TitledGreyBox';
 import tw from 'twin.macro';
-import VariableBox from '@/components/server/startup/VariableBox';
+import VariableBox from '@server/startup/VariableBox';
 import Spinner from '@/elements/Spinner';
 import { ServerError } from '@/elements/ScreenBlock';
 import { httpErrorToHuman } from '@/api/http';

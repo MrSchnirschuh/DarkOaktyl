@@ -4,23 +4,22 @@ import tw from 'twin.macro';
 
 import { httpErrorToHuman } from '@/api/http';
 import Spinner from '@/elements/Spinner';
-import FileObjectGrid from '@/components/server/files/FileObjectGrid';
-import FileManagerBreadcrumbs from '@/components/server/files/FileManagerBreadcrumbs';
+import FileObjectGrid from '@server/files/FileObjectGrid';
+import FileManagerBreadcrumbs from '@server/files/FileManagerBreadcrumbs';
 import { type FileObject } from '@definitions/server';
-import NewDirectoryButton from '@/components/server/files/NewDirectoryButton';
+import NewDirectoryButton from '@server/files/NewDirectoryButton';
 import { NavLink, useLocation } from 'react-router-dom';
 import Can from '@/elements/Can';
 import { ServerError } from '@/elements/ScreenBlock';
 import { Button } from '@/elements/button/index';
 import { ServerContext } from '@/state/server';
 import useFileManagerSwr from '@/plugins/useFileManagerSwr';
-import FileManagerStatus from '@/components/server/files/FileManagerStatus';
-import MassActionsBar from '@/components/server/files/MassActionsBar';
-import UploadButton from '@/components/server/files/UploadButton';
+import FileManagerStatus from '@server/files/FileManagerStatus';
+import MassActionsBar from '@server/files/MassActionsBar';
+import UploadButton from '@server/files/UploadButton';
 import { useStoreActions, useStoreState } from '@/state/hooks';
 import ErrorBoundary from '@/elements/ErrorBoundary';
-import { FileActionCheckbox } from '@/components/server/files/SelectFileCheckbox';
-import { hashToPath } from '@/helpers';
+import { FileActionCheckbox } from '@server/files/SelectFileCheckbox';
 import style from './style.module.css';
 import FadeTransition from '@/elements/transitions/FadeTransition';
 import { usePersistedState } from '@/plugins/usePersistedState';
@@ -33,6 +32,7 @@ import Label from '@/elements/Label';
 import TitledGreyBox from '@/elements/TitledGreyBox';
 import { ip } from '@/lib/formatters';
 import PageContentBlock from '@/elements/PageContentBlock';
+import { hashToPath } from '@/lib/helpers';
 
 const sortFiles = (files: FileObject[]): FileObject[] => {
     const sortedFiles: FileObject[] = files

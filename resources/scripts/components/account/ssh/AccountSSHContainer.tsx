@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import ContentBox from '@/elements/ContentBox';
 import SpinnerOverlay from '@/elements/SpinnerOverlay';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import PageContentBlock from '@/elements/PageContentBlock';
 import tw from 'twin.macro';
 import GreyRowBox from '@/elements/GreyRowBox';
@@ -9,8 +9,8 @@ import { useSSHKeys } from '@/api/routes/account/ssh-keys';
 import { useFlashKey } from '@/plugins/useFlash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faKey } from '@fortawesome/free-solid-svg-icons';
-import CreateSSHKeyForm from '@/components/account/ssh/CreateSSHKeyForm';
-import DeleteSSHKeyButton from '@/components/account/ssh/DeleteSSHKeyButton';
+import CreateSSHKeyForm from '@account/ssh/CreateSSHKeyForm';
+import DeleteSSHKeyButton from '@account/ssh/DeleteSSHKeyButton';
 
 export default () => {
     const { clearAndAddHttpError } = useFlashKey('account');

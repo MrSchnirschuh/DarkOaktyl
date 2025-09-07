@@ -5,7 +5,7 @@ import { ServerContext } from '@/state/server';
 import { modifyTask } from '@/api/routes/server/tasks';
 import { httpErrorToHuman } from '@/api/http';
 import Field from '@/elements/Field';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import { boolean, number, object, string } from 'yup';
 import useFlash from '@/plugins/useFlash';
 import FormikFieldWrapper from '@/elements/FormikFieldWrapper';
@@ -14,7 +14,7 @@ import Label from '@/elements/Label';
 import { Textarea } from '@/elements/Input';
 import { Button } from '@/elements/button/index';
 import Select from '@/elements/Select';
-import ModalContext from '@/context/ModalContext';
+import ModalContext from '@/elements/ModalContext';
 import asModal from '@/hoc/asModal';
 import FormikSwitch from '@/elements/FormikSwitch';
 

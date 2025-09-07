@@ -1,7 +1,7 @@
 import { useStoreState } from '@/state/hooks';
 import { Route, Routes } from 'react-router-dom';
 import AdminContentBlock from '@/elements/AdminContentBlock';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import { EyeIcon, ShieldExclamationIcon } from '@heroicons/react/outline';
 import { SubNavigation, SubNavigationLink } from '@admin/SubNavigation';
 import AlertSettings from './AlertSettings';

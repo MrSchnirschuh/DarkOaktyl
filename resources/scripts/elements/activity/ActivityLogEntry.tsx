@@ -8,7 +8,7 @@ import ActivityLogMetaButton from '@/elements/activity/ActivityLogMetaButton';
 import { FolderOpenIcon, TerminalIcon } from '@heroicons/react/solid';
 import classNames from 'classnames';
 import style from './style.module.css';
-import Avatar from '@/components/Avatar';
+import Avatar from '@/elements/Avatar';
 import useLocationHash from '@/plugins/useLocationHash';
 import { getObjectKeys, isObject } from '@/lib/objects';
 import { useStoreState } from '@/state/hooks';

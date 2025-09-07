@@ -1,5 +1,5 @@
 import { deleteProduct } from '@/api/routes/admin/billing/products';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import Input from '@/elements/Input';
 import { Button } from '@/elements/button';
 import { Dialog } from '@/elements/dialog';

@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import tw from 'twin.macro';
 
 import { Button } from '@/elements/button';
-import ModalContext from '@/context/ModalContext';
+import ModalContext from '@/elements/ModalContext';
 import asModal from '@/hoc/asModal';
 
 interface Props {

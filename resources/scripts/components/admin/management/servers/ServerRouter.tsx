@@ -6,7 +6,7 @@ import ServerManageContainer from '@admin/management/servers/manage/ServerManage
 import ServerStartupContainer from '@admin/management/servers/ServerStartupContainer';
 import AdminContentBlock from '@/elements/AdminContentBlock';
 import Spinner from '@/elements/Spinner';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import { SubNavigation, SubNavigationLink } from '@admin/SubNavigation';
 import ServerSettingsContainer from '@admin/management/servers/ServerSettingsContainer';
 import useFlash from '@/plugins/useFlash';

@@ -3,9 +3,9 @@ import { ServerContext } from '@/state/server';
 import Modal from '@/elements/Modal';
 import tw from 'twin.macro';
 import { Button } from '@/elements/button';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import useFlash from '@/plugins/useFlash';
-import { SocketEvent } from '@/components/server/events';
+import { SocketEvent } from '@server/events';
 import { useStoreState } from 'easy-peasy';
 
 const SteamDiskSpaceFeature = () => {

@@ -8,7 +8,7 @@ import EggVariablesContainer from '@admin/service/nests/eggs/EggVariablesContain
 import useFlash from '@/plugins/useFlash';
 import AdminContentBlock from '@/elements/AdminContentBlock';
 import Spinner from '@/elements/Spinner';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import { SubNavigation, SubNavigationLink } from '@admin/SubNavigation';
 import EggSettingsContainer from '@admin/service/nests/eggs/EggSettingsContainer';
 import { useStoreState } from '@/state/hooks';

@@ -58,6 +58,14 @@ export default defineConfig({
                 'server',
                 'features',
             ),
+            '@account': resolve(
+                dirname(fileURLToPath(import.meta.url)),
+                'resources',
+                'scripts',
+                'components',
+                'account',
+            ),
+            '@server': resolve(dirname(fileURLToPath(import.meta.url)), 'resources', 'scripts', 'components', 'server'),
             '@admin': resolve(dirname(fileURLToPath(import.meta.url)), 'resources', 'scripts', 'components', 'admin'),
 
             react: 'preact/compat',

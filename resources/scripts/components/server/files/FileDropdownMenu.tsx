@@ -1,7 +1,7 @@
 import { memo, useEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
-import RenameFileModal from '@/components/server/files/RenameFileModal';
+import RenameFileModal from '@server/files/RenameFileModal';
 import { ServerContext } from '@/state/server';
 import { join } from 'pathe';
 import { deleteFiles, copyFile, getFileDownloadUrl, compressFiles, decompressFiles } from '@/api/routes/server/files';
@@ -13,7 +13,7 @@ import useFileManagerSwr from '@/plugins/useFileManagerSwr';
 import DropdownMenu from '@/elements/DropdownMenu';
 import useEventListener from '@/plugins/useEventListener';
 import isEqual from 'react-fast-compare';
-import ChmodFileModal from '@/components/server/files/ChmodFileModal';
+import ChmodFileModal from '@server/files/ChmodFileModal';
 import { Dialog } from '@/elements/dialog';
 import { Button } from '@/elements/button';
 import {

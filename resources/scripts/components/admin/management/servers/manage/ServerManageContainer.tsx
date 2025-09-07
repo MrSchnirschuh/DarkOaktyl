@@ -1,6 +1,6 @@
 import tw from 'twin.macro';
 import ReinstallServerBox from '@admin/management/servers/manage/ReinstallServerBox';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import { useEffect } from 'react';
 import useFlash from '@/plugins/useFlash';
 import ToggleInstallStatusBox from '@admin/management/servers/manage/ToggleInstallStatusBox';

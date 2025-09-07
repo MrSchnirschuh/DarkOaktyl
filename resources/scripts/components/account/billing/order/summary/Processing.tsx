@@ -3,7 +3,7 @@ import { useStoreState } from '@/state/hooks';
 import PageContentBlock from '@/elements/PageContentBlock';
 import { useEffect } from 'react';
 import useFlash from '@/plugins/useFlash';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import Spinner from '@/elements/Spinner';
 import { processPaidOrder } from '@/api/routes/account/billing/orders/process';
 

@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import tw from 'twin.macro';
 import { Button } from '@/elements/button';
 import asModal from '@/hoc/asModal';
-import ModalContext from '@/context/ModalContext';
+import ModalContext from '@/elements/ModalContext';
 import CopyOnClick from '@/elements/CopyOnClick';
 
 interface Props {

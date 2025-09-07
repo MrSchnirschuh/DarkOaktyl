@@ -8,7 +8,7 @@ import Tooltip from '@/elements/tooltip/Tooltip';
 import { disableTwoFactor } from '@/api/routes/account/two-factor';
 import { useFlashKey } from '@/plugins/useFlash';
 import { useStoreActions } from '@/state/hooks';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 
 const DisableTOTPDialog = () => {
     const [submitting, setSubmitting] = useState(false);

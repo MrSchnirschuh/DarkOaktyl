@@ -1,8 +1,7 @@
+import { randomInt } from '@/lib/helpers';
 import { Transition } from '@headlessui/react';
 import { useStoreActions, useStoreState } from 'easy-peasy';
 import { Fragment, useEffect, useRef, useState } from 'react';
-
-import { randomInt } from '@/helpers';
 
 type Timer = ReturnType<typeof setTimeout>;
 

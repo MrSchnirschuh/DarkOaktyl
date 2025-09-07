@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { type Server } from '@definitions/server';
 import getServers from '@/api/getServers';
-import ServerRow from '@/components/account/ServerRow';
+import ServerRow from '@account/ServerRow';
 import PageContentBlock from '@/elements/PageContentBlock';
 import useFlash from '@/plugins/useFlash';
 import { useStoreState } from 'easy-peasy';
@@ -13,16 +13,16 @@ import { PaginatedResult } from '@/api/http';
 import Pagination from '@/elements/Pagination';
 import { Link, useLocation } from 'react-router-dom';
 import ContentBox from '@/elements/ContentBox';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import NotFoundSvg from '@/assets/images/not_found.svg';
-import DashboardAlert from '@/components/account/DashboardAlert';
+import DashboardAlert from '@account/DashboardAlert';
 import ServerSvg from '@/assets/images/themed/ServerSvg';
 import { Button } from '@/elements/button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleArrowRight, faList } from '@fortawesome/free-solid-svg-icons';
 import { getServerGroups } from '@/api/routes/server/groups';
 import { type ServerGroup } from '@definitions/server';
-import ServerGroupDialog, { VisibleDialog } from '@/components/account/groups/ServerGroupDialog';
+import ServerGroupDialog, { VisibleDialog } from '@account/groups/ServerGroupDialog';
 import ActivityLogContainer from './activity/ActivityLogContainer';
 
 export default () => {

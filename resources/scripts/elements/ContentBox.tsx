@@ -1,7 +1,7 @@
 import type { DetailedHTMLProps, HTMLAttributes } from 'react';
 import tw from 'twin.macro';
 
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import SpinnerOverlay from '@/elements/SpinnerOverlay';
 import { useStoreState } from '@/state/hooks';
 

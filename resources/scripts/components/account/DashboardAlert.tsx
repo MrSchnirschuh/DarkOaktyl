@@ -1,6 +1,6 @@
 import { Alert } from '@/elements/alert';
 import { useStoreState } from '@/state/hooks';
-import MessageBox, { FlashMessageType } from '@/components/MessageBox';
+import MessageBox, { FlashMessageType } from '@/elements/MessageBox';
 import { usePersistedState } from '@/plugins/usePersistedState';
 import { capitalize } from '@/lib/strings';
 import { Dialog } from '@/elements/dialog';

@@ -1,6 +1,6 @@
 import { useStoreState } from 'easy-peasy';
 import { NavLink, Route, Routes } from 'react-router-dom';
-import Avatar from '@/components/Avatar';
+import Avatar from '@/elements/Avatar';
 import Sidebar from '@/elements/Sidebar';
 import AdminIndicators from '@admin/AdminIndicators';
 import { usePersistedState } from '@/plugins/usePersistedState';

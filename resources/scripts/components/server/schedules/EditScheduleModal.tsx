@@ -6,14 +6,14 @@ import FormikSwitch from '@/elements/FormikSwitch';
 import { modifySchedule } from '@/api/routes/server/schedules';
 import { ServerContext } from '@/state/server';
 import { httpErrorToHuman } from '@/api/http';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import useFlash from '@/plugins/useFlash';
 import tw from 'twin.macro';
 import { Button } from '@/elements/button/index';
-import ModalContext from '@/context/ModalContext';
+import ModalContext from '@/elements/ModalContext';
 import asModal from '@/hoc/asModal';
 import Switch from '@/elements/Switch';
-import ScheduleCheatsheetCards from '@/components/server/schedules/ScheduleCheatsheetCards';
+import ScheduleCheatsheetCards from '@server/schedules/ScheduleCheatsheetCards';
 import { useStoreState } from '@/state/hooks';
 
 interface Props {

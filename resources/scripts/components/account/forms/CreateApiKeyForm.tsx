@@ -12,7 +12,7 @@ import tw from 'twin.macro';
 import { Button } from '@/elements/button';
 import Input, { Textarea } from '@/elements/Input';
 import styled from 'styled-components';
-import ApiKeyModal from '@/components/account/ApiKeyModal';
+import ApiKeyModal from '@account/ApiKeyModal';
 
 interface Values {
     description: string;

@@ -10,7 +10,7 @@ import { object, string } from 'yup';
 import ImportEggButton from '@admin/service/nests/ImportEggButton';
 import AdminContentBlock from '@/elements/AdminContentBlock';
 import Spinner from '@/elements/Spinner';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import type { Nest } from '@/api/routes/admin/nests/getNests';
 import getNest from '@/api/routes/admin/nests/getNest';
 import updateNest from '@/api/routes/admin/nests/updateNest';

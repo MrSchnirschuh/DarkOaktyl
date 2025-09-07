@@ -17,7 +17,7 @@ import { Button } from '@/elements/button';
 import { useGetApiKeys, Context as ApiContext, ContextFilters } from '@/api/routes/admin/api/getApiKeys';
 import { differenceInHours, format, formatDistanceToNow } from 'date-fns';
 import DeleteApiKeyButton from './DeleteApiKeyButton';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import { useStoreState } from '@/state/hooks';
 import { PlusIcon } from '@heroicons/react/outline';
 

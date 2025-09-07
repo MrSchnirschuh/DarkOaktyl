@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import type { Filters } from '@/api/routes/admin/servers/getServers';
 import getNodes, { Context as NodesContext } from '@/api/routes/admin/nodes/getNodes';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import useFlash from '@/plugins/useFlash';
 import { NavLink } from 'react-router-dom';
 import tw from 'twin.macro';

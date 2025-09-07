@@ -7,7 +7,7 @@ import { Button } from '@/elements/button';
 import { Textarea } from '@/elements/Input';
 import styled from 'styled-components';
 import { useFlashKey } from '@/plugins/useFlash';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import { createMessage } from '@/api/routes/account/tickets';
 import DeleteTicketDialog from './DeleteTicketDialog';
 

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { breakpoint } from '@/theme';
+import { breakpoint } from '@/assets/theme';
 import tw from 'twin.macro';
 
 const ContentContainer = styled.div`

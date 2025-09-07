@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components';
 import tw from 'twin.macro';
 
 import Spinner from '@/elements/Spinner';
-import { breakpoint } from '@/theme';
+import { breakpoint } from '@/assets/theme';
 import FadeTransition from '@/elements/transitions/FadeTransition';
 import { useStoreState } from '@/state/hooks';
 

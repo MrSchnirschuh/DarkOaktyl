@@ -6,7 +6,7 @@ import tw from 'twin.macro';
 
 import type { Node } from '@/api/routes/admin/nodes/getNodes';
 import getNode from '@/api/routes/admin/nodes/getNode';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import AdminContentBlock from '@/elements/AdminContentBlock';
 import NodeEditContainer from '@admin/management/nodes/NodeEditContainer';
 import Spinner from '@/elements/Spinner';

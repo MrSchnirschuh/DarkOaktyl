@@ -5,7 +5,7 @@ import Security from './Security';
 import { Button } from '@/elements/button';
 import { useState } from 'react';
 import { Dialog } from '@/elements/dialog';
-import AuthModules from '@/components/modules/auth/Modules';
+import AuthModules from '@/components/admin/modules/auth/Modules';
 import { useStoreState } from '@/state/hooks';
 import DiscordSSO from './modules/DiscordSSO';
 import Onboarding from '@admin/modules/auth/modules/Onboarding';

@@ -25,7 +25,7 @@ import Field from '@/elements/Field';
 import FormikSwitch from '@/elements/FormikSwitch';
 import Label from '@/elements/Label';
 import SpinnerOverlay from '@/elements/SpinnerOverlay';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import useFlash from '@/plugins/useFlash';
 import AdminContentBlock from '@/elements/AdminContentBlock';
 import { WithRelationships } from '@/api/routes/admin';

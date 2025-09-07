@@ -7,16 +7,16 @@ import { Actions, useStoreActions, useStoreState } from 'easy-peasy';
 import { ApplicationStore } from '@/state';
 import { modifySubuser } from '@/api/routes/server/subusers';
 import { ServerContext } from '@/state/server';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import Can from '@/elements/Can';
 import { usePermissions } from '@/plugins/usePermissions';
 import { useDeepCompareMemo } from '@/plugins/useDeepCompareMemo';
 import tw from 'twin.macro';
 import { Button } from '@/elements/button';
-import PermissionTitleBox from '@/components/server/users/PermissionTitleBox';
+import PermissionTitleBox from '@server/users/PermissionTitleBox';
 import asModal from '@/hoc/asModal';
-import PermissionRow from '@/components/server/users/PermissionRow';
-import ModalContext from '@/context/ModalContext';
+import PermissionRow from '@server/users/PermissionRow';
+import ModalContext from '@/elements/ModalContext';
 
 type Props = {
     subuser?: Subuser;

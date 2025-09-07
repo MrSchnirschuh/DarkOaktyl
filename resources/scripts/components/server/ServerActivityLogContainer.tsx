@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useActivityLogs } from '@/api/routes/server/activity';
 import { useFlashKey } from '@/plugins/useFlash';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import Spinner from '@/elements/Spinner';
 import ActivityLogEntry from '@/elements/activity/ActivityLogEntry';
 import PaginationFooter from '@/elements/table/PaginationFooter';

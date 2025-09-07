@@ -1,7 +1,7 @@
 import { FormEvent, useState } from 'react';
 import useFlash from '@/plugins/useFlash';
 import { Button } from '@/elements/button';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import SpinnerOverlay from '@/elements/SpinnerOverlay';
 import { Product, StripeIntent } from '@definitions/account/billing';

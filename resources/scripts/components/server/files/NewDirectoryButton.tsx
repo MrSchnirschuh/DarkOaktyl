@@ -9,8 +9,7 @@ import tw from 'twin.macro';
 import { Button } from '@/elements/button/index';
 import { useFlashKey } from '@/plugins/useFlash';
 import useFileManagerSwr from '@/plugins/useFileManagerSwr';
-import { WithClassname } from '@/components/types';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import { Dialog, DialogWrapperContext } from '@/elements/dialog';
 import Code from '@/elements/Code';
 import asDialog from '@/hoc/asDialog';
@@ -96,7 +95,7 @@ const NewDirectoryDialog = asDialog({
     );
 });
 
-export default ({ className }: WithClassname) => {
+export default ({ className }: { className?: string }) => {
     const [open, setOpen] = useState(false);
 
     return (

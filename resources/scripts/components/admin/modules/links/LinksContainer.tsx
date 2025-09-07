@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { CustomLink } from '@/api/routes/admin/links';
 import AdminContentBlock from '@/elements/AdminContentBlock';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import { Button } from '@/elements/button';
 import CreateLinkDialog from './CreateLinkDialog';
 import DeleteLinkDialog from './DeleteLinkDialog';

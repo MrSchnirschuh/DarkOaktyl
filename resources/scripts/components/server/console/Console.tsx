@@ -12,7 +12,7 @@ import { WebLinksAddon } from 'xterm-addon-web-links';
 import { theme as th } from 'twin.macro';
 
 import SpinnerOverlay from '@/elements/SpinnerOverlay';
-import { SocketEvent, SocketRequest } from '@/components/server/events';
+import { SocketEvent, SocketRequest } from '@server/events';
 import { ScrollDownHelperAddon } from '@/plugins/XtermScrollDownHelperAddon';
 import useEventListener from '@/plugins/useEventListener';
 import { usePermissions } from '@/plugins/usePermissions';

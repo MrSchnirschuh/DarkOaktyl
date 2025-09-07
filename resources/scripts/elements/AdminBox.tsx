@@ -6,7 +6,7 @@ import SpinnerOverlay from '@/elements/SpinnerOverlay';
 import { useStoreState } from '@/state/hooks';
 import Spinner from '@/elements/Spinner';
 import { CheckCircleIcon, ExclamationCircleIcon } from '@heroicons/react/outline';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import { Status } from '@/plugins/useStatus';
 import classNames from 'classnames';
 

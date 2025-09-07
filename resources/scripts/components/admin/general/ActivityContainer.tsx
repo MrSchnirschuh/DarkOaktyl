@@ -1,5 +1,5 @@
 import AdminContentBlock from '@/elements/AdminContentBlock';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import { useEffect, useState } from 'react';
 import { useFlashKey } from '@/plugins/useFlash';
 import { Link } from 'react-router-dom';

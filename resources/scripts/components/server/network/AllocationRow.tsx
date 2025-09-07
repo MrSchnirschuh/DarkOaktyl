@@ -15,7 +15,7 @@ import { setAllocationNotes, setPrimaryAllocation, getAllocations } from '@/api/
 import { useFlashKey } from '@/plugins/useFlash';
 import { ServerContext } from '@/state/server';
 import CopyOnClick from '@/elements/CopyOnClick';
-import DeleteAllocationButton from '@/components/server/network/DeleteAllocationButton';
+import DeleteAllocationButton from '@server/network/DeleteAllocationButton';
 import { ip } from '@/lib/formatters';
 import Code from '@/elements/Code';
 

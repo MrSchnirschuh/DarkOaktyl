@@ -7,7 +7,7 @@ import { Button } from '@/elements/button';
 import { useStoreState } from '@/state/hooks';
 import useFlash from '@/plugins/useFlash';
 import { useEffect } from 'react';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import Label from '@/elements/Label';
 import { faFirstOrder } from '@fortawesome/free-brands-svg-icons';
 import ToggleTicketsButton from './ToggleTicketsButton';

@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import AdminContentBlock from '@/elements/AdminContentBlock';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import ApiContainer from './ApiContainer';
 import NewApiKeyContainer from './NewApiKeyContainer';
 import { NotFound } from '@/elements/ScreenBlock';

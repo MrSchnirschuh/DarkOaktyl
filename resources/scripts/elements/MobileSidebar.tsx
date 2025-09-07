@@ -1,9 +1,9 @@
 import { ElementType, ReactNode, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { withSubComponents } from '@/components/helpers';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useStoreState } from '@/state/hooks';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
+import { withSubComponents } from '@/lib/helpers';
 
 const MobileSidebar = ({ children }: { children: ReactNode[] }) => {
     return (

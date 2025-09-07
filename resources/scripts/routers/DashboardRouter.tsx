@@ -7,13 +7,13 @@ import { useStoreState } from '@/state/hooks';
 import { usePersistedState } from '@/plugins/usePersistedState';
 import Sidebar from '@/elements/Sidebar';
 import { CogIcon, DesktopComputerIcon, ExternalLinkIcon, LogoutIcon, PuzzleIcon } from '@heroicons/react/outline';
-import Avatar from '@/components/Avatar';
+import Avatar from '@/elements/Avatar';
 import MobileSidebar from '@/elements/MobileSidebar';
 import { CustomLink } from '@/api/routes/admin/links';
 import { getLinks } from '@/api/getLinks';
 import http from '@/api/http';
-import NavigationBar from '@/components/NavigationBar';
-import DashboardContainer from '@/components/account/DashboardContainer';
+import NavigationBar from '@/elements/NavigationBar';
+import DashboardContainer from '@account/DashboardContainer';
 
 function DashboardRouter() {
     const user = useStoreState(s => s.user.data!);

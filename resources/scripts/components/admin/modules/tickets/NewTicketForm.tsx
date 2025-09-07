@@ -7,7 +7,7 @@ import Field, { FieldRow } from '@/elements/Field';
 import tw from 'twin.macro';
 import AdminContentBlock from '@/elements/AdminContentBlock';
 import { Button } from '@/elements/button';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import type { ApplicationStore } from '@/state';
 import AdminBox from '@/elements/AdminBox';
 import { object, string, number } from 'yup';

@@ -8,7 +8,7 @@ import createEggVariable from '@/api/routes/admin/eggs/createEggVariable';
 import { useEggFromRoute } from '@/api/routes/admin/egg';
 import { EggVariableForm, validationSchema } from '@admin/service/nests/eggs/EggVariablesContainer';
 import Modal from '@/elements/Modal';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import { Button } from '@/elements/button';
 import useFlash from '@/plugins/useFlash';
 import { Variant } from '@/elements/button/types';

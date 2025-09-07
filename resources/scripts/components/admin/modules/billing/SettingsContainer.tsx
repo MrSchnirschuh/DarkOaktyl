@@ -12,7 +12,7 @@ import Select from '@/elements/Select';
 import currencyDictionary from '@/assets/currency';
 import SetupStripe from './guides/SetupStripe';
 import ExportConfigButton from './config/ExportConfigButton';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import ImportConfigButton from './config/ImportConfigButton';
 import { deleteStripeKeys, updateSettings } from '@/api/routes/admin/billing';
 

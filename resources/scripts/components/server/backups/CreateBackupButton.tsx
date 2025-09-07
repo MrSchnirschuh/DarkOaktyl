@@ -6,7 +6,7 @@ import Field from '@/elements/Field';
 import FormikFieldWrapper from '@/elements/FormikFieldWrapper';
 import useFlash from '@/plugins/useFlash';
 import { createBackup, getBackups } from '@/api/routes/server/backups';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import { Button } from '@/elements/button';
 import tw from 'twin.macro';
 import { Textarea } from '@/elements/Input';

@@ -5,7 +5,7 @@ import { Form, Formik } from 'formik';
 import Field from '@/elements/Field';
 import tw from 'twin.macro';
 import { Button } from '@/elements/button';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import type { ApplicationStore } from '@/state';
 import type { Values } from '@/api/routes/admin/api/createApiKey';
 import createApiKey from '@/api/routes/admin/api/createApiKey';

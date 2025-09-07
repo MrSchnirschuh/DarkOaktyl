@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Spinner from '@/elements/Spinner';
 import { useFlashKey } from '@/plugins/useFlash';
 import { ServerContext } from '@/state/server';
-import AllocationRow from '@/components/server/network/AllocationRow';
+import AllocationRow from '@server/network/AllocationRow';
 import { Button } from '@/elements/button';
 import { createAllocation, getAllocations } from '@/api/routes/server/allocations';
 import tw from 'twin.macro';

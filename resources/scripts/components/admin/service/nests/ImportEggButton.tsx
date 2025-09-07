@@ -11,7 +11,7 @@ import { Button } from '@/elements/button';
 import { Size, Variant } from '@/elements/button/types';
 import { Editor } from '@/elements/editor';
 import Modal from '@/elements/Modal';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 
 export default ({ className }: { className?: string }) => {
     const [visible, setVisible] = useState(false);

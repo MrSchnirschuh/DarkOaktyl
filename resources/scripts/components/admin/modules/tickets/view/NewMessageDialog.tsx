@@ -7,7 +7,7 @@ import { Dialog } from '@/elements/dialog';
 import SpinnerOverlay from '@/elements/SpinnerOverlay';
 import { useState } from 'react';
 import { Button } from '@/elements/button';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import { TextareaField } from '@/elements/Field';
 import { createMessage } from '@/api/routes/admin/tickets/messages';
 

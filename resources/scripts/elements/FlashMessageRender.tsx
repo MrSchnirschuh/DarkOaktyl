@@ -1,7 +1,7 @@
 import { useStoreState } from 'easy-peasy';
 import { Fragment } from 'react';
 
-import MessageBox from '@/components/MessageBox';
+import MessageBox from '@/elements/MessageBox';
 import classNames from 'classnames';
 
 type Props = Readonly<{

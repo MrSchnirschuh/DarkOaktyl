@@ -4,7 +4,7 @@ import { NotFound } from '@/elements/ScreenBlock';
 import { CalendarIcon, CogIcon } from '@heroicons/react/outline';
 import { SubNavigation, SubNavigationLink } from '@admin/SubNavigation';
 import AdminContentBlock from '@/elements/AdminContentBlock';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import EnableWebhooks from './EnableWebhooks';
 import WebhookSettings from './WebhookSettings';
 import WebhookEventsContainer from './events/WebhookEventsContainer';

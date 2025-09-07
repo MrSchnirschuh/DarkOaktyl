@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import useEventListener from '@/plugins/useEventListener';
-import SearchModal from '@/components/account/search/SearchModal';
+import SearchModal from '@account/search/SearchModal';
 
 export default () => {
     const [visible, setVisible] = useState(false);

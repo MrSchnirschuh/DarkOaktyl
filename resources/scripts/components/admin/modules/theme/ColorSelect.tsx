@@ -7,7 +7,7 @@ import Spinner from '@/elements/Spinner';
 import updateColors from '@/api/routes/admin/theme/updateColors';
 import { CheckCircleIcon } from '@heroicons/react/outline';
 import { useStoreActions, useStoreState } from '@/state/hooks';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import { faPaintbrush } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {

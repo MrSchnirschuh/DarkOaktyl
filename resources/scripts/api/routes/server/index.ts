@@ -1,6 +1,6 @@
 import http from '@/api/http';
 import { Server, ServerStats, Transformers } from '@definitions/server';
-import { PowerAction } from '@/components/server/console/ServerConsoleContainer';
+import { PowerAction } from '@server/console/ServerConsoleContainer';
 
 export type ServerStatus =
     | 'installing'
