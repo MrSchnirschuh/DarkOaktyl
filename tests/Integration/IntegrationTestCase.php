@@ -2,8 +2,6 @@
 
 namespace Everest\Tests\Integration;
 
-use Carbon\CarbonImmutable;
-use Carbon\CarbonInterface;
 use Everest\Tests\TestCase;
 use Everest\Events\ActivityLogged;
 use Illuminate\Support\Facades\Event;

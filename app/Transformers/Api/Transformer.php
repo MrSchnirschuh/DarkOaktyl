@@ -3,8 +3,6 @@
 namespace Everest\Transformers\Api;
 
 use Everest\Models\User;
-use Carbon\CarbonImmutable;
-use Carbon\CarbonInterface;
 use Illuminate\Http\Request;
 use Webmozart\Assert\Assert;
 use League\Fractal\Resource\Item;
