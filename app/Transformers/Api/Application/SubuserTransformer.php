@@ -33,8 +33,8 @@ class SubuserTransformer extends Transformer
             'user_id' => $model->user_id,
             'server_id' => $model->server_id,
             'permissions' => $model->permissions,
-            'created_at' => $model->created_at,
-            'updated_at' => $model->updated_at,
+            'created_at' => $model->created_at->toIso8601String(),
+            'updated_at' => $model->updated_at->toIso8601String(),
         ];
     }
 

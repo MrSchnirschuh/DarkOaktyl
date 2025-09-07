@@ -40,8 +40,8 @@ class ScheduleTransformer extends Transformer
             'only_when_online' => $model->only_when_online,
             'last_run_at' => $model->last_run_at,
             'next_run_at' => $model->next_run_at,
-            'created_at' => $model->created_at,
-            'updated_at' => $model->updated_at,
+            'created_at' => $model->created_at->toIso8601String(),
+            'updated_at' => $model->updated_at->toIso8601String(),
         ];
     }
 

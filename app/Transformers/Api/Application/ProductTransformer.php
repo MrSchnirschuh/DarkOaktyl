@@ -36,8 +36,8 @@ class ProductTransformer extends Transformer
                 'database' => $model->database_limit,
                 'allocation' => $model->allocation_limit,
             ],
-            'created_at' => $model->created_at,
-            'updated_at' => $model->updated_at ? $model->updated_at : null,
+            'created_at' => $model->created_at->toIso8601String(),
+            'updated_at' => $model->updated_at->toIso8601String() ? $model->updated_at->toIso8601String() : null,
         ];
     }
 }

@@ -106,7 +106,7 @@ class TwoFactorControllerTest extends ClientApiIntegrationTestCase
         // value on them.
         //
         // @see https://github.com/pterodactyl/panel/issues/3163
-        $this->assertNotNull($tokens[0]->created_at);
+        $this->assertNotNull($tokens[0]->created_at->toIso8601String());
 
         $tokens = $tokens->pluck('token')->toArray();
 

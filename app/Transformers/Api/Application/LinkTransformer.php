@@ -25,8 +25,8 @@ class LinkTransformer extends Transformer
             'name' => $model->name,
             'url' => $model->url,
             'visible' => $model->visible,
-            'created_at' => $model->created_at,
-            'updated_at' => $model->updated_at ? $model->updated_at : null,
+            'created_at' => $model->created_at->toIso8601String(),
+            'updated_at' => $model->updated_at->toIso8601String() ? $model->updated_at->toIso8601String() : null,
         ];
     }
 }
