@@ -14,10 +14,10 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { ServerPowerState, ServerStats, type Server } from '@definitions/server';
-import { getServerResourceUsage } from '@/api/server';
+import { getServerResourceUsage } from '@/api/routes/server';
 import { useStoreState } from '@/state/hooks';
 import classNames from 'classnames';
-import { removeServerFromGroup } from '@/api/server/groups';
+import { removeServerFromGroup } from '@/api/routes/server/groups';
 import { type ServerGroup } from '@definitions/server';
 import Pill from '@elements/Pill';
 import { VisibleDialog } from './groups/ServerGroupDialog';

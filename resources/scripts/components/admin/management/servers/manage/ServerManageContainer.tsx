@@ -4,7 +4,7 @@ import FlashMessageRender from '@/components/FlashMessageRender';
 import { useEffect } from 'react';
 import useFlash from '@/plugins/useFlash';
 import ToggleInstallStatusBox from '@admin/management/servers/manage/ToggleInstallStatusBox';
-import { useServerFromRoute } from '@/api/admin/server';
+import { useServerFromRoute } from '@/api/routes/admin/server';
 import SuspendServerBox from './SuspendServerBox';
 import UnsuspendServerBox from './UnsuspendServerBox';
 

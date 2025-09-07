@@ -3,7 +3,7 @@ import AdminContentBlock from '@elements/AdminContentBlock';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import ApiContainer from './ApiContainer';
 import NewApiKeyContainer from './NewApiKeyContainer';
-import { NotFound } from '@/components/elements/ScreenBlock';
+import { NotFound } from '@elements/ScreenBlock';
 
 export default () => (
     <AdminContentBlock title={'Application API'}>

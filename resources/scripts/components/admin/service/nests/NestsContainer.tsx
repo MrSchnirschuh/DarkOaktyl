@@ -1,8 +1,8 @@
 import { useContext, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import tw from 'twin.macro';
-import type { Filters } from '@/api/admin/nests/getNests';
-import getNests, { Context as NestsContext } from '@/api/admin/nests/getNests';
+import type { Filters } from '@/api/routes/admin/nests/getNests';
+import getNests, { Context as NestsContext } from '@/api/routes/admin/nests/getNests';
 import AdminContentBlock from '@elements/AdminContentBlock';
 import AdminTable, {
     TableBody,

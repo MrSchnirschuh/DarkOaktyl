@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import { useFlashKey } from '@/plugins/useFlash';
-import { deleteSSHKey, useSSHKeys } from '@/api/account/ssh-keys';
+import { deleteSSHKey, useSSHKeys } from '@/api/routes/account/ssh-keys';
 import { Dialog } from '@elements/dialog';
 import Code from '@elements/Code';
 

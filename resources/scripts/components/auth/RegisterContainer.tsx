@@ -11,8 +11,8 @@ import LoginFormContainer from '@/components/auth/LoginFormContainer';
 import Field from '@elements/Field';
 import { Button } from '@elements/button';
 import useFlash from '@/plugins/useFlash';
-import register from '@/api/auth/register';
-import { login } from '@/api/auth/login';
+import register from '@/api/routes/auth/register';
+import { login } from '@/api/routes/auth/login';
 import { faAt, faIdBadge, faKey, faUnlockKeyhole } from '@fortawesome/free-solid-svg-icons';
 
 interface Values {

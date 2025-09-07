@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useFlashKey } from '@/plugins/useFlash';
-import { useTickets } from '@/api/account/tickets';
+import { useTickets } from '@/api/routes/account/tickets';
 import ContentBox from '@elements/ContentBox';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import PageContentBlock from '@elements/PageContentBlock';

@@ -1,7 +1,6 @@
 import AdminContentBlock from '@elements/AdminContentBlock';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import { useEffect, useState } from 'react';
-import { ActivityLogFilters, useActivityLogs } from '@/api/admin/activity';
 import { useFlashKey } from '@/plugins/useFlash';
 import { Link } from 'react-router-dom';
 import PaginationFooter from '@elements/table/PaginationFooter';
@@ -12,6 +11,7 @@ import classNames from 'classnames';
 import ActivityLogEntry from '@elements/activity/ActivityLogEntry';
 import Tooltip from '@elements/tooltip/Tooltip';
 import useLocationHash from '@/plugins/useLocationHash';
+import { ActivityLogFilters, useActivityLogs } from '@/api/routes/admin/activity';
 
 export default () => {
     const { hash } = useLocationHash();

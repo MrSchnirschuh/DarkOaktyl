@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Spinner from '@elements/Spinner';
-import { getEvents, sendTestEvent, toggleEventStatus, WebhookEvent } from '@/api/admin/webhooks';
+import { getEvents, sendTestEvent, toggleEventStatus, WebhookEvent } from '@/api/routes/admin/webhooks';
 import EventsTable from './EventsTable';
 import { Button } from '@elements/button';
 import { useStoreState } from '@/state/hooks';

@@ -1,4 +1,4 @@
-import { updateTicketSettings } from '@/api/admin/tickets';
+import { updateTicketSettings } from '@/api/routes/admin/tickets';
 import { useStoreState } from '@/state/hooks';
 import { Button } from '@elements/button';
 import { useNavigate } from 'react-router-dom';

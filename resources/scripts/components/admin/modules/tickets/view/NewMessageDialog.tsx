@@ -9,7 +9,7 @@ import { useState } from 'react';
 import { Button } from '@elements/button';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import { TextareaField } from '@elements/Field';
-import { createMessage } from '@/api/admin/tickets/messages';
+import { createMessage } from '@/api/routes/admin/tickets/messages';
 
 const initialValues: { message: string } = {
     message: '',

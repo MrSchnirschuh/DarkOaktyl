@@ -3,7 +3,7 @@ import AdminBox from '@elements/AdminBox';
 import { useEffect, useState } from 'react';
 import { faLayerGroup, faPuzzlePiece, faServer, faUser } from '@fortawesome/free-solid-svg-icons';
 import { ExistingData, getExistingData } from '@/api/setup';
-import { Alert } from '../elements/alert';
+import { Alert } from '@elements/alert';
 
 export default () => {
     const [loading, setLoading] = useState<boolean>(false);

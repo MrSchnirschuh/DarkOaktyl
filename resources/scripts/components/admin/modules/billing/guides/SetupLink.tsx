@@ -1,6 +1,6 @@
 import { Dialog } from '@elements/dialog';
 import { Dispatch, SetStateAction } from 'react';
-import { BillingSetupDialog } from '../SettingsContainer';
+import { BillingSetupDialog } from '@admin/modules/billing/SettingsContainer';
 import { Alert } from '@elements/alert';
 import Code from '@elements/Code';
 import { Button } from '@elements/button';

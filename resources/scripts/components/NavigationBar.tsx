@@ -8,8 +8,8 @@ import styled from 'styled-components';
 import { SiteTheme } from '@/state/theme';
 import { Link, useLocation } from 'react-router-dom';
 import { ChevronRightIcon, HomeIcon } from '@heroicons/react/outline';
-import { useActivityLogs } from '@/api/account/activity';
-import Spinner from './elements/Spinner';
+import { useActivityLogs } from '@/api/routes/account/activity';
+import Spinner from '@elements/Spinner';
 import { formatDistanceToNow } from 'date-fns';
 
 const RightNavigation = styled.div<{ theme: SiteTheme }>`

@@ -2,14 +2,11 @@ import Spinner from '@elements/Spinner';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useStoreState } from '@/state/hooks';
-import { Product } from '@/api/billing/products';
-import { getProduct } from '@/api/billing/products';
 import NodeBox from '@/components/billing/order/NodeBox';
 import PageContentBlock from '@elements/PageContentBlock';
 import VariableBox from '@/components/billing/order/VariableBox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import getProductVariables from '@/api/billing/getProductVariables';
 import {
     faArchive,
     faCreditCard,
@@ -20,18 +17,20 @@ import {
     faMemory,
     faMicrochip,
 } from '@fortawesome/free-solid-svg-icons';
-import getNodes, { Node } from '@/api/billing/getNodes';
 import { Alert } from '@elements/alert';
 import useFlash from '@/plugins/useFlash';
-import { getIntent, PaymentIntent } from '@/api/billing/intent';
 import PaymentButton from './PaymentButton';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe, Stripe } from '@stripe/stripe-js';
-import { getPublicKey } from '@/api/billing/key';
 import { EggVariable } from '@/api/definitions/server';
-import { Button } from '@/components/elements/button';
-import processUnpaidOrder from '@/api/billing/processUnpaidOrder';
+import { Button } from '@elements/button';
 import FlashMessageRender from '@/components/FlashMessageRender';
+import { getIntent, PaymentIntent } from '@/api/routes/account/billing/intent';
+import processUnpaidOrder from '@/api/routes/account/billing/processUnpaidOrder';
+import { getProduct, Product } from '@/api/routes/account/billing/products';
+import getNodes, { type Node } from '@/api/routes/account/billing/getNodes';
+import { getPublicKey } from '@/api/routes/account/billing/key';
+import getProductVariables from '@/api/routes/account/billing/getProductVariables';
 
 const LimitBox = ({ icon, content }: { icon: IconDefinition; content: string }) => {
     return (

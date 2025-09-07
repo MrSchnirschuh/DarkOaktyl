@@ -7,7 +7,7 @@ import { Button } from '@elements/button';
 import Input, { Textarea } from '@elements/Input';
 import styled from 'styled-components';
 import { useFlashKey } from '@/plugins/useFlash';
-import { createSSHKey, useSSHKeys } from '@/api/account/ssh-keys';
+import { createSSHKey, useSSHKeys } from '@/api/routes/account/ssh-keys';
 
 interface Values {
     name: string;

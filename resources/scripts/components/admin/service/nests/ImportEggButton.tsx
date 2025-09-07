@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import tw from 'twin.macro';
 
-import getEggs from '@/api/admin/nests/getEggs';
-import importEgg from '@/api/admin/nests/importEgg';
+import getEggs from '@/api/routes/admin/nests/getEggs';
+import importEgg from '@/api/routes/admin/nests/importEgg';
 import useFlash from '@/plugins/useFlash';
 import { Button } from '@elements/button';
 import { Size, Variant } from '@elements/button/types';

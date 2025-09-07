@@ -4,9 +4,9 @@ import { Button } from '@elements/button';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { Dialog } from '@elements/dialog';
 import { useState } from 'react';
-import { useServerFromRoute } from '@/api/admin/server';
+import { useServerFromRoute } from '@/api/routes/admin/server';
 import useFlash from '@/plugins/useFlash';
-import unsuspendServer from '@/api/admin/servers/manage/unsuspendServer';
+import unsuspendServer from '@/api/routes/admin/servers/manage/unsuspendServer';
 
 export default () => {
     const { data: server } = useServerFromRoute();

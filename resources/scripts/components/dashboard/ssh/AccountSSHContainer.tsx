@@ -5,7 +5,7 @@ import FlashMessageRender from '@/components/FlashMessageRender';
 import PageContentBlock from '@elements/PageContentBlock';
 import tw from 'twin.macro';
 import GreyRowBox from '@elements/GreyRowBox';
-import { useSSHKeys } from '@/api/account/ssh-keys';
+import { useSSHKeys } from '@/api/routes/account/ssh-keys';
 import { useFlashKey } from '@/plugins/useFlash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faKey } from '@fortawesome/free-solid-svg-icons';

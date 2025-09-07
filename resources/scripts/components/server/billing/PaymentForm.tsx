@@ -3,7 +3,7 @@ import useFlash from '@/plugins/useFlash';
 import { Button } from '@elements/button';
 import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import SpinnerOverlay from '@elements/SpinnerOverlay';
-import { updateIntent } from '@/api/billing/intent';
+import { updateIntent } from '@/api/routes/account/billing/intent';
 
 export default ({
     id,

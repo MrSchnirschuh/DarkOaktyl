@@ -3,7 +3,7 @@ import type { MouseEvent, ReactNode } from 'react';
 import { useCallback, useState } from 'react';
 import tw, { styled } from 'twin.macro';
 
-import type { ListContext as TableHooks } from '@/api/admin';
+import type { ListContext as TableHooks } from '@/api/routes/admin';
 import type { PaginatedResult, PaginationDataSet } from '@/api/http';
 import Input from '@elements/Input';
 import InputSpinner from '@elements/InputSpinner';

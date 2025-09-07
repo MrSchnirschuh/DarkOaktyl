@@ -4,13 +4,13 @@ import { useFlashKey } from '@/plugins/useFlash';
 import { ServerContext } from '@/state/server';
 import AllocationRow from '@/components/server/network/AllocationRow';
 import { Button } from '@elements/button';
-import { createAllocation, getAllocations } from '@/api/server/allocations';
+import { createAllocation, getAllocations } from '@/api/routes/server/allocations';
 import tw from 'twin.macro';
 import Can from '@elements/Can';
 import SpinnerOverlay from '@elements/SpinnerOverlay';
 import isEqual from 'react-fast-compare';
 import { useDeepCompareEffect } from '@/plugins/useDeepCompareEffect';
-import PageContentBlock from '@/components/elements/PageContentBlock';
+import PageContentBlock from '@elements/PageContentBlock';
 
 const NetworkContainer = () => {
     const [loading, setLoading] = useState(false);

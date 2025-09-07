@@ -6,11 +6,11 @@ import Spinner from '@elements/Spinner';
 import AddSubuserButton from '@/components/server/users/AddSubuserButton';
 import UserRow from '@/components/server/users/UserRow';
 import FlashMessageRender from '@/components/FlashMessageRender';
-import { getSubusers } from '@/api/server/subusers';
+import { getSubusers } from '@/api/routes/server/subusers';
 import { httpErrorToHuman } from '@/api/http';
 import Can from '@elements/Can';
 import tw from 'twin.macro';
-import PageContentBlock from '@/components/elements/PageContentBlock';
+import PageContentBlock from '@elements/PageContentBlock';
 
 export default () => {
     const [loading, setLoading] = useState(true);

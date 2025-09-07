@@ -2,7 +2,7 @@ import { useContext, useEffect } from 'react';
 import { type Schedule, type Task } from '@/api/definitions/server';
 import { Field as FormikField, Form, Formik, FormikHelpers, useField } from 'formik';
 import { ServerContext } from '@/state/server';
-import { modifyTask } from '@/api/server/tasks';
+import { modifyTask } from '@/api/routes/server/tasks';
 import { httpErrorToHuman } from '@/api/http';
 import Field from '@elements/Field';
 import FlashMessageRender from '@/components/FlashMessageRender';

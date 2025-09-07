@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import Reaptcha from 'reaptcha';
 import tw from 'twin.macro';
 import { object, string } from 'yup';
-import { requestPasswordReset } from '@/api/auth/password-reset';
+import { requestPasswordReset } from '@/api/routes/auth/password-reset';
 import { httpErrorToHuman } from '@/api/http';
 import LoginFormContainer from '@/components/auth/LoginFormContainer';
 import { Button } from '@elements/button';

@@ -7,7 +7,7 @@ import Field from '@elements/Field';
 import { object, string } from 'yup';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import { ServerContext } from '@/state/server';
-import { deleteDatabase } from '@/api/server/databases';
+import { deleteDatabase } from '@/api/routes/server/databases';
 import { httpErrorToHuman } from '@/api/http';
 import RotatePasswordButton from '@/components/server/databases/RotatePasswordButton';
 import Can from '@elements/Can';

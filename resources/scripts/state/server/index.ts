@@ -3,7 +3,7 @@ import { action, computed, createContextStore, thunk } from 'easy-peasy';
 import isEqual from 'react-fast-compare';
 
 import { type Server } from '@/api/definitions/server';
-import { getServer } from '@/api/server';
+import { getServer } from '@/api/routes/server';
 import type { ServerDatabaseStore } from '@/state/server/databases';
 import databases from '@/state/server/databases';
 import type { ServerFileStore } from '@/state/server/files';

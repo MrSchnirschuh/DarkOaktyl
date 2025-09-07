@@ -4,7 +4,7 @@ import { Form, Formik, FormikHelpers } from 'formik';
 import Field from '@elements/Field';
 import * as Yup from 'yup';
 import SpinnerOverlay from '@elements/SpinnerOverlay';
-import { updateAccountPassword } from '@/api/account';
+import { updateAccountPassword } from '@/api/routes/account';
 import { httpErrorToHuman } from '@/api/http';
 import { ApplicationStore } from '@/state';
 import tw from 'twin.macro';

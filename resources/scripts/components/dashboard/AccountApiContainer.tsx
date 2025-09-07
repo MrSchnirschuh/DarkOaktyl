@@ -4,7 +4,7 @@ import CreateApiKeyForm from '@/components/dashboard/forms/CreateApiKeyForm';
 import SpinnerOverlay from '@elements/SpinnerOverlay';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faKey, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import { getApiKeys, deleteApiKey } from '@/api/account/api-keys';
+import { getApiKeys, deleteApiKey } from '@/api/routes/account/api-keys';
 import { type ApiKey } from '@/api/definitions/user';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import { format } from 'date-fns';

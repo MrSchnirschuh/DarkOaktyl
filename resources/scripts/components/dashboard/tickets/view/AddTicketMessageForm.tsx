@@ -8,7 +8,7 @@ import { Textarea } from '@elements/Input';
 import styled from 'styled-components';
 import { useFlashKey } from '@/plugins/useFlash';
 import FlashMessageRender from '@/components/FlashMessageRender';
-import { createMessage } from '@/api/account/tickets';
+import { createMessage } from '@/api/routes/account/tickets';
 import DeleteTicketDialog from './DeleteTicketDialog';
 
 interface Values {

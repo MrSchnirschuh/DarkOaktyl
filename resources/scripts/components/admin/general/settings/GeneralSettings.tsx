@@ -4,7 +4,7 @@ import tw from 'twin.macro';
 import AdminBox from '@elements/AdminBox';
 import Field from '@elements/Field';
 import { Button } from '@elements/button';
-import { GeneralSettings, updateGeneralSettings } from '@/api/admin/settings';
+import { GeneralSettings, updateGeneralSettings } from '@/api/routes/admin/settings';
 import { useStoreActions, useStoreState } from '@/state/hooks';
 import { faPaintBrush, faPlusCircle, faRecycle, faShapes, faImage } from '@fortawesome/free-solid-svg-icons';
 import useFlash from '@/plugins/useFlash';

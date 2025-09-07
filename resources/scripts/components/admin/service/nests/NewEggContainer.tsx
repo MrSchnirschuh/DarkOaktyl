@@ -5,7 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import tw from 'twin.macro';
 import { object } from 'yup';
 
-import createEgg from '@/api/admin/eggs/createEgg';
+import createEgg from '@/api/routes/admin/eggs/createEgg';
 import AdminContentBlock from '@elements/AdminContentBlock';
 import type { EggProcessContainerRef } from '@admin/service/nests/eggs/EggSettingsContainer';
 import {

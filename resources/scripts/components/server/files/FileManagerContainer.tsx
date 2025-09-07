@@ -27,12 +27,12 @@ import { usePersistedState } from '@/plugins/usePersistedState';
 import { faBorderAll, faFolderPlus, faList } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import FileObjectList from './FileObjectList';
-import CopyOnClick from '@/components/elements/CopyOnClick';
-import Input from '@/components/elements/Input';
-import Label from '@/components/elements/Label';
-import TitledGreyBox from '@/components/elements/TitledGreyBox';
+import CopyOnClick from '@elements/CopyOnClick';
+import Input from '@elements/Input';
+import Label from '@elements/Label';
+import TitledGreyBox from '@elements/TitledGreyBox';
 import { ip } from '@/lib/formatters';
-import PageContentBlock from '@/components/elements/PageContentBlock';
+import PageContentBlock from '@elements/PageContentBlock';
 
 const sortFiles = (files: FileObject[]): FileObject[] => {
     const sortedFiles: FileObject[] = files

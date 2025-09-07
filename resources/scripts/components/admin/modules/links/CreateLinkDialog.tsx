@@ -1,5 +1,5 @@
 import { Dialog } from '@elements/dialog';
-import { createLink, CustomLink, updateLink, Values } from '@/api/admin/links';
+import { createLink, CustomLink, updateLink, Values } from '@/api/routes/admin/links';
 import { VisibleDialog } from './LinksContainer';
 import Label from '@elements/Label';
 import InputField from '@elements/inputs/InputField';

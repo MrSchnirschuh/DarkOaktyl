@@ -1,7 +1,7 @@
 import { Dialog } from '@elements/dialog';
 import { Dispatch, FormEvent, SetStateAction, useState } from 'react';
 import { VisibleDialog } from './ServerGroupDialog';
-import { createServerGroup, updateServerGroup } from '@/api/server/groups';
+import { createServerGroup, updateServerGroup } from '@/api/routes/server/groups';
 import { type ServerGroup } from '@/api/definitions/server';
 import InputField from '@elements/inputs/InputField';
 import Label from '@elements/Label';

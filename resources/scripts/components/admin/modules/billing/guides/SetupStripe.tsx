@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Tooltip from '@elements/tooltip/Tooltip';
 import { useEffect, useState } from 'react';
 import { Button } from '@elements/button';
-import { updateSettings } from '@/api/admin/billing';
+import { updateSettings } from '@/api/routes/admin/billing';
 
 interface StripeKeys {
     publishable?: string;

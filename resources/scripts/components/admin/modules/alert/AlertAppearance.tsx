@@ -6,7 +6,7 @@ import FlashMessageRender from '@/components/FlashMessageRender';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ReactNode, useState } from 'react';
 import classNames from 'classnames';
-import { updateAlertSettings } from '@/api/admin/alerts';
+import { updateAlertSettings } from '@/api/routes/admin/alerts';
 import { AlertPosition } from '@/state/everest';
 import useFlash from '@/plugins/useFlash';
 import MessageBox, { FlashMessageType } from '@/components/MessageBox';

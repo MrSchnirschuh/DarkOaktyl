@@ -5,8 +5,8 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { Dialog } from '@elements/dialog';
 import { useState } from 'react';
 import useFlash from '@/plugins/useFlash';
-import { Context } from '../UserRouter';
-import { suspendUser } from '@/api/admin/users';
+import { Context } from '@admin/management/users/UserRouter';
+import { suspendUser } from '@/api/routes/admin/users';
 
 export default () => {
     const { addFlash, clearAndAddHttpError } = useFlash();

@@ -10,7 +10,7 @@ import {
     faToggleOn,
     faTrashAlt,
 } from '@fortawesome/free-solid-svg-icons';
-import { deleteTask } from '@/api/server/tasks';
+import { deleteTask } from '@/api/routes/server/tasks';
 import { httpErrorToHuman } from '@/api/http';
 import SpinnerOverlay from '@elements/SpinnerOverlay';
 import TaskDetailsModal from '@/components/server/schedules/TaskDetailsModal';

@@ -5,9 +5,7 @@ import { useStoreState } from '@/state/hooks';
 import ContentBox from '@elements/ContentBox';
 import { ReactElement, useEffect, useState } from 'react';
 import PageContentBlock from '@elements/PageContentBlock';
-import { getProducts, Product } from '@/api/billing/products';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import getCategories, { Category } from '@/api/billing/getCategories';
 import {
     IconDefinition,
     faArchive,
@@ -21,6 +19,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { Alert } from '@elements/alert';
+import getCategories, { Category } from '@/api/routes/account/billing/getCategories';
+import { getProducts, Product } from '@/api/routes/account/billing/products';
 
 interface LimitProps {
     icon: IconDefinition;

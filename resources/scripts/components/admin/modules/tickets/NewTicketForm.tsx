@@ -14,10 +14,10 @@ import { object, string, number } from 'yup';
 import { faTicket } from '@fortawesome/free-solid-svg-icons';
 import UserSelect from './UserSelect';
 import { useStoreState } from '@/state/hooks';
-import Select from '@/components/elements/Select';
-import Label from '@/components/elements/Label';
-import { createTicket } from '@/api/admin/tickets';
-import { Values } from '@/api/admin/tickets/types';
+import Select from '@elements/Select';
+import Label from '@elements/Label';
+import { createTicket } from '@/api/routes/admin/tickets';
+import { Values } from '@/api/routes/admin/tickets/types';
 
 const initialValues: Values = {
     title: '',

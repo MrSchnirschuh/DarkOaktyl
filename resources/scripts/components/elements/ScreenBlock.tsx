@@ -8,10 +8,10 @@ import NotFoundSvg from '@/assets/images/not_found.svg';
 import ServerErrorSvg from '@/assets/images/server_error.svg';
 import { useStoreState } from '@/state/hooks';
 import { useNavigate } from 'react-router-dom';
-import PaymentContainer from '../server/billing/PaymentContainer';
-import { Product, getProduct } from '@/api/billing/products';
+import PaymentContainer from '@/components/server/billing/PaymentContainer';
 import { useState, useEffect } from 'react';
 import Spinner from './Spinner';
+import { getProduct, Product } from '@/api/routes/account/billing/products';
 
 interface BaseProps {
     title: string;

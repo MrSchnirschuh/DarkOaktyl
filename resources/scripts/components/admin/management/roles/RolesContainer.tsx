@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react';
-import { getRoles, Context as RolesContext, Filters } from '@/api/admin/roles';
+import { getRoles, Context as RolesContext, Filters } from '@/api/routes/admin/roles';
 import { AdminContext } from '@/state/admin';
 import NewRoleButton from '@/components/admin/management/roles/NewRoleButton';
 import FlashMessageRender from '@/components/FlashMessageRender';
@@ -18,7 +18,7 @@ import AdminTable, {
     ContentWrapper,
     useTableHooks,
 } from '@elements/AdminTable';
-import CopyOnClick from '@/components/elements/CopyOnClick';
+import CopyOnClick from '@elements/CopyOnClick';
 import { useStoreState } from '@/state/hooks';
 
 const RolesContainer = () => {

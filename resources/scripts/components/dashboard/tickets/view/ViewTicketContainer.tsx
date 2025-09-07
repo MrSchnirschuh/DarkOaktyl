@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useFlashKey } from '@/plugins/useFlash';
 import ContentBox from '@elements/ContentBox';
-import { useTicketFromRoute } from '@/api/account/tickets';
+import { useTicketFromRoute } from '@/api/routes/account/tickets';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import PageContentBlock from '@elements/PageContentBlock';
 import AddTicketMessageForm from '@/components/dashboard/tickets/view/AddTicketMessageForm';

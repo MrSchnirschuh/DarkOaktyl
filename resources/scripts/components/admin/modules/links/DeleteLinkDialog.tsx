@@ -1,6 +1,6 @@
 import { Dialog } from '@elements/dialog';
 import { VisibleDialog } from './LinksContainer';
-import { deleteLink } from '@/api/admin/links';
+import { deleteLink } from '@/api/routes/admin/links';
 import { Dispatch, SetStateAction } from 'react';
 import Spinner from '@elements/Spinner';
 import { mutate } from 'swr';

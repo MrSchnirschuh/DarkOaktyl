@@ -6,10 +6,10 @@ import CreateBackupButton from '@/components/server/backups/CreateBackupButton';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import BackupRow from '@/components/server/backups/BackupRow';
 import tw from 'twin.macro';
-import { getBackups, Context } from '@/api/server/backups';
+import { getBackups, Context } from '@/api/routes/server/backups';
 import { ServerContext } from '@/state/server';
 import Pagination from '@elements/Pagination';
-import PageContentBlock from '@/components/elements/PageContentBlock';
+import PageContentBlock from '@elements/PageContentBlock';
 
 const BackupContainer = () => {
     const { page, setPage } = useContext(Context);

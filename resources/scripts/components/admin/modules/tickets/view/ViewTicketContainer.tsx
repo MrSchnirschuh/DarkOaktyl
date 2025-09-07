@@ -5,7 +5,7 @@ import { statusToColor } from '@admin/modules/tickets/TicketsContainer';
 import classNames from 'classnames';
 import AdminBox from '@elements/AdminBox';
 import { faCheckCircle, faGears, faXmarkCircle } from '@fortawesome/free-solid-svg-icons';
-import UserSelect from '../UserSelect';
+import UserSelect from '@admin/modules/tickets/UserSelect';
 import { Form, Formik } from 'formik';
 import type { FormikHelpers } from 'formik';
 import useFlash from '@/plugins/useFlash';
@@ -21,8 +21,8 @@ import { Alert } from '@elements/alert';
 import Spinner from '@elements/Spinner';
 import useStatus from '@/plugins/useStatus';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { TicketStatus, Values } from '@/api/admin/tickets/types';
-import { updateTicket, useTicketFromRoute } from '@/api/admin/tickets';
+import { TicketStatus, Values } from '@/api/routes/admin/tickets/types';
+import { updateTicket, useTicketFromRoute } from '@/api/routes/admin/tickets';
 
 export default () => {
     const { data: ticket, isLoading } = useTicketFromRoute();

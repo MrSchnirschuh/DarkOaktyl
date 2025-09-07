@@ -6,7 +6,7 @@ import { SparklesIcon } from '@heroicons/react/outline';
 import { SocketEvent } from '@/components/server/events';
 import Dialog from '@elements/dialog/Dialog';
 import Spinner from '@elements/Spinner';
-import { handleQuery } from '@/api/server/ai';
+import { handleQuery } from '@/api/routes/server/ai';
 import { useStoreState } from '@/state/hooks';
 
 type Visibility = 'none' | 'button' | 'dialog';

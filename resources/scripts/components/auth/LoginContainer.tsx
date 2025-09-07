@@ -7,7 +7,7 @@ import Reaptcha from 'reaptcha';
 import tw from 'twin.macro';
 import { object, string } from 'yup';
 
-import { login, externalLogin } from '@/api/auth/login';
+import { login, externalLogin } from '@/api/routes/auth/login';
 import LoginFormContainer from '@/components/auth/LoginFormContainer';
 import Field from '@elements/Field';
 import { Button } from '@elements/button';

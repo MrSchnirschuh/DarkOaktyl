@@ -4,8 +4,8 @@ import type { FormikHelpers } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import tw from 'twin.macro';
 
-import type { UpdateUserValues } from '@/api/admin/users';
-import { createUser } from '@/api/admin/users';
+import type { UpdateUserValues } from '@/api/routes/admin/users';
+import { createUser } from '@/api/routes/admin/users';
 import AdminContentBlock from '@elements/AdminContentBlock';
 import UserForm from '@admin/management/users/view/UserForm';
 import FlashMessageRender from '@/components/FlashMessageRender';

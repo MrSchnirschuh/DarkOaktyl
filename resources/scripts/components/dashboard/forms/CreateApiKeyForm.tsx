@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { object, string } from 'yup';
 import FormikFieldWrapper from '@elements/FormikFieldWrapper';
-import { createApiKey } from '@/api/account/api-keys';
+import { createApiKey } from '@/api/routes/account/api-keys';
 import { Actions, useStoreActions } from 'easy-peasy';
 import { ApplicationStore } from '@/state';
 import { httpErrorToHuman } from '@/api/http';

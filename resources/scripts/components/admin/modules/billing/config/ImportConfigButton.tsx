@@ -7,7 +7,7 @@ import SpinnerOverlay from '@elements/SpinnerOverlay';
 import useFlash from '@/plugins/useFlash';
 import Switch from '@elements/Switch';
 import { Alert } from '@elements/alert';
-import { importBillingConfiguration } from '@/api/admin/billing/config';
+import { importBillingConfiguration } from '@/api/routes/admin/billing/config';
 
 export default () => {
     const [open, setOpen] = useState<boolean>(false);

@@ -7,7 +7,7 @@ import FlashMessageRender from '@/components/FlashMessageRender';
 import useFlash from '@/plugins/useFlash';
 import { SocketEvent, SocketRequest } from '@/components/server/events';
 import Field from '@elements/Field';
-import { updateStartupVariable } from '@/api/server/startup';
+import { updateStartupVariable } from '@/api/routes/server/startup';
 import { Form, Formik } from 'formik';
 
 interface Values {

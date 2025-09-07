@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import tw from 'twin.macro';
 import { number, object, string } from 'yup';
 
-import type { Values } from '@/api/admin/nodes/createNode';
-import createNode from '@/api/admin/nodes/createNode';
+import type { Values } from '@/api/routes/admin/nodes/createNode';
+import createNode from '@/api/routes/admin/nodes/createNode';
 import NodeLimitContainer from '@admin/management/nodes/NodeLimitContainer';
 import NodeListenContainer from '@admin/management/nodes/NodeListenContainer';
 import NodeSettingsContainer from '@admin/management/nodes/NodeSettingsContainer';

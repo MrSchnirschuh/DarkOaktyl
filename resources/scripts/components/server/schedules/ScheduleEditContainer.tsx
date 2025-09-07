@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getSchedule } from '@/api/server/schedules';
+import { getSchedule } from '@/api/routes/server/schedules';
 import Spinner from '@elements/Spinner';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import EditScheduleModal from '@/components/server/schedules/EditScheduleModal';

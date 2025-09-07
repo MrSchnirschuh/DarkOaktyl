@@ -7,7 +7,7 @@ import { Button } from '@elements/button';
 import Input, { Textarea } from '@elements/Input';
 import styled from 'styled-components';
 import { useFlashKey } from '@/plugins/useFlash';
-import { createTicket } from '@/api/account/tickets';
+import { createTicket } from '@/api/routes/account/tickets';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import { useNavigate } from 'react-router-dom';
 

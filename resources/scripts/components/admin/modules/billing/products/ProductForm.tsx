@@ -12,15 +12,15 @@ import AdminBox from '@elements/AdminBox';
 import { object, string, number } from 'yup';
 import { faArrowLeft, faBell, faMicrochip, faPuzzlePiece } from '@fortawesome/free-solid-svg-icons';
 import { useStoreState } from '@/state/hooks';
-import { createProduct, updateProduct } from '@/api/admin/billing/products';
+import { createProduct, updateProduct } from '@/api/routes/admin/billing/products';
 import ProductDeleteButton from './ProductDeleteButton';
 import { CubeIcon } from '@heroicons/react/outline';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
-import { getCategory } from '@/api/admin/billing/categories';
+import { getCategory } from '@/api/routes/admin/billing/categories';
 import { Product } from '@/api/definitions/admin';
-import { ProductValues } from '@/api/admin/billing/types';
-import { Alert } from '@/components/elements/alert';
+import { ProductValues } from '@/api/routes/admin/billing/types';
+import { Alert } from '@elements/alert';
 
 export default ({ product }: { product?: Product }) => {
     const navigate = useNavigate();

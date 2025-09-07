@@ -1,7 +1,7 @@
 import { useFormikContext } from 'formik';
 import { useState } from 'react';
 
-import { searchUserAccounts } from '@/api/admin/users';
+import { searchUserAccounts } from '@/api/routes/admin/users';
 import SearchableSelect, { Option } from '@elements/SearchableSelect';
 import type { User } from '@definitions/admin';
 

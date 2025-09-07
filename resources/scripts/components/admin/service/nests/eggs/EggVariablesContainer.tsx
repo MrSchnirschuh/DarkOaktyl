@@ -5,12 +5,12 @@ import { useState } from 'react';
 import tw from 'twin.macro';
 import { array, boolean, object, string } from 'yup';
 
-import deleteEggVariable from '@/api/admin/eggs/deleteEggVariable';
-import updateEggVariables from '@/api/admin/eggs/updateEggVariables';
+import deleteEggVariable from '@/api/routes/admin/eggs/deleteEggVariable';
+import updateEggVariables from '@/api/routes/admin/eggs/updateEggVariables';
 import { NoItems } from '@elements/AdminTable';
 import ConfirmationModal from '@elements/ConfirmationModal';
-import type { EggVariable } from '@/api/admin/egg';
-import { useEggFromRoute } from '@/api/admin/egg';
+import type { EggVariable } from '@/api/routes/admin/egg';
+import { useEggFromRoute } from '@/api/routes/admin/egg';
 import NewVariableButton from '@admin/service/nests/eggs/NewVariableButton';
 import AdminBox from '@elements/AdminBox';
 import { Button } from '@elements/button';

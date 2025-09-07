@@ -5,7 +5,7 @@ import { array, object, string } from 'yup';
 import Field from '@elements/Field';
 import { Actions, useStoreActions, useStoreState } from 'easy-peasy';
 import { ApplicationStore } from '@/state';
-import { modifySubuser } from '@/api/server/subusers';
+import { modifySubuser } from '@/api/routes/server/subusers';
 import { ServerContext } from '@/state/server';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import Can from '@elements/Can';

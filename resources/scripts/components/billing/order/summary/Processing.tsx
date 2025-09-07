@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useStoreState } from '@/state/hooks';
 import PageContentBlock from '@elements/PageContentBlock';
 import { useEffect } from 'react';
-import processOrder from '@/api/billing/processOrder';
+import processOrder from '@/api/routes/account/billing/processOrder';
 import useFlash from '@/plugins/useFlash';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import Spinner from '@elements/Spinner';

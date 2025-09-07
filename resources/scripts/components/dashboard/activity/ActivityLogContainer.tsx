@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ActivityLogFilters, useActivityLogs } from '@/api/account/activity';
+import { ActivityLogFilters, useActivityLogs } from '@/api/routes/account/activity';
 import { useFlashKey } from '@/plugins/useFlash';
 import { Link } from 'react-router-dom';
 import PaginationFooter from '@elements/table/PaginationFooter';

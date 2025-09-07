@@ -1,11 +1,11 @@
-import { getIntent, PaymentIntent } from '@/api/billing/intent';
-import { getPublicKey } from '@/api/billing/key';
 import Spinner from '@elements/Spinner';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe, Stripe } from '@stripe/stripe-js';
 import { useEffect, useState } from 'react';
 import PaymentForm from './PaymentForm';
 import { ServerContext } from '@/state/server';
+import { getIntent, PaymentIntent } from '@/api/routes/account/billing/intent';
+import { getPublicKey } from '@/api/routes/account/billing/key';
 
 export default ({ id }: { id?: number }) => {
     const [stripe, setStripe] = useState<Stripe | null>(null);

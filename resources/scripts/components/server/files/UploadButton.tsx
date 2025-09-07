@@ -2,7 +2,7 @@ import { CloudUploadIcon } from '@heroicons/react/outline';
 import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
 import tw from 'twin.macro';
-import { getFileUploadUrl } from '@/api/server/files';
+import { getFileUploadUrl } from '@/api/routes/server/files';
 import { Button } from '@elements/button/index';
 import { ModalMask } from '@elements/Modal';
 import Portal from '@elements/Portal';

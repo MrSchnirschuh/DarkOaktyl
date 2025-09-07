@@ -5,8 +5,8 @@ import { faUserSlash } from '@fortawesome/free-solid-svg-icons';
 import { Dialog } from '@elements/dialog';
 import { useState } from 'react';
 import useFlash from '@/plugins/useFlash';
-import { Context } from '../UserRouter';
-import { deleteUser } from '@/api/admin/users';
+import { Context } from '@admin/management/users/UserRouter';
+import { deleteUser } from '@/api/routes/admin/users';
 import { useNavigate } from 'react-router-dom';
 
 export default () => {

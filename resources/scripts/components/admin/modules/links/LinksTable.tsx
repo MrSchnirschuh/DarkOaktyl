@@ -1,4 +1,4 @@
-import { getLinks, type Values, Context as LinksContext, CustomLink } from '@/api/admin/links';
+import { getLinks, type Values, Context as LinksContext, CustomLink } from '@/api/routes/admin/links';
 import { useStoreState } from '@/state/hooks';
 import AdminTable, {
     ContentWrapper,
@@ -14,8 +14,8 @@ import AdminTable, {
 import { Dispatch, SetStateAction, useContext } from 'react';
 import tw from 'twin.macro';
 import { VisibleDialog } from './LinksContainer';
-import Pill from '@/components/elements/Pill';
-import { Button } from '@/components/elements/button';
+import Pill from '@elements/Pill';
+import { Button } from '@elements/button';
 import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 

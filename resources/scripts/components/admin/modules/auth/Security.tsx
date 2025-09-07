@@ -6,7 +6,7 @@ import Input from '@elements/Input';
 import useFlash from '@/plugins/useFlash';
 import { useStoreState } from '@/state/hooks';
 import useStatus from '@/plugins/useStatus';
-import { updateModule } from '@/api/admin/auth/module';
+import { updateModule } from '@/api/routes/admin/auth/module';
 
 export default () => {
     const { status, setStatus } = useStatus();

@@ -6,7 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import tw from 'twin.macro';
 
 import { httpErrorToHuman } from '@/api/http';
-import { getFileContents, saveFileContents } from '@/api/server/files';
+import { getFileContents, saveFileContents } from '@/api/routes/server/files';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import { Button } from '@elements/button';
 import Can from '@elements/Can';

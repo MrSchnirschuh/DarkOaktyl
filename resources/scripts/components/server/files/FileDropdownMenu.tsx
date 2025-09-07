@@ -4,7 +4,7 @@ import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import RenameFileModal from '@/components/server/files/RenameFileModal';
 import { ServerContext } from '@/state/server';
 import { join } from 'pathe';
-import { deleteFiles, copyFile, getFileDownloadUrl, compressFiles, decompressFiles } from '@/api/server/files';
+import { deleteFiles, copyFile, getFileDownloadUrl, compressFiles, decompressFiles } from '@/api/routes/server/files';
 import Can from '@elements/Can';
 import { type FileObject } from '@/api/definitions/server';
 import useFlash from '@/plugins/useFlash';

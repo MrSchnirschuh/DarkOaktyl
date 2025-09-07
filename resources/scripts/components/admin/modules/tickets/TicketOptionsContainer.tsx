@@ -11,7 +11,7 @@ import FlashMessageRender from '@/components/FlashMessageRender';
 import Label from '@elements/Label';
 import { faFirstOrder } from '@fortawesome/free-brands-svg-icons';
 import ToggleTicketsButton from './ToggleTicketsButton';
-import { updateTicketSettings } from '@/api/admin/tickets';
+import { updateTicketSettings } from '@/api/routes/admin/tickets';
 
 export interface TicketSettings {
     maxCount: number;

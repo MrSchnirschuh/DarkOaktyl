@@ -5,11 +5,11 @@ import Sidebar from '@elements/Sidebar';
 import AdminIndicators from '@admin/AdminIndicators';
 import { usePersistedState } from '@/plugins/usePersistedState';
 import MobileSidebar from '@elements/MobileSidebar';
-import Pill from '@/components/elements/Pill';
-import ErrorBoundary from '@/components/elements/ErrorBoundary';
+import Pill from '@elements/Pill';
+import ErrorBoundary from '@elements/ErrorBoundary';
 import routes from './routes';
-import Spinner from '@/components/elements/Spinner';
-import { NotFound } from '@/components/elements/ScreenBlock';
+import Spinner from '@elements/Spinner';
+import { NotFound } from '@elements/ScreenBlock';
 import { PuzzleIcon, ReplyIcon } from '@heroicons/react/outline';
 import { Fragment } from 'react';
 

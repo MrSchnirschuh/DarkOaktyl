@@ -10,7 +10,7 @@ import Sidebar from '@elements/Sidebar';
 import { CogIcon, DesktopComputerIcon, ExternalLinkIcon, LogoutIcon, PuzzleIcon } from '@heroicons/react/outline';
 import Avatar from '@/components/Avatar';
 import MobileSidebar from '@elements/MobileSidebar';
-import { CustomLink } from '@/api/admin/links';
+import { CustomLink } from '@/api/routes/admin/links';
 import { getLinks } from '@/api/getLinks';
 import http from '@/api/http';
 import NavigationBar from '@/components/NavigationBar';

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ServerContext } from '@/state/server';
-import { reinstallServer } from '@/api/server';
+import { reinstallServer } from '@/api/routes/server';
 import { Actions, useStoreActions } from 'easy-peasy';
 import { ApplicationStore } from '@/state';
 import { httpErrorToHuman } from '@/api/http';

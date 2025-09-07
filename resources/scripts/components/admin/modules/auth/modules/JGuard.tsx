@@ -5,7 +5,7 @@ import Input from '@elements/Input';
 import AdminBox from '@elements/AdminBox';
 import Spinner from '@elements/Spinner';
 import { CheckCircleIcon, TrashIcon } from '@heroicons/react/outline';
-import { toggleModule, updateModule } from '@/api/admin/auth/module';
+import { toggleModule, updateModule } from '@/api/routes/admin/auth/module';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import { Dialog } from '@elements/dialog';
 import { faDoorOpen } from '@fortawesome/free-solid-svg-icons';

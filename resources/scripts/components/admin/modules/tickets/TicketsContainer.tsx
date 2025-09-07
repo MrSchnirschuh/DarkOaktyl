@@ -19,8 +19,8 @@ import { differenceInHours, format, formatDistanceToNow } from 'date-fns';
 import classNames from 'classnames';
 import { useStoreState } from '@/state/hooks';
 import Avatar from '@/components/Avatar';
-import { getTickets, Context as TicketsContext } from '@/api/admin/tickets';
-import { TicketFilters, type TicketStatus } from '@/api/admin/tickets/types';
+import { getTickets, Context as TicketsContext } from '@/api/routes/admin/tickets';
+import { TicketFilters, type TicketStatus } from '@/api/routes/admin/tickets/types';
 
 export const statusToColor = (status: TicketStatus): string => {
     switch (status) {

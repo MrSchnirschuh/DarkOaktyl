@@ -1,4 +1,4 @@
-import { deleteCategory } from '@/api/admin/billing/categories';
+import { deleteCategory } from '@/api/routes/admin/billing/categories';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import Input from '@elements/Input';
 import { Button } from '@elements/button';

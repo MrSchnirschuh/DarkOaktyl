@@ -8,8 +8,8 @@ import { differenceInDays, parseISO } from 'date-fns';
 import SuccessChart from './SuccessChart';
 import RevenueChart from './RevenueChart';
 import Select from '@elements/Select';
-import SetupStripe from '../guides/SetupStripe';
-import { getBillingAnalytics } from '@/api/admin/billing';
+import SetupStripe from '@admin/modules/billing/guides/SetupStripe';
+import { getBillingAnalytics } from '@/api/routes/admin/billing';
 import { BillingAnalytics, Order } from '@/api/definitions/admin';
 
 export default () => {

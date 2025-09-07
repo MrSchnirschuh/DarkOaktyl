@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import tw from 'twin.macro';
 import { number, object, string } from 'yup';
 
-import updateNode from '@/api/admin/nodes/updateNode';
+import updateNode from '@/api/routes/admin/nodes/updateNode';
 import NodeDeleteButton from '@admin/management/nodes/NodeDeleteButton';
 import NodeLimitContainer from '@admin/management/nodes/NodeLimitContainer';
 import NodeListenContainer from '@admin/management/nodes/NodeListenContainer';

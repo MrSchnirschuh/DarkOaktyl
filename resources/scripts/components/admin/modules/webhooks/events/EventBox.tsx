@@ -1,4 +1,4 @@
-import { toggleEventStatus, WebhookEvent } from '@/api/admin/webhooks';
+import { toggleEventStatus, WebhookEvent } from '@/api/routes/admin/webhooks';
 import AdminBox from '@elements/AdminBox';
 import Pill from '@elements/Pill';
 import useStatus from '@/plugins/useStatus';

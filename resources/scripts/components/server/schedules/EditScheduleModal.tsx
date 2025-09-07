@@ -3,7 +3,7 @@ import { type Schedule } from '@/api/definitions/server';
 import Field from '@elements/Field';
 import { Form, Formik, FormikHelpers } from 'formik';
 import FormikSwitch from '@elements/FormikSwitch';
-import { modifySchedule } from '@/api/server/schedules';
+import { modifySchedule } from '@/api/routes/server/schedules';
 import { ServerContext } from '@/state/server';
 import { httpErrorToHuman } from '@/api/http';
 import FlashMessageRender from '@/components/FlashMessageRender';

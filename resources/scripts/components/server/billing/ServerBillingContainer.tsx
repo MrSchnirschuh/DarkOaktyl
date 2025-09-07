@@ -6,14 +6,13 @@ import { ServerContext } from '@/state/server';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import useFlash from '@/plugins/useFlash';
-import { getProduct } from '@/api/billing/products';
-import { Product } from '@/api/billing/products';
 import SpinnerOverlay from '@elements/SpinnerOverlay';
 import { Alert } from '@elements/alert';
 import PaymentContainer from './PaymentContainer';
 import { useStoreState } from '@/state/hooks';
-import PageContentBlock from '@/components/elements/PageContentBlock';
+import PageContentBlock from '@elements/PageContentBlock';
 import { format } from 'date-fns';
+import { getProduct, Product } from '@/api/routes/account/billing/products';
 
 function timeUntil(targetDate: Date | string) {
     const date = targetDate instanceof Date ? targetDate : new Date(targetDate);

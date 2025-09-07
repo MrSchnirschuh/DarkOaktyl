@@ -14,7 +14,7 @@ import SetupStripe from './guides/SetupStripe';
 import ExportConfigButton from './config/ExportConfigButton';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import ImportConfigButton from './config/ImportConfigButton';
-import { deleteStripeKeys, updateSettings } from '@/api/admin/billing';
+import { deleteStripeKeys, updateSettings } from '@/api/routes/admin/billing';
 
 export type BillingSetupDialog = 'paypal' | 'link' | 'setup' | 'none';
 

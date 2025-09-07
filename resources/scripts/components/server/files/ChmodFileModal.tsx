@@ -3,7 +3,7 @@ import useFileManagerSwr from '@/plugins/useFileManagerSwr';
 import Modal, { RequiredModalProps } from '@elements/Modal';
 import { Form, Formik, FormikHelpers } from 'formik';
 import Field from '@elements/Field';
-import { chmodFiles } from '@/api/server/files';
+import { chmodFiles } from '@/api/routes/server/files';
 import { ServerContext } from '@/state/server';
 import tw from 'twin.macro';
 import { Button } from '@elements/button';

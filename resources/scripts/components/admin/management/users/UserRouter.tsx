@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Link, Route, Routes, useParams } from 'react-router-dom';
 import tw from 'twin.macro';
 
-import { getUser } from '@/api/admin/users';
+import { getUser } from '@/api/routes/admin/users';
 import AdminContentBlock from '@elements/AdminContentBlock';
 import { SubNavigation, SubNavigationLink } from '@admin/SubNavigation';
 import UserAboutContainer from '@admin/management/users/view/AboutContainer';
@@ -16,7 +16,7 @@ import type { User } from '@definitions/admin';
 import { CogIcon, ServerIcon, UserIcon } from '@heroicons/react/outline';
 import ManageContainer from './view/ManageContainer';
 import { useStoreState } from '@/state/hooks';
-import { Button } from '@/components/elements/button';
+import { Button } from '@elements/button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 

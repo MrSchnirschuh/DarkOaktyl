@@ -1,5 +1,5 @@
 import { Model } from '@definitions';
-import { OrderType } from '@/api/billing/orders/types';
+import { OrderType } from '@/api/routes/account/billing/orders/types';
 
 interface Order extends Model {
     id: number;

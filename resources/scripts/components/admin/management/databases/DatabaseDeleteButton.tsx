@@ -1,6 +1,6 @@
 import { useStoreActions } from 'easy-peasy';
 import { useState } from 'react';
-import deleteDatabase from '@/api/admin/databases/deleteDatabase';
+import deleteDatabase from '@/api/routes/admin/databases/deleteDatabase';
 import { Button } from '@elements/button';
 import { Shape } from '@elements/button/types';
 import ConfirmationModal from '@elements/ConfirmationModal';

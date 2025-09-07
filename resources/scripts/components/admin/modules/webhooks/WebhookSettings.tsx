@@ -10,7 +10,7 @@ import FlashMessageRender from '@/components/FlashMessageRender';
 import Label from '@elements/Label';
 import { faLink } from '@fortawesome/free-solid-svg-icons';
 import ToggleWebhooksButton from './ToggleWebhooksButton';
-import { update } from '@/api/admin/webhooks';
+import { update } from '@/api/routes/admin/webhooks';
 
 export interface WebhookSettings {
     url: string;

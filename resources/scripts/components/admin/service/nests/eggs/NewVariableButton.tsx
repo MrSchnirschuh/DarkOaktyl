@@ -3,9 +3,9 @@ import { Form, Formik, useFormikContext } from 'formik';
 import { useState } from 'react';
 import tw from 'twin.macro';
 
-import type { CreateEggVariable } from '@/api/admin/eggs/createEggVariable';
-import createEggVariable from '@/api/admin/eggs/createEggVariable';
-import { useEggFromRoute } from '@/api/admin/egg';
+import type { CreateEggVariable } from '@/api/routes/admin/eggs/createEggVariable';
+import createEggVariable from '@/api/routes/admin/eggs/createEggVariable';
+import { useEggFromRoute } from '@/api/routes/admin/egg';
 import { EggVariableForm, validationSchema } from '@admin/service/nests/eggs/EggVariablesContainer';
 import Modal from '@elements/Modal';
 import FlashMessageRender from '@/components/FlashMessageRender';

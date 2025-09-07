@@ -8,9 +8,9 @@ import {
     faUnlock,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { getBackupUrl } from '@/api/server/backups';
+import { getBackupUrl } from '@/api/routes/server/backups';
 import useFlash from '@/plugins/useFlash';
-import { deleteBackup, restoreBackup, getBackups } from '@/api/server/backups';
+import { deleteBackup, restoreBackup, getBackups } from '@/api/routes/server/backups';
 import Can from '@elements/Can';
 import tw from 'twin.macro';
 import { type Backup } from '@/api/definitions/server';

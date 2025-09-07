@@ -6,7 +6,7 @@ import InputSpinner from '@elements/InputSpinner';
 import Input from '@elements/Input';
 import Switch from '@elements/Switch';
 import { debounce } from 'debounce';
-import { updateStartupVariable, getServerStartup } from '@/api/server/startup';
+import { updateStartupVariable, getServerStartup } from '@/api/routes/server/startup';
 import useFlash from '@/plugins/useFlash';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import Select from '@elements/Select';

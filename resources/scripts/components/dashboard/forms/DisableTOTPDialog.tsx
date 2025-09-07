@@ -5,7 +5,7 @@ import { Dialog, DialogWrapperContext } from '@elements/dialog';
 import { Button } from '@elements/button/index';
 import { Input } from '@elements/inputs';
 import Tooltip from '@elements/tooltip/Tooltip';
-import { disableTwoFactor } from '@/api/account/two-factor';
+import { disableTwoFactor } from '@/api/routes/account/two-factor';
 import { useFlashKey } from '@/plugins/useFlash';
 import { useStoreActions } from '@/state/hooks';
 import FlashMessageRender from '@/components/FlashMessageRender';

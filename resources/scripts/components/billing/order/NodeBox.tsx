@@ -1,4 +1,4 @@
-import { Node } from '@/api/billing/getNodes';
+import { Node } from '@/api/routes/account/billing/getNodes';
 import { useStoreState } from '@/state/hooks';
 import { Dispatch, SetStateAction } from 'react';
 import GreyRowBox from '@elements/GreyRowBox';

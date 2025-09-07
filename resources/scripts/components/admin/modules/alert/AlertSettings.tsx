@@ -3,7 +3,7 @@ import tw from 'twin.macro';
 import AdminBox from '@elements/AdminBox';
 import Field from '@elements/Field';
 import { Button } from '@elements/button';
-import { AlertSettings, updateAlertSettings } from '@/api/admin/alerts';
+import { AlertSettings, updateAlertSettings } from '@/api/routes/admin/alerts';
 import { useStoreActions, useStoreState } from '@/state/hooks';
 import { faEye, faList, faPaintBrush } from '@fortawesome/free-solid-svg-icons';
 import useFlash from '@/plugins/useFlash';

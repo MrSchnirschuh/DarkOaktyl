@@ -11,10 +11,10 @@ import { useDeepCompareEffect } from '@/plugins/useDeepCompareEffect';
 import Select from '@elements/Select';
 import isEqual from 'react-fast-compare';
 import Input from '@elements/Input';
-import { setImage, getServerStartup } from '@/api/server/startup';
+import { setImage, getServerStartup } from '@/api/routes/server/startup';
 import InputSpinner from '@elements/InputSpinner';
 import useFlash from '@/plugins/useFlash';
-import PageContentBlock from '@/components/elements/PageContentBlock';
+import PageContentBlock from '@elements/PageContentBlock';
 
 const StartupContainer = () => {
     const [loading, setLoading] = useState(false);

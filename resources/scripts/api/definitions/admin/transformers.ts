@@ -1,12 +1,12 @@
 /* eslint-disable camelcase */
-import { Allocation, Node } from '@/api/admin/node';
-import { Server, ServerVariable } from '@/api/admin/server';
+import { Allocation, Node } from '@/api/routes/admin/node';
+import { Server, ServerVariable } from '@/api/routes/admin/server';
 import { FractalResponseData, FractalResponseList } from '@/api/http';
 import * as Models from '@definitions/admin/models';
-import { Egg, EggVariable } from '@/api/admin/egg';
-import { Nest } from '@/api/admin/nest';
+import { Egg, EggVariable } from '@/api/routes/admin/egg';
+import { Nest } from '@/api/routes/admin/nest';
 import { type Database } from '@definitions/server';
-import { WebhookEvent } from '@/api/admin/webhooks';
+import { WebhookEvent } from '@/api/routes/admin/webhooks';
 
 const isList = (data: FractalResponseList | FractalResponseData): data is FractalResponseList => data.object === 'list';
 

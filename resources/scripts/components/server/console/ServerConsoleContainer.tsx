@@ -12,11 +12,11 @@ import { ServerContext, ServerStatus } from '@/state/server';
 import classNames from 'classnames';
 import { usePersistedState } from '@/plugins/usePersistedState';
 import { useStoreState } from '@/state/hooks';
-import Pill from '@/components/elements/Pill';
+import Pill from '@elements/Pill';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle, faDownload, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import EditServerDialog from './EditServerDialog';
-import PageContentBlock from '@/components/elements/PageContentBlock';
+import PageContentBlock from '@elements/PageContentBlock';
 
 export type PowerAction = 'start' | 'stop' | 'restart' | 'kill';
 

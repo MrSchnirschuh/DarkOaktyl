@@ -4,7 +4,7 @@ import { Form, Formik, FormikHelpers } from 'formik';
 import Field from '@elements/Field';
 import { join } from 'pathe';
 import { object, string } from 'yup';
-import { createDirectory } from '@/api/server/directories';
+import { createDirectory } from '@/api/routes/server/directories';
 import tw from 'twin.macro';
 import { Button } from '@elements/button/index';
 import { useFlashKey } from '@/plugins/useFlash';
