@@ -25,8 +25,8 @@ class WebhookEventTransformer extends Transformer
             'key' => $model->key,
             'description' => $model->description,
             'enabled' => $model->enabled,
-            'created_at' => $model->created_at->toAtomString(),
-            'updated_at' => $model->updated_at ? $model->updated_at->toAtomString() : null,
+            'created_at' => $model->created_at,
+            'updated_at' => $model->updated_at ? $model->updated_at : null,
         ];
     }
 }

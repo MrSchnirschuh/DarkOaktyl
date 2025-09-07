@@ -24,8 +24,8 @@ class TicketMessageTransformer extends Transformer
             'id' => $model->id,
             'message' => $model->message,
             'author' => $model->user,
-            'created_at' => $model->created_at->toAtomString(),
-            'updated_at' => $model->updated_at ? $model->updated_at->toAtomString() : null,
+            'created_at' => $model->created_at,
+            'updated_at' => $model->updated_at ? $model->updated_at : null,
         ];
     }
 }
