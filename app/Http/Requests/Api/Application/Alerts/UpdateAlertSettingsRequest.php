@@ -5,7 +5,7 @@ namespace Everest\Http\Requests\Api\Application\Alerts;
 use Everest\Models\AdminRole;
 use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
 
-class AlertSettingsRequest extends ApplicationApiRequest
+class UpdateAlertSettingsRequest extends ApplicationApiRequest
 {
     public function rules(): array
     {

@@ -5,6 +5,7 @@ namespace Everest\Http\Controllers\Api\Application\Setup;
 use Everest\Models\Setting;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
+use Everest\Http\Requests\Api\Application\OverviewRequest;
 use Everest\Http\Controllers\Api\Application\ApplicationApiController;
 
 class SetupController extends ApplicationApiController
@@ -22,7 +23,7 @@ class SetupController extends ApplicationApiController
      *
      * @throws \Throwable
      */
-    public function data(): JsonResponse
+    public function data(OverviewRequest $request): JsonResponse
     {
         return response()->json([
             'nodes' => \Everest\Models\Node::query()->count(),
@@ -37,7 +38,7 @@ class SetupController extends ApplicationApiController
      *
      * @throws \Throwable
      */
-    public function finish(): Response
+    public function finish(OverviewRequest $request): Response
     {
         Setting::set('settings::app:setup', true);
 

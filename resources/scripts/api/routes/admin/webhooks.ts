@@ -26,7 +26,7 @@ const getEvents = async (): Promise<WebhookEvent[]> => {
 
 const toggleEventStatus = (enabled: boolean, id?: number): Promise<void> => {
     return new Promise((resolve, reject) => {
-        http.put(`/api/application/webhooks/status`, { id, enabled })
+        http.put(`/api/application/webhooks/toggle`, { id, enabled })
             .then(() => resolve())
             .catch(reject);
     });

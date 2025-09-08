@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\AI;
+namespace Everest\Http\Requests\Api\Application\Intelligence;
 
 use Everest\Models\AdminRole;
 use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
 
-class AISettingsRequest extends ApplicationApiRequest
+class UpdateIntelligenceSettingsRequest extends ApplicationApiRequest
 {
     public function rules(): array
     {

@@ -23,7 +23,7 @@ const initialValues: Values = {
     title: '',
     user_id: 0,
     assigned_to: null,
-    status: undefined,
+    status: 'pending',
 };
 
 export default () => {

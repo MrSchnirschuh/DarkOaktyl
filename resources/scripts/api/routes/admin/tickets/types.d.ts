@@ -20,3 +20,8 @@ export interface TicketFilters {
 export interface TicketMessageFilters {
     id?: number;
 }
+
+export interface CreateTicketMessageValues {
+    ticket_id: number;
+    message: string;
+}

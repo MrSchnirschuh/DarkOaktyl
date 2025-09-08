@@ -5,16 +5,12 @@ namespace Everest\Http\Requests\Api\Application\Settings;
 use Everest\Models\AdminRole;
 use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
 
-class GeneralSettingsRequest extends ApplicationApiRequest
+class UpdateApplicationModeRequest extends ApplicationApiRequest
 {
     public function rules(): array
     {
         return [
-            'name' => 'nullable|string|min:3|max:40',
-            'logo' => 'nullable|url|max:255',
-            'auto_update' => 'nullable|bool',
-            'indicators' => 'nullable|bool',
-            'speed_dial' => 'nullable|bool',
+            'mode' => 'nullable|string|in:standard,personal',
         ];
     }
 

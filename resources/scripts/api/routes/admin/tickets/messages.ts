@@ -1,5 +1,5 @@
 import http from '@/api/http';
-import { TicketMessageFilters } from '@/api/routes/admin/tickets/types';
+import { CreateTicketMessageValues, TicketMessageFilters } from '@/api/routes/admin/tickets/types';
 import { TicketMessage, Transformers } from '@definitions/admin';
 import { createPaginatedHook, createContext } from '@/api';
 
@@ -13,9 +13,9 @@ export const getTicketMessages = (id: number) =>
         transformer: Transformers.toTicketMessage,
     })();
 
-export const createMessage = (id: number, values: { message: string }): Promise<TicketMessage> => {
+export const createMessage = (values: CreateTicketMessageValues): Promise<TicketMessage> => {
     return new Promise((resolve, reject) => {
-        http.post(`/api/application/tickets/${id}/messages`, values)
+        http.post(`/api/application/tickets/message`, values)
             .then(({ data }) => resolve(Transformers.toTicketMessage(data)))
             .catch(reject);
     });

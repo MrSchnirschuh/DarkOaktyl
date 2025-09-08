@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\AI;
+namespace Everest\Http\Controllers\Api\Application;
 
 use GeminiAPI\Client;
 use Everest\Models\Setting;
@@ -8,14 +8,12 @@ use Everest\Facades\Activity;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use GeminiAPI\Resources\Parts\TextPart;
-use Everest\Http\Requests\Api\Application\AI\AIQueryRequest;
-use Everest\Http\Requests\Api\Application\AI\AISettingsRequest;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
+use Everest\Http\Requests\Api\Application\Intelligence;
 
-class SettingsController extends ApplicationApiController
+class IntelligenceController extends ApplicationApiController
 {
     /**
-     * SettingsController constructor.
+     * IntelligenceController constructor.
      */
     public function __construct()
     {
@@ -27,7 +25,7 @@ class SettingsController extends ApplicationApiController
      *
      * @throws \Throwable
      */
-    public function update(AISettingsRequest $request): Response
+    public function update(Intelligence\UpdateIntelligenceSettingsRequest $request): Response
     {
         foreach ($request->normalize() as $key => $value) {
             if ($key == 'key' && is_bool($value)) {
@@ -50,7 +48,7 @@ class SettingsController extends ApplicationApiController
      *
      * @throws \Throwable
      */
-    public function query(AIQueryRequest $request): JsonResponse
+    public function query(Intelligence\QueryRequest $request): JsonResponse
     {
         if (!config('modules.ai.enabled')) {
             throw new \Exception('The Jexactyl AI module is not enabled.');

@@ -105,8 +105,8 @@ Route::middleware([AdminSubject::class])->group(function () {
     |
     */
     Route::group(['prefix' => '/ai'], function () {
-        Route::put('/settings', [Application\AI\SettingsController::class, 'update']);
-        Route::post('/query', [Application\AI\SettingsController::class, 'query']);
+        Route::put('/settings', [Application\IntelligenceController::class, 'update']);
+        Route::post('/query', [Application\IntelligenceController::class, 'query']);
     });
 
     /*
@@ -118,11 +118,11 @@ Route::middleware([AdminSubject::class])->group(function () {
     |
     */
     Route::group(['prefix' => '/webhooks'], function () {
-        Route::get('/', [Application\Webhooks\EventsController::class, 'index']);
-        Route::put('/', [Application\Webhooks\SettingsController::class, 'update']);
+        Route::get('/', [Application\Webhooks\WebhookController::class, 'index']);
+        Route::put('/', [Application\Webhooks\WebhookController::class, 'settings']);
 
-        Route::post('/test', [Application\Webhooks\EventsController::class, 'test']);
-        Route::put('/status', [Application\Webhooks\EventsController::class, 'toggle']);
+        Route::post('/test', [Application\Webhooks\WebhookController::class, 'test']);
+        Route::put('/toggle', [Application\Webhooks\WebhookController::class, 'toggle']);
     });
 
     /*
@@ -156,8 +156,8 @@ Route::middleware([AdminSubject::class])->group(function () {
         Route::put('/{ticket:id}', [Application\Tickets\TicketController::class, 'update']);
         Route::delete('/{ticket:id}', [Application\Tickets\TicketController::class, 'delete']);
 
+        Route::post('/message', [Application\Tickets\TicketMessageController::class, 'store']);
         Route::get('/{ticket:id}/messages', [Application\Tickets\TicketMessageController::class, 'index']);
-        Route::post('/{ticket:id}/messages', [Application\Tickets\TicketMessageController::class, 'store']);
     });
 
     /*
