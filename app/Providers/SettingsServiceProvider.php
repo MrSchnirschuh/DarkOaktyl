@@ -23,6 +23,9 @@ class SettingsServiceProvider extends ServiceProvider
         'pterodactyl:client_features:allocations:enabled',
         'pterodactyl:client_features:allocations:range_start',
         'pterodactyl:client_features:allocations:range_end',
+        'activity:enabled:account',
+        'activity:enabled:server',
+        'activity:enabled:admin',        
 
         // Authentication module settings
         'modules:auth:registration:enabled',

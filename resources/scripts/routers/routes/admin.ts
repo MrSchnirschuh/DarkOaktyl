@@ -41,7 +41,12 @@ const admin: AdminRouteDefinition[] = [
      */
     route('', OverviewContainer, { name: 'Overview', end: true, icon: Icon.OfficeBuildingIcon, category: 'general' }),
     route('settings/*', SettingsRouter, { name: 'Settings', icon: Icon.CogIcon, category: 'general' }),
-    route('activity', ActivityContainer, { name: 'Activity', icon: Icon.EyeIcon, category: 'general' }),
+    route('activity', ActivityContainer, {
+        name: 'Activity',
+        icon: Icon.EyeIcon,
+        category: 'general',
+        condition: flags => flags.activityEnabled,
+    }),
     route('api/*', ApplicationApiRouter, { name: 'API', icon: Icon.CodeIcon, category: 'general', advanced: true }),
 
     /**

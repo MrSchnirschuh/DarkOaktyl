@@ -3,6 +3,7 @@
 namespace Everest\Services\Activity;
 
 use Everest\Models\User;
+use Everest\Models\Server;
 use Illuminate\Support\Arr;
 use Webmozart\Assert\Assert;
 use Everest\Models\ActivityLog;
@@ -148,7 +149,7 @@ class ActivityLogService
      * performing this action it will be logged to the disk but will not interrupt
      * the code flow.
      */
-    public function log(string $description = null): ActivityLog
+    public function log(string $description = null): null|ActivityLog
     {
         $activity = $this->getActivity();
 
@@ -168,6 +169,10 @@ class ActivityLogService
         if (!is_null($description)) {
             $activity->description = $description;
         }
+
+        if ($activity->is_admin && !config('activity.enabled.admin')) return null;
+        if ($activity->actor_type === User::class && !config('activity.enabled.account')) return null;
+        if ($activity->actor_type === Server::class && !config('activity.enabled.server')) return null;
 
         try {
             return $this->save();
