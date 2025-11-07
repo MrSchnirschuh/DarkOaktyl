@@ -12,6 +12,7 @@ import {
     faCreditCard,
     faDatabase,
     faEthernet,
+    faExternalLinkAlt,
     faHdd,
     faIdBadge,
     faMemory,
@@ -29,6 +30,8 @@ import { Product, StripeIntent, type Node } from '@definitions/account/billing';
 import { processUnpaidOrder } from '@/api/routes/account/billing/orders/process';
 import { getProduct, getProductVariables, getViableNodes } from '@/api/routes/account/billing/products';
 import { getStripeIntent, getStripeKey } from '@/api/routes/account/billing/orders/stripe';
+import TitledGreyBox from '@/elements/TitledGreyBox';
+import AdminCheckbox from '@/elements/AdminCheckbox';
 
 const LimitBox = ({ icon, content }: { icon: IconDefinition; content: string }) => {
     return (
@@ -46,12 +49,17 @@ export default () => {
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const navigate = useNavigate();
 
+    const billing = useStoreState(state => state.everest.data!.billing);
+
     const [stripe, setStripe] = useState<Stripe | null>(null);
     const [intent, setIntent] = useState<StripeIntent | null>(null);
     const [nodes, setNodes] = useState<Node[] | undefined>();
     const [selectedNode, setSelectedNode] = useState<number>(0);
     const [product, setProduct] = useState<Product | undefined>();
     const [eggs, setEggs] = useState<EggVariable[] | undefined>();
+
+    const [termsAgreed, setTermsAgreed] = useState<boolean>(false);
+    const [privacyAgreed, setPrivacyAgreed] = useState<boolean>(false);
 
     const { colors } = useStoreState(state => state.theme.data!);
 
@@ -201,24 +209,89 @@ export default () => {
                                     <div className={'h-px bg-gray-700 rounded-full'} />
                                 </>
                             )}
-                            {product.price !== 0 && intent ? (
-                                <div className={'w-full mt-8'}>
-                                    <PaymentButton
-                                        selectedNode={selectedNode}
-                                        product={product}
-                                        vars={vars}
-                                        intent={intent}
-                                    />
-                                </div>
-                            ) : (
-                                <div className={'flex w-full mt-8'}>
-                                    <p className={'font-semibold text-gray-400'}>
-                                        As this product is free, no purchase needs to be made via our payment gateways.
+                            <div className={'my-10'}>
+                                <div className={'text-xl lg:text-3xl font-semibold mb-4'}>
+                                    Legal Documents
+                                    <p className={'text-gray-400 font-normal text-sm mt-1'}>
+                                        Agree and sign the relevant legal documents for your new server.
                                     </p>
-                                    <Button className={'ml-auto'} onClick={createFree}>
-                                        Create Server
-                                    </Button>
                                 </div>
+                                <div className={'grid lg:grid-cols-2 gap-4'}>
+                                    <TitledGreyBox title={'Terms of Service agreement'} className={'relative'}>
+                                        {!termsAgreed ? (
+                                            <>
+                                                Click the checkbox to agree to our{' '}
+                                                <a href={billing.links.terms} className={'text-blue-400 font-semibold'}>
+                                                    Terms of Service <FontAwesomeIcon icon={faExternalLinkAlt} />
+                                                </a>
+                                            </>
+                                        ) : (
+                                            <Alert type={'success'}>Terms of Service completed</Alert>
+                                        )}
+                                        {!termsAgreed && (
+                                            <div className={'absolute top-0 right-0 p-3'}>
+                                                <AdminCheckbox
+                                                    name={'terms'}
+                                                    checked={false}
+                                                    onChange={() => setTermsAgreed(true)}
+                                                />
+                                            </div>
+                                        )}
+                                    </TitledGreyBox>
+                                    <TitledGreyBox title={'Privacy Policy agreement'} className={'relative'}>
+                                        {!privacyAgreed ? (
+                                            <>
+                                                Click the checkbox to agree to our{' '}
+                                                <a
+                                                    href={billing.links.privacy}
+                                                    className={'text-blue-400 font-semibold'}
+                                                >
+                                                    Privacy Policy <FontAwesomeIcon icon={faExternalLinkAlt} />
+                                                </a>
+                                            </>
+                                        ) : (
+                                            <Alert type={'success'}>Privacy Policy completed</Alert>
+                                        )}
+                                        {!privacyAgreed && (
+                                            <div className={'absolute top-0 right-0 p-3'}>
+                                                <AdminCheckbox
+                                                    name={'privacy'}
+                                                    checked={false}
+                                                    onChange={() => setPrivacyAgreed(true)}
+                                                />
+                                            </div>
+                                        )}
+                                    </TitledGreyBox>
+                                </div>
+                            </div>
+                            <div className={'h-px bg-gray-700 rounded-full'} />
+                            {!termsAgreed || !privacyAgreed ? (
+                                <Alert type={'warning'}>
+                                    Please agree to the above legal documents before proceeding with your order.
+                                </Alert>
+                            ) : (
+                                <>
+                                    {product.price !== 0 && intent ? (
+                                        <div className={'w-full mt-8'}>
+                                            <PaymentButton
+                                                selectedNode={selectedNode}
+                                                product={product}
+                                                vars={vars}
+                                                intent={intent}
+                                            />
+                                        </div>
+                                    ) : (
+                                        <div className={'flex w-full mt-8'}>
+                                            <p className={'font-semibold text-gray-400'}>
+                                                As this product is free, no purchase needs to be made via our payment
+                                                gateways.
+                                            </p>
+                                            <Button className={'ml-auto'} onClick={createFree}>
+                                                Create Server
+                                            </Button>
+                                        </div>
+                                    )}
+                                </>
                             )}
                         </div>
                     </div>

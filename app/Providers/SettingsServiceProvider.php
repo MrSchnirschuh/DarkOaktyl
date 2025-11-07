@@ -54,6 +54,8 @@ class SettingsServiceProvider extends ServiceProvider
         'modules:billing:keys:secret',
         'modules:billing:currency:code',
         'modules:billing:currency:symbol',
+        'modules:billing:links:terms',
+        'modules:billing:links:privacy',
 
         // Ticket module settings
         'modules:tickets:enabled',
