@@ -129,7 +129,7 @@ const NavigationBar = () => {
                                 backgroundColor: theme.colors.primary,
                             }}
                         />
-                        {renderPageContent()}
+                        <div className={'hidden lg:block'}>{renderPageContent()}</div>
                     </div>
                     <SearchContainer />
                 </RightNavigation>
