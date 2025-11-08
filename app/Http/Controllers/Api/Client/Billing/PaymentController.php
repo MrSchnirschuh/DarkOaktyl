@@ -171,7 +171,7 @@ class PaymentController extends ClientApiController
             $server = Server::findOrFail((int) $intent->metadata->server_id);
 
             $server->update([
-                'renewal_date' => $server->renewal_date->addDays(30),
+                'renewal_date' => $server->renewal_date->addDays(30)->toDateTimeString(),
                 'status' => $server->isSuspended() ? null : $server->status,
             ]);
         } else {
@@ -204,10 +204,7 @@ class PaymentController extends ClientApiController
         }
 
         // Mark the order as processed
-        $order->update([
-            'status' => Order::STATUS_PROCESSED,
-            'name' => $order->name . substr($server->uuid, 0, 8),
-        ]);
+        $order->update(['status' => Order::STATUS_PROCESSED, 'name' => $order->name]);
 
         return $this->returnNoContent();
     }
