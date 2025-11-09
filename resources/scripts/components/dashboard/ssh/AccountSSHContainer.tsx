@@ -20,11 +20,10 @@ export default () => {
     });
 
     useEffect(() => {
-        clearAndAddHttpError(error);
-        if (data) {
-            console.log('Fetched SSH Keys:', data);
+        if (error) {
+            clearAndAddHttpError(error);
         }
-    }, [error, data]);
+    }, [error, clearAndAddHttpError]);
 
     return (
         <PageContentBlock title={'SSH Keys'} header description={'Create, use and delete SSH keys to access servers.'}>

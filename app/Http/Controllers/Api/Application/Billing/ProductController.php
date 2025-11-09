@@ -6,6 +6,7 @@ use Ramsey\Uuid\Uuid;
 use Everest\Facades\Activity;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Cache;
 use Everest\Models\Billing\Product;
 use Everest\Models\Billing\Category;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -81,6 +82,9 @@ class ProductController extends ApplicationApiController
             ->description('A new billing product was created')
             ->log();
 
+        $this->clearProductCache($category, $product);
+        Cache::forget('application.billing.analytics');
+
         return $this->fractal->item($product)
             ->transformWith(ProductTransformer::class)
             ->respond(Response::HTTP_CREATED);
@@ -116,6 +120,9 @@ class ProductController extends ApplicationApiController
             ->description('A billing product has been updated')
             ->log();
 
+        $this->clearProductCache($category, $product);
+        Cache::forget('application.billing.analytics');
+
         return $this->returnNoContent();
     }
 
@@ -145,6 +152,20 @@ class ProductController extends ApplicationApiController
             ->description('A billing product has been deleted')
             ->log();
 
+        $this->clearProductCache($category, $product);
+        Cache::forget('application.billing.analytics');
+
         return $this->returnNoContent();
+    }
+
+    /**
+     * Clear cached storefront product responses for the provided category/product.
+     */
+    private function clearProductCache(Category $category, Product $product): void
+    {
+        Cache::forget('client.billing.categories.visible');
+        Cache::forget("client.billing.category.{$category->id}");
+        Cache::forget("client.billing.category.{$category->uuid}.products");
+        Cache::forget("client.billing.product.{$product->id}");
     }
 }

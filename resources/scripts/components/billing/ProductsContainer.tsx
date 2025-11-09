@@ -38,25 +38,82 @@ export default () => {
     const [category, setCategory] = useState<number>();
     const [products, setProducts] = useState<Product[] | undefined>();
     const [categories, setCategories] = useState<Category[] | undefined>();
+    const [categoriesLoading, setCategoriesLoading] = useState<boolean>(true);
+    const [categoriesError, setCategoriesError] = useState<boolean>(false);
 
     const settings = useStoreState(s => s.everest.data!.billing);
     const { colors } = useStoreState(state => state.theme.data!);
 
     useEffect(() => {
-        (async function () {
-            await getCategories().then(data => {
+        let isMounted = true;
+
+        const fetchCategories = async () => {
+            try {
+                setCategoriesLoading(true);
+                setCategoriesError(false);
+                const data = await getCategories();
+
+                if (!isMounted) return;
+
                 setCategories(data);
-                setCategory(Number(data[0]!.id));
-            });
-        })();
+                const [firstCategory] = data;
+                if (firstCategory) {
+                    setCategory(Number(firstCategory.id));
+                } else {
+                    setCategory(undefined);
+                }
+            } catch (error) {
+                console.error('Error loading billing categories:', error);
+                if (isMounted) {
+                    setCategories([]);
+                    setCategory(undefined);
+                    setCategoriesError(true);
+                }
+            } finally {
+                if (isMounted) {
+                    setCategoriesLoading(false);
+                }
+            }
+        };
+
+        fetchCategories();
+
+        return () => {
+            isMounted = false;
+        };
     }, []);
 
     useEffect(() => {
-        if (products || !category) return;
+        let isMounted = true;
 
-        getProducts(category).then(data => {
-            setProducts(data);
-        });
+        if (!category) {
+            setProducts([]);
+            return () => {
+                isMounted = false;
+            };
+        }
+
+        setProducts(undefined);
+
+        const fetchProducts = async () => {
+            try {
+                const data = await getProducts(category);
+                if (isMounted) {
+                    setProducts(data);
+                }
+            } catch (error) {
+                console.error('Error loading billing products:', error);
+                if (isMounted) {
+                    setProducts([]);
+                }
+            }
+        };
+
+        fetchProducts();
+
+        return () => {
+            isMounted = false;
+        };
     }, [category]);
 
     if (!settings.keys.publishable) {
@@ -79,31 +136,50 @@ export default () => {
             <div className={'grid lg:grid-cols-4 gap-4 lg:gap-12'}>
                 <div className={'border-r-4 border-gray-500'}>
                     <p className={'text-2xl text-gray-300 mb-8 mt-4 font-bold'}>Categories</p>
-                    {(!categories || categories.length < 1) && (
-                        <div className={'font-semibold my-4 text-gray-400'}>
-                            <FontAwesomeIcon icon={faExclamationTriangle} className={'w-5 h-5 mr-2 text-yellow-400'} />
-                            No categories found.
+                    {categoriesLoading ? (
+                        <div className={'flex justify-center py-4'}>
+                            <Spinner size={'small'} />
                         </div>
-                    )}
-                    {categories?.map(cat => (
-                        <button
-                            className={classNames(
-                                'font-semibold my-4 w-full text-left hover:brightness-150 duration-300 cursor-pointer line-clamp-1',
-                                Number(cat.id) === category && 'brightness-150',
+                    ) : (
+                        <>
+                            {categoriesError && (
+                                <Alert type={'danger'}>
+                                    We were unable to load product categories. Please refresh the page or try again
+                                    later.
+                                </Alert>
                             )}
-                            disabled={category === Number(cat.id)}
-                            style={{ color: colors.primary }}
-                            onClick={() => {
-                                setCategory(Number(cat.id));
-                                setProducts(undefined);
-                            }}
-                            key={cat.id}
-                        >
-                            {cat.icon && <img src={cat.icon} className={'w-7 h-7 inline-flex rounded-full mr-3'} />}
-                            {cat.name}
-                            <div className={'h-0.5 mt-4 bg-gray-600 mr-8 rounded-full'} />
-                        </button>
-                    ))}
+                            {!categoriesError && (categories?.length ?? 0) < 1 && (
+                                <div className={'font-semibold my-4 text-gray-400'}>
+                                    <FontAwesomeIcon
+                                        icon={faExclamationTriangle}
+                                        className={'w-5 h-5 mr-2 text-yellow-400'}
+                                    />
+                                    No categories found.
+                                </div>
+                            )}
+                            {categories?.map(cat => (
+                                <button
+                                    className={classNames(
+                                        'font-semibold my-4 w-full text-left hover:brightness-150 duration-300 cursor-pointer line-clamp-1',
+                                        Number(cat.id) === category && 'brightness-150',
+                                    )}
+                                    disabled={category === Number(cat.id)}
+                                    style={{ color: colors.primary }}
+                                    onClick={() => {
+                                        setCategory(Number(cat.id));
+                                        setProducts(undefined);
+                                    }}
+                                    key={cat.id}
+                                >
+                                    {cat.icon && (
+                                        <img src={cat.icon} className={'w-7 h-7 inline-flex rounded-full mr-3'} />
+                                    )}
+                                    {cat.name}
+                                    <div className={'h-0.5 mt-4 bg-gray-600 mr-8 rounded-full'} />
+                                </button>
+                            ))}
+                        </>
+                    )}
                 </div>
                 <div className={'lg:col-span-3'}>
                     {!products ? (

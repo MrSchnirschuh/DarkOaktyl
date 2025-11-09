@@ -4,6 +4,7 @@ namespace Everest\Http\Controllers\Api\Application\Billing;
 
 use Everest\Facades\Activity;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Cache;
 use Everest\Models\Billing\Order;
 use Everest\Models\Billing\Product;
 use Everest\Models\Billing\Category;
@@ -40,6 +41,8 @@ class BillingController extends ApplicationApiController
                 ->log();
         }
 
+        Cache::forget('application.billing.analytics');
+
         return $this->returnNoContent();
     }
 
@@ -48,11 +51,74 @@ class BillingController extends ApplicationApiController
      */
     public function analytics(GetBillingAnalyticsRequest $request): array
     {
-        return [
-            'orders' => Order::all(),
-            'categories' => Category::all(),
-            'products' => Product::all(),
-        ];
+        return Cache::remember(
+            'application.billing.analytics',
+            now()->addSeconds(30),
+            static function (): array {
+                $orders = Order::query()
+                    ->select([
+                        'id',
+                        'name',
+                        'description',
+                        'total',
+                        'status',
+                        'product_id',
+                        'type',
+                        'threat_index',
+                        'created_at',
+                        'updated_at',
+                    ])
+                    ->where('created_at', '>=', now()->subMonths(6))
+                    ->latest('created_at')
+                    ->get()
+                    ->toArray();
+
+                $categories = Category::query()
+                    ->select([
+                        'id',
+                        'uuid',
+                        'name',
+                        'icon',
+                        'description',
+                        'visible',
+                        'nest_id',
+                        'egg_id',
+                        'created_at',
+                        'updated_at',
+                    ])
+                    ->orderBy('name')
+                    ->get()
+                    ->toArray();
+
+                $products = Product::query()
+                    ->select([
+                        'id',
+                        'uuid',
+                        'category_uuid',
+                        'name',
+                        'icon',
+                        'price',
+                        'description',
+                        'cpu_limit',
+                        'memory_limit',
+                        'disk_limit',
+                        'backup_limit',
+                        'database_limit',
+                        'allocation_limit',
+                        'created_at',
+                        'updated_at',
+                    ])
+                    ->latest('updated_at')
+                    ->get()
+                    ->toArray();
+
+                return [
+                    'orders' => $orders,
+                    'categories' => $categories,
+                    'products' => $products,
+                ];
+            }
+        );
     }
 
     /**
@@ -60,8 +126,8 @@ class BillingController extends ApplicationApiController
      */
     public function resetKeys(DeleteStripeKeysRequest $request): Response
     {
-        $this->settings->forget('settings::modules:billing:keys:publishable');
-        $this->settings->forget('settings:modules:billing:keys:secret');
+    $this->settings->forget('settings::modules:billing:keys:publishable');
+    $this->settings->forget('settings::modules:billing:keys:secret');
 
         Activity::event('admin:billing:reset-keys')
             ->description('Stripe API keys for billing were reset')

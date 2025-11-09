@@ -22,23 +22,45 @@ export default () => {
     const { clearAndAddHttpError } = useFlashKey('account');
 
     useEffect(() => {
-        getApiKeys()
-            .then(keys => setKeys(keys))
-            .then(() => setLoading(false))
-            .catch(error => clearAndAddHttpError(error));
-    }, []);
+        let isMounted = true;
 
-    const doDeletion = (identifier: string) => {
+        const fetchKeys = async () => {
+            setLoading(true);
+
+            try {
+                const fetchedKeys = await getApiKeys();
+                if (isMounted) {
+                    setKeys(fetchedKeys);
+                }
+            } catch (error: unknown) {
+                clearAndAddHttpError(error instanceof Error ? error : String(error));
+            } finally {
+                if (isMounted) {
+                    setLoading(false);
+                }
+            }
+        };
+
+        fetchKeys();
+
+        return () => {
+            isMounted = false;
+        };
+    }, [clearAndAddHttpError]);
+
+    const doDeletion = async (identifier: string) => {
         setLoading(true);
-
         clearAndAddHttpError();
-        deleteApiKey(identifier)
-            .then(() => setKeys(s => [...(s || []).filter(key => key.identifier !== identifier)]))
-            .catch(error => clearAndAddHttpError(error))
-            .then(() => {
-                setLoading(false);
-                setDeleteIdentifier('');
-            });
+
+        try {
+            await deleteApiKey(identifier);
+            setKeys(current => current.filter(key => key.identifier !== identifier));
+        } catch (error: unknown) {
+            clearAndAddHttpError(error instanceof Error ? error : String(error));
+        } finally {
+            setLoading(false);
+            setDeleteIdentifier('');
+        }
     };
 
     return (
