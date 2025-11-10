@@ -26,10 +26,10 @@ function PageContentBlock({ title, header, description, showFlashKey, className,
             <ContentContainer css={tw`my-4 sm:my-10`} className={className}>
                 {showFlashKey && <FlashMessageRender byKey={showFlashKey} css={tw`mb-4`} />}
                 {header && (
-                    <div className={'text-3xl lg:text-5xl font-bold mt-8 mb-12'}>
+                    <div className={'mt-8 mb-12 text-3xl font-bold lg:text-5xl'}>
                         {title}
                         {description && (
-                            <p className={'text-[var(--theme-text-secondary)] font-normal text-sm mt-1'}>
+                            <p className={'mt-1 text-sm font-normal text-[var(--theme-text-secondary)]'}>
                                 {description}
                             </p>
                         )}

@@ -127,9 +127,9 @@ const Suspended = ({ date, id }: { date: Date; id?: number }) => {
                         Your server has been suspended due to a lack of payment. Your server will be deleted{' '}
                         <span className={'font-bold'}>on {date.toDateString()}</span>
                         if you do not choose to pay the monthly cost for your server.
-                        <div className={'mt-2 text-gray-300 font-semibold'}>
+                        <div className={'mt-2 font-semibold text-gray-300'}>
                             Your outstanding balance is:
-                            <span className={'text-white ml-2 font-bold'}>
+                            <span className={'ml-2 font-bold text-white'}>
                                 {currency}
                                 {product.price}
                             </span>

@@ -12,8 +12,8 @@ export interface GeneralSettings {
             account: boolean;
             server: boolean;
             admin: boolean;
-        }
-    }
+        };
+    };
 }
 
 export const updateGeneralSettings = async (settings: Partial<GeneralSettings>): Promise<void> => {

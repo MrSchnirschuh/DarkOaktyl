@@ -50,7 +50,7 @@ export default () => {
                             label={'Account Username'}
                             placeholder={'everestuser1'}
                         />
-                        <p className={'text-xs text-[var(--theme-text-secondary)] mt-2'}>
+                        <p className={'mt-2 text-xs text-[var(--theme-text-secondary)]'}>
                             This will be the unique username for your account. Maybe make this your name?
                         </p>
                     </div>
@@ -62,7 +62,7 @@ export default () => {
                             placeholder={'••••••••'}
                             label={'Account Password'}
                         />
-                        <p className={'text-xs text-[var(--theme-text-secondary)] mt-2'}>
+                        <p className={'mt-2 text-xs text-[var(--theme-text-secondary)]'}>
                             Your password must be at least 8 characters and include at least 1 special character.
                         </p>
                     </div>
