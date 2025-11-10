@@ -144,13 +144,52 @@ interface Category extends Model {
     visible: boolean;
     nestId: number;
     eggId: number;
+    pricingConfigurationId?: number;
+    useConfigurator?: boolean;
 
     createdAt: Date;
     updatedAt?: Date | null;
 
     relationships: {
         products?: Product[];
+        pricingConfiguration?: PricingConfiguration;
     };
+}
+
+interface PricingConfiguration extends Model {
+    id: number;
+    uuid: string;
+    name: string;
+    enabled: boolean;
+    cpuPrice: number;
+    memoryPrice: number;
+    diskPrice: number;
+    backupPrice: number;
+    databasePrice: number;
+    allocationPrice: number;
+    smallPackageFactor: number;
+    mediumPackageFactor: number;
+    largePackageFactor: number;
+    smallPackageThreshold: number;
+    largePackageThreshold: number;
+
+    createdAt: Date;
+    updatedAt?: Date | null;
+
+    relationships: {
+        durations?: PricingDuration[];
+    };
+}
+
+interface PricingDuration extends Model {
+    id: number;
+    pricingConfigurationId: number;
+    durationDays: number;
+    priceFactor: number;
+    enabled: boolean;
+
+    createdAt: Date;
+    updatedAt?: Date | null;
 }
 
 interface AdminRolePermission extends Model {

@@ -211,6 +211,8 @@ export default class Transformers {
             visible: attributes.visible,
             nestId: attributes.nest_id,
             eggId: attributes.egg_id,
+            pricingConfigurationId: attributes.pricing_configuration_id,
+            useConfigurator: attributes.use_configurator,
 
             createdAt: new Date(attributes.created_at),
             updatedAt: new Date(attributes.updated_at),
@@ -219,8 +221,50 @@ export default class Transformers {
                 products: ((attributes.relationships?.products as FractalResponseList | undefined)?.data || []).map(
                     Transformers.toProduct,
                 ),
+                pricingConfiguration:
+                    attributes.relationships?.pricing_configuration?.object === 'pricing_configuration'
+                        ? this.toPricingConfiguration(attributes.relationships.pricing_configuration as FractalResponseData)
+                        : undefined,
             },
         } as Models.Category);
+
+    static toPricingConfiguration = ({ attributes }: FractalResponseData): Models.PricingConfiguration => ({
+        id: attributes.id,
+        uuid: attributes.uuid,
+        name: attributes.name,
+        enabled: attributes.enabled,
+        cpuPrice: attributes.cpu_price,
+        memoryPrice: attributes.memory_price,
+        diskPrice: attributes.disk_price,
+        backupPrice: attributes.backup_price,
+        databasePrice: attributes.database_price,
+        allocationPrice: attributes.allocation_price,
+        smallPackageFactor: attributes.small_package_factor,
+        mediumPackageFactor: attributes.medium_package_factor,
+        largePackageFactor: attributes.large_package_factor,
+        smallPackageThreshold: attributes.small_package_threshold,
+        largePackageThreshold: attributes.large_package_threshold,
+
+        createdAt: new Date(attributes.created_at),
+        updatedAt: new Date(attributes.updated_at),
+
+        relationships: {
+            durations: ((attributes.relationships?.durations as FractalResponseList | undefined)?.data || []).map(
+                Transformers.toPricingDuration,
+            ),
+        },
+    });
+
+    static toPricingDuration = ({ attributes }: FractalResponseData): Models.PricingDuration => ({
+        id: attributes.id,
+        pricingConfigurationId: attributes.pricing_configuration_id,
+        durationDays: attributes.duration_days,
+        priceFactor: attributes.price_factor,
+        enabled: attributes.enabled,
+
+        createdAt: new Date(attributes.created_at),
+        updatedAt: new Date(attributes.updated_at),
+    });
 
     static toUser = ({ attributes }: FractalResponseData): Models.User => {
         return {

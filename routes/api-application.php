@@ -79,6 +79,15 @@ Route::middleware([AdminSubject::class])->group(function () {
             });
         });
 
+        Route::group(['prefix' => '/pricing'], function () {
+            Route::get('/', [Application\Billing\PricingConfigurationController::class, 'index']);
+            Route::post('/', [Application\Billing\PricingConfigurationController::class, 'store']);
+
+            Route::get('/{id}', [Application\Billing\PricingConfigurationController::class, 'view']);
+            Route::patch('/{id}', [Application\Billing\PricingConfigurationController::class, 'update']);
+            Route::delete('/{id}', [Application\Billing\PricingConfigurationController::class, 'delete']);
+        });
+
         Route::group(['prefix' => '/orders'], function () {
             Route::get('/', [Application\Billing\OrderController::class, 'index']);
         });

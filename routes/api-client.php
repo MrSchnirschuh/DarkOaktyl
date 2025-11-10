@@ -82,6 +82,8 @@ Route::prefix('/')->middleware([SuspendedAccount::class])->group(function () {
         Route::post('/products/{id}/intent', [Client\Billing\PaymentController::class, 'intent']);
         Route::put('/products/{id}/intent', [Client\Billing\PaymentController::class, 'updateIntent']);
 
+        Route::post('/calculate-price', [Client\Billing\PriceCalculatorController::class, 'calculate']);
+
         Route::post('/process', [Client\Billing\PaymentController::class, 'process'])->name('api:client.billing.process');
         Route::post('/process/free', [Client\Billing\FreeProductController::class, 'process']);
 
