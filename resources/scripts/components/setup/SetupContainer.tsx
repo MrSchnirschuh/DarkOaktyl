@@ -35,7 +35,7 @@ export default () => {
                         <h1 className={'text-5xl lg:text-8xl'}>
                             Welcome to <span style={{ color: primary }}>Jexactyl</span>
                         </h1>
-                        <p className={'italic text-gray-400 text-center'}>
+                        <p className={'italic text-[var(--theme-text-secondary)] text-center'}>
                             It&apos;s great to have you here. Let&apos;s get started.
                         </p>
                     </div>
@@ -48,7 +48,7 @@ export default () => {
                         <h1 className={'text-5xl lg:text-8xl'}>
                             Thanks for choosing <span style={{ color: primary }}>Jexactyl</span>
                         </h1>
-                        <p className={'italic text-gray-400 text-center'}>
+                        <p className={'italic text-[var(--theme-text-secondary)] text-center'}>
                             Your instance has been configured and is ready for use.
                         </p>
                     </div>

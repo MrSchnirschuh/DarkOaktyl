@@ -11,8 +11,8 @@ export default createGlobalStyle`
 
     h1, h2, h3, h4, h5, h6 {
         ${tw`font-medium tracking-normal font-header`};
-        /* Titles use the accent color (e.g. the green title like "Everest" / "Welcome") */
-        color: var(--theme-accent, var(--theme-primary, #16a34a));
+        /* Titles use the readable accent color (e.g. the green title like "Everest" / "Welcome") */
+        color: var(--theme-accent-text, var(--theme-accent, var(--theme-primary, #16a34a)));
     }
 
     p {
@@ -85,13 +85,17 @@ export default createGlobalStyle`
         color: var(--theme-text-primary, #ffffff) !important;
     }
 
-    .text-neutral-300,
     .text-neutral-400,
+    .text-gray-400 {
+        color: var(--theme-text-primary, #e5e7eb) !important;
+    }
+
+    .text-neutral-300,
     .text-neutral-500,
     .text-neutral-600,
     .text-gray-300,
-    .text-gray-400,
-    .text-gray-500 {
+    .text-gray-500,
+    .text-gray-600 {
         color: var(--theme-text-secondary, #9ca3af) !important;
     }
 `;

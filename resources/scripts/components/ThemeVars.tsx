@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useStoreState } from '@/state/hooks';
 import useFlash from '@/plugins/useFlash';
+import { ensureReadableAccent, accentForeground } from '@/helpers/colorContrast';
 
 export default function ThemeVars() {
     const theme = useStoreState(s => s.theme.data);
@@ -133,23 +134,30 @@ export default function ThemeVars() {
         // Choose text color priority: text_primary_{mode} -> text_primary -> text_{mode} -> text -> primary
         const textPrimary =
             effectiveColors[`text_primary_${mode}`] ??
-            effectiveColors['text_primary'] ??
             effectiveColors[`text_${mode}`] ??
+            effectiveColors['text_primary'] ??
             effectiveColors['text'] ??
+            effectiveColors[`primary_${mode}`] ??
             effectiveColors['primary'] ??
             '#e5e7eb';
         // Secondary text (greys)
         const textSecondary =
-            effectiveColors['text_secondary'] ?? effectiveColors['text_secondary_' + mode] ?? '#9ca3af';
+            effectiveColors[`text_secondary_${mode}`] ??
+            effectiveColors['text_secondary'] ??
+            (mode === 'light' ? '#4b5563' : '#d1d5db');
 
-        const primary = effectiveColors['primary'] ?? '#16a34a';
-        const secondary = effectiveColors['secondary'] ?? '#27272a';
+        const primary = effectiveColors[`primary_${mode}`] ?? effectiveColors['primary'] ?? '#16a34a';
+        const secondary = effectiveColors[`secondary_${mode}`] ?? effectiveColors['secondary'] ?? '#27272a';
         const background = effectiveColors[`background_${mode}`] ?? effectiveColors['background'] ?? '#0f172a';
-        const headers = effectiveColors['headers'] ?? '#111827';
-        const sidebar = effectiveColors['sidebar'] ?? '#0b0f14';
-        const accent = effectiveColors['accent_primary'] ?? effectiveColors['primary'] ?? '#16a34a';
+        const headers = effectiveColors[`headers_${mode}`] ?? effectiveColors['headers'] ?? '#111827';
+        const sidebar = effectiveColors[`sidebar_${mode}`] ?? effectiveColors['sidebar'] ?? '#0b0f14';
+        const accent = effectiveColors[`accent_primary_${mode}`] ?? effectiveColors['accent_primary'] ?? '#16a34a';
+        const headingAccent = ensureReadableAccent(accent, background, textPrimary);
+        const contrastAccent = ensureReadableAccent(accent, mode === 'light' ? '#ffffff' : '#1f2937', textPrimary);
+    const onAccent = accentForeground(accent);
 
         set('--theme-text-primary', textPrimary);
+        set('--theme-text', textPrimary);
         set('--theme-text-secondary', textSecondary);
         set('--theme-primary', primary);
         set('--theme-secondary', secondary);
@@ -157,6 +165,9 @@ export default function ThemeVars() {
         set('--theme-headers', headers);
         set('--theme-sidebar', sidebar);
         set('--theme-accent', accent);
+        set('--theme-accent-text', headingAccent);
+        set('--theme-accent-contrast', contrastAccent);
+    set('--theme-on-accent', onAccent);
         // background image per-mode
         const bgImage = effectiveColors[`background_image_${mode}`] ?? effectiveColors['background_image'] ?? '';
         if (bgImage) set('--theme-background-image', `url(${bgImage})`);

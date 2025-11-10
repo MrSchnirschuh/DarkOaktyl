@@ -2,6 +2,7 @@ import AdminBox from '@elements/AdminBox';
 import { useStoreState } from '@/state/hooks';
 import { faDesktop } from '@fortawesome/free-solid-svg-icons';
 import { useRef, useCallback, useEffect } from 'react';
+import { ensureReadableAccent } from '@/helpers/colorContrast';
 
 export default ({
     reload,
@@ -13,8 +14,14 @@ export default ({
     size?: 'small' | 'medium' | 'large';
 }) => {
     const colors = useStoreState(s => s.theme.data!.colors) as Record<string, string>;
-    const primary = colors.primary;
-    const textColor = colors[`text_${mode}`] ?? colors.primary ?? '#ffffff';
+    const primary = colors[`primary_${mode}`] ?? colors.primary;
+    const textColor =
+        colors[`text_primary_${mode}`] ??
+        colors[`text_${mode}`] ??
+        colors.text_primary ??
+        colors.text ??
+        primary ??
+        '#ffffff';
 
     const heightClass = size === 'small' ? 'h-[40vh]' : size === 'large' ? 'h-[80vh]' : 'h-[60vh]';
 
@@ -30,16 +37,36 @@ export default ({
             const effective = { ...(colors as Record<string, string>) } as Record<string, string>;
 
             const getTextPrimary = () =>
-                effective[`text_primary_${mode}`] ?? effective['text_primary'] ?? effective[`text_${mode}`] ?? effective['text'] ?? effective['primary'] ?? '#e5e7eb';
+                effective[`text_primary_${mode}`] ??
+                effective[`text_${mode}`] ??
+                effective['text_primary'] ??
+                effective['text'] ??
+                effective[`primary_${mode}`] ??
+                effective['primary'] ??
+                '#e5e7eb';
 
-            const getTextSecondary = () => effective['text_secondary'] ?? effective['text_secondary_' + mode] ?? '#9ca3af';
+            const getTextSecondary = () =>
+                effective[`text_secondary_${mode}`] ??
+                effective['text_secondary'] ??
+                (mode === 'light' ? '#4b5563' : '#9ca3af');
 
-            const primaryCol = effective['primary'] ?? '#16a34a';
-            const secondaryCol = effective['secondary'] ?? '#27272a';
+            const primaryCol = effective[`primary_${mode}`] ?? effective['primary'] ?? '#16a34a';
+            const secondaryCol = effective[`secondary_${mode}`] ?? effective['secondary'] ?? '#27272a';
             const backgroundCol = effective[`background_${mode}`] ?? effective['background'] ?? '#0f172a';
-            const headers = effective['headers'] ?? '#111827';
-            const sidebar = effective['sidebar'] ?? '#0b0f14';
-            const accent = effective['accent_primary'] ?? effective['primary'] ?? '#16a34a';
+            const headers = effective[`headers_${mode}`] ?? effective['headers'] ?? '#111827';
+            const sidebar = effective[`sidebar_${mode}`] ?? effective['sidebar'] ?? '#0b0f14';
+            const accent =
+                effective[`accent_primary_${mode}`] ??
+                effective['accent_primary'] ??
+                effective[`primary_${mode}`] ??
+                effective['primary'] ??
+                '#16a34a';
+            const accentText = ensureReadableAccent(accent, backgroundCol, getTextPrimary());
+            const accentContrast = ensureReadableAccent(
+                accent,
+                mode === 'light' ? '#ffffff' : '#1f2937',
+                getTextPrimary(),
+            );
 
             // set property even when value is empty string (to allow clearing)
             const setVar = (n: string, v?: string) => {
@@ -51,7 +78,9 @@ export default ({
                 }
             };
 
-            setVar('--theme-text-primary', getTextPrimary());
+            const textPrimary = getTextPrimary();
+            setVar('--theme-text-primary', textPrimary);
+            setVar('--theme-text', textPrimary);
             setVar('--theme-text-secondary', getTextSecondary());
             setVar('--theme-primary', primaryCol);
             setVar('--theme-secondary', secondaryCol);
@@ -59,6 +88,8 @@ export default ({
             setVar('--theme-headers', headers);
             setVar('--theme-sidebar', sidebar);
             setVar('--theme-accent', accent);
+            setVar('--theme-accent-text', accentText);
+            setVar('--theme-accent-contrast', accentContrast);
             // background image per-mode
             const bgImage = effective[`background_image_${mode}`] ?? effective['background_image'] ?? '';
             setVar('--theme-background-image', bgImage ? `url(${bgImage})` : '');

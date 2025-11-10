@@ -10,7 +10,10 @@ const Header = ({ children }: { children: ReactNode }) => {
     const { colors } = useStoreState(s => s.theme.data!);
 
     return (
-        <thead className={'text-xs uppercase text-gray-400'} style={{ backgroundColor: colors.headers }}>
+        <thead
+            className={'text-xs uppercase text-[var(--theme-text-secondary)]'}
+            style={{ backgroundColor: colors.headers }}
+        >
             <tr>{children}</tr>
         </thead>
     );
@@ -51,13 +54,13 @@ const PaginatedFooter = ({
             className={'rounded-b-lg py-2 px-4'}
         >
             <div className={'flex justify-between space-x-2'}>
-                <p className={'text-xs font-bold text-gray-400 my-auto'}>
+                <p className={'text-xs font-bold text-[var(--theme-text-secondary)] my-auto'}>
                     Showing <span className={'text-white'}>{pagination.startIndex + 1}</span> to{' '}
                     <span className={'text-white'}>{pagination.endIndex}</span> of{' '}
                     <span className={'text-white'}>{pagination.totalItems}</span> results
                 </p>
                 <div className={'inline-flex'}>
-                    <p className={'text-xs font-bold text-gray-400 my-auto mr-2'}>
+                    <p className={'text-xs font-bold text-[var(--theme-text-secondary)] my-auto mr-2'}>
                         Page <span className={'text-white'}>{pagination.currentPage}</span> of{' '}
                         <span className={'text-white'}>{pagination.totalPages}</span>
                     </p>
@@ -87,7 +90,7 @@ const Table = ({ children }: { children: ReactNode[] }) => {
     return (
         <div className={'relative overflow-x-auto'}>
             <div className={'py-5 rounded-t-lg'} style={{ backgroundColor: colors.secondary }}></div>
-            <table className={'w-full text-sm text-left text-gray-400'}>{children}</table>
+            <table className={'w-full text-sm text-left text-[var(--theme-text-primary)]'}>{children}</table>
         </div>
     );
 };

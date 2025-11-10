@@ -22,17 +22,19 @@ interface OwnProps {
 
 type Props = OwnProps & Omit<InputHTMLAttributes<HTMLInputElement>, 'name'>;
 
-const InputWrapper = styled.div<{ $bgColor: string }>`
+const InputWrapper = styled.div<{ $bgColor: string; $isLight: boolean }>`
     ${tw`flex items-center rounded-md border-2 border-zinc-800`};
     background-color: ${({ $bgColor }) => $bgColor};
+    ${({ $isLight }) => $isLight && tw`border-neutral-200`};
 `;
 
-const IconWrapper = styled.div<{ $bgColor: string }>`
-    ${tw`pl-3 text-gray-400 flex-shrink-0`};
+const IconWrapper = styled.div<{ $bgColor: string; $isLight: boolean }>`
+    ${tw`pl-3 flex-shrink-0`};
+    color: ${({ $isLight }) => ($isLight ? 'var(--theme-text-secondary, #4b5563)' : 'var(--theme-text-secondary, #9ca3af)')};
     background-color: ${({ $bgColor }) => $bgColor};
 `;
 const StyledInput = styled(Input)`
-    ${tw`flex-grow py-2 px-3 focus:outline-none text-white`};
+    ${tw`flex-grow py-2 px-3 focus:outline-none`};
     border: none;
     box-shadow: none;
 `;
@@ -40,27 +42,31 @@ const StyledInput = styled(Input)`
 const Field = forwardRef<HTMLInputElement, Props>(
     ({ id, name, light = false, label, description, validate, icon, ...props }, ref) => {
         const theme = useStoreState(state => state.theme.data!);
-        const bgColor = theme.colors.secondary;
+        const mode = useStoreState(state => state.theme.mode ?? 'dark');
+        const colors = theme.colors as Record<string, string>;
+        const secondary = colors[`secondary_${mode}`] ?? colors.secondary ?? '#1f2937';
+        const bgColor = light || mode === 'light' ? '#ffffff' : secondary;
+        const applyLightStyles = light || mode === 'light';
 
         return (
             <FormikField innerRef={ref} name={name} validate={validate}>
                 {({ field, form: { errors, touched } }: FieldProps) => (
                     <div>
                         {label && (
-                            <Label htmlFor={id} isLight={light}>
+                            <Label htmlFor={id} isLight={applyLightStyles}>
                                 {label}
                             </Label>
                         )}
 
                         {icon ? (
-                            <InputWrapper $bgColor={bgColor}>
-                                <IconWrapper $bgColor={bgColor}>
+                            <InputWrapper $bgColor={bgColor} $isLight={applyLightStyles}>
+                                <IconWrapper $bgColor={bgColor} $isLight={applyLightStyles}>
                                     <FontAwesomeIcon icon={icon} />
                                 </IconWrapper>
-                                <StyledInput id={id} {...field} {...props} isLight={light} />
+                                <StyledInput id={id} {...field} {...props} isLight={applyLightStyles} />
                             </InputWrapper>
                         ) : (
-                            <Input id={id} {...field} {...props} isLight={light} />
+                            <Input id={id} {...field} {...props} isLight={applyLightStyles} />
                         )}
 
                         {touched[field.name] && errors[field.name] ? (

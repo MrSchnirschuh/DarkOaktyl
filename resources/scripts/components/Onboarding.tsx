@@ -39,7 +39,7 @@ export default () => {
             <Formik onSubmit={submit} initialValues={{ username: '', password: '' }}>
                 <Form>
                     <p className={'mt-2'}>We are missing some details - please enter them now.</p>
-                    <p className={'text-sm text-gray-400'}>
+                    <p className={'text-sm text-[var(--theme-text-secondary)]'}>
                         {content ?? "You can change these at any time in the 'Account' tab."}
                     </p>
                     <div className={'my-6'}>
@@ -50,7 +50,7 @@ export default () => {
                             label={'Account Username'}
                             placeholder={'everestuser1'}
                         />
-                        <p className={'text-xs text-gray-400 mt-2'}>
+                        <p className={'text-xs text-[var(--theme-text-secondary)] mt-2'}>
                             This will be the unique username for your account. Maybe make this your name?
                         </p>
                     </div>
@@ -62,7 +62,7 @@ export default () => {
                             placeholder={'••••••••'}
                             label={'Account Password'}
                         />
-                        <p className={'text-xs text-gray-400 mt-2'}>
+                        <p className={'text-xs text-[var(--theme-text-secondary)] mt-2'}>
                             Your password must be at least 8 characters and include at least 1 special character.
                         </p>
                     </div>
@@ -74,7 +74,7 @@ export default () => {
                         </Alert>
                     )}
                     <div className={'flex w-full justify-between'}>
-                        <p className={'my-auto text-xs text-gray-400'}>
+                        <p className={'my-auto text-xs text-[var(--theme-text-secondary)]'}>
                             <FontAwesomeIcon icon={faExclamationTriangle} className={'mr-1 text-yellow-600'} />
                             This action will cause your account to logout.
                         </p>

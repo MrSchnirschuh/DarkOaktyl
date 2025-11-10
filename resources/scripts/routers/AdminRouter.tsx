@@ -83,7 +83,7 @@ function AdminRouter() {
                     <div className={'flex flex-col ml-3'}>
                         <span className={'font-sans font-normal text-xs text-gray-300 leading-tight select-none'}>
                             <div className={'w-full flex justify-between mb-1'}>
-                                <p className={'text-sm text-gray-400'}>Welcome,</p>
+                                <p className={'text-sm text-[var(--theme-text-secondary)]'}>Welcome,</p>
                                 <Pill size={'xsmall'} type={'info'}>
                                     {user.roleName === 'None' ? 'Root Admin' : user.roleName}
                                 </Pill>

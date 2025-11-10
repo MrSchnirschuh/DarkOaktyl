@@ -31,6 +31,9 @@ const checkboxStyle = css<Props>`
 
 const inputStyle = () => {
     const theme = useStoreState(state => state.theme.data!);
+    const mode = useStoreState(state => state.theme.mode ?? 'dark');
+    const colors = theme.colors as Record<string, string>;
+    const background = colors[`secondary_${mode}`] ?? colors.secondary ?? '#1f2937';
 
     return css<Props>`
         // Reset to normal styling.
@@ -39,11 +42,18 @@ const inputStyle = () => {
         ${tw`py-2.5 px-3 border-2 rounded text-sm transition-all duration-150`};
         ${tw`border-zinc-700 hover:border-neutral-400 text-neutral-200 shadow-none`};
 
-        background-color: ${theme.colors.secondary};
+        background-color: ${background};
 
         & + .input-help {
             ${tw`mt-1 text-xs`};
-            ${props => (props.hasError ? tw`text-red-200` : tw`text-neutral-200`)};
+            ${props =>
+                props.hasError
+                    ? props.isLight
+                        ? tw`text-red-500`
+                        : tw`text-red-200`
+                    : css`
+                          color: var(--theme-text-secondary, #9ca3af);
+                      `};
         }
 
         &:required,
@@ -64,6 +74,11 @@ const inputStyle = () => {
                       }
                   `};
         ${props => props.hasError && tw`text-red-100 border-red-400 hover:border-red-300`};
+        ${props =>
+            props.isLight &&
+            css`
+                color: var(--theme-text-primary, #111827);
+            `};
     `;
 };
 

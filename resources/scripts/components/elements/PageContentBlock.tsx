@@ -28,7 +28,11 @@ function PageContentBlock({ title, header, description, showFlashKey, className,
                 {header && (
                     <div className={'text-3xl lg:text-5xl font-bold mt-8 mb-12'}>
                         {title}
-                        {description && <p className={'text-gray-400 font-normal text-sm mt-1'}>{description}</p>}
+                        {description && (
+                            <p className={'text-[var(--theme-text-secondary)] font-normal text-sm mt-1'}>
+                                {description}
+                            </p>
+                        )}
                     </div>
                 )}
                 {children}

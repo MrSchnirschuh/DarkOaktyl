@@ -110,7 +110,9 @@ function LoginContainer() {
                             <Link
                                 to={'/auth/password'}
                                 tabIndex={-1}
-                                className={'ml-1 text-green-400 hover:text-green-200 duration-300 text-xs'}
+                                className={
+                                    'ml-1 text-[var(--theme-accent-text)] hover:text-[var(--theme-accent-contrast)] duration-300 text-xs'
+                                }
                             >
                                 Forgot Password?
                             </Link>

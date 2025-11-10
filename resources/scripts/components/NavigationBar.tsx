@@ -17,8 +17,9 @@ const RightNavigation = styled.div<{ theme: SiteTheme }>`
     & > button,
     & > div,
     & > .navigation-link {
-        ${tw`flex items-center h-full no-underline text-neutral-300 px-6 cursor-pointer transition-all duration-300 gap-x-2`};
-        ${tw`text-gray-400 font-medium`};
+    ${tw`flex items-center h-full no-underline text-neutral-300 px-6 cursor-pointer transition-all duration-300 gap-x-2`};
+    ${tw`font-medium`};
+    color: var(--theme-text-secondary);
 
         &:active,
         &:hover,
@@ -56,7 +57,7 @@ const NavigationBar = () => {
     }, []);
 
     const renderBreadcrumbs = () => (
-        <ol className="w-1/3 text-gray-400 text-sm inline-flex space-x-2">
+        <ol className="w-1/3 text-[var(--theme-text-secondary)] text-sm inline-flex space-x-2">
             <Link to={'/'}>
                 <HomeIcon className="w-4 h-4 my-auto brightness-150" />
             </Link>

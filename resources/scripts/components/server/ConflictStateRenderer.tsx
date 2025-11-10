@@ -1,7 +1,10 @@
-import ServerInstallSvg from '@/assets/images/server_installing.svg';
+import { useMemo } from 'react';
+import ServerInstallSvgRaw from '@/assets/images/server_installing.svg?raw';
 import ServerErrorSvg from '@/assets/images/server_error.svg';
-import ServerRestoreSvg from '@/assets/images/server_restore.svg';
+import ServerRestoreSvgRaw from '@/assets/images/server_restore.svg?raw';
 import ScreenBlock from '@elements/ScreenBlock';
+import { createThemedSvgDataUri } from '@/helpers/themedSvg';
+import { useStoreState } from '@/state/hooks';
 import { ServerContext } from '@/state/server';
 
 export default () => {
@@ -10,11 +13,22 @@ export default () => {
     const isNodeUnderMaintenance = ServerContext.useStoreState(
         state => state.server.data?.isNodeUnderMaintenance || false,
     );
+    const themeColors = useStoreState(state => state.theme.data?.colors);
+    const themeMode = useStoreState(state => state.theme.mode ?? 'dark');
+
+    const serverInstallSvg = useMemo(
+        () => createThemedSvgDataUri(ServerInstallSvgRaw, themeColors, themeMode),
+        [themeColors, themeMode],
+    );
+    const serverRestoreSvg = useMemo(
+        () => createThemedSvgDataUri(ServerRestoreSvgRaw, themeColors, themeMode),
+        [themeColors, themeMode],
+    );
 
     return status === 'installing' || status === 'install_failed' || status === 'reinstall_failed' ? (
         <ScreenBlock
             title={'Running Installer'}
-            image={ServerInstallSvg}
+            image={serverInstallSvg}
             message={'Your server should be ready soon, please try again in a few minutes.'}
         />
     ) : status === 'suspended' ? (
@@ -32,7 +46,7 @@ export default () => {
     ) : (
         <ScreenBlock
             title={isTransferring ? 'Transferring' : 'Restoring from Backup'}
-            image={ServerRestoreSvg}
+            image={serverRestoreSvg}
             message={
                 isTransferring
                     ? 'Your server is being transferred to a new node, please check back later.'

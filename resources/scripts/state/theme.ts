@@ -34,7 +34,8 @@ const theme: ThemeStore = {
             return;
         }
 
-        const colors = { ...(state.data.colors as Record<string, string>) };
+        const original = { ...(state.data.colors as Record<string, string>) };
+        const colors = { ...original };
         const suffix = `_${payload}`;
 
         // Apply any per-mode keys found in the colors object. e.g. primary_dark => primary
@@ -45,6 +46,13 @@ const theme: ThemeStore = {
                 if (typeof val !== 'undefined') {
                     colors[base] = val as string;
                 }
+            }
+        });
+
+        // Preserve base accent hues regardless of mode overrides so light & dark stay consistent.
+        ['primary', 'accent_primary', 'accent_secondary'].forEach(key => {
+            if (typeof original[key] !== 'undefined') {
+                colors[key] = original[key];
             }
         });
 

@@ -35,7 +35,7 @@ export default () => {
                 <div className={'bg-black/25 rounded-xl w-full p-8 relative'}>
                     <PersonalModeSvg color={primary} />
                     <p className={'text-2xl lg:text-4xl font-bold mb-2'}>Personal Mode</p>
-                    <p className={'text-gray-400'}>
+                    <p className={'text-[var(--theme-text-secondary)]'}>
                         Personal Mode allows you to run Jexactyl in standard settings, with basic features enable by
                         default. It gives you all the great typical features of a game hosting panel without any
                         business-oriented features making it a cluttered experience.
@@ -49,7 +49,7 @@ export default () => {
                 <div className={'bg-black/25 rounded-xl w-full p-8 relative'}>
                     <StandardMoveSvg color={primary} />
                     <p className={'text-2xl lg:text-4xl font-bold mb-2'}>Standard Mode</p>
-                    <p className={'text-gray-400'}>
+                    <p className={'text-[var(--theme-text-secondary)]'}>
                         Standard Mode allows all of the Jexactyl features by default, such as billing, tickets, webhooks
                         and more. It&apos;s ideal for businesses or large groups who need more control over their users.
                     </p>

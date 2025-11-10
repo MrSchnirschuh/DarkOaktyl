@@ -117,7 +117,7 @@ function DashboardRouter() {
                                 'font-sans font-normal text-xs text-gray-300 whitespace-nowrap leading-tight select-none'
                             }
                         >
-                            <div className={'text-gray-400 text-sm'}>Welcome back,</div>
+                            <div className={'text-[var(--theme-text-secondary)] text-sm'}>Welcome back,</div>
                             {user.username}
                         </span>
                     </div>

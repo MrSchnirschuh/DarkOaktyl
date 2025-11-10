@@ -7,8 +7,10 @@ import React from 'react';
 
 const Icon: React.FC<{ icon: React.ElementType }> = ({ icon: Icon }) => {
     const theme = useStoreState(s => s.theme.data!);
+    const accent = theme.colors.accent_primary ?? theme.colors.primary;
 
-    return <Icon color={theme.colors.primary} />;
+    const accentVar = `var(--theme-accent-contrast, ${accent})`;
+    return <Icon color={accent} style={{ color: accentVar, stroke: accentVar }} />;
 };
 
 const Wrapper = styled.div<{ theme: SiteTheme; $admin?: boolean }>`
@@ -16,8 +18,7 @@ const Wrapper = styled.div<{ theme: SiteTheme; $admin?: boolean }>`
 
     & > a {
         ${tw`w-full flex flex-row items-center cursor-pointer select-none px-4`};
-        color: ${({ theme }) => theme.colors.text};
-        ${tw`hover:text-neutral-50`};
+        color: var(--theme-text-secondary);
         height: ${({ $admin }) => ($admin ? '2.5rem' : '4rem')};
         ${tw`transition ease-in-out delay-200 duration-200`};
 
@@ -29,17 +30,21 @@ const Wrapper = styled.div<{ theme: SiteTheme; $admin?: boolean }>`
             ${tw`font-header font-medium text-lg whitespace-nowrap leading-none ml-3`};
         }
 
+        &:hover {
+            color: var(--theme-text-primary);
+        }
+
         &:active,
         &.active {
             ${tw`bg-black/25 rounded-lg`};
-            color: ${({ theme }) => theme.colors.primary};
-            filter: brightness(150%);
+            color: var(--theme-accent-text, ${({ theme }) => theme.colors.accent_primary ?? theme.colors.primary});
         }
     }
 `;
 
 const Section = styled.div`
-    ${tw`h-[18px] font-header font-medium text-xs text-neutral-300 whitespace-nowrap uppercase ml-4 mb-1 select-none`};
+    ${tw`h-[18px] font-header font-medium text-xs whitespace-nowrap uppercase ml-4 mb-1 select-none`};
+    color: var(--theme-text-secondary);
 
     &:not(:first-of-type) {
         ${tw`mt-4`};
@@ -60,8 +65,7 @@ const Sidebar = styled.div<{ $collapsed?: boolean; theme: SiteTheme }>`
     & > a,
     & > span > a {
         ${tw`h-10 w-full flex flex-row items-center cursor-pointer select-none px-8`};
-        color: ${({ theme }) => theme.colors.text};
-        ${tw`hover:text-neutral-50`};
+        color: var(--theme-text-secondary);
 
         & > svg {
             ${tw`transition-none h-6 w-6 flex flex-shrink-0`};
@@ -69,6 +73,15 @@ const Sidebar = styled.div<{ $collapsed?: boolean; theme: SiteTheme }>`
 
         & > span {
             ${tw`font-header font-medium text-lg whitespace-nowrap leading-none ml-3`};
+        }
+
+        &:hover {
+            color: var(--theme-text-primary);
+        }
+
+        &.active {
+            ${tw`bg-black/25 rounded-lg`};
+            color: var(--theme-accent-text, ${({ theme }) => theme.colors.accent_primary ?? theme.colors.primary});
         }
     }
 
@@ -102,4 +115,11 @@ const Sidebar = styled.div<{ $collapsed?: boolean; theme: SiteTheme }>`
         `};
 `;
 
-export default withSubComponents(Sidebar, { Section, Wrapper, User, Icon });
+const SidebarWithComponents: typeof Sidebar & {
+    Section: typeof Section;
+    Wrapper: typeof Wrapper;
+    User: typeof User;
+    Icon: typeof Icon;
+} = withSubComponents(Sidebar, { Section, Wrapper, User, Icon });
+
+export default SidebarWithComponents;

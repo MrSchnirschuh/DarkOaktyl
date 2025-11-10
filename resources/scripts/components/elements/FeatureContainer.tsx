@@ -23,7 +23,7 @@ export default ({ image, icon, title, children, noHeight }: Props) => {
                     <FontAwesomeIcon icon={icon} style={{ color: primary }} className={'mr-4'} size={'sm'} />
                     {title}
                 </p>
-                <p className={'text-gray-400 my-2'}>{children}</p>
+                <p className={'text-[var(--theme-text-secondary)] my-2'}>{children}</p>
             </div>
         </div>
     );

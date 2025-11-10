@@ -97,11 +97,11 @@ export default () => {
                     </h2>
                     <ContentBox>
                         {!servers || servers.items.length < 1 ? (
-                            <div className={'text-gray-400'}>
+                            <div className={'text-[var(--theme-text-secondary)]'}>
                                 <div className={'grid lg:grid-cols-2 gap-6 m-4'}>
                                     <ServerSvg color={colors.primary} />
                                     <div>
-                                        <h1 className={'text-gray-200 text-2xl font-bold'}>Deploy your first server</h1>
+                                        <h1 className={'text-2xl font-bold text-accent'}>Deploy your first server</h1>
                                         <div className={'mt-2'}>
                                             It looks like you have no servers deployed to your account.&nbsp;
                                             {billing ? (

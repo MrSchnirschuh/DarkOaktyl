@@ -94,7 +94,12 @@ export default () => {
                                     {product ? product.price : '...'} {settings.currency.code.toUpperCase()} every 30
                                     days
                                 </p>
-                                <Link to={'/account/billing/orders'} className={'text-green-400 text-xs'}>
+                                <Link
+                                    to={'/account/billing/orders'}
+                                    className={
+                                        'text-[var(--theme-accent-text)] text-xs transition-colors duration-200 hover:text-[var(--theme-accent-contrast)]'
+                                    }
+                                >
                                     View order <FontAwesomeIcon icon={faArrowRight} />
                                 </Link>
                             </div>

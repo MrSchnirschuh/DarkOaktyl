@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import type { ButtonProps } from '@elements/button/types';
 import { Options } from '@elements/button/types';
 import styles from './style.module.css';
-import { useStoreState } from '@/state/hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
@@ -35,14 +34,14 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     },
 );
 
-const StandardButton = forwardRef<HTMLButtonElement, ButtonProps>(({ className, ...props }, ref) => {
-    const { primary } = useStoreState(state => state.theme.data!.colors);
-
-    return (
-        // @ts-expect-error not sure how to get this correct
-        <Button ref={ref} className={className} style={{ backgroundColor: primary }} {...props} />
-    );
-});
+const StandardButton = forwardRef<HTMLButtonElement, ButtonProps>(({ className, ...props }, ref) => (
+    // @ts-expect-error not sure how to get this correct
+    <Button
+        ref={ref}
+        className={classNames('bg-accent hover:brightness-110 active:brightness-95', className)}
+        {...props}
+    />
+));
 
 const TextButton = forwardRef<HTMLButtonElement, ButtonProps>(({ className, ...props }, ref) => (
     // @ts-expect-error not sure how to get this correct

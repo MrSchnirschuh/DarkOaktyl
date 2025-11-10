@@ -70,12 +70,14 @@ export default ({ defaultColor }: { defaultColor: string }) => {
                                     <CheckCircleIcon className={'w-7'} />
                                 </div>
                             )}
-                            <p className={'italic text-xs mt-1 text-gray-400'}>{option.name}</p>
+                            <p className={'italic text-xs mt-1 text-[var(--theme-text-secondary)]'}>{option.name}</p>
                         </div>
                     ))}
                 </div>
             </AdminBox>
-            <p className={'text-gray-400 mt-2 text-right'}>Select a color from the options to apply it.</p>
+            <p className={'text-[var(--theme-text-secondary)] mt-2 text-right'}>
+                Select a color from the options to apply it.
+            </p>
         </div>
     );
 };

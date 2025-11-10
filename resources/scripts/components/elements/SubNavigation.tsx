@@ -10,20 +10,21 @@ const SubNavigation = styled.div<{ theme: SiteTheme }>`
 
         & > a,
         & > div {
-            ${tw`inline-block py-3 px-4 text-gray-400 font-semibold no-underline whitespace-nowrap transition-all duration-300`};
+            ${tw`inline-block py-3 px-4 font-semibold no-underline whitespace-nowrap transition-all duration-300`};
+            color: var(--theme-text-secondary);
 
             &:not(:first-of-type) {
                 ${tw`ml-2`};
             }
 
             &:hover {
-                ${tw`text-neutral-100`};
+                color: var(--theme-text-primary);
                 box-shadow: inset 0 2px ${({ theme }) => theme.colors.primary};
             }
 
             &:active,
             &.active {
-                ${tw`text-neutral-100`};
+                color: var(--theme-text-primary);
                 box-shadow: inset 0 2px ${({ theme }) => theme.colors.primary};
             }
         }
