@@ -12,3 +12,18 @@ interface Order extends Model {
     type: OrderType;
     created_at: Date;
 }
+
+export interface Coupon extends Model {
+    id: number;
+    code: string;
+    description?: string;
+    discountType: 'percentage' | 'fixed';
+    discountValue: number;
+    maxUses?: number;
+    uses: number;
+    expiresAt?: string;
+    isActive: boolean;
+    isValid: boolean;
+    createdAt: Date;
+    updatedAt: Date;
+}

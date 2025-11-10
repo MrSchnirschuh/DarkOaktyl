@@ -3,6 +3,7 @@
 namespace Everest\Models\Billing;
 
 use Everest\Models\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property int $id
@@ -12,6 +13,8 @@ use Everest\Models\Model;
  * @property float $total
  * @property string $status
  * @property int $product_id
+ * @property int|null $coupon_id
+ * @property float $discount_amount
  * @property string $type
  * @property int $threat_index
  * @property string $payment_intent_id
@@ -46,6 +49,7 @@ class Order extends Model
     protected $fillable = [
         'name', 'user_id', 'description', 'payment_intent_id',
         'total', 'status', 'product_id', 'type', 'threat_index',
+        'coupon_id', 'discount_amount',
     ];
 
     /**
@@ -56,6 +60,8 @@ class Order extends Model
         'total' => 'float',
         'product_id' => 'int',
         'threat_index' => 'int',
+        'coupon_id' => 'int',
+        'discount_amount' => 'float',
     ];
 
     public static array $validationRules = [
@@ -68,5 +74,15 @@ class Order extends Model
         'type' => 'required|in:new,upg,ren',
         'threat_index' => 'nullable|int|min:-1|max:100',
         'payment_intent_id' => 'required|string|unique:orders,payment_intent_id',
+        'coupon_id' => 'nullable|exists:coupons,id',
+        'discount_amount' => 'nullable|numeric|min:0',
     ];
+
+    /**
+     * Get the coupon associated with this order.
+     */
+    public function coupon(): BelongsTo
+    {
+        return $this->belongsTo(Coupon::class);
+    }
 }
