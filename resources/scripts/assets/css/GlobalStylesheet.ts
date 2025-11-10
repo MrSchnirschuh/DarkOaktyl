@@ -4,7 +4,7 @@ import { createGlobalStyle } from 'styled-components';
 export default createGlobalStyle`
     body {
         ${tw`font-sans`};
-        color: var(--theme-text, #e5e7eb);
+        color: var(--theme-text-primary, #fafafa);
         background: var(--theme-background, #0f172a);
         letter-spacing: 0.015em;
     }
@@ -17,7 +17,7 @@ export default createGlobalStyle`
 
     p {
         ${tw`leading-snug font-sans`};
-        color: var(--theme-text-primary, var(--theme-primary, #e5e7eb));
+        color: var(--theme-text-primary, #fafafa);
     }
 
     form {
@@ -82,12 +82,12 @@ export default createGlobalStyle`
     .text-gray-50,
     .text-gray-100,
     .text-gray-200 {
-        color: var(--theme-text-primary, #ffffff) !important;
+        color: var(--theme-text-primary, #fafafa) !important;
     }
 
     .text-neutral-400,
     .text-gray-400 {
-        color: var(--theme-text-primary, #e5e7eb) !important;
+        color: var(--theme-text-secondary, #94a3b8) !important;
     }
 
     .text-neutral-300,
@@ -96,6 +96,6 @@ export default createGlobalStyle`
     .text-gray-300,
     .text-gray-500,
     .text-gray-600 {
-        color: var(--theme-text-secondary, #9ca3af) !important;
+        color: var(--theme-text-secondary, #94a3b8) !important;
     }
 `;
