@@ -18,31 +18,36 @@ export default () => {
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const delay = useStoreState(state => state.everest.data!.auth.modules.jguard.delay);
 
-    const update = async (key: string, value: any) => {
+    const update = async (key: string, value: number) => {
         clearFlashes();
         setLoading(true);
         setSuccess(false);
 
-        updateModule('jguard', key, value)
-            .then(() => {
-                setSuccess(true);
-                setLoading(false);
-                setTimeout(() => setSuccess(false), 2000);
-            })
-            .catch(error => {
-                clearAndAddHttpError({ key: 'auth:modules:jguard', error });
-
-                setLoading(false);
-            });
+        try {
+            await updateModule('jguard', key, value);
+            setSuccess(true);
+            setTimeout(() => setSuccess(false), 2000);
+        } catch (error) {
+            clearAndAddHttpError({ key: 'auth:modules:jguard', error });
+        } finally {
+            setLoading(false);
+        }
     };
 
-    const doDeletion = () => {
-        toggleModule('disable', 'jguard')
-            .then(() => {
-                // @ts-expect-error this is fine
-                window.location = '/admin/auth';
-            })
-            .catch(error => clearAndAddHttpError({ key: 'auth:modules:jguard', error }));
+    const doDeletion = async () => {
+        try {
+            await toggleModule('disable', 'jguard');
+            window.location.href = '/admin/auth';
+        } catch (error) {
+            clearAndAddHttpError({ key: 'auth:modules:jguard', error });
+        }
+    };
+
+    const handleDelayChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = parseInt(e.target.value, 10);
+        if (!isNaN(value) && value >= 0) {
+            update('delay', value);
+        }
     };
 
     return (
@@ -66,10 +71,11 @@ export default () => {
                 <Label>Automatic approval delay</Label>
                 <Input
                     id={'delay'}
-                    type={'text'}
+                    type={'number'}
                     name={'delay'}
+                    min={0}
                     defaultValue={delay || 0}
-                    onChange={e => update('delay', parseInt(e.target.value))}
+                    onChange={handleDelayChange}
                 />
                 <p className={'text-xs text-gray-400 mt-1'}>
                     If you wish to automatically approve user signups, this variable can make it so that users cannot
