@@ -1,4 +1,4 @@
-import http, { FractalResponseData, getPaginationSet, PaginatedResult } from '@/api/http';
+import http, { getPaginationSet, PaginatedResult } from '@/api/http';
 import { Coupon } from '@/api/definitions/billing';
 import { CouponValues, CouponFilters } from './types.d';
 
