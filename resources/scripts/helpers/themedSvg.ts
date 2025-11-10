@@ -15,7 +15,7 @@ const applyLightModeNeutrals = (svg: string, colors: ThemeColorMap, mode: ThemeM
     if (mode !== 'light') return svg;
 
     const strongNeutral = colors?.['text_light'] ?? '#1f2937';
-    const softNeutral = colors?.['text_secondary_light'] ?? '#4b5563';
+    const softNeutral = colors?.['text_secondary_light'] ?? '#475569';
 
     const replacements: Array<[string, string | undefined]> = [
         ['#ffffff', strongNeutral],
