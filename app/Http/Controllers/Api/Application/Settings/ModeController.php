@@ -2,18 +2,19 @@
 
 namespace Everest\Http\Controllers\Api\Application\Settings;
 
-use Everest\Models\Setting;
 use Illuminate\Http\Response;
+use Everest\Contracts\Repository\SettingsRepositoryInterface;
 use Everest\Http\Controllers\Api\Application\ApplicationApiController;
-use Everest\Http\Requests\Api\Application\Settings\UpdateApplicationModeRequest;
+use Everest\Http\Requests\Api\Application\Settings\ModeSettingsRequest;
 
 class ModeController extends ApplicationApiController
 {
     /**
      * ModeController constructor.
      */
-    public function __construct()
-    {
+    public function __construct(
+        private SettingsRepositoryInterface $settings
+    ) {
         parent::__construct();
     }
 
@@ -22,9 +23,9 @@ class ModeController extends ApplicationApiController
      *
      * @throws \Throwable
      */
-    public function update(UpdateApplicationModeRequest $request): Response
+    public function update(ModeSettingsRequest $request): Response
     {
-        Setting::set('settings::app:mode', $request['mode']);
+        $this->settings->set('settings::app:mode', $request->all()[0]);
 
         return $this->returnNoContent();
     }

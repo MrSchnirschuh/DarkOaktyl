@@ -3,23 +3,42 @@
 namespace Everest\Http\ViewComposers;
 
 use Illuminate\View\View;
+use Everest\Contracts\Repository\ThemeRepositoryInterface;
 
 class ThemeComposer
 {
+    public function __construct(private ThemeRepositoryInterface $settings)
+    {
+    }
+
     /**
      * Provide access to the asset service in the views.
      */
     public function compose(View $view): void
     {
-        $view->with('themeConfiguration', [
-            'colors' => [
-                'primary' => config('colors.primary') ?? config('modules.theme.colors.primary'),
-                'secondary' => config('colors.secondary') ?? config('modules.theme.colors.secondary'),
+        // Load defaults from config and override with any stored repository values.
+        $defaults = config('modules.theme.colors', []);
 
-                'background' => config('colors.background') ?? config('modules.theme.colors.background'),
-                'headers' => config('colors.headers') ?? config('modules.theme.colors.headers'),
-                'sidebar' => config('colors.sidebar') ?? config('modules.theme.colors.sidebar'),
-            ],
+        $colors = [];
+        // Start with config defaults
+        foreach ($defaults as $k => $v) {
+            $colors[$k] = $v;
+        }
+
+        // Override with stored values from the repository (if present).
+        try {
+            foreach ($this->settings->all() as $setting) {
+                if (str_starts_with($setting->key, 'theme::colors:')) {
+                    $name = substr($setting->key, strlen('theme::colors:'));
+                    $colors[$name] = $setting->value;
+                }
+            }
+        } catch (\Throwable $e) {
+            // If repository->all() fails for some reason, continue with defaults.
+        }
+
+        $view->with('themeConfiguration', [
+            'colors' => $colors,
         ]);
     }
 }

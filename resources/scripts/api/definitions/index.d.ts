@@ -1,5 +1,5 @@
 import { MarkRequired } from 'ts-essentials';
-import { FractalResponseData, FractalResponseList } from '@/api/http';
+import { FractalResponseData, FractalResponseList } from '../http';
 
 export type UUID = string;
 

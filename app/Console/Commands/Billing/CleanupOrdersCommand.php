@@ -33,17 +33,13 @@ class CleanupOrdersCommand extends Command
                 continue;
             }
 
-            try {
-                switch ($order->status) {
-                    case 'pending':
-                        $order->forceFill(['status' => Order::STATUS_EXPIRED])->save();
-                        break;
-                    case 'expired':
-                        $order->delete();
-                        break;
-                }
-            } catch (\Exception $ex) {
-                // handle quietly, no need to log this
+            switch ($order->status) {
+                case 'pending':
+                    $order->update(['status' => Order::STATUS_EXPIRED]);
+                    break;
+                case 'expired':
+                    $order->delete();
+                    break;
             }
         }
     }

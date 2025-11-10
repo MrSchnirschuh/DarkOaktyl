@@ -1,10 +1,10 @@
 import { NavLink } from 'react-router-dom';
 import tw from 'twin.macro';
 
-import FlashMessageRender from '@/elements/FlashMessageRender';
-import AdminContentBlock from '@/elements/AdminContentBlock';
+import FlashMessageRender from '@/components/FlashMessageRender';
+import AdminContentBlock from '@elements/AdminContentBlock';
 import ServersTable from '@admin/management/servers/ServersTable';
-import { Button } from '@/elements/button';
+import { Button } from '@elements/button';
 
 function ServersContainer() {
     return (

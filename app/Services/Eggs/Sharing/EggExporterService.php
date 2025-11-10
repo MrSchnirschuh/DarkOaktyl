@@ -32,7 +32,7 @@ class EggExporterService
                 'version' => Egg::EXPORT_VERSION,
                 'update_url' => $egg->update_url,
             ],
-            'exported_at' => Carbon::now(),
+            'exported_at' => Carbon::now()->toAtomString(),
             'name' => $egg->name,
             'author' => $egg->author,
             'description' => $egg->description,

@@ -1,6 +1,6 @@
-import { ModelWithRelationships, Model, UUID } from '@definitions';
-import { Server } from '@/api/routes/admin/server';
-import { OrderType } from '@/api/routes/account/billing/orders/types';
+import { ModelWithRelationships, Model, UUID } from '@/api/definitions';
+import { Server } from '@/api/admin/server';
+import { OrderType } from '@/api/billing/orders/types';
 
 type BillingExceptionType = 'payment' | 'deployment' | 'storefront';
 type OrderStatus = 'pending' | 'expired' | 'failed' | 'processed';

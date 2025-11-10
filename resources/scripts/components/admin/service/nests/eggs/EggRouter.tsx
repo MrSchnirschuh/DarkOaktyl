@@ -2,13 +2,13 @@ import { useEffect } from 'react';
 import { Route, Routes, useParams } from 'react-router-dom';
 import tw from 'twin.macro';
 
-import { useEggFromRoute } from '@/api/routes/admin/egg';
+import { useEggFromRoute } from '@/api/admin/egg';
 import EggInstallContainer from '@admin/service/nests/eggs/EggInstallContainer';
 import EggVariablesContainer from '@admin/service/nests/eggs/EggVariablesContainer';
 import useFlash from '@/plugins/useFlash';
-import AdminContentBlock from '@/elements/AdminContentBlock';
-import Spinner from '@/elements/Spinner';
-import FlashMessageRender from '@/elements/FlashMessageRender';
+import AdminContentBlock from '@elements/AdminContentBlock';
+import Spinner from '@elements/Spinner';
+import FlashMessageRender from '@/components/FlashMessageRender';
 import { SubNavigation, SubNavigationLink } from '@admin/SubNavigation';
 import EggSettingsContainer from '@admin/service/nests/eggs/EggSettingsContainer';
 import { useStoreState } from '@/state/hooks';

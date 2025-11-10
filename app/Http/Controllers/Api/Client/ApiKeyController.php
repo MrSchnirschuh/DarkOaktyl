@@ -5,6 +5,7 @@ namespace Everest\Http\Controllers\Api\Client;
 use Everest\Models\ApiKey;
 use Everest\Facades\Activity;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Cache;
 use Everest\Exceptions\DisplayException;
 use Everest\Http\Requests\Api\Client\ClientApiRequest;
 use Everest\Transformers\Api\Client\ApiKeyTransformer;
@@ -17,7 +18,25 @@ class ApiKeyController extends ClientApiController
      */
     public function index(ClientApiRequest $request): array
     {
-        return $this->fractal->collection($request->user()->apiKeys)
+        $user = $request->user();
+
+        $keys = Cache::remember(
+            "client.account.api-keys.{$user->id}",
+            now()->addSeconds(30),
+            static fn () => $user->apiKeys()
+                ->where('key_type', ApiKey::TYPE_ACCOUNT)
+                ->orderByDesc('created_at')
+                ->get([
+                    'id',
+                    'identifier',
+                    'memo',
+                    'allowed_ips',
+                    'created_at',
+                    'last_used_at',
+                ]),
+        );
+
+        return $this->fractal->collection($keys)
             ->transformWith(ApiKeyTransformer::class)
             ->toArray();
     }
@@ -37,6 +56,8 @@ class ApiKeyController extends ClientApiController
             $request->input('description'),
             $request->input('allowed_ips')
         );
+
+        Cache::forget("client.account.api-keys.{$request->user()->id}");
 
         Activity::event('user:api-key.create')
             ->subject($token->accessToken)
@@ -65,6 +86,8 @@ class ApiKeyController extends ClientApiController
             ->log();
 
         $key->delete();
+
+        Cache::forget("client.account.api-keys.{$request->user()->id}");
 
         return new JsonResponse([], JsonResponse::HTTP_NO_CONTENT);
     }

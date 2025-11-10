@@ -13,7 +13,6 @@ use Everest\Exceptions\Http\QueryValueOutOfRangeHttpException;
 use Everest\Http\Controllers\Api\Application\ApplicationApiController;
 use Everest\Http\Requests\Api\Application\Api\GetApplicationApiKeysRequest;
 use Everest\Http\Requests\Api\Application\Api\StoreApplicationApiKeyRequest;
-use Everest\Http\Requests\Api\Application\Api\DeleteApplicationApiKeyRequest;
 
 class ApiController extends ApplicationApiController
 {
@@ -70,7 +69,7 @@ class ApiController extends ApplicationApiController
     /**
      * Delete the requested API key.
      */
-    public function delete(DeleteApplicationApiKeyRequest $request, ApiKey $key): Response
+    public function delete(ApiKey $key): Response
     {
         $key = ApiKey::where('id', $key->id)->delete();
 

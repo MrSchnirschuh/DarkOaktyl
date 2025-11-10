@@ -2,11 +2,12 @@ import { CloudUploadIcon } from '@heroicons/react/outline';
 import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
 import tw from 'twin.macro';
-import { getFileUploadUrl } from '@/api/routes/server/files';
-import { Button } from '@/elements/button/index';
-import { ModalMask } from '@/elements/Modal';
-import Portal from '@/elements/Portal';
-import FadeTransition from '@/elements/transitions/FadeTransition';
+import { getFileUploadUrl } from '@/api/server/files';
+import { Button } from '@elements/button/index';
+import { ModalMask } from '@elements/Modal';
+import Portal from '@elements/Portal';
+import FadeTransition from '@elements/transitions/FadeTransition';
+import type { WithClassname } from '@/components/types';
 import useEventListener from '@/plugins/useEventListener';
 import { useFlashKey } from '@/plugins/useFlash';
 import useFileManagerSwr from '@/plugins/useFileManagerSwr';
@@ -20,7 +21,7 @@ function isFileOrDirectory(event: DragEvent): boolean {
     return event.dataTransfer.types.some(value => value.toLowerCase() === 'files');
 }
 
-export default ({ className }: { className?: string }) => {
+export default ({ className }: WithClassname) => {
     const fileUploadInput = useRef<HTMLInputElement>(null);
 
     const [visible, setVisible] = useState(false);

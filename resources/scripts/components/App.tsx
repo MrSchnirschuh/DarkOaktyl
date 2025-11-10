@@ -6,16 +6,17 @@ import { StoreProvider } from 'easy-peasy';
 import { AdminContext } from '@/state/admin';
 import { ServerContext } from '@/state/server';
 import { SiteSettings } from '@/state/settings';
-import Spinner from '@/elements/Spinner';
-import ProgressBar from '@/elements/ProgressBar';
+import Spinner from '@elements/Spinner';
+import ProgressBar from '@elements/ProgressBar';
 import GlobalStylesheet from '@/assets/css/GlobalStylesheet';
+import ThemeVars from '@/components/ThemeVars';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import AuthenticatedRoute from '@/elements/AuthenticatedRoute';
-import { NotFound } from '@/elements/ScreenBlock';
+import AuthenticatedRoute from '@elements/AuthenticatedRoute';
+import { NotFound } from '@elements/ScreenBlock';
 import { EverestSettings } from '@/state/everest';
-import Onboarding from '@account/Onboarding';
-import SpeedDial from '@/elements/SpeedDial';
-import SetupContainer from './admin/setup/SetupContainer';
+import Onboarding from '@/components/Onboarding';
+import SpeedDial from '@elements/SpeedDial';
+import SetupContainer from './setup/SetupContainer';
 
 const AdminRouter = lazy(() => import('@/routers/AdminRouter'));
 const AuthenticationRouter = lazy(() => import('@/routers/AuthenticationRouter'));
@@ -68,6 +69,8 @@ function App() {
 
     if (!store.getState().theme.data) {
         store.getActions().theme.setTheme(ThemeConfiguration!);
+        // Apply default mode overrides (if the ThemeConfiguration includes per-mode keys).
+        store.getActions().theme.setMode('dark');
     }
 
     if (!store.getState().everest.data) {
@@ -88,6 +91,7 @@ function App() {
         <>
             <GlobalStylesheet />
             <StoreProvider store={store}>
+                <ThemeVars />
                 <ProgressBar />
                 {PterodactylUser?.root_admin && !SiteConfiguration?.setup ? (
                     <SetupContainer />

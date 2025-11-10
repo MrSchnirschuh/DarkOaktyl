@@ -7,6 +7,7 @@ use Everest\Models\Egg;
 use Everest\Facades\Activity;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Everest\Models\Billing\Category;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -75,6 +76,10 @@ class CategoryController extends ApplicationApiController
             ->description('A billing category was created')
             ->log();
 
+        $this->clearCategoryCache($category);
+
+        Cache::forget('application.billing.analytics');
+
         return $this->fractal->item($category)
             ->transformWith(CategoryTransformer::class)
             ->respond(Response::HTTP_CREATED);
@@ -105,6 +110,9 @@ class CategoryController extends ApplicationApiController
             ->property('new_data', $request->all())
             ->description('A billing category was updated')
             ->log();
+
+        $this->clearCategoryCache($category);
+        Cache::forget('application.billing.analytics');
 
         return $this->returnNoContent();
     }
@@ -137,6 +145,19 @@ class CategoryController extends ApplicationApiController
             ->description('A billing category was deleted')
             ->log();
 
+        $this->clearCategoryCache($category);
+        Cache::forget('application.billing.analytics');
+
         return $this->returnNoContent();
+    }
+
+    /**
+     * Clear cached storefront category/product responses after mutations.
+     */
+    private function clearCategoryCache(Category $category): void
+    {
+        Cache::forget('client.billing.categories.visible');
+        Cache::forget("client.billing.category.{$category->id}");
+        Cache::forget("client.billing.category.{$category->uuid}.products");
     }
 }

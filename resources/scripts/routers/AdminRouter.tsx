@@ -1,24 +1,23 @@
 import { useStoreState } from 'easy-peasy';
 import { NavLink, Route, Routes } from 'react-router-dom';
-import Avatar from '@/elements/Avatar';
-import Sidebar from '@/elements/Sidebar';
+import Avatar from '@/components/Avatar';
+import Sidebar from '@elements/Sidebar';
 import AdminIndicators from '@admin/AdminIndicators';
 import { usePersistedState } from '@/plugins/usePersistedState';
-import MobileSidebar from '@/elements/MobileSidebar';
-import Pill from '@/elements/Pill';
-import ErrorBoundary from '@/elements/ErrorBoundary';
+import MobileSidebar from '@elements/MobileSidebar';
+import Pill from '@/components/elements/Pill';
+import ErrorBoundary from '@/components/elements/ErrorBoundary';
 import routes from './routes';
-import Spinner from '@/elements/Spinner';
-import { NotFound } from '@/elements/ScreenBlock';
+import Spinner from '@/components/elements/Spinner';
+import { NotFound } from '@/components/elements/ScreenBlock';
 import { PuzzleIcon, ReplyIcon } from '@heroicons/react/outline';
 import { Fragment } from 'react';
 
 function AdminRouter() {
     const theme = useStoreState(state => state.theme.data!);
+    const currentMode = useStoreState(s => s.theme.mode ?? 'dark');
     const user = useStoreState(state => state.user.data!);
     const settings = useStoreState(state => state.settings.data!);
-
-    const activityEnabled: boolean = settings.activity.enabled.admin;
 
     const categories = ['general', 'modules', 'appearance', 'management', 'services'] as const;
     const [collapsed, setCollapsed] = usePersistedState<boolean>(`sidebar_admin_${user.uuid}`, false);
@@ -29,7 +28,7 @@ function AdminRouter() {
             <MobileSidebar>
                 <MobileSidebar.Home />
                 {routes.admin
-                    .filter(route => route.name && (!route.condition || route.condition({ activityEnabled })))
+                    .filter(x => x.name)
                     .map(route => (
                         <MobileSidebar.Link
                             key={route.route}
@@ -49,7 +48,7 @@ function AdminRouter() {
                         <h1 className={'text-2xl text-neutral-50 whitespace-nowrap font-medium'}>{settings.name}</h1>
                     ) : (
                         <img
-                            src={settings.logo?.toString() || 'https://avatars.githubusercontent.com/u/91636558'}
+                            src={theme.colors[`logo_panel_${currentMode}`] || theme.colors['logo_panel'] || 'https://avatars.githubusercontent.com/u/91636558'}
                             className={'mt-4 w-12'}
                             alt={'Logo'}
                         />
@@ -67,17 +66,12 @@ function AdminRouter() {
                         return (
                             <Fragment key={category}>
                                 <Sidebar.Section>{category[0]!.toUpperCase() + category.slice(1)}</Sidebar.Section>
-                                {categoryRoutes
-                                    .filter(
-                                        route =>
-                                            route.name && (!route.condition || route.condition({ activityEnabled })),
-                                    )
-                                    .map(route => (
-                                        <NavLink to={route.path} key={route.path} end={route.end}>
-                                            <Sidebar.Icon icon={route.icon ?? PuzzleIcon} />
-                                            <span>{route.name}</span>
-                                        </NavLink>
-                                    ))}
+                                {categoryRoutes.map(route => (
+                                    <NavLink to={route.path} key={route.path} end={route.end}>
+                                        <Sidebar.Icon icon={route.icon ?? PuzzleIcon} />
+                                        <span>{route.name}</span>
+                                    </NavLink>
+                                ))}
                             </Fragment>
                         );
                     })}
@@ -89,12 +83,12 @@ function AdminRouter() {
                     <div className={'flex flex-col ml-3'}>
                         <span className={'font-sans font-normal text-xs text-gray-300 leading-tight select-none'}>
                             <div className={'w-full flex justify-between mb-1'}>
-                                <p className={'text-sm text-gray-400'}>Welcome,</p>
+                                <p className={'text-sm text-[var(--theme-text-secondary)]'}>Welcome,</p>
                                 <Pill size={'xsmall'} type={'info'}>
                                     {user.roleName === 'None' ? 'Root Admin' : user.roleName}
                                 </Pill>
                             </div>
-                            {user.email}
+                            {user.username}
                         </span>
                     </div>
                 </Sidebar.User>

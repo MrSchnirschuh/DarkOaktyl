@@ -31,7 +31,7 @@ class FreeProductController extends ClientApiController
         $user = $request->user();
         $product = Product::findOrFail($request->input('product'));
 
-        if (!config('modules.billing.enabled')) {
+        if (config('modules.billing.enabled') !== '1') {
             throw new DisplayException('The billing module is not enabled.');
         }
 

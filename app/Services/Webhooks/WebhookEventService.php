@@ -21,35 +21,18 @@ class WebhookEventService
     }
 
     /**
-     * Convert hex color to integer.
-     */
-    private function hexToInt(string $hex): int
-    {
-        $hex = ltrim($hex, '#');
-        
-        if (strlen($hex) === 3) {
-            $hex = $hex[0] . $hex[0] . $hex[1] . $hex[1] . $hex[2] . $hex[2];
-        }
-        
-        return hexdec($hex);
-    }
-
-    /**
      * Send a webhook through the defined URL.
      *
      * @throws \Exception
      */
     public function send(User $user, WebhookEvent $event): void
     {
-        $colorHex = $this->theme->get('theme::colors:primary');
+        $color = $this->theme->get('theme::colors:primary');
         $url = $this->settings->get('settings::modules:webhooks:url');
 
         if (!$url) {
             throw new DisplayException('No Webhook URL has been defined.');
         }
-
-        // Hex to integer
-        $colorInt = $this->hexToInt($colorHex);
 
         try {
             Http::post($url, [
@@ -57,7 +40,7 @@ class WebhookEventService
                     'title' => $event->key,
                     'description' => $event->description,
                     'url' => env('APP_URL') . '/admin',
-                    'color' => $colorInt,
+                    'color' => $color,
                     'timestamp' => now()->toIso8601String(),
                     'footer' => [
                         'text' => 'Jexactyl v4',

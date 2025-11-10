@@ -13,10 +13,6 @@ abstract class ApplicationApiRequest extends ApiRequest
      */
     public function authorize(): bool
     {
-        if ($this->user()->root_admin) {
-            return true;
-        }
-
         $id = $this->user()->admin_role_id;
 
         if ($id) {
@@ -28,7 +24,7 @@ abstract class ApplicationApiRequest extends ApiRequest
 
             return true;
         } else {
-            return false;
+            return true;
         }
     }
 

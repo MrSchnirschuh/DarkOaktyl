@@ -3,19 +3,20 @@
 namespace Everest\Http\Controllers\Api\Application\Alerts;
 
 use Ramsey\Uuid\Uuid;
-use Everest\Models\Setting;
 use Everest\Facades\Activity;
 use Illuminate\Http\JsonResponse;
+use Everest\Contracts\Repository\SettingsRepositoryInterface;
 use Everest\Http\Controllers\Api\Application\ApplicationApiController;
-use Everest\Http\Requests\Api\Application\Alerts\UpdateAlertSettingsRequest;
+use Everest\Http\Requests\Api\Application\Alerts\AlertSettingsRequest;
 
 class AlertController extends ApplicationApiController
 {
     /**
      * AlertController constructor.
      */
-    public function __construct()
-    {
+    public function __construct(
+        private SettingsRepositoryInterface $settings
+    ) {
         parent::__construct();
     }
 
@@ -24,14 +25,14 @@ class AlertController extends ApplicationApiController
      *
      * @throws \Throwable
      */
-    public function update(UpdateAlertSettingsRequest $request): JsonResponse
+    public function update(AlertSettingsRequest $request): JsonResponse
     {
         $uuid = Uuid::uuid4()->toString();
 
-        Setting::set('settings::modules:alert:uuid', $uuid);
+        $this->settings->set('settings::modules:alert:uuid', $uuid);
 
         foreach ($request->normalize() as $key => $value) {
-            Setting::set('settings::modules:alert:' . $key, $value);
+            $this->settings->set('settings::modules:alert:' . $key, $value);
         }
 
         Activity::event('admin:alert:update')

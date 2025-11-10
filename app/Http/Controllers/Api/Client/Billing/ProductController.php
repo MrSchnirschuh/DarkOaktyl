@@ -2,6 +2,7 @@
 
 namespace Everest\Http\Controllers\Api\Client\Billing;
 
+use Illuminate\Support\Facades\Cache;
 use Everest\Models\Billing\Product;
 use Everest\Models\Billing\Category;
 use Everest\Models\Billing\BillingException;
@@ -20,15 +21,28 @@ class ProductController extends ClientApiController
      */
     public function index(int $id): array
     {
-        $category = Category::findOrFail($id);
-        $products = Product::where('category_uuid', $category->uuid)->get();
+        $category = Cache::remember(
+            "client.billing.category.{$id}",
+            now()->addSeconds(60),
+            static fn () => Category::findOrFail($id),
+        );
 
-        if ($products->count() == 0) {
-            BillingException::create([
-                'title' => 'No products in category ' . $category->name . ' are visible',
-                'exception_type' => BillingException::TYPE_STOREFRONT,
-                'description' => 'Go to this category and create a visible product',
-            ]);
+        $products = Cache::remember(
+            "client.billing.category.{$category->uuid}.products",
+            now()->addSeconds(60),
+            static fn () => Product::where('category_uuid', $category->uuid)->orderBy('price')->get(),
+        );
+
+        if ($products->isEmpty()) {
+            BillingException::firstOrCreate(
+                [
+                    'title' => 'No products in category ' . $category->name . ' are visible',
+                    'exception_type' => BillingException::TYPE_STOREFRONT,
+                ],
+                [
+                    'description' => 'Go to this category and create a visible product',
+                ],
+            );
         }
 
         return $this->fractal->collection($products)
@@ -41,7 +55,11 @@ class ProductController extends ClientApiController
      */
     public function view(int $id)
     {
-        $product = Product::findOrFail($id);
+        $product = Cache::remember(
+            "client.billing.product.{$id}",
+            now()->addSeconds(60),
+            static fn () => Product::findOrFail($id),
+        );
 
         return $this->fractal->item($product)
             ->transformWith(ProductTransformer::class)

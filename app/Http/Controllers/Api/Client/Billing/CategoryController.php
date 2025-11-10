@@ -2,6 +2,7 @@
 
 namespace Everest\Http\Controllers\Api\Client\Billing;
 
+use Illuminate\Support\Facades\Cache;
 use Everest\Models\Billing\Category;
 use Everest\Models\Billing\BillingException;
 use Everest\Transformers\Api\Client\CategoryTransformer;
@@ -19,14 +20,22 @@ class CategoryController extends ClientApiController
      */
     public function index(): array
     {
-        $categories = Category::where('visible', true)->get();
+        $categories = Cache::remember(
+            'client.billing.categories.visible',
+            now()->addSeconds(60),
+            static fn () => Category::where('visible', true)->orderBy('name')->get(),
+        );
 
-        if ($categories->count() == 0) {
-            BillingException::create([
-                'title' => 'No product categories are visible',
-                'exception_type' => BillingException::TYPE_STOREFRONT,
-                'description' => 'Create a category and set the visibility to true',
-            ]);
+        if ($categories->isEmpty()) {
+            BillingException::firstOrCreate(
+                [
+                    'title' => 'No product categories are visible',
+                    'exception_type' => BillingException::TYPE_STOREFRONT,
+                ],
+                [
+                    'description' => 'Create a category and set the visibility to true',
+                ],
+            );
         }
 
         return $this->fractal->collection($categories)

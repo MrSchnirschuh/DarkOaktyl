@@ -3,9 +3,9 @@
 namespace Everest\Http\Controllers\Api\Application\Theme;
 
 use Everest\Models\Theme;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Everest\Contracts\Repository\ThemeRepositoryInterface;
-use Everest\Http\Requests\Api\Application\Theme\UpdateThemeRequest;
 use Everest\Http\Controllers\Api\Application\ApplicationApiController;
 
 class ThemeController extends ApplicationApiController
@@ -24,9 +24,9 @@ class ThemeController extends ApplicationApiController
      *
      * @throws \Throwable
      */
-    public function colors(UpdateThemeRequest $request): Response
+    public function colors(Request $request): Response
     {
-        $this->theme->set('theme::colors:' . $request->input('key'), $request->input('value'));
+        $this->settings->set('theme::colors:' . $request->input('key'), $request->input('value'));
 
         return $this->returnNoContent();
     }
@@ -34,11 +34,26 @@ class ThemeController extends ApplicationApiController
     /**
      * Reset all of the theme keys to factory defaults.
      */
-    public function reset(UpdateThemeRequest $request): Response
+    public function reset(): Response
     {
-        foreach ($this->theme->all() as $setting) {
+        foreach ($this->settings->all() as $setting) {
             $setting->delete();
         }
+
+        return $this->returnNoContent();
+    }
+
+    /**
+     * Delete a single theme color key (used for removing presets cleanly).
+     */
+    public function deleteColor(Request $request): Response
+    {
+        $key = $request->input('key');
+        if (! $key) {
+            return $this->returnNoContent();
+        }
+
+        $this->settings->forget('theme::colors:' . $key);
 
         return $this->returnNoContent();
     }

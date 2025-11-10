@@ -4,12 +4,12 @@ import { useEffect, useState } from 'react';
 import { Route, Routes, useParams } from 'react-router-dom';
 import tw from 'twin.macro';
 
-import type { Node } from '@/api/routes/admin/nodes/getNodes';
-import getNode from '@/api/routes/admin/nodes/getNode';
-import FlashMessageRender from '@/elements/FlashMessageRender';
-import AdminContentBlock from '@/elements/AdminContentBlock';
+import type { Node } from '@/api/admin/nodes/getNodes';
+import getNode from '@/api/admin/nodes/getNode';
+import FlashMessageRender from '@/components/FlashMessageRender';
+import AdminContentBlock from '@elements/AdminContentBlock';
 import NodeEditContainer from '@admin/management/nodes/NodeEditContainer';
-import Spinner from '@/elements/Spinner';
+import Spinner from '@elements/Spinner';
 import { SubNavigation, SubNavigationLink } from '@admin/SubNavigation';
 import NodeAboutContainer from '@admin/management/nodes/NodeAboutContainer';
 import NodeConfigurationContainer from '@admin/management/nodes/NodeConfigurationContainer';

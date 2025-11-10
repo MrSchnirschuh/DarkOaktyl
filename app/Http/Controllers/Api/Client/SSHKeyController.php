@@ -4,6 +4,7 @@ namespace Everest\Http\Controllers\Api\Client;
 
 use Everest\Facades\Activity;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Cache;
 use Everest\Http\Requests\Api\Client\ClientApiRequest;
 use Everest\Transformers\Api\Client\UserSSHKeyTransformer;
 use Everest\Http\Requests\Api\Client\Account\StoreSSHKeyRequest;
@@ -16,7 +17,23 @@ class SSHKeyController extends ClientApiController
      */
     public function index(ClientApiRequest $request): array
     {
-        return $this->fractal->collection($request->user()->sshKeys)
+        $user = $request->user();
+
+        $keys = Cache::remember(
+            "client.account.ssh-keys.{$user->id}",
+            now()->addSeconds(30),
+            static fn () => $user->sshKeys()
+                ->orderByDesc('created_at')
+                ->get([
+                    'id',
+                    'name',
+                    'public_key',
+                    'fingerprint',
+                    'created_at',
+                ]),
+        );
+
+        return $this->fractal->collection($keys)
             ->transformWith(UserSSHKeyTransformer::class)
             ->toArray();
     }
@@ -31,6 +48,8 @@ class SSHKeyController extends ClientApiController
             'public_key' => $request->getPublicKey(),
             'fingerprint' => $request->getKeyFingerprint(),
         ]);
+
+        Cache::forget("client.account.ssh-keys.{$request->user()->id}");
 
         Activity::event('user:ssh-key.create')
             ->subject($model)
@@ -60,6 +79,8 @@ class SSHKeyController extends ClientApiController
                 ->subject($key)
                 ->property('fingerprint', $key->fingerprint)
                 ->log();
+
+            Cache::forget("client.account.ssh-keys.{$request->user()->id}");
         }
 
         return new JsonResponse([], JsonResponse::HTTP_NO_CONTENT);

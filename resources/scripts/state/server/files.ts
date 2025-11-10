@@ -1,6 +1,7 @@
-import { cleanDirectoryPath } from '@/lib/helpers';
 import type { Action } from 'easy-peasy';
 import { action } from 'easy-peasy';
+
+import { cleanDirectoryPath } from '@/helpers';
 
 interface FileUploadData {
     loaded: number;

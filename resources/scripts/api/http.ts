@@ -2,6 +2,7 @@ import axios, { AxiosInstance } from 'axios';
 
 const http: AxiosInstance = axios.create({
     withCredentials: true,
+    // Default request timeout (20s). Keep default to surface backend slowness instead of masking it.
     timeout: 20000,
     headers: {
         'X-Requested-With': 'XMLHttpRequest',

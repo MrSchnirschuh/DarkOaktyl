@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react';
-import Label from '@/elements/Label';
+import Label from '@elements/Label';
 import { Link } from 'react-router-dom';
-import ContentBox from '@/elements/ContentBox';
+import ContentBox from '@elements/ContentBox';
 import { ServerContext } from '@/state/server';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import useFlash from '@/plugins/useFlash';
-import SpinnerOverlay from '@/elements/SpinnerOverlay';
-import { Alert } from '@/elements/alert';
+import { getProduct } from '@/api/billing/products';
+import { Product } from '@/api/billing/products';
+import SpinnerOverlay from '@elements/SpinnerOverlay';
+import { Alert } from '@elements/alert';
 import PaymentContainer from './PaymentContainer';
 import { useStoreState } from '@/state/hooks';
-import PageContentBlock from '@/elements/PageContentBlock';
+import PageContentBlock from '@/components/elements/PageContentBlock';
 import { format } from 'date-fns';
-import { getProduct } from '@/api/routes/account/billing/products';
-import { Product } from '@definitions/account/billing';
 
 function timeUntil(targetDate: Date | string) {
     const date = targetDate instanceof Date ? targetDate : new Date(targetDate);
@@ -94,7 +94,12 @@ export default () => {
                                     {product ? product.price : '...'} {settings.currency.code.toUpperCase()} every 30
                                     days
                                 </p>
-                                <Link to={'/account/billing/orders'} className={'text-green-400 text-xs'}>
+                                <Link
+                                    to={'/account/billing/orders'}
+                                    className={
+                                        'text-[var(--theme-accent-text)] text-xs transition-colors duration-200 hover:text-[var(--theme-accent-contrast)]'
+                                    }
+                                >
                                     View order <FontAwesomeIcon icon={faArrowRight} />
                                 </Link>
                             </div>
