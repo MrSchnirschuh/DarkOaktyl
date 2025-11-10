@@ -12,10 +12,13 @@ import CategoryTable from '@admin/modules/billing/products/CategoryTable';
 import OrdersContainer from '@admin/modules/billing/orders/OrdersContainer';
 import ProductContainer from '@admin/modules/billing/products/ProductContainer';
 import CategoryContainer from '@admin/modules/billing/products/CategoryContainer';
-import { CogIcon, DesktopComputerIcon, ShoppingCartIcon, ViewGridIcon, XCircleIcon } from '@heroicons/react/outline';
+import { CogIcon, DesktopComputerIcon, ShoppingCartIcon, ViewGridIcon, XCircleIcon, CurrencyDollarIcon } from '@heroicons/react/outline';
 import Unfinished from '@elements/Unfinished';
 import SettingsContainer from '@admin/modules/billing/SettingsContainer';
 import BillingExceptionsContainer from './exceptions/BillingExceptionsContainer';
+import PricingConfigurationList from './pricing/PricingConfigurationList';
+import PricingConfigurationForm from './pricing/PricingConfigurationForm';
+import PricingConfigurationContainer from './pricing/PricingConfigurationContainer';
 
 export default () => {
     const theme = useStoreState(state => state.theme.data!);
@@ -45,6 +48,9 @@ export default () => {
                 <SubNavigationLink to={'/admin/billing/categories'} name={'Products'}>
                     <ViewGridIcon />
                 </SubNavigationLink>
+                <SubNavigationLink to={'/admin/billing/pricing'} name={'Pricing'}>
+                    <CurrencyDollarIcon />
+                </SubNavigationLink>
                 <SubNavigationLink to={'/admin/billing/orders'} name={'Orders'}>
                     <ShoppingCartIcon />
                 </SubNavigationLink>
@@ -64,6 +70,10 @@ export default () => {
 
                 <Route path={'/categories/:id/products/new'} element={<ProductForm />} />
                 <Route path={'/categories/:id/products/:productId'} element={<ProductContainer />} />
+
+                <Route path={'/pricing'} element={<PricingConfigurationList />} />
+                <Route path={'/pricing/new'} element={<PricingConfigurationForm />} />
+                <Route path={'/pricing/:id'} element={<PricingConfigurationContainer />} />
 
                 <Route path={'/orders'} element={<OrdersContainer />} />
 
