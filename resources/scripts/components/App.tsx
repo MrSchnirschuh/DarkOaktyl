@@ -1,7 +1,7 @@
 import { lazy } from 'react';
 import '@/assets/tailwind.css';
 import { store } from '@/state';
-import { SiteTheme } from '@/state/theme';
+import { SiteTheme, resolveThemeMode } from '@/state/theme';
 import { StoreProvider } from 'easy-peasy';
 import { AdminContext } from '@/state/admin';
 import { ServerContext } from '@/state/server';
@@ -10,6 +10,7 @@ import Spinner from '@elements/Spinner';
 import ProgressBar from '@elements/ProgressBar';
 import GlobalStylesheet from '@/assets/css/GlobalStylesheet';
 import ThemeVars from '@/components/ThemeVars';
+import AppearanceSync from '@/components/AppearanceSync';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AuthenticatedRoute from '@elements/AuthenticatedRoute';
 import { NotFound } from '@elements/ScreenBlock';
@@ -17,6 +18,8 @@ import { EverestSettings } from '@/state/everest';
 import Onboarding from '@/components/Onboarding';
 import SpeedDial from '@elements/SpeedDial';
 import SetupContainer from './setup/SetupContainer';
+
+let hasHydratedAppearance = false;
 
 const AdminRouter = lazy(() => import('@/routers/AdminRouter'));
 const AuthenticationRouter = lazy(() => import('@/routers/AuthenticationRouter'));
@@ -40,6 +43,8 @@ interface ExtendedWindow extends Window {
         state: string;
         updated_at: string;
         created_at: string;
+        appearance_mode?: 'system' | 'light' | 'dark';
+        appearance_last_mode?: 'light' | 'dark';
     };
 }
 
@@ -60,6 +65,8 @@ function App() {
             useTotp: PterodactylUser.use_totp,
             createdAt: new Date(PterodactylUser.created_at),
             updatedAt: new Date(PterodactylUser.updated_at),
+            appearanceMode: PterodactylUser.appearance_mode ?? 'system',
+            appearanceLastMode: PterodactylUser.appearance_last_mode ?? 'dark',
         });
     }
 
@@ -69,8 +76,24 @@ function App() {
 
     if (!store.getState().theme.data) {
         store.getActions().theme.setTheme(ThemeConfiguration!);
-        // Apply default mode overrides (if the ThemeConfiguration includes per-mode keys).
-        store.getActions().theme.setMode('dark');
+    }
+
+    const appearance = store.getState().user.data;
+    const preference = appearance?.appearanceMode ?? 'system';
+    const lastMode = appearance?.appearanceLastMode ?? 'dark';
+    const resolvedMode = resolveThemeMode(preference, lastMode);
+    const themeState = store.getState().theme;
+
+    if (!hasHydratedAppearance) {
+        if (themeState.preference !== preference) {
+            store.getActions().theme.setPreference(preference);
+        }
+
+        if (themeState.mode !== resolvedMode) {
+            store.getActions().theme.setMode(resolvedMode);
+        }
+
+        hasHydratedAppearance = true;
     }
 
     if (!store.getState().everest.data) {
@@ -92,6 +115,7 @@ function App() {
             <GlobalStylesheet />
             <StoreProvider store={store}>
                 <ThemeVars />
+                <AppearanceSync />
                 <ProgressBar />
                 {PterodactylUser?.root_admin && !SiteConfiguration?.setup ? (
                     <SetupContainer />

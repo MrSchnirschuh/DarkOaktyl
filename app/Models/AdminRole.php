@@ -76,6 +76,15 @@ class AdminRole extends Model
     public const BILLING_PRODUCTS_CREATE = 'billing.product-create';
     public const BILLING_PRODUCTS_UPDATE = 'billing.product-update';
     public const BILLING_PRODUCTS_DELETE = 'billing.product-delete';
+    public const BILLING_RESOURCES_CREATE = 'billing.resource-create';
+    public const BILLING_RESOURCES_UPDATE = 'billing.resource-update';
+    public const BILLING_RESOURCES_DELETE = 'billing.resource-delete';
+    public const BILLING_TERMS_CREATE = 'billing.term-create';
+    public const BILLING_TERMS_UPDATE = 'billing.term-update';
+    public const BILLING_TERMS_DELETE = 'billing.term-delete';
+    public const BILLING_COUPONS_CREATE = 'billing.coupon-create';
+    public const BILLING_COUPONS_UPDATE = 'billing.coupon-update';
+    public const BILLING_COUPONS_DELETE = 'billing.coupon-delete';
     public const BILLING_CATEGORIES_CREATE = 'billing.category-create';
     public const BILLING_CATEGORIES_UPDATE = 'billing.category-update';
     public const BILLING_CATEGORIES_DELETE = 'billing.category-delete';
@@ -85,6 +94,10 @@ class AdminRole extends Model
     public const BILLING_EXPORT = 'billing.export';
     public const BILLING_IMPORT = 'billing.import';
     public const BILLING_DELETE_KEYS = 'billing.delete-keys';
+
+    public const EMAILS_READ = 'emails.read';
+    public const EMAILS_UPDATE = 'emails.update';
+    public const EMAILS_TRIGGERS = 'emails.triggers';
 
     public const TICKETS_READ = 'tickets.read';
     public const TICKETS_CREATE = 'tickets.create';
@@ -202,6 +215,15 @@ class AdminRole extends Model
                 'products-create' => 'Create a billing product.',
                 'products-update' => 'Update a billing product.',
                 'products-delete' => 'Delete a billing product.',
+                'resources-create' => 'Create a billing resource price.',
+                'resources-update' => 'Update a billing resource price.',
+                'resources-delete' => 'Delete a billing resource price.',
+                'terms-create' => 'Create a billing term.',
+                'terms-update' => 'Update a billing term.',
+                'terms-delete' => 'Delete a billing term.',
+                'coupon-create' => 'Create a billing coupon.',
+                'coupon-update' => 'Update a billing coupon.',
+                'coupon-delete' => 'Delete a billing coupon.',
                 'categories-create' => 'Create a billing category.',
                 'categories-update' => 'Update a billing category.',
                 'categories-delete' => 'Delete a billing category.',
@@ -210,6 +232,14 @@ class AdminRole extends Model
                 'export' => 'Export current billing configuration to JSON.',
                 'import' => 'Import current billing configuration from JSON.',
                 'delete-keys' => 'Delete Stripe API billing keys used for payment.',
+            ],
+        ],
+        'emails' => [
+            'description' => 'Permissions to manage outbound email templates and scheduling.',
+            'keys' => [
+                'read' => 'View email module configuration and templates.',
+                'update' => 'Create or update email templates and themes.',
+                'triggers' => 'Create, update, or run automated email triggers.',
             ],
         ],
         'tickets' => [

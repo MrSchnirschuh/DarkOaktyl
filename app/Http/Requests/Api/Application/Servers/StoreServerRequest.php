@@ -43,6 +43,8 @@ class StoreServerRequest extends ApplicationApiRequest
             'egg_id' => $rules['egg_id'],
             'image' => $rules['image'],
             'skip_scripts' => 'present|boolean',
+            'billing_product_id' => $rules['billing_product_id'],
+            'renewal_date' => $rules['renewal_date'],
         ];
     }
 
@@ -85,6 +87,8 @@ class StoreServerRequest extends ApplicationApiRequest
             'image' => array_get($data, 'image'),
             'skip_scripts' => array_get($data, 'skip_scripts'),
             'start_on_completion' => array_get($data, 'start_on_completion', false),
+            'billing_product_id' => array_get($data, 'billing_product_id'),
+            'renewal_date' => array_get($data, 'renewal_date'),
         ];
 
         return is_null($key) ? $response : Arr::get($response, $key, $default);

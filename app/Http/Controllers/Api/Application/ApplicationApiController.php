@@ -39,10 +39,11 @@ abstract class ApplicationApiController extends Controller
      * Perform dependency injection of certain classes needed for core functionality
      * without littering the constructors of classes that extend this abstract.
      */
-    public function loadDependencies(Fractal $fractal, Request $request)
+    public function loadDependencies(Fractal $fractal, Request $request, AdminPermissionService $permissionService)
     {
         $this->fractal = $fractal;
         $this->request = $request;
+        $this->permissionService = $permissionService;
     }
 
     /**

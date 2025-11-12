@@ -349,4 +349,108 @@ export default class Transformers {
         createdAt: new Date(attributes.created_at),
         updatedAt: attributes.updated_at ? new Date(attributes.updated_at) : null,
     });
+
+    private static mapEmailThemeAttributes = (attributes: any): Models.EmailTheme => {
+        const colors = attributes?.colors || {};
+        const light = attributes?.light_colors || null;
+
+        return {
+            id: attributes?.id ?? 0,
+            uuid: attributes?.uuid ?? '',
+            name: attributes?.name ?? 'Untitled Theme',
+            description: attributes?.description ?? null,
+            variantMode: attributes?.variant_mode === 'dual' ? 'dual' : 'single',
+            colors: {
+                primary: colors.primary ?? '#2563eb',
+                secondary: colors.secondary ?? '#1e40af',
+                accent: colors.accent ?? '#f97316',
+                background: colors.background ?? '#0f172a',
+                body: colors.body ?? '#111827',
+                text: colors.text ?? '#0f172a',
+                muted: colors.muted ?? '#475569',
+                button: colors.button ?? '#2563eb',
+                buttonText: colors.button_text ?? '#ffffff',
+            },
+            lightColors: light
+                ? {
+                      primary: light.primary ?? null,
+                      secondary: light.secondary ?? null,
+                      accent: light.accent ?? null,
+                      background: light.background ?? null,
+                      body: light.body ?? null,
+                      text: light.text ?? null,
+                      muted: light.muted ?? null,
+                      button: light.button ?? null,
+                      buttonText: light.button_text ?? null,
+                  }
+                : null,
+            logoUrl: attributes?.logo_url ?? null,
+            footerText: attributes?.footer_text ?? null,
+            isDefault: Boolean(attributes?.is_default),
+            meta: attributes?.meta ?? {},
+            createdAt: attributes?.created_at ? new Date(attributes.created_at) : new Date(),
+            updatedAt: attributes?.updated_at ? new Date(attributes.updated_at) : null,
+            relationships: {},
+        };
+    };
+
+    static normalizeEmailTheme = (data: any): Models.EmailTheme => this.mapEmailThemeAttributes(data);
+
+    static toEmailTheme = ({ attributes }: FractalResponseData): Models.EmailTheme =>
+        this.mapEmailThemeAttributes(attributes);
+
+    static toEmailTemplate = ({ attributes }: FractalResponseData): Models.EmailTemplate => ({
+        id: attributes.id,
+        uuid: attributes.uuid,
+        key: attributes.key,
+        name: attributes.name,
+        description: attributes.description,
+        subject: attributes.subject,
+        content: attributes.content,
+        locale: attributes.locale,
+        isEnabled: attributes.is_enabled,
+        themeUuid: attributes.theme_uuid ?? null,
+        metadata: attributes.metadata ?? {},
+        createdAt: attributes.created_at ? new Date(attributes.created_at) : new Date(),
+        updatedAt: attributes.updated_at ? new Date(attributes.updated_at) : null,
+        relationships: {
+            theme:
+                transform(attributes.relationships?.theme as FractalResponseData | undefined, this.toEmailTheme) ||
+                null,
+        },
+    });
+
+    static toEmailTrigger = ({ attributes }: FractalResponseData): Models.EmailTrigger => ({
+        id: attributes.id,
+        uuid: attributes.uuid,
+        name: attributes.name,
+        description: attributes.description ?? null,
+        triggerType: attributes.trigger_type,
+        scheduleType: attributes.schedule_type ?? null,
+        eventKey: attributes.event_key ?? null,
+        scheduleAt: attributes.schedule_at ? new Date(attributes.schedule_at) : null,
+        cronExpression: attributes.cron_expression ?? null,
+        timezone: attributes.timezone,
+        templateUuid: attributes.template_uuid ?? null,
+        payload: attributes.payload ?? null,
+        isActive: Boolean(attributes.is_active),
+        lastRunAt: attributes.last_run_at ? new Date(attributes.last_run_at) : null,
+        nextRunAt: attributes.next_run_at ? new Date(attributes.next_run_at) : null,
+        createdAt: attributes.created_at ? new Date(attributes.created_at) : new Date(),
+        updatedAt: attributes.updated_at ? new Date(attributes.updated_at) : null,
+        relationships: {
+            template:
+                transform(
+                    attributes.relationships?.template as FractalResponseData | undefined,
+                    this.toEmailTemplate,
+                ) || null,
+        },
+    });
+
+    static toEmailTriggerEvent = (data: any): Models.EmailTriggerEvent => ({
+        key: data.key,
+        label: data.label,
+        description: data.description,
+        context: data.context ?? [],
+    });
 }

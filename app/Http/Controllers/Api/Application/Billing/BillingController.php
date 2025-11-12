@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Cache;
 use Everest\Models\Billing\Order;
 use Everest\Models\Billing\Product;
 use Everest\Models\Billing\Category;
+use Everest\Models\Billing\ResourcePrice;
+use Everest\Models\Billing\BillingTerm;
+use Everest\Models\Billing\Coupon;
 use Everest\Contracts\Repository\SettingsRepositoryInterface;
 use Everest\Http\Controllers\Api\Application\ApplicationApiController;
 use Everest\Http\Requests\Api\Application\Billing\DeleteStripeKeysRequest;
@@ -112,10 +115,107 @@ class BillingController extends ApplicationApiController
                     ->get()
                     ->toArray();
 
+                $resources = ResourcePrice::query()
+                    ->with('scalingRules')
+                    ->select([
+                        'id',
+                        'uuid',
+                        'resource',
+                        'display_name',
+                        'description',
+                        'unit',
+                        'base_quantity',
+                        'price',
+                        'currency',
+                        'min_quantity',
+                        'max_quantity',
+                        'default_quantity',
+                        'step_quantity',
+                        'is_visible',
+                        'is_metered',
+                        'sort_order',
+                        'metadata',
+                        'created_at',
+                        'updated_at',
+                    ])
+                    ->get()
+                    ->map(function (ResourcePrice $resource) {
+                        return array_merge($resource->toArray(), [
+                            'scaling_rules' => $resource->scalingRules->map(function ($rule) {
+                                return [
+                                    'id' => $rule->id,
+                                    'threshold' => $rule->threshold,
+                                    'multiplier' => $rule->multiplier,
+                                    'mode' => $rule->mode,
+                                    'label' => $rule->label,
+                                    'metadata' => $rule->metadata,
+                                    'created_at' => optional($rule->created_at)->toAtomString(),
+                                    'updated_at' => optional($rule->updated_at)->toAtomString(),
+                                ];
+                            })->toArray(),
+                        ]);
+                    })
+                    ->toArray();
+
+                $terms = BillingTerm::query()
+                    ->select([
+                        'id',
+                        'uuid',
+                        'name',
+                        'slug',
+                        'duration_days',
+                        'multiplier',
+                        'is_active',
+                        'is_default',
+                        'sort_order',
+                        'metadata',
+                        'created_at',
+                        'updated_at',
+                    ])
+                    ->orderBy('sort_order')
+                    ->orderBy('id')
+                    ->get()
+                    ->toArray();
+
+                $coupons = Coupon::query()
+                    ->withCount('redemptions')
+                    ->select([
+                        'id',
+                        'uuid',
+                        'code',
+                        'name',
+                        'description',
+                        'type',
+                        'value',
+                        'percentage',
+                        'max_usages',
+                        'per_user_limit',
+                        'applies_to_term_id',
+                        'starts_at',
+                        'expires_at',
+                        'is_active',
+                        'metadata',
+                        'created_at',
+                        'updated_at',
+                    ])
+                    ->orderBy('created_at', 'desc')
+                    ->get()
+                    ->map(function (Coupon $coupon) {
+                        return array_merge($coupon->toArray(), [
+                            'starts_at' => optional($coupon->starts_at)->toAtomString(),
+                            'expires_at' => optional($coupon->expires_at)->toAtomString(),
+                            'redemptions_count' => $coupon->redemptions_count,
+                        ]);
+                    })
+                    ->toArray();
+
                 return [
                     'orders' => $orders,
                     'categories' => $categories,
                     'products' => $products,
+                    'resource_prices' => $resources,
+                    'terms' => $terms,
+                    'coupons' => $coupons,
                 ];
             }
         );
@@ -126,8 +226,8 @@ class BillingController extends ApplicationApiController
      */
     public function resetKeys(DeleteStripeKeysRequest $request): Response
     {
-    $this->settings->forget('settings::modules:billing:keys:publishable');
-    $this->settings->forget('settings::modules:billing:keys:secret');
+        $this->settings->forget('settings::modules:billing:keys:publishable');
+        $this->settings->forget('settings::modules:billing:keys:secret');
 
         Activity::event('admin:billing:reset-keys')
             ->description('Stripe API keys for billing were reset')

@@ -1,7 +1,24 @@
+@php
+    $user = Auth::user();
+    $appearanceMode = $user?->appearance_mode ?? 'system';
+    $appearanceLastMode = $user?->appearance_last_mode ?? 'dark';
+    $initialMode = match ($appearanceMode) {
+        'light' => 'light',
+        'dark' => 'dark',
+        default => $appearanceLastMode === 'light' ? 'light' : 'dark',
+    };
+    $themeColors = $themeConfiguration['colors'] ?? [];
+    $initialBackground = $initialMode === 'light'
+    ? ($themeColors['background_light'] ?? $themeColors['background'] ?? '#f4f4f5')
+    : ($themeColors['background'] ?? '#141414');
+    $initialText = $initialMode === 'light'
+        ? ($themeColors['text_primary_light'] ?? '#0f172a')
+        : ($themeColors['text_primary'] ?? '#f5f5f5');
+@endphp
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-initial-theme="{{ $initialMode }}">
     <head>
-        <title>{{ config('app.name', 'Everest') }}</title>
+    <title>{{ config('app.name', 'DarkOaktyl') }}</title>
 
         @section('meta')
             <meta charset="utf-8">
@@ -46,7 +63,8 @@
             @import url('//fonts.googleapis.com/css?family=IBM+Plex+Mono|IBM+Plex+Sans:500&display=swap');
 
             body {
-                background-color: {{ $themeConfiguration['colors']['background'] }}
+                background-color: {{ $initialBackground }};
+                color: {{ $initialText }};
             }
         </style>
 

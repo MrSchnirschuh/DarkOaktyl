@@ -1,4 +1,4 @@
-import { updateAccountEmail } from '@/api/account';
+import { updateAccountEmail, updateAccountAppearance } from '@/api/account';
 import { Action, action, Thunk, thunk } from 'easy-peasy';
 
 export interface UserData {
@@ -14,6 +14,8 @@ export interface UserData {
     state: string;
     createdAt: Date;
     updatedAt: Date;
+    appearanceMode: 'light' | 'dark' | 'system';
+    appearanceLastMode: 'light' | 'dark';
 }
 
 export interface UserStore {
@@ -21,6 +23,13 @@ export interface UserStore {
     setUserData: Action<UserStore, UserData>;
     updateUserData: Action<UserStore, Partial<UserData>>;
     updateUserEmail: Thunk<UserStore, { email: string; password: string }, any, UserStore, Promise<void>>;
+    updateAppearance: Thunk<
+        UserStore,
+        { mode: 'light' | 'dark' | 'system'; lastMode: 'light' | 'dark' },
+        any,
+        UserStore,
+        Promise<void>
+    >;
 }
 
 const user: UserStore = {
@@ -38,6 +47,15 @@ const user: UserStore = {
         await updateAccountEmail(payload.email, payload.password);
 
         actions.updateUserData({ email: payload.email });
+    }),
+
+    updateAppearance: thunk(async (actions, payload) => {
+        await updateAccountAppearance(payload.mode, payload.lastMode);
+
+        actions.updateUserData({
+            appearanceMode: payload.mode,
+            appearanceLastMode: payload.lastMode,
+        });
     }),
 };
 

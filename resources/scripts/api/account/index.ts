@@ -36,4 +36,13 @@ const setupAccount = (values: { username: string; password: string }): Promise<v
     });
 };
 
-export { updateAccountPassword, updateAccountEmail, setupAccount };
+const updateAccountAppearance = (mode: 'system' | 'light' | 'dark', lastMode: 'light' | 'dark'): Promise<void> => {
+    return http
+        .put('/api/client/account/appearance', {
+            mode,
+            last_mode: lastMode,
+        })
+        .then(() => undefined);
+};
+
+export { updateAccountPassword, updateAccountEmail, setupAccount, updateAccountAppearance };

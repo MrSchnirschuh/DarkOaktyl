@@ -12,6 +12,7 @@ use Everest\Transformers\Api\Client\AccountTransformer;
 use Everest\Http\Requests\Api\Client\Account\SetupUserRequest;
 use Everest\Http\Requests\Api\Client\Account\UpdateEmailRequest;
 use Everest\Http\Requests\Api\Client\Account\UpdatePasswordRequest;
+use Everest\Http\Requests\Api\Client\Account\UpdateAppearanceRequest;
 
 class AccountController extends ClientApiController
 {
@@ -70,6 +71,21 @@ class AccountController extends ClientApiController
         }
 
         Activity::event('user:account.password-changed')->log();
+
+        return new JsonResponse([], Response::HTTP_NO_CONTENT);
+    }
+
+    public function updateAppearance(UpdateAppearanceRequest $request): JsonResponse
+    {
+        $this->updateService->handle($request->user(), [
+            'appearance_mode' => $request->input('mode'),
+            'appearance_last_mode' => $request->input('last_mode'),
+        ]);
+
+        Activity::event('user:account.appearance-updated')
+            ->property('mode', $request->input('mode'))
+            ->property('last_mode', $request->input('last_mode'))
+            ->log();
 
         return new JsonResponse([], Response::HTTP_NO_CONTENT);
     }

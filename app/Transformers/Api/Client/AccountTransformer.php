@@ -26,6 +26,8 @@ class AccountTransformer extends Transformer
             'username' => $model->username,
             'email' => $model->email,
             'language' => $model->language,
+            'appearance_mode' => $model->appearance_mode ?? 'system',
+            'appearance_last_mode' => $model->appearance_last_mode ?? 'dark',
         ];
     }
 }

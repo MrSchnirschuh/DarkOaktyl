@@ -2,6 +2,7 @@
 
 namespace Everest\Tests\Integration\Services\Servers;
 
+use Carbon\Carbon;
 use Everest\Models\Egg;
 use Everest\Models\Node;
 use Everest\Models\User;
@@ -9,7 +10,11 @@ use Everest\Models\Server;
 use Mockery\MockInterface;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
+use Illuminate\Support\Str;
 use Everest\Models\Allocation;
+use Everest\Models\Billing\Product;
+use Everest\Models\Billing\Category;
+use Everest\Models\Billing\BillingTerm;
 use Everest\Models\Objects\DeploymentObject;
 use Illuminate\Foundation\Testing\WithFaker;
 use GuzzleHttp\Exception\BadResponseException;
@@ -18,12 +23,15 @@ use Everest\Tests\Integration\IntegrationTestCase;
 use Everest\Services\Servers\ServerCreationService;
 use Everest\Repositories\Wings\DaemonServerRepository;
 use Everest\Exceptions\Http\Connection\DaemonConnectionException;
+use Everest\Services\Servers\NodeCapacityService;
 
 class ServerCreationServiceTest extends IntegrationTestCase
 {
     use WithFaker;
 
     protected MockInterface $daemonServerRepository;
+
+    protected MockInterface $nodeCapacityService;
 
     protected Egg $bungeecord;
 
@@ -42,6 +50,10 @@ class ServerCreationServiceTest extends IntegrationTestCase
 
         $this->daemonServerRepository = \Mockery::mock(DaemonServerRepository::class);
         $this->swap(DaemonServerRepository::class, $this->daemonServerRepository);
+
+        $this->nodeCapacityService = \Mockery::mock(NodeCapacityService::class);
+        $this->nodeCapacityService->shouldReceive('assertCanAllocate')->zeroOrMoreTimes()->andReturnNull();
+        $this->swap(NodeCapacityService::class, $this->nodeCapacityService);
     }
 
     /**
@@ -195,6 +207,79 @@ class ServerCreationServiceTest extends IntegrationTestCase
         $this->getService()->handle($data);
 
         $this->assertDatabaseMissing('servers', ['owner_id' => $user->id]);
+    }
+
+    public function testRenewalDateDefaultsWhenBillingProductProvided(): void
+    {
+        Carbon::setTestNow(Carbon::parse('2025-01-05 12:00:00'));
+
+        $user = User::factory()->create();
+        $node = Node::factory()->create();
+        $allocation = Allocation::factory()->create(['node_id' => $node->id]);
+
+        $category = Category::query()->create([
+            'uuid' => Str::uuid()->toString(),
+            'name' => 'Test Category',
+            'icon' => null,
+            'description' => null,
+            'visible' => true,
+            'nest_id' => $this->bungeecord->nest_id,
+            'egg_id' => $this->bungeecord->id,
+        ]);
+
+        $product = Product::query()->create([
+            'uuid' => Str::uuid()->toString(),
+            'category_uuid' => $category->uuid,
+            'name' => 'Test Product',
+            'icon' => null,
+            'price' => 12.50,
+            'description' => 'Test product for billing',
+            'cpu_limit' => 200,
+            'memory_limit' => 1024,
+            'disk_limit' => 2048,
+            'backup_limit' => 2,
+            'database_limit' => 2,
+            'allocation_limit' => 2,
+        ]);
+
+        BillingTerm::query()->create([
+            'name' => 'Bi-Weekly',
+            'slug' => 'bi-weekly',
+            'duration_days' => 14,
+            'multiplier' => 1.0,
+            'is_active' => true,
+            'is_default' => true,
+            'sort_order' => 1,
+        ]);
+
+        $data = [
+            'name' => $this->faker->name,
+            'description' => $this->faker->sentence,
+            'owner_id' => $user->id,
+            'allocation_id' => $allocation->id,
+            'node_id' => $allocation->node_id,
+            'memory' => 512,
+            'swap' => 0,
+            'disk' => 1024,
+            'io' => 500,
+            'cpu' => 0,
+            'startup' => 'java -jar server.jar',
+            'image' => 'java:17',
+            'egg_id' => $this->bungeecord->id,
+            'environment' => [
+                'BUNGEE_VERSION' => 'latest',
+                'SERVER_JARFILE' => 'server.jar',
+            ],
+            'billing_product_id' => $product->id,
+        ];
+
+        $this->daemonServerRepository->expects('setServer->create')->with(false)->andReturnUndefined();
+
+        $server = $this->getService()->handle($data);
+
+        $this->assertInstanceOf(Server::class, $server);
+        $this->assertEquals($product->id, $server->billing_product_id);
+        $this->assertTrue($server->renewal_date->equalTo(Carbon::now()->addDays(14)));
     }
 
     private function getService(): ServerCreationService

@@ -54,13 +54,15 @@ export default ({ setReload }: { setReload: (v: boolean) => void }) => {
                     ...buildMode('light'),
                     logo_panel: (colors as any)['logo_panel_light'] ?? (colors as any)['logo_panel'] ?? null,
                     logo_login: (colors as any)['logo_login_light'] ?? (colors as any)['logo_login'] ?? null,
-                    background_image: (colors as any)['background_image_light'] ?? (colors as any)['background_image'] ?? null,
+                    background_image:
+                        (colors as any)['background_image_light'] ?? (colors as any)['background_image'] ?? null,
                 },
                 dark: {
                     ...buildMode('dark'),
                     logo_panel: (colors as any)['logo_panel_dark'] ?? (colors as any)['logo_panel'] ?? null,
                     logo_login: (colors as any)['logo_login_dark'] ?? (colors as any)['logo_login'] ?? null,
-                    background_image: (colors as any)['background_image_dark'] ?? (colors as any)['background_image'] ?? null,
+                    background_image:
+                        (colors as any)['background_image_dark'] ?? (colors as any)['background_image'] ?? null,
                 },
             },
             // include logos so presets capture configured images

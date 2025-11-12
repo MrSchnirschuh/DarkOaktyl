@@ -5,9 +5,9 @@ import { useStoreState, useStoreActions } from '@/state/hooks';
 import SearchContainer from '@/components/dashboard/search/SearchContainer';
 import tw from 'twin.macro';
 import styled from 'styled-components';
-import { SiteTheme } from '@/state/theme';
+import { SiteTheme, resolveThemeMode } from '@/state/theme';
 import { Link, useLocation } from 'react-router-dom';
-import { ChevronRightIcon, HomeIcon, SunIcon, MoonIcon } from '@heroicons/react/outline';
+import { ChevronRightIcon, HomeIcon, SunIcon, MoonIcon, DesktopComputerIcon } from '@heroicons/react/outline';
 import { useActivityLogs } from '@/api/account/activity';
 import Spinner from './elements/Spinner';
 import { formatDistanceToNow } from 'date-fns';
@@ -17,9 +17,9 @@ const RightNavigation = styled.div<{ theme: SiteTheme }>`
     & > button,
     & > div,
     & > .navigation-link {
-    ${tw`flex items-center h-full no-underline text-neutral-300 px-6 cursor-pointer transition-all duration-300 gap-x-2`};
-    ${tw`font-medium`};
-    color: var(--theme-text-secondary);
+        ${tw`flex items-center h-full no-underline text-neutral-300 px-6 cursor-pointer transition-all duration-300 gap-x-2`};
+        ${tw`font-medium`};
+        color: var(--theme-text-secondary);
 
         &:active,
         &:hover,
@@ -36,7 +36,9 @@ const NavigationBar = () => {
     const location = useLocation();
     const theme = useStoreState(state => state.theme.data!);
     const currentMode = useStoreState(s => s.theme.mode ?? 'dark');
+    const currentPreference = useStoreState(s => s.theme.preference ?? 'system');
     const setMode = useStoreActions(a => a.theme.setMode);
+    const setPreference = useStoreActions(a => a.theme.setPreference);
     const user = useStoreState(state => state.user.data!);
     const { data } = useActivityLogs({ page: 1 }, { revalidateOnMount: true, revalidateOnFocus: false });
 
@@ -127,14 +129,35 @@ const NavigationBar = () => {
                     <div className="mr-4 flex items-center">
                         <button
                             type="button"
-                            onClick={() => setMode(currentMode === 'dark' ? 'light' : 'dark')}
+                            onClick={() => {
+                                const order: Array<'dark' | 'light' | 'system'> = ['dark', 'light', 'system'];
+                                const index = order.indexOf(currentPreference);
+                                const nextPreference = order[(index + 1 + order.length) % order.length] ?? 'dark';
+                                const castPreference = nextPreference as 'dark' | 'light' | 'system';
+                                const fallback = user.appearanceLastMode ?? currentMode;
+                                const resolved = resolveThemeMode(castPreference, fallback);
+
+                                setPreference(castPreference);
+                                setMode(resolved);
+                            }}
                             className={'p-0 rounded hover:bg-neutral-700/20'}
-                            aria-label={currentMode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+                            aria-label={(() => {
+                                const nextMap: Record<'dark' | 'light' | 'system', 'light' | 'dark' | 'system'> = {
+                                    dark: 'light',
+                                    light: 'system',
+                                    system: 'dark',
+                                };
+                                const next = nextMap[currentPreference] ?? 'light';
+                                if (next === 'system') return 'Follow system theme';
+                                return `Switch to ${next} mode`;
+                            })()}
                         >
-                            {currentMode === 'dark' ? (
+                            {currentPreference === 'dark' ? (
                                 <MoonIcon className="w-5 h-5 text-neutral-300" />
-                            ) : (
+                            ) : currentPreference === 'light' ? (
                                 <SunIcon className="w-5 h-5 text-white" />
+                            ) : (
+                                <DesktopComputerIcon className="w-5 h-5 text-neutral-300" />
                             )}
                         </button>
                     </div>

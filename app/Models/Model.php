@@ -185,4 +185,16 @@ abstract class Model extends IlluminateModel
 
         return parent::asDateTime($value)->toImmutable();
     }
+
+    /**
+     * Initialize any traits assigned to the model while tolerating missing initializer entries.
+     */
+    protected function initializeTraits(): void
+    {
+        if (!isset(static::$traitInitializers[static::class])) {
+            static::$traitInitializers[static::class] = [];
+        }
+
+        parent::initializeTraits();
+    }
 }

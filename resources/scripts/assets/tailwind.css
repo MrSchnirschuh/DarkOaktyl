@@ -20,19 +20,19 @@
 	}
 
 	.text-accent {
-		color: var(--theme-accent-text, var(--theme-accent, #16a34a));
+		color: var(--theme-accent-text, var(--theme-accent, #008000));
 	}
 
 	.hover\:text-accent:hover {
-		color: var(--theme-accent-contrast, var(--theme-accent, #16a34a));
+		color: var(--theme-accent-contrast, var(--theme-accent, #008000));
 	}
 
 	.bg-accent {
-		background-color: var(--theme-accent-contrast, var(--theme-accent, #16a34a));
+		background-color: var(--theme-accent-contrast, var(--theme-accent, #008000));
 		color: var(--theme-on-accent, #f9fafb);
 	}
 
 	.border-accent {
-		border-color: var(--theme-accent-contrast, var(--theme-accent, #16a34a));
+		border-color: var(--theme-accent-contrast, var(--theme-accent, #008000));
 	}
 }

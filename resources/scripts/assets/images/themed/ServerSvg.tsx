@@ -103,4 +103,3 @@ export default ({ color }: { color: string }) => (
         <polygon points="105 0 273 0 273 66.234 271 66.234 271 2 105 2 105 0" fill="#ccc" />
     </svg>
 );
-

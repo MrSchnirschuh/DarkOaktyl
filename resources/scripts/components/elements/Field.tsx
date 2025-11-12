@@ -30,7 +30,8 @@ const InputWrapper = styled.div<{ $bgColor: string; $isLight: boolean }>`
 
 const IconWrapper = styled.div<{ $bgColor: string; $isLight: boolean }>`
     ${tw`pl-3 flex-shrink-0`};
-    color: ${({ $isLight }) => ($isLight ? 'var(--theme-text-secondary, #4b5563)' : 'var(--theme-text-secondary, #9ca3af)')};
+    color: ${({ $isLight }) =>
+        $isLight ? 'var(--theme-text-secondary, #4b5563)' : 'var(--theme-text-secondary, #9ca3af)'};
     background-color: ${({ $bgColor }) => $bgColor};
 `;
 const StyledInput = styled(Input)`
@@ -41,11 +42,9 @@ const StyledInput = styled(Input)`
 
 const Field = forwardRef<HTMLInputElement, Props>(
     ({ id, name, light = false, label, description, validate, icon, ...props }, ref) => {
-        const theme = useStoreState(state => state.theme.data!);
         const mode = useStoreState(state => state.theme.mode ?? 'dark');
-        const colors = theme.colors as Record<string, string>;
-        const secondary = colors[`secondary_${mode}`] ?? colors.secondary ?? '#1f2937';
-        const bgColor = light || mode === 'light' ? '#ffffff' : secondary;
+        const bgColor =
+            light || mode === 'light' ? 'var(--theme-surface-card, #ffffff)' : 'var(--theme-secondary, #27272a)';
         const applyLightStyles = light || mode === 'light';
 
         return (

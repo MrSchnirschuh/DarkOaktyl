@@ -13,6 +13,7 @@ use Everest\Console\Commands\Billing\SuspendBillableServersCommand;
 use Everest\Console\Commands\Maintenance\PruneOrphanedBackupsCommand;
 use Everest\Console\Commands\Billing\CalculateOrderThreatIndexCommand;
 use Everest\Console\Commands\Maintenance\CleanServiceBackupFilesCommand;
+use Everest\Console\Commands\Emails\DispatchEmailTriggersCommand;
 
 class Kernel extends ConsoleKernel
 {
@@ -53,6 +54,10 @@ class Kernel extends ConsoleKernel
             $schedule->command(CleanupOrdersCommand::class)->daily();
             $schedule->command(SuspendBillableServersCommand::class)->daily();
             $schedule->command(CalculateOrderThreatIndexCommand::class)->everyFiveMinutes();
+        }
+
+        if (config('modules.email.enabled')) {
+            $schedule->command(DispatchEmailTriggersCommand::class)->everyMinute()->withoutOverlapping();
         }
     }
 }

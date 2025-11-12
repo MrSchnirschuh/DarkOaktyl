@@ -3,11 +3,11 @@
 namespace Everest\Http\ViewComposers;
 
 use Illuminate\View\View;
-use Everest\Contracts\Repository\ThemeRepositoryInterface;
+use Everest\Services\Themes\ThemePaletteService;
 
 class ThemeComposer
 {
-    public function __construct(private ThemeRepositoryInterface $settings)
+    public function __construct(private ThemePaletteService $paletteService)
     {
     }
 
@@ -16,29 +16,22 @@ class ThemeComposer
      */
     public function compose(View $view): void
     {
-        // Load defaults from config and override with any stored repository values.
-        $defaults = config('modules.theme.colors', []);
-
-        $colors = [];
-        // Start with config defaults
-        foreach ($defaults as $k => $v) {
-            $colors[$k] = $v;
-        }
-
-        // Override with stored values from the repository (if present).
-        try {
-            foreach ($this->settings->all() as $setting) {
-                if (str_starts_with($setting->key, 'theme::colors:')) {
-                    $name = substr($setting->key, strlen('theme::colors:'));
-                    $colors[$name] = $setting->value;
-                }
-            }
-        } catch (\Throwable $e) {
-            // If repository->all() fails for some reason, continue with defaults.
-        }
+        $canonical = $this->paletteService->getCanonicalPalettes();
 
         $view->with('themeConfiguration', [
-            'colors' => $colors,
+            'colors' => $this->paletteService->getRawColors(),
+            'palettes' => array_map(static function (array $palette): array {
+                return $palette['tokens'];
+            }, $canonical),
+            'textPalettes' => array_map(static function (array $palette): array {
+                return $palette['text'];
+            }, $canonical),
+            'surfacePalettes' => array_map(static function (array $palette): array {
+                return $palette['surfaces'];
+            }, $canonical),
+            'emailPalettes' => array_map(static function (array $palette): array {
+                return $palette['email'];
+            }, $canonical),
         ]);
     }
 }

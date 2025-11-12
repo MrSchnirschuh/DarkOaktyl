@@ -3,14 +3,21 @@
 namespace Everest\Http\ViewComposers;
 
 use Illuminate\View\View;
+use Everest\Services\Themes\ThemePaletteService;
 
 class EverestComposer
 {
+    public function __construct(private ThemePaletteService $paletteService)
+    {
+    }
+
     /**
      * Provide access to the asset service in the views.
      */
     public function compose(View $view): void
     {
+        $emailDefaults = $this->paletteService->getEmailDefaults();
+
         $view->with('everestConfiguration', [
             'auth' => [
                 'registration' => [
@@ -56,6 +63,11 @@ class EverestComposer
                     'symbol' => config('modules.billing.currency.symbol'),
                     'code' => config('modules.billing.currency.code'),
                 ],
+            ],
+            'emails' => [
+                'enabled' => boolval(config('modules.email.enabled', false)),
+                'defaultTheme' => config('modules.email.default_theme'),
+                'defaults' => $emailDefaults,
             ],
             'alert' => [
                 'enabled' => boolval(config('modules.alert.enabled', false)),

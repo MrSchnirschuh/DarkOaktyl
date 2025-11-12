@@ -83,8 +83,44 @@ export const ensureReadableAccent = (accent: string, background: string, fallbac
 };
 
 export const accentForeground = (accent: string): string => {
-    const normalized = normalizeHex(accent) ?? '#16a34a';
+    const normalized = normalizeHex(accent) ?? '#008000';
     const contrastToWhite = contrastRatio(normalized, '#ffffff');
     const contrastToBlack = contrastRatio(normalized, '#000000');
     return contrastToWhite >= contrastToBlack ? '#ffffff' : '#000000';
+};
+
+export const ensureReadableText = (
+    text: string | undefined,
+    background: string | undefined,
+    fallback: string,
+    ratio = 4.5,
+): string => {
+    const bg = normalizeHex(background) ?? normalizeHex(fallback) ?? '#111111';
+    const fb = normalizeHex(fallback) ?? '#ffffff';
+
+    if (!bg) return fb;
+
+    const candidate = normalizeHex(text);
+    if (candidate && contrastRatio(candidate, bg) >= ratio) {
+        return candidate;
+    }
+
+    if (candidate) {
+        const toward = contrastRatio('#000000', bg) >= contrastRatio('#ffffff', bg) ? '#000000' : '#ffffff';
+        let adjusted = candidate;
+        let amount = 0.1;
+        for (let i = 0; i < 10; i++) {
+            adjusted = mixColors(adjusted, toward, amount);
+            if (contrastRatio(adjusted, bg) >= ratio) {
+                return adjusted;
+            }
+            amount += 0.1;
+        }
+    }
+
+    if (contrastRatio(fb, bg) >= ratio) {
+        return fb;
+    }
+
+    return contrastRatio('#000000', bg) >= contrastRatio('#ffffff', bg) ? '#000000' : '#ffffff';
 };

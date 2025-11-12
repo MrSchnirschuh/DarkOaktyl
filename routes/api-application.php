@@ -5,7 +5,7 @@ use Everest\Http\Controllers\Api\Application;
 use Everest\Http\Middleware\Activity\AdminSubject;
 
 Route::middleware([AdminSubject::class])->group(function () {
-    Route::get('/permissions', [Application\ApplicationApiController::class, 'adminPermissions']);
+    Route::get('/permissions', [Application\PermissionsController::class, 'index']);
 
     Route::get('/overview/version', [Application\OverviewController::class, 'version']);
     Route::get('/overview/metrics', [Application\OverviewController::class, 'metrics']);
@@ -79,6 +79,38 @@ Route::middleware([AdminSubject::class])->group(function () {
             });
         });
 
+        Route::group(['prefix' => '/resources'], function () {
+            Route::get('/', [Application\Billing\ResourcePriceController::class, 'index']);
+            Route::post('/', [Application\Billing\ResourcePriceController::class, 'store']);
+
+            Route::get('/{resource:uuid}', [Application\Billing\ResourcePriceController::class, 'view']);
+            Route::patch('/{resource:uuid}', [Application\Billing\ResourcePriceController::class, 'update']);
+            Route::delete('/{resource:uuid}', [Application\Billing\ResourcePriceController::class, 'delete']);
+        });
+
+        Route::group(['prefix' => '/terms'], function () {
+            Route::get('/', [Application\Billing\BillingTermController::class, 'index']);
+            Route::post('/', [Application\Billing\BillingTermController::class, 'store']);
+
+            Route::get('/{term:uuid}', [Application\Billing\BillingTermController::class, 'view']);
+            Route::patch('/{term:uuid}', [Application\Billing\BillingTermController::class, 'update']);
+            Route::delete('/{term:uuid}', [Application\Billing\BillingTermController::class, 'delete']);
+        });
+
+        Route::group(['prefix' => '/coupons'], function () {
+            Route::get('/', [Application\Billing\CouponController::class, 'index']);
+            Route::post('/', [Application\Billing\CouponController::class, 'store']);
+
+            Route::get('/{coupon:uuid}', [Application\Billing\CouponController::class, 'view']);
+            Route::patch('/{coupon:uuid}', [Application\Billing\CouponController::class, 'update']);
+            Route::delete('/{coupon:uuid}', [Application\Billing\CouponController::class, 'delete']);
+            Route::post('/{coupon:uuid}/send', [Application\Billing\CouponController::class, 'send']);
+        });
+
+        Route::group(['prefix' => '/quotes'], function () {
+            Route::post('/calculate', [Application\Billing\QuoteController::class, 'calculate']);
+        });
+
         Route::group(['prefix' => '/orders'], function () {
             Route::get('/', [Application\Billing\OrderController::class, 'index']);
         });
@@ -94,6 +126,62 @@ Route::middleware([AdminSubject::class])->group(function () {
             Route::post('/import', [Application\Billing\ConfigController::class, 'import']);
             Route::post('/export', [Application\Billing\ConfigController::class, 'export']);
         });
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | Email Controller Routes
+    |--------------------------------------------------------------------------
+    |
+    | Endpoint: /api/application/emails
+    |
+    */
+    Route::group(['prefix' => '/emails'], function () {
+        Route::get('/settings', [Application\Emails\SettingsController::class, 'index'])
+            ->name('application.emails.settings.index');
+        Route::patch('/settings', [Application\Emails\SettingsController::class, 'update'])
+            ->name('application.emails.settings.update');
+
+        Route::get('/themes', [Application\Emails\ThemeController::class, 'index'])
+            ->name('application.emails.themes.index');
+        Route::post('/themes', [Application\Emails\ThemeController::class, 'store'])
+            ->name('application.emails.themes.store');
+        Route::get('/themes/{theme:uuid}', [Application\Emails\ThemeController::class, 'view'])
+            ->name('application.emails.themes.view');
+        Route::patch('/themes/{theme:uuid}', [Application\Emails\ThemeController::class, 'update'])
+            ->name('application.emails.themes.update');
+        Route::delete('/themes/{theme:uuid}', [Application\Emails\ThemeController::class, 'delete'])
+            ->name('application.emails.themes.delete');
+
+        Route::post('/templates/preview', [Application\Emails\TemplateController::class, 'preview'])
+            ->name('application.emails.templates.preview');
+        Route::get('/templates', [Application\Emails\TemplateController::class, 'index'])
+            ->name('application.emails.templates.index');
+        Route::post('/templates', [Application\Emails\TemplateController::class, 'store'])
+            ->name('application.emails.templates.store');
+        Route::get('/templates/{template:uuid}', [Application\Emails\TemplateController::class, 'view'])
+            ->name('application.emails.templates.view');
+        Route::patch('/templates/{template:uuid}', [Application\Emails\TemplateController::class, 'update'])
+            ->name('application.emails.templates.update');
+        Route::post('/templates/{template:uuid}/test', [Application\Emails\TemplateController::class, 'test'])
+            ->name('application.emails.templates.test');
+        Route::delete('/templates/{template:uuid}', [Application\Emails\TemplateController::class, 'delete'])
+            ->name('application.emails.templates.delete');
+
+        Route::get('/triggers', [Application\Emails\TriggerController::class, 'index'])
+            ->name('application.emails.triggers.index');
+        Route::post('/triggers', [Application\Emails\TriggerController::class, 'store'])
+            ->name('application.emails.triggers.store');
+        Route::get('/triggers/events', [Application\Emails\TriggerController::class, 'events'])
+            ->name('application.emails.triggers.events');
+        Route::get('/triggers/{trigger:uuid}', [Application\Emails\TriggerController::class, 'view'])
+            ->name('application.emails.triggers.view');
+        Route::patch('/triggers/{trigger:uuid}', [Application\Emails\TriggerController::class, 'update'])
+            ->name('application.emails.triggers.update');
+        Route::post('/triggers/{trigger:uuid}/run', [Application\Emails\TriggerController::class, 'run'])
+            ->name('application.emails.triggers.run');
+        Route::delete('/triggers/{trigger:uuid}', [Application\Emails\TriggerController::class, 'delete'])
+            ->name('application.emails.triggers.delete');
     });
 
     /*

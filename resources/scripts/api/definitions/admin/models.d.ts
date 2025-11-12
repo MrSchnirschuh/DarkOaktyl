@@ -5,6 +5,10 @@ import { OrderType } from '@/api/billing/orders/types';
 type BillingExceptionType = 'payment' | 'deployment' | 'storefront';
 type OrderStatus = 'pending' | 'expired' | 'failed' | 'processed';
 
+type EmailAudienceType = 'all_users' | 'specific_users' | 'specific_emails' | 'event_recipient' | 'admins';
+type EmailTriggerType = 'event' | 'schedule' | 'resource';
+type EmailTriggerScheduleType = 'once' | 'recurring';
+
 interface User extends ModelWithRelationships {
     id: number;
     uuid: UUID;
@@ -156,4 +160,101 @@ interface Category extends Model {
 interface AdminRolePermission extends Model {
     key: string;
     description: string;
+}
+
+interface EmailTheme extends Model {
+    id: number;
+    uuid: string;
+    name: string;
+    description?: string | null;
+    variantMode: 'single' | 'dual';
+    colors: {
+        primary: string;
+        secondary: string;
+        accent: string;
+        background: string;
+        body: string;
+        text: string;
+        muted: string;
+        button: string;
+        buttonText: string;
+    };
+    lightColors?: {
+        primary?: string;
+        secondary?: string;
+        accent?: string;
+        background?: string;
+        body?: string;
+        text?: string;
+        muted?: string;
+        button?: string;
+        buttonText?: string;
+    } | null;
+    logoUrl?: string | null;
+    footerText?: string | null;
+    isDefault: boolean;
+    meta: Record<string, unknown>;
+    createdAt: Date;
+    updatedAt?: Date | null;
+    relationships: Record<string, never>;
+}
+
+interface EmailTemplate extends ModelWithRelationships {
+    id: number;
+    uuid: string;
+    key: string;
+    name: string;
+    description?: string | null;
+    subject: string;
+    content: string;
+    locale: string;
+    isEnabled: boolean;
+    themeUuid?: string | null;
+    metadata: Record<string, unknown>;
+    createdAt: Date;
+    updatedAt?: Date | null;
+    relationships: {
+        theme?: EmailTheme | null;
+    };
+}
+
+interface EmailTriggerAudience extends Model {
+    type: EmailAudienceType;
+    ids?: number[];
+    emails?: string[];
+}
+
+interface EmailTriggerPayload extends Model {
+    audience?: EmailTriggerAudience;
+    data?: Record<string, unknown>;
+}
+
+interface EmailTrigger extends ModelWithRelationships {
+    id: number;
+    uuid: string;
+    name: string;
+    description?: string | null;
+    triggerType: EmailTriggerType;
+    scheduleType?: EmailTriggerScheduleType | null;
+    eventKey?: string | null;
+    scheduleAt?: Date | null;
+    cronExpression?: string | null;
+    timezone: string;
+    templateUuid?: string | null;
+    payload?: EmailTriggerPayload | null;
+    isActive: boolean;
+    lastRunAt?: Date | null;
+    nextRunAt?: Date | null;
+    createdAt: Date;
+    updatedAt?: Date | null;
+    relationships: {
+        template?: EmailTemplate | null;
+    };
+}
+
+interface EmailTriggerEvent extends Model {
+    key: string;
+    label: string;
+    description: string;
+    context: string[];
 }

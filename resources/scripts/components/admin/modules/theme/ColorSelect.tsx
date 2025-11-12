@@ -69,6 +69,8 @@ export default ({ setReload, mode, category = 'all' }: Props) => {
 
     // Build a list of base keys from the current theme colors. This includes keys like "primary", and
     // any per-mode keys such as "background_light" / "background_dark". We render one input per base key.
+    const hiddenBaseKeyLookup = new Set(['text', 'muted', 'buttontext']);
+
     const baseKeys: string[] = [];
     Object.keys(colors).forEach(k => {
         // Exclude stored presets keys (they are saved under theme::colors:presets:name)
@@ -90,6 +92,7 @@ export default ({ setReload, mode, category = 'all' }: Props) => {
             {loading && <Spinner className={'absolute top-0 right-0 m-3.5'} size={'small'} />}
             {success && <CheckCircleIcon className={'w-5 h-5 absolute top-0 right-0 m-3.5 text-green-500'} />}
             {baseKeys
+                .filter(base => !hiddenBaseKeyLookup.has(base.toLowerCase()))
                 .filter(b => {
                     if (!category || category === 'all') return true;
                     const lower = b.toLowerCase();

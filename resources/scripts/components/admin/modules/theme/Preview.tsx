@@ -50,7 +50,7 @@ export default ({
                 effective['text_secondary'] ??
                 (mode === 'light' ? '#4b5563' : '#9ca3af');
 
-            const primaryCol = effective[`primary_${mode}`] ?? effective['primary'] ?? '#16a34a';
+            const primaryCol = effective[`primary_${mode}`] ?? effective['primary'] ?? '#008000';
             const secondaryCol = effective[`secondary_${mode}`] ?? effective['secondary'] ?? '#27272a';
             const backgroundCol = effective[`background_${mode}`] ?? effective['background'] ?? '#0f172a';
             const headers = effective[`headers_${mode}`] ?? effective['headers'] ?? '#111827';
@@ -60,7 +60,7 @@ export default ({
                 effective['accent_primary'] ??
                 effective[`primary_${mode}`] ??
                 effective['primary'] ??
-                '#16a34a';
+                '#008000';
             const accentText = ensureReadableAccent(accent, backgroundCol, getTextPrimary());
             const accentContrast = ensureReadableAccent(
                 accent,

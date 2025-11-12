@@ -117,4 +117,3 @@ export default ({ color }: { color: string }) => (
         />
     </svg>
 );
-

@@ -123,4 +123,3 @@ export default ({ color }: { color: string }) => (
         </g>
     </svg>
 );
-

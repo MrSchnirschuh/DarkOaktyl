@@ -7,6 +7,7 @@ use Everest\Models\Server;
 use Everest\Models\Subuser;
 use Everest\Models\EggVariable;
 use Everest\Observers\UserObserver;
+use Everest\Listeners\Emails\EmailTriggerEventSubscriber;
 use Everest\Observers\ServerObserver;
 use Everest\Observers\SubuserObserver;
 use Everest\Observers\EggVariableObserver;
@@ -17,6 +18,7 @@ class EventServiceProvider extends ServiceProvider
 {
     protected $subscribe = [
         AuthenticationListener::class,
+        EmailTriggerEventSubscriber::class,
     ];
 
     /**

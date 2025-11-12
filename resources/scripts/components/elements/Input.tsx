@@ -1,4 +1,3 @@
-import { useStoreState } from '@/state/hooks';
 import styled, { css } from 'styled-components';
 import tw from 'twin.macro';
 
@@ -8,10 +7,13 @@ export interface Props {
 }
 
 const light = css<Props>`
-    ${tw`bg-white border-neutral-200 text-neutral-800`};
+    ${tw`border-neutral-200`};
+    background-color: var(--theme-surface-card, #ffffff);
+    color: var(--theme-text-primary, #111827);
 
     &:disabled {
-        ${tw`bg-neutral-100 border-neutral-200`};
+        background-color: var(--theme-surface-card, #f3f4f6);
+        border-color: var(--theme-text-muted, #d1d5db);
     }
 `;
 
@@ -29,58 +31,59 @@ const checkboxStyle = css<Props>`
     }
 `;
 
-const inputStyle = () => {
-    const theme = useStoreState(state => state.theme.data!);
-    const mode = useStoreState(state => state.theme.mode ?? 'dark');
-    const colors = theme.colors as Record<string, string>;
-    const background = colors[`secondary_${mode}`] ?? colors.secondary ?? '#1f2937';
+const inputStyle = css<Props>`
+    resize: none;
+    ${tw`appearance-none outline-none w-full min-w-0`};
+    ${tw`py-2.5 px-3 border-2 rounded text-sm transition-all duration-150`};
+    ${tw`border-zinc-700 hover:border-neutral-400 shadow-none`};
 
-    return css<Props>`
-        // Reset to normal styling.
-        resize: none;
-        ${tw`appearance-none outline-none w-full min-w-0`};
-        ${tw`py-2.5 px-3 border-2 rounded text-sm transition-all duration-150`};
-        ${tw`border-zinc-700 hover:border-neutral-400 text-neutral-200 shadow-none`};
+    background-color: var(--theme-secondary, #27272a);
+    color: var(--theme-text-primary, #e5e7eb);
 
-        background-color: ${background};
+    & + .input-help {
+        ${tw`mt-1 text-xs`};
+        color: var(--theme-text-muted, #9ca3af);
+    }
 
-        & + .input-help {
-            ${tw`mt-1 text-xs`};
-            ${props =>
-                props.hasError
-                    ? props.isLight
-                        ? tw`text-red-500`
-                        : tw`text-red-200`
-                    : css`
-                          color: var(--theme-text-secondary, #9ca3af);
-                      `};
-        }
+    &:required,
+    &:invalid {
+        ${tw`shadow-none`};
+    }
 
-        &:required,
-        &:invalid {
-            ${tw`shadow-none`};
-        }
+    &:disabled {
+        ${tw`opacity-75`};
+    }
 
-        &:disabled {
-            ${tw`opacity-75`};
-        }
+    &:not(.ignoreReadOnly):read-only {
+        border-color: var(--theme-text-muted, #4b5563);
+        background-color: var(--theme-secondary, #27272a);
+    }
 
-        ${props =>
-            props.isLight
-                ? light
-                : css`
-                      &:not(.ignoreReadOnly):read-only {
-                          ${tw`border-neutral-800 bg-neutral-900`};
-                      }
-                  `};
-        ${props => props.hasError && tw`text-red-100 border-red-400 hover:border-red-300`};
-        ${props =>
-            props.isLight &&
-            css`
-                color: var(--theme-text-primary, #111827);
-            `};
-    `;
-};
+    ${props =>
+        props.hasError &&
+        css`
+            ${tw`border-red-400 hover:border-red-300`};
+            color: var(--theme-text-inverse, #fee2e2);
+
+            & + .input-help {
+                ${props.isLight ? tw`text-red-500` : tw`text-red-200`};
+            }
+        `};
+
+    ${props =>
+        props.isLight &&
+        css`
+            ${light};
+
+            & + .input-help {
+                color: var(--theme-text-secondary, #4b5563);
+            }
+
+            &:not(.ignoreReadOnly):read-only {
+                background-color: var(--theme-surface-card, #ffffff);
+            }
+        `};
+`;
 
 const Input = styled.input<Props>`
     &:not([type='checkbox']):not([type='radio']) {

@@ -64,6 +64,10 @@ class SettingsServiceProvider extends ServiceProvider
         'modules:billing:currency:code',
         'modules:billing:currency:symbol',
 
+    // Email module settings
+    'modules:email:enabled',
+    'modules:email:default_theme',
+
         // Ticket module settings
         'modules:tickets:enabled',
         'modules:tickets:max_count',

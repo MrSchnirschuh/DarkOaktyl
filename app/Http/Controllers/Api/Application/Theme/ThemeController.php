@@ -6,6 +6,7 @@ use Everest\Models\Theme;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Everest\Contracts\Repository\ThemeRepositoryInterface;
+use Everest\Services\Themes\ThemePaletteService;
 use Everest\Http\Controllers\Api\Application\ApplicationApiController;
 
 class ThemeController extends ApplicationApiController
@@ -14,7 +15,8 @@ class ThemeController extends ApplicationApiController
      * ThemeController constructor.
      */
     public function __construct(
-        private ThemeRepositoryInterface $settings
+        private ThemeRepositoryInterface $settings,
+        private ThemePaletteService $paletteService
     ) {
         parent::__construct();
     }
@@ -27,6 +29,7 @@ class ThemeController extends ApplicationApiController
     public function colors(Request $request): Response
     {
         $this->settings->set('theme::colors:' . $request->input('key'), $request->input('value'));
+        $this->paletteService->syncDefaultEmailTheme();
 
         return $this->returnNoContent();
     }
@@ -39,6 +42,8 @@ class ThemeController extends ApplicationApiController
         foreach ($this->settings->all() as $setting) {
             $setting->delete();
         }
+
+        $this->paletteService->syncDefaultEmailTheme();
 
         return $this->returnNoContent();
     }
@@ -54,6 +59,8 @@ class ThemeController extends ApplicationApiController
         }
 
         $this->settings->forget('theme::colors:' . $key);
+
+        $this->paletteService->syncDefaultEmailTheme();
 
         return $this->returnNoContent();
     }

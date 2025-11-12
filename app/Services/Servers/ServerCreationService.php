@@ -2,14 +2,17 @@
 
 namespace Everest\Services\Servers;
 
+use Carbon\Carbon;
 use Ramsey\Uuid\Uuid;
 use Everest\Models\Egg;
+use Everest\Models\Node;
 use Everest\Models\User;
 use Everest\Models\Server;
 use Illuminate\Support\Arr;
 use Webmozart\Assert\Assert;
 use Everest\Models\Allocation;
 use Illuminate\Support\Collection;
+use Everest\Models\Billing\BillingTerm;
 use Everest\Models\Objects\DeploymentObject;
 use Illuminate\Database\ConnectionInterface;
 use Everest\Repositories\Eloquent\ServerRepository;
@@ -18,6 +21,7 @@ use Everest\Services\Deployment\FindViableNodesService;
 use Everest\Repositories\Eloquent\ServerVariableRepository;
 use Everest\Services\Deployment\AllocationSelectionService;
 use Everest\Exceptions\Http\Connection\DaemonConnectionException;
+use Illuminate\Support\Facades\Schema;
 
 class ServerCreationService
 {
@@ -29,6 +33,7 @@ class ServerCreationService
         private ConnectionInterface $connection,
         private DaemonServerRepository $daemonServerRepository,
         private FindViableNodesService $findViableNodesService,
+        private NodeCapacityService $nodeCapacityService,
         private ServerRepository $repository,
         private ServerDeletionService $serverDeletionService,
         private ServerVariableRepository $serverVariableRepository,
@@ -73,6 +78,15 @@ class ServerCreationService
             $data['nest_id'] = Egg::query()->findOrFail($data['egg_id'])->nest_id;
         }
 
+        $node = Node::query()->findOrFail($data['node_id']);
+
+        $memory = (int) Arr::get($data, 'memory', 0);
+        $disk = (int) Arr::get($data, 'disk', 0);
+
+        $this->nodeCapacityService->assertCanAllocate($node, $memory, $disk);
+
+        $this->applyBillingDefaults($data);
+
         $eggVariableData = $this->validatorService
             ->setUserLevel(User::USER_LEVEL_ADMIN)
             ->handle(Arr::get($data, 'egg_id'), Arr::get($data, 'environment', []));
@@ -104,6 +118,41 @@ class ServerCreationService
         }
 
         return $server;
+    }
+
+    private function applyBillingDefaults(array &$data): void
+    {
+        if (!empty($data['renewal_date']) || empty($data['billing_product_id'])) {
+            return;
+        }
+
+        $durationDays = $this->resolveDefaultTermDays();
+
+        if (is_null($durationDays)) {
+            $durationDays = 30;
+        }
+
+        $data['renewal_date'] = Carbon::now()->addDays($durationDays);
+    }
+
+    private function resolveDefaultTermDays(): ?int
+    {
+        if (!config('modules.billing.enabled', false)) {
+            return null;
+        }
+
+        if (!Schema::hasTable('billing_terms')) {
+            return null;
+        }
+
+        /** @var BillingTerm|null $term */
+        $term = BillingTerm::query()
+            ->where('is_active', true)
+            ->orderByDesc('is_default')
+            ->orderBy('sort_order')
+            ->first();
+
+        return $term?->duration_days;
     }
 
     /**

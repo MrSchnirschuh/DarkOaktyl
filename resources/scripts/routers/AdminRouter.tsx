@@ -48,7 +48,11 @@ function AdminRouter() {
                         <h1 className={'text-2xl text-neutral-50 whitespace-nowrap font-medium'}>{settings.name}</h1>
                     ) : (
                         <img
-                            src={theme.colors[`logo_panel_${currentMode}`] || theme.colors['logo_panel'] || 'https://avatars.githubusercontent.com/u/91636558'}
+                            src={
+                                theme.colors[`logo_panel_${currentMode}`] ||
+                                theme.colors['logo_panel'] ||
+                                'https://avatars.githubusercontent.com/u/91636558'
+                            }
                             className={'mt-4 w-12'}
                             alt={'Logo'}
                         />

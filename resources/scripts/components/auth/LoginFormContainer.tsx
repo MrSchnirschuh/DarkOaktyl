@@ -33,7 +33,9 @@ const Container = styled.div<{ isVisible: boolean }>`
 
 export default forwardRef<HTMLFormElement, Props>(({ title, ...props }, ref) => {
     const [visible, setVisible] = useState(false);
-    const [loginLogo, setLoginLogo] = useState<string | undefined>(typeof window !== 'undefined' ? (window as any).__themeLoginLogo : undefined);
+    const [loginLogo, setLoginLogo] = useState<string | undefined>(
+        typeof window !== 'undefined' ? (window as any).__themeLoginLogo : undefined,
+    );
 
     useEffect(() => {
         const timeout = setTimeout(() => setVisible(true), 50);
@@ -65,7 +67,12 @@ export default forwardRef<HTMLFormElement, Props>(({ title, ...props }, ref) => 
                             {/* @ts-ignore */}
                             {typeof window !== 'undefined' && (
                                 // read theme from global store via DOM if available — fallback handled in LoginContainer
-                                <img src={loginLogo} alt={title} className={'mx-auto mb-2 max-h-24'} style={{ display: loginLogo ? 'block' : 'none' }} />
+                                <img
+                                    src={loginLogo}
+                                    alt={title}
+                                    className={'mx-auto mb-2 max-h-24'}
+                                    style={{ display: loginLogo ? 'block' : 'none' }}
+                                />
                             )}
                             <h2 css={tw`text-3xl text-center text-neutral-100 font-medium py-4`}>{title}</h2>
                         </>

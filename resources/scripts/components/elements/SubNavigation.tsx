@@ -1,34 +1,44 @@
 import tw from 'twin.macro';
-import { SiteTheme } from '@/state/theme';
-import styled from 'styled-components/macro';
+import { Link } from '@inertiajs/react';
+import { SubNavigationProps } from '@/types/components/SubNavigation';
 
-const SubNavigation = styled.div<{ theme: SiteTheme }>`
-    ${tw`bg-zinc-800 mt-6 mb-3 rounded-full mx-auto px-3 max-w-5xl lg:w-[fit-content] overflow-x-auto container-snap`};
-
-    & > div {
-        ${tw`flex justify-center items-center text-sm mx-auto px-2`};
-
-        & > a,
-        & > div {
-            ${tw`inline-block py-3 px-4 font-semibold no-underline whitespace-nowrap transition-all duration-300`};
-            color: var(--theme-text-secondary);
-
-            &:not(:first-of-type) {
-                ${tw`ml-2`};
-            }
-
-            &:hover {
-                color: var(--theme-text-primary);
-                box-shadow: inset 0 2px ${({ theme }) => theme.colors.primary};
-            }
-
-            &:active,
-            &.active {
-                color: var(--theme-text-primary);
-                box-shadow: inset 0 2px ${({ theme }) => theme.colors.primary};
-            }
-        }
-    }
+const StyledNavigation = tw.nav`
+    bg-[var(--color-headers)]
+    border
+    border-[rgba(0,0,0,0.05)]
+    rounded
+    p-2
+    shadow-sm
 `;
 
-export default SubNavigation;
+const StyledNavigationLink = tw(Link)`
+    inline-flex
+    items-center
+    px-4
+    py-2
+    text-sm
+    font-medium
+    rounded
+    text-[var(--color-headers-contrast)]
+    hover:bg-[rgba(0,0,0,0.04)]
+`;
+
+export default function SubNavigation(props: SubNavigationProps) {
+    return (
+        <StyledNavigation aria-label="Secondary">
+            <ul css={tw`flex flex-wrap gap-2`}>
+                {props.links.map(link => (
+                    <li key={link.url}>
+                        <StyledNavigationLink
+                            href={link.url}
+                            aria-current={link.active ? 'page' : undefined}
+                            css={link.active ? tw`bg-[rgba(0,0,0,0.08)]` : null}
+                        >
+                            {link.label}
+                        </StyledNavigationLink>
+                    </li>
+                ))}
+            </ul>
+        </StyledNavigation>
+    );
+}

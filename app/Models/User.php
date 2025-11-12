@@ -133,6 +133,8 @@ class User extends Model implements
         'state',
         'root_admin',
         'recovery_code',
+        'appearance_mode',
+        'appearance_last_mode',
     ];
 
     /**
@@ -160,6 +162,8 @@ class User extends Model implements
         'use_totp' => false,
         'totp_secret' => null,
         'state' => null,
+        'appearance_mode' => 'system',
+        'appearance_last_mode' => 'dark',
     ];
 
     /**
