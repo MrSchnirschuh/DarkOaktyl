@@ -18,38 +18,43 @@ export default () => {
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const delay = useStoreState(state => state.everest.data!.auth.modules.jguard.delay);
 
-    const update = async (key: string, value: any) => {
+    const update = async (key: string, value: number) => {
         clearFlashes();
         setLoading(true);
         setSuccess(false);
 
-        updateModule('jguard', key, value)
-            .then(() => {
-                setSuccess(true);
-                setLoading(false);
-                setTimeout(() => setSuccess(false), 2000);
-            })
-            .catch(error => {
-                clearAndAddHttpError({ key: 'auth:modules:jguard', error });
-
-                setLoading(false);
-            });
+        try {
+            await updateModule('jguard', key, value);
+            setSuccess(true);
+            setTimeout(() => setSuccess(false), 2000);
+        } catch (error) {
+            clearAndAddHttpError({ key: 'auth:modules:jguard', error });
+        } finally {
+            setLoading(false);
+        }
     };
 
-    const doDeletion = () => {
-        toggleModule('disable', 'jguard')
-            .then(() => {
-                // @ts-expect-error this is fine
-                window.location = '/admin/auth';
-            })
-            .catch(error => clearAndAddHttpError({ key: 'auth:modules:jguard', error }));
+    const doDeletion = async () => {
+        try {
+            await toggleModule('disable', 'jguard');
+            window.location.href = '/admin/auth';
+        } catch (error) {
+            clearAndAddHttpError({ key: 'auth:modules:jguard', error });
+        }
+    };
+
+    const handleDelayChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = parseInt(e.target.value, 10);
+        if (!isNaN(value) && value >= 0) {
+            update('delay', value);
+        }
     };
 
     return (
         <AdminBox title={'jGuard'} icon={faDoorOpen}>
             <FlashMessageRender byKey={'auth:modules:jguard'} className={'my-2'} />
             {loading && <Spinner className={'absolute top-0 right-8 m-3.5'} size={'small'} />}
-            {success && <CheckCircleIcon className={'w-5 h-5 absolute top-0 right-8 m-3.5 text-green-500'} />}
+            {success && <CheckCircleIcon className={'absolute top-0 right-8 m-3.5 h-5 w-5 text-green-500'} />}
             <Dialog.Confirm
                 open={confirm}
                 title={'Confirm module removal'}
@@ -59,19 +64,20 @@ export default () => {
                 Are you sure you wish to delete this module?
             </Dialog.Confirm>
             <TrashIcon
-                className={'w-5 h-5 absolute top-0 right-0 m-3.5 text-red-500 hover:text-red-300 duration-300'}
+                className={'absolute top-0 right-0 m-3.5 h-5 w-5 text-red-500 duration-300 hover:text-red-300'}
                 onClick={() => setConfirm(true)}
             />
             <div>
                 <Label>Automatic approval delay</Label>
                 <Input
                     id={'delay'}
-                    type={'text'}
+                    type={'number'}
                     name={'delay'}
+                    min={0}
                     defaultValue={delay || 0}
-                    onChange={e => update('delay', parseInt(e.target.value))}
+                    onChange={handleDelayChange}
                 />
-                <p className={'text-xs text-gray-400 mt-1'}>
+                <p className={'mt-1 text-xs text-gray-400'}>
                     If you wish to automatically approve user signups, this variable can make it so that users cannot
                     access the Panel for a certain period of time in order to prevent bot attacks.
                 </p>

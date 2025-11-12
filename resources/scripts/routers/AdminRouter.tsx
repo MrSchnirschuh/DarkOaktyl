@@ -23,7 +23,7 @@ function AdminRouter() {
     const [collapsed, setCollapsed] = usePersistedState<boolean>(`sidebar_admin_${user.uuid}`, false);
 
     return (
-        <div className={'h-screen flex'}>
+        <div className={'flex h-screen'}>
             {settings.indicators && <AdminIndicators />}
             <MobileSidebar>
                 <MobileSidebar.Home />
@@ -41,14 +41,18 @@ function AdminRouter() {
             </MobileSidebar>
             <Sidebar className={'flex-none'} $collapsed={collapsed} theme={theme}>
                 <div
-                    className={'h-16 w-full flex flex-col items-center justify-center my-6 select-none cursor-pointer'}
+                    className={'my-6 flex h-16 w-full cursor-pointer select-none flex-col items-center justify-center'}
                     onClick={() => setCollapsed(!collapsed)}
                 >
                     {!collapsed ? (
-                        <h1 className={'text-2xl text-neutral-50 whitespace-nowrap font-medium'}>{settings.name}</h1>
+                        <h1 className={'whitespace-nowrap text-2xl font-medium text-neutral-50'}>{settings.name}</h1>
                     ) : (
                         <img
-                            src={theme.colors[`logo_panel_${currentMode}`] || theme.colors['logo_panel'] || 'https://avatars.githubusercontent.com/u/91636558'}
+                            src={
+                                theme.colors[`logo_panel_${currentMode}`] ||
+                                theme.colors['logo_panel'] ||
+                                'https://avatars.githubusercontent.com/u/91636558'
+                            }
                             className={'mt-4 w-12'}
                             alt={'Logo'}
                         />
@@ -80,9 +84,9 @@ function AdminRouter() {
                     <span className="flex items-center">
                         <Avatar.User />
                     </span>
-                    <div className={'flex flex-col ml-3'}>
-                        <span className={'font-sans font-normal text-xs text-gray-300 leading-tight select-none'}>
-                            <div className={'w-full flex justify-between mb-1'}>
+                    <div className={'ml-3 flex flex-col'}>
+                        <span className={'select-none font-sans text-xs font-normal leading-tight text-gray-300'}>
+                            <div className={'mb-1 flex w-full justify-between'}>
                                 <p className={'text-sm text-[var(--theme-text-secondary)]'}>Welcome,</p>
                                 <Pill size={'xsmall'} type={'info'}>
                                     {user.roleName === 'None' ? 'Root Admin' : user.roleName}
@@ -94,7 +98,7 @@ function AdminRouter() {
                 </Sidebar.User>
             </Sidebar>
             <div className={'flex-1 overflow-x-hidden px-6 pt-6 lg:px-10 lg:pt-8 xl:px-16 xl:pt-12'}>
-                <div className={'w-full flex flex-col mx-auto'} style={{ maxWidth: '86rem' }}>
+                <div className={'mx-auto flex w-full flex-col'} style={{ maxWidth: '86rem' }}>
                     <ErrorBoundary>
                         <Routes>
                             {routes.admin.map(({ route, component: Component }) => (

@@ -54,7 +54,7 @@ function ServerConsoleContainer() {
                         : 'This server is currently being transferred to another node and all actions are unavailable.'}
                 </Alert>
             )}
-            <div className={'mb-4 flex justify-between gap-4 bg-black/50 rounded-lg p-5'}>
+            <div className={'mb-4 flex justify-between gap-4 rounded-lg bg-black/50 p-5'}>
                 <div className={'hidden pr-4 sm:col-span-2 sm:block lg:col-span-3'}>
                     <div className={'flex items-center space-x-2'}>
                         <h1 className={'font-header text-2xl leading-relaxed text-slate-50 line-clamp-1'}>{name}</h1>
@@ -67,7 +67,7 @@ function ServerConsoleContainer() {
                             )}
                             {isTransferring && (
                                 <>
-                                    <FontAwesomeIcon icon={faSpinner} className={'animate-spin my-auto mr-1'} />
+                                    <FontAwesomeIcon icon={faSpinner} className={'my-auto mr-1 animate-spin'} />
                                     Transferring
                                 </>
                             )}
@@ -99,7 +99,7 @@ function ServerConsoleContainer() {
                     </Spinner.Suspense>
                 </div>
                 {!expand && (
-                    <div className={'col-span-4 lg:col-span-1 my-auto'}>
+                    <div className={'col-span-4 my-auto lg:col-span-1'}>
                         <div className={'grid grid-cols-1 gap-2'}>
                             <Spinner.Suspense>
                                 <StatGraphs />

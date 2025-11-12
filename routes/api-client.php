@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Everest\Http\Controllers\Api\Client;
 use Everest\Http\Middleware\SuspendedAccount;
+use Everest\Http\Middleware\RequireBillingEnabled;
 use Everest\Http\Middleware\Activity\ServerSubject;
 use Everest\Http\Middleware\Activity\AccountSubject;
 use Everest\Http\Middleware\RequireTwoFactorAuthentication;
@@ -69,7 +70,7 @@ Route::prefix('/')->middleware([SuspendedAccount::class])->group(function () {
         Route::post('/setup', [Client\AccountController::class, 'setup']);
     });
 
-    Route::prefix('/billing')->group(function () {
+    Route::prefix('/billing')->middleware([RequireBillingEnabled::class])->group(function () {
         Route::post('/nodes/{product:id}', [Client\Billing\NodesController::class, 'index']);
         Route::get('/categories', [Client\Billing\CategoryController::class, 'index']);
 

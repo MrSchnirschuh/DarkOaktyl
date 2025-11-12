@@ -154,7 +154,7 @@ export default function ThemeVars() {
         const accent = effectiveColors[`accent_primary_${mode}`] ?? effectiveColors['accent_primary'] ?? '#16a34a';
         const headingAccent = ensureReadableAccent(accent, background, textPrimary);
         const contrastAccent = ensureReadableAccent(accent, mode === 'light' ? '#ffffff' : '#1f2937', textPrimary);
-    const onAccent = accentForeground(accent);
+        const onAccent = accentForeground(accent);
 
         set('--theme-text-primary', textPrimary);
         set('--theme-text', textPrimary);
@@ -167,7 +167,7 @@ export default function ThemeVars() {
         set('--theme-accent', accent);
         set('--theme-accent-text', headingAccent);
         set('--theme-accent-contrast', contrastAccent);
-    set('--theme-on-accent', onAccent);
+        set('--theme-on-accent', onAccent);
         // background image per-mode
         const bgImage = effectiveColors[`background_image_${mode}`] ?? effectiveColors['background_image'] ?? '';
         if (bgImage) set('--theme-background-image', `url(${bgImage})`);

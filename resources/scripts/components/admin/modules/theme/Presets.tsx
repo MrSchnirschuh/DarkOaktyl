@@ -54,13 +54,15 @@ export default ({ setReload }: { setReload: (v: boolean) => void }) => {
                     ...buildMode('light'),
                     logo_panel: (colors as any)['logo_panel_light'] ?? (colors as any)['logo_panel'] ?? null,
                     logo_login: (colors as any)['logo_login_light'] ?? (colors as any)['logo_login'] ?? null,
-                    background_image: (colors as any)['background_image_light'] ?? (colors as any)['background_image'] ?? null,
+                    background_image:
+                        (colors as any)['background_image_light'] ?? (colors as any)['background_image'] ?? null,
                 },
                 dark: {
                     ...buildMode('dark'),
                     logo_panel: (colors as any)['logo_panel_dark'] ?? (colors as any)['logo_panel'] ?? null,
                     logo_login: (colors as any)['logo_login_dark'] ?? (colors as any)['logo_login'] ?? null,
-                    background_image: (colors as any)['background_image_dark'] ?? (colors as any)['background_image'] ?? null,
+                    background_image:
+                        (colors as any)['background_image_dark'] ?? (colors as any)['background_image'] ?? null,
                 },
             },
             // include logos so presets capture configured images
@@ -236,11 +238,11 @@ export default ({ setReload }: { setReload: (v: boolean) => void }) => {
                         onChange={e => setIsDefault(e.target.checked)}
                         className={'mr-2'}
                     />
-                    <label htmlFor={'preset_default'} className={'text-sm text-gray-300 select-none'}>
+                    <label htmlFor={'preset_default'} className={'select-none text-sm text-gray-300'}>
                         Set as default preset (only one can be default)
                     </label>
                 </div>
-                <p className={'text-xs text-gray-400 mt-2'}>
+                <p className={'mt-2 text-xs text-gray-400'}>
                     Save the current theme colors as a named preset. You can later apply or delete presets.
                 </p>
             </div>
@@ -257,7 +259,7 @@ export default ({ setReload }: { setReload: (v: boolean) => void }) => {
                     }
 
                     return (
-                        <div key={p.key} className={'flex items-center justify-between mt-2'}>
+                        <div key={p.key} className={'mt-2 flex items-center justify-between'}>
                             <div>
                                 <div className={'font-medium'}>{p.key.replace('presets:', '')}</div>
                                 <div className={'text-xs text-gray-400'}>
