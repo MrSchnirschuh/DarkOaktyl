@@ -32,6 +32,33 @@ Route::middleware([AdminSubject::class])->group(function () {
 
     /*
     |--------------------------------------------------------------------------
+    | Email Management Controller Routes
+    |--------------------------------------------------------------------------
+    |
+    | Endpoint: /api/application/emails
+    |
+    */
+    Route::group(['prefix' => '/emails'], function () {
+        Route::group(['prefix' => '/templates'], function () {
+            Route::get('/', [Application\Email\EmailTemplateController::class, 'index']);
+            Route::post('/', [Application\Email\EmailTemplateController::class, 'store']);
+            Route::get('/{template}', [Application\Email\EmailTemplateController::class, 'view']);
+            Route::patch('/{template}', [Application\Email\EmailTemplateController::class, 'update']);
+            Route::delete('/{template}', [Application\Email\EmailTemplateController::class, 'destroy']);
+            Route::post('/{template}/test', [Application\Email\EmailTemplateController::class, 'test']);
+        });
+
+        Route::group(['prefix' => '/scheduled'], function () {
+            Route::get('/', [Application\Email\ScheduledEmailController::class, 'index']);
+            Route::post('/', [Application\Email\ScheduledEmailController::class, 'store']);
+            Route::get('/{scheduledEmail}', [Application\Email\ScheduledEmailController::class, 'view']);
+            Route::patch('/{scheduledEmail}', [Application\Email\ScheduledEmailController::class, 'update']);
+            Route::delete('/{scheduledEmail}', [Application\Email\ScheduledEmailController::class, 'destroy']);
+        });
+    });
+
+    /*
+    |--------------------------------------------------------------------------
     | Auth Settings Controller Routes
     |--------------------------------------------------------------------------
     |
@@ -81,6 +108,15 @@ Route::middleware([AdminSubject::class])->group(function () {
 
         Route::group(['prefix' => '/orders'], function () {
             Route::get('/', [Application\Billing\OrderController::class, 'index']);
+        });
+
+        Route::group(['prefix' => '/coupons'], function () {
+            Route::get('/', [Application\Billing\CouponController::class, 'index']);
+            Route::post('/', [Application\Billing\CouponController::class, 'store']);
+
+            Route::get('/{coupon:id}', [Application\Billing\CouponController::class, 'view']);
+            Route::patch('/{coupon:id}', [Application\Billing\CouponController::class, 'update']);
+            Route::delete('/{coupon:id}', [Application\Billing\CouponController::class, 'delete']);
         });
 
         Route::group(['prefix' => '/exceptions'], function () {

@@ -88,7 +88,7 @@ export default ({ setReload, mode, category = 'all' }: Props) => {
         <AdminBox title={'Color Selection'} icon={faPaintbrush}>
             <FlashMessageRender byKey={'theme:colors'} className={'my-2'} />
             {loading && <Spinner className={'absolute top-0 right-0 m-3.5'} size={'small'} />}
-            {success && <CheckCircleIcon className={'w-5 h-5 absolute top-0 right-0 m-3.5 text-green-500'} />}
+            {success && <CheckCircleIcon className={'absolute top-0 right-0 m-3.5 h-5 w-5 text-green-500'} />}
             {baseKeys
                 .filter(b => {
                     if (!category || category === 'all') return true;
@@ -113,7 +113,7 @@ export default ({ setReload, mode, category = 'all' }: Props) => {
                             value={(colors as any)[`${base}_${mode}`] ?? (colors as any)[base] ?? '#ffffff'}
                             onChange={e => update(base, e.target.value)}
                         />
-                        <p className={'text-xs text-gray-400 mt-1'}>
+                        <p className={'mt-1 text-xs text-gray-400'}>
                             Configure the <strong>{base}</strong> color for the {mode} mode (falls back to canonical
                             value).
                         </p>

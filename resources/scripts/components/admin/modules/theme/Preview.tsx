@@ -122,13 +122,13 @@ export default ({
     return (
         <AdminBox title={'Preview'} icon={faDesktop} className={'lg:col-span-2'}>
             <div
-                className={`w-full rounded-lg ${heightClass} border-2 transition duration-500 overflow-hidden`}
+                className={`w-full rounded-lg ${heightClass} overflow-hidden border-2 transition duration-500`}
                 style={{ borderColor: primary }}
             >
                 <iframe
                     ref={iframeRef}
                     src={reload ? '/null' : '/'}
-                    className={'w-full h-full'}
+                    className={'h-full w-full'}
                     style={{ background: 'transparent' }}
                     onLoad={onLoad}
                 />
@@ -137,7 +137,7 @@ export default ({
                         <h3 className={'text-lg font-medium'} style={{ color: textColor }}>
                             Sample Heading
                         </h3>
-                        <p className={'text-sm mt-2'} style={{ color: textColor }}>
+                        <p className={'mt-2 text-sm'} style={{ color: textColor }}>
                             This is a small preview of the text color for the <strong>{mode}</strong> mode.
                         </p>
                     </div>

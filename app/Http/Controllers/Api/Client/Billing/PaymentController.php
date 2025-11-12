@@ -144,19 +144,27 @@ class PaymentController extends ClientApiController
      */
     public function process(Request $request): Response
     {
+        if (!$this->settings->get('settings::modules:billing:enabled')) {
+            throw new DisplayException('The billing module is not enabled.');
+        }
+
         $order = Order::where('user_id', $request->user()->id)->latest()->first();
+        
+        if (!$order) {
+            throw new DisplayException('No order found for this user.');
+        }
+
         $intent = $this->stripe->paymentIntents->retrieve($request->input('intent'));
 
-        if (!$this->settings->get('settings::modules:billing:enabled')) {
-            if (!$intent) {
-                throw new DisplayException('Unable to fetch payment intent from Stripe.');
-                BillingException::create([
-                    'order_id' => $order->id,
-                    'exception_type' => BillingException::TYPE_DEPLOYMENT,
-                    'title' => 'Unable to fetch PaymentIntent while processing order',
-                    'description' => 'Check Stripe Dashboard and ask in the Jexactyl Discord for support',
-                ]);
-            }
+        if (!$intent) {
+            BillingException::create([
+                'order_id' => $order->id,
+                'exception_type' => BillingException::TYPE_DEPLOYMENT,
+                'title' => 'Unable to fetch PaymentIntent while processing order',
+                'description' => 'Check Stripe Dashboard and ask in the Jexactyl Discord for support',
+            ]);
+            
+            throw new DisplayException('Unable to fetch payment intent from Stripe.');
         }
 
         // Check if order has already been processed

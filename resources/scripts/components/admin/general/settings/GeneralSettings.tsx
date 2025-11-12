@@ -58,7 +58,7 @@ export default () => {
                 <div css={tw`grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-6`}>
                     <AdminBox title={'Application Name'} icon={faPaintBrush}>
                         <Field id={'name'} name={'name'} type={'text'} description={''} />
-                        <p className={'text-gray-400 text-xs mt-1.5'}>
+                        <p className={'mt-1.5 text-xs text-gray-400'}>
                             Configure the name of this Panel to suit your needs.
                         </p>
                     </AdminBox>
@@ -73,7 +73,7 @@ export default () => {
                                     defaultChecked={settings.auto_update}
                                 />
                             </div>
-                            <p className={'text-gray-400 text-xs mt-1.5'}>
+                            <p className={'mt-1.5 text-xs text-gray-400'}>
                                 If enabled, Jexactyl will automatically update in order to keep your system secure and
                                 introduce new features.
                             </p>
@@ -90,7 +90,7 @@ export default () => {
                                     defaultChecked={settings.indicators}
                                 />
                             </div>
-                            <p className={'text-gray-400 text-xs mt-1.5'}>
+                            <p className={'mt-1.5 text-xs text-gray-400'}>
                                 If enabled, small boxes will appear in the top-right of the UI indicating whether
                                 Jexactyl modules are enabled/disabled. Only on large screens.
                             </p>
@@ -107,7 +107,7 @@ export default () => {
                                     defaultChecked={settings.speed_dial}
                                 />
                             </div>
-                            <p className={'text-gray-400 text-xs mt-1.5'}>
+                            <p className={'mt-1.5 text-xs text-gray-400'}>
                                 If enabled, a component will show to admins in the client-side UI for quick actions -
                                 such as creating a server or user.
                             </p>

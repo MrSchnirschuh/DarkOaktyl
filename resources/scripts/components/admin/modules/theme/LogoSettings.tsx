@@ -12,12 +12,20 @@ export default () => {
     const setTheme = useStoreActions(a => a.theme.setTheme);
     const { addFlash, clearFlashes } = useFlash();
 
-    const [panelLogoLight, setPanelLogoLight] = useState<string>(colors['logo_panel_light'] ?? colors['logo_panel'] ?? '');
+    const [panelLogoLight, setPanelLogoLight] = useState<string>(
+        colors['logo_panel_light'] ?? colors['logo_panel'] ?? '',
+    );
     const [panelLogoDark, setPanelLogoDark] = useState<string>(colors['logo_panel_dark'] ?? colors['logo_panel'] ?? '');
-    const [loginLogoLight, setLoginLogoLight] = useState<string>(colors['logo_login_light'] ?? colors['logo_login'] ?? '');
+    const [loginLogoLight, setLoginLogoLight] = useState<string>(
+        colors['logo_login_light'] ?? colors['logo_login'] ?? '',
+    );
     const [loginLogoDark, setLoginLogoDark] = useState<string>(colors['logo_login_dark'] ?? colors['logo_login'] ?? '');
-    const [backgroundLight, setBackgroundLight] = useState<string>(colors['background_image_light'] ?? colors['background_image'] ?? '');
-    const [backgroundDark, setBackgroundDark] = useState<string>(colors['background_image_dark'] ?? colors['background_image'] ?? '');
+    const [backgroundLight, setBackgroundLight] = useState<string>(
+        colors['background_image_light'] ?? colors['background_image'] ?? '',
+    );
+    const [backgroundDark, setBackgroundDark] = useState<string>(
+        colors['background_image_dark'] ?? colors['background_image'] ?? '',
+    );
 
     const [savingPanelLight, setSavingPanelLight] = useState(false);
     const [savingPanelDark, setSavingPanelDark] = useState(false);
@@ -73,7 +81,7 @@ export default () => {
         <AdminBox title={'Logos & Backgrounds'}>
             <div className={'mb-3'}>
                 <Label>Panel Logo (small, used in sidebar)</Label>
-                <div className={'grid grid-cols-1 md:grid-cols-2 gap-4'}>
+                <div className={'grid grid-cols-1 gap-4 md:grid-cols-2'}>
                     <div>
                         <Label>Light</Label>
                         <div className={'flex items-center space-x-3'}>
@@ -87,7 +95,14 @@ export default () => {
                                     id={'panel_logo_light_file'}
                                     type={'file'}
                                     accept={'image/*'}
-                                    onChange={e => handleFile('logo_panel_light', e.target.files ? e.target.files[0] : null, setSavingPanelLight, setPanelLogoLight)}
+                                    onChange={e =>
+                                        handleFile(
+                                            'logo_panel_light',
+                                            e.target.files ? e.target.files[0] : null,
+                                            setSavingPanelLight,
+                                            setPanelLogoLight,
+                                        )
+                                    }
                                 />
                             </div>
                         </div>
@@ -97,7 +112,17 @@ export default () => {
                             </div>
                         )}
                         <div className={'mt-2'}>
-                            <Button onClick={() => save('logo_panel_light', panelLogoLight, setSavingPanelLight, 'Panel logo (light) saved.')} disabled={savingPanelLight}>
+                            <Button
+                                onClick={() =>
+                                    save(
+                                        'logo_panel_light',
+                                        panelLogoLight,
+                                        setSavingPanelLight,
+                                        'Panel logo (light) saved.',
+                                    )
+                                }
+                                disabled={savingPanelLight}
+                            >
                                 Save
                             </Button>
                         </div>
@@ -116,7 +141,14 @@ export default () => {
                                     id={'panel_logo_dark_file'}
                                     type={'file'}
                                     accept={'image/*'}
-                                    onChange={e => handleFile('logo_panel_dark', e.target.files ? e.target.files[0] : null, setSavingPanelDark, setPanelLogoDark)}
+                                    onChange={e =>
+                                        handleFile(
+                                            'logo_panel_dark',
+                                            e.target.files ? e.target.files[0] : null,
+                                            setSavingPanelDark,
+                                            setPanelLogoDark,
+                                        )
+                                    }
                                 />
                             </div>
                         </div>
@@ -126,7 +158,17 @@ export default () => {
                             </div>
                         )}
                         <div className={'mt-2'}>
-                            <Button onClick={() => save('logo_panel_dark', panelLogoDark, setSavingPanelDark, 'Panel logo (dark) saved.')} disabled={savingPanelDark}>
+                            <Button
+                                onClick={() =>
+                                    save(
+                                        'logo_panel_dark',
+                                        panelLogoDark,
+                                        setSavingPanelDark,
+                                        'Panel logo (dark) saved.',
+                                    )
+                                }
+                                disabled={savingPanelDark}
+                            >
                                 Save
                             </Button>
                         </div>
@@ -136,7 +178,7 @@ export default () => {
 
             <div className={'mt-4 mb-3'}>
                 <Label>Login Screen Logo (displayed on login)</Label>
-                <div className={'grid grid-cols-1 md:grid-cols-2 gap-4'}>
+                <div className={'grid grid-cols-1 gap-4 md:grid-cols-2'}>
                     <div>
                         <Label>Light</Label>
                         <div className={'flex items-center space-x-3'}>
@@ -150,17 +192,38 @@ export default () => {
                                     id={'login_logo_light_file'}
                                     type={'file'}
                                     accept={'image/*'}
-                                    onChange={e => handleFile('logo_login_light', e.target.files ? e.target.files[0] : null, setSavingLoginLight, setLoginLogoLight)}
+                                    onChange={e =>
+                                        handleFile(
+                                            'logo_login_light',
+                                            e.target.files ? e.target.files[0] : null,
+                                            setSavingLoginLight,
+                                            setLoginLogoLight,
+                                        )
+                                    }
                                 />
                             </div>
                         </div>
                         {loginLogoLight && (
                             <div className={'mt-2'}>
-                                <img src={loginLogoLight} alt={'Login logo (light) preview'} className={'max-h-28 mx-auto'} />
+                                <img
+                                    src={loginLogoLight}
+                                    alt={'Login logo (light) preview'}
+                                    className={'mx-auto max-h-28'}
+                                />
                             </div>
                         )}
                         <div className={'mt-2'}>
-                            <Button onClick={() => save('logo_login_light', loginLogoLight, setSavingLoginLight, 'Login logo (light) saved.')} disabled={savingLoginLight}>
+                            <Button
+                                onClick={() =>
+                                    save(
+                                        'logo_login_light',
+                                        loginLogoLight,
+                                        setSavingLoginLight,
+                                        'Login logo (light) saved.',
+                                    )
+                                }
+                                disabled={savingLoginLight}
+                            >
                                 Save
                             </Button>
                         </div>
@@ -179,17 +242,38 @@ export default () => {
                                     id={'login_logo_dark_file'}
                                     type={'file'}
                                     accept={'image/*'}
-                                    onChange={e => handleFile('logo_login_dark', e.target.files ? e.target.files[0] : null, setSavingLoginDark, setLoginLogoDark)}
+                                    onChange={e =>
+                                        handleFile(
+                                            'logo_login_dark',
+                                            e.target.files ? e.target.files[0] : null,
+                                            setSavingLoginDark,
+                                            setLoginLogoDark,
+                                        )
+                                    }
                                 />
                             </div>
                         </div>
                         {loginLogoDark && (
                             <div className={'mt-2'}>
-                                <img src={loginLogoDark} alt={'Login logo (dark) preview'} className={'max-h-28 mx-auto'} />
+                                <img
+                                    src={loginLogoDark}
+                                    alt={'Login logo (dark) preview'}
+                                    className={'mx-auto max-h-28'}
+                                />
                             </div>
                         )}
                         <div className={'mt-2'}>
-                            <Button onClick={() => save('logo_login_dark', loginLogoDark, setSavingLoginDark, 'Login logo (dark) saved.')} disabled={savingLoginDark}>
+                            <Button
+                                onClick={() =>
+                                    save(
+                                        'logo_login_dark',
+                                        loginLogoDark,
+                                        setSavingLoginDark,
+                                        'Login logo (dark) saved.',
+                                    )
+                                }
+                                disabled={savingLoginDark}
+                            >
                                 Save
                             </Button>
                         </div>
@@ -199,7 +283,7 @@ export default () => {
 
             <div className={'mt-4'}>
                 <Label>Background Image (used on login / panels as configured)</Label>
-                <div className={'grid grid-cols-1 md:grid-cols-2 gap-4'}>
+                <div className={'grid grid-cols-1 gap-4 md:grid-cols-2'}>
                     <div>
                         <Label>Light</Label>
                         <div className={'flex items-center space-x-3'}>
@@ -213,17 +297,38 @@ export default () => {
                                     id={'background_light_file'}
                                     type={'file'}
                                     accept={'image/*'}
-                                    onChange={e => handleFile('background_image_light', e.target.files ? e.target.files[0] : null, setSavingBackgroundLight, setBackgroundLight)}
+                                    onChange={e =>
+                                        handleFile(
+                                            'background_image_light',
+                                            e.target.files ? e.target.files[0] : null,
+                                            setSavingBackgroundLight,
+                                            setBackgroundLight,
+                                        )
+                                    }
                                 />
                             </div>
                         </div>
                         {backgroundLight && (
                             <div className={'mt-2'}>
-                                <img src={backgroundLight} alt={'Background (light) preview'} className={'max-h-28 mx-auto'} />
+                                <img
+                                    src={backgroundLight}
+                                    alt={'Background (light) preview'}
+                                    className={'mx-auto max-h-28'}
+                                />
                             </div>
                         )}
                         <div className={'mt-2'}>
-                            <Button onClick={() => save('background_image_light', backgroundLight, setSavingBackgroundLight, 'Background (light) saved.')} disabled={savingBackgroundLight}>
+                            <Button
+                                onClick={() =>
+                                    save(
+                                        'background_image_light',
+                                        backgroundLight,
+                                        setSavingBackgroundLight,
+                                        'Background (light) saved.',
+                                    )
+                                }
+                                disabled={savingBackgroundLight}
+                            >
                                 Save
                             </Button>
                         </div>
@@ -242,17 +347,38 @@ export default () => {
                                     id={'background_dark_file'}
                                     type={'file'}
                                     accept={'image/*'}
-                                    onChange={e => handleFile('background_image_dark', e.target.files ? e.target.files[0] : null, setSavingBackgroundDark, setBackgroundDark)}
+                                    onChange={e =>
+                                        handleFile(
+                                            'background_image_dark',
+                                            e.target.files ? e.target.files[0] : null,
+                                            setSavingBackgroundDark,
+                                            setBackgroundDark,
+                                        )
+                                    }
                                 />
                             </div>
                         </div>
                         {backgroundDark && (
                             <div className={'mt-2'}>
-                                <img src={backgroundDark} alt={'Background (dark) preview'} className={'max-h-28 mx-auto'} />
+                                <img
+                                    src={backgroundDark}
+                                    alt={'Background (dark) preview'}
+                                    className={'mx-auto max-h-28'}
+                                />
                             </div>
                         )}
                         <div className={'mt-2'}>
-                            <Button onClick={() => save('background_image_dark', backgroundDark, setSavingBackgroundDark, 'Background (dark) saved.')} disabled={savingBackgroundDark}>
+                            <Button
+                                onClick={() =>
+                                    save(
+                                        'background_image_dark',
+                                        backgroundDark,
+                                        setSavingBackgroundDark,
+                                        'Background (dark) saved.',
+                                    )
+                                }
+                                disabled={savingBackgroundDark}
+                            >
                                 Save
                             </Button>
                         </div>

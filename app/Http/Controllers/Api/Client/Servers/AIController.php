@@ -7,6 +7,7 @@ use Everest\Models\Server;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use GeminiAPI\Resources\Parts\TextPart;
+use Everest\Exceptions\DisplayException;
 use Everest\Http\Controllers\Api\Client\ClientApiController;
 
 class AIController extends ClientApiController
@@ -25,15 +26,29 @@ class AIController extends ClientApiController
     public function index(Request $request, Server $server): JsonResponse
     {
         if (!config('modules.ai.enabled')) {
-            throw new \Exception('The Jexactyl AI module is not enabled.');
+            throw new DisplayException('The AI module is not enabled.');
         }
 
-        $client = new Client(config('modules.ai.key'));
+        $apiKey = config('modules.ai.key');
+        if (empty($apiKey)) {
+            throw new DisplayException('The AI API key is not configured.');
+        }
 
-        $response = $client->geminiPro()->generateContent(
-            new TextPart($request->input('query')),
-        );
+        $query = $request->input('query');
+        if (empty($query) || !is_string($query)) {
+            throw new DisplayException('A valid query is required.');
+        }
 
-        return response()->json($response->text());
+        try {
+            $client = new Client($apiKey);
+
+            $response = $client->geminiPro()->generateContent(
+                new TextPart($query),
+            );
+
+            return response()->json($response->text());
+        } catch (\Exception $e) {
+            throw new DisplayException('Failed to generate AI response: ' . $e->getMessage());
+        }
     }
 }
