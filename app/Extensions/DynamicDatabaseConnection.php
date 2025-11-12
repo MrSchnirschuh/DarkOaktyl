@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Extensions;
+namespace DarkOak\Extensions;
 
-use Everest\Models\DatabaseHost;
+use DarkOak\Models\DatabaseHost;
 use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Config\Repository as ConfigRepository;
-use Everest\Contracts\Repository\DatabaseHostRepositoryInterface;
+use DarkOak\Contracts\Repository\DatabaseHostRepositoryInterface;
 
 class DynamicDatabaseConnection
 {
@@ -26,7 +26,7 @@ class DynamicDatabaseConnection
     /**
      * Adds a dynamic database connection entry to the runtime config.
      *
-     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
+     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
      */
     public function set(string $connection, DatabaseHost|int $host, string $database = 'mysql'): void
     {
@@ -46,3 +46,4 @@ class DynamicDatabaseConnection
         ]);
     }
 }
+

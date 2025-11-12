@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Client\Billing;
+namespace DarkOak\Http\Controllers\Api\Client\Billing;
 
-use Everest\Models\EggVariable;
-use Everest\Transformers\Api\Client\EggVariableTransformer;
-use Everest\Http\Controllers\Api\Client\ClientApiController;
+use DarkOak\Models\EggVariable;
+use DarkOak\Transformers\Api\Client\EggVariableTransformer;
+use DarkOak\Http\Controllers\Api\Client\ClientApiController;
 
 class EggController extends ClientApiController
 {
@@ -27,3 +27,4 @@ class EggController extends ClientApiController
             ->toArray();
     }
 }
+

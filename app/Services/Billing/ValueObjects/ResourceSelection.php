@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Services\Billing\ValueObjects;
+namespace DarkOak\Services\Billing\ValueObjects;
 
-use Everest\Models\Billing\ResourcePrice;
-use Everest\Models\Billing\ResourceScalingRule;
+use DarkOak\Models\Billing\ResourcePrice;
+use DarkOak\Models\Billing\ResourceScalingRule;
 use Illuminate\Support\Arr;
 
 final class ResourceSelection
@@ -203,3 +203,4 @@ final class ResourceSelection
         };
     }
 }
+

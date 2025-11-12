@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Console\Commands\Billing;
+namespace DarkOak\Console\Commands\Billing;
 
-use Everest\Models\Server;
+use DarkOak\Models\Server;
 use Illuminate\Console\Command;
-use Everest\Services\Servers\SuspensionService;
+use DarkOak\Services\Servers\SuspensionService;
 
 class SuspendBillableServersCommand extends Command
 {
@@ -51,3 +51,4 @@ class SuspendBillableServersCommand extends Command
         }
     }
 }
+

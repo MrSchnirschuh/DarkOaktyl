@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Setup;
+namespace DarkOak\Http\Controllers\Api\Application\Setup;
 
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
-use Everest\Contracts\Repository\SettingsRepositoryInterface;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Contracts\Repository\SettingsRepositoryInterface;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
 
 class SetupController extends ApplicationApiController
 {
@@ -25,10 +25,10 @@ class SetupController extends ApplicationApiController
     public function data(): JsonResponse
     {
         return response()->json([
-            'nodes' => \Everest\Models\Node::query()->count(),
-            'servers' => \Everest\Models\Server::query()->count(),
-            'users' => \Everest\Models\User::query()->count(),
-            'eggs' => \Everest\Models\Egg::query()->count(),
+            'nodes' => \DarkOak\Models\Node::query()->count(),
+            'servers' => \DarkOak\Models\Server::query()->count(),
+            'users' => \DarkOak\Models\User::query()->count(),
+            'eggs' => \DarkOak\Models\Egg::query()->count(),
         ]);
     }
 
@@ -44,3 +44,4 @@ class SetupController extends ApplicationApiController
         return $this->returnNoContent();
     }
 }
+

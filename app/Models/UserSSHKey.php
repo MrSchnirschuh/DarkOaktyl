@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Models;
+namespace DarkOak\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * \Everest\Models\UserSSHKey.
+ * \DarkOak\Models\UserSSHKey.
  *
  * @property int $id
  * @property int $user_id
@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property \Everest\Models\User $user
+ * @property \DarkOak\Models\User $user
  *
  * @method static \Illuminate\Database\Eloquent\Builder|UserSSHKey newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|UserSSHKey newQuery()
@@ -62,3 +62,4 @@ class UserSSHKey extends Model
         return $this->belongsTo(User::class);
     }
 }
+

@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Console\Commands\Billing;
+namespace DarkOak\Console\Commands\Billing;
 
-use Everest\Models\User;
+use DarkOak\Models\User;
 use Illuminate\Console\Command;
-use Everest\Models\Billing\Order;
+use DarkOak\Models\Billing\Order;
 
 class CleanupOrdersCommand extends Command
 {
@@ -44,3 +44,4 @@ class CleanupOrdersCommand extends Command
         }
     }
 }
+

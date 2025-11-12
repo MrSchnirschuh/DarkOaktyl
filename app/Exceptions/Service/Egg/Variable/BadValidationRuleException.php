@@ -1,9 +1,10 @@
 <?php
 
-namespace Everest\Exceptions\Service\Egg\Variable;
+namespace DarkOak\Exceptions\Service\Egg\Variable;
 
-use Everest\Exceptions\DisplayException;
+use DarkOak\Exceptions\DisplayException;
 
 class BadValidationRuleException extends DisplayException
 {
 }
+

@@ -1,18 +1,18 @@
 <?php
 
-namespace Everest\Services\Eggs;
+namespace DarkOak\Services\Eggs;
 
-use Everest\Models\Egg;
+use DarkOak\Models\Egg;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use Everest\Exceptions\Service\InvalidFileUploadException;
+use DarkOak\Exceptions\Service\InvalidFileUploadException;
 
 class EggParserService
 {
     /**
      * Takes an uploaded file and parses out the egg configuration from within.
      *
-     * @throws \Everest\Exceptions\Service\InvalidFileUploadException
+     * @throws \DarkOak\Exceptions\Service\InvalidFileUploadException
      */
     public function handle(array $parsed): array
     {
@@ -79,3 +79,4 @@ class EggParserService
         return $parsed;
     }
 }
+

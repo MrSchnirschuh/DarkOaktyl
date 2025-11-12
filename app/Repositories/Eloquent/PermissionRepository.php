@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Repositories\Eloquent;
+namespace DarkOak\Repositories\Eloquent;
 
-use Everest\Contracts\Repository\PermissionRepositoryInterface;
+use DarkOak\Contracts\Repository\PermissionRepositoryInterface;
 
 class PermissionRepository extends EloquentRepository implements PermissionRepositoryInterface
 {
@@ -16,3 +16,4 @@ class PermissionRepository extends EloquentRepository implements PermissionRepos
         throw new \Exception('This functionality is not implemented.');
     }
 }
+

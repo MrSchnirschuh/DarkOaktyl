@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Exceptions\Http;
+namespace DarkOak\Exceptions\Http;
 
 use Illuminate\Http\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -15,3 +15,4 @@ class HttpForbiddenException extends HttpException
         parent::__construct(Response::HTTP_FORBIDDEN, $message, $previous);
     }
 }
+

@@ -1,29 +1,29 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Billing;
+namespace DarkOak\Http\Controllers\Api\Application\Billing;
 
 use Carbon\Carbon;
-use Everest\Facades\Activity;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use Everest\Models\Billing\Coupon;
-use Everest\Models\EmailTemplate;
-use Everest\Models\User;
-use Everest\Services\Emails\EmailDispatchService;
+use DarkOak\Models\Billing\Coupon;
+use DarkOak\Models\EmailTemplate;
+use DarkOak\Models\User;
+use DarkOak\Services\Emails\EmailDispatchService;
 use Spatie\QueryBuilder\QueryBuilder;
-use Everest\Transformers\Api\Application\CouponTransformer;
-use Everest\Exceptions\Http\QueryValueOutOfRangeHttpException;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
-use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
-use Everest\Http\Requests\Api\Application\Billing\Coupons\GetBillingCouponRequest;
-use Everest\Http\Requests\Api\Application\Billing\Coupons\GetBillingCouponsRequest;
-use Everest\Http\Requests\Api\Application\Billing\Coupons\StoreBillingCouponRequest;
-use Everest\Http\Requests\Api\Application\Billing\Coupons\UpdateBillingCouponRequest;
-use Everest\Http\Requests\Api\Application\Billing\Coupons\DeleteBillingCouponRequest;
-use Everest\Http\Requests\Api\Application\Billing\Coupons\SendBillingCouponRequest;
+use DarkOak\Transformers\Api\Application\CouponTransformer;
+use DarkOak\Exceptions\Http\QueryValueOutOfRangeHttpException;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
+use DarkOak\Http\Requests\Api\Application\Billing\Coupons\GetBillingCouponRequest;
+use DarkOak\Http\Requests\Api\Application\Billing\Coupons\GetBillingCouponsRequest;
+use DarkOak\Http\Requests\Api\Application\Billing\Coupons\StoreBillingCouponRequest;
+use DarkOak\Http\Requests\Api\Application\Billing\Coupons\UpdateBillingCouponRequest;
+use DarkOak\Http\Requests\Api\Application\Billing\Coupons\DeleteBillingCouponRequest;
+use DarkOak\Http\Requests\Api\Application\Billing\Coupons\SendBillingCouponRequest;
 
 class CouponController extends ApplicationApiController
 {
@@ -348,3 +348,4 @@ class CouponController extends ApplicationApiController
         return $code;
     }
 }
+

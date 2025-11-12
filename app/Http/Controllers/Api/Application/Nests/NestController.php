@@ -1,25 +1,25 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Nests;
+namespace DarkOak\Http\Controllers\Api\Application\Nests;
 
-use Everest\Models\Nest;
-use Everest\Facades\Activity;
+use DarkOak\Models\Nest;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
 use Spatie\QueryBuilder\QueryBuilder;
-use Everest\Services\Nests\NestUpdateService;
-use Everest\Services\Nests\NestCreationService;
-use Everest\Services\Nests\NestDeletionService;
-use Everest\Services\Eggs\Sharing\EggImporterService;
-use Everest\Transformers\Api\Application\EggTransformer;
-use Everest\Transformers\Api\Application\NestTransformer;
-use Everest\Exceptions\Http\QueryValueOutOfRangeHttpException;
-use Everest\Http\Requests\Api\Application\Nests\GetNestRequest;
-use Everest\Http\Requests\Api\Application\Eggs\ImportEggRequest;
-use Everest\Http\Requests\Api\Application\Nests\GetNestsRequest;
-use Everest\Http\Requests\Api\Application\Nests\StoreNestRequest;
-use Everest\Http\Requests\Api\Application\Nests\DeleteNestRequest;
-use Everest\Http\Requests\Api\Application\Nests\UpdateNestRequest;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Services\Nests\NestUpdateService;
+use DarkOak\Services\Nests\NestCreationService;
+use DarkOak\Services\Nests\NestDeletionService;
+use DarkOak\Services\Eggs\Sharing\EggImporterService;
+use DarkOak\Transformers\Api\Application\EggTransformer;
+use DarkOak\Transformers\Api\Application\NestTransformer;
+use DarkOak\Exceptions\Http\QueryValueOutOfRangeHttpException;
+use DarkOak\Http\Requests\Api\Application\Nests\GetNestRequest;
+use DarkOak\Http\Requests\Api\Application\Eggs\ImportEggRequest;
+use DarkOak\Http\Requests\Api\Application\Nests\GetNestsRequest;
+use DarkOak\Http\Requests\Api\Application\Nests\StoreNestRequest;
+use DarkOak\Http\Requests\Api\Application\Nests\DeleteNestRequest;
+use DarkOak\Http\Requests\Api\Application\Nests\UpdateNestRequest;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
 
 class NestController extends ApplicationApiController
 {
@@ -70,7 +70,7 @@ class NestController extends ApplicationApiController
     /**
      * Creates a new nest.
      *
-     * @throws \Everest\Exceptions\Model\DataValidationException
+     * @throws \DarkOak\Exceptions\Model\DataValidationException
      */
     public function store(StoreNestRequest $request): array
     {
@@ -111,8 +111,8 @@ class NestController extends ApplicationApiController
     /**
      * Updates an existing nest.
      *
-     * @throws \Everest\Exceptions\Model\DataValidationException
-     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
+     * @throws \DarkOak\Exceptions\Model\DataValidationException
+     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
      */
     public function update(UpdateNestRequest $request, Nest $nest): array
     {
@@ -132,7 +132,7 @@ class NestController extends ApplicationApiController
     /**
      * Deletes an existing nest.
      *
-     * @throws \Everest\Exceptions\Service\HasActiveServersException
+     * @throws \DarkOak\Exceptions\Service\HasActiveServersException
      */
     public function delete(DeleteNestRequest $request, Nest $nest): Response
     {
@@ -146,3 +146,4 @@ class NestController extends ApplicationApiController
         return $this->returnNoContent();
     }
 }
+

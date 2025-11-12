@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Services\Databases;
+namespace DarkOak\Services\Databases;
 
-use Everest\Models\Server;
-use Everest\Models\Database;
+use DarkOak\Models\Server;
+use DarkOak\Models\Database;
 use Webmozart\Assert\Assert;
-use Everest\Models\DatabaseHost;
-use Everest\Exceptions\Service\Database\NoSuitableDatabaseHostException;
+use DarkOak\Models\DatabaseHost;
+use DarkOak\Exceptions\Service\Database\NoSuitableDatabaseHostException;
 
 class DeployServerDatabaseService
 {
@@ -19,8 +19,8 @@ class DeployServerDatabaseService
 
     /**
      * @throws \Throwable
-     * @throws \Everest\Exceptions\Service\Database\TooManyDatabasesException
-     * @throws \Everest\Exceptions\Service\Database\DatabaseClientFeatureNotEnabledException
+     * @throws \DarkOak\Exceptions\Service\Database\TooManyDatabasesException
+     * @throws \DarkOak\Exceptions\Service\Database\DatabaseClientFeatureNotEnabledException
      */
     public function handle(Server $server, array $data): Database
     {
@@ -29,7 +29,7 @@ class DeployServerDatabaseService
 
         $databaseHostId = $server->node->database_host_id;
         if (is_null($databaseHostId)) {
-            if (!config('everest.client_features.databases.allow_random')) {
+            if (!config('DarkOak.client_features.databases.allow_random')) {
                 throw new NoSuitableDatabaseHostException();
             }
 
@@ -38,7 +38,7 @@ class DeployServerDatabaseService
                 throw new NoSuitableDatabaseHostException();
             }
 
-            /** @var \Everest\Models\DatabaseHost $databaseHost */
+            /** @var \DarkOak\Models\DatabaseHost $databaseHost */
             $databaseHost = $hosts->random();
             $databaseHostId = $databaseHost->id;
         }
@@ -50,3 +50,4 @@ class DeployServerDatabaseService
         ]);
     }
 }
+

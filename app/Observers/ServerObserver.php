@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Observers;
+namespace DarkOak\Observers;
 
-use Everest\Events;
-use Everest\Models\Server;
+use DarkOak\Events;
+use DarkOak\Models\Server;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 class ServerObserver
@@ -74,3 +74,4 @@ class ServerObserver
         event(new Events\Server\Updated($server));
     }
 }
+

@@ -1,13 +1,13 @@
 <?php
 
-namespace Everest\Tests\Integration\Api\Client\Server\ScheduleTask;
+namespace DarkOak\Tests\Integration\Api\Client\Server\ScheduleTask;
 
-use Everest\Models\Task;
-use Everest\Models\User;
-use Everest\Models\Schedule;
+use DarkOak\Models\Task;
+use DarkOak\Models\User;
+use DarkOak\Models\Schedule;
 use Illuminate\Http\Response;
-use Everest\Models\Permission;
-use Everest\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
+use DarkOak\Models\Permission;
+use DarkOak\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 
 class DeleteScheduleTaskTest extends ClientApiIntegrationTestCase
 {
@@ -82,3 +82,4 @@ class DeleteScheduleTaskTest extends ClientApiIntegrationTestCase
         $this->assertDatabaseMissing('tasks', ['id' => $tasks[1]->id]);
     }
 }
+

@@ -1,15 +1,15 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Client;
+namespace DarkOak\Http\Controllers\Api\Client;
 
-use Everest\Models\Server;
+use DarkOak\Models\Server;
 use Illuminate\Http\Request;
-use Everest\Models\Permission;
+use DarkOak\Models\Permission;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
-use Everest\Models\Filters\MultiFieldServerFilter;
-use Everest\Transformers\Api\Client\ServerTransformer;
-use Everest\Http\Requests\Api\Client\GetServersRequest;
+use DarkOak\Models\Filters\MultiFieldServerFilter;
+use DarkOak\Transformers\Api\Client\ServerTransformer;
+use DarkOak\Http\Requests\Api\Client\GetServersRequest;
 
 class ClientController extends ClientApiController
 {
@@ -85,3 +85,4 @@ class ClientController extends ClientApiController
         ];
     }
 }
+

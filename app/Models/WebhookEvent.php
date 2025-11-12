@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Models;
+namespace DarkOak\Models;
 
 /**
- * Everest\Models\WebhookEvent.
+ * DarkOak\Models\WebhookEvent.
  *
  * @property int $id
  * @property string $key
@@ -20,3 +20,4 @@ class WebhookEvent extends Model
         'enabled' => 'sometimes|bool',
     ];
 }
+

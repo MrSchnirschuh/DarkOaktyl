@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Helpers;
+namespace DarkOak\Helpers;
 
 use Carbon\Carbon;
 use Cron\CronExpression;
@@ -55,3 +55,4 @@ class Utilities
         return ($default) ? 'checked' : '';
     }
 }
+

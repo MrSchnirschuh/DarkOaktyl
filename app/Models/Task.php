@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Models;
+namespace DarkOak\Models;
 
 use Illuminate\Container\Container;
 use Znck\Eloquent\Traits\BelongsToThrough;
-use Everest\Contracts\Extensions\HashidsInterface;
+use DarkOak\Contracts\Extensions\HashidsInterface;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
@@ -19,8 +19,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property string $hashid
- * @property \Everest\Models\Schedule $schedule
- * @property \Everest\Models\Server $server
+ * @property \DarkOak\Models\Schedule $schedule
+ * @property \DarkOak\Models\Server $server
  */
 class Task extends Model
 {
@@ -33,7 +33,7 @@ class Task extends Model
     public const RESOURCE_NAME = 'schedule_task';
 
     /**
-     * The default actions that can exist for a task in Pterodactyl.
+     * The default actions that can exist for a task in DarkOaktyl.
      */
     public const ACTION_POWER = 'power';
     public const ACTION_COMMAND = 'command';
@@ -125,3 +125,5 @@ class Task extends Model
         return $this->belongsToThrough(Server::class, Schedule::class);
     }
 }
+
+

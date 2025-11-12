@@ -1,22 +1,22 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Databases;
+namespace DarkOak\Http\Controllers\Api\Application\Databases;
 
-use Everest\Facades\Activity;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
-use Everest\Models\DatabaseHost;
+use DarkOak\Models\DatabaseHost;
 use Illuminate\Http\JsonResponse;
 use Spatie\QueryBuilder\QueryBuilder;
-use Everest\Services\Databases\Hosts\HostUpdateService;
-use Everest\Services\Databases\Hosts\HostCreationService;
-use Everest\Exceptions\Http\QueryValueOutOfRangeHttpException;
-use Everest\Transformers\Api\Application\DatabaseHostTransformer;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
-use Everest\Http\Requests\Api\Application\Databases\GetDatabaseRequest;
-use Everest\Http\Requests\Api\Application\Databases\GetDatabasesRequest;
-use Everest\Http\Requests\Api\Application\Databases\StoreDatabaseRequest;
-use Everest\Http\Requests\Api\Application\Databases\DeleteDatabaseRequest;
-use Everest\Http\Requests\Api\Application\Databases\UpdateDatabaseRequest;
+use DarkOak\Services\Databases\Hosts\HostUpdateService;
+use DarkOak\Services\Databases\Hosts\HostCreationService;
+use DarkOak\Exceptions\Http\QueryValueOutOfRangeHttpException;
+use DarkOak\Transformers\Api\Application\DatabaseHostTransformer;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Http\Requests\Api\Application\Databases\GetDatabaseRequest;
+use DarkOak\Http\Requests\Api\Application\Databases\GetDatabasesRequest;
+use DarkOak\Http\Requests\Api\Application\Databases\StoreDatabaseRequest;
+use DarkOak\Http\Requests\Api\Application\Databases\DeleteDatabaseRequest;
+use DarkOak\Http\Requests\Api\Application\Databases\UpdateDatabaseRequest;
 
 class DatabaseController extends ApplicationApiController
 {
@@ -114,3 +114,4 @@ class DatabaseController extends ApplicationApiController
         return $this->returnNoContent();
     }
 }
+

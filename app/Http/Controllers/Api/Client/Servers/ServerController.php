@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Client\Servers;
+namespace DarkOak\Http\Controllers\Api\Client\Servers;
 
-use Everest\Models\Server;
-use Everest\Transformers\Api\Client\ServerTransformer;
-use Everest\Services\Servers\GetUserPermissionsService;
-use Everest\Http\Controllers\Api\Client\ClientApiController;
-use Everest\Http\Requests\Api\Client\Servers\GetServerRequest;
+use DarkOak\Models\Server;
+use DarkOak\Transformers\Api\Client\ServerTransformer;
+use DarkOak\Services\Servers\GetUserPermissionsService;
+use DarkOak\Http\Controllers\Api\Client\ClientApiController;
+use DarkOak\Http\Requests\Api\Client\Servers\GetServerRequest;
 
 class ServerController extends ClientApiController
 {
@@ -33,3 +33,4 @@ class ServerController extends ClientApiController
             ->toArray();
     }
 }
+

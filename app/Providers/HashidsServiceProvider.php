@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Providers;
+namespace DarkOak\Providers;
 
-use Everest\Extensions\Hashids;
+use DarkOak\Extensions\Hashids;
 use Illuminate\Support\ServiceProvider;
-use Everest\Contracts\Extensions\HashidsInterface;
+use DarkOak\Contracts\Extensions\HashidsInterface;
 
 class HashidsServiceProvider extends ServiceProvider
 {
@@ -24,3 +24,4 @@ class HashidsServiceProvider extends ServiceProvider
         $this->app->alias(HashidsInterface::class, 'hashids');
     }
 }
+

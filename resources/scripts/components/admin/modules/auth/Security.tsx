@@ -11,7 +11,7 @@ import { updateModule } from '@/api/admin/auth/module';
 export default () => {
     const { status, setStatus } = useStatus();
     const { clearFlashes, clearAndAddHttpError } = useFlash();
-    const settings = useStoreState(state => state.everest.data!.auth.security);
+    const settings = useStoreState(state => state.DarkOak.data!.auth.security);
 
     const update = async (key: string, value: any) => {
         clearFlashes();
@@ -55,3 +55,4 @@ export default () => {
         </AdminBox>
     );
 };
+

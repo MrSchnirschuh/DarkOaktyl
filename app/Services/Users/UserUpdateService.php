@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Services\Users;
+namespace DarkOak\Services\Users;
 
-use Everest\Models\User;
+use DarkOak\Models\User;
 use Illuminate\Contracts\Hashing\Hasher;
-use Everest\Traits\Services\HasUserLevels;
+use DarkOak\Traits\Services\HasUserLevels;
 
 class UserUpdateService
 {
@@ -35,3 +35,4 @@ class UserUpdateService
         return $user->refresh();
     }
 }
+

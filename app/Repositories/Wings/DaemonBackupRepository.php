@@ -1,13 +1,13 @@
 <?php
 
-namespace Everest\Repositories\Wings;
+namespace DarkOak\Repositories\Wings;
 
-use Everest\Models\Backup;
-use Everest\Models\Server;
+use DarkOak\Models\Backup;
+use DarkOak\Models\Server;
 use Webmozart\Assert\Assert;
 use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Exception\TransferException;
-use Everest\Exceptions\Http\Connection\DaemonConnectionException;
+use DarkOak\Exceptions\Http\Connection\DaemonConnectionException;
 
 class DaemonBackupRepository extends DaemonRepository
 {
@@ -26,7 +26,7 @@ class DaemonBackupRepository extends DaemonRepository
     /**
      * Tells the remote Daemon to begin generating a backup for the server.
      *
-     * @throws \Everest\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws \DarkOak\Exceptions\Http\Connection\DaemonConnectionException
      */
     public function backup(Backup $backup): ResponseInterface
     {
@@ -51,7 +51,7 @@ class DaemonBackupRepository extends DaemonRepository
     /**
      * Sends a request to Wings to begin restoring a backup for a server.
      *
-     * @throws \Everest\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws \DarkOak\Exceptions\Http\Connection\DaemonConnectionException
      */
     public function restore(Backup $backup, string $url = null, bool $truncate = false): ResponseInterface
     {
@@ -76,7 +76,7 @@ class DaemonBackupRepository extends DaemonRepository
     /**
      * Deletes a backup from the daemon.
      *
-     * @throws \Everest\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws \DarkOak\Exceptions\Http\Connection\DaemonConnectionException
      */
     public function delete(Backup $backup): ResponseInterface
     {
@@ -91,3 +91,4 @@ class DaemonBackupRepository extends DaemonRepository
         }
     }
 }
+

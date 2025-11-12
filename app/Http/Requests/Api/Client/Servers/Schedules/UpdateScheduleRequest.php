@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Client\Servers\Schedules;
+namespace DarkOak\Http\Requests\Api\Client\Servers\Schedules;
 
-use Everest\Models\Permission;
+use DarkOak\Models\Permission;
 
 class UpdateScheduleRequest extends StoreScheduleRequest
 {
@@ -11,3 +11,4 @@ class UpdateScheduleRequest extends StoreScheduleRequest
         return Permission::ACTION_SCHEDULE_UPDATE;
     }
 }
+

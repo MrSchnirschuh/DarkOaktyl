@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Tests\Integration\Api\Client\Server;
+namespace DarkOak\Tests\Integration\Api\Client\Server;
 
-use Everest\Models\User;
+use DarkOak\Models\User;
 use Illuminate\Http\Response;
-use Everest\Models\Allocation;
-use Everest\Models\Permission;
-use Everest\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
+use DarkOak\Models\Allocation;
+use DarkOak\Models\Permission;
+use DarkOak\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 
 class NetworkAllocationControllerTest extends ClientApiIntegrationTestCase
 {
@@ -138,3 +138,4 @@ class NetworkAllocationControllerTest extends ClientApiIntegrationTestCase
         return [[[]], [[Permission::ACTION_ALLOCATION_UPDATE]]];
     }
 }
+

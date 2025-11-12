@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Traits\Services;
+namespace DarkOak\Traits\Services;
 
 trait ReturnsUpdatedModels
 {
@@ -23,3 +23,4 @@ trait ReturnsUpdatedModels
         return $this;
     }
 }
+

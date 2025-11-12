@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Servers;
+namespace DarkOak\Http\Requests\Api\Application\Servers;
 
-use Everest\Models\Server;
-use Everest\Models\AdminRole;
-use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
+use DarkOak\Models\Server;
+use DarkOak\Models\AdminRole;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class UpdateServerStartupRequest extends ApplicationApiRequest
 {
@@ -26,3 +26,4 @@ class UpdateServerStartupRequest extends ApplicationApiRequest
         return AdminRole::SERVERS_UPDATE;
     }
 }
+

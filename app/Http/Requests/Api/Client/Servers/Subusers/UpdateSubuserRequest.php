@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Client\Servers\Subusers;
+namespace DarkOak\Http\Requests\Api\Client\Servers\Subusers;
 
-use Everest\Models\Permission;
+use DarkOak\Models\Permission;
 
 class UpdateSubuserRequest extends SubuserRequest
 {
@@ -19,3 +19,4 @@ class UpdateSubuserRequest extends SubuserRequest
         ];
     }
 }
+

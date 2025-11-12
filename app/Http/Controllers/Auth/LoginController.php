@@ -1,19 +1,19 @@
 <?php
 
-namespace Everest\Http\Controllers\Auth;
+namespace DarkOak\Http\Controllers\Auth;
 
-use Everest\Models\User;
+use DarkOak\Models\User;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Everest\Facades\Activity;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\View\View;
-use Everest\Exceptions\DisplayException;
-use Everest\Services\Users\UserCreationService;
+use DarkOak\Exceptions\DisplayException;
+use DarkOak\Services\Users\UserCreationService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Everest\Contracts\Repository\SettingsRepositoryInterface;
+use DarkOak\Contracts\Repository\SettingsRepositoryInterface;
 
 class LoginController extends AbstractLoginController
 {
@@ -40,7 +40,7 @@ class LoginController extends AbstractLoginController
     /**
      * Handle a login request to the application.
      *
-     * @throws \Everest\Exceptions\DisplayException
+     * @throws \DarkOak\Exceptions\DisplayException
      * @throws \Illuminate\Validation\ValidationException
      */
     public function login(Request $request): JsonResponse
@@ -53,7 +53,7 @@ class LoginController extends AbstractLoginController
         try {
             $username = $request->input('user');
 
-            /** @var \Everest\Models\User $user */
+            /** @var \DarkOak\Models\User $user */
             $user = User::query()->where($this->getField($username), $username)->firstOrFail();
         } catch (ModelNotFoundException) {
             $this->sendFailedLoginResponse($request);
@@ -115,3 +115,4 @@ class LoginController extends AbstractLoginController
         return new JsonResponse([], Response::HTTP_NO_CONTENT);
     }
 }
+

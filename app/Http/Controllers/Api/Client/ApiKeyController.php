@@ -1,15 +1,15 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Client;
+namespace DarkOak\Http\Controllers\Api\Client;
 
-use Everest\Models\ApiKey;
-use Everest\Facades\Activity;
+use DarkOak\Models\ApiKey;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Cache;
-use Everest\Exceptions\DisplayException;
-use Everest\Http\Requests\Api\Client\ClientApiRequest;
-use Everest\Transformers\Api\Client\ApiKeyTransformer;
-use Everest\Http\Requests\Api\Client\Account\StoreApiKeyRequest;
+use DarkOak\Exceptions\DisplayException;
+use DarkOak\Http\Requests\Api\Client\ClientApiRequest;
+use DarkOak\Transformers\Api\Client\ApiKeyTransformer;
+use DarkOak\Http\Requests\Api\Client\Account\StoreApiKeyRequest;
 
 class ApiKeyController extends ClientApiController
 {
@@ -44,7 +44,7 @@ class ApiKeyController extends ClientApiController
     /**
      * Store a new API key for a user's account.
      *
-     * @throws \Everest\Exceptions\DisplayException
+     * @throws \DarkOak\Exceptions\DisplayException
      */
     public function store(StoreApiKeyRequest $request): array
     {
@@ -75,7 +75,7 @@ class ApiKeyController extends ClientApiController
      */
     public function delete(ClientApiRequest $request, string $identifier): JsonResponse
     {
-        /** @var \Everest\Models\ApiKey $key */
+        /** @var \DarkOak\Models\ApiKey $key */
         $key = $request->user()->apiKeys()
             ->where('key_type', ApiKey::TYPE_ACCOUNT)
             ->where('identifier', $identifier)
@@ -92,3 +92,4 @@ class ApiKeyController extends ClientApiController
         return new JsonResponse([], JsonResponse::HTTP_NO_CONTENT);
     }
 }
+

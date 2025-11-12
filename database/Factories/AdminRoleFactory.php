@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Support\Str;
-use Everest\Models\AdminRole;
+use DarkOak\Models\AdminRole;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class AdminRoleFactory extends Factory
@@ -27,3 +27,4 @@ class AdminRoleFactory extends Factory
         ];
     }
 }
+

@@ -170,8 +170,8 @@ export default () => {
                                             placement={'right-end'}
                                             content={
                                                 info?.system.supercharged
-                                                    ? 'This node is running Jexactyl SuperDaemon, which adds more features.'
-                                                    : 'This node is running Pterodactyl Wings. Consider moving to Jexactyl SuperDaemon for more features.'
+                                                    ? 'This node is running DarkOaktyl SuperDaemon, which adds more features.'
+                                                    : 'This node is running DarkOaktyl Wings. Consider moving to DarkOaktyl SuperDaemon for more features.'
                                             }
                                         >
                                             <FontAwesomeIcon
@@ -257,3 +257,4 @@ export default () => {
         </div>
     );
 };
+

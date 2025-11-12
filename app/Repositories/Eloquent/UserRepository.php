@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Repositories\Eloquent;
+namespace DarkOak\Repositories\Eloquent;
 
-use Everest\Models\User;
-use Everest\Contracts\Repository\UserRepositoryInterface;
+use DarkOak\Models\User;
+use DarkOak\Contracts\Repository\UserRepositoryInterface;
 
 class UserRepository extends EloquentRepository implements UserRepositoryInterface
 {
@@ -15,3 +15,4 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         return User::class;
     }
 }
+

@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Mounts;
+namespace DarkOak\Http\Requests\Api\Application\Mounts;
 
-use Everest\Models\AdminRole;
-use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
+use DarkOak\Models\AdminRole;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class GetMountsRequest extends ApplicationApiRequest
 {
@@ -12,3 +12,4 @@ class GetMountsRequest extends ApplicationApiRequest
         return AdminRole::MOUNTS_READ;
     }
 }
+

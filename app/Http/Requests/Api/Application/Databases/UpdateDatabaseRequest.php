@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Databases;
+namespace DarkOak\Http\Requests\Api\Application\Databases;
 
-use Everest\Models\AdminRole;
-use Everest\Models\DatabaseHost;
+use DarkOak\Models\AdminRole;
+use DarkOak\Models\DatabaseHost;
 
 class UpdateDatabaseRequest extends StoreDatabaseRequest
 {
@@ -17,3 +17,4 @@ class UpdateDatabaseRequest extends StoreDatabaseRequest
         return AdminRole::DATABASES_UPDATE;
     }
 }
+

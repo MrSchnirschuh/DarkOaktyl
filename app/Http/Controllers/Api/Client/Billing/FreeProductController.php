@@ -1,17 +1,17 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Client\Billing;
+namespace DarkOak\Http\Controllers\Api\Client\Billing;
 
-use Everest\Models\Node;
-use Everest\Models\Server;
+use DarkOak\Models\Node;
+use DarkOak\Models\Server;
 use Illuminate\Http\Request;
-use Everest\Models\Billing\Order;
-use Everest\Models\Billing\Product;
-use Everest\Exceptions\DisplayException;
-use Everest\Services\Billing\CreateOrderService;
-use Everest\Services\Billing\CreateServerService;
-use Everest\Transformers\Api\Client\ServerTransformer;
-use Everest\Http\Controllers\Api\Client\ClientApiController;
+use DarkOak\Models\Billing\Order;
+use DarkOak\Models\Billing\Product;
+use DarkOak\Exceptions\DisplayException;
+use DarkOak\Services\Billing\CreateOrderService;
+use DarkOak\Services\Billing\CreateServerService;
+use DarkOak\Transformers\Api\Client\ServerTransformer;
+use DarkOak\Http\Controllers\Api\Client\ClientApiController;
 
 class FreeProductController extends ClientApiController
 {
@@ -91,3 +91,4 @@ class FreeProductController extends ClientApiController
         return $type;
     }
 }
+

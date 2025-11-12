@@ -37,7 +37,7 @@ import CouponContainer from './coupons/CouponContainer';
 
 export default () => {
     const theme = useStoreState(state => state.theme.data!);
-    const enabled = useStoreState(state => state.everest.data!.billing.enabled);
+    const enabled = useStoreState(state => state.DarkOak.data!.billing.enabled);
 
     if (!enabled) return <EnableBilling />;
 
@@ -115,3 +115,4 @@ export default () => {
         </AdminContentBlock>
     );
 };
+

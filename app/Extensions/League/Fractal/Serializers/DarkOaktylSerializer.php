@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Extensions\League\Fractal\Serializers;
+namespace DarkOak\Extensions\League\Fractal\Serializers;
 
 use League\Fractal\Serializer\ArraySerializer;
 
-class PterodactylSerializer extends ArraySerializer
+class DarkOaktylSerializer extends ArraySerializer
 {
     /**
      * Serialize a collection.
@@ -56,3 +56,5 @@ class PterodactylSerializer extends ArraySerializer
         return $transformedData;
     }
 }
+
+

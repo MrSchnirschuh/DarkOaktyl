@@ -1,15 +1,15 @@
 <?php
 
-namespace Everest\Tests\Integration\Api\Client\Server;
+namespace DarkOak\Tests\Integration\Api\Client\Server;
 
 use Carbon\CarbonImmutable;
 use Illuminate\Http\Response;
-use Everest\Models\Permission;
+use DarkOak\Models\Permission;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
 use Lcobucci\JWT\Signer\Key\InMemory;
 use Lcobucci\JWT\Validation\Constraint\SignedWith;
-use Everest\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
+use DarkOak\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 
 class WebsocketControllerTest extends ClientApiIntegrationTestCase
 {
@@ -45,8 +45,8 @@ class WebsocketControllerTest extends ClientApiIntegrationTestCase
      */
     public function testJwtAndWebsocketUrlAreReturnedForServerOwner()
     {
-        /** @var \Everest\Models\User $user */
-        /** @var \Everest\Models\Server $server */
+        /** @var \DarkOak\Models\User $user */
+        /** @var \DarkOak\Models\Server $server */
         [$user, $server] = $this->generateTestAccount();
 
         // Force the node to HTTPS since we want to confirm it gets transformed to wss:// in the URL.
@@ -98,8 +98,8 @@ class WebsocketControllerTest extends ClientApiIntegrationTestCase
     {
         $permissions = [Permission::ACTION_WEBSOCKET_CONNECT, Permission::ACTION_CONTROL_CONSOLE];
 
-        /** @var \Everest\Models\User $user */
-        /** @var \Everest\Models\Server $server */
+        /** @var \DarkOak\Models\User $user */
+        /** @var \DarkOak\Models\Server $server */
         [$user, $server] = $this->generateTestAccount($permissions);
 
         $response = $this->actingAs($user)->getJson("/api/client/servers/$server->uuid/websocket");
@@ -121,3 +121,4 @@ class WebsocketControllerTest extends ClientApiIntegrationTestCase
         $this->assertSame($permissions, $token->claims()->get('permissions'));
     }
 }
+

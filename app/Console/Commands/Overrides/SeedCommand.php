@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Console\Commands\Overrides;
+namespace DarkOak\Console\Commands\Overrides;
 
-use Everest\Console\RequiresDatabaseMigrations;
+use DarkOak\Console\RequiresDatabaseMigrations;
 use Illuminate\Database\Console\Seeds\SeedCommand as BaseSeedCommand;
 
 class SeedCommand extends BaseSeedCommand
@@ -24,3 +24,4 @@ class SeedCommand extends BaseSeedCommand
         return parent::handle();
     }
 }
+

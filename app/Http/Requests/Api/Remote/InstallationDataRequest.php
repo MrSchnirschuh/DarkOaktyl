@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Remote;
+namespace DarkOak\Http\Requests\Api\Remote;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -19,3 +19,4 @@ class InstallationDataRequest extends FormRequest
         ];
     }
 }
+

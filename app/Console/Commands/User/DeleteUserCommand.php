@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Console\Commands\User;
+namespace DarkOak\Console\Commands\User;
 
-use Everest\Models\User;
+use DarkOak\Models\User;
 use Webmozart\Assert\Assert;
 use Illuminate\Console\Command;
-use Everest\Services\Users\UserDeletionService;
+use DarkOak\Services\Users\UserDeletionService;
 
 class DeleteUserCommand extends Command
 {
@@ -69,3 +69,4 @@ class DeleteUserCommand extends Command
         return 0;
     }
 }
+

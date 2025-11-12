@@ -1,16 +1,16 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Client\Servers;
+namespace DarkOak\Http\Controllers\Api\Client\Servers;
 
-use Everest\Models\Server;
-use Everest\Facades\Activity;
-use Everest\Services\Servers\StartupCommandService;
-use Everest\Repositories\Eloquent\ServerVariableRepository;
-use Everest\Transformers\Api\Client\EggVariableTransformer;
-use Everest\Http\Controllers\Api\Client\ClientApiController;
+use DarkOak\Models\Server;
+use DarkOak\Facades\Activity;
+use DarkOak\Services\Servers\StartupCommandService;
+use DarkOak\Repositories\Eloquent\ServerVariableRepository;
+use DarkOak\Transformers\Api\Client\EggVariableTransformer;
+use DarkOak\Http\Controllers\Api\Client\ClientApiController;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Everest\Http\Requests\Api\Client\Servers\Startup\GetStartupRequest;
-use Everest\Http\Requests\Api\Client\Servers\Startup\UpdateStartupVariableRequest;
+use DarkOak\Http\Requests\Api\Client\Servers\Startup\GetStartupRequest;
+use DarkOak\Http\Requests\Api\Client\Servers\Startup\UpdateStartupVariableRequest;
 
 class StartupController extends ClientApiController
 {
@@ -47,8 +47,8 @@ class StartupController extends ClientApiController
      * Updates a single variable for a server.
      *
      * @throws \Illuminate\Validation\ValidationException
-     * @throws \Everest\Exceptions\Model\DataValidationException
-     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
+     * @throws \DarkOak\Exceptions\Model\DataValidationException
+     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
      */
     public function update(UpdateStartupVariableRequest $request, Server $server): array
     {
@@ -61,7 +61,7 @@ class StartupController extends ClientApiController
             throw new BadRequestHttpException('The environment variable you are trying to edit is read-only.');
         }
 
-        /* @var \Everest\Models\EggVariable $variable */
+        /* @var \DarkOak\Models\EggVariable $variable */
 
         // Revalidate the variable value using the egg variable specific validation rules for it.
         $this->validate($request, ['value' => $variable->rules]);
@@ -98,3 +98,4 @@ class StartupController extends ClientApiController
             ->toArray();
     }
 }
+

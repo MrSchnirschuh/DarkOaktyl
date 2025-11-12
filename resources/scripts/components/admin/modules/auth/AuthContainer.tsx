@@ -15,7 +15,7 @@ import Unfinished from '@elements/Unfinished';
 
 export default () => {
     const [visible, setVisible] = useState<boolean>(false);
-    const modules = useStoreState(state => state.everest.data!.auth.modules);
+    const modules = useStoreState(state => state.DarkOak.data!.auth.modules);
 
     return (
         <AdminContentBlock title={'Authentication'}>
@@ -58,3 +58,4 @@ export default () => {
         </AdminContentBlock>
     );
 };
+

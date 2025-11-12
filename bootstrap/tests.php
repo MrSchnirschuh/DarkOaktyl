@@ -9,7 +9,7 @@ require __DIR__ . '/../vendor/autoload.php';
 
 $app = require __DIR__ . '/app.php';
 
-/** @var \Everest\Console\Kernel $kernel */
+/** @var \DarkOak\Console\Kernel $kernel */
 $kernel = $app->make(Kernel::class);
 
 /*
@@ -45,3 +45,4 @@ if (!env('SKIP_MIGRATIONS')) {
 } else {
     $output->writeln(PHP_EOL . '<comment>Skipping database migrations...</comment>' . PHP_EOL);
 }
+

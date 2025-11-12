@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Models\Filters;
+namespace DarkOak\Models\Filters;
 
 use Illuminate\Support\Str;
 use Spatie\QueryBuilder\Filters\Filter;
@@ -67,3 +67,4 @@ class MultiFieldServerFilter implements Filter
             });
     }
 }
+

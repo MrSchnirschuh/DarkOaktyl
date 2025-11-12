@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Billing\Exceptions;
+namespace DarkOak\Http\Requests\Api\Application\Billing\Exceptions;
 
-use Everest\Models\AdminRole;
-use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
+use DarkOak\Models\AdminRole;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class ResolveBillingExceptionRequest extends ApplicationApiRequest
 {
@@ -12,3 +12,4 @@ class ResolveBillingExceptionRequest extends ApplicationApiRequest
         return AdminRole::BILLING_EXCEPTIONS;
     }
 }
+

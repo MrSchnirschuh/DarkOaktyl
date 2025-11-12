@@ -1,27 +1,27 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Users;
+namespace DarkOak\Http\Controllers\Api\Application\Users;
 
-use Everest\Models\User;
+use DarkOak\Models\User;
 use Illuminate\Support\Arr;
-use Everest\Facades\Activity;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
-use Everest\Exceptions\DisplayException;
+use DarkOak\Exceptions\DisplayException;
 use Illuminate\Database\Eloquent\Builder;
-use Everest\Services\Users\UserUpdateService;
-use Everest\Services\Users\UserCreationService;
-use Everest\Services\Users\UserDeletionService;
-use Everest\Transformers\Api\Application\UserTransformer;
-use Everest\Exceptions\Http\QueryValueOutOfRangeHttpException;
-use Everest\Http\Requests\Api\Application\Users\GetUserRequest;
-use Everest\Http\Requests\Api\Application\Users\GetUsersRequest;
-use Everest\Http\Requests\Api\Application\Users\StoreUserRequest;
-use Everest\Http\Requests\Api\Application\Users\DeleteUserRequest;
-use Everest\Http\Requests\Api\Application\Users\UpdateUserRequest;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Services\Users\UserUpdateService;
+use DarkOak\Services\Users\UserCreationService;
+use DarkOak\Services\Users\UserDeletionService;
+use DarkOak\Transformers\Api\Application\UserTransformer;
+use DarkOak\Exceptions\Http\QueryValueOutOfRangeHttpException;
+use DarkOak\Http\Requests\Api\Application\Users\GetUserRequest;
+use DarkOak\Http\Requests\Api\Application\Users\GetUsersRequest;
+use DarkOak\Http\Requests\Api\Application\Users\StoreUserRequest;
+use DarkOak\Http\Requests\Api\Application\Users\DeleteUserRequest;
+use DarkOak\Http\Requests\Api\Application\Users\UpdateUserRequest;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
 
 class UserController extends ApplicationApiController
 {
@@ -129,7 +129,7 @@ class UserController extends ApplicationApiController
      * header on successful creation.
      *
      * @throws \Exception
-     * @throws \Everest\Exceptions\Model\DataValidationException
+     * @throws \DarkOak\Exceptions\Model\DataValidationException
      */
     public function store(StoreUserRequest $request): JsonResponse
     {
@@ -170,7 +170,7 @@ class UserController extends ApplicationApiController
      * Handle a request to delete a user from the Panel. Returns a HTTP/204 response
      * on successful deletion.
      *
-     * @throws \Everest\Exceptions\DisplayException
+     * @throws \DarkOak\Exceptions\DisplayException
      */
     public function delete(DeleteUserRequest $request, User $user): Response
     {
@@ -184,3 +184,4 @@ class UserController extends ApplicationApiController
         return $this->returnNoContent();
     }
 }
+

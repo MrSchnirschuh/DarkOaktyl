@@ -3,8 +3,8 @@
 namespace Database\Factories;
 
 use Carbon\Carbon;
-use Everest\Models\User;
-use Everest\Models\Ticket;
+use DarkOak\Models\User;
+use DarkOak\Models\Ticket;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -32,3 +32,4 @@ class TicketFactory extends Factory
         ];
     }
 }
+

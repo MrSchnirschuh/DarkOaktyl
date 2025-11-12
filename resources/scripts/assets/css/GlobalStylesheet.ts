@@ -11,7 +11,7 @@ export default createGlobalStyle`
 
     h1, h2, h3, h4, h5, h6 {
         ${tw`font-medium tracking-normal font-header`};
-        /* Titles use the readable accent color (e.g. the green title like "Everest" / "Welcome") */
+        /* Titles use the readable accent color (e.g. the green title like "DarkOak" / "Welcome") */
     color: var(--theme-accent-text, var(--theme-accent, var(--theme-primary, #008000)));
     }
 
@@ -163,3 +163,4 @@ export default createGlobalStyle`
         color: var(--theme-text-inverse, #0f172a) !important;
     }
 `;
+

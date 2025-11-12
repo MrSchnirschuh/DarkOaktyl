@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Http\Middleware\Api\Daemon;
+namespace DarkOak\Http\Middleware\Api\Daemon;
 
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Encryption\Encrypter;
-use Everest\Repositories\Eloquent\NodeRepository;
+use DarkOak\Repositories\Eloquent\NodeRepository;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Everest\Exceptions\Repository\RecordNotFoundException;
+use DarkOak\Exceptions\Repository\RecordNotFoundException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
@@ -48,7 +48,7 @@ class DaemonAuthenticate
         }
 
         try {
-            /** @var \Everest\Models\Node $node */
+            /** @var \DarkOak\Models\Node $node */
             $node = $this->repository->findFirstWhere([
                 'daemon_token_id' => $parts[0],
             ]);
@@ -65,3 +65,4 @@ class DaemonAuthenticate
         throw new AccessDeniedHttpException('You are not authorized to access this resource.');
     }
 }
+

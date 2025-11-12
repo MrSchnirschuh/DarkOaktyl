@@ -1,14 +1,14 @@
 <?php
 
-namespace Everest\Transformers\Api\Application;
+namespace DarkOak\Transformers\Api\Application;
 
-use Everest\Models\Server;
+use DarkOak\Models\Server;
 use League\Fractal\Resource\Item;
-use Everest\Services\Acl\Api\AdminAcl;
+use DarkOak\Services\Acl\Api\AdminAcl;
 use League\Fractal\Resource\Collection;
-use Everest\Transformers\Api\Transformer;
+use DarkOak\Transformers\Api\Transformer;
 use League\Fractal\Resource\NullResource;
-use Everest\Services\Servers\EnvironmentService;
+use DarkOak\Services\Servers\EnvironmentService;
 
 class ServerTransformer extends Transformer
 {
@@ -203,3 +203,4 @@ class ServerTransformer extends Transformer
         return $this->item($server->product, new ProductTransformer());
     }
 }
+

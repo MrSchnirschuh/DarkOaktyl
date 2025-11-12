@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Nodes;
+namespace DarkOak\Http\Requests\Api\Application\Nodes;
 
-use Everest\Models\AdminRole;
+use DarkOak\Models\AdminRole;
 
 class GetNodeRequest extends GetNodesRequest
 {
@@ -11,3 +11,4 @@ class GetNodeRequest extends GetNodesRequest
         return AdminRole::NODES_READ;
     }
 }
+

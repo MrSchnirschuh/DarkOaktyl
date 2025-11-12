@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Repositories\Eloquent;
+namespace DarkOak\Repositories\Eloquent;
 
-use Everest\Models\Node;
+use DarkOak\Models\Node;
 use Illuminate\Support\Collection;
-use Everest\Contracts\Repository\NodeRepositoryInterface;
+use DarkOak\Contracts\Repository\NodeRepositoryInterface;
 
 class NodeRepository extends EloquentRepository implements NodeRepositoryInterface
 {
@@ -124,3 +124,4 @@ class NodeRepository extends EloquentRepository implements NodeRepositoryInterfa
         })->values();
     }
 }
+

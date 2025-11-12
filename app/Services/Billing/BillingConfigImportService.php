@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Services\Billing;
+namespace DarkOak\Services\Billing;
 
 use Illuminate\Support\Str;
-use Everest\Models\Billing\Product;
-use Everest\Models\Billing\Category;
+use DarkOak\Models\Billing\Product;
+use DarkOak\Models\Billing\Category;
 
 class BillingConfigImportService
 {
@@ -80,3 +80,4 @@ class BillingConfigImportService
         }
     }
 }
+

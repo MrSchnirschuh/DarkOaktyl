@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ReactNode, useState } from 'react';
 import classNames from 'classnames';
 import { updateAlertSettings } from '@/api/admin/alerts';
-import { AlertPosition } from '@/state/everest';
+import { AlertPosition } from '@/state/DarkOak';
 import useFlash from '@/plugins/useFlash';
 import MessageBox, { FlashMessageType } from '@/components/MessageBox';
 import useStatus from '@/plugins/useStatus';
@@ -40,16 +40,16 @@ export default () => {
     const { clearAndAddHttpError } = useFlash();
     const [open, setOpen] = useState<boolean>(false);
 
-    const { alert } = useStoreState(state => state.everest.data!);
+    const { alert } = useStoreState(state => state.DarkOak.data!);
     const { primary } = useStoreState(state => state.theme.data!.colors);
-    const updateEverest = useStoreActions(actions => actions.everest.updateEverest);
+    const updateDarkOak = useStoreActions(actions => actions.DarkOak.updateDarkOak);
 
     const submit = (pos: AlertPosition) => {
         setStatus('loading');
 
         updateAlertSettings({ position: pos })
             .then(uuid => {
-                updateEverest({ alert: { ...alert, uuid, position: pos } });
+                updateDarkOak({ alert: { ...alert, uuid, position: pos } });
 
                 setStatus('success');
             })
@@ -166,3 +166,4 @@ export default () => {
         </>
     );
 };
+

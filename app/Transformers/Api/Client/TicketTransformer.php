@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Transformers\Api\Client;
+namespace DarkOak\Transformers\Api\Client;
 
-use Everest\Models\Ticket;
+use DarkOak\Models\Ticket;
 use League\Fractal\Resource\Collection;
-use Everest\Transformers\Api\Transformer;
+use DarkOak\Transformers\Api\Transformer;
 use League\Fractal\Resource\NullResource;
 
 class TicketTransformer extends Transformer
@@ -41,3 +41,4 @@ class TicketTransformer extends Transformer
         return $this->collection($ticket->messages, new TicketMessageTransformer());
     }
 }
+

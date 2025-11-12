@@ -1,16 +1,16 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\AI;
+namespace DarkOak\Http\Controllers\Api\Application\AI;
 
 use GeminiAPI\Client;
-use Everest\Facades\Activity;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use GeminiAPI\Resources\Parts\TextPart;
-use Everest\Http\Requests\Api\Application\AI\AIQueryRequest;
-use Everest\Contracts\Repository\SettingsRepositoryInterface;
-use Everest\Http\Requests\Api\Application\AI\AISettingsRequest;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Http\Requests\Api\Application\AI\AIQueryRequest;
+use DarkOak\Contracts\Repository\SettingsRepositoryInterface;
+use DarkOak\Http\Requests\Api\Application\AI\AISettingsRequest;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
 
 class SettingsController extends ApplicationApiController
 {
@@ -40,21 +40,21 @@ class SettingsController extends ApplicationApiController
 
         Activity::event('admin:ai:update')
             ->property('settings', $request->all())
-            ->description('Jexactyl AI settings were updated')
+            ->description('DarkOaktyl AI settings were updated')
             ->log();
 
         return $this->returnNoContent();
     }
 
     /**
-     * Send a query to Jexactyl AI through Gemini.
+     * Send a query to DarkOaktyl AI through Gemini.
      *
      * @throws \Throwable
      */
     public function query(AIQueryRequest $request): JsonResponse
     {
         if (!config('modules.ai.enabled')) {
-            throw new \Exception('The Jexactyl AI module is not enabled.');
+            throw new \Exception('The DarkOaktyl AI module is not enabled.');
         }
 
         $client = new Client(config('modules.ai.key'));
@@ -66,3 +66,5 @@ class SettingsController extends ApplicationApiController
         return response()->json($response->text());
     }
 }
+
+

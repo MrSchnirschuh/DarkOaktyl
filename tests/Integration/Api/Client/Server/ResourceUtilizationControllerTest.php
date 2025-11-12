@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Tests\Integration\Api\Client\Server;
+namespace DarkOak\Tests\Integration\Api\Client\Server;
 
-use Everest\Models\Permission;
-use Everest\Repositories\Wings\DaemonServerRepository;
-use Everest\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
+use DarkOak\Models\Permission;
+use DarkOak\Repositories\Wings\DaemonServerRepository;
+use DarkOak\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 
 class ResourceUtilizationControllerTest extends ClientApiIntegrationTestCase
 {
@@ -41,3 +41,4 @@ class ResourceUtilizationControllerTest extends ClientApiIntegrationTestCase
         ]);
     }
 }
+

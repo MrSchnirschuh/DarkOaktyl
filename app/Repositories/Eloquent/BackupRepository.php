@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Repositories\Eloquent;
+namespace DarkOak\Repositories\Eloquent;
 
 use Carbon\Carbon;
-use Everest\Models\Backup;
-use Everest\Models\Server;
+use DarkOak\Models\Backup;
+use DarkOak\Models\Server;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -43,3 +43,4 @@ class BackupRepository extends EloquentRepository
         });
     }
 }
+

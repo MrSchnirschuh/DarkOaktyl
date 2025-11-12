@@ -1,23 +1,23 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Nodes;
+namespace DarkOak\Http\Controllers\Api\Application\Nodes;
 
-use Everest\Models\Node;
-use Everest\Facades\Activity;
+use DarkOak\Models\Node;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Spatie\QueryBuilder\QueryBuilder;
-use Everest\Services\Nodes\NodeUpdateService;
-use Everest\Services\Nodes\NodeCreationService;
-use Everest\Services\Nodes\NodeDeletionService;
-use Everest\Transformers\Api\Application\NodeTransformer;
-use Everest\Exceptions\Http\QueryValueOutOfRangeHttpException;
-use Everest\Http\Requests\Api\Application\Nodes\GetNodeRequest;
-use Everest\Http\Requests\Api\Application\Nodes\GetNodesRequest;
-use Everest\Http\Requests\Api\Application\Nodes\StoreNodeRequest;
-use Everest\Http\Requests\Api\Application\Nodes\DeleteNodeRequest;
-use Everest\Http\Requests\Api\Application\Nodes\UpdateNodeRequest;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Services\Nodes\NodeUpdateService;
+use DarkOak\Services\Nodes\NodeCreationService;
+use DarkOak\Services\Nodes\NodeDeletionService;
+use DarkOak\Transformers\Api\Application\NodeTransformer;
+use DarkOak\Exceptions\Http\QueryValueOutOfRangeHttpException;
+use DarkOak\Http\Requests\Api\Application\Nodes\GetNodeRequest;
+use DarkOak\Http\Requests\Api\Application\Nodes\GetNodesRequest;
+use DarkOak\Http\Requests\Api\Application\Nodes\StoreNodeRequest;
+use DarkOak\Http\Requests\Api\Application\Nodes\DeleteNodeRequest;
+use DarkOak\Http\Requests\Api\Application\Nodes\UpdateNodeRequest;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
 
 class NodeController extends ApplicationApiController
 {
@@ -67,7 +67,7 @@ class NodeController extends ApplicationApiController
      * Create a new node on the Panel. Returns the created node and an HTTP/201
      * status response on success.
      *
-     * @throws \Everest\Exceptions\Model\DataValidationException
+     * @throws \DarkOak\Exceptions\Model\DataValidationException
      */
     public function store(StoreNodeRequest $request): JsonResponse
     {
@@ -110,7 +110,7 @@ class NodeController extends ApplicationApiController
      * Deletes a given node from the Panel as long as there are no servers
      * currently attached to it.
      *
-     * @throws \Everest\Exceptions\Service\HasActiveServersException
+     * @throws \DarkOak\Exceptions\Service\HasActiveServersException
      */
     public function delete(DeleteNodeRequest $request, Node $node): Response
     {
@@ -124,3 +124,4 @@ class NodeController extends ApplicationApiController
         return $this->returnNoContent();
     }
 }
+

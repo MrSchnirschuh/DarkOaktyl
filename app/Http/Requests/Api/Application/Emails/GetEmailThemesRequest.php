@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Emails;
+namespace DarkOak\Http\Requests\Api\Application\Emails;
 
-use Everest\Models\AdminRole;
-use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
+use DarkOak\Models\AdminRole;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class GetEmailThemesRequest extends ApplicationApiRequest
 {
@@ -17,3 +17,4 @@ class GetEmailThemesRequest extends ApplicationApiRequest
         return [];
     }
 }
+

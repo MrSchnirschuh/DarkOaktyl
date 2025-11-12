@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Users;
+namespace DarkOak\Http\Controllers\Api\Application\Users;
 
-use Everest\Models\User;
-use Everest\Transformers\Api\Application\UserTransformer;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
-use Everest\Http\Requests\Api\Application\Users\GetExternalUserRequest;
+use DarkOak\Models\User;
+use DarkOak\Transformers\Api\Application\UserTransformer;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Http\Requests\Api\Application\Users\GetExternalUserRequest;
 
 class ExternalUserController extends ApplicationApiController
 {
@@ -21,3 +21,4 @@ class ExternalUserController extends ApplicationApiController
             ->toArray();
     }
 }
+

@@ -1,18 +1,18 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Client\Servers;
+namespace DarkOak\Http\Controllers\Api\Client\Servers;
 
-use Everest\Models\Server;
-use Everest\Facades\Activity;
+use DarkOak\Models\Server;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
-use Everest\Repositories\Eloquent\ServerRepository;
-use Everest\Services\Servers\ReinstallServerService;
-use Everest\Http\Controllers\Api\Client\ClientApiController;
+use DarkOak\Repositories\Eloquent\ServerRepository;
+use DarkOak\Services\Servers\ReinstallServerService;
+use DarkOak\Http\Controllers\Api\Client\ClientApiController;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Everest\Http\Requests\Api\Client\Servers\Settings\RenameServerRequest;
-use Everest\Http\Requests\Api\Client\Servers\Settings\SetDockerImageRequest;
-use Everest\Http\Requests\Api\Client\Servers\Settings\ReinstallServerRequest;
+use DarkOak\Http\Requests\Api\Client\Servers\Settings\RenameServerRequest;
+use DarkOak\Http\Requests\Api\Client\Servers\Settings\SetDockerImageRequest;
+use DarkOak\Http\Requests\Api\Client\Servers\Settings\ReinstallServerRequest;
 
 class SettingsController extends ClientApiController
 {
@@ -29,8 +29,8 @@ class SettingsController extends ClientApiController
     /**
      * Renames a server.
      *
-     * @throws \Everest\Exceptions\Model\DataValidationException
-     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
+     * @throws \DarkOak\Exceptions\Model\DataValidationException
+     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
      */
     public function rename(RenameServerRequest $request, Server $server): JsonResponse
     {
@@ -93,3 +93,4 @@ class SettingsController extends ClientApiController
         return new JsonResponse([], Response::HTTP_NO_CONTENT);
     }
 }
+

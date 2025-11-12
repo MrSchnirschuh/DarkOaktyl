@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Http\Middleware\Activity;
+namespace DarkOak\Http\Middleware\Activity;
 
 use Illuminate\Http\Request;
-use Everest\Facades\LogTarget;
+use DarkOak\Facades\LogTarget;
 
 class AccountSubject
 {
@@ -19,3 +19,4 @@ class AccountSubject
         return $next($request);
     }
 }
+

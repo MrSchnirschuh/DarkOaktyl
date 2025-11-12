@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Tests;
+namespace DarkOak\Tests;
 
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
@@ -52,3 +52,4 @@ abstract class TestCase extends BaseTestCase
         // do nothing
     }
 }
+

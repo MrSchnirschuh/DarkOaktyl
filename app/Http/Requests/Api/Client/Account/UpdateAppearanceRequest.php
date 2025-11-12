@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Client\Account;
+namespace DarkOak\Http\Requests\Api\Client\Account;
 
-use Everest\Http\Requests\Api\Client\ClientApiRequest;
+use DarkOak\Http\Requests\Api\Client\ClientApiRequest;
 
 class UpdateAppearanceRequest extends ClientApiRequest
 {
@@ -14,3 +14,4 @@ class UpdateAppearanceRequest extends ClientApiRequest
         ];
     }
 }
+

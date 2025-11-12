@@ -1,28 +1,28 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Emails;
+namespace DarkOak\Http\Controllers\Api\Application\Emails;
 
-use Everest\Facades\Activity;
-use Everest\Models\EmailTheme;
-use Everest\Models\EmailTemplate;
-use Everest\Models\User;
+use DarkOak\Facades\Activity;
+use DarkOak\Models\EmailTheme;
+use DarkOak\Models\EmailTemplate;
+use DarkOak\Models\User;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
-use Everest\Http\Requests\Api\Application\Emails\DeleteEmailTemplateRequest;
-use Everest\Http\Requests\Api\Application\Emails\GetEmailTemplatesRequest;
-use Everest\Http\Requests\Api\Application\Emails\PreviewEmailTemplateRequest;
-use Everest\Http\Requests\Api\Application\Emails\SendTestEmailTemplateRequest;
-use Everest\Http\Requests\Api\Application\Emails\StoreEmailTemplateRequest;
-use Everest\Http\Requests\Api\Application\Emails\UpdateEmailTemplateRequest;
-use Everest\Transformers\Api\Application\Emails\EmailThemeTransformer;
-use Everest\Transformers\Api\Application\Emails\EmailTemplateTransformer;
-use Everest\Services\Emails\AnonymousRecipient;
-use Everest\Services\Emails\EmailDispatchService;
-use Everest\Services\Emails\EmailTemplateRenderer;
-use Everest\Exceptions\Http\QueryValueOutOfRangeHttpException;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Http\Requests\Api\Application\Emails\DeleteEmailTemplateRequest;
+use DarkOak\Http\Requests\Api\Application\Emails\GetEmailTemplatesRequest;
+use DarkOak\Http\Requests\Api\Application\Emails\PreviewEmailTemplateRequest;
+use DarkOak\Http\Requests\Api\Application\Emails\SendTestEmailTemplateRequest;
+use DarkOak\Http\Requests\Api\Application\Emails\StoreEmailTemplateRequest;
+use DarkOak\Http\Requests\Api\Application\Emails\UpdateEmailTemplateRequest;
+use DarkOak\Transformers\Api\Application\Emails\EmailThemeTransformer;
+use DarkOak\Transformers\Api\Application\Emails\EmailTemplateTransformer;
+use DarkOak\Services\Emails\AnonymousRecipient;
+use DarkOak\Services\Emails\EmailDispatchService;
+use DarkOak\Services\Emails\EmailTemplateRenderer;
+use DarkOak\Exceptions\Http\QueryValueOutOfRangeHttpException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Validation\ValidationException;
@@ -305,3 +305,4 @@ class TemplateController extends ApplicationApiController
         return $payload;
     }
 }
+

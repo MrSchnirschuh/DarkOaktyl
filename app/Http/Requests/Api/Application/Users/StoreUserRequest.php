@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Users;
+namespace DarkOak\Http\Requests\Api\Application\Users;
 
-use Everest\Models\User;
-use Everest\Models\AdminRole;
-use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
+use DarkOak\Models\User;
+use DarkOak\Models\AdminRole;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class StoreUserRequest extends ApplicationApiRequest
 {
@@ -27,3 +27,4 @@ class StoreUserRequest extends ApplicationApiRequest
         return AdminRole::USERS_CREATE;
     }
 }
+

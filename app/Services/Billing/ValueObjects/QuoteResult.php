@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Services\Billing\ValueObjects;
+namespace DarkOak\Services\Billing\ValueObjects;
 
 /**
  * @internal Value object representing a calculated billing quote.
@@ -109,3 +109,4 @@ final class QuoteResult
         return $data;
     }
 }
+

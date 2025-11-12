@@ -1,18 +1,18 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Remote\Servers;
+namespace DarkOak\Http\Controllers\Api\Remote\Servers;
 
-use Everest\Models\Backup;
-use Everest\Models\Server;
+use DarkOak\Models\Backup;
+use DarkOak\Models\Server;
 use Illuminate\Http\Request;
-use Everest\Facades\Activity;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\JsonResponse;
-use Everest\Http\Controllers\Controller;
+use DarkOak\Http\Controllers\Controller;
 use Illuminate\Database\ConnectionInterface;
-use Everest\Services\Eggs\EggConfigurationService;
-use Everest\Repositories\Eloquent\ServerRepository;
-use Everest\Http\Resources\Wings\ServerConfigurationCollection;
-use Everest\Services\Servers\ServerConfigurationStructureService;
+use DarkOak\Services\Eggs\EggConfigurationService;
+use DarkOak\Repositories\Eloquent\ServerRepository;
+use DarkOak\Http\Resources\Wings\ServerConfigurationCollection;
+use DarkOak\Services\Servers\ServerConfigurationStructureService;
 
 class ServerDetailsController extends Controller
 {
@@ -31,7 +31,7 @@ class ServerDetailsController extends Controller
      * Returns details about the server that allows Wings to self-recover and ensure
      * that the state of the server matches the Panel at all times.
      *
-     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
+     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
      */
     public function __invoke(Request $request, string $uuid): JsonResponse
     {
@@ -48,7 +48,7 @@ class ServerDetailsController extends Controller
      */
     public function list(Request $request): ServerConfigurationCollection
     {
-        /** @var \Everest\Models\Node $node */
+        /** @var \DarkOak\Models\Node $node */
         $node = $request->attributes->get('node');
 
         // Avoid run-away N+1 SQL queries by preloading the relationships that are used
@@ -91,9 +91,9 @@ class ServerDetailsController extends Controller
             ->get();
 
         $this->connection->transaction(function () use ($node, $servers) {
-            /** @var \Everest\Models\Server $server */
+            /** @var \DarkOak\Models\Server $server */
             foreach ($servers as $server) {
-                /** @var \Everest\Models\ActivityLog|null $activity */
+                /** @var \DarkOak\Models\ActivityLog|null $activity */
                 $activity = $server->activity->first();
                 if (!is_null($activity)) {
                     if ($subject = $activity->subjects->where('subject_type', 'backup')->first()) {
@@ -119,3 +119,4 @@ class ServerDetailsController extends Controller
         return new JsonResponse([], JsonResponse::HTTP_NO_CONTENT);
     }
 }
+

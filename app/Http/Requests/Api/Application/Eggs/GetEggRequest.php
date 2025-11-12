@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Eggs;
+namespace DarkOak\Http\Requests\Api\Application\Eggs;
 
-use Everest\Models\AdminRole;
+use DarkOak\Models\AdminRole;
 
 class GetEggRequest extends GetEggsRequest
 {
@@ -11,3 +11,4 @@ class GetEggRequest extends GetEggsRequest
         return AdminRole::EGGS_READ;
     }
 }
+

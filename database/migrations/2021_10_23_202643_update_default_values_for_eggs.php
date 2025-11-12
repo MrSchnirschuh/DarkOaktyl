@@ -11,7 +11,7 @@ return new class () extends Migration {
     public function up(): void
     {
         Schema::table('eggs', function (Blueprint $table) {
-            $table->string('script_container')->default('ghcr.io/pterodactyl/installers:alpine')->after('startup')->change();
+            $table->string('script_container')->default('ghcr.io/DarkOaktyl/installers:alpine')->after('startup')->change();
             $table->string('script_entry')->default('/bin/ash')->after('copy_script_from')->change();
         });
     }
@@ -26,3 +26,4 @@ return new class () extends Migration {
         });
     }
 };
+

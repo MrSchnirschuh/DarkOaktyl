@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Contracts\Repository;
+namespace DarkOak\Contracts\Repository;
 
 use Illuminate\Support\Collection;
 
@@ -12,3 +12,4 @@ interface EggVariableRepositoryInterface extends RepositoryInterface
      */
     public function getEditableVariables(int $egg): Collection;
 }
+

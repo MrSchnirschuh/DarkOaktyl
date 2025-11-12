@@ -39,7 +39,7 @@
         @section('user-data')
             @if(!is_null(Auth::user()))
                 <script>
-                    window.PterodactylUser = {!! json_encode(Auth::user()->toReactObject()) !!};
+                    window.DarkOaktylUser = {!! json_encode(Auth::user()->toReactObject()) !!};
                 </script>
             @endif
             @if(!empty($siteConfiguration))
@@ -47,9 +47,9 @@
                     window.SiteConfiguration = {!! json_encode($siteConfiguration) !!};
                 </script>
             @endif
-            @if(!empty($everestConfiguration))
+            @if(!empty($DarkOakConfiguration))
                 <script>
-                    window.EverestConfiguration = {!! json_encode($everestConfiguration) !!};
+                    window.DarkOakConfiguration = {!! json_encode($DarkOakConfiguration) !!};
                 </script>
             @endif
             @if(!empty($themeConfiguration))
@@ -83,3 +83,5 @@
         @show
     </body>
 </html>
+
+

@@ -1,13 +1,13 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Client;
+namespace DarkOak\Http\Requests\Api\Client;
 
-use Everest\Models\Server;
-use Everest\Contracts\Http\ClientPermissionsRequest;
-use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
+use DarkOak\Models\Server;
+use DarkOak\Contracts\Http\ClientPermissionsRequest;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 
 /**
- * @method \Everest\Models\User user($guard = null)
+ * @method \DarkOak\Models\User user($guard = null)
  */
 class ClientApiRequest extends ApplicationApiRequest
 {
@@ -31,3 +31,4 @@ class ClientApiRequest extends ApplicationApiRequest
         return true;
     }
 }
+

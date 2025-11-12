@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Tests\Integration\Api\Client\Server\Allocation;
+namespace DarkOak\Tests\Integration\Api\Client\Server\Allocation;
 
-use Everest\Models\Subuser;
-use Everest\Models\Allocation;
-use Everest\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
+use DarkOak\Models\Subuser;
+use DarkOak\Models\Allocation;
+use DarkOak\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 
 class AllocationAuthorizationTest extends ClientApiIntegrationTestCase
 {
@@ -55,3 +55,4 @@ class AllocationAuthorizationTest extends ClientApiIntegrationTestCase
         ];
     }
 }
+

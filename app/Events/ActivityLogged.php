@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Events;
+namespace DarkOak\Events;
 
 use Illuminate\Support\Str;
-use Everest\Models\ActivityLog;
+use DarkOak\Models\ActivityLog;
 use Illuminate\Database\Eloquent\Model;
 
 class ActivityLogged extends Event
@@ -32,3 +32,4 @@ class ActivityLogged extends Event
         return is_null($this->model->actor_id);
     }
 }
+

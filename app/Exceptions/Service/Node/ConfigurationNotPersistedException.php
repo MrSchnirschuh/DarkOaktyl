@@ -1,9 +1,10 @@
 <?php
 
-namespace Everest\Exceptions\Service\Node;
+namespace DarkOak\Exceptions\Service\Node;
 
-use Everest\Exceptions\DisplayException;
+use DarkOak\Exceptions\DisplayException;
 
 class ConfigurationNotPersistedException extends DisplayException
 {
 }
+

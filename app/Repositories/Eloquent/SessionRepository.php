@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Repositories\Eloquent;
+namespace DarkOak\Repositories\Eloquent;
 
-use Everest\Models\Session;
+use DarkOak\Models\Session;
 use Illuminate\Support\Collection;
-use Everest\Contracts\Repository\SessionRepositoryInterface;
+use DarkOak\Contracts\Repository\SessionRepositoryInterface;
 
 class SessionRepository extends EloquentRepository implements SessionRepositoryInterface
 {
@@ -32,3 +32,4 @@ class SessionRepository extends EloquentRepository implements SessionRepositoryI
         return $this->getBuilder()->where('user_id', $user)->where('id', $session)->delete();
     }
 }
+

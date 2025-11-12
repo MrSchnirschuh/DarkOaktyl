@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Client;
+namespace DarkOak\Http\Requests\Api\Client;
 
 class GetServersRequest extends ClientApiRequest
 {
@@ -9,3 +9,4 @@ class GetServersRequest extends ClientApiRequest
         return true;
     }
 }
+

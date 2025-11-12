@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Services\Servers;
+namespace DarkOak\Services\Servers;
 
-use Everest\Exceptions\Service\Deployment\NoViableNodeException;
-use Everest\Models\Node;
-use Everest\Repositories\Wings\DaemonConfigurationRepository;
+use DarkOak\Exceptions\Service\Deployment\NoViableNodeException;
+use DarkOak\Models\Node;
+use DarkOak\Repositories\Wings\DaemonConfigurationRepository;
 use Illuminate\Support\Facades\Log;
-use Everest\Exceptions\Http\Connection\DaemonConnectionException;
+use DarkOak\Exceptions\Http\Connection\DaemonConnectionException;
 
 class NodeCapacityService
 {
@@ -84,3 +84,4 @@ class NodeCapacityService
         return (int) floor($bytes / 1024 / 1024);
     }
 }
+

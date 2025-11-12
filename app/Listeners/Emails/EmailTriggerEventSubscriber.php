@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Listeners\Emails;
+namespace DarkOak\Listeners\Emails;
 
-use Everest\Models\EmailTrigger;
-use Everest\Services\Emails\EmailTriggerProcessor;
+use DarkOak\Models\EmailTrigger;
+use DarkOak\Services\Emails\EmailTriggerProcessor;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
@@ -104,3 +104,4 @@ class EmailTriggerEventSubscriber
         return self::$triggersTableExists;
     }
 }
+

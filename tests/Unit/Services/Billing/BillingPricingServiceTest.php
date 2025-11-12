@@ -1,13 +1,13 @@
 <?php
 
-namespace Everest\Tests\Unit\Services\Billing;
+namespace DarkOak\Tests\Unit\Services\Billing;
 
-use Everest\Models\Billing\BillingTerm;
-use Everest\Models\Billing\ResourcePrice;
-use Everest\Models\Node;
-use Everest\Services\Billing\BillingPricingService;
-use Everest\Services\Servers\NodeCapacityService;
-use Everest\Tests\TestCase;
+use DarkOak\Models\Billing\BillingTerm;
+use DarkOak\Models\Billing\ResourcePrice;
+use DarkOak\Models\Node;
+use DarkOak\Services\Billing\BillingPricingService;
+use DarkOak\Services\Servers\NodeCapacityService;
+use DarkOak\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Mockery;
@@ -174,3 +174,4 @@ class BillingPricingServiceTest extends TestCase
         $this->assertFalse($quote['options']['validateCapacity']);
     }
 }
+

@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Models;
+namespace DarkOak\Models;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -78,3 +78,4 @@ class DatabaseHost extends Model
         return $this->belongsToMany(Node::class);
     }
 }
+

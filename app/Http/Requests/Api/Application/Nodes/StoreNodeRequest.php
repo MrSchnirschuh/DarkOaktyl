@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Nodes;
+namespace DarkOak\Http\Requests\Api\Application\Nodes;
 
-use Everest\Models\Node;
+use DarkOak\Models\Node;
 use Illuminate\Support\Arr;
-use Everest\Models\AdminRole;
-use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
+use DarkOak\Models\AdminRole;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class StoreNodeRequest extends ApplicationApiRequest
 {
@@ -75,3 +75,4 @@ class StoreNodeRequest extends ApplicationApiRequest
         return AdminRole::NODES_CREATE;
     }
 }
+

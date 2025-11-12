@@ -17,7 +17,7 @@ return [
     |--------------------------------------------------------------------------
     | Automatic Updates
     |--------------------------------------------------------------------------
-    | Allow Jexactyl to update itself in the background in line with the latest
+    | Allow DarkOaktyl to update itself in the background in line with the latest
     | GitHub software release. This feature is off by default.
     */
     'auto_update' => false,
@@ -27,7 +27,7 @@ return [
     | Admin Indicators
     |--------------------------------------------------------------------------
     | Allow the panel to display small indicators in the top-right of the UI
-    | when certain Jexactyl features are toggled to 'on'.
+    | when certain DarkOaktyl features are toggled to 'on'.
     */
     'indicators' => false,
 
@@ -35,7 +35,7 @@ return [
     |--------------------------------------------------------------------------
     | Is Setup
     |--------------------------------------------------------------------------
-    | This variable toggles whether Jexactyl has been configured and is ready
+    | This variable toggles whether DarkOaktyl has been configured and is ready
     | for use. This should ideally be done via the UI.
     */
     'auto_update' => false,
@@ -70,7 +70,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => env('APP_NAME', 'Everest'),
+    'name' => env('APP_NAME', 'DarkOak'),
 
     /*
     |--------------------------------------------------------------------------
@@ -239,16 +239,16 @@ return [
         /*
          * Application Service Providers...
          */
-        Everest\Providers\ActivityLogServiceProvider::class,
-        Everest\Providers\AppServiceProvider::class,
-        Everest\Providers\AuthServiceProvider::class,
-        Everest\Providers\BackupsServiceProvider::class,
-        Everest\Providers\BladeServiceProvider::class,
-        Everest\Providers\EventServiceProvider::class,
-        Everest\Providers\HashidsServiceProvider::class,
-        Everest\Providers\RouteServiceProvider::class,
-        Everest\Providers\RepositoryServiceProvider::class,
-        Everest\Providers\ViewComposerServiceProvider::class,
+        DarkOak\Providers\ActivityLogServiceProvider::class,
+        DarkOak\Providers\AppServiceProvider::class,
+        DarkOak\Providers\AuthServiceProvider::class,
+        DarkOak\Providers\BackupsServiceProvider::class,
+        DarkOak\Providers\BladeServiceProvider::class,
+        DarkOak\Providers\EventServiceProvider::class,
+        DarkOak\Providers\HashidsServiceProvider::class,
+        DarkOak\Providers\RouteServiceProvider::class,
+        DarkOak\Providers\RepositoryServiceProvider::class,
+        DarkOak\Providers\ViewComposerServiceProvider::class,
     ],
 
     /*
@@ -267,8 +267,10 @@ return [
         'JavaScript' => Laracasts\Utilities\JavaScript\JavaScriptFacade::class,
 
         // Custom Facades
-        'Activity' => Everest\Facades\Activity::class,
-        'LogBatch' => Everest\Facades\LogBatch::class,
-        'LogTarget' => Everest\Facades\LogTarget::class,
+        'Activity' => DarkOak\Facades\Activity::class,
+        'LogBatch' => DarkOak\Facades\LogBatch::class,
+        'LogTarget' => DarkOak\Facades\LogTarget::class,
     ])->toArray(),
 ];
+
+

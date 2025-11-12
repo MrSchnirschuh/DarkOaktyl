@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Repositories;
+namespace DarkOak\Repositories;
 
 use Illuminate\Foundation\Application;
 use Illuminate\Database\Eloquent\Model;
-use Everest\Contracts\Repository\RepositoryInterface;
+use DarkOak\Contracts\Repository\RepositoryInterface;
 
 abstract class Repository implements RepositoryInterface
 {
@@ -100,3 +100,4 @@ abstract class Repository implements RepositoryInterface
         }
     }
 }
+

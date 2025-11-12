@@ -1,16 +1,16 @@
 <?php
 
-namespace Everest\Tests\Unit\Http\Middleware\Api\Daemon;
+namespace DarkOak\Tests\Unit\Http\Middleware\Api\Daemon;
 
 use Mockery as m;
-use Everest\Models\Node;
+use DarkOak\Models\Node;
 use Mockery\MockInterface;
 use Illuminate\Contracts\Encryption\Encrypter;
-use Everest\Repositories\Eloquent\NodeRepository;
+use DarkOak\Repositories\Eloquent\NodeRepository;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Everest\Exceptions\Repository\RecordNotFoundException;
-use Everest\Http\Middleware\Api\Daemon\DaemonAuthenticate;
-use Everest\Tests\Unit\Http\Middleware\MiddlewareTestCase;
+use DarkOak\Exceptions\Repository\RecordNotFoundException;
+use DarkOak\Http\Middleware\Api\Daemon\DaemonAuthenticate;
+use DarkOak\Tests\Unit\Http\Middleware\MiddlewareTestCase;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
@@ -85,7 +85,7 @@ class DaemonAuthenticateTest extends MiddlewareTestCase
     {
         $this->expectException(AccessDeniedHttpException::class);
 
-        /** @var \Everest\Models\Node $model */
+        /** @var \DarkOak\Models\Node $model */
         $model = Node::factory()->make();
 
         $this->request->expects('route->getName')->withNoArgs()->andReturn('random.route');
@@ -118,7 +118,7 @@ class DaemonAuthenticateTest extends MiddlewareTestCase
      */
     public function testSuccessfulMiddlewareProcess()
     {
-        /** @var \Everest\Models\Node $model */
+        /** @var \DarkOak\Models\Node $model */
         $model = Node::factory()->make();
 
         $this->request->expects('route->getName')->withNoArgs()->andReturn('random.route');
@@ -159,3 +159,4 @@ class DaemonAuthenticateTest extends MiddlewareTestCase
         return new DaemonAuthenticate($this->encrypter, $this->repository);
     }
 }
+

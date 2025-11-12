@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Exceptions\Service\Allocation;
+namespace DarkOak\Exceptions\Service\Allocation;
 
-use Everest\Exceptions\DisplayException;
+use DarkOak\Exceptions\DisplayException;
 
 class NoAutoAllocationSpaceAvailableException extends DisplayException
 {
@@ -16,3 +16,4 @@ class NoAutoAllocationSpaceAvailableException extends DisplayException
         );
     }
 }
+

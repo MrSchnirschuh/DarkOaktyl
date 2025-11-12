@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Exceptions\Service\User;
+namespace DarkOak\Exceptions\Service\User;
 
-use Everest\Exceptions\DisplayException;
+use DarkOak\Exceptions\DisplayException;
 
 class TwoFactorAuthenticationTokenInvalid extends DisplayException
 {
@@ -14,3 +14,4 @@ class TwoFactorAuthenticationTokenInvalid extends DisplayException
         parent::__construct('The provided two-factor authentication token was not valid.');
     }
 }
+

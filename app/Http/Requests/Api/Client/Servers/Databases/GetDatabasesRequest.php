@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Client\Servers\Databases;
+namespace DarkOak\Http\Requests\Api\Client\Servers\Databases;
 
-use Everest\Models\Permission;
-use Everest\Contracts\Http\ClientPermissionsRequest;
-use Everest\Http\Requests\Api\Client\ClientApiRequest;
+use DarkOak\Models\Permission;
+use DarkOak\Contracts\Http\ClientPermissionsRequest;
+use DarkOak\Http\Requests\Api\Client\ClientApiRequest;
 
 class GetDatabasesRequest extends ClientApiRequest implements ClientPermissionsRequest
 {
@@ -13,3 +13,4 @@ class GetDatabasesRequest extends ClientApiRequest implements ClientPermissionsR
         return Permission::ACTION_DATABASE_READ;
     }
 }
+

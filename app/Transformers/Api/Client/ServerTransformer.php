@@ -1,17 +1,17 @@
 <?php
 
-namespace Everest\Transformers\Api\Client;
+namespace DarkOak\Transformers\Api\Client;
 
-use Everest\Models\Egg;
-use Everest\Models\Server;
-use Everest\Models\Allocation;
-use Everest\Models\Permission;
+use DarkOak\Models\Egg;
+use DarkOak\Models\Server;
+use DarkOak\Models\Allocation;
+use DarkOak\Models\Permission;
 use League\Fractal\Resource\Item;
 use Illuminate\Container\Container;
 use League\Fractal\Resource\Collection;
-use Everest\Transformers\Api\Transformer;
+use DarkOak\Transformers\Api\Transformer;
 use League\Fractal\Resource\NullResource;
-use Everest\Services\Servers\StartupCommandService;
+use DarkOak\Services\Servers\StartupCommandService;
 
 class ServerTransformer extends Transformer
 {
@@ -30,7 +30,7 @@ class ServerTransformer extends Transformer
      */
     public function transform(Server $server): array
     {
-        /** @var \Everest\Services\Servers\StartupCommandService $service */
+        /** @var \DarkOak\Services\Servers\StartupCommandService $service */
         $service = Container::getInstance()->make(StartupCommandService::class);
 
         $user = $this->request->user();
@@ -128,3 +128,4 @@ class ServerTransformer extends Transformer
         return $this->collection($server->subusers, new SubuserTransformer());
     }
 }
+

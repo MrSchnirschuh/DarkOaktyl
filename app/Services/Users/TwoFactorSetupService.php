@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Services\Users;
+namespace DarkOak\Services\Users;
 
-use Everest\Models\User;
+use DarkOak\Models\User;
 use Illuminate\Contracts\Encryption\Encrypter;
-use Everest\Contracts\Repository\UserRepositoryInterface;
+use DarkOak\Contracts\Repository\UserRepositoryInterface;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
 
 class TwoFactorSetupService
@@ -26,14 +26,14 @@ class TwoFactorSetupService
      * QR code URL. This URL will need to be attached to a QR generating service in
      * order to function.
      *
-     * @throws \Everest\Exceptions\Model\DataValidationException
-     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
+     * @throws \DarkOak\Exceptions\Model\DataValidationException
+     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
      */
     public function handle(User $user): array
     {
         $secret = '';
         try {
-            for ($i = 0; $i < $this->config->get('everest.auth.2fa.bytes', 16); ++$i) {
+            for ($i = 0; $i < $this->config->get('DarkOak.auth.2fa.bytes', 16); ++$i) {
                 $secret .= substr(self::VALID_BASE32_CHARACTERS, random_int(0, 31), 1);
             }
         } catch (\Exception $exception) {
@@ -57,3 +57,4 @@ class TwoFactorSetupService
         ];
     }
 }
+

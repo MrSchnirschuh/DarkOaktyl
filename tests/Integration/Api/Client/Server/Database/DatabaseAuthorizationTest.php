@@ -1,14 +1,14 @@
 <?php
 
-namespace Everest\Tests\Integration\Api\Client\Server\Database;
+namespace DarkOak\Tests\Integration\Api\Client\Server\Database;
 
-use Everest\Models\Subuser;
-use Everest\Models\Database;
-use Everest\Models\DatabaseHost;
-use Everest\Contracts\Extensions\HashidsInterface;
-use Everest\Services\Databases\DatabasePasswordService;
-use Everest\Services\Databases\DatabaseManagementService;
-use Everest\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
+use DarkOak\Models\Subuser;
+use DarkOak\Models\Database;
+use DarkOak\Models\DatabaseHost;
+use DarkOak\Contracts\Extensions\HashidsInterface;
+use DarkOak\Services\Databases\DatabasePasswordService;
+use DarkOak\Services\Databases\DatabaseManagementService;
+use DarkOak\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 
 class DatabaseAuthorizationTest extends ClientApiIntegrationTestCase
 {
@@ -66,3 +66,4 @@ class DatabaseAuthorizationTest extends ClientApiIntegrationTestCase
         ];
     }
 }
+

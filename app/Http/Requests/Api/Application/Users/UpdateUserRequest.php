@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Users;
+namespace DarkOak\Http\Requests\Api\Application\Users;
 
-use Everest\Models\User;
-use Everest\Models\AdminRole;
+use DarkOak\Models\User;
+use DarkOak\Models\AdminRole;
 
 class UpdateUserRequest extends StoreUserRequest
 {
@@ -17,3 +17,4 @@ class UpdateUserRequest extends StoreUserRequest
         return AdminRole::USERS_UPDATE;
     }
 }
+

@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Services\Billing\ValueObjects;
+namespace DarkOak\Services\Billing\ValueObjects;
 
-use Everest\Models\Node;
+use DarkOak\Models\Node;
 use Illuminate\Support\Arr;
 
 final class QuoteOptions
@@ -95,3 +95,4 @@ final class QuoteOptions
         return $this->raw;
     }
 }
+

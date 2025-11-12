@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Client\Servers\Settings;
+namespace DarkOak\Http\Requests\Api\Client\Servers\Settings;
 
-use Everest\Models\Server;
-use Everest\Models\Permission;
-use Everest\Contracts\Http\ClientPermissionsRequest;
-use Everest\Http\Requests\Api\Client\ClientApiRequest;
+use DarkOak\Models\Server;
+use DarkOak\Models\Permission;
+use DarkOak\Contracts\Http\ClientPermissionsRequest;
+use DarkOak\Http\Requests\Api\Client\ClientApiRequest;
 
 class RenameServerRequest extends ClientApiRequest implements ClientPermissionsRequest
 {
@@ -30,3 +30,4 @@ class RenameServerRequest extends ClientApiRequest implements ClientPermissionsR
         ];
     }
 }
+

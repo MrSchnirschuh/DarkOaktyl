@@ -17,7 +17,7 @@ export default () => {
     const { status, setStatus } = useStatus();
     const [confirm, setConfirm] = useState<boolean>(false);
     const { clearFlashes, clearAndAddHttpError } = useFlash();
-    const settings = useStoreState(state => state.everest.data!.auth.modules.google);
+    const settings = useStoreState(state => state.DarkOak.data!.auth.modules.google);
 
     const update = async (key: string, value: any) => {
         clearFlashes();
@@ -92,3 +92,4 @@ export default () => {
         </AdminBox>
     );
 };
+

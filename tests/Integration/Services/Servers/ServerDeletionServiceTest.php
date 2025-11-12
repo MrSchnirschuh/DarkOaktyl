@@ -1,18 +1,18 @@
 <?php
 
-namespace Everest\Tests\Integration\Services\Servers;
+namespace DarkOak\Tests\Integration\Services\Servers;
 
 use Mockery\MockInterface;
-use Everest\Models\Database;
+use DarkOak\Models\Database;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use Everest\Models\DatabaseHost;
+use DarkOak\Models\DatabaseHost;
 use GuzzleHttp\Exception\BadResponseException;
-use Everest\Tests\Integration\IntegrationTestCase;
-use Everest\Services\Servers\ServerDeletionService;
-use Everest\Repositories\Wings\DaemonServerRepository;
-use Everest\Services\Databases\DatabaseManagementService;
-use Everest\Exceptions\Http\Connection\DaemonConnectionException;
+use DarkOak\Tests\Integration\IntegrationTestCase;
+use DarkOak\Services\Servers\ServerDeletionService;
+use DarkOak\Repositories\Wings\DaemonServerRepository;
+use DarkOak\Services\Databases\DatabaseManagementService;
+use DarkOak\Exceptions\Http\Connection\DaemonConnectionException;
 
 class ServerDeletionServiceTest extends IntegrationTestCase
 {
@@ -112,7 +112,7 @@ class ServerDeletionServiceTest extends IntegrationTestCase
         $server = $this->createServerModel();
         $host = DatabaseHost::factory()->create();
 
-        /** @var \Everest\Models\Database $db */
+        /** @var \DarkOak\Models\Database $db */
         $db = Database::factory()->create(['database_host_id' => $host->id, 'server_id' => $server->id]);
 
         $server->refresh();
@@ -137,7 +137,7 @@ class ServerDeletionServiceTest extends IntegrationTestCase
         $server = $this->createServerModel();
         $host = DatabaseHost::factory()->create();
 
-        /** @var \Everest\Models\Database $db */
+        /** @var \DarkOak\Models\Database $db */
         $db = Database::factory()->create(['database_host_id' => $host->id, 'server_id' => $server->id]);
 
         $server->refresh();
@@ -158,3 +158,4 @@ class ServerDeletionServiceTest extends IntegrationTestCase
         return $this->app->make(ServerDeletionService::class);
     }
 }
+

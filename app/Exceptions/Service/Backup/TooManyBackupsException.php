@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Exceptions\Service\Backup;
+namespace DarkOak\Exceptions\Service\Backup;
 
-use Everest\Exceptions\DisplayException;
+use DarkOak\Exceptions\DisplayException;
 
 class TooManyBackupsException extends DisplayException
 {
@@ -16,3 +16,4 @@ class TooManyBackupsException extends DisplayException
         );
     }
 }
+

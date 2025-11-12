@@ -1,17 +1,17 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Remote\Backups;
+namespace DarkOak\Http\Controllers\Api\Remote\Backups;
 
-use Everest\Models\Backup;
+use DarkOak\Models\Backup;
 use Carbon\CarbonImmutable;
 use Illuminate\Http\Request;
-use Everest\Facades\Activity;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\JsonResponse;
-use Everest\Exceptions\DisplayException;
-use Everest\Http\Controllers\Controller;
-use Everest\Extensions\Backups\BackupManager;
-use Everest\Extensions\Filesystem\S3Filesystem;
-use Everest\Http\Requests\Api\Remote\ReportBackupCompleteRequest;
+use DarkOak\Exceptions\DisplayException;
+use DarkOak\Http\Controllers\Controller;
+use DarkOak\Extensions\Backups\BackupManager;
+use DarkOak\Extensions\Filesystem\S3Filesystem;
+use DarkOak\Http\Requests\Api\Remote\ReportBackupCompleteRequest;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class BackupStatusController extends Controller
@@ -30,7 +30,7 @@ class BackupStatusController extends Controller
      */
     public function index(ReportBackupCompleteRequest $request, string $backup): JsonResponse
     {
-        /** @var \Everest\Models\Backup $model */
+        /** @var \DarkOak\Models\Backup $model */
         $model = Backup::query()->where('uuid', $backup)->firstOrFail();
 
         if ($model->is_successful) {
@@ -77,7 +77,7 @@ class BackupStatusController extends Controller
      */
     public function restore(Request $request, string $backup): JsonResponse
     {
-        /** @var \Everest\Models\Backup $model */
+        /** @var \DarkOak\Models\Backup $model */
         $model = Backup::query()->where('uuid', $backup)->firstOrFail();
 
         $model->server->update(['status' => null]);
@@ -95,7 +95,7 @@ class BackupStatusController extends Controller
      * the given backup.
      *
      * @throws \Exception
-     * @throws \Everest\Exceptions\DisplayException
+     * @throws \DarkOak\Exceptions\DisplayException
      */
     protected function completeMultipartUpload(Backup $backup, S3Filesystem $adapter, bool $successful, ?array $parts): void
     {
@@ -144,3 +144,4 @@ class BackupStatusController extends Controller
         $client->execute($client->getCommand('CompleteMultipartUpload', $params));
     }
 }
+

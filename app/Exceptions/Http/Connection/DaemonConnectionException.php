@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Exceptions\Http\Connection;
+namespace DarkOak\Exceptions\Http\Connection;
 
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
-use Everest\Exceptions\DisplayException;
+use DarkOak\Exceptions\DisplayException;
 use GuzzleHttp\Exception\GuzzleException;
 
 /**
@@ -88,3 +88,4 @@ class DaemonConnectionException extends DisplayException
         return $this->requestId;
     }
 }
+

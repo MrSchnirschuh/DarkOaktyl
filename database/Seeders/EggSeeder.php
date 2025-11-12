@@ -2,12 +2,12 @@
 
 namespace Database\Seeders;
 
-use Everest\Models\Egg;
-use Everest\Models\Nest;
+use DarkOak\Models\Egg;
+use DarkOak\Models\Nest;
 use Illuminate\Database\Seeder;
 use Illuminate\Http\UploadedFile;
-use Everest\Services\Eggs\Sharing\EggImporterService;
-use Everest\Services\Eggs\Sharing\EggUpdateImporterService;
+use DarkOak\Services\Eggs\Sharing\EggImporterService;
+use DarkOak\Services\Eggs\Sharing\EggUpdateImporterService;
 
 class EggSeeder extends Seeder
 {
@@ -40,7 +40,7 @@ class EggSeeder extends Seeder
         foreach (static::$import as $nest) {
             /* @noinspection PhpParamsInspection */
             $this->parseEggFiles(
-                Nest::query()->where('author', 'support@pterodactyl.io')->where('name', $nest)->firstOrFail()
+                Nest::query()->where('author', 'support@DarkOaktyl.io')->where('name', $nest)->firstOrFail()
             );
         }
     }
@@ -81,3 +81,5 @@ class EggSeeder extends Seeder
         $this->command->line('');
     }
 }
+
+

@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Services\Api;
+namespace DarkOak\Services\Api;
 
-use Everest\Models\ApiKey;
+use DarkOak\Models\ApiKey;
 use Illuminate\Contracts\Encryption\Encrypter;
-use Everest\Contracts\Repository\ApiKeyRepositoryInterface;
+use DarkOak\Contracts\Repository\ApiKeyRepositoryInterface;
 
 class KeyCreationService
 {
@@ -33,7 +33,7 @@ class KeyCreationService
      * This will automatically generate an identifier and an encrypted token that are
      * stored in the database.
      *
-     * @throws \Everest\Exceptions\Model\DataValidationException
+     * @throws \DarkOak\Exceptions\Model\DataValidationException
      */
     public function handle(array $data, array $permissions = []): ApiKey
     {
@@ -50,3 +50,4 @@ class KeyCreationService
         return $this->repository->create($data, true, true);
     }
 }
+

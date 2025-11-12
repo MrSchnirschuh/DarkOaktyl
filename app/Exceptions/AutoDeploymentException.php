@@ -1,7 +1,8 @@
 <?php
 
-namespace Everest\Exceptions;
+namespace DarkOak\Exceptions;
 
 class AutoDeploymentException extends \Exception
 {
 }
+

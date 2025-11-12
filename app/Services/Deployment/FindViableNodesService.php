@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Services\Deployment;
+namespace DarkOak\Services\Deployment;
 
-use Everest\Models\Node;
+use DarkOak\Models\Node;
 use Webmozart\Assert\Assert;
 use Illuminate\Support\Collection;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Everest\Exceptions\Service\Deployment\NoViableNodeException;
+use DarkOak\Exceptions\Service\Deployment\NoViableNodeException;
 
 class FindViableNodesService
 {
@@ -51,7 +51,7 @@ class FindViableNodesService
      *                       If "null" is provided as the value no pagination will
      *                       be used.
      *
-     * @throws \Everest\Exceptions\Service\Deployment\NoViableNodeException
+     * @throws \DarkOak\Exceptions\Service\Deployment\NoViableNodeException
      */
     public function handle(int $perPage = null, int $page = null): LengthAwarePaginator|Collection
     {
@@ -81,3 +81,4 @@ class FindViableNodesService
         return $results;
     }
 }
+

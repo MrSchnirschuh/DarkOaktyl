@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Http\Controllers\Base;
+namespace DarkOak\Http\Controllers\Base;
 
 use Illuminate\View\View;
-use Everest\Http\Controllers\Controller;
+use DarkOak\Http\Controllers\Controller;
 use Illuminate\View\Factory as ViewFactory;
-use Everest\Contracts\Repository\ServerRepositoryInterface;
+use DarkOak\Contracts\Repository\ServerRepositoryInterface;
 
 class IndexController extends Controller
 {
@@ -26,3 +26,4 @@ class IndexController extends Controller
         return view('templates/base.core');
     }
 }
+

@@ -1,15 +1,15 @@
 <?php
 
-namespace Everest\Contracts\Repository;
+namespace DarkOak\Contracts\Repository;
 
-use Everest\Models\Task;
+use DarkOak\Models\Task;
 
 interface TaskRepositoryInterface extends RepositoryInterface
 {
     /**
      * Get a task and the server relationship for that task.
      *
-     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
+     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
      */
     public function getTaskForJobProcess(int $id): Task;
 
@@ -18,3 +18,4 @@ interface TaskRepositoryInterface extends RepositoryInterface
      */
     public function getNextTask(int $schedule, int $index): ?Task;
 }
+

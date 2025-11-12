@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Servers;
+namespace DarkOak\Http\Requests\Api\Application\Servers;
 
-use Everest\Models\AdminRole;
+use DarkOak\Models\AdminRole;
 
 class GetServersRequest extends GetServerRequest
 {
@@ -18,3 +18,4 @@ class GetServersRequest extends GetServerRequest
         return AdminRole::SERVERS_READ;
     }
 }
+

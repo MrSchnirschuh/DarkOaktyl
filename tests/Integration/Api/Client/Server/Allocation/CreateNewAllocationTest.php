@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Tests\Integration\Api\Client\Server\Allocation;
+namespace DarkOak\Tests\Integration\Api\Client\Server\Allocation;
 
 use Illuminate\Http\Response;
-use Everest\Models\Allocation;
-use Everest\Models\Permission;
-use Everest\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
+use DarkOak\Models\Allocation;
+use DarkOak\Models\Permission;
+use DarkOak\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 
 class CreateNewAllocationTest extends ClientApiIntegrationTestCase
 {
@@ -16,9 +16,9 @@ class CreateNewAllocationTest extends ClientApiIntegrationTestCase
     {
         parent::setUp();
 
-        config()->set('everest.client_features.allocations.enabled', true);
-        config()->set('everest.client_features.allocations.range_start', 5000);
-        config()->set('everest.client_features.allocations.range_end', 5050);
+        config()->set('DarkOak.client_features.allocations.enabled', true);
+        config()->set('DarkOak.client_features.allocations.range_start', 5000);
+        config()->set('DarkOak.client_features.allocations.range_end', 5050);
     }
 
     /**
@@ -28,7 +28,7 @@ class CreateNewAllocationTest extends ClientApiIntegrationTestCase
      */
     public function testNewAllocationCanBeAssignedToServer(array $permission)
     {
-        /** @var \Everest\Models\Server $server */
+        /** @var \DarkOak\Models\Server $server */
         [$user, $server] = $this->generateTestAccount($permission);
         $server->update(['allocation_limit' => 2]);
 
@@ -47,7 +47,7 @@ class CreateNewAllocationTest extends ClientApiIntegrationTestCase
      */
     public function testAllocationCannotBeCreatedIfUserDoesNotHavePermission()
     {
-        /** @var \Everest\Models\Server $server */
+        /** @var \DarkOak\Models\Server $server */
         [$user, $server] = $this->generateTestAccount([Permission::ACTION_ALLOCATION_UPDATE]);
         $server->update(['allocation_limit' => 2]);
 
@@ -59,9 +59,9 @@ class CreateNewAllocationTest extends ClientApiIntegrationTestCase
      */
     public function testAllocationCannotBeCreatedIfNotEnabled()
     {
-        config()->set('everest.client_features.allocations.enabled', false);
+        config()->set('DarkOak.client_features.allocations.enabled', false);
 
-        /** @var \Everest\Models\Server $server */
+        /** @var \DarkOak\Models\Server $server */
         [$user, $server] = $this->generateTestAccount();
         $server->update(['allocation_limit' => 2]);
 
@@ -76,7 +76,7 @@ class CreateNewAllocationTest extends ClientApiIntegrationTestCase
      */
     public function testAllocationCannotBeCreatedIfServerIsAtLimit()
     {
-        /** @var \Everest\Models\Server $server */
+        /** @var \DarkOak\Models\Server $server */
         [$user, $server] = $this->generateTestAccount();
         $server->update(['allocation_limit' => 1]);
 
@@ -91,3 +91,4 @@ class CreateNewAllocationTest extends ClientApiIntegrationTestCase
         return [[[Permission::ACTION_ALLOCATION_CREATE]], [[]]];
     }
 }
+

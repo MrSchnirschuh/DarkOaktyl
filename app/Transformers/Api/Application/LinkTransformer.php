@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Transformers\Api\Application;
+namespace DarkOak\Transformers\Api\Application;
 
-use Everest\Models\CustomLink;
-use Everest\Transformers\Api\Transformer;
+use DarkOak\Models\CustomLink;
+use DarkOak\Transformers\Api\Transformer;
 
 class LinkTransformer extends Transformer
 {
@@ -30,3 +30,4 @@ class LinkTransformer extends Transformer
         ];
     }
 }
+

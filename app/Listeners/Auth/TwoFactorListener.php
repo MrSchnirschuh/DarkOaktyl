@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Listeners\Auth;
+namespace DarkOak\Listeners\Auth;
 
-use Everest\Facades\Activity;
-use Everest\Events\Auth\ProvidedAuthenticationToken;
+use DarkOak\Facades\Activity;
+use DarkOak\Events\Auth\ProvidedAuthenticationToken;
 
 class TwoFactorListener
 {
@@ -15,3 +15,4 @@ class TwoFactorListener
             ->log();
     }
 }
+

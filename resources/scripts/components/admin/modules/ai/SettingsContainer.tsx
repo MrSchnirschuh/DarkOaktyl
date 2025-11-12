@@ -10,7 +10,7 @@ import { Button } from '@elements/button';
 
 export default () => {
     const { clearFlashes, clearAndAddHttpError, addFlash } = useFlash();
-    const ai = useStoreState(s => s.everest.data!.ai);
+    const ai = useStoreState(s => s.DarkOak.data!.ai);
 
     const submit = (values: AISettings) => {
         clearFlashes();
@@ -52,7 +52,7 @@ export default () => {
                                 />
                             </div>
                             <p className={'text-gray-400 text-xs mt-1.5'}>
-                                If enabled, standard Jexactyl users will be able to interact with Jexactyl AI as well as
+                                If enabled, standard DarkOaktyl users will be able to interact with DarkOaktyl AI as well as
                                 administrators.
                             </p>
                         </div>
@@ -79,3 +79,5 @@ export default () => {
         </Formik>
     );
 };
+
+

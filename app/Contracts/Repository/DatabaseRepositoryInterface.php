@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Contracts\Repository;
+namespace DarkOak\Contracts\Repository;
 
 use Illuminate\Support\Collection;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -59,3 +59,4 @@ interface DatabaseRepositoryInterface extends RepositoryInterface
      */
     public function dropUser(string $username, string $remote): bool;
 }
+

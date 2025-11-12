@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Services\Eggs\Variables;
+namespace DarkOak\Services\Eggs\Variables;
 
-use Everest\Models\EggVariable;
-use Everest\Traits\Services\ValidatesValidationRules;
-use Everest\Contracts\Repository\EggVariableRepositoryInterface;
+use DarkOak\Models\EggVariable;
+use DarkOak\Traits\Services\ValidatesValidationRules;
+use DarkOak\Contracts\Repository\EggVariableRepositoryInterface;
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;
-use Everest\Exceptions\Service\Egg\Variable\ReservedVariableNameException;
+use DarkOak\Exceptions\Service\Egg\Variable\ReservedVariableNameException;
 
 class VariableCreationService
 {
@@ -31,9 +31,9 @@ class VariableCreationService
     /**
      * Create a new variable for a given Egg.
      *
-     * @throws \Everest\Exceptions\Model\DataValidationException
-     * @throws \Everest\Exceptions\Service\Egg\Variable\BadValidationRuleException
-     * @throws \Everest\Exceptions\Service\Egg\Variable\ReservedVariableNameException
+     * @throws \DarkOak\Exceptions\Model\DataValidationException
+     * @throws \DarkOak\Exceptions\Service\Egg\Variable\BadValidationRuleException
+     * @throws \DarkOak\Exceptions\Service\Egg\Variable\ReservedVariableNameException
      */
     public function handle(int $egg, array $data): EggVariable
     {
@@ -59,3 +59,4 @@ class VariableCreationService
         ]);
     }
 }
+

@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Providers;
+namespace DarkOak\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Everest\Extensions\Backups\BackupManager;
+use DarkOak\Extensions\Backups\BackupManager;
 use Illuminate\Contracts\Support\DeferrableProvider;
 
 class BackupsServiceProvider extends ServiceProvider implements DeferrableProvider
@@ -23,3 +23,4 @@ class BackupsServiceProvider extends ServiceProvider implements DeferrableProvid
         return [BackupManager::class];
     }
 }
+

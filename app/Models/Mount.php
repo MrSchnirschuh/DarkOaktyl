@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Models;
+namespace DarkOak\Models;
 
 use Illuminate\Validation\Rules\NotIn;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -14,9 +14,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property string $target
  * @property bool $read_only
  * @property bool $user_mountable
- * @property \Everest\Models\Egg[]|\Illuminate\Database\Eloquent\Collection $eggs
- * @property \Everest\Models\Node[]|\Illuminate\Database\Eloquent\Collection $nodes
- * @property \Everest\Models\Server[]|\Illuminate\Database\Eloquent\Collection $servers
+ * @property \DarkOak\Models\Egg[]|\Illuminate\Database\Eloquent\Collection $eggs
+ * @property \DarkOak\Models\Node[]|\Illuminate\Database\Eloquent\Collection $nodes
+ * @property \DarkOak\Models\Server[]|\Illuminate\Database\Eloquent\Collection $servers
  */
 class Mount extends Model
 {
@@ -80,8 +80,8 @@ class Mount extends Model
      * Blacklisted source paths.
      */
     public static $invalidSourcePaths = [
-        '/etc/pterodactyl',
-        '/var/lib/pterodactyl/volumes',
+        '/etc/DarkOaktyl',
+        '/var/lib/DarkOaktyl/volumes',
         '/srv/daemon-data',
     ];
 
@@ -116,3 +116,5 @@ class Mount extends Model
         return $this->belongsToMany(Server::class);
     }
 }
+
+

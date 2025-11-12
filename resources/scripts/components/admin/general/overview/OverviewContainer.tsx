@@ -65,7 +65,7 @@ export default () => {
     const [loading, setLoading] = useState<boolean>(true);
     const { clearFlashes, clearAndAddHttpError } = useFlash();
 
-    const everest = useStoreState(state => state.everest.data!);
+    const DarkOak = useStoreState(state => state.DarkOak.data!);
     const settings = useStoreState(state => state.settings.data!);
 
     const [metricData, setMetricData] = useState<MetricData | undefined>(undefined);
@@ -106,7 +106,7 @@ export default () => {
             <AdminBox title={'Version Information'} icon={faDesktop}>
                 {settings.debug && (
                     <Alert type={'warning'} className={'mb-3'}>
-                        Jexactyl is running in debug mode. Do not use in production.
+                        DarkOaktyl is running in debug mode. Do not use in production.
                     </Alert>
                 )}
                 {loading ? (
@@ -126,7 +126,7 @@ export default () => {
                         </div>
                         {versionData?.panel.current.startsWith('v4.0.0-') && (
                             <Alert type={'danger'} className={'mt-4'}>
-                                You are running a beta release of Jexactyl v4, which may include several bugs or weird
+                                You are running a beta release of DarkOaktyl v4, which may include several bugs or weird
                                 glitches. Do NOT use this software in production unless you don&apos;t care about losing
                                 data.
                             </Alert>
@@ -142,11 +142,11 @@ export default () => {
                             link={'/admin/settings'}
                             title={'Enable automatic updates'}
                             description={
-                                'By setting up automatic updates, you can keep Jexactyl stable and secure in the background.'
+                                'By setting up automatic updates, you can keep DarkOaktyl stable and secure in the background.'
                             }
                         />
                     )}
-                    {!everest.auth.registration.enabled && (
+                    {!DarkOak.auth.registration.enabled && (
                         <SuggestionCard
                             icon={faUserPlus}
                             link={'/admin/auth'}
@@ -163,7 +163,7 @@ export default () => {
                                     icon={faLayerGroup}
                                     link={'/admin/nodes/new'}
                                     title={'Add your first node'}
-                                    description={"Nodes are physical servers which Jexactyl's servers run on."}
+                                    description={"Nodes are physical servers which DarkOaktyl's servers run on."}
                                 />
                             )}
                             {metricData.servers < 1 && (
@@ -174,7 +174,7 @@ export default () => {
                                     description={'Create a server to host your favourite game or program.'}
                                 />
                             )}
-                            {everest.tickets.enabled && metricData.tickets > 0 && (
+                            {DarkOak.tickets.enabled && metricData.tickets > 0 && (
                                 <SuggestionCard
                                     icon={faTicket}
                                     link={'/admin/tickets'}
@@ -187,7 +187,7 @@ export default () => {
                     <SuggestionCard
                         icon={faHeart}
                         link={'https://donate.stripe.com/6oE02Zftd9cC34IbIS'}
-                        title={'Donate to Jexactyl'}
+                        title={'Donate to DarkOaktyl'}
                         action={'Donate'}
                         description={
                             'Support the project by leaving a donation to help us pay for testing servers and domains.'
@@ -198,3 +198,5 @@ export default () => {
         </AdminContentBlock>
     );
 };
+
+

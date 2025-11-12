@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Contracts\Repository;
+namespace DarkOak\Contracts\Repository;
 
 use Illuminate\Support\Collection;
 
@@ -16,3 +16,4 @@ interface SessionRepositoryInterface extends RepositoryInterface
      */
     public function deleteUserSession(int $user, string $session): ?int;
 }
+

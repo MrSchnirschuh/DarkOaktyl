@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Client\Servers\Files;
+namespace DarkOak\Http\Requests\Api\Client\Servers\Files;
 
-use Everest\Models\Server;
-use Everest\Http\Requests\Api\Client\ClientApiRequest;
+use DarkOak\Models\Server;
+use DarkOak\Http\Requests\Api\Client\ClientApiRequest;
 
 class DownloadFileRequest extends ClientApiRequest
 {
@@ -16,3 +16,4 @@ class DownloadFileRequest extends ClientApiRequest
         return $this->user()->can('file.read', $this->route()->parameter('server'));
     }
 }
+

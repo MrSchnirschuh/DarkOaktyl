@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Client;
+namespace DarkOak\Http\Controllers\Api\Client;
 
-use Everest\Transformers\Api\Transformer;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Transformers\Api\Transformer;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
 
 abstract class ClientApiController extends ApplicationApiController
 {
@@ -35,3 +35,4 @@ abstract class ClientApiController extends ApplicationApiController
         }, explode(',', $includes));
     }
 }
+

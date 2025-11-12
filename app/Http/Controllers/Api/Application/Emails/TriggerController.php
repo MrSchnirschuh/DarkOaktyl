@@ -1,28 +1,28 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Emails;
+namespace DarkOak\Http\Controllers\Api\Application\Emails;
 
 use Carbon\CarbonImmutable;
 use Cron\CronExpression;
-use Everest\Facades\Activity;
-use Everest\Models\EmailTemplate;
-use Everest\Models\EmailTrigger;
+use DarkOak\Facades\Activity;
+use DarkOak\Models\EmailTemplate;
+use DarkOak\Models\EmailTrigger;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;
 use Illuminate\Validation\ValidationException;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
-use Everest\Http\Requests\Api\Application\Emails\DeleteEmailTriggerRequest;
-use Everest\Http\Requests\Api\Application\Emails\GetEmailTriggersRequest;
-use Everest\Http\Requests\Api\Application\Emails\RunEmailTriggerRequest;
-use Everest\Http\Requests\Api\Application\Emails\StoreEmailTriggerRequest;
-use Everest\Http\Requests\Api\Application\Emails\UpdateEmailTriggerRequest;
-use Everest\Services\Emails\EmailEventRegistry;
-use Everest\Services\Emails\EmailTriggerProcessor;
-use Everest\Transformers\Api\Application\Emails\EmailTriggerTransformer;
-use Everest\Exceptions\Http\QueryValueOutOfRangeHttpException;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Http\Requests\Api\Application\Emails\DeleteEmailTriggerRequest;
+use DarkOak\Http\Requests\Api\Application\Emails\GetEmailTriggersRequest;
+use DarkOak\Http\Requests\Api\Application\Emails\RunEmailTriggerRequest;
+use DarkOak\Http\Requests\Api\Application\Emails\StoreEmailTriggerRequest;
+use DarkOak\Http\Requests\Api\Application\Emails\UpdateEmailTriggerRequest;
+use DarkOak\Services\Emails\EmailEventRegistry;
+use DarkOak\Services\Emails\EmailTriggerProcessor;
+use DarkOak\Transformers\Api\Application\Emails\EmailTriggerTransformer;
+use DarkOak\Exceptions\Http\QueryValueOutOfRangeHttpException;
 
 class TriggerController extends ApplicationApiController
 {
@@ -273,3 +273,4 @@ class TriggerController extends ApplicationApiController
         }
     }
 }
+

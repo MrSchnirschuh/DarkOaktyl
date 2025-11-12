@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Nodes;
+namespace DarkOak\Http\Controllers\Api\Application\Nodes;
 
-use Everest\Services\Deployment\FindViableNodesService;
-use Everest\Transformers\Api\Application\NodeTransformer;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
-use Everest\Http\Requests\Api\Application\Nodes\GetDeployableNodesRequest;
+use DarkOak\Services\Deployment\FindViableNodesService;
+use DarkOak\Transformers\Api\Application\NodeTransformer;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Http\Requests\Api\Application\Nodes\GetDeployableNodesRequest;
 
 class NodeDeploymentController extends ApplicationApiController
 {
@@ -22,7 +22,7 @@ class NodeDeploymentController extends ApplicationApiController
      * similarly to the server creation process, but allows you to pass the deployment object
      * to this endpoint and get back a list of all Nodes satisfying the requirements.
      *
-     * @throws \Everest\Exceptions\Service\Deployment\NoViableNodeException
+     * @throws \DarkOak\Exceptions\Service\Deployment\NoViableNodeException
      */
     public function __invoke(GetDeployableNodesRequest $request): array
     {
@@ -37,3 +37,4 @@ class NodeDeploymentController extends ApplicationApiController
             ->toArray();
     }
 }
+

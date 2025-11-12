@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Eggs;
+namespace DarkOak\Http\Requests\Api\Application\Eggs;
 
-use Everest\Models\AdminRole;
-use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
+use DarkOak\Models\AdminRole;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class StoreEggRequest extends ApplicationApiRequest
 {
@@ -34,3 +34,4 @@ class StoreEggRequest extends ApplicationApiRequest
         return AdminRole::EGGS_CREATE;
     }
 }
+

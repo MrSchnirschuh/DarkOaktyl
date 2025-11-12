@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Tests\Integration\Api\Client\Server\Subuser;
+namespace DarkOak\Tests\Integration\Api\Client\Server\Subuser;
 
-use Everest\Models\User;
-use Everest\Models\Subuser;
-use Everest\Repositories\Wings\DaemonServerRepository;
-use Everest\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
+use DarkOak\Models\User;
+use DarkOak\Models\Subuser;
+use DarkOak\Repositories\Wings\DaemonServerRepository;
+use DarkOak\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 
 class SubuserAuthorizationTest extends ClientApiIntegrationTestCase
 {
@@ -17,7 +17,7 @@ class SubuserAuthorizationTest extends ClientApiIntegrationTestCase
     public function testUserCannotAccessResourceBelongingToOtherServers(string $method)
     {
         // Generic subuser, the specific resource we're trying to access.
-        /** @var \Everest\Models\User $internal */
+        /** @var \DarkOak\Models\User $internal */
         $internal = User::factory()->create();
 
         // The API $user is the owner of $server1.
@@ -54,3 +54,4 @@ class SubuserAuthorizationTest extends ClientApiIntegrationTestCase
         return [['GET'], ['POST'], ['DELETE']];
     }
 }
+

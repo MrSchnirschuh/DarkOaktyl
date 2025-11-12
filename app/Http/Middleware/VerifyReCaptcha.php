@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Http\Middleware;
+namespace DarkOak\Http\Middleware;
 
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Everest\Events\Auth\FailedCaptcha;
+use DarkOak\Events\Auth\FailedCaptcha;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -87,3 +87,4 @@ class VerifyReCaptcha
         return $result->hostname === array_get($url, 'host');
     }
 }
+

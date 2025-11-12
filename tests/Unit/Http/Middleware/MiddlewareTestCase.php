@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Tests\Unit\Http\Middleware;
+namespace DarkOak\Tests\Unit\Http\Middleware;
 
-use Everest\Tests\TestCase;
-use Everest\Tests\Traits\Http\RequestMockHelpers;
-use Everest\Tests\Traits\Http\MocksMiddlewareClosure;
-use Everest\Tests\Assertions\MiddlewareAttributeAssertionsTrait;
+use DarkOak\Tests\TestCase;
+use DarkOak\Tests\Traits\Http\RequestMockHelpers;
+use DarkOak\Tests\Traits\Http\MocksMiddlewareClosure;
+use DarkOak\Tests\Assertions\MiddlewareAttributeAssertionsTrait;
 
 abstract class MiddlewareTestCase extends TestCase
 {
@@ -23,3 +23,4 @@ abstract class MiddlewareTestCase extends TestCase
         $this->buildRequestMock();
     }
 }
+

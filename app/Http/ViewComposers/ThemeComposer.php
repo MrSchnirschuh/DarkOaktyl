@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Http\ViewComposers;
+namespace DarkOak\Http\ViewComposers;
 
 use Illuminate\View\View;
-use Everest\Services\Themes\ThemePaletteService;
+use DarkOak\Services\Themes\ThemePaletteService;
 
 class ThemeComposer
 {
@@ -19,3 +19,4 @@ class ThemeComposer
         $view->with('themeConfiguration', $this->paletteService->getThemeConfiguration());
     }
 }
+

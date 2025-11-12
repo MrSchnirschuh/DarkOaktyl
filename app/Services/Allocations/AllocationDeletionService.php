@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Services\Allocations;
+namespace DarkOak\Services\Allocations;
 
-use Everest\Models\Allocation;
-use Everest\Contracts\Repository\AllocationRepositoryInterface;
-use Everest\Exceptions\Service\Allocation\ServerUsingAllocationException;
+use DarkOak\Models\Allocation;
+use DarkOak\Contracts\Repository\AllocationRepositoryInterface;
+use DarkOak\Exceptions\Service\Allocation\ServerUsingAllocationException;
 
 class AllocationDeletionService
 {
@@ -19,7 +19,7 @@ class AllocationDeletionService
      * Delete an allocation from the database only if it does not have a server
      * that is actively attached to it.
      *
-     * @throws \Everest\Exceptions\Service\Allocation\ServerUsingAllocationException
+     * @throws \DarkOak\Exceptions\Service\Allocation\ServerUsingAllocationException
      */
     public function handle(Allocation $allocation): int
     {
@@ -30,3 +30,4 @@ class AllocationDeletionService
         return $this->repository->delete($allocation->id);
     }
 }
+

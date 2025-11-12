@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Models;
+namespace DarkOak\Models;
 
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Arr;
@@ -10,7 +10,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\ValidationException;
-use Everest\Exceptions\Model\DataValidationException;
+use DarkOak\Exceptions\Model\DataValidationException;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model as IlluminateModel;
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;
@@ -198,3 +198,4 @@ abstract class Model extends IlluminateModel
         parent::initializeTraits();
     }
 }
+

@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Transformers\Api\Application\Emails;
+namespace DarkOak\Transformers\Api\Application\Emails;
 
-use Everest\Models\EmailTheme;
-use Everest\Services\Themes\ThemePaletteService;
-use Everest\Transformers\Api\Transformer;
+use DarkOak\Models\EmailTheme;
+use DarkOak\Services\Themes\ThemePaletteService;
+use DarkOak\Transformers\Api\Transformer;
 
 class EmailThemeTransformer extends Transformer
 {
@@ -81,3 +81,4 @@ class EmailThemeTransformer extends Transformer
         ];
     }
 }
+

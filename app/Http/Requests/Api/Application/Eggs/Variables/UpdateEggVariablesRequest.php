@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Eggs\Variables;
+namespace DarkOak\Http\Requests\Api\Application\Eggs\Variables;
 
-use Everest\Models\AdminRole;
-use Everest\Models\EggVariable;
-use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
+use DarkOak\Models\AdminRole;
+use DarkOak\Models\EggVariable;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class UpdateEggVariablesRequest extends ApplicationApiRequest
 {
@@ -28,3 +28,4 @@ class UpdateEggVariablesRequest extends ApplicationApiRequest
         return AdminRole::EGGS_UPDATE;
     }
 }
+

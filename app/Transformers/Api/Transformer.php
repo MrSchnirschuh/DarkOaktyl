@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Transformers\Api;
+namespace DarkOak\Transformers\Api;
 
-use Everest\Models\User;
+use DarkOak\Models\User;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
 use Illuminate\Http\Request;
@@ -13,7 +13,7 @@ use League\Fractal\Resource\Collection;
 use League\Fractal\TransformerAbstract;
 
 /**
- * @method array transform(\Everest\Models\Model $model)
+ * @method array transform(\DarkOak\Models\Model $model)
  */
 abstract class Transformer extends TransformerAbstract
 {
@@ -152,3 +152,4 @@ abstract class Transformer extends TransformerAbstract
         return $value->setTimezone($tz ?? self::$timezone)->toAtomString();
     }
 }
+

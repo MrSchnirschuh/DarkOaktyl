@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Transformers\Api\Client;
+namespace DarkOak\Transformers\Api\Client;
 
-use Everest\Models\Schedule;
+use DarkOak\Models\Schedule;
 use League\Fractal\Resource\Collection;
-use Everest\Transformers\Api\Transformer;
+use DarkOak\Transformers\Api\Transformer;
 
 class ScheduleTransformer extends Transformer
 {
@@ -53,3 +53,4 @@ class ScheduleTransformer extends Transformer
         return $this->collection($model->tasks, new TaskTransformer());
     }
 }
+

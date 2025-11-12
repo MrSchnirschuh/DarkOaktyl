@@ -1,14 +1,14 @@
 <?php
 
-namespace Everest\Http\Controllers\Auth\Modules;
+namespace DarkOak\Http\Controllers\Auth\Modules;
 
-use Everest\Models\User;
+use DarkOak\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\RedirectResponse;
-use Everest\Services\Users\UserCreationService;
-use Everest\Http\Controllers\Auth\AbstractLoginController;
-use Everest\Contracts\Repository\SettingsRepositoryInterface;
+use DarkOak\Services\Users\UserCreationService;
+use DarkOak\Http\Controllers\Auth\AbstractLoginController;
+use DarkOak\Contracts\Repository\SettingsRepositoryInterface;
 
 class DiscordLoginController extends AbstractLoginController
 {
@@ -25,7 +25,7 @@ class DiscordLoginController extends AbstractLoginController
     /**
      * Get the user's Discord token in order to access the account.
      *
-     * @throws \Everest\Exceptions\DisplayException
+     * @throws \DarkOak\Exceptions\DisplayException
      * @throws \Illuminate\Validation\ValidationException
      */
     public function requestToken(Request $request): string
@@ -88,3 +88,4 @@ class DiscordLoginController extends AbstractLoginController
         return substr(str_shuffle(str_repeat($x = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length / strlen($x)))), 1, $length);
     }
 }
+

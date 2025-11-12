@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Remote;
+namespace DarkOak\Http\Requests\Api\Remote;
 
 use Illuminate\Support\Collection;
 use Illuminate\Foundation\Http\FormRequest;
@@ -48,3 +48,4 @@ class ActivityEventRequest extends FormRequest
             ->toArray();
     }
 }
+

@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application;
+namespace DarkOak\Http\Requests\Api\Application;
 
-use Everest\Models\AdminRole;
-use Everest\Http\Requests\Api\ApiRequest;
+use DarkOak\Models\AdminRole;
+use DarkOak\Http\Requests\Api\ApiRequest;
 
 abstract class ApplicationApiRequest extends ApiRequest
 {
@@ -37,3 +37,4 @@ abstract class ApplicationApiRequest extends ApiRequest
         return $this->only($only ?? array_keys($this->rules()));
     }
 }
+

@@ -28,17 +28,17 @@ $app = new Illuminate\Foundation\Application(
 
 $app->singleton(
     Illuminate\Contracts\Http\Kernel::class,
-    Everest\Http\Kernel::class
+    DarkOak\Http\Kernel::class
 );
 
 $app->singleton(
     Illuminate\Contracts\Console\Kernel::class,
-    Everest\Console\Kernel::class
+    DarkOak\Console\Kernel::class
 );
 
 $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
-    Everest\Exceptions\Handler::class
+    DarkOak\Exceptions\Handler::class
 );
 
 /*
@@ -53,3 +53,4 @@ $app->singleton(
 */
 
 return $app;
+

@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Policies;
+namespace DarkOak\Policies;
 
-use Everest\Models\User;
-use Everest\Models\Server;
+use DarkOak\Models\User;
+use DarkOak\Models\Server;
 
 class ServerPolicy
 {
@@ -42,3 +42,4 @@ class ServerPolicy
         // do nothing
     }
 }
+

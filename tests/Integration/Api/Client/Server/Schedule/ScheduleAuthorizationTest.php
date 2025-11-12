@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Tests\Integration\Api\Client\Server\Schedule;
+namespace DarkOak\Tests\Integration\Api\Client\Server\Schedule;
 
-use Everest\Models\Subuser;
-use Everest\Models\Schedule;
-use Everest\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
+use DarkOak\Models\Subuser;
+use DarkOak\Models\Schedule;
+use DarkOak\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 
 class ScheduleAuthorizationTest extends ClientApiIntegrationTestCase
 {
@@ -65,3 +65,4 @@ class ScheduleAuthorizationTest extends ClientApiIntegrationTestCase
         ];
     }
 }
+

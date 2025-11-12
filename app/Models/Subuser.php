@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Models;
+namespace DarkOak\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -13,8 +13,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property array $permissions
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @property \Everest\Models\User $user
- * @property \Everest\Models\Server $server
+ * @property \DarkOak\Models\User $user
+ * @property \DarkOak\Models\Server $server
  */
 class Subuser extends Model
 {
@@ -84,3 +84,4 @@ class Subuser extends Model
         return $this->hasMany(Permission::class);
     }
 }
+

@@ -1,18 +1,18 @@
 <?php
 
-namespace Everest\Services\Databases;
+namespace DarkOak\Services\Databases;
 
 use Exception;
-use Everest\Models\Server;
-use Everest\Models\Database;
-use Everest\Helpers\Utilities;
+use DarkOak\Models\Server;
+use DarkOak\Models\Database;
+use DarkOak\Helpers\Utilities;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Contracts\Encryption\Encrypter;
-use Everest\Extensions\DynamicDatabaseConnection;
-use Everest\Repositories\Eloquent\DatabaseRepository;
-use Everest\Exceptions\Repository\DuplicateDatabaseNameException;
-use Everest\Exceptions\Service\Database\TooManyDatabasesException;
-use Everest\Exceptions\Service\Database\DatabaseClientFeatureNotEnabledException;
+use DarkOak\Extensions\DynamicDatabaseConnection;
+use DarkOak\Repositories\Eloquent\DatabaseRepository;
+use DarkOak\Exceptions\Repository\DuplicateDatabaseNameException;
+use DarkOak\Exceptions\Service\Database\TooManyDatabasesException;
+use DarkOak\Exceptions\Service\Database\DatabaseClientFeatureNotEnabledException;
 
 class DatabaseManagementService
 {
@@ -20,7 +20,7 @@ class DatabaseManagementService
      * The regex used to validate that the database name passed through to the function is
      * in the expected format.
      *
-     * @see \Everest\Services\Databases\DatabaseManagementService::generateUniqueDatabaseName()
+     * @see \DarkOak\Services\Databases\DatabaseManagementService::generateUniqueDatabaseName()
      */
     private const MATCH_NAME_REGEX = '/^(s[\d]+_)(.*)$/';
 
@@ -66,12 +66,12 @@ class DatabaseManagementService
      * Create a new database that is linked to a specific host.
      *
      * @throws \Throwable
-     * @throws \Everest\Exceptions\Service\Database\TooManyDatabasesException
-     * @throws \Everest\Exceptions\Service\Database\DatabaseClientFeatureNotEnabledException
+     * @throws \DarkOak\Exceptions\Service\Database\TooManyDatabasesException
+     * @throws \DarkOak\Exceptions\Service\Database\DatabaseClientFeatureNotEnabledException
      */
     public function create(Server $server, array $data): Database
     {
-        if (!config('everest.client_features.databases.enabled')) {
+        if (!config('DarkOak.client_features.databases.enabled')) {
             throw new DatabaseClientFeatureNotEnabledException();
         }
 
@@ -154,7 +154,7 @@ class DatabaseManagementService
      * have the same name across multiple hosts, for the sake of keeping this logic easy to understand
      * and avoiding user confusion we will ignore the specific host and just look across all hosts.
      *
-     * @throws \Everest\Exceptions\Repository\DuplicateDatabaseNameException
+     * @throws \DarkOak\Exceptions\Repository\DuplicateDatabaseNameException
      * @throws \Throwable
      */
     protected function createModel(array $data): Database
@@ -173,3 +173,4 @@ class DatabaseManagementService
         return $database;
     }
 }
+

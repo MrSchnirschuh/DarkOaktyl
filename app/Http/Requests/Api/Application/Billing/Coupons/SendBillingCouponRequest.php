@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Billing\Coupons;
+namespace DarkOak\Http\Requests\Api\Application\Billing\Coupons;
 
-use Everest\Models\AdminRole;
+use DarkOak\Models\AdminRole;
 use Illuminate\Validation\Validator;
-use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class SendBillingCouponRequest extends ApplicationApiRequest
 {
@@ -62,3 +62,4 @@ class SendBillingCouponRequest extends ApplicationApiRequest
         });
     }
 }
+

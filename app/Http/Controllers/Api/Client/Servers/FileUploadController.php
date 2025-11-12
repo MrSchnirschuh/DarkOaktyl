@@ -1,14 +1,14 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Client\Servers;
+namespace DarkOak\Http\Controllers\Api\Client\Servers;
 
-use Everest\Models\User;
-use Everest\Models\Server;
+use DarkOak\Models\User;
+use DarkOak\Models\Server;
 use Carbon\CarbonImmutable;
 use Illuminate\Http\JsonResponse;
-use Everest\Services\Nodes\NodeJWTService;
-use Everest\Http\Controllers\Api\Client\ClientApiController;
-use Everest\Http\Requests\Api\Client\Servers\Files\UploadFileRequest;
+use DarkOak\Services\Nodes\NodeJWTService;
+use DarkOak\Http\Controllers\Api\Client\ClientApiController;
+use DarkOak\Http\Requests\Api\Client\Servers\Files\UploadFileRequest;
 
 class FileUploadController extends ClientApiController
 {
@@ -52,3 +52,4 @@ class FileUploadController extends ClientApiController
         );
     }
 }
+

@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react';
 
 export default () => {
     const [key, setKey] = useState<string>();
-    const settings = useStoreState(s => s.everest.data!.ai);
+    const settings = useStoreState(s => s.DarkOak.data!.ai);
     const [loading, setLoading] = useState<boolean>(false);
     const { clearFlashes, clearAndAddHttpError } = useFlashKey('admin:ai');
 
@@ -35,10 +35,10 @@ export default () => {
     }, [key]);
 
     return (
-        <Dialog open onClose={() => undefined} preventExternalClose hideCloseIcon title={'Configure Jexactyl AI'}>
+        <Dialog open onClose={() => undefined} preventExternalClose hideCloseIcon title={'Configure DarkOaktyl AI'}>
             <SpinnerOverlay visible={loading} />
             <p className={'text-gray-400'}>
-                In order to use <span style={{ color: theme.primary }}>Jexactyl AI</span>, you must get a Gemini API key
+                In order to use <span style={{ color: theme.primary }}>DarkOaktyl AI</span>, you must get a Gemini API key
                 from Google.
             </p>
             <p className={'text-gray-400 my-2'}>
@@ -70,3 +70,5 @@ export default () => {
         </Dialog>
     );
 };
+
+

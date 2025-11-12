@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Exceptions\Service\Allocation;
+namespace DarkOak\Exceptions\Service\Allocation;
 
-use Everest\Exceptions\DisplayException;
+use DarkOak\Exceptions\DisplayException;
 
 class PortOutOfRangeException extends DisplayException
 {
@@ -14,3 +14,4 @@ class PortOutOfRangeException extends DisplayException
         parent::__construct(trans('exceptions.allocations.port_out_of_range'));
     }
 }
+

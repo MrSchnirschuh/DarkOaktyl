@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Services\Themes;
+namespace DarkOak\Services\Themes;
 
-use Everest\Contracts\Repository\ThemeRepositoryInterface;
-use Everest\Models\EmailTheme;
+use DarkOak\Contracts\Repository\ThemeRepositoryInterface;
+use DarkOak\Models\EmailTheme;
 use Illuminate\Support\Facades\Log;
 
 class ThemePaletteService
@@ -738,3 +738,4 @@ class ThemePaletteService
         }
     }
 }
+

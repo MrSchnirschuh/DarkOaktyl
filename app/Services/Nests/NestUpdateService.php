@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Services\Nests;
+namespace DarkOak\Services\Nests;
 
-use Everest\Contracts\Repository\NestRepositoryInterface;
+use DarkOak\Contracts\Repository\NestRepositoryInterface;
 
 class NestUpdateService
 {
@@ -16,8 +16,8 @@ class NestUpdateService
     /**
      * Update a nest and prevent changing the author once it is set.
      *
-     * @throws \Everest\Exceptions\Model\DataValidationException
-     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
+     * @throws \DarkOak\Exceptions\Model\DataValidationException
+     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
      */
     public function handle(int $nest, array $data): void
     {
@@ -28,3 +28,4 @@ class NestUpdateService
         $this->repository->withoutFreshModel()->update($nest, $data);
     }
 }
+

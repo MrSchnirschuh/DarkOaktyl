@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Repositories\Eloquent;
+namespace DarkOak\Repositories\Eloquent;
 
-use Everest\Models\DatabaseHost;
+use DarkOak\Models\DatabaseHost;
 use Illuminate\Support\Collection;
-use Everest\Contracts\Repository\DatabaseHostRepositoryInterface;
+use DarkOak\Contracts\Repository\DatabaseHostRepositoryInterface;
 
 class DatabaseHostRepository extends EloquentRepository implements DatabaseHostRepositoryInterface
 {
@@ -25,3 +25,4 @@ class DatabaseHostRepository extends EloquentRepository implements DatabaseHostR
         return $this->getBuilder()->withCount('databases')->with('node')->get();
     }
 }
+

@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Servers\Databases;
+namespace DarkOak\Http\Requests\Api\Application\Servers\Databases;
 
-use Everest\Models\AdminRole;
+use DarkOak\Models\AdminRole;
 
 class ServerDatabaseWriteRequest extends GetServerDatabasesRequest
 {
@@ -11,3 +11,4 @@ class ServerDatabaseWriteRequest extends GetServerDatabasesRequest
         return AdminRole::SERVERS_UPDATE;
     }
 }
+

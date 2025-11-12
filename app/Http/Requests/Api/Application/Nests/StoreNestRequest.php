@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Nests;
+namespace DarkOak\Http\Requests\Api\Application\Nests;
 
-use Everest\Models\Nest;
-use Everest\Models\AdminRole;
-use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
+use DarkOak\Models\Nest;
+use DarkOak\Models\AdminRole;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class StoreNestRequest extends ApplicationApiRequest
 {
@@ -18,3 +18,4 @@ class StoreNestRequest extends ApplicationApiRequest
         return AdminRole::NESTS_CREATE;
     }
 }
+

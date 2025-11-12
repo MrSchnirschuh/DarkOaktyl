@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Billing\Resources;
+namespace DarkOak\Http\Requests\Api\Application\Billing\Resources;
 
-use Everest\Models\AdminRole;
-use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
+use DarkOak\Models\AdminRole;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 use Illuminate\Validation\Rule;
 
 class StoreResourcePriceRequest extends ApplicationApiRequest
@@ -49,3 +49,4 @@ class StoreResourcePriceRequest extends ApplicationApiRequest
         parent::prepareForValidation();
     }
 }
+

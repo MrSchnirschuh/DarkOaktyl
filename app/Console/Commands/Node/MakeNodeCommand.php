@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Console\Commands\Node;
+namespace DarkOak\Console\Commands\Node;
 
 use Illuminate\Console\Command;
-use Everest\Services\Nodes\NodeCreationService;
+use DarkOak\Services\Nodes\NodeCreationService;
 
 class MakeNodeCommand extends Command
 {
@@ -37,7 +37,7 @@ class MakeNodeCommand extends Command
     /**
      * Handle the command execution process.
      *
-     * @throws \Everest\Exceptions\Model\DataValidationException
+     * @throws \DarkOak\Exceptions\Model\DataValidationException
      */
     public function handle()
     {
@@ -59,9 +59,11 @@ class MakeNodeCommand extends Command
         $data['upload_size'] = $this->option('uploadSize') ?? $this->ask('Enter the maximum filesize upload', '100');
         $data['daemonListen'] = $this->option('daemonListeningPort') ?? $this->ask('Enter the wings listening port', '8080');
         $data['daemonSFTP'] = $this->option('daemonSFTPPort') ?? $this->ask('Enter the wings SFTP listening port', '2022');
-        $data['daemonBase'] = $this->option('daemonBase') ?? $this->ask('Enter the base folder', '/var/lib/pterodactyl/volumes');
+        $data['daemonBase'] = $this->option('daemonBase') ?? $this->ask('Enter the base folder', '/var/lib/DarkOaktyl/volumes');
 
         $node = $this->creationService->handle($data);
         $this->line('Successfully created a new node with name ' . $data['name'] . '.');
     }
 }
+
+

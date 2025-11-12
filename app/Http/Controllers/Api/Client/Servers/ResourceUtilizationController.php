@@ -1,14 +1,14 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Client\Servers;
+namespace DarkOak\Http\Controllers\Api\Client\Servers;
 
 use Carbon\Carbon;
-use Everest\Models\Server;
+use DarkOak\Models\Server;
 use Illuminate\Cache\Repository;
-use Everest\Transformers\Api\Client\StatsTransformer;
-use Everest\Repositories\Wings\DaemonServerRepository;
-use Everest\Http\Controllers\Api\Client\ClientApiController;
-use Everest\Http\Requests\Api\Client\Servers\GetServerRequest;
+use DarkOak\Transformers\Api\Client\StatsTransformer;
+use DarkOak\Repositories\Wings\DaemonServerRepository;
+use DarkOak\Http\Controllers\Api\Client\ClientApiController;
+use DarkOak\Http\Requests\Api\Client\Servers\GetServerRequest;
 
 class ResourceUtilizationController extends ClientApiController
 {
@@ -25,7 +25,7 @@ class ResourceUtilizationController extends ClientApiController
      * 20 seconds at a time to ensure that repeated requests to this endpoint do not cause
      * a flood of unnecessary API calls.
      *
-     * @throws \Everest\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws \DarkOak\Exceptions\Http\Connection\DaemonConnectionException
      */
     public function __invoke(GetServerRequest $request, Server $server): array
     {
@@ -39,3 +39,4 @@ class ResourceUtilizationController extends ClientApiController
             ->toArray();
     }
 }
+

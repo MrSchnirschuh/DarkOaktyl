@@ -1,23 +1,23 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Billing;
+namespace DarkOak\Http\Controllers\Api\Application\Billing;
 
-use Everest\Facades\Activity;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
-use Everest\Models\Billing\ResourcePrice;
+use DarkOak\Models\Billing\ResourcePrice;
 use Spatie\QueryBuilder\QueryBuilder;
-use Everest\Transformers\Api\Application\ResourcePriceTransformer;
-use Everest\Exceptions\Http\QueryValueOutOfRangeHttpException;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
-use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
-use Everest\Http\Requests\Api\Application\Billing\Resources\GetResourcePriceRequest;
-use Everest\Http\Requests\Api\Application\Billing\Resources\GetResourcePricesRequest;
-use Everest\Http\Requests\Api\Application\Billing\Resources\StoreResourcePriceRequest;
-use Everest\Http\Requests\Api\Application\Billing\Resources\UpdateResourcePriceRequest;
-use Everest\Http\Requests\Api\Application\Billing\Resources\DeleteResourcePriceRequest;
+use DarkOak\Transformers\Api\Application\ResourcePriceTransformer;
+use DarkOak\Exceptions\Http\QueryValueOutOfRangeHttpException;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
+use DarkOak\Http\Requests\Api\Application\Billing\Resources\GetResourcePriceRequest;
+use DarkOak\Http\Requests\Api\Application\Billing\Resources\GetResourcePricesRequest;
+use DarkOak\Http\Requests\Api\Application\Billing\Resources\StoreResourcePriceRequest;
+use DarkOak\Http\Requests\Api\Application\Billing\Resources\UpdateResourcePriceRequest;
+use DarkOak\Http\Requests\Api\Application\Billing\Resources\DeleteResourcePriceRequest;
 
 class ResourcePriceController extends ApplicationApiController
 {
@@ -214,3 +214,4 @@ class ResourcePriceController extends ApplicationApiController
         }
     }
 }
+

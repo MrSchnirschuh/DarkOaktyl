@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Services\Eggs\Sharing;
+namespace DarkOak\Services\Eggs\Sharing;
 
 use Carbon\Carbon;
-use Everest\Models\Egg;
-use Everest\Models\EggVariable;
+use DarkOak\Models\Egg;
+use DarkOak\Models\EggVariable;
 use Illuminate\Support\Collection;
-use Everest\Contracts\Repository\EggRepositoryInterface;
+use DarkOak\Contracts\Repository\EggRepositoryInterface;
 
 class EggExporterService
 {
@@ -20,14 +20,14 @@ class EggExporterService
     /**
      * Return a JSON representation of an egg and its variables.
      *
-     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
+     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
      */
     public function handle(int $egg): string
     {
         $egg = $this->repository->getWithExportAttributes($egg);
 
         $struct = [
-            '_comment' => 'DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY PTERODACTYL PANEL - PTERODACTYL.IO',
+            '_comment' => 'DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY DarkOaktyl PANEL - DarkOaktyl.IO',
             'meta' => [
                 'version' => Egg::EXPORT_VERSION,
                 'update_url' => $egg->update_url,
@@ -65,3 +65,5 @@ class EggExporterService
         return json_encode($struct, JSON_PRETTY_PRINT);
     }
 }
+
+

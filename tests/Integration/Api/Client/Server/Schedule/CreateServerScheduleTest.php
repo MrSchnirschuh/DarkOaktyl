@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Tests\Integration\Api\Client\Server\Schedule;
+namespace DarkOak\Tests\Integration\Api\Client\Server\Schedule;
 
-use Everest\Models\Schedule;
+use DarkOak\Models\Schedule;
 use Illuminate\Http\Response;
-use Everest\Models\Permission;
-use Everest\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
+use DarkOak\Models\Permission;
+use DarkOak\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 
 class CreateServerScheduleTest extends ClientApiIntegrationTestCase
 {
@@ -32,7 +32,7 @@ class CreateServerScheduleTest extends ClientApiIntegrationTestCase
 
         $this->assertNotNull($id = $response->json('attributes.id'));
 
-        /** @var \Everest\Models\Schedule $schedule */
+        /** @var \DarkOak\Models\Schedule $schedule */
         $schedule = Schedule::query()->findOrFail($id);
         $this->assertFalse($schedule->is_active);
         $this->assertFalse($schedule->is_processing);
@@ -94,3 +94,4 @@ class CreateServerScheduleTest extends ClientApiIntegrationTestCase
         return [[[]], [[Permission::ACTION_SCHEDULE_CREATE]]];
     }
 }
+

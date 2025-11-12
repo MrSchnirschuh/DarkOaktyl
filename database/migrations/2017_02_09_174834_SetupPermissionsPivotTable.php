@@ -1,7 +1,7 @@
 <?php
 
-use Everest\Models\Subuser;
-use Everest\Models\Permission;
+use DarkOak\Models\Subuser;
+use DarkOak\Models\Permission;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -67,3 +67,4 @@ class SetupPermissionsPivotTable extends Migration
         });
     }
 }
+

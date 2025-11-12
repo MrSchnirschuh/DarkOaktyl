@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Services\Eggs;
+namespace DarkOak\Services\Eggs;
 
-use Everest\Models\Server;
+use DarkOak\Models\Server;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Everest\Services\Servers\ServerConfigurationStructureService;
+use DarkOak\Services\Servers\ServerConfigurationStructureService;
 
 class EggConfigurationService
 {
@@ -92,7 +92,7 @@ class EggConfigurationService
             // of egg creation/update, but it isn't so this check will at least prevent a
             // 500 error which would crash the entire Wings boot process.
             //
-            // @see https://github.com/pterodactyl/panel/issues/3055
+            // @see https://github.com/DarkOaktyl/panel/issues/3055
             if (!is_object($data) || !isset($data->find)) {
                 continue;
             }
@@ -243,3 +243,5 @@ class EggConfigurationService
         return $clone;
     }
 }
+
+

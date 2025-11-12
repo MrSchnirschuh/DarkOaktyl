@@ -1,13 +1,13 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Client\Billing;
+namespace DarkOak\Http\Controllers\Api\Client\Billing;
 
 use Illuminate\Http\Request;
-use Everest\Models\Billing\Order;
+use DarkOak\Models\Billing\Order;
 use Spatie\QueryBuilder\QueryBuilder;
-use Everest\Transformers\Api\Client\OrderTransformer;
-use Everest\Http\Controllers\Api\Client\ClientApiController;
-use Everest\Exceptions\Http\QueryValueOutOfRangeHttpException;
+use DarkOak\Transformers\Api\Client\OrderTransformer;
+use DarkOak\Http\Controllers\Api\Client\ClientApiController;
+use DarkOak\Exceptions\Http\QueryValueOutOfRangeHttpException;
 
 class OrderController extends ClientApiController
 {
@@ -51,3 +51,4 @@ class OrderController extends ClientApiController
             ->toArray();
     }
 }
+

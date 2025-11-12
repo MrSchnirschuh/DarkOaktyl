@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Models\Billing;
+namespace DarkOak\Models\Billing;
 
-use Everest\Models\Model;
+use DarkOak\Models\Model;
 use Illuminate\Support\Str;
 
 /**
@@ -62,3 +62,4 @@ class BillingTerm extends Model
         return 'uuid';
     }
 }
+

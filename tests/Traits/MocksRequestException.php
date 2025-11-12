@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Tests\Traits;
+namespace DarkOak\Tests\Traits;
 
 use Mockery\Mock;
 use Mockery\MockInterface;
@@ -29,3 +29,4 @@ trait MocksRequestException
         return $this->exception ?? $this->exception = \Mockery::mock($abstract);
     }
 }
+

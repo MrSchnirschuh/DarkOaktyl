@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Repositories\Eloquent;
+namespace DarkOak\Repositories\Eloquent;
 
-use Everest\Models\ServerVariable;
-use Everest\Contracts\Repository\ServerVariableRepositoryInterface;
+use DarkOak\Models\ServerVariable;
+use DarkOak\Contracts\Repository\ServerVariableRepositoryInterface;
 
 class ServerVariableRepository extends EloquentRepository implements ServerVariableRepositoryInterface
 {
@@ -15,3 +15,4 @@ class ServerVariableRepository extends EloquentRepository implements ServerVaria
         return ServerVariable::class;
     }
 }
+

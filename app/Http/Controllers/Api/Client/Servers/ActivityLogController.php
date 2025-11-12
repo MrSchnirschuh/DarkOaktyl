@@ -1,18 +1,18 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Client\Servers;
+namespace DarkOak\Http\Controllers\Api\Client\Servers;
 
-use Everest\Models\User;
-use Everest\Models\Server;
-use Everest\Models\Permission;
-use Everest\Models\ActivityLog;
+use DarkOak\Models\User;
+use DarkOak\Models\Server;
+use DarkOak\Models\Permission;
+use DarkOak\Models\ActivityLog;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\JoinClause;
-use Everest\Http\Requests\Api\Client\ClientApiRequest;
-use Everest\Transformers\Api\Client\ActivityLogTransformer;
-use Everest\Http\Controllers\Api\Client\ClientApiController;
+use DarkOak\Http\Requests\Api\Client\ClientApiRequest;
+use DarkOak\Transformers\Api\Client\ActivityLogTransformer;
+use DarkOak\Http\Controllers\Api\Client\ClientApiController;
 
 class ActivityLogController extends ClientApiController
 {
@@ -52,3 +52,4 @@ class ActivityLogController extends ClientApiController
             ->toArray();
     }
 }
+

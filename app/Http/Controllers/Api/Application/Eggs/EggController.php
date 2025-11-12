@@ -1,24 +1,24 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Eggs;
+namespace DarkOak\Http\Controllers\Api\Application\Eggs;
 
 use Ramsey\Uuid\Uuid;
-use Everest\Models\Egg;
-use Everest\Models\Nest;
-use Everest\Facades\Activity;
+use DarkOak\Models\Egg;
+use DarkOak\Models\Nest;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Spatie\QueryBuilder\QueryBuilder;
-use Everest\Services\Eggs\Sharing\EggExporterService;
-use Everest\Transformers\Api\Application\EggTransformer;
-use Everest\Http\Requests\Api\Application\Eggs\GetEggRequest;
-use Everest\Exceptions\Http\QueryValueOutOfRangeHttpException;
-use Everest\Http\Requests\Api\Application\Eggs\GetEggsRequest;
-use Everest\Http\Requests\Api\Application\Eggs\StoreEggRequest;
-use Everest\Http\Requests\Api\Application\Eggs\DeleteEggRequest;
-use Everest\Http\Requests\Api\Application\Eggs\ExportEggRequest;
-use Everest\Http\Requests\Api\Application\Eggs\UpdateEggRequest;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Services\Eggs\Sharing\EggExporterService;
+use DarkOak\Transformers\Api\Application\EggTransformer;
+use DarkOak\Http\Requests\Api\Application\Eggs\GetEggRequest;
+use DarkOak\Exceptions\Http\QueryValueOutOfRangeHttpException;
+use DarkOak\Http\Requests\Api\Application\Eggs\GetEggsRequest;
+use DarkOak\Http\Requests\Api\Application\Eggs\StoreEggRequest;
+use DarkOak\Http\Requests\Api\Application\Eggs\DeleteEggRequest;
+use DarkOak\Http\Requests\Api\Application\Eggs\ExportEggRequest;
+use DarkOak\Http\Requests\Api\Application\Eggs\UpdateEggRequest;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
 
 class EggController extends ApplicationApiController
 {
@@ -73,7 +73,7 @@ class EggController extends ApplicationApiController
         $merged = array_merge($validated, [
             'uuid' => Uuid::uuid4()->toString(),
             // TODO: allow this to be set in the request, and default to config value if null or not present.
-            'author' => config('everest.service.author'),
+            'author' => config('DarkOak.service.author'),
         ]);
 
         $egg = Egg::query()->create($merged);
@@ -126,7 +126,7 @@ class EggController extends ApplicationApiController
     /**
      * Exports an egg.
      *
-     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
+     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
      */
     public function export(ExportEggRequest $request, int $eggId): JsonResponse
     {
@@ -138,3 +138,4 @@ class EggController extends ApplicationApiController
         return new JsonResponse($this->eggExporterService->handle($eggId));
     }
 }
+

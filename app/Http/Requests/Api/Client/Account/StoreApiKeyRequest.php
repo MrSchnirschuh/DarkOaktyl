@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Client\Account;
+namespace DarkOak\Http\Requests\Api\Client\Account;
 
 use IPTools\Range;
-use Everest\Models\ApiKey;
+use DarkOak\Models\ApiKey;
 use Illuminate\Validation\Validator;
-use Everest\Http\Requests\Api\Client\ClientApiRequest;
+use DarkOak\Http\Requests\Api\Client\ClientApiRequest;
 
 class StoreApiKeyRequest extends ClientApiRequest
 {
@@ -45,3 +45,4 @@ class StoreApiKeyRequest extends ClientApiRequest
         });
     }
 }
+

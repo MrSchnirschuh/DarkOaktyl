@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Exceptions\Http\Server;
+namespace DarkOak\Exceptions\Http\Server;
 
-use Everest\Exceptions\DisplayException;
+use DarkOak\Exceptions\DisplayException;
 
 class FileSizeTooLargeException extends DisplayException
 {
@@ -14,3 +14,4 @@ class FileSizeTooLargeException extends DisplayException
         parent::__construct('The file you are attempting to open is too large to view in the file editor.');
     }
 }
+

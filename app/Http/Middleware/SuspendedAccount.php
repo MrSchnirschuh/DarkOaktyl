@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Http\Middleware;
+namespace DarkOak\Http\Middleware;
 
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -21,3 +21,4 @@ class SuspendedAccount
         return $next($request);
     }
 }
+

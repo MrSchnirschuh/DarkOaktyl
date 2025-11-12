@@ -1,13 +1,13 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Client\Billing;
+namespace DarkOak\Http\Controllers\Api\Client\Billing;
 
 use Illuminate\Support\Facades\Cache;
-use Everest\Models\Billing\Product;
-use Everest\Models\Billing\Category;
-use Everest\Models\Billing\BillingException;
-use Everest\Transformers\Api\Client\ProductTransformer;
-use Everest\Http\Controllers\Api\Client\ClientApiController;
+use DarkOak\Models\Billing\Product;
+use DarkOak\Models\Billing\Category;
+use DarkOak\Models\Billing\BillingException;
+use DarkOak\Transformers\Api\Client\ProductTransformer;
+use DarkOak\Http\Controllers\Api\Client\ClientApiController;
 
 class ProductController extends ClientApiController
 {
@@ -66,3 +66,4 @@ class ProductController extends ClientApiController
             ->toArray();
     }
 }
+

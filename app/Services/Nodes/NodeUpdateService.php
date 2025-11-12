@@ -1,16 +1,16 @@
 <?php
 
-namespace Everest\Services\Nodes;
+namespace DarkOak\Services\Nodes;
 
-use Everest\Models\Node;
+use DarkOak\Models\Node;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Contracts\Encryption\Encrypter;
-use Everest\Repositories\Eloquent\NodeRepository;
-use Everest\Repositories\Wings\DaemonConfigurationRepository;
-use Everest\Exceptions\Http\Connection\DaemonConnectionException;
-use Everest\Exceptions\Service\Node\ConfigurationNotPersistedException;
+use DarkOak\Repositories\Eloquent\NodeRepository;
+use DarkOak\Repositories\Wings\DaemonConfigurationRepository;
+use DarkOak\Exceptions\Http\Connection\DaemonConnectionException;
+use DarkOak\Exceptions\Service\Node\ConfigurationNotPersistedException;
 
 class NodeUpdateService
 {
@@ -38,7 +38,7 @@ class NodeUpdateService
         }
 
         [$updated, $exception] = $this->connection->transaction(function () use ($data, $node) {
-            /** @var \Everest\Models\Node $updated */
+            /** @var \DarkOak\Models\Node $updated */
             $updated = $this->repository->withFreshModel()->update($node->id, $data, true, true);
 
             try {
@@ -50,7 +50,7 @@ class NodeUpdateService
                 // This makes more sense anyways, because only the Panel uses the FQDN for connecting, the
                 // node doesn't actually care about this.
                 //
-                // @see https://github.com/pterodactyl/panel/issues/1931
+                // @see https://github.com/DarkOaktyl/panel/issues/1931
                 $node->fqdn = $updated->fqdn;
 
                 $this->configurationRepository->setNode($node)->update($updated);
@@ -64,7 +64,7 @@ class NodeUpdateService
                 // This avoids issues with proxies such as Cloudflare which will see Wings as offline and then
                 // inject their own response pages, causing this logic to get fucked up.
                 //
-                // @see https://github.com/pterodactyl/panel/issues/2712
+                // @see https://github.com/DarkOaktyl/panel/issues/2712
                 return [$updated, true];
             }
 
@@ -78,3 +78,5 @@ class NodeUpdateService
         return $updated;
     }
 }
+
+

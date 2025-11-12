@@ -1,19 +1,19 @@
 <?php
 
-namespace Everest\Http\Controllers\Auth;
+namespace DarkOak\Http\Controllers\Auth;
 
-use Everest\Models\User;
+use DarkOak\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\JsonResponse;
-use Everest\Exceptions\DisplayException;
-use Everest\Http\Controllers\Controller;
+use DarkOak\Exceptions\DisplayException;
+use DarkOak\Http\Controllers\Controller;
 use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Foundation\Auth\ResetsPasswords;
-use Everest\Http\Requests\Auth\ResetPasswordRequest;
-use Everest\Contracts\Repository\UserRepositoryInterface;
+use DarkOak\Http\Requests\Auth\ResetPasswordRequest;
+use DarkOak\Contracts\Repository\UserRepositoryInterface;
 
 class ResetPasswordController extends Controller
 {
@@ -39,7 +39,7 @@ class ResetPasswordController extends Controller
     /**
      * Reset the given user's password.
      *
-     * @throws \Everest\Exceptions\DisplayException
+     * @throws \DarkOak\Exceptions\DisplayException
      */
     public function __invoke(ResetPasswordRequest $request): JsonResponse
     {
@@ -70,8 +70,8 @@ class ResetPasswordController extends Controller
      *
      * @param string $password
      *
-     * @throws \Everest\Exceptions\Model\DataValidationException
-     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
+     * @throws \DarkOak\Exceptions\Model\DataValidationException
+     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
      */
     protected function resetPassword(User $user, $password)
     {
@@ -103,3 +103,4 @@ class ResetPasswordController extends Controller
         ]);
     }
 }
+

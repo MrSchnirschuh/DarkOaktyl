@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Client\Servers\Schedules;
+namespace DarkOak\Http\Requests\Api\Client\Servers\Schedules;
 
-use Everest\Models\Schedule;
-use Everest\Models\Permission;
+use DarkOak\Models\Schedule;
+use DarkOak\Models\Permission;
 
 class StoreScheduleRequest extends ViewScheduleRequest
 {
@@ -26,3 +26,4 @@ class StoreScheduleRequest extends ViewScheduleRequest
         ];
     }
 }
+

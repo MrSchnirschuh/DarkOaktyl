@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Transformers\Api\Application;
+namespace DarkOak\Transformers\Api\Application;
 
-use Everest\Models\Billing\Category;
+use DarkOak\Models\Billing\Category;
 use League\Fractal\Resource\Collection;
-use Everest\Transformers\Api\Transformer;
+use DarkOak\Transformers\Api\Transformer;
 use League\Fractal\Resource\NullResource;
 
 class CategoryTransformer extends Transformer
@@ -51,3 +51,4 @@ class CategoryTransformer extends Transformer
         return $this->collection($category->products, new ProductTransformer());
     }
 }
+

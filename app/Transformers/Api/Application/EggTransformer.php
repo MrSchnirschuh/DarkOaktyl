@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Transformers\Api\Application;
+namespace DarkOak\Transformers\Api\Application;
 
-use Everest\Models\Egg;
+use DarkOak\Models\Egg;
 use League\Fractal\Resource\Item;
-use Everest\Services\Acl\Api\AdminAcl;
+use DarkOak\Services\Acl\Api\AdminAcl;
 use League\Fractal\Resource\Collection;
-use Everest\Transformers\Api\Transformer;
+use DarkOak\Transformers\Api\Transformer;
 use League\Fractal\Resource\NullResource;
 
 class EggTransformer extends Transformer
@@ -148,3 +148,4 @@ class EggTransformer extends Transformer
         return $this->collection($model->variables, new EggVariableTransformer());
     }
 }
+

@@ -1,13 +1,13 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Servers;
+namespace DarkOak\Http\Controllers\Api\Application\Servers;
 
-use Everest\Models\User;
-use Everest\Models\Server;
-use Everest\Services\Servers\StartupModificationService;
-use Everest\Transformers\Api\Application\ServerTransformer;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
-use Everest\Http\Requests\Api\Application\Servers\UpdateServerStartupRequest;
+use DarkOak\Models\User;
+use DarkOak\Models\Server;
+use DarkOak\Services\Servers\StartupModificationService;
+use DarkOak\Transformers\Api\Application\ServerTransformer;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Http\Requests\Api\Application\Servers\UpdateServerStartupRequest;
 
 class StartupController extends ApplicationApiController
 {
@@ -35,3 +35,4 @@ class StartupController extends ApplicationApiController
             ->toArray();
     }
 }
+

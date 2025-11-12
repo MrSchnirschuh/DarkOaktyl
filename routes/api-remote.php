@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Everest\Http\Controllers\Api\Remote;
+use DarkOak\Http\Controllers\Api\Remote;
 
 // Routes for the Wings daemon.
 Route::post('/sftp/auth', Remote\SftpAuthenticationController::class);
@@ -26,3 +26,4 @@ Route::group(['prefix' => '/backups'], function () {
     Route::post('/{backup}', [Remote\Backups\BackupStatusController::class, 'index']);
     Route::post('/{backup}/restore', [Remote\Backups\BackupStatusController::class, 'restore']);
 });
+

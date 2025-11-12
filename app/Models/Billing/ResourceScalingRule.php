@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Models\Billing;
+namespace DarkOak\Models\Billing;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Everest\Models\Model;
+use DarkOak\Models\Model;
 
 /**
  * @property int $id
@@ -43,3 +43,4 @@ class ResourceScalingRule extends Model
         return $this->belongsTo(ResourcePrice::class, 'resource_price_id');
     }
 }
+

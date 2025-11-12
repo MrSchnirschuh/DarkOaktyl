@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Exceptions\Service;
+namespace DarkOak\Exceptions\Service;
 
-use Everest\Exceptions\DisplayException;
+use DarkOak\Exceptions\DisplayException;
 
 class ServiceLimitExceededException extends DisplayException
 {
@@ -15,3 +15,4 @@ class ServiceLimitExceededException extends DisplayException
         parent::__construct($message, $previous, self::LEVEL_WARNING);
     }
 }
+

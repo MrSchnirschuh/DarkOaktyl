@@ -1,18 +1,18 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Client;
+namespace DarkOak\Http\Controllers\Api\Client;
 
 use Illuminate\Http\Request;
-use Everest\Facades\Activity;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\JsonResponse;
-use Everest\Services\Users\UserUpdateService;
-use Everest\Transformers\Api\Client\AccountTransformer;
-use Everest\Http\Requests\Api\Client\Account\SetupUserRequest;
-use Everest\Http\Requests\Api\Client\Account\UpdateEmailRequest;
-use Everest\Http\Requests\Api\Client\Account\UpdatePasswordRequest;
-use Everest\Http\Requests\Api\Client\Account\UpdateAppearanceRequest;
+use DarkOak\Services\Users\UserUpdateService;
+use DarkOak\Transformers\Api\Client\AccountTransformer;
+use DarkOak\Http\Requests\Api\Client\Account\SetupUserRequest;
+use DarkOak\Http\Requests\Api\Client\Account\UpdateEmailRequest;
+use DarkOak\Http\Requests\Api\Client\Account\UpdatePasswordRequest;
+use DarkOak\Http\Requests\Api\Client\Account\UpdateAppearanceRequest;
 
 class AccountController extends ClientApiController
 {
@@ -100,3 +100,4 @@ class AccountController extends ClientApiController
         return new JsonResponse([], Response::HTTP_NO_CONTENT);
     }
 }
+

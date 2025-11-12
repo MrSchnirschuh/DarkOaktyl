@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Mail;
+namespace DarkOak\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
@@ -32,3 +32,4 @@ class TemplatedMail extends Mailable
         return $mail;
     }
 }
+

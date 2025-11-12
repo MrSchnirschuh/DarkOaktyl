@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Models;
+namespace DarkOak\Models;
 
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -18,9 +18,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property bool $archived
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @property \Everest\Models\Server $server
- * @property \Everest\Models\Node $oldNode
- * @property \Everest\Models\Node $newNode
+ * @property \DarkOak\Models\Server $server
+ * @property \DarkOak\Models\Node $oldNode
+ * @property \DarkOak\Models\Node $newNode
  */
 class ServerTransfer extends Model
 {
@@ -92,3 +92,4 @@ class ServerTransfer extends Model
         return $this->hasOne(Node::class, 'id', 'new_node');
     }
 }
+

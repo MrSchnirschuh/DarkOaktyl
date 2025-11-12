@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Models;
+namespace DarkOak\Models;
 
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Everest\Models\CustomLink.
+ * DarkOak\Models\CustomLink.
  *
  * @property int $id
  * @property string $url
@@ -56,3 +56,4 @@ class CustomLink extends Model
         'visible' => 'required|bool',
     ];
 }
+

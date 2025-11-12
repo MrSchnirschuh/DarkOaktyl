@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Providers;
+namespace DarkOak\Providers;
 
-use Everest\Models;
-use Everest\Models\User;
+use DarkOak\Models;
+use DarkOak\Models\User;
 use Illuminate\Support\Str;
 use Laravel\Cashier\Cashier;
 use Illuminate\Support\Facades\URL;
@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
         // this should just work with the proxy logic, but there are a lot of cases where it
         // doesn't, and it triggers a lot of support requests, so lets just head it off here.
         //
-        // @see https://github.com/pterodactyl/panel/issues/3623
+        // @see https://github.com/DarkOaktyl/panel/issues/3623
         if (Str::startsWith(config('app.url') ?? '', 'https://')) {
             URL::forceScheme('https');
         }
@@ -58,9 +58,11 @@ class AppServiceProvider extends ServiceProvider
     {
         // Only load the settings / theme service provider if the environment
         // is configured to allow it.
-        if (!config('everest.load_environment_only', false) && $this->app->environment() !== 'testing') {
+        if (!config('DarkOak.load_environment_only', false) && $this->app->environment() !== 'testing') {
             $this->app->register(SettingsServiceProvider::class);
             $this->app->register(ThemeServiceProvider::class);
         }
     }
 }
+
+

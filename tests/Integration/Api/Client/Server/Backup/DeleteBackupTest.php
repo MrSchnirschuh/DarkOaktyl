@@ -1,15 +1,15 @@
 <?php
 
-namespace Everest\Tests\Integration\Api\Client\Server\Backup;
+namespace DarkOak\Tests\Integration\Api\Client\Server\Backup;
 
-use Everest\Models\Backup;
+use DarkOak\Models\Backup;
 use Mockery\MockInterface;
 use Illuminate\Http\Response;
-use Everest\Models\Permission;
-use Everest\Events\ActivityLogged;
+use DarkOak\Models\Permission;
+use DarkOak\Events\ActivityLogged;
 use Illuminate\Support\Facades\Event;
-use Everest\Repositories\Wings\DaemonBackupRepository;
-use Everest\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
+use DarkOak\Repositories\Wings\DaemonBackupRepository;
+use DarkOak\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 
 class DeleteBackupTest extends ClientApiIntegrationTestCase
 {
@@ -43,7 +43,7 @@ class DeleteBackupTest extends ClientApiIntegrationTestCase
 
         [$user, $server] = $this->generateTestAccount([Permission::ACTION_BACKUP_DELETE]);
 
-        /** @var \Everest\Models\Backup $backup */
+        /** @var \DarkOak\Models\Backup $backup */
         $backup = Backup::factory()->create(['server_id' => $server->id]);
 
         $this->repository->expects('setServer->delete')->with(
@@ -62,3 +62,4 @@ class DeleteBackupTest extends ClientApiIntegrationTestCase
         $this->actingAs($user)->deleteJson($this->link($backup))->assertStatus(Response::HTTP_NOT_FOUND);
     }
 }
+

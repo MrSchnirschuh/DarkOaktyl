@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Contracts\Repository;
+namespace DarkOak\Contracts\Repository;
 
-use Everest\Models\Allocation;
+use DarkOak\Models\Allocation;
 
 interface AllocationRepositoryInterface extends RepositoryInterface
 {
@@ -17,3 +17,4 @@ interface AllocationRepositoryInterface extends RepositoryInterface
      */
     public function getRandomAllocation(array $nodes, array $ports, bool $dedicated = false): ?Allocation;
 }
+

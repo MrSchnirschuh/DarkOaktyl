@@ -1,9 +1,10 @@
 <?php
 
-namespace Everest\Exceptions\Service\Egg;
+namespace DarkOak\Exceptions\Service\Egg;
 
-use Everest\Exceptions\DisplayException;
+use DarkOak\Exceptions\DisplayException;
 
 class BadJsonFormatException extends DisplayException
 {
 }
+

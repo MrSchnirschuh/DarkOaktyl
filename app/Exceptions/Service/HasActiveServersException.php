@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Exceptions\Service;
+namespace DarkOak\Exceptions\Service;
 
 use Illuminate\Http\Response;
-use Everest\Exceptions\DisplayException;
+use DarkOak\Exceptions\DisplayException;
 
 class HasActiveServersException extends DisplayException
 {
@@ -12,3 +12,4 @@ class HasActiveServersException extends DisplayException
         return Response::HTTP_BAD_REQUEST;
     }
 }
+

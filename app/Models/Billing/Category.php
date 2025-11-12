@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Models\Billing;
+namespace DarkOak\Models\Billing;
 
-use Everest\Models\Model;
+use DarkOak\Models\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
@@ -53,3 +53,4 @@ class Category extends Model
         return $this->hasMany(Product::class, 'category_uuid');
     }
 }
+

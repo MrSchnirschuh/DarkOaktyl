@@ -18,7 +18,7 @@ export default () => {
     const [confirm, setConfirm] = useState<boolean>(false);
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const { colors } = useStoreState(state => state.theme.data!);
-    const settings = useStoreState(state => state.everest.data!.auth.modules.discord);
+    const settings = useStoreState(state => state.DarkOak.data!.auth.modules.discord);
 
     const update = async (key: string, value: any) => {
         clearFlashes();
@@ -118,3 +118,4 @@ export default () => {
         </AdminBox>
     );
 };
+

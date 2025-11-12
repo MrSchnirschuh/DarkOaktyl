@@ -1,13 +1,13 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Alerts;
+namespace DarkOak\Http\Controllers\Api\Application\Alerts;
 
 use Ramsey\Uuid\Uuid;
-use Everest\Facades\Activity;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\JsonResponse;
-use Everest\Contracts\Repository\SettingsRepositoryInterface;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
-use Everest\Http\Requests\Api\Application\Alerts\AlertSettingsRequest;
+use DarkOak\Contracts\Repository\SettingsRepositoryInterface;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Http\Requests\Api\Application\Alerts\AlertSettingsRequest;
 
 class AlertController extends ApplicationApiController
 {
@@ -43,3 +43,4 @@ class AlertController extends ApplicationApiController
         return new JsonResponse($uuid);
     }
 }
+

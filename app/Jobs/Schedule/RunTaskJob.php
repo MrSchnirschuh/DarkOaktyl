@@ -1,18 +1,18 @@
 <?php
 
-namespace Everest\Jobs\Schedule;
+namespace DarkOak\Jobs\Schedule;
 
-use Everest\Jobs\Job;
-use Everest\Models\Task;
+use DarkOak\Jobs\Job;
+use DarkOak\Models\Task;
 use Carbon\CarbonImmutable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use Everest\Services\Backups\InitiateBackupService;
-use Everest\Repositories\Wings\DaemonPowerRepository;
-use Everest\Repositories\Wings\DaemonCommandRepository;
-use Everest\Exceptions\Http\Connection\DaemonConnectionException;
+use DarkOak\Services\Backups\InitiateBackupService;
+use DarkOak\Repositories\Wings\DaemonPowerRepository;
+use DarkOak\Repositories\Wings\DaemonCommandRepository;
+use DarkOak\Exceptions\Http\Connection\DaemonConnectionException;
 
 class RunTaskJob extends Job implements ShouldQueue
 {
@@ -98,7 +98,7 @@ class RunTaskJob extends Job implements ShouldQueue
      */
     private function queueNextTask()
     {
-        /** @var \Everest\Models\Task|null $nextTask */
+        /** @var \DarkOak\Models\Task|null $nextTask */
         $nextTask = Task::query()->where('schedule_id', $this->task->schedule_id)
             ->orderBy('sequence_id', 'asc')
             ->where('sequence_id', '>', $this->task->sequence_id)
@@ -134,3 +134,4 @@ class RunTaskJob extends Job implements ShouldQueue
         $this->task->update(['is_queued' => false]);
     }
 }
+

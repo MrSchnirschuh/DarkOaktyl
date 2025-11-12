@@ -1,26 +1,26 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Client\Servers;
+namespace DarkOak\Http\Controllers\Api\Client\Servers;
 
 use Carbon\Carbon;
-use Everest\Models\Server;
-use Everest\Models\Schedule;
+use DarkOak\Models\Server;
+use DarkOak\Models\Schedule;
 use Illuminate\Http\Request;
-use Everest\Facades\Activity;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
-use Everest\Helpers\Utilities;
+use DarkOak\Helpers\Utilities;
 use Illuminate\Http\JsonResponse;
-use Everest\Exceptions\DisplayException;
-use Everest\Repositories\Eloquent\ScheduleRepository;
-use Everest\Services\Schedules\ProcessScheduleService;
-use Everest\Transformers\Api\Client\ScheduleTransformer;
-use Everest\Http\Controllers\Api\Client\ClientApiController;
+use DarkOak\Exceptions\DisplayException;
+use DarkOak\Repositories\Eloquent\ScheduleRepository;
+use DarkOak\Services\Schedules\ProcessScheduleService;
+use DarkOak\Transformers\Api\Client\ScheduleTransformer;
+use DarkOak\Http\Controllers\Api\Client\ClientApiController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Everest\Http\Requests\Api\Client\Servers\Schedules\ViewScheduleRequest;
-use Everest\Http\Requests\Api\Client\Servers\Schedules\StoreScheduleRequest;
-use Everest\Http\Requests\Api\Client\Servers\Schedules\DeleteScheduleRequest;
-use Everest\Http\Requests\Api\Client\Servers\Schedules\UpdateScheduleRequest;
-use Everest\Http\Requests\Api\Client\Servers\Schedules\TriggerScheduleRequest;
+use DarkOak\Http\Requests\Api\Client\Servers\Schedules\ViewScheduleRequest;
+use DarkOak\Http\Requests\Api\Client\Servers\Schedules\StoreScheduleRequest;
+use DarkOak\Http\Requests\Api\Client\Servers\Schedules\DeleteScheduleRequest;
+use DarkOak\Http\Requests\Api\Client\Servers\Schedules\UpdateScheduleRequest;
+use DarkOak\Http\Requests\Api\Client\Servers\Schedules\TriggerScheduleRequest;
 
 class ScheduleController extends ClientApiController
 {
@@ -47,12 +47,12 @@ class ScheduleController extends ClientApiController
     /**
      * Store a new schedule for a server.
      *
-     * @throws \Everest\Exceptions\DisplayException
-     * @throws \Everest\Exceptions\Model\DataValidationException
+     * @throws \DarkOak\Exceptions\DisplayException
+     * @throws \DarkOak\Exceptions\Model\DataValidationException
      */
     public function store(StoreScheduleRequest $request, Server $server): array
     {
-        /** @var \Everest\Models\Schedule $model */
+        /** @var \DarkOak\Models\Schedule $model */
         $model = $this->repository->create([
             'server_id' => $server->id,
             'name' => $request->input('name'),
@@ -95,9 +95,9 @@ class ScheduleController extends ClientApiController
     /**
      * Updates a given schedule with the new data provided.
      *
-     * @throws \Everest\Exceptions\DisplayException
-     * @throws \Everest\Exceptions\Model\DataValidationException
-     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
+     * @throws \DarkOak\Exceptions\DisplayException
+     * @throws \DarkOak\Exceptions\Model\DataValidationException
+     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
      */
     public function update(UpdateScheduleRequest $request, Server $server, Schedule $schedule): array
     {
@@ -118,7 +118,7 @@ class ScheduleController extends ClientApiController
         // Toggle the processing state of the scheduled task when it is enabled or disabled so that an
         // invalid state can be reset without manual database intervention.
         //
-        // @see https://github.com/pterodactyl/panel/issues/2425
+        // @see https://github.com/DarkOaktyl/panel/issues/2425
         if ($schedule->is_active !== $active) {
             $data['is_processing'] = false;
         }
@@ -165,7 +165,7 @@ class ScheduleController extends ClientApiController
     /**
      * Get the next run timestamp based on the cron data provided.
      *
-     * @throws \Everest\Exceptions\DisplayException
+     * @throws \DarkOak\Exceptions\DisplayException
      */
     protected function getNextRunAt(Request $request): Carbon
     {
@@ -182,3 +182,5 @@ class ScheduleController extends ClientApiController
         }
     }
 }
+
+

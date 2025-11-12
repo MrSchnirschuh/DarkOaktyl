@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Repositories\Eloquent;
+namespace DarkOak\Repositories\Eloquent;
 
-use Everest\Models\User;
-use Everest\Models\ApiKey;
+use DarkOak\Models\User;
+use DarkOak\Models\ApiKey;
 use Illuminate\Support\Collection;
-use Everest\Contracts\Repository\ApiKeyRepositoryInterface;
+use DarkOak\Contracts\Repository\ApiKeyRepositoryInterface;
 
 class ApiKeyRepository extends EloquentRepository implements ApiKeyRepositoryInterface
 {
@@ -59,3 +59,4 @@ class ApiKeyRepository extends EloquentRepository implements ApiKeyRepositoryInt
             ->delete();
     }
 }
+

@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Models\Billing;
+namespace DarkOak\Models\Billing;
 
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
@@ -60,3 +60,4 @@ class BillingException extends Model
         });
     }
 }
+

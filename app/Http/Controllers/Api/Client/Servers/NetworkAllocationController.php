@@ -1,21 +1,21 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Client\Servers;
+namespace DarkOak\Http\Controllers\Api\Client\Servers;
 
-use Everest\Models\Server;
-use Everest\Facades\Activity;
-use Everest\Models\Allocation;
+use DarkOak\Models\Server;
+use DarkOak\Facades\Activity;
+use DarkOak\Models\Allocation;
 use Illuminate\Http\JsonResponse;
-use Everest\Exceptions\DisplayException;
-use Everest\Repositories\Eloquent\ServerRepository;
-use Everest\Transformers\Api\Client\AllocationTransformer;
-use Everest\Http\Controllers\Api\Client\ClientApiController;
-use Everest\Services\Allocations\FindAssignableAllocationService;
-use Everest\Http\Requests\Api\Client\Servers\Network\GetNetworkRequest;
-use Everest\Http\Requests\Api\Client\Servers\Network\NewAllocationRequest;
-use Everest\Http\Requests\Api\Client\Servers\Network\DeleteAllocationRequest;
-use Everest\Http\Requests\Api\Client\Servers\Network\UpdateAllocationRequest;
-use Everest\Http\Requests\Api\Client\Servers\Network\SetPrimaryAllocationRequest;
+use DarkOak\Exceptions\DisplayException;
+use DarkOak\Repositories\Eloquent\ServerRepository;
+use DarkOak\Transformers\Api\Client\AllocationTransformer;
+use DarkOak\Http\Controllers\Api\Client\ClientApiController;
+use DarkOak\Services\Allocations\FindAssignableAllocationService;
+use DarkOak\Http\Requests\Api\Client\Servers\Network\GetNetworkRequest;
+use DarkOak\Http\Requests\Api\Client\Servers\Network\NewAllocationRequest;
+use DarkOak\Http\Requests\Api\Client\Servers\Network\DeleteAllocationRequest;
+use DarkOak\Http\Requests\Api\Client\Servers\Network\UpdateAllocationRequest;
+use DarkOak\Http\Requests\Api\Client\Servers\Network\SetPrimaryAllocationRequest;
 
 class NetworkAllocationController extends ClientApiController
 {
@@ -43,8 +43,8 @@ class NetworkAllocationController extends ClientApiController
     /**
      * Set the primary allocation for a server.
      *
-     * @throws \Everest\Exceptions\Model\DataValidationException
-     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
+     * @throws \DarkOak\Exceptions\Model\DataValidationException
+     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
      */
     public function update(UpdateAllocationRequest $request, Server $server, Allocation $allocation): array
     {
@@ -67,8 +67,8 @@ class NetworkAllocationController extends ClientApiController
     /**
      * Set the primary allocation for a server.
      *
-     * @throws \Everest\Exceptions\Model\DataValidationException
-     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
+     * @throws \DarkOak\Exceptions\Model\DataValidationException
+     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
      */
     public function setPrimary(SetPrimaryAllocationRequest $request, Server $server, Allocation $allocation): array
     {
@@ -88,7 +88,7 @@ class NetworkAllocationController extends ClientApiController
      * Set the notes for the allocation for a server.
      *s.
      *
-     * @throws \Everest\Exceptions\DisplayException
+     * @throws \DarkOak\Exceptions\DisplayException
      */
     public function store(NewAllocationRequest $request, Server $server): array
     {
@@ -111,7 +111,7 @@ class NetworkAllocationController extends ClientApiController
     /**
      * Delete an allocation from a server.
      *
-     * @throws \Everest\Exceptions\DisplayException
+     * @throws \DarkOak\Exceptions\DisplayException
      */
     public function delete(DeleteAllocationRequest $request, Server $server, Allocation $allocation): JsonResponse
     {
@@ -138,3 +138,4 @@ class NetworkAllocationController extends ClientApiController
         return new JsonResponse([], JsonResponse::HTTP_NO_CONTENT);
     }
 }
+

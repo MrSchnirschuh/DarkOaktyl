@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Http\Resources\Wings;
+namespace DarkOak\Http\Resources\Wings;
 
-use Everest\Models\Server;
+use DarkOak\Models\Server;
 use Illuminate\Container\Container;
-use Everest\Services\Eggs\EggConfigurationService;
+use DarkOak\Services\Eggs\EggConfigurationService;
 use Illuminate\Http\Resources\Json\ResourceCollection;
-use Everest\Services\Servers\ServerConfigurationStructureService;
+use DarkOak\Services\Servers\ServerConfigurationStructureService;
 
 class ServerConfigurationCollection extends ResourceCollection
 {
@@ -30,3 +30,4 @@ class ServerConfigurationCollection extends ResourceCollection
         })->toArray();
     }
 }
+

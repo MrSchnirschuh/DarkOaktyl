@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Repositories\Eloquent;
+namespace DarkOak\Repositories\Eloquent;
 
-use Everest\Models\EggVariable;
+use DarkOak\Models\EggVariable;
 use Illuminate\Support\Collection;
-use Everest\Contracts\Repository\EggVariableRepositoryInterface;
+use DarkOak\Contracts\Repository\EggVariableRepositoryInterface;
 
 class EggVariableRepository extends EloquentRepository implements EggVariableRepositoryInterface
 {
@@ -29,3 +29,4 @@ class EggVariableRepository extends EloquentRepository implements EggVariableRep
         ])->get($this->getColumns());
     }
 }
+

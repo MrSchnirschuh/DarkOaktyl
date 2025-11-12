@@ -32,9 +32,9 @@ const QuickAction = ({ tooltip, icon, link }: QuickActionProps) => (
 
 export default () => {
     const [open, setOpen] = useState<boolean>(false);
-    const ai = useStoreState(s => s.everest.data!.ai.enabled);
+    const ai = useStoreState(s => s.DarkOak.data!.ai.enabled);
     const enabled = useStoreState(s => s.settings.data!.speed_dial);
-    const tickets = useStoreState(s => s.everest.data!.tickets.enabled);
+    const tickets = useStoreState(s => s.DarkOak.data!.tickets.enabled);
 
     if (!enabled) return <></>;
 
@@ -55,3 +55,4 @@ export default () => {
         </div>
     );
 };
+

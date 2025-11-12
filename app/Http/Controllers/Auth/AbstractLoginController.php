@@ -1,23 +1,23 @@
 <?php
 
-namespace Everest\Http\Controllers\Auth;
+namespace DarkOak\Http\Controllers\Auth;
 
 use Carbon\Carbon;
-use Everest\Models\User;
+use DarkOak\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Auth\Events\Failed;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Container\Container;
-use Everest\Events\Auth\DirectLogin;
+use DarkOak\Events\Auth\DirectLogin;
 use Illuminate\Support\Facades\Event;
-use Everest\Exceptions\DisplayException;
-use Everest\Http\Controllers\Controller;
+use DarkOak\Exceptions\DisplayException;
+use DarkOak\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Authenticatable;
-use Everest\Services\Users\UserCreationService;
+use DarkOak\Services\Users\UserCreationService;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Everest\Contracts\Repository\SettingsRepositoryInterface;
+use DarkOak\Contracts\Repository\SettingsRepositoryInterface;
 
 abstract class AbstractLoginController extends Controller
 {
@@ -140,3 +140,4 @@ abstract class AbstractLoginController extends Controller
         Event::dispatch(new Failed('auth', $user, $credentials));
     }
 }
+

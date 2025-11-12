@@ -20,7 +20,7 @@ function DashboardRouter() {
     const { name } = useStoreState(s => s.settings.data!);
     const theme = useStoreState(state => state.theme.data!);
     const [links, setLinks] = useState<CustomLink[] | null>();
-    const flags = useStoreState(state => state.everest.data!);
+    const flags = useStoreState(state => state.DarkOak.data!);
     const [collapsed, setCollapsed] = usePersistedState<boolean>(`sidebar_user_${user.uuid}`, false);
 
     useEffect(() => {
@@ -146,3 +146,4 @@ function DashboardRouter() {
 }
 
 export default DashboardRouter;
+

@@ -13,7 +13,7 @@ class FixMisnamedOptionTag extends Migration
             DB::table('service_options')->where([
                 ['name', 'Sponge (SpongeVanilla)'],
                 ['tag', 'spigot'],
-                ['docker_image', 'quay.io/pterodactyl/minecraft:sponge'],
+                ['docker_image', 'quay.io/DarkOaktyl/minecraft:sponge'],
             ])->update([
                 'tag' => 'sponge',
             ]);
@@ -28,9 +28,10 @@ class FixMisnamedOptionTag extends Migration
         DB::table('service_options')->where([
             ['name', 'Sponge (SpongeVanilla)'],
             ['tag', 'sponge'],
-            ['docker_image', 'quay.io/pterodactyl/minecraft:sponge'],
+            ['docker_image', 'quay.io/DarkOaktyl/minecraft:sponge'],
         ])->update([
             'tag' => 'spigot',
         ]);
     }
 }
+

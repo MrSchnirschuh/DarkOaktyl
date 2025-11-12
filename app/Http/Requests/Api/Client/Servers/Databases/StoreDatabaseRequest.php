@@ -1,16 +1,16 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Client\Servers\Databases;
+namespace DarkOak\Http\Requests\Api\Client\Servers\Databases;
 
-use Everest\Models\Server;
-use Everest\Models\Database;
+use DarkOak\Models\Server;
+use DarkOak\Models\Database;
 use Webmozart\Assert\Assert;
-use Everest\Models\Permission;
+use DarkOak\Models\Permission;
 use Illuminate\Validation\Rule;
 use Illuminate\Database\Query\Builder;
-use Everest\Contracts\Http\ClientPermissionsRequest;
-use Everest\Http\Requests\Api\Client\ClientApiRequest;
-use Everest\Services\Databases\DatabaseManagementService;
+use DarkOak\Contracts\Http\ClientPermissionsRequest;
+use DarkOak\Http\Requests\Api\Client\ClientApiRequest;
+use DarkOak\Services\Databases\DatabaseManagementService;
 
 class StoreDatabaseRequest extends ClientApiRequest implements ClientPermissionsRequest
 {
@@ -51,3 +51,4 @@ class StoreDatabaseRequest extends ClientApiRequest implements ClientPermissions
         ];
     }
 }
+

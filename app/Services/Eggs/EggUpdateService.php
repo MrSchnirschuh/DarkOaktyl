@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Services\Eggs;
+namespace DarkOak\Services\Eggs;
 
-use Everest\Models\Egg;
-use Everest\Contracts\Repository\EggRepositoryInterface;
-use Everest\Exceptions\Service\Egg\NoParentConfigurationFoundException;
+use DarkOak\Models\Egg;
+use DarkOak\Contracts\Repository\EggRepositoryInterface;
+use DarkOak\Exceptions\Service\Egg\NoParentConfigurationFoundException;
 
 class EggUpdateService
 {
@@ -18,9 +18,9 @@ class EggUpdateService
     /**
      * Update a service option.
      *
-     * @throws \Everest\Exceptions\Model\DataValidationException
-     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
-     * @throws \Everest\Exceptions\Service\Egg\NoParentConfigurationFoundException
+     * @throws \DarkOak\Exceptions\Model\DataValidationException
+     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
+     * @throws \DarkOak\Exceptions\Service\Egg\NoParentConfigurationFoundException
      */
     public function handle(Egg $egg, array $data): void
     {
@@ -42,3 +42,4 @@ class EggUpdateService
         $this->repository->withoutFreshModel()->update($egg->id, $data);
     }
 }
+

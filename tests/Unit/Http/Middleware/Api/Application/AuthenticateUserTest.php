@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Tests\Unit\Http\Middleware\Api\Application;
+namespace DarkOak\Tests\Unit\Http\Middleware\Api\Application;
 
-use Everest\Tests\Unit\Http\Middleware\MiddlewareTestCase;
+use DarkOak\Tests\Unit\Http\Middleware\MiddlewareTestCase;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Everest\Http\Middleware\Api\Application\AuthenticateApplicationUser;
+use DarkOak\Http\Middleware\Api\Application\AuthenticateApplicationUser;
 
 class AuthenticateUserTest extends MiddlewareTestCase
 {
@@ -50,3 +50,4 @@ class AuthenticateUserTest extends MiddlewareTestCase
         return new AuthenticateApplicationUser();
     }
 }
+

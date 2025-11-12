@@ -15,7 +15,7 @@ import TriggersContainer from './triggers/TriggersContainer';
 
 const EmailRouter = () => {
     const theme = useStoreState(state => state.theme.data!);
-    const enabled = useStoreState(state => state.everest.data?.emails.enabled ?? false);
+    const enabled = useStoreState(state => state.DarkOak.data?.emails.enabled ?? false);
 
     if (!enabled) {
         return <EnableEmailsContainer />;
@@ -56,3 +56,4 @@ const EmailRouter = () => {
 };
 
 export default EmailRouter;
+

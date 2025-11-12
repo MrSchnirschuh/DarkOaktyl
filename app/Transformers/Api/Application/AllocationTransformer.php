@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Transformers\Api\Application;
+namespace DarkOak\Transformers\Api\Application;
 
-use Everest\Models\Allocation;
+use DarkOak\Models\Allocation;
 use League\Fractal\Resource\Item;
-use Everest\Services\Acl\Api\AdminAcl;
-use Everest\Transformers\Api\Transformer;
+use DarkOak\Services\Acl\Api\AdminAcl;
+use DarkOak\Transformers\Api\Transformer;
 use League\Fractal\Resource\NullResource;
 
 class AllocationTransformer extends Transformer
@@ -60,3 +60,4 @@ class AllocationTransformer extends Transformer
         return $this->item($allocation->server, new ServerTransformer());
     }
 }
+

@@ -8,9 +8,9 @@ import useFlash from '@/plugins/useFlash';
 const ToggleEmailsButton = () => {
     const navigate = useNavigate();
     const { addFlash, clearFlashes, clearAndAddHttpError } = useFlash();
-    const emails = useStoreState(state => state.everest.data?.emails ?? null);
+    const emails = useStoreState(state => state.DarkOak.data?.emails ?? null);
     const enabled = emails?.enabled ?? false;
-    const updateEverest = useStoreActions(actions => actions.everest.updateEverest);
+    const updateDarkOak = useStoreActions(actions => actions.DarkOak.updateDarkOak);
     const [isSubmitting, setSubmitting] = useState(false);
 
     const handleToggle = () => {
@@ -23,7 +23,7 @@ const ToggleEmailsButton = () => {
         updateEmailSetting('enabled', nextEnabled)
             .then(() => {
                 if (emails) {
-                    updateEverest({ emails: { ...emails, enabled: nextEnabled } });
+                    updateDarkOak({ emails: { ...emails, enabled: nextEnabled } });
                 } else {
                     navigate(0);
                 }
@@ -52,3 +52,4 @@ const ToggleEmailsButton = () => {
 };
 
 export default ToggleEmailsButton;
+

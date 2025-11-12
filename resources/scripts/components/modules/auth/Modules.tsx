@@ -5,9 +5,9 @@ import FlashMessageRender from '@/components/FlashMessageRender';
 import { faDiscord, faGoogle } from '@fortawesome/free-brands-svg-icons';
 
 export default () => {
-    const modules = useStoreState(state => state.everest.data!.auth.modules);
+    const modules = useStoreState(state => state.DarkOak.data!.auth.modules);
     /**
-     * Everest - Authentication Extensions
+     * DarkOak - Authentication Extensions
      *
      * name (string, required): The name for this extension. This MUST match the other files for this extension.
      * icon (IconDefinition, optional): The icon for this extension. This can be left blank.
@@ -54,3 +54,4 @@ export default () => {
         </>
     );
 };
+

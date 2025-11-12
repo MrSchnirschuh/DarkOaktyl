@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Extensions\Illuminate\Database\Eloquent;
+namespace DarkOak\Extensions\Illuminate\Database\Eloquent;
 
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 
@@ -14,3 +14,4 @@ class Builder extends EloquentBuilder
         return $this;
     }
 }
+

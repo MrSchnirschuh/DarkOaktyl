@@ -139,8 +139,8 @@ const mapFormToPayload = (values: ThemeFormValues): Required<EmailThemePayload> 
 
 const ThemesContainer = () => {
     const { addFlash, clearFlashes, clearAndAddHttpError } = useFlash();
-    const everestEmails = useStoreState(state => state.everest.data?.emails);
-    const updateEverest = useStoreActions(actions => actions.everest.updateEverest);
+    const DarkOakEmails = useStoreState(state => state.DarkOak.data?.emails);
+    const updateDarkOak = useStoreActions(actions => actions.DarkOak.updateDarkOak);
 
     const [customThemes, setCustomThemes] = useState<EmailTheme[]>([]);
     const [defaultTheme, setDefaultTheme] = useState<EmailTheme | null>(null);
@@ -149,7 +149,7 @@ const ThemesContainer = () => {
     const [editing, setEditing] = useState<EmailTheme | null>(null);
     const [submitting, setSubmitting] = useState(false);
 
-    const defaults = useMemo(() => everestEmails?.defaults, [everestEmails]);
+    const defaults = useMemo(() => DarkOakEmails?.defaults, [DarkOakEmails]);
 
     const fetchThemes = useCallback(() => {
         setLoading(true);
@@ -277,9 +277,9 @@ const ThemesContainer = () => {
         if (saved.isDefault) {
             setDefaultTheme(saved);
             setCustomThemes(prev => prev.filter(theme => theme.uuid !== saved.uuid));
-            updateEverest({
+            updateDarkOak({
                 emails: {
-                    enabled: everestEmails?.enabled ?? true,
+                    enabled: DarkOakEmails?.enabled ?? true,
                     defaultTheme: saved.uuid,
                     defaults: {
                         name: saved.name,
@@ -292,7 +292,7 @@ const ThemesContainer = () => {
                         muted_text_color: saved.colors.muted,
                         button_color: saved.colors.button,
                         button_text_color: saved.colors.buttonText,
-                        footer_text: saved.footerText ?? everestEmails?.defaults.footer_text ?? '',
+                        footer_text: saved.footerText ?? DarkOakEmails?.defaults.footer_text ?? '',
                         variant_mode: saved.variantMode,
                         light_palette: saved.lightColors
                             ? {
@@ -662,3 +662,4 @@ const ThemesContainer = () => {
 };
 
 export default ThemesContainer;
+

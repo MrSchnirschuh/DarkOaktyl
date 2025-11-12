@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Services\Servers;
+namespace DarkOak\Services\Servers;
 
-use Everest\Models\Server;
+use DarkOak\Models\Server;
 use Webmozart\Assert\Assert;
-use Everest\Repositories\Wings\DaemonServerRepository;
+use DarkOak\Repositories\Wings\DaemonServerRepository;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 
 class SuspensionService
@@ -59,3 +59,4 @@ class SuspensionService
         }
     }
 }
+

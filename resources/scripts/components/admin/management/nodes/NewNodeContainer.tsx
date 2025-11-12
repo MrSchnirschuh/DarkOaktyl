@@ -31,7 +31,7 @@ const initialValues: Values2 = {
     scheme: 'https',
     behindProxy: 'false',
     public: 'true',
-    daemonBase: '/var/lib/pterodactyl/volumes',
+    daemonBase: '/var/lib/DarkOaktyl/volumes',
     deployable: 'false',
     deployableFree: 'false',
 
@@ -131,3 +131,4 @@ export default () => {
         </Formik>
     );
 };
+

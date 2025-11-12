@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Repositories\Eloquent;
+namespace DarkOak\Repositories\Eloquent;
 
-use Everest\Models\Allocation;
+use DarkOak\Models\Allocation;
 use Illuminate\Database\Eloquent\Builder;
-use Everest\Contracts\Repository\AllocationRepositoryInterface;
+use DarkOak\Contracts\Repository\AllocationRepositoryInterface;
 
 class AllocationRepository extends EloquentRepository implements AllocationRepositoryInterface
 {
@@ -98,3 +98,4 @@ class AllocationRepository extends EloquentRepository implements AllocationRepos
         return $query->inRandomOrder()->first();
     }
 }
+

@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Http\Requests;
+namespace DarkOak\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -27,3 +27,4 @@ abstract class FrontendUserFormRequest extends FormRequest
         );
     }
 }
+

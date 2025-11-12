@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Models;
+namespace DarkOak\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -19,3 +19,4 @@ class Session extends Model
         'user_id' => 'integer',
     ];
 }
+

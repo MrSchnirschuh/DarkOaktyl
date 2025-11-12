@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Tests\Integration\Api\Client;
+namespace DarkOak\Tests\Integration\Api\Client;
 
-use Everest\Models\User;
+use DarkOak\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
@@ -14,7 +14,7 @@ class AccountControllerTest extends ClientApiIntegrationTestCase
      */
     public function testAccountDetailsAreReturned()
     {
-        /** @var \Everest\Models\User $user */
+        /** @var \DarkOak\Models\User $user */
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->get('/api/client/account');
@@ -36,7 +36,7 @@ class AccountControllerTest extends ClientApiIntegrationTestCase
      */
     public function testEmailIsUpdated()
     {
-        /** @var \Everest\Models\User $user */
+        /** @var \DarkOak\Models\User $user */
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->putJson('/api/client/account/email', [
@@ -55,7 +55,7 @@ class AccountControllerTest extends ClientApiIntegrationTestCase
      */
     public function testEmailIsNotUpdatedWhenPasswordIsInvalid()
     {
-        /** @var \Everest\Models\User $user */
+        /** @var \DarkOak\Models\User $user */
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->putJson('/api/client/account/email', [
@@ -74,7 +74,7 @@ class AccountControllerTest extends ClientApiIntegrationTestCase
      */
     public function testEmailIsNotUpdatedWhenNotValid()
     {
-        /** @var \Everest\Models\User $user */
+        /** @var \DarkOak\Models\User $user */
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->putJson('/api/client/account/email', [
@@ -101,7 +101,7 @@ class AccountControllerTest extends ClientApiIntegrationTestCase
      */
     public function testPasswordIsUpdated()
     {
-        /** @var \Everest\Models\User $user */
+        /** @var \DarkOak\Models\User $user */
         $user = User::factory()->create();
 
         $initialHash = $user->password;
@@ -127,7 +127,7 @@ class AccountControllerTest extends ClientApiIntegrationTestCase
      */
     public function testPasswordIsNotUpdatedIfCurrentPasswordIsInvalid()
     {
-        /** @var \Everest\Models\User $user */
+        /** @var \DarkOak\Models\User $user */
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->putJson('/api/client/account/password', [
@@ -170,7 +170,7 @@ class AccountControllerTest extends ClientApiIntegrationTestCase
      */
     public function testErrorIsReturnedIfPasswordIsNotConfirmed()
     {
-        /** @var \Everest\Models\User $user */
+        /** @var \DarkOak\Models\User $user */
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->putJson('/api/client/account/password', [
@@ -184,3 +184,4 @@ class AccountControllerTest extends ClientApiIntegrationTestCase
         $response->assertJsonPath('errors.0.detail', 'The password confirmation does not match.');
     }
 }
+

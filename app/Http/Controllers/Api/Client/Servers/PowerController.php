@@ -1,13 +1,13 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Client\Servers;
+namespace DarkOak\Http\Controllers\Api\Client\Servers;
 
-use Everest\Models\Server;
-use Everest\Facades\Activity;
+use DarkOak\Models\Server;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
-use Everest\Repositories\Wings\DaemonPowerRepository;
-use Everest\Http\Controllers\Api\Client\ClientApiController;
-use Everest\Http\Requests\Api\Client\Servers\SendPowerRequest;
+use DarkOak\Repositories\Wings\DaemonPowerRepository;
+use DarkOak\Http\Controllers\Api\Client\ClientApiController;
+use DarkOak\Http\Requests\Api\Client\Servers\SendPowerRequest;
 
 class PowerController extends ClientApiController
 {
@@ -33,3 +33,4 @@ class PowerController extends ClientApiController
         return $this->returnNoContent();
     }
 }
+

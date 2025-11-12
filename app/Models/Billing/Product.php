@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Models\Billing;
+namespace DarkOak\Models\Billing;
 
-use Everest\Models\Model;
+use DarkOak\Models\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
@@ -83,3 +83,4 @@ class Product extends Model
         return $this->belongsTo(Category::class, 'category_uuid', 'uuid');
     }
 }
+

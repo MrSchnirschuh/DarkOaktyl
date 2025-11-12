@@ -1,24 +1,24 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Servers;
+namespace DarkOak\Http\Controllers\Api\Application\Servers;
 
-use Everest\Models\Server;
-use Everest\Facades\Activity;
+use DarkOak\Models\Server;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Spatie\QueryBuilder\QueryBuilder;
-use Everest\Services\Servers\ServerCreationService;
-use Everest\Services\Servers\ServerDeletionService;
-use Everest\Services\Servers\BuildModificationService;
-use Everest\Services\Servers\DetailsModificationService;
-use Everest\Transformers\Api\Application\ServerTransformer;
-use Everest\Exceptions\Http\QueryValueOutOfRangeHttpException;
-use Everest\Http\Requests\Api\Application\Servers\GetServerRequest;
-use Everest\Http\Requests\Api\Application\Servers\GetServersRequest;
-use Everest\Http\Requests\Api\Application\Servers\StoreServerRequest;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
-use Everest\Http\Requests\Api\Application\Servers\DeleteServerRequest;
-use Everest\Http\Requests\Api\Application\Servers\UpdateServerRequest;
+use DarkOak\Services\Servers\ServerCreationService;
+use DarkOak\Services\Servers\ServerDeletionService;
+use DarkOak\Services\Servers\BuildModificationService;
+use DarkOak\Services\Servers\DetailsModificationService;
+use DarkOak\Transformers\Api\Application\ServerTransformer;
+use DarkOak\Exceptions\Http\QueryValueOutOfRangeHttpException;
+use DarkOak\Http\Requests\Api\Application\Servers\GetServerRequest;
+use DarkOak\Http\Requests\Api\Application\Servers\GetServersRequest;
+use DarkOak\Http\Requests\Api\Application\Servers\StoreServerRequest;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Http\Requests\Api\Application\Servers\DeleteServerRequest;
+use DarkOak\Http\Requests\Api\Application\Servers\UpdateServerRequest;
 
 class ServerController extends ApplicationApiController
 {
@@ -59,10 +59,10 @@ class ServerController extends ApplicationApiController
      *
      * @throws \Throwable
      * @throws \Illuminate\Validation\ValidationException
-     * @throws \Everest\Exceptions\DisplayException
-     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
-     * @throws \Everest\Exceptions\Service\Deployment\NoViableAllocationException
-     * @throws \Everest\Exceptions\Service\Deployment\NoViableNodeException
+     * @throws \DarkOak\Exceptions\DisplayException
+     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
+     * @throws \DarkOak\Exceptions\Service\Deployment\NoViableAllocationException
+     * @throws \DarkOak\Exceptions\Service\Deployment\NoViableNodeException
      */
     public function store(StoreServerRequest $request): JsonResponse
     {
@@ -91,7 +91,7 @@ class ServerController extends ApplicationApiController
     /**
      * Deletes a server.
      *
-     * @throws \Everest\Exceptions\DisplayException
+     * @throws \DarkOak\Exceptions\DisplayException
      * @throws \Throwable
      */
     public function delete(DeleteServerRequest $request, Server $server): Response
@@ -113,10 +113,10 @@ class ServerController extends ApplicationApiController
      *
      * @throws \Throwable
      * @throws \Illuminate\Validation\ValidationException
-     * @throws \Everest\Exceptions\DisplayException
-     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
-     * @throws \Everest\Exceptions\Service\Deployment\NoViableAllocationException
-     * @throws \Everest\Exceptions\Service\Deployment\NoViableNodeException
+     * @throws \DarkOak\Exceptions\DisplayException
+     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
+     * @throws \DarkOak\Exceptions\Service\Deployment\NoViableAllocationException
+     * @throws \DarkOak\Exceptions\Service\Deployment\NoViableNodeException
      */
     public function update(UpdateServerRequest $request, Server $server): array
     {
@@ -134,3 +134,4 @@ class ServerController extends ApplicationApiController
             ->toArray();
     }
 }
+

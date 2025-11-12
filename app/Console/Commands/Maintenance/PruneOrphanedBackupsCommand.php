@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Console\Commands\Maintenance;
+namespace DarkOak\Console\Commands\Maintenance;
 
 use Carbon\CarbonImmutable;
 use Illuminate\Console\Command;
-use Everest\Repositories\Eloquent\BackupRepository;
+use DarkOak\Repositories\Eloquent\BackupRepository;
 
 class PruneOrphanedBackupsCommand extends Command
 {
@@ -47,3 +47,4 @@ class PruneOrphanedBackupsCommand extends Command
         ]);
     }
 }
+

@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Exceptions\Service\Database;
+namespace DarkOak\Exceptions\Service\Database;
 
-use Everest\Exceptions\DisplayException;
+use DarkOak\Exceptions\DisplayException;
 
 class TooManyDatabasesException extends DisplayException
 {
@@ -11,3 +11,4 @@ class TooManyDatabasesException extends DisplayException
         parent::__construct('Operation aborted: creating a new database would put this server over the defined limit.');
     }
 }
+

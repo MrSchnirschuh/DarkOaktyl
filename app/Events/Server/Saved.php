@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Events\Server;
+namespace DarkOak\Events\Server;
 
-use Everest\Events\Event;
-use Everest\Models\Server;
+use DarkOak\Events\Event;
+use DarkOak\Models\Server;
 use Illuminate\Queue\SerializesModels;
 
 class Saved extends Event
@@ -17,3 +17,4 @@ class Saved extends Event
     {
     }
 }
+

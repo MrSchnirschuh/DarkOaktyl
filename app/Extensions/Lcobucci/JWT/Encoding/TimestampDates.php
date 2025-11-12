@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Extensions\Lcobucci\JWT\Encoding;
+namespace DarkOak\Extensions\Lcobucci\JWT\Encoding;
 
 use Lcobucci\JWT\ClaimsFormatter;
 use Lcobucci\JWT\Token\RegisteredClaims;
@@ -27,3 +27,4 @@ final class TimestampDates implements ClaimsFormatter
         return $claims;
     }
 }
+

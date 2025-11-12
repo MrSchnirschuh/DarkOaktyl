@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\AI;
+namespace DarkOak\Http\Requests\Api\Application\AI;
 
-use Everest\Models\AdminRole;
-use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
+use DarkOak\Models\AdminRole;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class AIQueryRequest extends ApplicationApiRequest
 {
@@ -19,3 +19,4 @@ class AIQueryRequest extends ApplicationApiRequest
         return AdminRole::AI_READ;
     }
 }
+

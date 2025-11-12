@@ -1,13 +1,13 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Client;
+namespace DarkOak\Http\Controllers\Api\Client;
 
-use Everest\Facades\Activity;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Cache;
-use Everest\Http\Requests\Api\Client\ClientApiRequest;
-use Everest\Transformers\Api\Client\UserSSHKeyTransformer;
-use Everest\Http\Requests\Api\Client\Account\StoreSSHKeyRequest;
+use DarkOak\Http\Requests\Api\Client\ClientApiRequest;
+use DarkOak\Transformers\Api\Client\UserSSHKeyTransformer;
+use DarkOak\Http\Requests\Api\Client\Account\StoreSSHKeyRequest;
 
 class SSHKeyController extends ClientApiController
 {
@@ -86,3 +86,4 @@ class SSHKeyController extends ClientApiController
         return new JsonResponse([], JsonResponse::HTTP_NO_CONTENT);
     }
 }
+

@@ -44,7 +44,7 @@ const FileObjectRow = ({ file }: { file: FileObject }) => {
             key={file.name}
             onContextMenu={e => {
                 e.preventDefault();
-                window.dispatchEvent(new CustomEvent(`pterodactyl:files:ctx:${file.key}`, { detail: e.clientX }));
+                window.dispatchEvent(new CustomEvent(`DarkOaktyl:files:ctx:${file.key}`, { detail: e.clientX }));
             }}
         >
             <SelectFileCheckbox name={file.name} />
@@ -78,3 +78,4 @@ export default memo(FileObjectRow, (prevProps, nextProps) => {
 
     return isEqual(prevFile, nextFile);
 });
+

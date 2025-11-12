@@ -1,9 +1,10 @@
 <?php
 
-namespace Everest\Exceptions\Repository;
+namespace DarkOak\Exceptions\Repository;
 
-use Everest\Exceptions\DisplayException;
+use DarkOak\Exceptions\DisplayException;
 
 class DuplicateDatabaseNameException extends DisplayException
 {
 }
+

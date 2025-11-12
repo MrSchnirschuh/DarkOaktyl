@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Tests\Integration\Api\Client\Server;
+namespace DarkOak\Tests\Integration\Api\Client\Server;
 
-use Everest\Models\Server;
+use DarkOak\Models\Server;
 use Illuminate\Http\Response;
-use Everest\Models\Permission;
-use Everest\Repositories\Wings\DaemonServerRepository;
-use Everest\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
+use DarkOak\Models\Permission;
+use DarkOak\Repositories\Wings\DaemonServerRepository;
+use DarkOak\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 
 class SettingsControllerTest extends ClientApiIntegrationTestCase
 {
@@ -17,7 +17,7 @@ class SettingsControllerTest extends ClientApiIntegrationTestCase
      */
     public function testServerNameCanBeChanged(array $permissions)
     {
-        /** @var \Everest\Models\Server $server */
+        /** @var \DarkOak\Models\Server $server */
         [$user, $server] = $this->generateTestAccount($permissions);
         $originalName = $server->name;
         $originalDescription = $server->description;
@@ -73,7 +73,7 @@ class SettingsControllerTest extends ClientApiIntegrationTestCase
      */
     public function testServerCanBeReinstalled(array $permissions)
     {
-        /** @var \Everest\Models\Server $server */
+        /** @var \DarkOak\Models\Server $server */
         [$user, $server] = $this->generateTestAccount($permissions);
         $this->assertTrue($server->isInstalled());
 
@@ -122,3 +122,4 @@ class SettingsControllerTest extends ClientApiIntegrationTestCase
         return [[[]], [[Permission::ACTION_SETTINGS_REINSTALL]]];
     }
 }
+

@@ -14,7 +14,7 @@ import AppearanceSync from '@/components/AppearanceSync';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AuthenticatedRoute from '@elements/AuthenticatedRoute';
 import { NotFound } from '@elements/ScreenBlock';
-import { EverestSettings } from '@/state/everest';
+import { DarkOakSettings } from '@/state/DarkOak';
 import Onboarding from '@/components/Onboarding';
 import SpeedDial from '@elements/SpeedDial';
 import SetupContainer from './setup/SetupContainer';
@@ -29,8 +29,8 @@ const ServerRouter = lazy(() => import('@/routers/ServerRouter'));
 interface ExtendedWindow extends Window {
     SiteConfiguration?: SiteSettings;
     ThemeConfiguration?: SiteTheme;
-    EverestConfiguration?: EverestSettings;
-    PterodactylUser?: {
+    DarkOakConfiguration?: DarkOakSettings;
+    DarkOaktylUser?: {
         uuid: string;
         username: string;
         email: string;
@@ -49,24 +49,24 @@ interface ExtendedWindow extends Window {
 }
 
 function App() {
-    const { PterodactylUser, SiteConfiguration, EverestConfiguration, ThemeConfiguration } = window as ExtendedWindow;
+    const { DarkOaktylUser, SiteConfiguration, DarkOakConfiguration, ThemeConfiguration } = window as ExtendedWindow;
 
-    if (PterodactylUser && !store.getState().user.data) {
+    if (DarkOaktylUser && !store.getState().user.data) {
         store.getActions().user.setUserData({
-            uuid: PterodactylUser.uuid,
-            username: PterodactylUser.username,
-            email: PterodactylUser.email,
-            language: PterodactylUser.language,
-            rootAdmin: PterodactylUser.root_admin,
-            avatarURL: PterodactylUser.avatar_url,
-            roleName: PterodactylUser.admin_role_name,
-            admin_role_id: PterodactylUser.admin_role_id,
-            state: PterodactylUser.state,
-            useTotp: PterodactylUser.use_totp,
-            createdAt: new Date(PterodactylUser.created_at),
-            updatedAt: new Date(PterodactylUser.updated_at),
-            appearanceMode: PterodactylUser.appearance_mode ?? 'system',
-            appearanceLastMode: PterodactylUser.appearance_last_mode ?? 'dark',
+            uuid: DarkOaktylUser.uuid,
+            username: DarkOaktylUser.username,
+            email: DarkOaktylUser.email,
+            language: DarkOaktylUser.language,
+            rootAdmin: DarkOaktylUser.root_admin,
+            avatarURL: DarkOaktylUser.avatar_url,
+            roleName: DarkOaktylUser.admin_role_name,
+            admin_role_id: DarkOaktylUser.admin_role_id,
+            state: DarkOaktylUser.state,
+            useTotp: DarkOaktylUser.use_totp,
+            createdAt: new Date(DarkOaktylUser.created_at),
+            updatedAt: new Date(DarkOaktylUser.updated_at),
+            appearanceMode: DarkOaktylUser.appearance_mode ?? 'system',
+            appearanceLastMode: DarkOaktylUser.appearance_last_mode ?? 'dark',
         });
     }
 
@@ -96,11 +96,11 @@ function App() {
         hasHydratedAppearance = true;
     }
 
-    if (!store.getState().everest.data) {
-        store.getActions().everest.setEverest(EverestConfiguration!);
+    if (!store.getState().DarkOak.data) {
+        store.getActions().DarkOak.setDarkOak(DarkOakConfiguration!);
     }
 
-    if (PterodactylUser?.state === 'suspended') {
+    if (DarkOaktylUser?.state === 'suspended') {
         return (
             <div style={{ color: 'white', fontWeight: 'bold', marginTop: '10px', marginLeft: '10px' }}>
                 Your account has been suspended and blocked by an administrator.
@@ -108,7 +108,7 @@ function App() {
         );
     }
 
-    const hasAdminRole: boolean = (PterodactylUser?.root_admin || Boolean(PterodactylUser?.admin_role_id)) ?? false;
+    const hasAdminRole: boolean = (DarkOaktylUser?.root_admin || Boolean(DarkOaktylUser?.admin_role_id)) ?? false;
 
     return (
         <>
@@ -117,13 +117,13 @@ function App() {
                 <ThemeVars />
                 <AppearanceSync />
                 <ProgressBar />
-                {PterodactylUser?.root_admin && !SiteConfiguration?.setup ? (
+                {DarkOaktylUser?.root_admin && !SiteConfiguration?.setup ? (
                     <SetupContainer />
                 ) : (
                     <>
                         {' '}
-                        {PterodactylUser?.username.startsWith('null_user_') &&
-                        EverestConfiguration?.auth.modules.onboarding.enabled ? (
+                        {DarkOaktylUser?.username.startsWith('null_user_') &&
+                        DarkOakConfiguration?.auth.modules.onboarding.enabled ? (
                             <Onboarding />
                         ) : (
                             <div className="mx-auto w-auto">
@@ -188,3 +188,5 @@ function App() {
 }
 
 export { App };
+
+

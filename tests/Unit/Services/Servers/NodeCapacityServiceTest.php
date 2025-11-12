@@ -1,15 +1,15 @@
 <?php
 
-namespace Everest\Tests\Unit\Services\Servers;
+namespace DarkOak\Tests\Unit\Services\Servers;
 
-use Everest\Models\Node;
+use DarkOak\Models\Node;
 use Mockery\MockInterface;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Everest\Services\Servers\NodeCapacityService;
-use Everest\Repositories\Wings\DaemonConfigurationRepository;
-use Everest\Exceptions\Service\Deployment\NoViableNodeException;
-use Everest\Exceptions\Http\Connection\DaemonConnectionException;
-use Everest\Tests\TestCase;
+use DarkOak\Services\Servers\NodeCapacityService;
+use DarkOak\Repositories\Wings\DaemonConfigurationRepository;
+use DarkOak\Exceptions\Service\Deployment\NoViableNodeException;
+use DarkOak\Exceptions\Http\Connection\DaemonConnectionException;
+use DarkOak\Tests\TestCase;
 use GuzzleHttp\Exception\GuzzleException;
 
 class NodeCapacityServiceTest extends TestCase
@@ -125,3 +125,4 @@ class NodeCapacityServiceTest extends TestCase
         $this->assertTrue(true);
     }
 }
+

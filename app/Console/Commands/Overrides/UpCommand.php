@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Console\Commands\Overrides;
+namespace DarkOak\Console\Commands\Overrides;
 
-use Everest\Console\RequiresDatabaseMigrations;
+use DarkOak\Console\RequiresDatabaseMigrations;
 use Illuminate\Foundation\Console\UpCommand as BaseUpCommand;
 
 class UpCommand extends BaseUpCommand
@@ -24,3 +24,4 @@ class UpCommand extends BaseUpCommand
         return parent::handle();
     }
 }
+

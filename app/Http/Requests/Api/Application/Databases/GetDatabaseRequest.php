@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Databases;
+namespace DarkOak\Http\Requests\Api\Application\Databases;
 
-use Everest\Models\AdminRole;
+use DarkOak\Models\AdminRole;
 
 class GetDatabaseRequest extends GetDatabasesRequest
 {
@@ -11,3 +11,4 @@ class GetDatabaseRequest extends GetDatabasesRequest
         return AdminRole::DATABASES_READ;
     }
 }
+

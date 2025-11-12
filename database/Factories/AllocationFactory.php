@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use Everest\Models\Server;
-use Everest\Models\Allocation;
+use DarkOak\Models\Server;
+use DarkOak\Models\Allocation;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class AllocationFactory extends Factory
@@ -34,3 +34,4 @@ class AllocationFactory extends Factory
         return $this->for($server)->for($server->node);
     }
 }
+

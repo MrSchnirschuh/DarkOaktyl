@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Client;
+namespace DarkOak\Http\Controllers\Api\Client;
 
-use Everest\Models\CustomLink;
-use Everest\Transformers\Api\Client\LinkTransformer;
-use Everest\Http\Requests\Api\Client\ClientApiRequest;
+use DarkOak\Models\CustomLink;
+use DarkOak\Transformers\Api\Client\LinkTransformer;
+use DarkOak\Http\Requests\Api\Client\ClientApiRequest;
 
 class LinkController extends ClientApiController
 {
@@ -20,3 +20,4 @@ class LinkController extends ClientApiController
             ->toArray();
     }
 }
+

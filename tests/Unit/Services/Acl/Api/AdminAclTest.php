@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Tests\Unit\Services\Acl\Api;
+namespace DarkOak\Tests\Unit\Services\Acl\Api;
 
-use Everest\Models\ApiKey;
-use Everest\Tests\TestCase;
-use Everest\Services\Acl\Api\AdminAcl;
+use DarkOak\Models\ApiKey;
+use DarkOak\Tests\TestCase;
+use DarkOak\Services\Acl\Api\AdminAcl;
 
 class AdminAclTest extends TestCase
 {
@@ -44,3 +44,4 @@ class AdminAclTest extends TestCase
         ];
     }
 }
+

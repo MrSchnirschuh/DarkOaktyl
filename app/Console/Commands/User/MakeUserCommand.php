@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Console\Commands\User;
+namespace DarkOak\Console\Commands\User;
 
 use Illuminate\Console\Command;
-use Everest\Services\Users\UserCreationService;
+use DarkOak\Services\Users\UserCreationService;
 
 class MakeUserCommand extends Command
 {
@@ -23,7 +23,7 @@ class MakeUserCommand extends Command
      * Handle command request to create a new user.
      *
      * @throws \Exception
-     * @throws \Everest\Exceptions\Model\DataValidationException
+     * @throws \DarkOak\Exceptions\Model\DataValidationException
      */
     public function handle()
     {
@@ -46,3 +46,4 @@ class MakeUserCommand extends Command
         ]);
     }
 }
+

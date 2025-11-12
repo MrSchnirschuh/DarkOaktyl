@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Services\Activity;
+namespace DarkOak\Services\Activity;
 
 use Ramsey\Uuid\Uuid;
 
@@ -57,3 +57,4 @@ class ActivityLogBatchService
         return $result;
     }
 }
+

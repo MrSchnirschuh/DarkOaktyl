@@ -1,21 +1,21 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Servers\Databases;
+namespace DarkOak\Http\Requests\Api\Application\Servers\Databases;
 
-use Everest\Models\Server;
+use DarkOak\Models\Server;
 use Illuminate\Support\Arr;
 use Webmozart\Assert\Assert;
-use Everest\Models\AdminRole;
+use DarkOak\Models\AdminRole;
 use Illuminate\Validation\Rule;
 use Illuminate\Database\Query\Builder;
-use Everest\Services\Databases\DatabaseManagementService;
-use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
+use DarkOak\Services\Databases\DatabaseManagementService;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class StoreServerDatabaseRequest extends ApplicationApiRequest
 {
     public function rules(): array
     {
-        /** @var \Everest\Models\Server $server */
+        /** @var \DarkOak\Models\Server $server */
         $server = $this->route()->parameter('server');
 
         return [
@@ -73,3 +73,4 @@ class StoreServerDatabaseRequest extends ApplicationApiRequest
         return AdminRole::SERVERS_UPDATE;
     }
 }
+

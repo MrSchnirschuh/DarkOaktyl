@@ -1,13 +1,13 @@
 <?php
 
-namespace Everest\Services\Servers;
+namespace DarkOak\Services\Servers;
 
-use Everest\Models\Server;
+use DarkOak\Models\Server;
 use Illuminate\Support\Arr;
 use Illuminate\Database\ConnectionInterface;
-use Everest\Traits\Services\ReturnsUpdatedModels;
-use Everest\Repositories\Wings\DaemonServerRepository;
-use Everest\Exceptions\Http\Connection\DaemonConnectionException;
+use DarkOak\Traits\Services\ReturnsUpdatedModels;
+use DarkOak\Repositories\Wings\DaemonServerRepository;
+use DarkOak\Exceptions\Http\Connection\DaemonConnectionException;
 
 class DetailsModificationService
 {
@@ -56,3 +56,4 @@ class DetailsModificationService
         });
     }
 }
+

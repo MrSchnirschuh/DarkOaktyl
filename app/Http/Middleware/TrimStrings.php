@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Http\Middleware;
+namespace DarkOak\Http\Middleware;
 
 use Illuminate\Foundation\Http\Middleware\TrimStrings as BaseTrimmer;
 
@@ -14,3 +14,4 @@ class TrimStrings extends BaseTrimmer
         'password_confirmation',
     ];
 }
+

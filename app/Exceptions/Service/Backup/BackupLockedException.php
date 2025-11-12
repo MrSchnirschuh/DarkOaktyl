@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Exceptions\Service\Backup;
+namespace DarkOak\Exceptions\Service\Backup;
 
-use Everest\Exceptions\DisplayException;
+use DarkOak\Exceptions\DisplayException;
 
 class BackupLockedException extends DisplayException
 {
@@ -14,3 +14,4 @@ class BackupLockedException extends DisplayException
         parent::__construct('Cannot delete a backup that is marked as locked.');
     }
 }
+

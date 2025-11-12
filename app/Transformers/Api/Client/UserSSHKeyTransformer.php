@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Transformers\Api\Client;
+namespace DarkOak\Transformers\Api\Client;
 
-use Everest\Models\UserSSHKey;
-use Everest\Transformers\Api\Transformer;
+use DarkOak\Models\UserSSHKey;
+use DarkOak\Transformers\Api\Transformer;
 
 class UserSSHKeyTransformer extends Transformer
 {
@@ -25,3 +25,4 @@ class UserSSHKeyTransformer extends Transformer
         ];
     }
 }
+

@@ -1,16 +1,16 @@
 <?php
 
-namespace Everest\Tests\Integration\Api\Client\Server;
+namespace DarkOak\Tests\Integration\Api\Client\Server;
 
-use Everest\Models\Server;
+use DarkOak\Models\Server;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Http\Response;
-use Everest\Models\Permission;
+use DarkOak\Models\Permission;
 use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Psr7\Response as GuzzleResponse;
-use Everest\Repositories\Wings\DaemonCommandRepository;
-use Everest\Exceptions\Http\Connection\DaemonConnectionException;
-use Everest\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
+use DarkOak\Repositories\Wings\DaemonCommandRepository;
+use DarkOak\Exceptions\Http\Connection\DaemonConnectionException;
+use DarkOak\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 
 class CommandControllerTest extends ClientApiIntegrationTestCase
 {
@@ -90,3 +90,4 @@ class CommandControllerTest extends ClientApiIntegrationTestCase
         $response->assertJsonPath('errors.0.detail', 'Server must be online in order to send commands.');
     }
 }
+

@@ -1,13 +1,13 @@
 <?php
 
-namespace Everest\Tests\Integration\Api\Application\Billing;
+namespace DarkOak\Tests\Integration\Api\Application\Billing;
 
-use Everest\Mail\TemplatedMail;
-use Everest\Models\Billing\Coupon;
-use Everest\Models\EmailTemplate;
-use Everest\Models\EmailTheme;
-use Everest\Models\User;
-use Everest\Tests\Integration\Api\Application\ApplicationApiIntegrationTestCase;
+use DarkOak\Mail\TemplatedMail;
+use DarkOak\Models\Billing\Coupon;
+use DarkOak\Models\EmailTemplate;
+use DarkOak\Models\EmailTheme;
+use DarkOak\Models\User;
+use DarkOak\Tests\Integration\Api\Application\ApplicationApiIntegrationTestCase;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 
@@ -103,3 +103,4 @@ BLADE,
         });
     }
 }
+

@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { CheckCircleIcon } from '@heroicons/react/outline';
 
 const colorOptions = [
-    { hex: '#008000', name: 'Jexactyl Green' },
+    { hex: '#008000', name: 'DarkOaktyl Green' },
     { hex: '#12aaaa', name: 'Microsoft Teal' },
     { hex: '#ff0000', name: 'Brick Red' },
     { hex: '#9D00FF', name: 'Iris Purple' },
@@ -81,3 +81,4 @@ export default ({ defaultColor }: { defaultColor: string }) => {
         </div>
     );
 };
+

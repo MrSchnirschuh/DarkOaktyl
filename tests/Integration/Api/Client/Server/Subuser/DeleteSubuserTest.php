@@ -1,13 +1,13 @@
 <?php
 
-namespace Everest\Tests\Integration\Api\Client\Server\Subuser;
+namespace DarkOak\Tests\Integration\Api\Client\Server\Subuser;
 
 use Ramsey\Uuid\Uuid;
-use Everest\Models\User;
-use Everest\Models\Subuser;
-use Everest\Models\Permission;
-use Everest\Repositories\Wings\DaemonServerRepository;
-use Everest\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
+use DarkOak\Models\User;
+use DarkOak\Models\Subuser;
+use DarkOak\Models\Permission;
+use DarkOak\Repositories\Wings\DaemonServerRepository;
+use DarkOak\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 
 class DeleteSubuserTest extends ClientApiIntegrationTestCase
 {
@@ -20,7 +20,7 @@ class DeleteSubuserTest extends ClientApiIntegrationTestCase
      * it to an integer. Then, in the deep API middlewares you would end up trying to load a user
      * with an ID of 12, which may or may not exist and be wrongly assigned to the model object.
      *
-     * @see https://github.com/pterodactyl/panel/issues/2359
+     * @see https://github.com/DarkOaktyl/panel/issues/2359
      */
     public function testCorrectSubuserIsDeletedFromServer()
     {
@@ -28,14 +28,14 @@ class DeleteSubuserTest extends ClientApiIntegrationTestCase
 
         [$user, $server] = $this->generateTestAccount();
 
-        /** @var \Everest\Models\User $differentUser */
+        /** @var \DarkOak\Models\User $differentUser */
         $differentUser = User::factory()->create();
 
         $real = Uuid::uuid4()->toString();
         // Generate a UUID that lines up with a user in the database if it were to be cast to an int.
         $uuid = $differentUser->id . substr($real, strlen((string) $differentUser->id));
 
-        /** @var \Everest\Models\User $subuser */
+        /** @var \DarkOak\Models\User $subuser */
         $subuser = User::factory()->create(['uuid' => $uuid]);
 
         Subuser::query()->forceCreate([
@@ -51,7 +51,7 @@ class DeleteSubuserTest extends ClientApiIntegrationTestCase
         // Try the same test, but this time with a UUID that if cast to an int (shouldn't) line up with
         // anything in the database.
         $uuid = '18180000' . substr(Uuid::uuid4()->toString(), 8);
-        /** @var \Everest\Models\User $subuser */
+        /** @var \DarkOak\Models\User $subuser */
         $subuser = User::factory()->create(['uuid' => $uuid]);
 
         Subuser::query()->forceCreate([
@@ -65,3 +65,5 @@ class DeleteSubuserTest extends ClientApiIntegrationTestCase
         $this->actingAs($user)->deleteJson($this->link($server) . "/users/$subuser->uuid")->assertNoContent();
     }
 }
+
+

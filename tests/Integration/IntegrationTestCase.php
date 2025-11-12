@@ -1,14 +1,14 @@
 <?php
 
-namespace Everest\Tests\Integration;
+namespace DarkOak\Tests\Integration;
 
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
-use Everest\Tests\TestCase;
-use Everest\Events\ActivityLogged;
+use DarkOak\Tests\TestCase;
+use DarkOak\Events\ActivityLogged;
 use Illuminate\Support\Facades\Event;
-use Everest\Tests\Assertions\AssertsActivityLogged;
-use Everest\Tests\Traits\Integration\CreatesTestModels;
+use DarkOak\Tests\Assertions\AssertsActivityLogged;
+use DarkOak\Tests\Traits\Integration\CreatesTestModels;
 
 abstract class IntegrationTestCase extends TestCase
 {
@@ -36,3 +36,4 @@ abstract class IntegrationTestCase extends TestCase
             ->toAtomString();
     }
 }
+

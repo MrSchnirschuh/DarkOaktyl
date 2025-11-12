@@ -1,21 +1,21 @@
 <?php
 
-namespace Everest\Services\Billing;
+namespace DarkOak\Services\Billing;
 
 use Carbon\Carbon;
-use Everest\Models\Egg;
+use DarkOak\Models\Egg;
 use Stripe\StripeObject;
-use Everest\Models\Server;
+use DarkOak\Models\Server;
 use Illuminate\Http\Request;
-use Everest\Models\Allocation;
-use Everest\Models\EggVariable;
-use Everest\Models\Billing\Order;
-use Everest\Models\Billing\Product;
-use Everest\Exceptions\DisplayException;
-use Everest\Models\Billing\BillingException;
-use Everest\Services\Servers\ServerCreationService;
-use Everest\Services\Servers\VariableValidatorService;
-use Everest\Exceptions\Service\Deployment\NoViableAllocationException;
+use DarkOak\Models\Allocation;
+use DarkOak\Models\EggVariable;
+use DarkOak\Models\Billing\Order;
+use DarkOak\Models\Billing\Product;
+use DarkOak\Exceptions\DisplayException;
+use DarkOak\Models\Billing\BillingException;
+use DarkOak\Services\Servers\ServerCreationService;
+use DarkOak\Services\Servers\VariableValidatorService;
+use DarkOak\Exceptions\Service\Deployment\NoViableAllocationException;
 
 class CreateServerService
 {
@@ -180,3 +180,4 @@ class CreateServerService
         return $allocation->id;
     }
 }
+

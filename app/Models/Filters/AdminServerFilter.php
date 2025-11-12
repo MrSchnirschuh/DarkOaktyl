@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Models\Filters;
+namespace DarkOak\Models\Filters;
 
 use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
@@ -33,3 +33,4 @@ class AdminServerFilter implements Filter
             ->groupBy('servers.id');
     }
 }
+

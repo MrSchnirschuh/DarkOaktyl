@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Transformers\Api\Application;
+namespace DarkOak\Transformers\Api\Application;
 
-use Everest\Models\DatabaseHost;
-use Everest\Services\Acl\Api\AdminAcl;
+use DarkOak\Models\DatabaseHost;
+use DarkOak\Services\Acl\Api\AdminAcl;
 use League\Fractal\Resource\Collection;
-use Everest\Transformers\Api\Transformer;
+use DarkOak\Transformers\Api\Transformer;
 use League\Fractal\Resource\NullResource;
 
 class DatabaseHostTransformer extends Transformer
@@ -49,3 +49,4 @@ class DatabaseHostTransformer extends Transformer
         return $this->collection($model->databases, new ServerDatabaseTransformer());
     }
 }
+

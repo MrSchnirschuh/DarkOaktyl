@@ -3,7 +3,7 @@ import { action, Action } from 'easy-peasy';
 export type AlertType = 'success' | 'warning' | 'danger' | 'info';
 export type AlertPosition = 'top-center' | 'bottom-right' | 'bottom-left' | 'center';
 
-export interface EverestSettings {
+export interface DarkOakSettings {
     auth: {
         registration: {
             enabled: boolean;
@@ -97,23 +97,24 @@ export interface EverestSettings {
     };
 }
 
-export interface EverestStore {
-    data?: EverestSettings;
-    setEverest: Action<EverestStore, EverestSettings>;
-    updateEverest: Action<EverestStore, Partial<EverestSettings>>;
+export interface DarkOakStore {
+    data?: DarkOakSettings;
+    setDarkOak: Action<DarkOakStore, DarkOakSettings>;
+    updateDarkOak: Action<DarkOakStore, Partial<DarkOakSettings>>;
 }
 
-const everest: EverestStore = {
+const DarkOak: DarkOakStore = {
     data: undefined,
 
-    setEverest: action((state, payload) => {
+    setDarkOak: action((state, payload) => {
         state.data = payload;
     }),
 
-    updateEverest: action((state, payload) => {
+    updateDarkOak: action((state, payload) => {
         // @ts-expect-error limitation of Typescript, can't do much about that currently unfortunately.
         state.data = { ...state.data, ...payload };
     }),
 };
 
-export default everest;
+export default DarkOak;
+

@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Traits\Helpers;
+namespace DarkOak\Traits\Helpers;
 
 use Matriphe\ISO639\ISO639;
 use Illuminate\Filesystem\Filesystem;
@@ -41,3 +41,4 @@ trait AvailableLanguages
         return $this->iso639 = $this->iso639 ?: app()->make(ISO639::class);
     }
 }
+

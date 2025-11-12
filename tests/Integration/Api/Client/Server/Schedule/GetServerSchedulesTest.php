@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Tests\Integration\Api\Client\Server\Schedule;
+namespace DarkOak\Tests\Integration\Api\Client\Server\Schedule;
 
-use Everest\Models\Task;
-use Everest\Models\Schedule;
-use Everest\Models\Permission;
-use Everest\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
+use DarkOak\Models\Task;
+use DarkOak\Models\Schedule;
+use DarkOak\Models\Permission;
+use DarkOak\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 
 class GetServerSchedulesTest extends ClientApiIntegrationTestCase
 {
@@ -29,9 +29,9 @@ class GetServerSchedulesTest extends ClientApiIntegrationTestCase
     {
         [$user, $server] = $this->generateTestAccount($permissions);
 
-        /** @var \Everest\Models\Schedule $schedule */
+        /** @var \DarkOak\Models\Schedule $schedule */
         $schedule = Schedule::factory()->create(['server_id' => $server->id]);
-        /** @var \Everest\Models\Task $task */
+        /** @var \DarkOak\Models\Task $task */
         $task = Task::factory()->create(['schedule_id' => $schedule->id, 'sequence_id' => 1, 'time_offset' => 0]);
 
         $response = $this->actingAs($user)
@@ -99,3 +99,4 @@ class GetServerSchedulesTest extends ClientApiIntegrationTestCase
         ];
     }
 }
+

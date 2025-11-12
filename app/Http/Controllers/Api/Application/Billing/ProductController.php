@@ -1,23 +1,23 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Billing;
+namespace DarkOak\Http\Controllers\Api\Application\Billing;
 
 use Ramsey\Uuid\Uuid;
-use Everest\Facades\Activity;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Cache;
-use Everest\Models\Billing\Product;
-use Everest\Models\Billing\Category;
+use DarkOak\Models\Billing\Product;
+use DarkOak\Models\Billing\Category;
 use Spatie\QueryBuilder\QueryBuilder;
-use Everest\Transformers\Api\Application\ProductTransformer;
-use Everest\Exceptions\Http\QueryValueOutOfRangeHttpException;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
-use Everest\Http\Requests\Api\Application\Billing\Products\GetBillingProductRequest;
-use Everest\Http\Requests\Api\Application\Billing\Products\GetBillingProductsRequest;
-use Everest\Http\Requests\Api\Application\Billing\Products\StoreBillingProductRequest;
-use Everest\Http\Requests\Api\Application\Billing\Products\DeleteBillingProductRequest;
-use Everest\Http\Requests\Api\Application\Billing\Products\UpdateBillingProductRequest;
+use DarkOak\Transformers\Api\Application\ProductTransformer;
+use DarkOak\Exceptions\Http\QueryValueOutOfRangeHttpException;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Http\Requests\Api\Application\Billing\Products\GetBillingProductRequest;
+use DarkOak\Http\Requests\Api\Application\Billing\Products\GetBillingProductsRequest;
+use DarkOak\Http\Requests\Api\Application\Billing\Products\StoreBillingProductRequest;
+use DarkOak\Http\Requests\Api\Application\Billing\Products\DeleteBillingProductRequest;
+use DarkOak\Http\Requests\Api\Application\Billing\Products\UpdateBillingProductRequest;
 
 class ProductController extends ApplicationApiController
 {
@@ -169,3 +169,4 @@ class ProductController extends ApplicationApiController
         Cache::forget("client.billing.product.{$product->id}");
     }
 }
+

@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Nests;
+namespace DarkOak\Http\Requests\Api\Application\Nests;
 
-use Everest\Models\AdminRole;
+use DarkOak\Models\AdminRole;
 
 class GetNestRequest extends GetNestsRequest
 {
@@ -11,3 +11,4 @@ class GetNestRequest extends GetNestsRequest
         return AdminRole::NESTS_READ;
     }
 }
+

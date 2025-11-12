@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Models;
+namespace DarkOak\Models;
 
 use Carbon\Carbon;
-use Everest\Events\ActivityLogged;
+use DarkOak\Events\ActivityLogged;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\MassPrunable;
@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Model as IlluminateModel;
 
 /**
- * \Everest\Models\ActivityLog.
+ * \DarkOak\Models\ActivityLog.
  *
  * @property int $id
  * @property string|null $batch
@@ -27,9 +27,9 @@ use Illuminate\Database\Eloquent\Model as IlluminateModel;
  * @property \Illuminate\Support\Collection|null $properties
  * @property \Carbon\Carbon $timestamp
  * @property IlluminateModel|\Eloquent $actor
- * @property \Illuminate\Database\Eloquent\Collection|\Everest\Models\ActivityLogSubject[] $subjects
+ * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\ActivityLogSubject[] $subjects
  * @property int|null $subjects_count
- * @property \Everest\Models\ApiKey|null $apiKey
+ * @property \DarkOak\Models\ApiKey|null $apiKey
  *
  * @method static Builder|ActivityLog forActor(\Illuminate\Database\Eloquent\Model $actor)
  * @method static Builder|ActivityLog forEvent(string $action)
@@ -144,3 +144,4 @@ class ActivityLog extends Model
         });
     }
 }
+

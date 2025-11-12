@@ -1,14 +1,14 @@
 <?php
 
-namespace Everest\Tests\Unit\Http\Middleware;
+namespace DarkOak\Tests\Unit\Http\Middleware;
 
 use Mockery as m;
-use Everest\Models\Node;
-use Everest\Models\Server;
+use DarkOak\Models\Node;
+use DarkOak\Models\Server;
 use Mockery\MockInterface;
 use Illuminate\Http\Response;
 use Illuminate\Contracts\Routing\ResponseFactory;
-use Everest\Http\Middleware\MaintenanceMiddleware;
+use DarkOak\Http\Middleware\MaintenanceMiddleware;
 
 class MaintenanceMiddlewareTest extends MiddlewareTestCase
 {
@@ -63,3 +63,4 @@ class MaintenanceMiddlewareTest extends MiddlewareTestCase
         return new MaintenanceMiddleware($this->response);
     }
 }
+

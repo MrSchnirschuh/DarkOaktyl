@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application;
+namespace DarkOak\Http\Controllers\Api\Application;
 
-use Everest\Models\Node;
-use Everest\Models\Server;
-use Everest\Models\Ticket;
+use DarkOak\Models\Node;
+use DarkOak\Models\Server;
+use DarkOak\Models\Ticket;
 use Illuminate\Http\JsonResponse;
-use Everest\Services\Helpers\SoftwareVersionService;
+use DarkOak\Services\Helpers\SoftwareVersionService;
 
 class OverviewController extends ApplicationApiController
 {
@@ -45,3 +45,4 @@ class OverviewController extends ApplicationApiController
         return new JsonResponse($data);
     }
 }
+

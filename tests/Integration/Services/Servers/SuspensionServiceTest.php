@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Tests\Integration\Services\Servers;
+namespace DarkOak\Tests\Integration\Services\Servers;
 
-use Everest\Models\Server;
+use DarkOak\Models\Server;
 use Mockery\MockInterface;
-use Everest\Services\Servers\SuspensionService;
-use Everest\Tests\Integration\IntegrationTestCase;
-use Everest\Repositories\Wings\DaemonServerRepository;
+use DarkOak\Services\Servers\SuspensionService;
+use DarkOak\Tests\Integration\IntegrationTestCase;
+use DarkOak\Repositories\Wings\DaemonServerRepository;
 
 class SuspensionServiceTest extends IntegrationTestCase
 {
@@ -69,3 +69,4 @@ class SuspensionServiceTest extends IntegrationTestCase
         return $this->app->make(SuspensionService::class);
     }
 }
+

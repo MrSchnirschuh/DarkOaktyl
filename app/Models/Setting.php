@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Models;
+namespace DarkOak\Models;
 
 /**
- * Everest\Models\Setting.
+ * DarkOak\Models\Setting.
  *
  * @property int $id
  * @property string $key
@@ -25,3 +25,4 @@ class Setting extends Model
         'value' => 'string',
     ];
 }
+

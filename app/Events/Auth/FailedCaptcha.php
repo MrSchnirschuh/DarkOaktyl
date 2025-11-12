@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Events\Auth;
+namespace DarkOak\Events\Auth;
 
-use Everest\Events\Event;
+use DarkOak\Events\Event;
 use Illuminate\Queue\SerializesModels;
 
 class FailedCaptcha extends Event
@@ -16,3 +16,4 @@ class FailedCaptcha extends Event
     {
     }
 }
+

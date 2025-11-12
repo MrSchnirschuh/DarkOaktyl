@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Transformers\Api\Application;
+namespace DarkOak\Transformers\Api\Application;
 
-use Everest\Models\Billing\ResourcePrice;
-use Everest\Models\Billing\ResourceScalingRule;
-use Everest\Transformers\Api\Transformer;
+use DarkOak\Models\Billing\ResourcePrice;
+use DarkOak\Models\Billing\ResourceScalingRule;
+use DarkOak\Transformers\Api\Transformer;
 
 class ResourcePriceTransformer extends Transformer
 {
@@ -52,3 +52,4 @@ class ResourcePriceTransformer extends Transformer
         ];
     }
 }
+

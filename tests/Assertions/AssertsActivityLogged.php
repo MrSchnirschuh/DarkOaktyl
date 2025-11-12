@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Tests\Assertions;
+namespace DarkOak\Tests\Assertions;
 
 use PHPUnit\Framework\Assert;
-use Everest\Events\ActivityLogged;
+use DarkOak\Events\ActivityLogged;
 use Illuminate\Support\Facades\Event;
-use Everest\Models\ActivityLogSubject;
+use DarkOak\Models\ActivityLogSubject;
 use Illuminate\Database\Eloquent\Model;
 
 trait AssertsActivityLogged
@@ -80,3 +80,4 @@ trait AssertsActivityLogged
         });
     }
 }
+

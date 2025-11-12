@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Tests\Integration\Api\Application\Nests;
+namespace DarkOak\Tests\Integration\Api\Application\Nests;
 
 use Illuminate\Http\Response;
-use Everest\Contracts\Repository\NestRepositoryInterface;
-use Everest\Transformers\Api\Application\NestTransformer;
-use Everest\Tests\Integration\Api\Application\ApplicationApiIntegrationTestCase;
+use DarkOak\Contracts\Repository\NestRepositoryInterface;
+use DarkOak\Transformers\Api\Application\NestTransformer;
+use DarkOak\Tests\Integration\Api\Application\ApplicationApiIntegrationTestCase;
 
 class NestControllerTest extends ApplicationApiIntegrationTestCase
 {
@@ -26,7 +26,7 @@ class NestControllerTest extends ApplicationApiIntegrationTestCase
      */
     public function testNestResponse()
     {
-        /** @var \Everest\Models\Nest[] $nests */
+        /** @var \DarkOak\Models\Nest[] $nests */
         $nests = $this->repository->all();
 
         $response = $this->getJson('/api/application/nests');
@@ -121,3 +121,4 @@ class NestControllerTest extends ApplicationApiIntegrationTestCase
         $this->markTestSkipped('todo: implement proper admin api key permissions system');
     }
 }
+

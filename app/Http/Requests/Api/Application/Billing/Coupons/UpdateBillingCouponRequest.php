@@ -1,13 +1,13 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Billing\Coupons;
+namespace DarkOak\Http\Requests\Api\Application\Billing\Coupons;
 
-use Everest\Models\AdminRole;
-use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
+use DarkOak\Models\AdminRole;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Validator;
-use Everest\Models\Billing\Coupon;
+use DarkOak\Models\Billing\Coupon;
 
 class UpdateBillingCouponRequest extends ApplicationApiRequest
 {
@@ -85,3 +85,4 @@ class UpdateBillingCouponRequest extends ApplicationApiRequest
         parent::prepareForValidation();
     }
 }
+

@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Traits\Controllers;
+namespace DarkOak\Traits\Controllers;
 
 use Illuminate\Http\Request;
 
@@ -26,3 +26,4 @@ trait JavascriptInjection
         return \JavaScript::put($args);
     }
 }
+

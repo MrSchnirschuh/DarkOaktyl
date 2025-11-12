@@ -1,16 +1,16 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Tickets;
+namespace DarkOak\Http\Controllers\Api\Application\Tickets;
 
-use Everest\Models\Ticket;
+use DarkOak\Models\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Everest\Models\TicketMessage;
+use DarkOak\Models\TicketMessage;
 use Illuminate\Http\JsonResponse;
 use Spatie\QueryBuilder\QueryBuilder;
-use Everest\Exceptions\Http\QueryValueOutOfRangeHttpException;
-use Everest\Transformers\Api\Application\TicketMessageTransformer;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Exceptions\Http\QueryValueOutOfRangeHttpException;
+use DarkOak\Transformers\Api\Application\TicketMessageTransformer;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
 
 class TicketMessageController extends ApplicationApiController
 {
@@ -59,3 +59,4 @@ class TicketMessageController extends ApplicationApiController
             ->respond(Response::HTTP_CREATED);
     }
 }
+

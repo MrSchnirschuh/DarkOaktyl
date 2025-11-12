@@ -87,11 +87,11 @@ export default forwardRef<HTMLFormElement, Props>(({ title, ...props }, ref) => 
                         &copy; {new Date().getFullYear()}&nbsp;
                         <a
                             rel={'noopener nofollow noreferrer'}
-                            href={'https://jexpanel.com'}
+                            href={'https://DarkOak.eu'}
                             target={'_blank'}
                             css={tw`no-underline text-neutral-300 hover:text-green-400 duration-300`}
                         >
-                            Jexpanel.com
+                            DarkOak.eu
                         </a>
                     </p>
                 </div>

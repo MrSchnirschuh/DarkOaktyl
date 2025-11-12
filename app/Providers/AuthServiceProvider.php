@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Providers;
+namespace DarkOak\Providers;
 
-use Everest\Models\ApiKey;
-use Everest\Models\Server;
+use DarkOak\Models\ApiKey;
+use DarkOak\Models\Server;
 use Laravel\Sanctum\Sanctum;
-use Everest\Policies\ServerPolicy;
+use DarkOak\Policies\ServerPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -27,3 +27,4 @@ class AuthServiceProvider extends ServiceProvider
         Sanctum::ignoreMigrations();
     }
 }
+

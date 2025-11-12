@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Models;
+namespace DarkOak\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -28,3 +28,4 @@ class APILog extends Model
         'authorized' => 'boolean',
     ];
 }
+

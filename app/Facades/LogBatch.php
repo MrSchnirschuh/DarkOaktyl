@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Facades;
+namespace DarkOak\Facades;
 
 use Illuminate\Support\Facades\Facade;
-use Everest\Services\Activity\ActivityLogBatchService;
+use DarkOak\Services\Activity\ActivityLogBatchService;
 
 class LogBatch extends Facade
 {
@@ -12,3 +12,4 @@ class LogBatch extends Facade
         return ActivityLogBatchService::class;
     }
 }
+

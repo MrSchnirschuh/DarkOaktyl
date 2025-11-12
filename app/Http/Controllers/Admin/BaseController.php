@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Http\Controllers\Admin;
+namespace DarkOak\Http\Controllers\Admin;
 
 use Illuminate\View\View;
 use Illuminate\Http\Request;
-use Everest\Http\Controllers\Controller;
+use DarkOak\Http\Controllers\Controller;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class BaseController extends Controller
@@ -20,3 +20,4 @@ class BaseController extends Controller
         return view('templates/base.core');
     }
 }
+

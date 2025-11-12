@@ -38,7 +38,7 @@ export default () => {
     const [loading, setLoading] = useState<boolean>(true);
 
     const { clearFlashes } = useFlash();
-    const settings = useStoreState(s => s.everest.data!.billing);
+    const settings = useStoreState(s => s.DarkOak.data!.billing);
     const billingProductId = ServerContext.useStoreState(s => s.server.data!.billingProductId);
     const renewalDate = ServerContext.useStoreState(s => s.server.data!.renewalDate);
 
@@ -136,3 +136,4 @@ export default () => {
         </PageContentBlock>
     );
 };
+

@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Console\Commands\Maintenance;
+namespace DarkOak\Console\Commands\Maintenance;
 
 use Carbon\Carbon;
 use Illuminate\Console\Command;
@@ -43,3 +43,4 @@ class CleanServiceBackupFilesCommand extends Command
         });
     }
 }
+

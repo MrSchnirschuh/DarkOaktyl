@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Transformers\Api\Client;
+namespace DarkOak\Transformers\Api\Client;
 
-use Everest\Models\EggVariable;
-use Everest\Transformers\Api\Transformer;
+use DarkOak\Models\EggVariable;
+use DarkOak\Transformers\Api\Transformer;
 
 class EggVariableTransformer extends Transformer
 {
@@ -32,3 +32,4 @@ class EggVariableTransformer extends Transformer
         ];
     }
 }
+

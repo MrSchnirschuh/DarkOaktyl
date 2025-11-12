@@ -1,19 +1,19 @@
 <?php
 
-namespace Everest\Repositories\Wings;
+namespace DarkOak\Repositories\Wings;
 
-use Everest\Models\Server;
+use DarkOak\Models\Server;
 use Webmozart\Assert\Assert;
 use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Exception\TransferException;
-use Everest\Exceptions\Http\Connection\DaemonConnectionException;
+use DarkOak\Exceptions\Http\Connection\DaemonConnectionException;
 
 class DaemonCommandRepository extends DaemonRepository
 {
     /**
      * Sends a command or multiple commands to a running server instance.
      *
-     * @throws \Everest\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws \DarkOak\Exceptions\Http\Connection\DaemonConnectionException
      */
     public function send(array|string $command): ResponseInterface
     {
@@ -31,3 +31,4 @@ class DaemonCommandRepository extends DaemonRepository
         }
     }
 }
+

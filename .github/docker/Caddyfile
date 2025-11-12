@@ -1,5 +1,5 @@
 :8080 {
-	root * /var/www/pterodactyl/public/
+	root * /var/www/DarkOaktyl/public/
 	file_server
 
 	header {
@@ -19,3 +19,4 @@
 
 	try_files {path} {path}/ /index.php?{query}
 }
+

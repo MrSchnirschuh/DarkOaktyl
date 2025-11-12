@@ -1,20 +1,20 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Client\Servers;
+namespace DarkOak\Http\Controllers\Api\Client\Servers;
 
-use Everest\Models\Server;
-use Everest\Models\Database;
-use Everest\Facades\Activity;
+use DarkOak\Models\Server;
+use DarkOak\Models\Database;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
-use Everest\Services\Databases\DatabasePasswordService;
-use Everest\Transformers\Api\Client\DatabaseTransformer;
-use Everest\Services\Databases\DatabaseManagementService;
-use Everest\Services\Databases\DeployServerDatabaseService;
-use Everest\Http\Controllers\Api\Client\ClientApiController;
-use Everest\Http\Requests\Api\Client\Servers\Databases\GetDatabasesRequest;
-use Everest\Http\Requests\Api\Client\Servers\Databases\StoreDatabaseRequest;
-use Everest\Http\Requests\Api\Client\Servers\Databases\DeleteDatabaseRequest;
-use Everest\Http\Requests\Api\Client\Servers\Databases\RotatePasswordRequest;
+use DarkOak\Services\Databases\DatabasePasswordService;
+use DarkOak\Transformers\Api\Client\DatabaseTransformer;
+use DarkOak\Services\Databases\DatabaseManagementService;
+use DarkOak\Services\Databases\DeployServerDatabaseService;
+use DarkOak\Http\Controllers\Api\Client\ClientApiController;
+use DarkOak\Http\Requests\Api\Client\Servers\Databases\GetDatabasesRequest;
+use DarkOak\Http\Requests\Api\Client\Servers\Databases\StoreDatabaseRequest;
+use DarkOak\Http\Requests\Api\Client\Servers\Databases\DeleteDatabaseRequest;
+use DarkOak\Http\Requests\Api\Client\Servers\Databases\RotatePasswordRequest;
 
 class DatabaseController extends ClientApiController
 {
@@ -43,8 +43,8 @@ class DatabaseController extends ClientApiController
      * Create a new database for the given server and return it.
      *
      * @throws \Throwable
-     * @throws \Everest\Exceptions\Service\Database\TooManyDatabasesException
-     * @throws \Everest\Exceptions\Service\Database\DatabaseClientFeatureNotEnabledException
+     * @throws \DarkOak\Exceptions\Service\Database\TooManyDatabasesException
+     * @throws \DarkOak\Exceptions\Service\Database\DatabaseClientFeatureNotEnabledException
      */
     public function store(StoreDatabaseRequest $request, Server $server): array
     {
@@ -86,7 +86,7 @@ class DatabaseController extends ClientApiController
     /**
      * Removes a database from the server.
      *
-     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
+     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
      */
     public function delete(DeleteDatabaseRequest $request, Server $server, Database $database): Response
     {
@@ -100,3 +100,4 @@ class DatabaseController extends ClientApiController
         return new Response('', Response::HTTP_NO_CONTENT);
     }
 }
+

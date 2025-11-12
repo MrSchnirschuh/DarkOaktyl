@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Auth;
+namespace DarkOak\Http\Requests\Api\Application\Auth;
 
-use Everest\Models\AdminRole;
-use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
+use DarkOak\Models\AdminRole;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class DisableAuthModuleRequest extends ApplicationApiRequest
 {
@@ -12,3 +12,4 @@ class DisableAuthModuleRequest extends ApplicationApiRequest
         return AdminRole::AUTH_DELETE;
     }
 }
+

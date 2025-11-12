@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Extensions\Laravel\Sanctum;
+namespace DarkOak\Extensions\Laravel\Sanctum;
 
-use Everest\Models\ApiKey;
+use DarkOak\Models\ApiKey;
 use Laravel\Sanctum\NewAccessToken as SanctumAccessToken;
 
 /**
- * @property \Everest\Models\ApiKey $accessToken
+ * @property \DarkOak\Models\ApiKey $accessToken
  */
 class NewAccessToken extends SanctumAccessToken
 {
@@ -21,3 +21,4 @@ class NewAccessToken extends SanctumAccessToken
         $this->plainTextToken = $plainTextToken;
     }
 }
+

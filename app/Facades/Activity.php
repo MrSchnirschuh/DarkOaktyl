@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Facades;
+namespace DarkOak\Facades;
 
 use Illuminate\Support\Facades\Facade;
-use Everest\Services\Activity\ActivityLogService;
+use DarkOak\Services\Activity\ActivityLogService;
 
 class Activity extends Facade
 {
@@ -12,3 +12,4 @@ class Activity extends Facade
         return ActivityLogService::class;
     }
 }
+

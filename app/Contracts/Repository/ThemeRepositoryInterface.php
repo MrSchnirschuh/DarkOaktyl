@@ -1,14 +1,14 @@
 <?php
 
-namespace Everest\Contracts\Repository;
+namespace DarkOak\Contracts\Repository;
 
 interface ThemeRepositoryInterface extends RepositoryInterface
 {
     /**
      * Store a new persistent setting in the database.
      *
-     * @throws \Everest\Exceptions\Model\DataValidationException
-     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
+     * @throws \DarkOak\Exceptions\Model\DataValidationException
+     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
      */
     public function set(string $key, string $value = null);
 
@@ -22,3 +22,4 @@ interface ThemeRepositoryInterface extends RepositoryInterface
      */
     public function forget(string $key);
 }
+

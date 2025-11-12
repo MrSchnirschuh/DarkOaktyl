@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Jobs;
+namespace DarkOak\Jobs;
 
 use Illuminate\Bus\Queueable;
 
@@ -19,3 +19,4 @@ abstract class Job
 
     use Queueable;
 }
+

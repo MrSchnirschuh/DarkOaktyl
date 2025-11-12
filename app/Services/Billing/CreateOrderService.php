@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Services\Billing;
+namespace DarkOak\Services\Billing;
 
-use Everest\Models\User;
-use Everest\Models\Billing\Order;
-use Everest\Models\Billing\Product;
+use DarkOak\Models\User;
+use DarkOak\Models\Billing\Order;
+use DarkOak\Models\Billing\Product;
 
 class CreateOrderService
 {
@@ -30,3 +30,4 @@ class CreateOrderService
         return $order;
     }
 }
+

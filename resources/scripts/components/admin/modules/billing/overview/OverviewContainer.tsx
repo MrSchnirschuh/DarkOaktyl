@@ -15,7 +15,7 @@ import { BillingAnalytics, Order } from '@/api/definitions/admin';
 export default () => {
     const now = new Date();
     const [history, setHistory] = useState<number>(14);
-    const settings = useStoreState(s => s.everest.data!.billing);
+    const settings = useStoreState(s => s.DarkOak.data!.billing);
     const [analytics, setAnalytics] = useState<BillingAnalytics>();
 
     useEffect(() => {
@@ -102,3 +102,4 @@ export default () => {
         </div>
     );
 };
+

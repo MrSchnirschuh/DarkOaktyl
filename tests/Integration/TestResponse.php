@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Tests\Integration;
+namespace DarkOak\Tests\Integration;
 
 use Illuminate\Http\Response;
-use Everest\Exceptions\DisplayException;
+use DarkOak\Exceptions\DisplayException;
 use Illuminate\Testing\Assert as PHPUnit;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Testing\TestResponse as IlluminateTestResponse;
@@ -42,3 +42,4 @@ class TestResponse extends IlluminateTestResponse
         return self::assertStatus(Response::HTTP_FORBIDDEN);
     }
 }
+

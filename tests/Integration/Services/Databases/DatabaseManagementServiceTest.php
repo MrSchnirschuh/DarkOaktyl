@@ -1,16 +1,16 @@
 <?php
 
-namespace Everest\Tests\Integration\Services\Databases;
+namespace DarkOak\Tests\Integration\Services\Databases;
 
 use Mockery\MockInterface;
-use Everest\Models\Database;
-use Everest\Models\DatabaseHost;
-use Everest\Tests\Integration\IntegrationTestCase;
-use Everest\Repositories\Eloquent\DatabaseRepository;
-use Everest\Services\Databases\DatabaseManagementService;
-use Everest\Exceptions\Repository\DuplicateDatabaseNameException;
-use Everest\Exceptions\Service\Database\TooManyDatabasesException;
-use Everest\Exceptions\Service\Database\DatabaseClientFeatureNotEnabledException;
+use DarkOak\Models\Database;
+use DarkOak\Models\DatabaseHost;
+use DarkOak\Tests\Integration\IntegrationTestCase;
+use DarkOak\Repositories\Eloquent\DatabaseRepository;
+use DarkOak\Services\Databases\DatabaseManagementService;
+use DarkOak\Exceptions\Repository\DuplicateDatabaseNameException;
+use DarkOak\Exceptions\Service\Database\TooManyDatabasesException;
+use DarkOak\Exceptions\Service\Database\DatabaseClientFeatureNotEnabledException;
 
 class DatabaseManagementServiceTest extends IntegrationTestCase
 {
@@ -23,7 +23,7 @@ class DatabaseManagementServiceTest extends IntegrationTestCase
     {
         parent::setUp();
 
-        config()->set('everest.client_features.databases.enabled', true);
+        config()->set('DarkOak.client_features.databases.enabled', true);
 
         $this->repository = $this->mock(DatabaseRepository::class);
     }
@@ -43,7 +43,7 @@ class DatabaseManagementServiceTest extends IntegrationTestCase
      */
     public function testExceptionIsThrownIfClientDatabasesAreNotEnabled()
     {
-        config()->set('everest.client_features.databases.enabled', false);
+        config()->set('DarkOak.client_features.databases.enabled', false);
 
         $this->expectException(DatabaseClientFeatureNotEnabledException::class);
 
@@ -211,3 +211,4 @@ class DatabaseManagementServiceTest extends IntegrationTestCase
         return $this->app->make(DatabaseManagementService::class);
     }
 }
+

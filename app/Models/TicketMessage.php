@@ -1,13 +1,13 @@
 <?php
 
-namespace Everest\Models;
+namespace DarkOak\Models;
 
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * Everest\Models\TicketMessage.
+ * DarkOak\Models\TicketMessage.
  *
  * @property int $id
  * @property Ticket $ticket
@@ -74,3 +74,4 @@ class TicketMessage extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 }
+

@@ -13,8 +13,8 @@ import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 export default () => {
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const appName = useStoreState(state => state.settings.data!.name);
-    const force2fa = useStoreState(state => state.everest.data!.auth.security.force2fa);
-    const content = useStoreState(state => state.everest.data!.auth.modules.onboarding.content);
+    const force2fa = useStoreState(state => state.DarkOak.data!.auth.security.force2fa);
+    const content = useStoreState(state => state.DarkOak.data!.auth.modules.onboarding.content);
 
     const submit = (values: { username: string; password: string }) => {
         clearFlashes();
@@ -48,7 +48,7 @@ export default () => {
                             id={'username'}
                             name={'username'}
                             label={'Account Username'}
-                            placeholder={'everestuser1'}
+                            placeholder={'DarkOakuser1'}
                         />
                         <p className={'text-xs text-[var(--theme-text-secondary)] mt-2'}>
                             This will be the unique username for your account. Maybe make this your name?
@@ -85,3 +85,4 @@ export default () => {
         </Dialog>
     );
 };
+

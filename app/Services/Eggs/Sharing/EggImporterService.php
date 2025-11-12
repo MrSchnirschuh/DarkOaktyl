@@ -1,21 +1,21 @@
 <?php
 
-namespace Everest\Services\Eggs\Sharing;
+namespace DarkOak\Services\Eggs\Sharing;
 
 use Ramsey\Uuid\Uuid;
-use Everest\Models\Egg;
-use Everest\Models\Nest;
+use DarkOak\Models\Egg;
+use DarkOak\Models\Nest;
 use Illuminate\Support\Arr;
-use Everest\Models\EggVariable;
+use DarkOak\Models\EggVariable;
 use Symfony\Component\Yaml\Yaml;
 use Illuminate\Http\UploadedFile;
-use Everest\Exceptions\DisplayException;
-use Everest\Services\Eggs\EggParserService;
+use DarkOak\Exceptions\DisplayException;
+use DarkOak\Services\Eggs\EggParserService;
 use Illuminate\Database\ConnectionInterface;
 use Symfony\Component\Yaml\Exception\ParseException;
-use Everest\Exceptions\Service\Egg\BadJsonFormatException;
-use Everest\Exceptions\Service\Egg\BadYamlFormatException;
-use Everest\Exceptions\Service\InvalidFileUploadException;
+use DarkOak\Exceptions\Service\Egg\BadJsonFormatException;
+use DarkOak\Exceptions\Service\Egg\BadYamlFormatException;
+use DarkOak\Exceptions\Service\InvalidFileUploadException;
 
 class EggImporterService
 {
@@ -30,12 +30,12 @@ class EggImporterService
      *
      * @deprecated use `handleFile` or `handleContent` instead
      *
-     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
-     * @throws \Everest\Exceptions\Service\Egg\BadJsonFormatException
-     * @throws \Everest\Exceptions\Service\InvalidFileUploadException
-     * @throws \Everest\Exceptions\Service\Egg\BadYamlFormatException
-     * @throws \Everest\Exceptions\Model\DataValidationException
-     * @throws \Everest\Exceptions\DisplayException
+     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
+     * @throws \DarkOak\Exceptions\Service\Egg\BadJsonFormatException
+     * @throws \DarkOak\Exceptions\Service\InvalidFileUploadException
+     * @throws \DarkOak\Exceptions\Service\Egg\BadYamlFormatException
+     * @throws \DarkOak\Exceptions\Model\DataValidationException
+     * @throws \DarkOak\Exceptions\DisplayException
      */
     public function handle(UploadedFile $file, int $nestId): Egg
     {
@@ -45,12 +45,12 @@ class EggImporterService
     /**
      * ?
      *
-     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
-     * @throws \Everest\Exceptions\Service\Egg\BadJsonFormatException
-     * @throws \Everest\Exceptions\Service\InvalidFileUploadException
-     * @throws \Everest\Exceptions\Service\Egg\BadYamlFormatException
-     * @throws \Everest\Exceptions\Model\DataValidationException
-     * @throws \Everest\Exceptions\DisplayException
+     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
+     * @throws \DarkOak\Exceptions\Service\Egg\BadJsonFormatException
+     * @throws \DarkOak\Exceptions\Service\InvalidFileUploadException
+     * @throws \DarkOak\Exceptions\Service\Egg\BadYamlFormatException
+     * @throws \DarkOak\Exceptions\Model\DataValidationException
+     * @throws \DarkOak\Exceptions\DisplayException
      */
     public function handleFile(int $nestId, UploadedFile $file): Egg
     {
@@ -64,12 +64,12 @@ class EggImporterService
     /**
      * ?
      *
-     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
-     * @throws \Everest\Exceptions\Service\InvalidFileUploadException
-     * @throws \Everest\Exceptions\Service\Egg\BadYamlFormatException
-     * @throws \Everest\Exceptions\Service\Egg\BadJsonFormatException
-     * @throws \Everest\Exceptions\DisplayException
-     * @throws \Everest\Exceptions\Model\DataValidationException
+     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
+     * @throws \DarkOak\Exceptions\Service\InvalidFileUploadException
+     * @throws \DarkOak\Exceptions\Service\Egg\BadYamlFormatException
+     * @throws \DarkOak\Exceptions\Service\Egg\BadJsonFormatException
+     * @throws \DarkOak\Exceptions\DisplayException
+     * @throws \DarkOak\Exceptions\Model\DataValidationException
      */
     public function handleContent(int $nestId, string $content, string $contentType): Egg
     {
@@ -97,15 +97,15 @@ class EggImporterService
     /**
      * ?
      *
-     * @throws \Everest\Exceptions\Model\DataValidationException
-     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
-     * @throws \Everest\Exceptions\Service\InvalidFileUploadException
+     * @throws \DarkOak\Exceptions\Model\DataValidationException
+     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
+     * @throws \DarkOak\Exceptions\Service\InvalidFileUploadException
      */
     private function handleArray(int $nestId, array $parsed): Egg
     {
         $parsed = $this->eggParserService->handle($parsed);
 
-        /** @var \Everest\Models\Nest $nest */
+        /** @var \DarkOak\Models\Nest $nest */
         $nest = Nest::query()->with('eggs', 'eggs.variables')->findOrFail($nestId);
 
         return $this->connection->transaction(function () use ($nest, $parsed) {
@@ -127,3 +127,4 @@ class EggImporterService
         });
     }
 }
+

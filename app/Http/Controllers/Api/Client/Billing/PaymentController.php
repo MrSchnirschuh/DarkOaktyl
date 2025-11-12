@@ -1,21 +1,21 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Client\Billing;
+namespace DarkOak\Http\Controllers\Api\Client\Billing;
 
-use Everest\Models\Node;
+use DarkOak\Models\Node;
 use Stripe\StripeClient;
-use Everest\Models\Server;
+use DarkOak\Models\Server;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Everest\Models\Billing\Order;
+use DarkOak\Models\Billing\Order;
 use Illuminate\Http\JsonResponse;
-use Everest\Models\Billing\Product;
-use Everest\Exceptions\DisplayException;
-use Everest\Models\Billing\BillingException;
-use Everest\Services\Billing\CreateOrderService;
-use Everest\Services\Billing\CreateServerService;
-use Everest\Http\Controllers\Api\Client\ClientApiController;
-use Everest\Contracts\Repository\SettingsRepositoryInterface;
+use DarkOak\Models\Billing\Product;
+use DarkOak\Exceptions\DisplayException;
+use DarkOak\Models\Billing\BillingException;
+use DarkOak\Services\Billing\CreateOrderService;
+use DarkOak\Services\Billing\CreateServerService;
+use DarkOak\Http\Controllers\Api\Client\ClientApiController;
+use DarkOak\Contracts\Repository\SettingsRepositoryInterface;
 
 class PaymentController extends ClientApiController
 {
@@ -114,7 +114,7 @@ class PaymentController extends ClientApiController
             BillingException::create([
                 'exception_type' => BillingException::TYPE_STOREFRONT,
                 'title' => 'The PaymentIntent requested does not exist',
-                'description' => 'Check Stripe Dashboard and ask in the Jexactyl Discord for support',
+                'description' => 'Check Stripe Dashboard and ask in the DarkOaktyl Discord for support',
             ]);
         }
 
@@ -160,7 +160,7 @@ class PaymentController extends ClientApiController
                     'order_id' => $order->id,
                     'exception_type' => BillingException::TYPE_DEPLOYMENT,
                     'title' => 'Unable to fetch PaymentIntent while processing order',
-                    'description' => 'Check Stripe Dashboard and ask in the Jexactyl Discord for support',
+                    'description' => 'Check Stripe Dashboard and ask in the DarkOaktyl Discord for support',
                 ]);
             }
         }
@@ -209,7 +209,7 @@ class PaymentController extends ClientApiController
                     'order_id' => $order->id,
                     'exception_type' => BillingException::TYPE_PAYMENT,
                     'title' => 'Failed to capture payment via Stripe',
-                    'description' => 'Check Stripe Dashboard and ask in the Jexactyl Discord for support',
+                    'description' => 'Check Stripe Dashboard and ask in the DarkOaktyl Discord for support',
                 ]);
 
                 throw new DisplayException('Unable to capture payment for this order.');
@@ -250,3 +250,5 @@ class PaymentController extends ClientApiController
         return $this->stripe;
     }
 }
+
+

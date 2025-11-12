@@ -1,21 +1,21 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Billing;
+namespace DarkOak\Http\Controllers\Api\Application\Billing;
 
-use Everest\Facades\Activity;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
-use Everest\Models\Billing\Order;
-use Everest\Models\Billing\Product;
-use Everest\Models\Billing\Category;
-use Everest\Models\Billing\ResourcePrice;
-use Everest\Models\Billing\BillingTerm;
-use Everest\Models\Billing\Coupon;
-use Everest\Contracts\Repository\SettingsRepositoryInterface;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
-use Everest\Http\Requests\Api\Application\Billing\DeleteStripeKeysRequest;
-use Everest\Http\Requests\Api\Application\Billing\GetBillingAnalyticsRequest;
-use Everest\Http\Requests\Api\Application\Billing\UpdateBillingSettingsRequest;
+use DarkOak\Models\Billing\Order;
+use DarkOak\Models\Billing\Product;
+use DarkOak\Models\Billing\Category;
+use DarkOak\Models\Billing\ResourcePrice;
+use DarkOak\Models\Billing\BillingTerm;
+use DarkOak\Models\Billing\Coupon;
+use DarkOak\Contracts\Repository\SettingsRepositoryInterface;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Http\Requests\Api\Application\Billing\DeleteStripeKeysRequest;
+use DarkOak\Http\Requests\Api\Application\Billing\GetBillingAnalyticsRequest;
+use DarkOak\Http\Requests\Api\Application\Billing\UpdateBillingSettingsRequest;
 
 class BillingController extends ApplicationApiController
 {
@@ -40,7 +40,7 @@ class BillingController extends ApplicationApiController
         if (strpos($request['key'], 'keys:') !== 0) {
             Activity::event('admin:billing:update')
                 ->property('settings', $request->all())
-                ->description('Jexactyl billing settings were updated')
+                ->description('DarkOaktyl billing settings were updated')
                 ->log();
         }
 
@@ -236,3 +236,5 @@ class BillingController extends ApplicationApiController
         return $this->returnNoContent();
     }
 }
+
+

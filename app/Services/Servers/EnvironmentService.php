@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Services\Servers;
+namespace DarkOak\Services\Servers;
 
-use Everest\Models\Server;
-use Everest\Models\EggVariable;
+use DarkOak\Models\Server;
+use DarkOak\Models\EggVariable;
 
 class EnvironmentService
 {
@@ -44,7 +44,7 @@ class EnvironmentService
         }
 
         // Process variables set in the configuration file.
-        foreach (config('everest.environment_variables', []) as $key => $object) {
+        foreach (config('DarkOak.environment_variables', []) as $key => $object) {
             $variables->put(
                 $key,
                 is_callable($object) ? call_user_func($object, $server) : object_get($server, $object)
@@ -70,3 +70,4 @@ class EnvironmentService
         ];
     }
 }
+

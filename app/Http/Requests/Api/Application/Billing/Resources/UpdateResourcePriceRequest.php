@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Billing\Resources;
+namespace DarkOak\Http\Requests\Api\Application\Billing\Resources;
 
-use Everest\Models\AdminRole;
-use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
+use DarkOak\Models\AdminRole;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 use Illuminate\Validation\Rule;
-use Everest\Models\Billing\ResourcePrice;
+use DarkOak\Models\Billing\ResourcePrice;
 
 class UpdateResourcePriceRequest extends ApplicationApiRequest
 {
@@ -55,3 +55,4 @@ class UpdateResourcePriceRequest extends ApplicationApiRequest
         parent::prepareForValidation();
     }
 }
+

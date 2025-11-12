@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Providers;
+namespace DarkOak\Providers;
 
 use Psr\Log\LoggerInterface as Log;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\ServiceProvider;
-use Everest\Contracts\Repository\ThemeRepositoryInterface;
+use DarkOak\Contracts\Repository\ThemeRepositoryInterface;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
 
 class ThemeServiceProvider extends ServiceProvider
@@ -63,3 +63,4 @@ class ThemeServiceProvider extends ServiceProvider
         }
     }
 }
+

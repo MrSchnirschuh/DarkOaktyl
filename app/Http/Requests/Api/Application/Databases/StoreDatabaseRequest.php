@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Databases;
+namespace DarkOak\Http\Requests\Api\Application\Databases;
 
-use Everest\Models\AdminRole;
-use Everest\Models\DatabaseHost;
-use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
+use DarkOak\Models\AdminRole;
+use DarkOak\Models\DatabaseHost;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class StoreDatabaseRequest extends ApplicationApiRequest
 {
@@ -18,3 +18,4 @@ class StoreDatabaseRequest extends ApplicationApiRequest
         return AdminRole::DATABASES_CREATE;
     }
 }
+

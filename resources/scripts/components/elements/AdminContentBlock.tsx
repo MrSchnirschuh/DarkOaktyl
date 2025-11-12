@@ -21,11 +21,11 @@ const AdminContentBlock: React.FC<{
                 &copy; {new Date().getFullYear()}&nbsp;
                 <a
                     rel={'noopener nofollow noreferrer'}
-                    href={'https://jexpanel.com'}
+                    href={'https://DarkOak.eu'}
                     target={'_blank'}
                     css={tw`no-underline text-neutral-500 hover:text-neutral-300`}
                 >
-                    Jexpanel.com
+                    DarkOak.eu
                 </a>
             </p>
         </>

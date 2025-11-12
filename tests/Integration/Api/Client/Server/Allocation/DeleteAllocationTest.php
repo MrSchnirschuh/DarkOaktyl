@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Tests\Integration\Api\Client\Server\Allocation;
+namespace DarkOak\Tests\Integration\Api\Client\Server\Allocation;
 
 use Illuminate\Http\Response;
-use Everest\Models\Allocation;
-use Everest\Models\Permission;
-use Everest\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
+use DarkOak\Models\Allocation;
+use DarkOak\Models\Permission;
+use DarkOak\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 
 class DeleteAllocationTest extends ClientApiIntegrationTestCase
 {
@@ -17,11 +17,11 @@ class DeleteAllocationTest extends ClientApiIntegrationTestCase
      */
     public function testAllocationCanBeDeletedFromServer(array $permission)
     {
-        /** @var \Everest\Models\Server $server */
+        /** @var \DarkOak\Models\Server $server */
         [$user, $server] = $this->generateTestAccount($permission);
         $server->update(['allocation_limit' => 2]);
 
-        /** @var \Everest\Models\Allocation $allocation */
+        /** @var \DarkOak\Models\Allocation $allocation */
         $allocation = Allocation::factory()->create([
             'server_id' => $server->id,
             'node_id' => $server->node_id,
@@ -38,10 +38,10 @@ class DeleteAllocationTest extends ClientApiIntegrationTestCase
      */
     public function testErrorIsReturnedIfUserDoesNotHavePermission()
     {
-        /** @var \Everest\Models\Server $server */
+        /** @var \DarkOak\Models\Server $server */
         [$user, $server] = $this->generateTestAccount([Permission::ACTION_ALLOCATION_CREATE]);
 
-        /** @var \Everest\Models\Allocation $allocation */
+        /** @var \DarkOak\Models\Allocation $allocation */
         $allocation = Allocation::factory()->create([
             'server_id' => $server->id,
             'node_id' => $server->node_id,
@@ -59,7 +59,7 @@ class DeleteAllocationTest extends ClientApiIntegrationTestCase
      */
     public function testErrorIsReturnedIfAllocationIsPrimary()
     {
-        /** @var \Everest\Models\Server $server */
+        /** @var \DarkOak\Models\Server $server */
         [$user, $server] = $this->generateTestAccount();
         $server->update(['allocation_limit' => 2]);
 
@@ -73,7 +73,7 @@ class DeleteAllocationTest extends ClientApiIntegrationTestCase
     {
         [$user, $server] = $this->generateTestAccount();
 
-        /** @var \Everest\Models\Allocation $allocation */
+        /** @var \DarkOak\Models\Allocation $allocation */
         $allocation = Allocation::factory()->forServer($server)->create(['notes' => 'Test notes']);
 
         $this->actingAs($user)->deleteJson($this->link($allocation))
@@ -90,7 +90,7 @@ class DeleteAllocationTest extends ClientApiIntegrationTestCase
      */
     public function testErrorIsReturnedIfAllocationDoesNotBelongToServer()
     {
-        /** @var \Everest\Models\Server $server */
+        /** @var \DarkOak\Models\Server $server */
         [$user, $server] = $this->generateTestAccount();
         [, $server2] = $this->generateTestAccount();
 
@@ -103,3 +103,4 @@ class DeleteAllocationTest extends ClientApiIntegrationTestCase
         return [[[Permission::ACTION_ALLOCATION_DELETE]], [[]]];
     }
 }
+

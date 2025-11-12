@@ -1,16 +1,16 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Client;
+namespace DarkOak\Http\Controllers\Api\Client;
 
-use Everest\Models\Ticket;
+use DarkOak\Models\Ticket;
 use Illuminate\Http\Request;
-use Everest\Facades\Activity;
-use Everest\Models\TicketMessage;
+use DarkOak\Facades\Activity;
+use DarkOak\Models\TicketMessage;
 use Illuminate\Http\JsonResponse;
-use Everest\Exceptions\DisplayException;
-use Everest\Http\Requests\Api\Client\ClientApiRequest;
-use Everest\Transformers\Api\Client\TicketTransformer;
-use Everest\Contracts\Repository\SettingsRepositoryInterface;
+use DarkOak\Exceptions\DisplayException;
+use DarkOak\Http\Requests\Api\Client\ClientApiRequest;
+use DarkOak\Transformers\Api\Client\TicketTransformer;
+use DarkOak\Contracts\Repository\SettingsRepositoryInterface;
 
 class TicketController extends ClientApiController
 {
@@ -122,3 +122,4 @@ class TicketController extends ClientApiController
         return new JsonResponse([], JsonResponse::HTTP_NO_CONTENT);
     }
 }
+

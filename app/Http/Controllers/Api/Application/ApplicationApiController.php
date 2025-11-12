@@ -1,14 +1,14 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application;
+namespace DarkOak\Http\Controllers\Api\Application;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 use Illuminate\Container\Container;
-use Everest\Http\Controllers\Controller;
-use Everest\Extensions\Spatie\Fractalistic\Fractal;
-use Everest\Services\Permission\AdminPermissionService;
+use DarkOak\Http\Controllers\Controller;
+use DarkOak\Extensions\Spatie\Fractalistic\Fractal;
+use DarkOak\Services\Permission\AdminPermissionService;
 
 abstract class ApplicationApiController extends Controller
 {
@@ -75,3 +75,4 @@ abstract class ApplicationApiController extends Controller
         ];
     }
 }
+

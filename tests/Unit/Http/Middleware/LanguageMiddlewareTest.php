@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Tests\Unit\Http\Middleware;
+namespace DarkOak\Tests\Unit\Http\Middleware;
 
 use Mockery as m;
-use Everest\Models\User;
+use DarkOak\Models\User;
 use Mockery\MockInterface;
 use Illuminate\Foundation\Application;
-use Everest\Http\Middleware\LanguageMiddleware;
+use DarkOak\Http\Middleware\LanguageMiddleware;
 
 class LanguageMiddlewareTest extends MiddlewareTestCase
 {
@@ -54,3 +54,4 @@ class LanguageMiddlewareTest extends MiddlewareTestCase
         return new LanguageMiddleware($this->appMock);
     }
 }
+

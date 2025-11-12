@@ -1,14 +1,14 @@
 <?php
 
-namespace Everest\Tests\Integration\Api\Client\Server\Subuser;
+namespace DarkOak\Tests\Integration\Api\Client\Server\Subuser;
 
-use Everest\Models\User;
-use Everest\Models\Subuser;
+use DarkOak\Models\User;
+use DarkOak\Models\Subuser;
 use Illuminate\Support\Str;
 use Illuminate\Http\Response;
-use Everest\Models\Permission;
+use DarkOak\Models\Permission;
 use Illuminate\Foundation\Testing\WithFaker;
-use Everest\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
+use DarkOak\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 
 class CreateServerSubuserTest extends ClientApiIntegrationTestCase
 {
@@ -32,7 +32,7 @@ class CreateServerSubuserTest extends ClientApiIntegrationTestCase
 
         $response->assertOk();
 
-        /** @var \Everest\Models\User $subuser */
+        /** @var \DarkOak\Models\User $subuser */
         $subuser = User::query()->where('email', $email)->firstOrFail();
 
         $response->assertJsonPath('object', Subuser::RESOURCE_NAME);
@@ -111,7 +111,7 @@ class CreateServerSubuserTest extends ClientApiIntegrationTestCase
     {
         [$user, $server] = $this->generateTestAccount();
 
-        /** @var \Everest\Models\User $existing */
+        /** @var \DarkOak\Models\User $existing */
         $existing = User::factory()->create(['email' => $this->faker->email]);
 
         $response = $this->actingAs($user)->postJson($this->link($server) . '/users', [
@@ -160,3 +160,4 @@ class CreateServerSubuserTest extends ClientApiIntegrationTestCase
         return [[[]], [[Permission::ACTION_USER_CREATE]]];
     }
 }
+

@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Models\Objects;
+namespace DarkOak\Models\Objects;
 
 class DeploymentObject
 {
@@ -46,3 +46,4 @@ class DeploymentObject
         return $this;
     }
 }
+

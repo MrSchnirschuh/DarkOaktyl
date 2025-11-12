@@ -1,15 +1,15 @@
 <?php
 
-namespace Everest\Services\Emails;
+namespace DarkOak\Services\Emails;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Blade;
-use Everest\Models\EmailTheme;
-use Everest\Models\EmailTemplate;
-use Everest\Models\User;
-use Everest\Services\Emails\AnonymousRecipient;
-use Everest\Services\Themes\ThemePaletteService;
+use DarkOak\Models\EmailTheme;
+use DarkOak\Models\EmailTemplate;
+use DarkOak\Models\User;
+use DarkOak\Services\Emails\AnonymousRecipient;
+use DarkOak\Services\Themes\ThemePaletteService;
 
 class EmailTemplateRenderer
 {
@@ -217,3 +217,4 @@ class EmailTemplateRenderer
         ];
     }
 }
+

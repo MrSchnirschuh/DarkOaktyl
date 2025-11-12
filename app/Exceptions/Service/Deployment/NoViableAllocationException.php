@@ -1,9 +1,10 @@
 <?php
 
-namespace Everest\Exceptions\Service\Deployment;
+namespace DarkOak\Exceptions\Service\Deployment;
 
-use Everest\Exceptions\DisplayException;
+use DarkOak\Exceptions\DisplayException;
 
 class NoViableAllocationException extends DisplayException
 {
 }
+

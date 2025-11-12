@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Providers;
+namespace DarkOak\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Everest\Http\ViewComposers\AssetComposer;
-use Everest\Http\ViewComposers\ThemeComposer;
-use Everest\Http\ViewComposers\EverestComposer;
+use DarkOak\Http\ViewComposers\AssetComposer;
+use DarkOak\Http\ViewComposers\ThemeComposer;
+use DarkOak\Http\ViewComposers\DarkOakComposer;
 
 class ViewComposerServiceProvider extends ServiceProvider
 {
@@ -16,6 +16,7 @@ class ViewComposerServiceProvider extends ServiceProvider
     {
         $this->app->make('view')->composer('*', AssetComposer::class);
         $this->app->make('view')->composer('*', ThemeComposer::class);
-        $this->app->make('view')->composer('*', EverestComposer::class);
+        $this->app->make('view')->composer('*', DarkOakComposer::class);
     }
 }
+

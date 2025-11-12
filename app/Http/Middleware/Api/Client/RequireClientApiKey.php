@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Http\Middleware\Api\Client;
+namespace DarkOak\Http\Middleware\Api\Client;
 
-use Everest\Models\ApiKey;
+use DarkOak\Models\ApiKey;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
@@ -23,3 +23,4 @@ class RequireClientApiKey
         return $next($request);
     }
 }
+

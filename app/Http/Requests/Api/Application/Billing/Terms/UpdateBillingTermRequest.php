@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Billing\Terms;
+namespace DarkOak\Http\Requests\Api\Application\Billing\Terms;
 
-use Everest\Models\AdminRole;
-use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
+use DarkOak\Models\AdminRole;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
-use Everest\Models\Billing\BillingTerm;
+use DarkOak\Models\Billing\BillingTerm;
 
 class UpdateBillingTermRequest extends ApplicationApiRequest
 {
@@ -51,3 +51,4 @@ class UpdateBillingTermRequest extends ApplicationApiRequest
         parent::prepareForValidation();
     }
 }
+

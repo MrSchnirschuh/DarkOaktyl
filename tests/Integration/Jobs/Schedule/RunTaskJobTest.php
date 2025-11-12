@@ -1,20 +1,20 @@
 <?php
 
-namespace Everest\Tests\Integration\Jobs\Schedule;
+namespace DarkOak\Tests\Integration\Jobs\Schedule;
 
 use Carbon\Carbon;
-use Everest\Models\Task;
-use Everest\Models\Server;
+use DarkOak\Models\Task;
+use DarkOak\Models\Server;
 use Carbon\CarbonImmutable;
-use Everest\Models\Schedule;
+use DarkOak\Models\Schedule;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Support\Facades\Bus;
-use Everest\Jobs\Schedule\RunTaskJob;
+use DarkOak\Jobs\Schedule\RunTaskJob;
 use GuzzleHttp\Exception\BadResponseException;
-use Everest\Tests\Integration\IntegrationTestCase;
-use Everest\Repositories\Wings\DaemonPowerRepository;
-use Everest\Exceptions\Http\Connection\DaemonConnectionException;
+use DarkOak\Tests\Integration\IntegrationTestCase;
+use DarkOak\Repositories\Wings\DaemonPowerRepository;
+use DarkOak\Exceptions\Http\Connection\DaemonConnectionException;
 
 class RunTaskJobTest extends IntegrationTestCase
 {
@@ -25,14 +25,14 @@ class RunTaskJobTest extends IntegrationTestCase
     {
         $server = $this->createServerModel();
 
-        /** @var \Everest\Models\Schedule $schedule */
+        /** @var \DarkOak\Models\Schedule $schedule */
         $schedule = Schedule::factory()->create([
             'server_id' => $server->id,
             'is_processing' => true,
             'last_run_at' => null,
             'is_active' => false,
         ]);
-        /** @var \Everest\Models\Task $task */
+        /** @var \DarkOak\Models\Task $task */
         $task = Task::factory()->create(['schedule_id' => $schedule->id, 'is_queued' => true]);
 
         $job = new RunTaskJob($task);
@@ -52,9 +52,9 @@ class RunTaskJobTest extends IntegrationTestCase
     {
         $server = $this->createServerModel();
 
-        /** @var \Everest\Models\Schedule $schedule */
+        /** @var \DarkOak\Models\Schedule $schedule */
         $schedule = Schedule::factory()->create(['server_id' => $server->id]);
-        /** @var \Everest\Models\Task $task */
+        /** @var \DarkOak\Models\Task $task */
         $task = Task::factory()->create(['schedule_id' => $schedule->id, 'action' => 'foobar']);
 
         $job = new RunTaskJob($task);
@@ -71,14 +71,14 @@ class RunTaskJobTest extends IntegrationTestCase
     {
         $server = $this->createServerModel();
 
-        /** @var \Everest\Models\Schedule $schedule */
+        /** @var \DarkOak\Models\Schedule $schedule */
         $schedule = Schedule::factory()->create([
             'server_id' => $server->id,
             'is_active' => !$isManualRun,
             'is_processing' => true,
             'last_run_at' => null,
         ]);
-        /** @var \Everest\Models\Task $task */
+        /** @var \DarkOak\Models\Task $task */
         $task = Task::factory()->create([
             'schedule_id' => $schedule->id,
             'action' => Task::ACTION_POWER,
@@ -112,9 +112,9 @@ class RunTaskJobTest extends IntegrationTestCase
     {
         $server = $this->createServerModel();
 
-        /** @var \Everest\Models\Schedule $schedule */
+        /** @var \DarkOak\Models\Schedule $schedule */
         $schedule = Schedule::factory()->create(['server_id' => $server->id]);
-        /** @var \Everest\Models\Task $task */
+        /** @var \DarkOak\Models\Task $task */
         $task = Task::factory()->create([
             'schedule_id' => $schedule->id,
             'action' => Task::ACTION_POWER,
@@ -148,7 +148,7 @@ class RunTaskJobTest extends IntegrationTestCase
     /**
      * Test that a schedule is not executed if the server is suspended.
      *
-     * @see https://github.com/pterodactyl/panel/issues/4008
+     * @see https://github.com/DarkOaktyl/panel/issues/4008
      */
     public function testTaskIsNotRunIfServerIsSuspended()
     {
@@ -180,3 +180,5 @@ class RunTaskJobTest extends IntegrationTestCase
         return [[true], [false]];
     }
 }
+
+

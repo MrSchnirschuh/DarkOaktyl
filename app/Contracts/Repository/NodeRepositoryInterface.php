@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Contracts\Repository;
+namespace DarkOak\Contracts\Repository;
 
-use Everest\Models\Node;
+use DarkOak\Models\Node;
 use Illuminate\Support\Collection;
 
 interface NodeRepositoryInterface extends RepositoryInterface
@@ -31,3 +31,4 @@ interface NodeRepositoryInterface extends RepositoryInterface
      */
     public function getNodesForServerCreation(): Collection;
 }
+

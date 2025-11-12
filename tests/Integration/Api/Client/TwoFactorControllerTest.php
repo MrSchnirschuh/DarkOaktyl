@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Tests\Integration\Api\Client;
+namespace DarkOak\Tests\Integration\Api\Client;
 
 use Carbon\Carbon;
-use Everest\Models\User;
+use DarkOak\Models\User;
 use Illuminate\Http\Response;
-use Everest\Models\RecoveryToken;
+use DarkOak\Models\RecoveryToken;
 use PragmaRX\Google2FA\Google2FA;
 use PHPUnit\Framework\ExpectationFailedException;
 
@@ -105,7 +105,7 @@ class TwoFactorControllerTest extends ClientApiIntegrationTestCase
         // Ensure the recovery tokens that were created include a "created_at" timestamp
         // value on them.
         //
-        // @see https://github.com/pterodactyl/panel/issues/3163
+        // @see https://github.com/DarkOaktyl/panel/issues/3163
         $this->assertNotNull($tokens[0]->created_at);
 
         $tokens = $tokens->pluck('token')->toArray();
@@ -205,3 +205,5 @@ class TwoFactorControllerTest extends ClientApiIntegrationTestCase
         $this->assertTrue($user->refresh()->use_totp);
     }
 }
+
+

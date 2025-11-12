@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Mounts;
+namespace DarkOak\Http\Requests\Api\Application\Mounts;
 
-use Everest\Models\Mount;
-use Everest\Models\AdminRole;
+use DarkOak\Models\Mount;
+use DarkOak\Models\AdminRole;
 
 class UpdateMountRequest extends StoreMountRequest
 {
@@ -17,3 +17,4 @@ class UpdateMountRequest extends StoreMountRequest
         return AdminRole::MOUNTS_UPDATE;
     }
 }
+

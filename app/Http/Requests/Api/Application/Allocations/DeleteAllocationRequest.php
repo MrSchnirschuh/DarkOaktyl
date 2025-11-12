@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Allocations;
+namespace DarkOak\Http\Requests\Api\Application\Allocations;
 
-use Everest\Models\AdminRole;
-use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
+use DarkOak\Models\AdminRole;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class DeleteAllocationRequest extends ApplicationApiRequest
 {
@@ -12,3 +12,4 @@ class DeleteAllocationRequest extends ApplicationApiRequest
         return AdminRole::NODES_UPDATE;
     }
 }
+

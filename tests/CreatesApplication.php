@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Tests;
+namespace DarkOak\Tests;
 
 use Illuminate\Foundation\Application;
 use Illuminate\Contracts\Console\Kernel;
@@ -19,3 +19,4 @@ trait CreatesApplication
         return $app;
     }
 }
+

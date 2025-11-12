@@ -1,13 +1,13 @@
 <?php
 
-namespace Everest\Services\Webhooks;
+namespace DarkOak\Services\Webhooks;
 
-use Everest\Models\User;
-use Everest\Models\WebhookEvent;
+use DarkOak\Models\User;
+use DarkOak\Models\WebhookEvent;
 use Illuminate\Support\Facades\Http;
-use Everest\Exceptions\DisplayException;
-use Everest\Contracts\Repository\ThemeRepositoryInterface;
-use Everest\Contracts\Repository\SettingsRepositoryInterface;
+use DarkOak\Exceptions\DisplayException;
+use DarkOak\Contracts\Repository\ThemeRepositoryInterface;
+use DarkOak\Contracts\Repository\SettingsRepositoryInterface;
 
 class WebhookEventService
 {
@@ -43,7 +43,7 @@ class WebhookEventService
                     'color' => $color,
                     'timestamp' => now()->toIso8601String(),
                     'footer' => [
-                        'text' => 'Jexactyl v4',
+                        'text' => 'DarkOaktyl v4',
                         'icon_url' => 'https://avatars.githubusercontent.com/u/91636558?s=200&v=4',
                     ],
                     'author' => [
@@ -57,3 +57,5 @@ class WebhookEventService
         }
     }
 }
+
+

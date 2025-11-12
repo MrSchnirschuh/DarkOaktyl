@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Services\Databases\Hosts;
+namespace DarkOak\Services\Databases\Hosts;
 
-use Everest\Exceptions\Service\HasActiveServersException;
-use Everest\Contracts\Repository\DatabaseRepositoryInterface;
-use Everest\Contracts\Repository\DatabaseHostRepositoryInterface;
+use DarkOak\Exceptions\Service\HasActiveServersException;
+use DarkOak\Contracts\Repository\DatabaseRepositoryInterface;
+use DarkOak\Contracts\Repository\DatabaseHostRepositoryInterface;
 
 class HostDeletionService
 {
@@ -21,7 +21,7 @@ class HostDeletionService
      * Delete a specified host from the Panel if no databases are
      * attached to it.
      *
-     * @throws \Everest\Exceptions\Service\HasActiveServersException
+     * @throws \DarkOak\Exceptions\Service\HasActiveServersException
      */
     public function handle(int $host): int
     {
@@ -33,3 +33,4 @@ class HostDeletionService
         return $this->repository->delete($host);
     }
 }
+

@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Transformers\Api\Application;
+namespace DarkOak\Transformers\Api\Application;
 
-use Everest\Models\EggVariable;
-use Everest\Models\ServerVariable;
-use Everest\Transformers\Api\Transformer;
+use DarkOak\Models\EggVariable;
+use DarkOak\Models\ServerVariable;
+use DarkOak\Transformers\Api\Transformer;
 
 class ServerVariableTransformer extends Transformer
 {
@@ -24,3 +24,4 @@ class ServerVariableTransformer extends Transformer
         return $model->toArray();
     }
 }
+

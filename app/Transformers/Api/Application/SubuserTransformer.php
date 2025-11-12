@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Transformers\Api\Application;
+namespace DarkOak\Transformers\Api\Application;
 
-use Everest\Models\Subuser;
+use DarkOak\Models\Subuser;
 use League\Fractal\Resource\Item;
-use Everest\Services\Acl\Api\AdminAcl;
-use Everest\Transformers\Api\Transformer;
+use DarkOak\Services\Acl\Api\AdminAcl;
+use DarkOak\Transformers\Api\Transformer;
 use League\Fractal\Resource\NullResource;
 
 class SubuserTransformer extends Transformer
@@ -62,3 +62,4 @@ class SubuserTransformer extends Transformer
         return $this->item($subuser->user, new UserTransformer());
     }
 }
+

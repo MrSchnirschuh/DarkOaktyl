@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Models;
+namespace DarkOak\Models;
 
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Collection;
@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * Everest\Models\Ticket.
+ * DarkOak\Models\Ticket.
  *
  * @property int $id
  * @property User $user
@@ -106,3 +106,4 @@ class Ticket extends Model
         return $this->hasMany(TicketMessage::class, 'ticket_id');
     }
 }
+

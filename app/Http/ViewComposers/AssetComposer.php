@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Http\ViewComposers;
+namespace DarkOak\Http\ViewComposers;
 
 use Illuminate\View\View;
 
@@ -12,7 +12,7 @@ class AssetComposer
     public function compose(View $view): void
     {
         $view->with('siteConfiguration', [
-            'name' => config('app.name') ?? 'Everest',
+            'name' => config('app.name') ?? 'DarkOak',
             'mode' => config('app.mode') ?? 'standard',
             'setup' => config('app.setup') ?? false,
             'debug' => env('APP_DEBUG') ?? false,
@@ -27,3 +27,4 @@ class AssetComposer
         ]);
     }
 }
+

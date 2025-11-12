@@ -1,13 +1,13 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Billing;
+namespace DarkOak\Http\Controllers\Api\Application\Billing;
 
-use Everest\Models\Billing\BillingTerm;
-use Everest\Models\Billing\Coupon;
-use Everest\Models\Node;
-use Everest\Services\Billing\BillingPricingService;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
-use Everest\Http\Requests\Api\Application\Billing\Quotes\CalculateBillingQuoteRequest;
+use DarkOak\Models\Billing\BillingTerm;
+use DarkOak\Models\Billing\Coupon;
+use DarkOak\Models\Node;
+use DarkOak\Services\Billing\BillingPricingService;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Http\Requests\Api\Application\Billing\Quotes\CalculateBillingQuoteRequest;
 
 class QuoteController extends ApplicationApiController
 {
@@ -92,3 +92,4 @@ class QuoteController extends ApplicationApiController
         return null;
     }
 }
+

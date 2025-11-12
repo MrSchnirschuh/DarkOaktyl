@@ -1,22 +1,22 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Nodes;
+namespace DarkOak\Http\Controllers\Api\Application\Nodes;
 
-use Everest\Models\Node;
+use DarkOak\Models\Node;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Everest\Models\Allocation;
+use DarkOak\Models\Allocation;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
 use Illuminate\Database\Eloquent\Builder;
-use Everest\Services\Allocations\AssignmentService;
-use Everest\Services\Allocations\AllocationDeletionService;
-use Everest\Exceptions\Http\QueryValueOutOfRangeHttpException;
-use Everest\Transformers\Api\Application\AllocationTransformer;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
-use Everest\Http\Requests\Api\Application\Allocations\GetAllocationsRequest;
-use Everest\Http\Requests\Api\Application\Allocations\StoreAllocationRequest;
-use Everest\Http\Requests\Api\Application\Allocations\DeleteAllocationRequest;
+use DarkOak\Services\Allocations\AssignmentService;
+use DarkOak\Services\Allocations\AllocationDeletionService;
+use DarkOak\Exceptions\Http\QueryValueOutOfRangeHttpException;
+use DarkOak\Transformers\Api\Application\AllocationTransformer;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Http\Requests\Api\Application\Allocations\GetAllocationsRequest;
+use DarkOak\Http\Requests\Api\Application\Allocations\StoreAllocationRequest;
+use DarkOak\Http\Requests\Api\Application\Allocations\DeleteAllocationRequest;
 
 class AllocationController extends ApplicationApiController
 {
@@ -69,11 +69,11 @@ class AllocationController extends ApplicationApiController
     /**
      * Store new allocations for a given node.
      *
-     * @throws \Everest\Exceptions\DisplayException
-     * @throws \Everest\Exceptions\Service\Allocation\CidrOutOfRangeException
-     * @throws \Everest\Exceptions\Service\Allocation\InvalidPortMappingException
-     * @throws \Everest\Exceptions\Service\Allocation\PortOutOfRangeException
-     * @throws \Everest\Exceptions\Service\Allocation\TooManyPortsInRangeException
+     * @throws \DarkOak\Exceptions\DisplayException
+     * @throws \DarkOak\Exceptions\Service\Allocation\CidrOutOfRangeException
+     * @throws \DarkOak\Exceptions\Service\Allocation\InvalidPortMappingException
+     * @throws \DarkOak\Exceptions\Service\Allocation\PortOutOfRangeException
+     * @throws \DarkOak\Exceptions\Service\Allocation\TooManyPortsInRangeException
      */
     public function store(StoreAllocationRequest $request, Node $node): Response
     {
@@ -88,7 +88,7 @@ class AllocationController extends ApplicationApiController
     /**
      * Delete a specific allocation from the Panel.
      *
-     * @throws \Everest\Exceptions\Service\Allocation\ServerUsingAllocationException
+     * @throws \DarkOak\Exceptions\Service\Allocation\ServerUsingAllocationException
      */
     public function delete(DeleteAllocationRequest $request, Node $node, Allocation $allocation): Response
     {
@@ -109,3 +109,4 @@ class AllocationController extends ApplicationApiController
         return $this->returnNoContent();
     }
 }
+

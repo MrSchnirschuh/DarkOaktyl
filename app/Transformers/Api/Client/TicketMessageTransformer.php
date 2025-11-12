@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Transformers\Api\Client;
+namespace DarkOak\Transformers\Api\Client;
 
-use Everest\Models\TicketMessage;
-use Everest\Transformers\Api\Transformer;
+use DarkOak\Models\TicketMessage;
+use DarkOak\Transformers\Api\Transformer;
 
 class TicketMessageTransformer extends Transformer
 {
@@ -29,3 +29,4 @@ class TicketMessageTransformer extends Transformer
         ];
     }
 }
+

@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Models\Billing;
+namespace DarkOak\Models\Billing;
 
-use Everest\Models\Model;
+use DarkOak\Models\Model;
 
 /**
  * @property int $id
@@ -70,3 +70,4 @@ class Order extends Model
         'payment_intent_id' => 'required|string|unique:orders,payment_intent_id',
     ];
 }
+

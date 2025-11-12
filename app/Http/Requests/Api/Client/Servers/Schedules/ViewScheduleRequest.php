@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Client\Servers\Schedules;
+namespace DarkOak\Http\Requests\Api\Client\Servers\Schedules;
 
-use Everest\Models\Task;
-use Everest\Models\Server;
-use Everest\Models\Schedule;
-use Everest\Models\Permission;
-use Everest\Http\Requests\Api\Client\ClientApiRequest;
+use DarkOak\Models\Task;
+use DarkOak\Models\Server;
+use DarkOak\Models\Schedule;
+use DarkOak\Models\Permission;
+use DarkOak\Http\Requests\Api\Client\ClientApiRequest;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ViewScheduleRequest extends ClientApiRequest
@@ -41,3 +41,4 @@ class ViewScheduleRequest extends ClientApiRequest
         return Permission::ACTION_SCHEDULE_READ;
     }
 }
+

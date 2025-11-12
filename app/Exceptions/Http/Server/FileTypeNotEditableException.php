@@ -1,9 +1,10 @@
 <?php
 
-namespace Everest\Exceptions\Http\Server;
+namespace DarkOak\Exceptions\Http\Server;
 
-use Everest\Exceptions\DisplayException;
+use DarkOak\Exceptions\DisplayException;
 
 class FileTypeNotEditableException extends DisplayException
 {
 }
+

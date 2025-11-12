@@ -1,14 +1,14 @@
 <?php
 
-namespace Everest\Tests\Integration\Api\Application;
+namespace DarkOak\Tests\Integration\Api\Application;
 
-use Everest\Models\User;
-use Everest\Models\ApiKey;
-use Everest\Services\Acl\Api\AdminAcl;
-use Everest\Tests\Integration\IntegrationTestCase;
-use Everest\Tests\Traits\Integration\CreatesTestModels;
+use DarkOak\Models\User;
+use DarkOak\Models\ApiKey;
+use DarkOak\Services\Acl\Api\AdminAcl;
+use DarkOak\Tests\Integration\IntegrationTestCase;
+use DarkOak\Tests\Traits\Integration\CreatesTestModels;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Everest\Tests\Traits\Http\IntegrationJsonRequestAssertions;
+use DarkOak\Tests\Traits\Http\IntegrationJsonRequestAssertions;
 
 abstract class ApplicationApiIntegrationTestCase extends IntegrationTestCase
 {
@@ -32,7 +32,7 @@ abstract class ApplicationApiIntegrationTestCase extends IntegrationTestCase
         $this->key = $this->createApiKey($this->user);
 
         $this
-            ->withHeader('Accept', 'application/vnd.pterodactyl.v1+json')
+            ->withHeader('Accept', 'application/vnd.DarkOaktyl.v1+json')
             ->withHeader('Authorization', 'Bearer ' . $this->key->identifier . decrypt($this->key->token));
     }
 
@@ -88,3 +88,5 @@ abstract class ApplicationApiIntegrationTestCase extends IntegrationTestCase
         ], $permissions));
     }
 }
+
+

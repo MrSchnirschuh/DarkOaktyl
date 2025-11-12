@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Client\Servers\Network;
+namespace DarkOak\Http\Requests\Api\Client\Servers\Network;
 
 class SetPrimaryAllocationRequest extends UpdateAllocationRequest
 {
@@ -9,3 +9,4 @@ class SetPrimaryAllocationRequest extends UpdateAllocationRequest
         return [];
     }
 }
+

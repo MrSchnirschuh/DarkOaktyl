@@ -1,13 +1,13 @@
 <?php
 
-namespace Everest\Repositories\Eloquent;
+namespace DarkOak\Repositories\Eloquent;
 
-use Everest\Models\Egg;
+use DarkOak\Models\Egg;
 use Webmozart\Assert\Assert;
 use Illuminate\Database\Eloquent\Collection;
-use Everest\Contracts\Repository\EggRepositoryInterface;
+use DarkOak\Contracts\Repository\EggRepositoryInterface;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Everest\Exceptions\Repository\RecordNotFoundException;
+use DarkOak\Exceptions\Repository\RecordNotFoundException;
 
 class EggRepository extends EloquentRepository implements EggRepositoryInterface
 {
@@ -22,7 +22,7 @@ class EggRepository extends EloquentRepository implements EggRepositoryInterface
     /**
      * Return an egg with the variables relation attached.
      *
-     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
+     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
      */
     public function getWithVariables(int $id): Egg
     {
@@ -46,7 +46,7 @@ class EggRepository extends EloquentRepository implements EggRepositoryInterface
      *
      * @param int|string $value
      *
-     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
+     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
      */
     public function getWithCopyAttributes($value, string $column = 'id'): Egg
     {
@@ -62,7 +62,7 @@ class EggRepository extends EloquentRepository implements EggRepositoryInterface
     /**
      * Return all the data needed to export a service.
      *
-     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
+     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
      */
     public function getWithExportAttributes(int $id): Egg
     {
@@ -84,3 +84,4 @@ class EggRepository extends EloquentRepository implements EggRepositoryInterface
             ->exists();
     }
 }
+

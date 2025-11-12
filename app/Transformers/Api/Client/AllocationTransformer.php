@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Transformers\Api\Client;
+namespace DarkOak\Transformers\Api\Client;
 
-use Everest\Models\Allocation;
-use Everest\Transformers\Api\Transformer;
+use DarkOak\Models\Allocation;
+use DarkOak\Transformers\Api\Transformer;
 
 class AllocationTransformer extends Transformer
 {
@@ -27,3 +27,4 @@ class AllocationTransformer extends Transformer
         ];
     }
 }
+

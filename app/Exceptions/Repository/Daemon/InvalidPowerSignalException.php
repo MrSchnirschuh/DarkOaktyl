@@ -1,9 +1,10 @@
 <?php
 
-namespace Everest\Exceptions\Repository\Daemon;
+namespace DarkOak\Exceptions\Repository\Daemon;
 
-use Everest\Exceptions\Repository\RepositoryException;
+use DarkOak\Exceptions\Repository\RepositoryException;
 
 class InvalidPowerSignalException extends RepositoryException
 {
 }
+

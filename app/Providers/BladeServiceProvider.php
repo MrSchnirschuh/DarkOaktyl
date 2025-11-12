@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Providers;
+namespace DarkOak\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -17,3 +17,4 @@ class BladeServiceProvider extends ServiceProvider
             });
     }
 }
+

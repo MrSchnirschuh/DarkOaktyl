@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Services\Emails;
+namespace DarkOak\Services\Emails;
 
 use Carbon\CarbonImmutable;
 use Cron\CronExpression;
-use Everest\Models\EmailTrigger;
-use Everest\Models\User;
+use DarkOak\Models\EmailTrigger;
+use DarkOak\Models\User;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
@@ -87,3 +87,4 @@ class EmailTriggerProcessor
         return $entities->unique(fn (User $user) => $user->id);
     }
 }
+

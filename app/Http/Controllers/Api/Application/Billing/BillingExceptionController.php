@@ -1,16 +1,16 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Billing;
+namespace DarkOak\Http\Controllers\Api\Application\Billing;
 
-use Everest\Facades\Activity;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
 use Spatie\QueryBuilder\QueryBuilder;
-use Everest\Models\Billing\BillingException;
-use Everest\Exceptions\Http\QueryValueOutOfRangeHttpException;
-use Everest\Transformers\Api\Application\BillingExceptionTransformer;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
-use Everest\Http\Requests\Api\Application\Billing\Exceptions\GetBillingExceptionsRequest;
-use Everest\Http\Requests\Api\Application\Billing\Exceptions\ResolveBillingExceptionRequest;
+use DarkOak\Models\Billing\BillingException;
+use DarkOak\Exceptions\Http\QueryValueOutOfRangeHttpException;
+use DarkOak\Transformers\Api\Application\BillingExceptionTransformer;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Http\Requests\Api\Application\Billing\Exceptions\GetBillingExceptionsRequest;
+use DarkOak\Http\Requests\Api\Application\Billing\Exceptions\ResolveBillingExceptionRequest;
 
 class BillingExceptionController extends ApplicationApiController
 {
@@ -77,3 +77,4 @@ class BillingExceptionController extends ApplicationApiController
         return $this->returnNoContent();
     }
 }
+

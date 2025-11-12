@@ -40,7 +40,7 @@ const FileDropdownMenu = ({ file }: { file: FileObject }) => {
     const { clearAndAddHttpError, clearFlashes } = useFlash();
     const directory = ServerContext.useStoreState(state => state.files.directory);
 
-    useEventListener(`pterodactyl:files:ctx:${file.key}`, (e: CustomEvent) => {
+    useEventListener(`DarkOaktyl:files:ctx:${file.key}`, (e: CustomEvent) => {
         if (onClickRef.current) {
             onClickRef.current.triggerMenu(e.detail);
         }
@@ -205,3 +205,4 @@ const FileDropdownMenu = ({ file }: { file: FileObject }) => {
 };
 
 export default memo(FileDropdownMenu, isEqual);
+

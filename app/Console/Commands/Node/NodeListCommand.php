@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Console\Commands\Node;
+namespace DarkOak\Console\Commands\Node;
 
-use Everest\Models\Node;
+use DarkOak\Models\Node;
 use Illuminate\Console\Command;
 
 class NodeListCommand extends Command
@@ -31,3 +31,4 @@ class NodeListCommand extends Command
         return 0;
     }
 }
+

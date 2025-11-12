@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Transformers\Api\Client;
+namespace DarkOak\Transformers\Api\Client;
 
-use Everest\Models\ApiKey;
-use Everest\Transformers\Api\Transformer;
+use DarkOak\Models\ApiKey;
+use DarkOak\Transformers\Api\Transformer;
 
 class ApiKeyTransformer extends Transformer
 {
@@ -29,3 +29,4 @@ class ApiKeyTransformer extends Transformer
         ];
     }
 }
+

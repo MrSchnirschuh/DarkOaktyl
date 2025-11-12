@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Http\Requests\Auth;
+namespace DarkOak\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -19,3 +19,4 @@ class LoginRequest extends FormRequest
         ];
     }
 }
+

@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Roles;
+namespace DarkOak\Http\Requests\Api\Application\Roles;
 
-use Everest\Models\AdminRole;
+use DarkOak\Models\AdminRole;
 
 class UpdateRoleRequest extends StoreRoleRequest
 {
@@ -16,3 +16,4 @@ class UpdateRoleRequest extends StoreRoleRequest
         return AdminRole::ROLES_UPDATE;
     }
 }
+

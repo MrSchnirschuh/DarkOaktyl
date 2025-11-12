@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Tests\Integration\Api\Client\Server;
+namespace DarkOak\Tests\Integration\Api\Client\Server;
 
 use Illuminate\Http\Response;
-use Everest\Models\Permission;
-use Everest\Repositories\Wings\DaemonPowerRepository;
-use Everest\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
+use DarkOak\Models\Permission;
+use DarkOak\Repositories\Wings\DaemonPowerRepository;
+use DarkOak\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 
 class PowerControllerTest extends ClientApiIntegrationTestCase
 {
@@ -97,3 +97,4 @@ class PowerControllerTest extends ClientApiIntegrationTestCase
         ];
     }
 }
+

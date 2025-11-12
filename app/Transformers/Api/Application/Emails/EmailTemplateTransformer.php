@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Transformers\Api\Application\Emails;
+namespace DarkOak\Transformers\Api\Application\Emails;
 
-use Everest\Models\EmailTemplate;
-use Everest\Transformers\Api\Transformer;
+use DarkOak\Models\EmailTemplate;
+use DarkOak\Transformers\Api\Transformer;
 
 class EmailTemplateTransformer extends Transformer
 {
@@ -40,3 +40,4 @@ class EmailTemplateTransformer extends Transformer
         return $theme ? $this->item($theme, new EmailThemeTransformer(), 'email_theme') : null;
     }
 }
+

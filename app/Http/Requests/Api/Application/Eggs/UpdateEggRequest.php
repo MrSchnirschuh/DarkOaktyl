@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Eggs;
+namespace DarkOak\Http\Requests\Api\Application\Eggs;
 
-use Everest\Models\AdminRole;
+use DarkOak\Models\AdminRole;
 
 class UpdateEggRequest extends StoreEggRequest
 {
@@ -33,3 +33,4 @@ class UpdateEggRequest extends StoreEggRequest
         return AdminRole::EGGS_UPDATE;
     }
 }
+

@@ -1,13 +1,13 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Client\Account;
+namespace DarkOak\Http\Requests\Api\Client\Account;
 
-use Everest\Http\Requests\Api\Client\ClientApiRequest;
+use DarkOak\Http\Requests\Api\Client\ClientApiRequest;
 
 class SetupUserRequest extends ClientApiRequest
 {
     /**
-     * @throws \Everest\Exceptions\Http\Base\InvalidPasswordProvidedException
+     * @throws \DarkOak\Exceptions\Http\Base\InvalidPasswordProvidedException
      */
     public function authorize(): bool
     {
@@ -26,3 +26,4 @@ class SetupUserRequest extends ClientApiRequest
         ];
     }
 }
+

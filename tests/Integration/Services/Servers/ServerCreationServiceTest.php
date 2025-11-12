@@ -1,29 +1,29 @@
 <?php
 
-namespace Everest\Tests\Integration\Services\Servers;
+namespace DarkOak\Tests\Integration\Services\Servers;
 
 use Carbon\Carbon;
-use Everest\Models\Egg;
-use Everest\Models\Node;
-use Everest\Models\User;
-use Everest\Models\Server;
+use DarkOak\Models\Egg;
+use DarkOak\Models\Node;
+use DarkOak\Models\User;
+use DarkOak\Models\Server;
 use Mockery\MockInterface;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Support\Str;
-use Everest\Models\Allocation;
-use Everest\Models\Billing\Product;
-use Everest\Models\Billing\Category;
-use Everest\Models\Billing\BillingTerm;
-use Everest\Models\Objects\DeploymentObject;
+use DarkOak\Models\Allocation;
+use DarkOak\Models\Billing\Product;
+use DarkOak\Models\Billing\Category;
+use DarkOak\Models\Billing\BillingTerm;
+use DarkOak\Models\Objects\DeploymentObject;
 use Illuminate\Foundation\Testing\WithFaker;
 use GuzzleHttp\Exception\BadResponseException;
 use Illuminate\Validation\ValidationException;
-use Everest\Tests\Integration\IntegrationTestCase;
-use Everest\Services\Servers\ServerCreationService;
-use Everest\Repositories\Wings\DaemonServerRepository;
-use Everest\Exceptions\Http\Connection\DaemonConnectionException;
-use Everest\Services\Servers\NodeCapacityService;
+use DarkOak\Tests\Integration\IntegrationTestCase;
+use DarkOak\Services\Servers\ServerCreationService;
+use DarkOak\Repositories\Wings\DaemonServerRepository;
+use DarkOak\Exceptions\Http\Connection\DaemonConnectionException;
+use DarkOak\Services\Servers\NodeCapacityService;
 
 class ServerCreationServiceTest extends IntegrationTestCase
 {
@@ -44,7 +44,7 @@ class ServerCreationServiceTest extends IntegrationTestCase
 
         /* @noinspection PhpFieldAssignmentTypeMismatchInspection */
         $this->bungeecord = Egg::query()
-            ->where('author', 'support@pterodactyl.io')
+            ->where('author', 'support@DarkOaktyl.io')
             ->where('name', 'Bungeecord')
             ->firstOrFail();
 
@@ -65,13 +65,13 @@ class ServerCreationServiceTest extends IntegrationTestCase
      */
     public function testServerIsCreatedWithDeploymentObject()
     {
-        /** @var \Everest\Models\User $user */
+        /** @var \DarkOak\Models\User $user */
         $user = User::factory()->create();
 
-        /** @var \Everest\Models\Node $node */
+        /** @var \DarkOak\Models\Node $node */
         $node = Node::factory()->create();
 
-        /** @var \Everest\Models\Allocation[]|\Illuminate\Database\Eloquent\Collection $allocations */
+        /** @var \DarkOak\Models\Allocation[]|\Illuminate\Database\Eloquent\Collection $allocations */
         $allocations = Allocation::factory()->times(5)->create([
             'node_id' => $node->id,
         ]);
@@ -163,13 +163,13 @@ class ServerCreationServiceTest extends IntegrationTestCase
      */
     public function testErrorEncounteredByWingsCausesServerToBeDeleted()
     {
-        /** @var \Everest\Models\User $user */
+        /** @var \DarkOak\Models\User $user */
         $user = User::factory()->create();
 
-        /** @var \Everest\Models\Node $node */
+        /** @var \DarkOak\Models\Node $node */
         $node = Node::factory()->create();
 
-        /** @var \Everest\Models\Allocation $allocation */
+        /** @var \DarkOak\Models\Allocation $allocation */
         $allocation = Allocation::factory()->create([
             'node_id' => $node->id,
         ]);
@@ -287,3 +287,5 @@ class ServerCreationServiceTest extends IntegrationTestCase
         return $this->app->make(ServerCreationService::class);
     }
 }
+
+

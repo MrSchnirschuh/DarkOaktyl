@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Contracts\Repository;
+namespace DarkOak\Contracts\Repository;
 
-use Everest\Models\Subuser;
+use DarkOak\Models\Subuser;
 
 interface SubuserRepositoryInterface extends RepositoryInterface
 {
@@ -19,7 +19,8 @@ interface SubuserRepositoryInterface extends RepositoryInterface
     /**
      * Return a subuser and associated permissions given a user_id and server_id.
      *
-     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
+     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
      */
     public function getWithPermissionsUsingUserAndServer(int $user, int $server): Subuser;
 }
+

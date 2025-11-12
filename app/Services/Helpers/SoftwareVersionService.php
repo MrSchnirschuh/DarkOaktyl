@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Services\Helpers;
+namespace DarkOak\Services\Helpers;
 
 use Exception;
 use Carbon\CarbonImmutable;
@@ -8,12 +8,12 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Contracts\Cache\Repository as CacheRepository;
-use Everest\Exceptions\Service\Helper\CdnVersionFetchingException;
+use DarkOak\Exceptions\Service\Helper\CdnVersionFetchingException;
 
 class SoftwareVersionService
 {
-    public const VERSION_CACHE_KEY = 'pterodactyl:versioning_data';
-    public const GIT_VERSION_CACHE_KEY = 'pterodactyl:git_data';
+    public const VERSION_CACHE_KEY = 'DarkOaktyl:versioning_data';
+    public const GIT_VERSION_CACHE_KEY = 'DarkOaktyl:git_data';
 
     private static array $result;
 
@@ -54,7 +54,7 @@ class SoftwareVersionService
      */
     public function getDiscord(): string
     {
-        return Arr::get(self::$result, 'discord') ?? 'https://pterodactyl.io/discord';
+        return Arr::get(self::$result, 'discord') ?? 'https://DarkOaktyl.io/discord';
     }
 
     /**
@@ -151,9 +151,13 @@ class SoftwareVersionService
      */
     protected function cacheVersionData(): array
     {
-        return $this->cache->remember(self::VERSION_CACHE_KEY, CarbonImmutable::now()->addMinutes(config('everest.cdn.cache_time', 60)), function () {
+        return $this->cache->remember(self::VERSION_CACHE_KEY, CarbonImmutable::now()->addMinutes(config('darkoak.cdn.cache_time', 60)), function () {
+            $url = config('darkoak.cdn.url');
+            if (!$url) {
+                return [];
+            }
             try {
-                $response = Http::get(config('everest.cdn.url'));
+                $response = Http::get($url);
 
                 if ($response->status() === 200) {
                     return json_decode($response->body(), true);
@@ -166,3 +170,5 @@ class SoftwareVersionService
         });
     }
 }
+
+

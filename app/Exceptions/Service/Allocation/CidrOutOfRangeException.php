@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Exceptions\Service\Allocation;
+namespace DarkOak\Exceptions\Service\Allocation;
 
-use Everest\Exceptions\DisplayException;
+use DarkOak\Exceptions\DisplayException;
 
 class CidrOutOfRangeException extends DisplayException
 {
@@ -14,3 +14,4 @@ class CidrOutOfRangeException extends DisplayException
         parent::__construct(trans('exceptions.allocations.cidr_out_of_range'));
     }
 }
+

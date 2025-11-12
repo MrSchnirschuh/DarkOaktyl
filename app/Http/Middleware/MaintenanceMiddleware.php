@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Http\Middleware;
+namespace DarkOak\Http\Middleware;
 
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Routing\ResponseFactory;
@@ -19,7 +19,7 @@ class MaintenanceMiddleware
      */
     public function handle(Request $request, \Closure $next): mixed
     {
-        /** @var \Everest\Models\Server $server */
+        /** @var \DarkOak\Models\Server $server */
         $server = $request->attributes->get('server');
         $node = $server->getRelation('node');
 
@@ -30,3 +30,4 @@ class MaintenanceMiddleware
         return $next($request);
     }
 }
+

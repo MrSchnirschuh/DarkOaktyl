@@ -1,21 +1,21 @@
 <?php
 
-namespace Everest\Services\Activity;
+namespace DarkOak\Services\Activity;
 
-use Everest\Models\User;
+use DarkOak\Models\User;
 use Illuminate\Support\Arr;
 use Webmozart\Assert\Assert;
-use Everest\Models\ActivityLog;
-use Everest\Models\WebhookEvent;
+use DarkOak\Models\ActivityLog;
+use DarkOak\Models\WebhookEvent;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
-use Everest\Models\ActivityLogSubject;
+use DarkOak\Models\ActivityLogSubject;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Database\ConnectionInterface;
-use Everest\Services\Webhooks\WebhookEventService;
+use DarkOak\Services\Webhooks\WebhookEventService;
 use Illuminate\Contracts\Auth\Factory as AuthFactory;
-use Everest\Contracts\Repository\SettingsRepositoryInterface;
+use DarkOak\Contracts\Repository\SettingsRepositoryInterface;
 
 class ActivityLogService
 {
@@ -286,3 +286,4 @@ class ActivityLogService
         return $response;
     }
 }
+

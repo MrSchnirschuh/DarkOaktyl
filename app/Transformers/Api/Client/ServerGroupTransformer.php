@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Transformers\Api\Client;
+namespace DarkOak\Transformers\Api\Client;
 
-use Everest\Models\ServerGroup;
-use Everest\Transformers\Api\Transformer;
+use DarkOak\Models\ServerGroup;
+use DarkOak\Transformers\Api\Transformer;
 
 class ServerGroupTransformer extends Transformer
 {
@@ -25,3 +25,4 @@ class ServerGroupTransformer extends Transformer
         ];
     }
 }
+

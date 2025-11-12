@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Tests\Unit\Rules;
+namespace DarkOak\Tests\Unit\Rules;
 
-use Everest\Rules\Username;
-use Everest\Tests\TestCase;
+use DarkOak\Rules\Username;
+use DarkOak\Tests\TestCase;
 
 class UsernameTest extends TestCase
 {
@@ -72,3 +72,4 @@ class UsernameTest extends TestCase
         ];
     }
 }
+

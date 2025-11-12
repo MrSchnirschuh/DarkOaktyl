@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Console;
+namespace DarkOak\Console;
 
 /**
  * @mixin \Illuminate\Console\Command
@@ -46,10 +46,12 @@ You must run the following command to finish migrating your database:
 
   <fg=green;options=bold>php artisan migrate --step --force</>
 
-You will not be able to use Pterodactyl Panel as expected without fixing your
+You will not be able to use DarkOaktyl Panel as expected without fixing your
 database state by running the command above.
 ');
 
         $this->getOutput()->error('You must correct the error above before continuing.');
     }
 }
+
+

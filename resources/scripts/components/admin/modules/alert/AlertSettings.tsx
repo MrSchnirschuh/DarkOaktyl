@@ -11,14 +11,14 @@ import { useEffect, useState } from 'react';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import Label from '@elements/Label';
 import Select from '@elements/Select';
-import { AlertType } from '@/state/everest';
+import { AlertType } from '@/state/DarkOak';
 
 export default () => {
     const { addFlash, clearFlashes, clearAndAddHttpError } = useFlash();
 
-    const { alert } = useStoreState(state => state.everest.data!);
+    const { alert } = useStoreState(state => state.DarkOak.data!);
     const [type, setType] = useState<AlertType>(alert.type);
-    const updateEverest = useStoreActions(actions => actions.everest.updateEverest);
+    const updateDarkOak = useStoreActions(actions => actions.DarkOak.updateDarkOak);
 
     const submit = (values: AlertSettings) => {
         clearFlashes();
@@ -27,7 +27,7 @@ export default () => {
 
         updateAlertSettings(values)
             .then(uuid => {
-                updateEverest({ alert: { ...values, uuid } });
+                updateDarkOak({ alert: { ...values, uuid } });
 
                 addFlash({
                     type: 'success',
@@ -114,3 +114,4 @@ export default () => {
         </Formik>
     );
 };
+

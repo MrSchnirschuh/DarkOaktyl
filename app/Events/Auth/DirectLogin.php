@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Events\Auth;
+namespace DarkOak\Events\Auth;
 
-use Everest\Models\User;
-use Everest\Events\Event;
+use DarkOak\Models\User;
+use DarkOak\Events\Event;
 
 class DirectLogin extends Event
 {
@@ -11,3 +11,4 @@ class DirectLogin extends Event
     {
     }
 }
+

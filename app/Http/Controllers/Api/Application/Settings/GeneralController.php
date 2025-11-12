@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Settings;
+namespace DarkOak\Http\Controllers\Api\Application\Settings;
 
 use Illuminate\Http\Response;
-use Everest\Contracts\Repository\SettingsRepositoryInterface;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
-use Everest\Http\Requests\Api\Application\Settings\GeneralSettingsRequest;
+use DarkOak\Contracts\Repository\SettingsRepositoryInterface;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Http\Requests\Api\Application\Settings\GeneralSettingsRequest;
 
 class GeneralController extends ApplicationApiController
 {
@@ -32,3 +32,4 @@ class GeneralController extends ApplicationApiController
         return $this->returnNoContent();
     }
 }
+

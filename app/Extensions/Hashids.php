@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Extensions;
+namespace DarkOak\Extensions;
 
 use Hashids\Hashids as VendorHashids;
-use Everest\Contracts\Extensions\HashidsInterface;
+use DarkOak\Contracts\Extensions\HashidsInterface;
 
 class Hashids extends VendorHashids implements HashidsInterface
 {
@@ -20,3 +20,4 @@ class Hashids extends VendorHashids implements HashidsInterface
         return array_first($result, null, $default);
     }
 }
+

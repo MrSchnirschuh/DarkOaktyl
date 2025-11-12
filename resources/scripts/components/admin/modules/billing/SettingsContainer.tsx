@@ -19,13 +19,13 @@ import { deleteStripeKeys, updateSettings } from '@/api/admin/billing';
 export type BillingSetupDialog = 'paypal' | 'link' | 'setup' | 'none';
 
 export default () => {
-    const settings = useStoreState(s => s.everest.data!.billing);
-    const updateEverest = useStoreActions(s => s.everest.updateEverest);
+    const settings = useStoreState(s => s.DarkOak.data!.billing);
+    const updateDarkOak = useStoreActions(s => s.DarkOak.updateDarkOak);
     const [open, setOpen] = useState<BillingSetupDialog>('none');
 
     const submit = async (key: string, value: boolean | string) => {
         await updateSettings(key, value).then(() => {
-            updateEverest({ billing: { ...settings, [key]: value } });
+            updateDarkOak({ billing: { ...settings, [key]: value } });
         });
     };
 
@@ -50,7 +50,7 @@ export default () => {
             {open === 'link' && <SetupLink setOpen={setOpen} />}
             {open === 'setup' && <SetupStripe extOpen />}
             <AdminBox title={'Add PayPal integration'} icon={faPaypal}>
-                Adding PayPal to Jexactyl allows users to purchase products via another channel, improving order success
+                Adding PayPal to DarkOaktyl allows users to purchase products via another channel, improving order success
                 rate and global payment availability.
                 <p className={'text-gray-400 mt-2'}>
                     PayPal module is currently{' '}
@@ -75,7 +75,7 @@ export default () => {
                 </div>
             </AdminBox>
             <AdminBox title={'Add Link integration'} icon={faStripe}>
-                Adding Link to Jexactyl allows users to purchase products via another channel, improving order success
+                Adding Link to DarkOaktyl allows users to purchase products via another channel, improving order success
                 rate and global payment availability.
                 <p className={'text-gray-400 mt-2'}>
                     Link module is currently{' '}
@@ -120,7 +120,7 @@ export default () => {
             <AdminBox title={'Import/Export Configuration'} icon={faExchange}>
                 <FlashMessageRender byKey={'billing:config'} className={'mb-2'} />
                 Use the below options to either export your current billing configurations, or use the Import button to
-                import a pre-created set of categories and products to Jexactyl.
+                import a pre-created set of categories and products to DarkOaktyl.
                 <div className={'text-right mt-3'}>
                     <ExportConfigButton />
                     <ImportConfigButton />
@@ -155,3 +155,5 @@ export default () => {
         </div>
     );
 };
+
+

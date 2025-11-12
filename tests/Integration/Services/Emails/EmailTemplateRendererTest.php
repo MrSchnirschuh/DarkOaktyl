@@ -2,13 +2,13 @@
 
 namespace Tests\Integration\Services\Emails;
 
-use Everest\Models\EmailTemplate;
-use Everest\Models\EmailTheme;
-use Everest\Models\User;
-use Everest\Services\Emails\EmailTemplateRenderer;
-use Everest\Services\Themes\ThemePaletteService;
+use DarkOak\Models\EmailTemplate;
+use DarkOak\Models\EmailTheme;
+use DarkOak\Models\User;
+use DarkOak\Services\Emails\EmailTemplateRenderer;
+use DarkOak\Services\Themes\ThemePaletteService;
 use Mockery;
-use Everest\Tests\TestCase;
+use DarkOak\Tests\TestCase;
 
 class EmailTemplateRendererTest extends TestCase
 {
@@ -168,3 +168,4 @@ MD,
         $this->assertStringContainsString('SAVE/2025', $rendered['text']);
     }
 }
+

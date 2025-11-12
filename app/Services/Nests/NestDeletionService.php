@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Services\Nests;
+namespace DarkOak\Services\Nests;
 
-use Everest\Contracts\Repository\NestRepositoryInterface;
-use Everest\Exceptions\Service\HasActiveServersException;
-use Everest\Contracts\Repository\ServerRepositoryInterface;
+use DarkOak\Contracts\Repository\NestRepositoryInterface;
+use DarkOak\Exceptions\Service\HasActiveServersException;
+use DarkOak\Contracts\Repository\ServerRepositoryInterface;
 
 class NestDeletionService
 {
@@ -20,7 +20,7 @@ class NestDeletionService
     /**
      * Delete a nest from the system only if there are no servers attached to it.
      *
-     * @throws \Everest\Exceptions\Service\HasActiveServersException
+     * @throws \DarkOak\Exceptions\Service\HasActiveServersException
      */
     public function handle(int $nest): int
     {
@@ -32,3 +32,4 @@ class NestDeletionService
         return $this->repository->delete($nest);
     }
 }
+

@@ -3,7 +3,7 @@ import { useStoreState } from '@/state/hooks';
 import { updateSettings } from '@/api/admin/ai/settings';
 
 export default () => {
-    const ai = useStoreState(state => state.everest.data!.ai);
+    const ai = useStoreState(state => state.DarkOak.data!.ai);
 
     const submit = () => {
         updateSettings({ ...ai, enabled: !ai.enabled }).then(() => {
@@ -14,7 +14,9 @@ export default () => {
 
     return (
         <div className={'mr-4'} onClick={submit}>
-            {!ai.enabled ? <Button>Enable Jexactyl AI</Button> : <Button.Danger>Disable Jexactyl AI</Button.Danger>}
+            {!ai.enabled ? <Button>Enable DarkOaktyl AI</Button> : <Button.Danger>Disable DarkOaktyl AI</Button.Danger>}
         </div>
     );
 };
+
+

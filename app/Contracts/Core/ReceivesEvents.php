@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Contracts\Core;
+namespace DarkOak\Contracts\Core;
 
-use Everest\Events\Event;
+use DarkOak\Events\Event;
 
 interface ReceivesEvents
 {
@@ -11,3 +11,4 @@ interface ReceivesEvents
      */
     public function handle(Event $notification): void;
 }
+

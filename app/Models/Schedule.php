@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Models;
+namespace DarkOak\Models;
 
 use Cron\CronExpression;
 use Carbon\CarbonImmutable;
 use Illuminate\Container\Container;
-use Everest\Contracts\Extensions\HashidsInterface;
+use DarkOak\Contracts\Extensions\HashidsInterface;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -26,8 +26,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property string $hashid
- * @property \Everest\Models\Server $server
- * @property \Everest\Models\Task[]|\Illuminate\Support\Collection $tasks
+ * @property \DarkOak\Models\Server $server
+ * @property \DarkOak\Models\Task[]|\Illuminate\Support\Collection $tasks
  */
 class Schedule extends Model
 {
@@ -148,3 +148,4 @@ class Schedule extends Model
         return $this->belongsTo(Server::class);
     }
 }
+

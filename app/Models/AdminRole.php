@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Models;
+namespace DarkOak\Models;
 
 use Illuminate\Support\Collection;
 
@@ -168,7 +168,7 @@ class AdminRole extends Model
      * All the permissions available on the system. You should use self::permissions()
      * to retrieve them, and not directly access this array as it is subject to change.
      *
-     * @see \Everest\Models\Permission::permissions()
+     * @see \DarkOak\Models\Permission::permissions()
      */
     protected static array $permissions = [
         'overview' => [
@@ -373,3 +373,4 @@ class AdminRole extends Model
         return Collection::make(self::$permissions);
     }
 }
+

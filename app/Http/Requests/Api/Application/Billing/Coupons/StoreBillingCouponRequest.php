@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Billing\Coupons;
+namespace DarkOak\Http\Requests\Api\Application\Billing\Coupons;
 
-use Everest\Models\AdminRole;
-use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
+use DarkOak\Models\AdminRole;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Validator;
@@ -73,3 +73,4 @@ class StoreBillingCouponRequest extends ApplicationApiRequest
         parent::prepareForValidation();
     }
 }
+

@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Services\Servers;
+namespace DarkOak\Services\Servers;
 
-use Everest\Models\User;
-use Everest\Models\Server;
+use DarkOak\Models\User;
+use DarkOak\Models\Server;
 
 class GetUserPermissionsService
 {
@@ -26,9 +26,10 @@ class GetUserPermissionsService
             return $permissions;
         }
 
-        /** @var \Everest\Models\Subuser|null $subuserPermissions */
+        /** @var \DarkOak\Models\Subuser|null $subuserPermissions */
         $subuserPermissions = $server->subusers()->where('user_id', $user->id)->first();
 
         return $subuserPermissions ? $subuserPermissions->permissions : [];
     }
 }
+

@@ -1,14 +1,14 @@
 <?php
 
-namespace Everest\Services\Servers;
+namespace DarkOak\Services\Servers;
 
-use Everest\Models\Server;
+use DarkOak\Models\Server;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Database\ConnectionInterface;
-use Everest\Repositories\Wings\DaemonServerRepository;
-use Everest\Services\Databases\DatabaseManagementService;
-use Everest\Exceptions\Http\Connection\DaemonConnectionException;
+use DarkOak\Repositories\Wings\DaemonServerRepository;
+use DarkOak\Services\Databases\DatabaseManagementService;
+use DarkOak\Exceptions\Http\Connection\DaemonConnectionException;
 
 class ServerDeletionService
 {
@@ -38,7 +38,7 @@ class ServerDeletionService
      * Delete a server from the panel and remove any associated databases from hosts.
      *
      * @throws \Throwable
-     * @throws \Everest\Exceptions\DisplayException
+     * @throws \DarkOak\Exceptions\DisplayException
      */
     public function handle(Server $server): void
     {
@@ -70,7 +70,7 @@ class ServerDeletionService
                     // the host instance, but we couldn't delete it anyways so not sure how we would
                     // handle this better anyways.
                     //
-                    // @see https://github.com/pterodactyl/panel/issues/2085
+                    // @see https://github.com/DarkOaktyl/panel/issues/2085
                     $database->delete();
 
                     Log::warning($exception);
@@ -81,3 +81,5 @@ class ServerDeletionService
         });
     }
 }
+
+

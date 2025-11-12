@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Events\Subuser;
+namespace DarkOak\Events\Subuser;
 
-use Everest\Events\Event;
-use Everest\Models\Subuser;
+use DarkOak\Events\Event;
+use DarkOak\Models\Subuser;
 use Illuminate\Queue\SerializesModels;
 
 class Creating extends Event
@@ -17,3 +17,4 @@ class Creating extends Event
     {
     }
 }
+

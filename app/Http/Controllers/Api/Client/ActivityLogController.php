@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Client;
+namespace DarkOak\Http\Controllers\Api\Client;
 
-use Everest\Models\ActivityLog;
+use DarkOak\Models\ActivityLog;
 use Illuminate\Support\Facades\Cache;
-use Everest\Http\Requests\Api\Client\ClientApiRequest;
-use Everest\Transformers\Api\Client\ActivityLogTransformer;
+use DarkOak\Http\Requests\Api\Client\ClientApiRequest;
+use DarkOak\Transformers\Api\Client\ActivityLogTransformer;
 
 class ActivityLogController extends ClientApiController
 {
@@ -81,3 +81,4 @@ class ActivityLogController extends ClientApiController
         );
     }
 }
+

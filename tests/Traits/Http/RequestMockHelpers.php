@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Tests\Traits\Http;
+namespace DarkOak\Tests\Traits\Http;
 
 use Mockery as m;
 use Mockery\Mock;
-use Everest\Models\User;
+use DarkOak\Models\User;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
@@ -37,7 +37,7 @@ trait RequestMockHelpers
      */
     public function generateRequestUserModel(array $args = []): User
     {
-        /** @var \Everest\Models\User $user */
+        /** @var \DarkOak\Models\User $user */
         $user = User::factory()->make($args);
         $this->setRequestUserModel($user);
 
@@ -87,3 +87,4 @@ trait RequestMockHelpers
         return $user;
     }
 }
+

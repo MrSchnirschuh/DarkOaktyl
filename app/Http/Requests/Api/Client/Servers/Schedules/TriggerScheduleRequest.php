@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Client\Servers\Schedules;
+namespace DarkOak\Http\Requests\Api\Client\Servers\Schedules;
 
-use Everest\Models\Permission;
-use Everest\Http\Requests\Api\Client\ClientApiRequest;
+use DarkOak\Models\Permission;
+use DarkOak\Http\Requests\Api\Client\ClientApiRequest;
 
 class TriggerScheduleRequest extends ClientApiRequest
 {
@@ -17,3 +17,4 @@ class TriggerScheduleRequest extends ClientApiRequest
         return [];
     }
 }
+

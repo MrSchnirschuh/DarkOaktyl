@@ -1,13 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Everest\Http\Controllers\Api\Client;
-use Everest\Http\Middleware\SuspendedAccount;
-use Everest\Http\Middleware\Activity\ServerSubject;
-use Everest\Http\Middleware\Activity\AccountSubject;
-use Everest\Http\Middleware\RequireTwoFactorAuthentication;
-use Everest\Http\Middleware\Api\Client\Server\ResourceBelongsToServer;
-use Everest\Http\Middleware\Api\Client\Server\AuthenticateServerAccess;
+use DarkOak\Http\Controllers\Api\Client;
+use DarkOak\Http\Middleware\SuspendedAccount;
+use DarkOak\Http\Middleware\Activity\ServerSubject;
+use DarkOak\Http\Middleware\Activity\AccountSubject;
+use DarkOak\Http\Middleware\RequireTwoFactorAuthentication;
+use DarkOak\Http\Middleware\Api\Client\Server\ResourceBelongsToServer;
+use DarkOak\Http\Middleware\Api\Client\Server\AuthenticateServerAccess;
 
 /*
 |--------------------------------------------------------------------------
@@ -190,3 +190,4 @@ Route::prefix('/')->middleware([SuspendedAccount::class])->group(function () {
         });
     });
 });
+

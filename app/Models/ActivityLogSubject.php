@@ -1,17 +1,17 @@
 <?php
 
-namespace Everest\Models;
+namespace DarkOak\Models;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
 /**
- * \Everest\Models\ActivityLogSubject.
+ * \DarkOak\Models\ActivityLogSubject.
  *
  * @property int $id
  * @property int $activity_log_id
  * @property int $subject_id
  * @property string $subject_type
- * @property \Everest\Models\ActivityLog|null $activityLog
+ * @property \DarkOak\Models\ActivityLog|null $activityLog
  * @property \Illuminate\Database\Eloquent\Model|\Eloquent $subject
  *
  * @method static \Illuminate\Database\Eloquent\Builder|ActivityLogSubject newModelQuery()
@@ -44,3 +44,4 @@ class ActivityLogSubject extends Pivot
         return $morph;
     }
 }
+

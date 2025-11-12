@@ -1,16 +1,16 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Links;
+namespace DarkOak\Http\Controllers\Api\Application\Links;
 
 use Illuminate\Http\Request;
-use Everest\Facades\Activity;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
-use Everest\Models\CustomLink;
+use DarkOak\Models\CustomLink;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
-use Everest\Transformers\Api\Application\LinkTransformer;
-use Everest\Exceptions\Http\QueryValueOutOfRangeHttpException;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Transformers\Api\Application\LinkTransformer;
+use DarkOak\Exceptions\Http\QueryValueOutOfRangeHttpException;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
 
 class LinkController extends ApplicationApiController
 {
@@ -109,3 +109,4 @@ class LinkController extends ApplicationApiController
         return $this->returnNoContent();
     }
 }
+

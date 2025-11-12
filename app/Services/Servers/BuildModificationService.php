@@ -1,16 +1,16 @@
 <?php
 
-namespace Everest\Services\Servers;
+namespace DarkOak\Services\Servers;
 
-use Everest\Models\Server;
+use DarkOak\Models\Server;
 use Illuminate\Support\Arr;
-use Everest\Models\Allocation;
+use DarkOak\Models\Allocation;
 use Illuminate\Support\Facades\Log;
-use Everest\Exceptions\DisplayException;
+use DarkOak\Exceptions\DisplayException;
 use Illuminate\Database\ConnectionInterface;
-use Everest\Repositories\Wings\DaemonServerRepository;
+use DarkOak\Repositories\Wings\DaemonServerRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Everest\Exceptions\Http\Connection\DaemonConnectionException;
+use DarkOak\Exceptions\Http\Connection\DaemonConnectionException;
 
 class BuildModificationService
 {
@@ -28,11 +28,11 @@ class BuildModificationService
      * Change the build details for a specified server.
      *
      * @throws \Throwable
-     * @throws \Everest\Exceptions\DisplayException
+     * @throws \DarkOak\Exceptions\DisplayException
      */
     public function handle(Server $server, array $data): Server
     {
-        /** @var \Everest\Models\Server $server */
+        /** @var \DarkOak\Models\Server $server */
         $server = $this->connection->transaction(function () use ($server, $data) {
             $this->processAllocations($server, $data);
 
@@ -78,7 +78,7 @@ class BuildModificationService
     /**
      * Process the allocations being assigned in the data and ensure they are available for a server.
      *
-     * @throws \Everest\Exceptions\DisplayException
+     * @throws \DarkOak\Exceptions\DisplayException
      */
     private function processAllocations(Server $server, array &$data): void
     {
@@ -129,3 +129,4 @@ class BuildModificationService
         }
     }
 }
+

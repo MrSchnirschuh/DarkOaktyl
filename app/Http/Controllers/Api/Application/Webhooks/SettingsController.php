@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Webhooks;
+namespace DarkOak\Http\Controllers\Api\Application\Webhooks;
 
 use Illuminate\Http\Request;
-use Everest\Facades\Activity;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
-use Everest\Contracts\Repository\SettingsRepositoryInterface;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Contracts\Repository\SettingsRepositoryInterface;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
 
 class SettingsController extends ApplicationApiController
 {
@@ -30,9 +30,11 @@ class SettingsController extends ApplicationApiController
 
         Activity::event('admin:webhooks:update')
             ->property('settings', $request->all())
-            ->description('Jexactyl webhook settings were updated')
+            ->description('DarkOaktyl webhook settings were updated')
             ->log();
 
         return $this->returnNoContent();
     }
 }
+
+

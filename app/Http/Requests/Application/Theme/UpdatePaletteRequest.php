@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Http\Requests\Application\Theme;
+namespace DarkOak\Http\Requests\Application\Theme;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -22,3 +22,4 @@ class UpdatePaletteRequest extends FormRequest
         ];
     }
 }
+

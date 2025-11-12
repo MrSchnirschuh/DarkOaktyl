@@ -1,15 +1,15 @@
 <?php
 
-namespace Everest\Tests\Integration\Services\Servers;
+namespace DarkOak\Tests\Integration\Services\Servers;
 
 use Exception;
-use Everest\Models\Nest;
-use Everest\Models\User;
-use Everest\Models\Server;
-use Everest\Models\ServerVariable;
+use DarkOak\Models\Nest;
+use DarkOak\Models\User;
+use DarkOak\Models\Server;
+use DarkOak\Models\ServerVariable;
 use Illuminate\Validation\ValidationException;
-use Everest\Tests\Integration\IntegrationTestCase;
-use Everest\Services\Servers\StartupModificationService;
+use DarkOak\Tests\Integration\IntegrationTestCase;
+use DarkOak\Services\Servers\StartupModificationService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class StartupModificationServiceTest extends IntegrationTestCase
@@ -70,7 +70,7 @@ class StartupModificationServiceTest extends IntegrationTestCase
      */
     public function testServerIsProperlyModifiedAsAdminUser()
     {
-        /** @var \Everest\Models\Egg $nextEgg */
+        /** @var \DarkOak\Models\Egg $nextEgg */
         $nextEgg = Nest::query()->findOrFail(2)->eggs()->firstOrFail();
 
         $server = $this->createServerModel(['egg_id' => 1]);
@@ -169,3 +169,4 @@ class StartupModificationServiceTest extends IntegrationTestCase
         return $this->app->make(StartupModificationService::class);
     }
 }
+

@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Client\Servers\Subusers;
+namespace DarkOak\Http\Requests\Api\Client\Servers\Subusers;
 
-use Everest\Models\Permission;
+use DarkOak\Models\Permission;
 
 class StoreSubuserRequest extends SubuserRequest
 {
@@ -20,3 +20,4 @@ class StoreSubuserRequest extends SubuserRequest
         ];
     }
 }
+

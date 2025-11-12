@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Models\Billing;
+namespace DarkOak\Models\Billing;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Everest\Models\Model;
+use DarkOak\Models\Model;
 use Illuminate\Support\Str;
 
 /**
@@ -86,3 +86,4 @@ class ResourcePrice extends Model
         return $this->hasMany(ResourceScalingRule::class, 'resource_price_id')->orderBy('threshold');
     }
 }
+

@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Rules;
+namespace DarkOak\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 
@@ -43,3 +43,4 @@ class Username implements Rule
         return 'p_username';
     }
 }
+

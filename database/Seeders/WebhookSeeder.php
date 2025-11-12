@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Everest\Models\WebhookEvent;
+use DarkOak\Models\WebhookEvent;
 
 class WebhookSeeder extends Seeder
 {
@@ -91,7 +91,7 @@ class WebhookSeeder extends Seeder
     /**
      * Run the seeder to add missing webhook events to the Panel.
      *
-     * @throws \Everest\Exceptions\Model\DataValidationException
+     * @throws \DarkOak\Exceptions\Model\DataValidationException
      */
     public function run()
     {
@@ -121,3 +121,4 @@ class WebhookSeeder extends Seeder
         $this->command->info('Verified ' . $created + $updated . ' webhook events');
     }
 }
+

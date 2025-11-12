@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Tests\Unit\Http\Middleware;
+namespace DarkOak\Tests\Unit\Http\Middleware;
 
-use Everest\Models\User;
-use Everest\Http\Middleware\AdminAuthenticate;
+use DarkOak\Models\User;
+use DarkOak\Http\Middleware\AdminAuthenticate;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class AdminAuthenticateTest extends MiddlewareTestCase
@@ -54,3 +54,4 @@ class AdminAuthenticateTest extends MiddlewareTestCase
         return new AdminAuthenticate();
     }
 }
+

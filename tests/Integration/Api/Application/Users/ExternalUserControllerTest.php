@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Tests\Integration\Api\Application\Users;
+namespace DarkOak\Tests\Integration\Api\Application\Users;
 
-use Everest\Models\User;
+use DarkOak\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Response;
-use Everest\Tests\Integration\Api\Application\ApplicationApiIntegrationTestCase;
+use DarkOak\Tests\Integration\Api\Application\ApplicationApiIntegrationTestCase;
 
 class ExternalUserControllerTest extends ApplicationApiIntegrationTestCase
 {
@@ -62,3 +62,4 @@ class ExternalUserControllerTest extends ApplicationApiIntegrationTestCase
         $this->markTestSkipped('todo: implement proper admin api key permissions system');
     }
 }
+

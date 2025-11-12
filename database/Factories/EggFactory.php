@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use Ramsey\Uuid\Uuid;
-use Everest\Models\Egg;
+use DarkOak\Models\Egg;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class EggFactory extends Factory
@@ -28,3 +28,4 @@ class EggFactory extends Factory
         ];
     }
 }
+

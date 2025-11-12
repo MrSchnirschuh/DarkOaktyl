@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Mounts;
+namespace DarkOak\Http\Requests\Api\Application\Mounts;
 
-use Everest\Models\Mount;
-use Everest\Models\AdminRole;
-use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
+use DarkOak\Models\Mount;
+use DarkOak\Models\AdminRole;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class StoreMountRequest extends ApplicationApiRequest
 {
@@ -18,3 +18,4 @@ class StoreMountRequest extends ApplicationApiRequest
         return AdminRole::MOUNTS_CREATE;
     }
 }
+

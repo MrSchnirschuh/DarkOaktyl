@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Carbon\Carbon;
 use Illuminate\Support\Str;
-use Everest\Models\Database;
+use DarkOak\Models\Database;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class DatabaseFactory extends Factory
@@ -33,3 +33,4 @@ class DatabaseFactory extends Factory
         ];
     }
 }
+

@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Tests\Traits\Http;
+namespace DarkOak\Tests\Traits\Http;
 
 use Illuminate\Http\Response;
 use Illuminate\Testing\TestResponse;
@@ -45,3 +45,4 @@ trait IntegrationJsonRequestAssertions
         ], true);
     }
 }
+

@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Nodes;
+namespace DarkOak\Http\Requests\Api\Application\Nodes;
 
-use Everest\Models\Node;
-use Everest\Models\AdminRole;
+use DarkOak\Models\Node;
+use DarkOak\Models\AdminRole;
 
 class UpdateNodeRequest extends StoreNodeRequest
 {
@@ -17,3 +17,4 @@ class UpdateNodeRequest extends StoreNodeRequest
         return AdminRole::NODES_UPDATE;
     }
 }
+

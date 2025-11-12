@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Carbon\Carbon;
 use Ramsey\Uuid\Uuid;
-use Everest\Models\User;
+use DarkOak\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -46,3 +46,4 @@ class UserFactory extends Factory
         return $this->state(['root_admin' => true]);
     }
 }
+

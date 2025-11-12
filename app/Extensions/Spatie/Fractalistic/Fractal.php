@@ -1,13 +1,13 @@
 <?php
 
-namespace Everest\Extensions\Spatie\Fractalistic;
+namespace DarkOak\Extensions\Spatie\Fractalistic;
 
 use League\Fractal\Scope;
-use Everest\Transformers\Api\Transformer;
+use DarkOak\Transformers\Api\Transformer;
 use Spatie\Fractal\Fractal as SpatieFractal;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
-use Everest\Extensions\League\Fractal\Serializers\PterodactylSerializer;
+use DarkOak\Extensions\League\Fractal\Serializers\DarkOaktylSerializer;
 
 class Fractal extends SpatieFractal
 {
@@ -21,7 +21,7 @@ class Fractal extends SpatieFractal
     {
         // Set the serializer by default.
         if (is_null($this->serializer)) {
-            $this->serializer = new PterodactylSerializer();
+            $this->serializer = new DarkOaktylSerializer();
         }
 
         // Automatically set the paginator on the response object if the
@@ -40,3 +40,5 @@ class Fractal extends SpatieFractal
         return parent::createData();
     }
 }
+
+

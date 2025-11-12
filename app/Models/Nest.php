@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Models;
+namespace DarkOak\Models;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -12,8 +12,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string|null $description
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @property \Illuminate\Database\Eloquent\Collection|\Everest\Models\Server[] $servers
- * @property \Illuminate\Database\Eloquent\Collection|\Everest\Models\Egg[] $eggs
+ * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\Server[] $servers
+ * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\Egg[] $eggs
  */
 class Nest extends Model
 {
@@ -58,3 +58,4 @@ class Nest extends Model
         return $this->hasMany(Server::class);
     }
 }
+

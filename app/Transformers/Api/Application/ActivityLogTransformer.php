@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Transformers\Api\Application;
+namespace DarkOak\Transformers\Api\Application;
 
-use Everest\Models\User;
+use DarkOak\Models\User;
 use Illuminate\Support\Str;
-use Everest\Models\ActivityLog;
+use DarkOak\Models\ActivityLog;
 use League\Fractal\Resource\Item;
-use Everest\Transformers\Api\Transformer;
+use DarkOak\Transformers\Api\Transformer;
 use League\Fractal\Resource\NullResource;
 
 class ActivityLogTransformer extends Transformer
@@ -109,3 +109,4 @@ class ActivityLogTransformer extends Transformer
         return false;
     }
 }
+

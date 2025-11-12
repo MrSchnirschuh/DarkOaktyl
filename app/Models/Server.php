@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Models;
+namespace DarkOak\Models;
 
-use Everest\Models\Billing\Product;
+use DarkOak\Models\Billing\Product;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Query\JoinClause;
 use Znck\Eloquent\Traits\BelongsToThrough;
@@ -11,10 +11,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
-use Everest\Exceptions\Http\Server\ServerStateConflictException;
+use DarkOak\Exceptions\Http\Server\ServerStateConflictException;
 
 /**
- * \Everest\Models\Server.
+ * \DarkOak\Models\Server.
  *
  * @property int $id
  * @property string|null $external_id
@@ -48,29 +48,29 @@ use Everest\Exceptions\Http\Server\ServerStateConflictException;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $installed_at
- * @property \Illuminate\Database\Eloquent\Collection|\Everest\Models\ActivityLog[] $activity
+ * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\ActivityLog[] $activity
  * @property int|null $activity_count
- * @property \Everest\Models\Allocation|null $allocation
- * @property \Illuminate\Database\Eloquent\Collection|\Everest\Models\Allocation[] $allocations
+ * @property \DarkOak\Models\Allocation|null $allocation
+ * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\Allocation[] $allocations
  * @property int|null $allocations_count
- * @property \Illuminate\Database\Eloquent\Collection|\Everest\Models\Backup[] $backups
+ * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\Backup[] $backups
  * @property int|null $backups_count
- * @property \Illuminate\Database\Eloquent\Collection|\Everest\Models\Database[] $databases
+ * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\Database[] $databases
  * @property int|null $databases_count
- * @property \Everest\Models\Egg|null $egg
- * @property \Illuminate\Database\Eloquent\Collection|\Everest\Models\Mount[] $mounts
+ * @property \DarkOak\Models\Egg|null $egg
+ * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\Mount[] $mounts
  * @property int|null $mounts_count
- * @property \Everest\Models\Nest $nest
- * @property \Everest\Models\Node $node
+ * @property \DarkOak\Models\Nest $nest
+ * @property \DarkOak\Models\Node $node
  * @property \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property int|null $notifications_count
- * @property \Illuminate\Database\Eloquent\Collection|\Everest\Models\Schedule[] $schedules
+ * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\Schedule[] $schedules
  * @property int|null $schedules_count
- * @property \Illuminate\Database\Eloquent\Collection|\Everest\Models\Subuser[] $subusers
+ * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\Subuser[] $subusers
  * @property int|null $subusers_count
- * @property \Everest\Models\ServerTransfer|null $transfer
- * @property \Everest\Models\User $user
- * @property \Illuminate\Database\Eloquent\Collection|\Everest\Models\EggVariable[] $variables
+ * @property \DarkOak\Models\ServerTransfer|null $transfer
+ * @property \DarkOak\Models\User $user
+ * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\EggVariable[] $variables
  * @property int|null $variables_count
  *
  * @method static \Database\Factories\ServerFactory factory(...$parameters)
@@ -295,7 +295,7 @@ class Server extends Model
                 // would actually return all the variables and their values for _all_ servers using that egg,
                 // rather than only the server for this model.
                 //
-                // @see https://github.com/pterodactyl/panel/issues/2250
+                // @see https://github.com/DarkOaktyl/panel/issues/2250
                 $join->on('server_variables.variable_id', 'egg_variables.id')
                     ->where('server_variables.server_id', $this->id);
             });
@@ -367,7 +367,7 @@ class Server extends Model
      * exception is raised. This should be called whenever something needs to make
      * sure the server is not in a weird state that should block user access.
      *
-     * @throws \Everest\Exceptions\Http\Server\ServerStateConflictException
+     * @throws \DarkOak\Exceptions\Http\Server\ServerStateConflictException
      */
     public function validateCurrentState()
     {
@@ -399,3 +399,5 @@ class Server extends Model
         }
     }
 }
+
+

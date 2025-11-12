@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Tests\Integration\Api\Application\Users;
+namespace DarkOak\Tests\Integration\Api\Application\Users;
 
-use Everest\Models\User;
+use DarkOak\Models\User;
 use Illuminate\Http\Response;
-use Everest\Transformers\Api\Application\UserTransformer;
-use Everest\Transformers\Api\Application\ServerTransformer;
-use Everest\Tests\Integration\Api\Application\ApplicationApiIntegrationTestCase;
+use DarkOak\Transformers\Api\Application\UserTransformer;
+use DarkOak\Transformers\Api\Application\ServerTransformer;
+use DarkOak\Tests\Integration\Api\Application\ApplicationApiIntegrationTestCase;
 
 class UserControllerTest extends ApplicationApiIntegrationTestCase
 {
@@ -257,3 +257,4 @@ class UserControllerTest extends ApplicationApiIntegrationTestCase
         ];
     }
 }
+

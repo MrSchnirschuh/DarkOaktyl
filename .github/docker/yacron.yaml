@@ -2,7 +2,8 @@ jobs:
   - name: scheduler
     command:
       - /usr/bin/php
-      - /var/www/pterodactyl/artisan
+      - /var/www/DarkOaktyl/artisan
       - schedule:run
     schedule: "* * * * *"
     utc: true
+

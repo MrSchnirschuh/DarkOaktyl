@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Helpers;
+namespace DarkOak\Helpers;
 
 use Carbon\CarbonImmutable;
 
@@ -18,3 +18,4 @@ final class Time
         return CarbonImmutable::now($timezone)->getTimezone()->toOffsetName();
     }
 }
+

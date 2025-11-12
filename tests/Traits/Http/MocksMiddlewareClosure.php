@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Tests\Traits\Http;
+namespace DarkOak\Tests\Traits\Http;
 
 use Closure;
 use Illuminate\Http\Request;
@@ -23,3 +23,4 @@ trait MocksMiddlewareClosure
         };
     }
 }
+

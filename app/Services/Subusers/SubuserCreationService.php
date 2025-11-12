@@ -1,17 +1,17 @@
 <?php
 
-namespace Everest\Services\Subusers;
+namespace DarkOak\Services\Subusers;
 
-use Everest\Models\Server;
-use Everest\Models\Subuser;
+use DarkOak\Models\Server;
+use DarkOak\Models\Subuser;
 use Illuminate\Support\Str;
 use Illuminate\Database\ConnectionInterface;
-use Everest\Services\Users\UserCreationService;
-use Everest\Repositories\Eloquent\SubuserRepository;
-use Everest\Contracts\Repository\UserRepositoryInterface;
-use Everest\Exceptions\Repository\RecordNotFoundException;
-use Everest\Exceptions\Service\Subuser\UserIsServerOwnerException;
-use Everest\Exceptions\Service\Subuser\ServerSubuserExistsException;
+use DarkOak\Services\Users\UserCreationService;
+use DarkOak\Repositories\Eloquent\SubuserRepository;
+use DarkOak\Contracts\Repository\UserRepositoryInterface;
+use DarkOak\Exceptions\Repository\RecordNotFoundException;
+use DarkOak\Exceptions\Service\Subuser\UserIsServerOwnerException;
+use DarkOak\Exceptions\Service\Subuser\ServerSubuserExistsException;
 
 class SubuserCreationService
 {
@@ -31,9 +31,9 @@ class SubuserCreationService
      * If the email address already belongs to a user on the system a new user will not
      * be created.
      *
-     * @throws \Everest\Exceptions\Model\DataValidationException
-     * @throws \Everest\Exceptions\Service\Subuser\ServerSubuserExistsException
-     * @throws \Everest\Exceptions\Service\Subuser\UserIsServerOwnerException
+     * @throws \DarkOak\Exceptions\Model\DataValidationException
+     * @throws \DarkOak\Exceptions\Service\Subuser\ServerSubuserExistsException
+     * @throws \DarkOak\Exceptions\Service\Subuser\UserIsServerOwnerException
      * @throws \Throwable
      */
     public function handle(Server $server, string $email, array $permissions): Subuser
@@ -70,3 +70,4 @@ class SubuserCreationService
         });
     }
 }
+

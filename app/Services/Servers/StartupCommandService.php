@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Services\Servers;
+namespace DarkOak\Services\Servers;
 
-use Everest\Models\Server;
+use DarkOak\Models\Server;
 
 class StartupCommandService
 {
@@ -22,3 +22,4 @@ class StartupCommandService
         return str_replace($find, $replace, $server->startup);
     }
 }
+

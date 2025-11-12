@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Models\Billing;
+namespace DarkOak\Models\Billing;
 
-use Everest\Models\Model;
-use Everest\Models\User;
+use DarkOak\Models\Model;
+use DarkOak\Models\User;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
@@ -121,3 +121,4 @@ class Coupon extends Model
         return $this->hasMany(CouponRedemption::class, 'coupon_id');
     }
 }
+

@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Tests\Integration\Api\Application\Eggs;
+namespace DarkOak\Tests\Integration\Api\Application\Eggs;
 
 use Illuminate\Support\Arr;
 use Illuminate\Http\Response;
-use Everest\Contracts\Repository\EggRepositoryInterface;
-use Everest\Transformers\Api\Application\EggTransformer;
-use Everest\Tests\Integration\Api\Application\ApplicationApiIntegrationTestCase;
+use DarkOak\Contracts\Repository\EggRepositoryInterface;
+use DarkOak\Transformers\Api\Application\EggTransformer;
+use DarkOak\Tests\Integration\Api\Application\ApplicationApiIntegrationTestCase;
 
 class EggControllerTest extends ApplicationApiIntegrationTestCase
 {
@@ -126,3 +126,4 @@ class EggControllerTest extends ApplicationApiIntegrationTestCase
         $this->markTestSkipped('todo: implement proper admin api key permissions system');
     }
 }
+

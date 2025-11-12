@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Models;
+namespace DarkOak\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -11,8 +11,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $variable_value
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
- * @property \Everest\Models\EggVariable $variable
- * @property \Everest\Models\Server $server
+ * @property \DarkOak\Models\EggVariable $variable
+ * @property \DarkOak\Models\Server $server
  */
 class ServerVariable extends Model
 {
@@ -55,3 +55,4 @@ class ServerVariable extends Model
         return $this->belongsTo(EggVariable::class, 'variable_id');
     }
 }
+

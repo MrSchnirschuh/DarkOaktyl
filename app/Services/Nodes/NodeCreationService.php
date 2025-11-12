@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Services\Nodes;
+namespace DarkOak\Services\Nodes;
 
 use Ramsey\Uuid\Uuid;
-use Everest\Models\Node;
+use DarkOak\Models\Node;
 use Illuminate\Support\Str;
 use Illuminate\Contracts\Encryption\Encrypter;
-use Everest\Contracts\Repository\NodeRepositoryInterface;
+use DarkOak\Contracts\Repository\NodeRepositoryInterface;
 
 class NodeCreationService
 {
@@ -20,7 +20,7 @@ class NodeCreationService
     /**
      * Create a new node on the panel.
      *
-     * @throws \Everest\Exceptions\Model\DataValidationException
+     * @throws \DarkOak\Exceptions\Model\DataValidationException
      */
     public function handle(array $data): Node
     {
@@ -31,3 +31,4 @@ class NodeCreationService
         return $this->repository->create($data, true, true);
     }
 }
+

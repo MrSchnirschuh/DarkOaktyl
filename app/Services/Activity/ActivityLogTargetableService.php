@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Services\Activity;
+namespace DarkOak\Services\Activity;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -62,3 +62,4 @@ class ActivityLogTargetableService
         $this->isAdmin = false;
     }
 }
+

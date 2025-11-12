@@ -1,18 +1,18 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Client\Account;
+namespace DarkOak\Http\Requests\Api\Client\Account;
 
-use Everest\Models\User;
+use DarkOak\Models\User;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Hashing\Hasher;
-use Everest\Http\Requests\Api\Client\ClientApiRequest;
-use Everest\Exceptions\Http\Base\InvalidPasswordProvidedException;
+use DarkOak\Http\Requests\Api\Client\ClientApiRequest;
+use DarkOak\Exceptions\Http\Base\InvalidPasswordProvidedException;
 
 class UpdateEmailRequest extends ClientApiRequest
 {
     /**
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     * @throws \Everest\Exceptions\Http\Base\InvalidPasswordProvidedException
+     * @throws \DarkOak\Exceptions\Http\Base\InvalidPasswordProvidedException
      */
     public function authorize(): bool
     {
@@ -37,3 +37,4 @@ class UpdateEmailRequest extends ClientApiRequest
         return ['email' => $rules['email']];
     }
 }
+

@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Users;
+namespace DarkOak\Http\Requests\Api\Application\Users;
 
-use Everest\Models\AdminRole;
-use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
+use DarkOak\Models\AdminRole;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class GetUsersRequest extends ApplicationApiRequest
 {
@@ -12,3 +12,4 @@ class GetUsersRequest extends ApplicationApiRequest
         return AdminRole::USERS_READ;
     }
 }
+

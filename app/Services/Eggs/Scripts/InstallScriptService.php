@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Services\Eggs\Scripts;
+namespace DarkOak\Services\Eggs\Scripts;
 
-use Everest\Models\Egg;
-use Everest\Contracts\Repository\EggRepositoryInterface;
-use Everest\Exceptions\Service\Egg\InvalidCopyFromException;
+use DarkOak\Models\Egg;
+use DarkOak\Contracts\Repository\EggRepositoryInterface;
+use DarkOak\Exceptions\Service\Egg\InvalidCopyFromException;
 
 class InstallScriptService
 {
@@ -18,9 +18,9 @@ class InstallScriptService
     /**
      * Modify the install script for a given Egg.
      *
-     * @throws \Everest\Exceptions\Model\DataValidationException
-     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
-     * @throws \Everest\Exceptions\Service\Egg\InvalidCopyFromException
+     * @throws \DarkOak\Exceptions\Model\DataValidationException
+     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
+     * @throws \DarkOak\Exceptions\Service\Egg\InvalidCopyFromException
      */
     public function handle(Egg $egg, array $data): void
     {
@@ -39,3 +39,4 @@ class InstallScriptService
         ]);
     }
 }
+

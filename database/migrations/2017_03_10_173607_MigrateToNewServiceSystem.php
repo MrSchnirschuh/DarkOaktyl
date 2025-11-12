@@ -10,7 +10,7 @@ class MigrateToNewServiceSystem extends Migration
     public function up(): void
     {
         DB::transaction(function () {
-            $service = DB::table('services')->where('author', config('everest.service.core'))->where('folder', 'srcds')->first();
+            $service = DB::table('services')->where('author', config('DarkOak.service.core'))->where('folder', 'srcds')->first();
             if (!$service) {
                 return;
             }
@@ -37,3 +37,4 @@ class MigrateToNewServiceSystem extends Migration
         // Not doing reversals right now...
     }
 }
+

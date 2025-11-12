@@ -1,13 +1,13 @@
 <?php
 
-namespace Everest\Console\Commands\Schedule;
+namespace DarkOak\Console\Commands\Schedule;
 
 use Exception;
-use Everest\Models\Schedule;
+use DarkOak\Models\Schedule;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Builder;
-use Everest\Services\Schedules\ProcessScheduleService;
+use DarkOak\Services\Schedules\ProcessScheduleService;
 
 class ProcessRunnableCommand extends Command
 {
@@ -52,7 +52,7 @@ class ProcessRunnableCommand extends Command
      * never throw an exception out, otherwise you'll end up killing the entire run group causing
      * any other schedules to not process correctly.
      *
-     * @see https://github.com/pterodactyl/panel/issues/2609
+     * @see https://github.com/DarkOaktyl/panel/issues/2609
      */
     protected function processSchedule(Schedule $schedule)
     {
@@ -74,3 +74,5 @@ class ProcessRunnableCommand extends Command
         }
     }
 }
+
+

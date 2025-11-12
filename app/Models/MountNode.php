@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Models;
+namespace DarkOak\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,3 +12,4 @@ class MountNode extends Model
 
     public $incrementing = false;
 }
+

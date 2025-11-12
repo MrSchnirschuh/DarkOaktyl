@@ -11,7 +11,7 @@ parameters:
 
     ignoreErrors:
         # Ignore repository interface missing methods
-        - '#Call to an undefined method Pterodactyl\\Repositories\\Wings\\DaemonRepository::(\w+)\(\)#'
+        - '#Call to an undefined method DarkOaktyl\\Repositories\\Wings\\DaemonRepository::(\w+)\(\)#'
 
         # Ignore magic spatie calls
         - '#Call to an undefined method Illuminate\\Database\\Eloquent\\Builder::allowed(\w+)\(\)#'
@@ -24,3 +24,4 @@ parameters:
 
 #
 #    checkMissingIterableValueType: false
+

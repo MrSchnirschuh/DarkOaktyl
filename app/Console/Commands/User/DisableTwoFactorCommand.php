@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Console\Commands\User;
+namespace DarkOak\Console\Commands\User;
 
 use Illuminate\Console\Command;
-use Everest\Contracts\Repository\UserRepositoryInterface;
+use DarkOak\Contracts\Repository\UserRepositoryInterface;
 
 class DisableTwoFactorCommand extends Command
 {
@@ -22,8 +22,8 @@ class DisableTwoFactorCommand extends Command
     /**
      * Handle command execution process.
      *
-     * @throws \Everest\Exceptions\Model\DataValidationException
-     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
+     * @throws \DarkOak\Exceptions\Model\DataValidationException
+     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
      */
     public function handle()
     {
@@ -41,3 +41,4 @@ class DisableTwoFactorCommand extends Command
         $this->info(trans('command/messages.user.2fa_disabled', ['email' => $user->email]));
     }
 }
+

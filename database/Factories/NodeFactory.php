@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use Ramsey\Uuid\Uuid;
-use Everest\Models\Node;
+use DarkOak\Models\Node;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -44,3 +44,4 @@ class NodeFactory extends Factory
         ];
     }
 }
+

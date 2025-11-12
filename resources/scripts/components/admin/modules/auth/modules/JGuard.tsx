@@ -16,7 +16,7 @@ export default () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [success, setSuccess] = useState<boolean>(false);
     const { clearFlashes, clearAndAddHttpError } = useFlash();
-    const delay = useStoreState(state => state.everest.data!.auth.modules.jguard.delay);
+    const delay = useStoreState(state => state.DarkOak.data!.auth.modules.jguard.delay);
 
     const update = async (key: string, value: any) => {
         clearFlashes();
@@ -79,3 +79,4 @@ export default () => {
         </AdminBox>
     );
 };
+

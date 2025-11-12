@@ -4,7 +4,7 @@ FROM        --platform=$TARGETOS/$TARGETARCH registry.access.redhat.com/ubi9/nod
 USER        0
 RUN         npm install -g pnpm
 
-WORKDIR     /var/www/pterodactyl
+WORKDIR     /var/www/DarkOaktyl
 
 COPY        --chown=1001:0 public ./public
 COPY        --chown=1001:0 resources/scripts ./resources/scripts
@@ -47,18 +47,18 @@ RUN         microdnf update -y \
                 && microdnf remove -y tar wget \
                 && microdnf clean all
 
-COPY        --chown=caddy:caddy --from=builder /var/www/pterodactyl /var/www/pterodactyl
+COPY        --chown=caddy:caddy --from=builder /var/www/DarkOaktyl /var/www/DarkOaktyl
 
-WORKDIR     /var/www/pterodactyl
+WORKDIR     /var/www/DarkOaktyl
 
-RUN         mkdir -p /tmp/pterodactyl/cache /tmp/pterodactyl/framework/{cache,sessions,views} storage/framework \
+RUN         mkdir -p /tmp/DarkOaktyl/cache /tmp/DarkOaktyl/framework/{cache,sessions,views} storage/framework \
                 && rm -rf bootstrap/cache storage/framework/sessions storage/framework/views storage/framework/cache \
-                && ln -s /tmp/pterodactyl/cache /var/www/pterodactyl/bootstrap/cache \
-                && ln -s /tmp/pterodactyl/framework/cache /var/www/pterodactyl/storage/framework/cache \
-                && ln -s /tmp/pterodactyl/framework/sessions /var/www/pterodactyl/storage/framework/sessions \
-                && ln -s /tmp/pterodactyl/framework/views /var/www/pterodactyl/storage/framework/views \
-                && chmod -R 755 /var/www/pterodactyl/storage/* /tmp/pterodactyl/cache \
-                && chown -R caddy:caddy /var/www/pterodactyl /tmp/pterodactyl/{cache,framework}
+                && ln -s /tmp/DarkOaktyl/cache /var/www/DarkOaktyl/bootstrap/cache \
+                && ln -s /tmp/DarkOaktyl/framework/cache /var/www/DarkOaktyl/storage/framework/cache \
+                && ln -s /tmp/DarkOaktyl/framework/sessions /var/www/DarkOaktyl/storage/framework/sessions \
+                && ln -s /tmp/DarkOaktyl/framework/views /var/www/DarkOaktyl/storage/framework/views \
+                && chmod -R 755 /var/www/DarkOaktyl/storage/* /tmp/DarkOaktyl/cache \
+                && chown -R caddy:caddy /var/www/DarkOaktyl /tmp/DarkOaktyl/{cache,framework}
 
 USER        caddy
 ENV         USER=caddy
@@ -75,3 +75,4 @@ COPY        .github/docker/yacron.yaml /etc/yacron.yaml
 
 EXPOSE      8080
 CMD         ["/usr/bin/supervisord", "--configuration=/etc/supervisord.conf"]
+

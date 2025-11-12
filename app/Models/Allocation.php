@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Models;
+namespace DarkOak\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * Everest\Models\Allocation.
+ * DarkOak\Models\Allocation.
  *
  * @property int $id
  * @property int $node_id
@@ -18,8 +18,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Carbon\Carbon|null $updated_at
  * @property string $alias
  * @property bool $has_alias
- * @property \Everest\Models\Server|null $server
- * @property \Everest\Models\Node $node
+ * @property \DarkOak\Models\Server|null $server
+ * @property \DarkOak\Models\Node $node
  * @property string $hashid
  *
  * @method static \Database\Factories\AllocationFactory factory(...$parameters)
@@ -127,3 +127,4 @@ class Allocation extends Model
         return $this->belongsTo(Node::class);
     }
 }
+

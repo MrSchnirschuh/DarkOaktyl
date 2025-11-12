@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Traits\Services;
+namespace DarkOak\Traits\Services;
 
-use Everest\Models\User;
+use DarkOak\Models\User;
 
 trait HasUserLevels
 {
@@ -34,3 +34,4 @@ trait HasUserLevels
         return $this->getUserLevel() === $level;
     }
 }
+

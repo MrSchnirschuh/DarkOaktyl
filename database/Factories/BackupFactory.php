@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use Ramsey\Uuid\Uuid;
-use Everest\Models\Backup;
+use DarkOak\Models\Backup;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -31,3 +31,4 @@ class BackupFactory extends Factory
         ];
     }
 }
+

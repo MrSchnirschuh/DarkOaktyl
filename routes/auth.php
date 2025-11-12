@@ -1,6 +1,6 @@
 <?php
 
-use Everest\Http\Controllers\Auth;
+use DarkOak\Http\Controllers\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,7 +21,7 @@ Route::get('/password/reset/{token}', [Auth\LoginController::class, 'index'])->n
 // Apply a throttle to authentication action endpoints, in addition to the
 // recaptcha endpoints to slow down manual attack spammers even more. 🤷‍
 //
-// @see \Everest\Providers\RouteServiceProvider
+// @see \DarkOak\Providers\RouteServiceProvider
 Route::middleware(['throttle:authentication'])->group(function () {
     // Login endpoints.
     Route::post('/login', [Auth\LoginController::class, 'login'])->middleware('recaptcha');
@@ -60,3 +60,4 @@ Route::post('/logout', [Auth\LoginController::class, 'logout'])
 
 // Catch any other combinations of routes and pass them off to the React component.
 Route::fallback([Auth\LoginController::class, 'index']);
+

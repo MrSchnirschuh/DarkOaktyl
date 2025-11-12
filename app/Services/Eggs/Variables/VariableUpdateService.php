@@ -1,14 +1,14 @@
 <?php
 
-namespace Everest\Services\Eggs\Variables;
+namespace DarkOak\Services\Eggs\Variables;
 
-use Everest\Models\Egg;
+use DarkOak\Models\Egg;
 use Illuminate\Support\Str;
-use Everest\Models\EggVariable;
-use Everest\Exceptions\DisplayException;
-use Everest\Traits\Services\ValidatesValidationRules;
+use DarkOak\Models\EggVariable;
+use DarkOak\Exceptions\DisplayException;
+use DarkOak\Traits\Services\ValidatesValidationRules;
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;
-use Everest\Exceptions\Service\Egg\Variable\ReservedVariableNameException;
+use DarkOak\Exceptions\Service\Egg\Variable\ReservedVariableNameException;
 
 class VariableUpdateService
 {
@@ -33,8 +33,8 @@ class VariableUpdateService
     /**
      * Update a specific egg variable.
      *
-     * @throws \Everest\Exceptions\DisplayException
-     * @throws \Everest\Exceptions\Service\Egg\Variable\ReservedVariableNameException
+     * @throws \DarkOak\Exceptions\DisplayException
+     * @throws \DarkOak\Exceptions\Service\Egg\Variable\ReservedVariableNameException
      */
     public function handle(Egg $egg, array $data): void
     {
@@ -74,3 +74,4 @@ class VariableUpdateService
         ]);
     }
 }
+

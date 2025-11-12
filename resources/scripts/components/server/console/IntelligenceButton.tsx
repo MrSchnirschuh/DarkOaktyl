@@ -17,7 +17,7 @@ export default () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [visible, setVisible] = useState<Visibility>('none');
 
-    const isEnabled = useStoreState(state => state.everest.data!.ai.enabled);
+    const isEnabled = useStoreState(state => state.DarkOak.data!.ai.enabled);
     const status = ServerContext.useStoreState(state => state.status.value);
     const uuid = ServerContext.useStoreState(state => state.server.data!.uuid);
     const { connected, instance } = ServerContext.useStoreState(state => state.socket);
@@ -78,3 +78,4 @@ export default () => {
         <></>
     );
 };
+

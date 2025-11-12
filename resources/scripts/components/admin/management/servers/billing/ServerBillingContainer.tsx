@@ -22,7 +22,7 @@ function timeUntil(targetDate: Date | string) {
 
 export default () => {
     const { data: server } = useServerFromRoute();
-    const billing = useStoreState(state => state.everest.data!.billing);
+    const billing = useStoreState(state => state.DarkOak.data!.billing);
 
     if (!server) return null;
 
@@ -96,3 +96,4 @@ export default () => {
         </div>
     );
 };
+

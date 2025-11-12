@@ -1,13 +1,13 @@
 <?php
 
-namespace Everest\Repositories\Eloquent;
+namespace DarkOak\Repositories\Eloquent;
 
-use Everest\Models\Database;
+use DarkOak\Models\Database;
 use Illuminate\Support\Collection;
 use Illuminate\Foundation\Application;
 use Illuminate\Database\DatabaseManager;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Everest\Contracts\Repository\DatabaseRepositoryInterface;
+use DarkOak\Contracts\Repository\DatabaseRepositoryInterface;
 
 class DatabaseRepository extends EloquentRepository implements DatabaseRepositoryInterface
 {
@@ -134,3 +134,4 @@ class DatabaseRepository extends EloquentRepository implements DatabaseRepositor
         return $this->database->connection($this->getConnection())->statement($statement);
     }
 }
+

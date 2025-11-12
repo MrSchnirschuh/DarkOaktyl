@@ -1,15 +1,15 @@
 <?php
 
-namespace Everest\Services\Backups;
+namespace DarkOak\Services\Backups;
 
-use Everest\Models\Backup;
+use DarkOak\Models\Backup;
 use Illuminate\Http\Response;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Database\ConnectionInterface;
-use Everest\Extensions\Backups\BackupManager;
-use Everest\Repositories\Wings\DaemonBackupRepository;
-use Everest\Exceptions\Service\Backup\BackupLockedException;
-use Everest\Exceptions\Http\Connection\DaemonConnectionException;
+use DarkOak\Extensions\Backups\BackupManager;
+use DarkOak\Repositories\Wings\DaemonBackupRepository;
+use DarkOak\Exceptions\Service\Backup\BackupLockedException;
+use DarkOak\Exceptions\Http\Connection\DaemonConnectionException;
 
 class DeleteBackupService
 {
@@ -70,7 +70,7 @@ class DeleteBackupService
         $this->connection->transaction(function () use ($backup) {
             $backup->delete();
 
-            /** @var \Everest\Extensions\Filesystem\S3Filesystem $adapter */
+            /** @var \DarkOak\Extensions\Filesystem\S3Filesystem $adapter */
             $adapter = $this->manager->adapter(Backup::ADAPTER_AWS_S3);
 
             /** @var \Aws\S3\S3Client $client */
@@ -83,3 +83,4 @@ class DeleteBackupService
         });
     }
 }
+

@@ -1,14 +1,14 @@
 <?php
 
-namespace Everest\Services\Eggs;
+namespace DarkOak\Services\Eggs;
 
 use Ramsey\Uuid\Uuid;
-use Everest\Models\Egg;
-use Everest\Contracts\Repository\EggRepositoryInterface;
+use DarkOak\Models\Egg;
+use DarkOak\Contracts\Repository\EggRepositoryInterface;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
-use Everest\Exceptions\Service\Egg\NoParentConfigurationFoundException;
+use DarkOak\Exceptions\Service\Egg\NoParentConfigurationFoundException;
 
-// When a mommy and a daddy pterodactyl really like each other...
+// When a mommy and a daddy DarkOaktyl really like each other...
 class EggCreationService
 {
     /**
@@ -21,8 +21,8 @@ class EggCreationService
     /**
      * Create a new service option and assign it to the given service.
      *
-     * @throws \Everest\Exceptions\Model\DataValidationException
-     * @throws \Everest\Exceptions\Service\Egg\NoParentConfigurationFoundException
+     * @throws \DarkOak\Exceptions\Model\DataValidationException
+     * @throws \DarkOak\Exceptions\Service\Egg\NoParentConfigurationFoundException
      */
     public function handle(array $data): Egg
     {
@@ -40,7 +40,9 @@ class EggCreationService
 
         return $this->repository->create(array_merge($data, [
             'uuid' => Uuid::uuid4()->toString(),
-            'author' => $this->config->get('everest.service.author'),
+            'author' => $this->config->get('DarkOak.service.author'),
         ]), true, true);
     }
 }
+
+

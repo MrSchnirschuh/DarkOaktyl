@@ -33,8 +33,8 @@ jobs:
           REF: ${{ github.ref }}
         run: |
           BRANCH=release/${REF:10}
-          git config --local user.email "ci@jexactyl.com"
-          git config --local user.name "Jexactyl Releases"
+          git config --local user.email "ci@DarkOaktyl.com"
+          git config --local user.name "DarkOaktyl Releases"
           git checkout -b $BRANCH
           git push -u origin $BRANCH
           sed -i "s/    'version' => 'canary',/    'version' => '${REF:11}',/" config/app.php
@@ -82,3 +82,4 @@ jobs:
           asset_path: ./checksum.txt
           asset_name: checksum.txt
           asset_content_type: text/plain
+

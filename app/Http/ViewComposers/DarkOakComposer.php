@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Http\ViewComposers;
+namespace DarkOak\Http\ViewComposers;
 
 use Illuminate\View\View;
-use Everest\Services\Themes\ThemePaletteService;
+use DarkOak\Services\Themes\ThemePaletteService;
 
-class EverestComposer
+class DarkOakComposer
 {
     public function __construct(private ThemePaletteService $paletteService)
     {
@@ -18,7 +18,7 @@ class EverestComposer
     {
         $emailDefaults = $this->paletteService->getEmailDefaults();
 
-        $view->with('everestConfiguration', [
+        $view->with('DarkOakConfiguration', [
             'auth' => [
                 'registration' => [
                     'enabled' => boolval(config('modules.auth.registration.enabled', false)),
@@ -88,3 +88,4 @@ class EverestComposer
         ]);
     }
 }
+

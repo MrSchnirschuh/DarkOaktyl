@@ -127,7 +127,7 @@ return [
 
     'cookie' => env(
         'SESSION_COOKIE',
-        Str::slug(env('APP_NAME', 'Everest'), '_') . '_session'
+        Str::slug(env('APP_NAME', 'DarkOak'), '_') . '_session'
     ),
 
     /*
@@ -197,3 +197,4 @@ return [
 
     'same_site' => env('SESSION_SAMESITE_COOKIE', 'lax'),
 ];
+

@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Console\Commands;
+namespace DarkOak\Console\Commands;
 
 use Illuminate\Console\Command;
-use Everest\Services\Helpers\SoftwareVersionService;
+use DarkOak\Services\Helpers\SoftwareVersionService;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
 
 class InfoCommand extends Command
@@ -30,7 +30,7 @@ class InfoCommand extends Command
             ['Panel Version', $this->softwareVersionService->getCurrentVersion()],
             ['Latest Version', $this->softwareVersionService->getLatestPanel()],
             ['Up-to-Date', $this->softwareVersionService->isLatestPanel() ? 'Yes' : $this->formatText('No', 'bg=red')],
-            ['Unique Identifier', $this->config->get('everest.service.author')],
+            ['Unique Identifier', $this->config->get('DarkOak.service.author')],
         ], 'compact');
 
         $this->output->title('Application Configuration');
@@ -67,3 +67,4 @@ class InfoCommand extends Command
         return sprintf('<%s>%s</>', $opts, $value);
     }
 }
+

@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Transformers\Api\Application;
+namespace DarkOak\Transformers\Api\Application;
 
-use Everest\Transformers\Api\Transformer;
-use Everest\Models\Billing\BillingException;
+use DarkOak\Transformers\Api\Transformer;
+use DarkOak\Models\Billing\BillingException;
 
 class BillingExceptionTransformer extends Transformer
 {
@@ -32,3 +32,4 @@ class BillingExceptionTransformer extends Transformer
         ];
     }
 }
+

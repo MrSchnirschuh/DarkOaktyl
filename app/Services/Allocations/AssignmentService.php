@@ -1,16 +1,16 @@
 <?php
 
-namespace Everest\Services\Allocations;
+namespace DarkOak\Services\Allocations;
 
 use IPTools\Network;
-use Everest\Models\Node;
-use Everest\Exceptions\DisplayException;
+use DarkOak\Models\Node;
+use DarkOak\Exceptions\DisplayException;
 use Illuminate\Database\ConnectionInterface;
-use Everest\Contracts\Repository\AllocationRepositoryInterface;
-use Everest\Exceptions\Service\Allocation\CidrOutOfRangeException;
-use Everest\Exceptions\Service\Allocation\PortOutOfRangeException;
-use Everest\Exceptions\Service\Allocation\InvalidPortMappingException;
-use Everest\Exceptions\Service\Allocation\TooManyPortsInRangeException;
+use DarkOak\Contracts\Repository\AllocationRepositoryInterface;
+use DarkOak\Exceptions\Service\Allocation\CidrOutOfRangeException;
+use DarkOak\Exceptions\Service\Allocation\PortOutOfRangeException;
+use DarkOak\Exceptions\Service\Allocation\InvalidPortMappingException;
+use DarkOak\Exceptions\Service\Allocation\TooManyPortsInRangeException;
 
 class AssignmentService
 {
@@ -31,11 +31,11 @@ class AssignmentService
     /**
      * Insert allocations into the database and link them to a specific node.
      *
-     * @throws \Everest\Exceptions\DisplayException
-     * @throws \Everest\Exceptions\Service\Allocation\CidrOutOfRangeException
-     * @throws \Everest\Exceptions\Service\Allocation\InvalidPortMappingException
-     * @throws \Everest\Exceptions\Service\Allocation\PortOutOfRangeException
-     * @throws \Everest\Exceptions\Service\Allocation\TooManyPortsInRangeException
+     * @throws \DarkOak\Exceptions\DisplayException
+     * @throws \DarkOak\Exceptions\Service\Allocation\CidrOutOfRangeException
+     * @throws \DarkOak\Exceptions\Service\Allocation\InvalidPortMappingException
+     * @throws \DarkOak\Exceptions\Service\Allocation\PortOutOfRangeException
+     * @throws \DarkOak\Exceptions\Service\Allocation\TooManyPortsInRangeException
      */
     public function handle(Node $node, array $data): void
     {
@@ -108,3 +108,4 @@ class AssignmentService
         $this->connection->commit();
     }
 }
+

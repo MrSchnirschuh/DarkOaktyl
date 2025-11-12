@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Support\Str;
-use Everest\Models\EggVariable;
+use DarkOak\Models\EggVariable;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class EggVariableFactory extends Factory
@@ -55,3 +55,4 @@ class EggVariableFactory extends Factory
         });
     }
 }
+

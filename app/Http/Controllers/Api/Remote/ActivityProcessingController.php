@@ -1,17 +1,17 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Remote;
+namespace DarkOak\Http\Controllers\Api\Remote;
 
 use Carbon\Carbon;
-use Everest\Models\User;
-use Everest\Models\Server;
+use DarkOak\Models\User;
+use DarkOak\Models\Server;
 use Illuminate\Support\Str;
 use Webmozart\Assert\Assert;
-use Everest\Models\ActivityLog;
+use DarkOak\Models\ActivityLog;
 use Illuminate\Support\Facades\Log;
-use Everest\Models\ActivityLogSubject;
-use Everest\Http\Controllers\Controller;
-use Everest\Http\Requests\Api\Remote\ActivityEventRequest;
+use DarkOak\Models\ActivityLogSubject;
+use DarkOak\Http\Controllers\Controller;
+use DarkOak\Http\Requests\Api\Remote\ActivityEventRequest;
 
 class ActivityProcessingController extends Controller
 {
@@ -19,7 +19,7 @@ class ActivityProcessingController extends Controller
     {
         $tz = Carbon::now()->getTimezone();
 
-        /** @var \Everest\Models\Node $node */
+        /** @var \DarkOak\Models\Node $node */
         $node = $request->attributes->get('node');
 
         $servers = $node->servers()->whereIn('uuid', $request->servers())->get()->keyBy('uuid');
@@ -27,7 +27,7 @@ class ActivityProcessingController extends Controller
 
         $logs = [];
         foreach ($request->input('data') as $datum) {
-            /** @var \Everest\Models\Server|null $server */
+            /** @var \DarkOak\Models\Server|null $server */
             $server = $servers->get($datum['server']);
             if (is_null($server) || !Str::startsWith($datum['event'], 'server:')) {
                 continue;
@@ -88,3 +88,4 @@ class ActivityProcessingController extends Controller
         }
     }
 }
+

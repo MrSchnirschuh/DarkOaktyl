@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Tests\Integration\Api\Client\Server\Subuser;
+namespace DarkOak\Tests\Integration\Api\Client\Server\Subuser;
 
-use Everest\Models\User;
-use Everest\Models\Subuser;
-use Everest\Models\Permission;
-use Everest\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
+use DarkOak\Models\User;
+use DarkOak\Models\Subuser;
+use DarkOak\Models\Permission;
+use DarkOak\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 
 class UpdateSubuserTest extends ClientApiIntegrationTestCase
 {
@@ -57,7 +57,7 @@ class UpdateSubuserTest extends ClientApiIntegrationTestCase
     {
         [$user, $server] = $this->generateTestAccount();
 
-        /** @var \Everest\Models\Subuser $subuser */
+        /** @var \DarkOak\Models\Subuser $subuser */
         $subuser = Subuser::factory()
             ->for(User::factory()->create())
             ->for($server)
@@ -131,3 +131,4 @@ class UpdateSubuserTest extends ClientApiIntegrationTestCase
             ->assertNotFound();
     }
 }
+

@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use Carbon\Carbon;
-use Everest\Models\ApiKey;
+use DarkOak\Models\ApiKey;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -34,3 +34,4 @@ class ApiKeyFactory extends Factory
         ];
     }
 }
+

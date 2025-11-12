@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use Everest\Models\Schedule;
+use DarkOak\Models\Schedule;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ScheduleFactory extends Factory
@@ -24,3 +24,4 @@ class ScheduleFactory extends Factory
         ];
     }
 }
+

@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Repositories\Eloquent;
+namespace DarkOak\Repositories\Eloquent;
 
-use Everest\Models\Nest;
+use DarkOak\Models\Nest;
 use Illuminate\Database\Eloquent\Collection;
-use Everest\Contracts\Repository\NestRepositoryInterface;
-use Everest\Exceptions\Repository\RecordNotFoundException;
+use DarkOak\Contracts\Repository\NestRepositoryInterface;
+use DarkOak\Exceptions\Repository\RecordNotFoundException;
 
 class NestRepository extends EloquentRepository implements NestRepositoryInterface
 {
@@ -20,7 +20,7 @@ class NestRepository extends EloquentRepository implements NestRepositoryInterfa
     /**
      * Return a nest or all nests with their associated eggs and variables.
      *
-     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
+     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
      */
     public function getWithEggs(int $id = null): Collection|Nest
     {
@@ -41,7 +41,7 @@ class NestRepository extends EloquentRepository implements NestRepositoryInterfa
     /**
      * Return a nest or all nests and the count of eggs and servers for that nest.
      *
-     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
+     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
      */
     public function getWithCounts(int $id = null): Collection|Nest
     {
@@ -62,7 +62,7 @@ class NestRepository extends EloquentRepository implements NestRepositoryInterfa
     /**
      * Return a nest along with its associated eggs and the servers relation on those eggs.
      *
-     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
+     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
      */
     public function getWithEggServers(int $id): Nest
     {
@@ -75,3 +75,4 @@ class NestRepository extends EloquentRepository implements NestRepositoryInterfa
         return $instance;
     }
 }
+

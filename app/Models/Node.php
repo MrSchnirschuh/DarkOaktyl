@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Models;
+namespace DarkOak\Models;
 
 use Illuminate\Support\Str;
 use Symfony\Component\Yaml\Yaml;
@@ -43,7 +43,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property Allocation[]|Collection $allocations
- * @property \Everest\Models\DatabaseHost|null $databaseHost
+ * @property \DarkOak\Models\DatabaseHost|null $databaseHost
  * @property Mount[]|Collection $mounts
  * @property int[]|\Illuminate\Support\Collection $ports
  * @property Server[]|Collection $servers
@@ -61,7 +61,7 @@ class Node extends Model
     /**
      * The default location of server files on the Wings instance.
      */
-    public const DEFAULT_DAEMON_BASE = '/var/lib/pterodactyl/volumes';
+    public const DEFAULT_DAEMON_BASE = '/var/lib/DarkOaktyl/volumes';
 
     public const DAEMON_TOKEN_ID_LENGTH = 16;
     public const DAEMON_TOKEN_LENGTH = 64;
@@ -304,3 +304,5 @@ class Node extends Model
         ];
     }
 }
+
+

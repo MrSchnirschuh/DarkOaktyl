@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Repositories\Eloquent;
+namespace DarkOak\Repositories\Eloquent;
 
-use Everest\Models\Theme;
-use Everest\Contracts\Repository\ThemeRepositoryInterface;
+use DarkOak\Models\Theme;
+use DarkOak\Contracts\Repository\ThemeRepositoryInterface;
 
 class ThemeRepository extends EloquentRepository implements ThemeRepositoryInterface
 {
@@ -22,7 +22,7 @@ class ThemeRepository extends EloquentRepository implements ThemeRepositoryInter
     /**
      * Store a new persistent setting in the database.
      *
-     * @throws \Everest\Exceptions\Model\DataValidationException
+     * @throws \DarkOak\Exceptions\Model\DataValidationException
      */
     public function set(string $key, string $value = null)
     {
@@ -74,3 +74,4 @@ class ThemeRepository extends EloquentRepository implements ThemeRepositoryInter
         unset(self::$cache[$key], self::$databaseMiss[$key]);
     }
 }
+

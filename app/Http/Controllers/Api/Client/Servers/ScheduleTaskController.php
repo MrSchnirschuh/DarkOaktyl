@@ -1,23 +1,23 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Client\Servers;
+namespace DarkOak\Http\Controllers\Api\Client\Servers;
 
-use Everest\Models\Task;
-use Everest\Models\Server;
-use Everest\Models\Schedule;
-use Everest\Facades\Activity;
+use DarkOak\Models\Task;
+use DarkOak\Models\Server;
+use DarkOak\Models\Schedule;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
-use Everest\Models\Permission;
+use DarkOak\Models\Permission;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Database\ConnectionInterface;
-use Everest\Repositories\Eloquent\TaskRepository;
-use Everest\Exceptions\Http\HttpForbiddenException;
-use Everest\Transformers\Api\Client\TaskTransformer;
-use Everest\Http\Requests\Api\Client\ClientApiRequest;
-use Everest\Http\Controllers\Api\Client\ClientApiController;
-use Everest\Exceptions\Service\ServiceLimitExceededException;
+use DarkOak\Repositories\Eloquent\TaskRepository;
+use DarkOak\Exceptions\Http\HttpForbiddenException;
+use DarkOak\Transformers\Api\Client\TaskTransformer;
+use DarkOak\Http\Requests\Api\Client\ClientApiRequest;
+use DarkOak\Http\Controllers\Api\Client\ClientApiController;
+use DarkOak\Exceptions\Service\ServiceLimitExceededException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Everest\Http\Requests\Api\Client\Servers\Schedules\StoreTaskRequest;
+use DarkOak\Http\Requests\Api\Client\Servers\Schedules\StoreTaskRequest;
 
 class ScheduleTaskController extends ClientApiController
 {
@@ -34,12 +34,12 @@ class ScheduleTaskController extends ClientApiController
     /**
      * Create a new task for a given schedule and store it in the database.
      *
-     * @throws \Everest\Exceptions\Model\DataValidationException
-     * @throws \Everest\Exceptions\Service\ServiceLimitExceededException
+     * @throws \DarkOak\Exceptions\Model\DataValidationException
+     * @throws \DarkOak\Exceptions\Service\ServiceLimitExceededException
      */
     public function store(StoreTaskRequest $request, Server $server, Schedule $schedule): array
     {
-        $limit = config('everest.client_features.schedules.per_schedule_task_limit', 10);
+        $limit = config('DarkOak.client_features.schedules.per_schedule_task_limit', 10);
         if ($schedule->tasks()->count() >= $limit) {
             throw new ServiceLimitExceededException("Schedules may not have more than $limit tasks associated with them. Creating this task would put this schedule over the limit.");
         }
@@ -48,10 +48,10 @@ class ScheduleTaskController extends ClientApiController
             throw new HttpForbiddenException("A backup task cannot be created when the server's backup limit is set to 0.");
         }
 
-        /** @var \Everest\Models\Task|null $lastTask */
+        /** @var \DarkOak\Models\Task|null $lastTask */
         $lastTask = $schedule->tasks()->orderByDesc('sequence_id')->first();
 
-        /** @var \Everest\Models\Task $task */
+        /** @var \DarkOak\Models\Task $task */
         $task = $this->connection->transaction(function () use ($request, $schedule, $lastTask) {
             $sequenceId = ($lastTask->sequence_id ?? 0) + 1;
             $requestSequenceId = $request->integer('sequence_id', $sequenceId);
@@ -95,8 +95,8 @@ class ScheduleTaskController extends ClientApiController
     /**
      * Updates a given task for a server.
      *
-     * @throws \Everest\Exceptions\Model\DataValidationException
-     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
+     * @throws \DarkOak\Exceptions\Model\DataValidationException
+     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
      */
     public function update(StoreTaskRequest $request, Server $server, Schedule $schedule, Task $task): array
     {
@@ -173,3 +173,4 @@ class ScheduleTaskController extends ClientApiController
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
 }
+

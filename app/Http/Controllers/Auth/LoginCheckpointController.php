@@ -1,16 +1,16 @@
 <?php
 
-namespace Everest\Http\Controllers\Auth;
+namespace DarkOak\Http\Controllers\Auth;
 
-use Everest\Models\User;
+use DarkOak\Models\User;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
 use Illuminate\Http\JsonResponse;
 use PragmaRX\Google2FA\Google2FA;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Contracts\Encryption\Encrypter;
-use Everest\Events\Auth\ProvidedAuthenticationToken;
-use Everest\Http\Requests\Auth\LoginCheckpointRequest;
+use DarkOak\Events\Auth\ProvidedAuthenticationToken;
+use DarkOak\Http\Requests\Auth\LoginCheckpointRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;
 
@@ -56,7 +56,7 @@ class LoginCheckpointController extends AbstractLoginController
         }
 
         try {
-            /** @var \Everest\Models\User $user */
+            /** @var \DarkOak\Models\User $user */
             $user = User::query()->findOrFail($details['user_id']);
         } catch (ModelNotFoundException) {
             $this->sendFailedLoginResponse($request, null, self::TOKEN_EXPIRED_MESSAGE);
@@ -72,7 +72,7 @@ class LoginCheckpointController extends AbstractLoginController
         } else {
             $decrypted = $this->encrypter->decrypt($user->totp_secret);
 
-            if ($this->google2FA->verifyKey($decrypted, $request->input('authentication_code') ?? '', config('everest.auth.2fa.window'))) {
+            if ($this->google2FA->verifyKey($decrypted, $request->input('authentication_code') ?? '', config('DarkOak.auth.2fa.window'))) {
                 Event::dispatch(new ProvidedAuthenticationToken($user));
 
                 return $this->sendLoginResponse($user, $request);
@@ -129,3 +129,4 @@ class LoginCheckpointController extends AbstractLoginController
         return true;
     }
 }
+

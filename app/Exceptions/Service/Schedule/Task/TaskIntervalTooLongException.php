@@ -1,9 +1,10 @@
 <?php
 
-namespace Everest\Exceptions\Service\Schedule\Task;
+namespace DarkOak\Exceptions\Service\Schedule\Task;
 
-use Everest\Exceptions\DisplayException;
+use DarkOak\Exceptions\DisplayException;
 
 class TaskIntervalTooLongException extends DisplayException
 {
 }
+

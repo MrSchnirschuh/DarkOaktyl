@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default () => {
     const navigate = useNavigate();
-    const enabled = useStoreState(state => state.everest.data!.tickets.enabled);
+    const enabled = useStoreState(state => state.DarkOak.data!.tickets.enabled);
 
     const submit = () => {
         updateTicketSettings('enabled', !enabled).then(() => navigate(0));
@@ -17,3 +17,4 @@ export default () => {
         </div>
     );
 };
+

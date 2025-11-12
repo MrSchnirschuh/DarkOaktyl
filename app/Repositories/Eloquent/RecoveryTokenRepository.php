@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Repositories\Eloquent;
+namespace DarkOak\Repositories\Eloquent;
 
-use Everest\Models\RecoveryToken;
+use DarkOak\Models\RecoveryToken;
 
 class RecoveryTokenRepository extends EloquentRepository
 {
@@ -11,3 +11,4 @@ class RecoveryTokenRepository extends EloquentRepository
         return RecoveryToken::class;
     }
 }
+

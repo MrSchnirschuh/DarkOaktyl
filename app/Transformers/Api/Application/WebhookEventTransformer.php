@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Transformers\Api\Application;
+namespace DarkOak\Transformers\Api\Application;
 
-use Everest\Models\WebhookEvent;
-use Everest\Transformers\Api\Transformer;
+use DarkOak\Models\WebhookEvent;
+use DarkOak\Transformers\Api\Transformer;
 
 class WebhookEventTransformer extends Transformer
 {
@@ -30,3 +30,4 @@ class WebhookEventTransformer extends Transformer
         ];
     }
 }
+

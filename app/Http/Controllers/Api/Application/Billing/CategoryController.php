@@ -1,24 +1,24 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Billing;
+namespace DarkOak\Http\Controllers\Api\Application\Billing;
 
 use Ramsey\Uuid\Uuid;
-use Everest\Models\Egg;
-use Everest\Facades\Activity;
+use DarkOak\Models\Egg;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
-use Everest\Models\Billing\Category;
+use DarkOak\Models\Billing\Category;
 use Spatie\QueryBuilder\QueryBuilder;
-use Everest\Transformers\Api\Application\CategoryTransformer;
-use Everest\Exceptions\Http\QueryValueOutOfRangeHttpException;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
-use Everest\Http\Requests\Api\Application\Billing\Categories\GetBillingCategoryRequest;
-use Everest\Http\Requests\Api\Application\Billing\Categories\GetBillingCategoriesRequest;
-use Everest\Http\Requests\Api\Application\Billing\Categories\StoreBillingCategoryRequest;
-use Everest\Http\Requests\Api\Application\Billing\Categories\DeleteBillingCategoryRequest;
-use Everest\Http\Requests\Api\Application\Billing\Categories\UpdateBillingCategoryRequest;
+use DarkOak\Transformers\Api\Application\CategoryTransformer;
+use DarkOak\Exceptions\Http\QueryValueOutOfRangeHttpException;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Http\Requests\Api\Application\Billing\Categories\GetBillingCategoryRequest;
+use DarkOak\Http\Requests\Api\Application\Billing\Categories\GetBillingCategoriesRequest;
+use DarkOak\Http\Requests\Api\Application\Billing\Categories\StoreBillingCategoryRequest;
+use DarkOak\Http\Requests\Api\Application\Billing\Categories\DeleteBillingCategoryRequest;
+use DarkOak\Http\Requests\Api\Application\Billing\Categories\UpdateBillingCategoryRequest;
 
 class CategoryController extends ApplicationApiController
 {
@@ -161,3 +161,4 @@ class CategoryController extends ApplicationApiController
         Cache::forget("client.billing.category.{$category->uuid}.products");
     }
 }
+

@@ -1,15 +1,15 @@
 <?php
 
-namespace Everest\Services\Schedules;
+namespace DarkOak\Services\Schedules;
 
 use Exception;
-use Everest\Models\Schedule;
-use Everest\Jobs\Schedule\RunTaskJob;
-use Everest\Exceptions\DisplayException;
+use DarkOak\Models\Schedule;
+use DarkOak\Jobs\Schedule\RunTaskJob;
+use DarkOak\Exceptions\DisplayException;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Database\ConnectionInterface;
-use Everest\Repositories\Wings\DaemonServerRepository;
-use Everest\Exceptions\Http\Connection\DaemonConnectionException;
+use DarkOak\Repositories\Wings\DaemonServerRepository;
+use DarkOak\Exceptions\Http\Connection\DaemonConnectionException;
 
 class ProcessScheduleService
 {
@@ -33,7 +33,7 @@ class ProcessScheduleService
             throw new DisplayException('Cannot process schedule for task execution: no tasks are registered.');
         }
 
-        /* @var \Everest\Models\Task $task */
+        /* @var \DarkOak\Models\Task $task */
         $this->connection->transaction(function () use ($schedule, $task) {
             $schedule->forceFill([
                 'is_processing' => true,
@@ -75,7 +75,7 @@ class ProcessScheduleService
             // When using dispatchNow the RunTaskJob::failed() function is not called automatically
             // so we need to manually trigger it and then continue with the exception throw.
             //
-            // @see https://github.com/pterodactyl/panel/issues/2550
+            // @see https://github.com/DarkOaktyl/panel/issues/2550
             try {
                 $this->dispatcher->dispatchNow($job);
             } catch (\Exception $exception) {
@@ -86,3 +86,5 @@ class ProcessScheduleService
         }
     }
 }
+
+

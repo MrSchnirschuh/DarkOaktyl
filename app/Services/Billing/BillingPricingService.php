@@ -1,15 +1,15 @@
 <?php
 
-namespace Everest\Services\Billing;
+namespace DarkOak\Services\Billing;
 
 use Illuminate\Support\Collection;
-use Everest\Models\Billing\BillingTerm;
-use Everest\Models\Billing\Coupon;
-use Everest\Models\Billing\ResourcePrice;
-use Everest\Services\Billing\ValueObjects\QuoteOptions;
-use Everest\Services\Billing\ValueObjects\QuoteResult;
-use Everest\Services\Billing\ValueObjects\ResourceSelection;
-use Everest\Services\Servers\NodeCapacityService;
+use DarkOak\Models\Billing\BillingTerm;
+use DarkOak\Models\Billing\Coupon;
+use DarkOak\Models\Billing\ResourcePrice;
+use DarkOak\Services\Billing\ValueObjects\QuoteOptions;
+use DarkOak\Services\Billing\ValueObjects\QuoteResult;
+use DarkOak\Services\Billing\ValueObjects\ResourceSelection;
+use DarkOak\Services\Servers\NodeCapacityService;
 
 class BillingPricingService
 {
@@ -196,3 +196,4 @@ class BillingPricingService
         $this->nodeCapacityService->assertCanAllocate($node, $memoryMb, $diskMb);
     }
 }
+

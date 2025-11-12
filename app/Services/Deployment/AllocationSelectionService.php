@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Services\Deployment;
+namespace DarkOak\Services\Deployment;
 
-use Everest\Models\Allocation;
-use Everest\Exceptions\DisplayException;
-use Everest\Services\Allocations\AssignmentService;
-use Everest\Contracts\Repository\AllocationRepositoryInterface;
-use Everest\Exceptions\Service\Deployment\NoViableAllocationException;
+use DarkOak\Models\Allocation;
+use DarkOak\Exceptions\DisplayException;
+use DarkOak\Services\Allocations\AssignmentService;
+use DarkOak\Contracts\Repository\AllocationRepositoryInterface;
+use DarkOak\Exceptions\Service\Deployment\NoViableAllocationException;
 
 class AllocationSelectionService
 {
@@ -51,7 +51,7 @@ class AllocationSelectionService
      * empty, all ports will be considered when finding an allocation. If set, only ports appearing
      * in the array or range will be used.
      *
-     * @throws \Everest\Exceptions\DisplayException
+     * @throws \DarkOak\Exceptions\DisplayException
      */
     public function setPorts(array $ports): self
     {
@@ -80,7 +80,7 @@ class AllocationSelectionService
     /**
      * Return a single allocation that should be used as the default allocation for a server.
      *
-     * @throws \Everest\Exceptions\Service\Deployment\NoViableAllocationException
+     * @throws \DarkOak\Exceptions\Service\Deployment\NoViableAllocationException
      */
     public function handle(): Allocation
     {
@@ -93,3 +93,4 @@ class AllocationSelectionService
         return $allocation;
     }
 }
+

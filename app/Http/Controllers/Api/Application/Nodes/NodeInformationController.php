@@ -1,13 +1,13 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Nodes;
+namespace DarkOak\Http\Controllers\Api\Application\Nodes;
 
-use Everest\Models\Node;
+use DarkOak\Models\Node;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use Everest\Repositories\Wings\DaemonConfigurationRepository;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Repositories\Wings\DaemonConfigurationRepository;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
 
 class NodeInformationController extends ApplicationApiController
 {
@@ -22,7 +22,7 @@ class NodeInformationController extends ApplicationApiController
     /**
      * Returns system information from the node.
      *
-     * @throws \Everest\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws \DarkOak\Exceptions\Http\Connection\DaemonConnectionException
      */
     public function information(Request $request, Node $node): JsonResponse
     {
@@ -43,7 +43,7 @@ class NodeInformationController extends ApplicationApiController
     /**
      * Returns system utilization from the node.
      *
-     * @throws \Everest\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws \DarkOak\Exceptions\Http\Connection\DaemonConnectionException
      */
     public function utilization(Request $request, Node $node): JsonResponse
     {
@@ -66,3 +66,4 @@ class NodeInformationController extends ApplicationApiController
         ]);
     }
 }
+

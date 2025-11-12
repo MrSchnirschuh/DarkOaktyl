@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Settings;
+namespace DarkOak\Http\Requests\Api\Application\Settings;
 
-use Everest\Models\AdminRole;
-use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
+use DarkOak\Models\AdminRole;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class GeneralSettingsRequest extends ApplicationApiRequest
 {
@@ -22,3 +22,4 @@ class GeneralSettingsRequest extends ApplicationApiRequest
         return AdminRole::SETTINGS_UPDATE;
     }
 }
+

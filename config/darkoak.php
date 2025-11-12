@@ -20,7 +20,7 @@ return [
     |
     | Each panel installation is assigned a unique UUID to identify the
     | author of custom services, and make upgrades easier by identifying
-    | standard Pterodactyl shipped services.
+    | standard DarkOaktyl shipped services.
     */
 
     'service' => [
@@ -92,7 +92,7 @@ return [
 
     'cdn' => [
         'cache_time' => 60,
-        'url' => 'https://cdn.pterodactyl.io/releases/latest.json',
+        'url' => 'https://cdn.DarkOaktyl.io/releases/latest.json',
     ],
 
     /*
@@ -105,19 +105,19 @@ return [
 
     'client_features' => [
         'databases' => [
-            'enabled' => env('PTERODACTYL_CLIENT_DATABASES_ENABLED', true),
-            'allow_random' => env('PTERODACTYL_CLIENT_DATABASES_ALLOW_RANDOM', true),
+            'enabled' => env('DarkOaktyl_CLIENT_DATABASES_ENABLED', true),
+            'allow_random' => env('DarkOaktyl_CLIENT_DATABASES_ALLOW_RANDOM', true),
         ],
 
         'schedules' => [
             // The total number of tasks that can exist for any given schedule at once.
-            'per_schedule_task_limit' => env('PTERODACTYL_PER_SCHEDULE_TASK_LIMIT', 10),
+            'per_schedule_task_limit' => env('DarkOaktyl_PER_SCHEDULE_TASK_LIMIT', 10),
         ],
 
         'allocations' => [
-            'enabled' => env('PTERODACTYL_CLIENT_ALLOCATIONS_ENABLED', true),
-            'range_start' => env('PTERODACTYL_CLIENT_ALLOCATIONS_RANGE_START'),
-            'range_end' => env('PTERODACTYL_CLIENT_ALLOCATIONS_RANGE_END'),
+            'enabled' => env('DarkOaktyl_CLIENT_ALLOCATIONS_ENABLED', true),
+            'range_start' => env('DarkOaktyl_CLIENT_ALLOCATIONS_RANGE_START'),
+            'range_end' => env('DarkOaktyl_CLIENT_ALLOCATIONS_RANGE_END'),
         ],
     ],
 
@@ -130,7 +130,7 @@ return [
     */
 
     'files' => [
-        'max_edit_size' => env('PTERODACTYL_FILES_MAX_EDIT_SIZE', 1024 * 1024 * 4),
+        'max_edit_size' => env('DarkOaktyl_FILES_MAX_EDIT_SIZE', 1024 * 1024 * 4),
     ],
 
     /*
@@ -160,6 +160,7 @@ return [
     */
 
     'assets' => [
-        'use_hash' => env('PTERODACTYL_USE_ASSET_HASH', false),
+        'use_hash' => env('DarkOaktyl_USE_ASSET_HASH', false),
     ],
 ];
+

@@ -1,14 +1,14 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Webhooks;
+namespace DarkOak\Http\Controllers\Api\Application\Webhooks;
 
 use Illuminate\Http\Request;
-use Everest\Facades\Activity;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
-use Everest\Models\WebhookEvent;
+use DarkOak\Models\WebhookEvent;
 use Spatie\QueryBuilder\QueryBuilder;
-use Everest\Transformers\Api\Application\WebhookEventTransformer;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Transformers\Api\Application\WebhookEventTransformer;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
 
 class EventsController extends ApplicationApiController
 {
@@ -66,3 +66,4 @@ class EventsController extends ApplicationApiController
         return $this->returnNoContent();
     }
 }
+

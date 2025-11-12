@@ -1,14 +1,14 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Client\Billing;
+namespace DarkOak\Http\Controllers\Api\Client\Billing;
 
-use Everest\Models\Node;
+use DarkOak\Models\Node;
 use Illuminate\Http\Request;
-use Everest\Models\Billing\Product;
-use Everest\Models\Billing\BillingException;
-use Everest\Transformers\Api\Client\NodeTransformer;
-use Everest\Http\Controllers\Api\Client\ClientApiController;
-use Everest\Repositories\Wings\DaemonConfigurationRepository;
+use DarkOak\Models\Billing\Product;
+use DarkOak\Models\Billing\BillingException;
+use DarkOak\Transformers\Api\Client\NodeTransformer;
+use DarkOak\Http\Controllers\Api\Client\ClientApiController;
+use DarkOak\Repositories\Wings\DaemonConfigurationRepository;
 
 class NodesController extends ClientApiController
 {
@@ -68,3 +68,4 @@ class NodesController extends ClientApiController
             ->toArray();
     }
 }
+

@@ -1,15 +1,15 @@
 <?php
 
-namespace Everest\Tests\Integration\Services\Databases;
+namespace DarkOak\Tests\Integration\Services\Databases;
 
-use Everest\Models\Node;
+use DarkOak\Models\Node;
 use Mockery\MockInterface;
-use Everest\Models\Database;
-use Everest\Models\DatabaseHost;
-use Everest\Tests\Integration\IntegrationTestCase;
-use Everest\Services\Databases\DatabaseManagementService;
-use Everest\Services\Databases\DeployServerDatabaseService;
-use Everest\Exceptions\Service\Database\NoSuitableDatabaseHostException;
+use DarkOak\Models\Database;
+use DarkOak\Models\DatabaseHost;
+use DarkOak\Tests\Integration\IntegrationTestCase;
+use DarkOak\Services\Databases\DatabaseManagementService;
+use DarkOak\Services\Databases\DeployServerDatabaseService;
+use DarkOak\Exceptions\Service\Database\NoSuitableDatabaseHostException;
 
 class DeployServerDatabaseServiceTest extends IntegrationTestCase
 {
@@ -31,7 +31,7 @@ class DeployServerDatabaseServiceTest extends IntegrationTestCase
      */
     protected function tearDown(): void
     {
-        config()->set('everest.client_features.databases.allow_random', true);
+        config()->set('DarkOak.client_features.databases.allow_random', true);
 
         Database::query()->delete();
         DatabaseHost::query()->delete();
@@ -64,7 +64,7 @@ class DeployServerDatabaseServiceTest extends IntegrationTestCase
         $host = DatabaseHost::factory()->create();
         $node = Node::factory()->create(['database_host_id' => $host->id]);
 
-        config()->set('everest.client_features.databases.allow_random', false);
+        config()->set('DarkOak.client_features.databases.allow_random', false);
 
         $this->expectException(NoSuitableDatabaseHostException::class);
 
@@ -157,3 +157,4 @@ class DeployServerDatabaseServiceTest extends IntegrationTestCase
         return $this->app->make(DeployServerDatabaseService::class);
     }
 }
+

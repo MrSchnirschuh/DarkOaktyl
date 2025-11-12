@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Billing;
+namespace DarkOak\Http\Requests\Api\Application\Billing;
 
-use Everest\Models\AdminRole;
-use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
+use DarkOak\Models\AdminRole;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class GetBillingAnalyticsRequest extends ApplicationApiRequest
 {
@@ -12,3 +12,4 @@ class GetBillingAnalyticsRequest extends ApplicationApiRequest
         return AdminRole::BILLING_READ;
     }
 }
+

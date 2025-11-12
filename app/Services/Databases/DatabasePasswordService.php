@@ -1,13 +1,13 @@
 <?php
 
-namespace Everest\Services\Databases;
+namespace DarkOak\Services\Databases;
 
-use Everest\Models\Database;
-use Everest\Helpers\Utilities;
+use DarkOak\Models\Database;
+use DarkOak\Helpers\Utilities;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Contracts\Encryption\Encrypter;
-use Everest\Extensions\DynamicDatabaseConnection;
-use Everest\Contracts\Repository\DatabaseRepositoryInterface;
+use DarkOak\Extensions\DynamicDatabaseConnection;
+use DarkOak\Contracts\Repository\DatabaseRepositoryInterface;
 
 class DatabasePasswordService
 {
@@ -47,3 +47,4 @@ class DatabasePasswordService
         return $password;
     }
 }
+

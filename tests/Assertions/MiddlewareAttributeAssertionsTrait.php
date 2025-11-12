@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Tests\Assertions;
+namespace DarkOak\Tests\Assertions;
 
 use PHPUnit\Framework\Assert;
 
@@ -30,3 +30,4 @@ trait MiddlewareAttributeAssertionsTrait
         Assert::assertEquals($expected, $this->request->attributes->get($attribute));
     }
 }
+

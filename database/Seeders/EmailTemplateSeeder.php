@@ -4,11 +4,11 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Arr;
-use Everest\Models\Setting;
-use Everest\Models\EmailTheme;
-use Everest\Models\EmailTemplate;
-use Everest\Models\EmailTrigger;
-use Everest\Services\Themes\ThemePaletteService;
+use DarkOak\Models\Setting;
+use DarkOak\Models\EmailTheme;
+use DarkOak\Models\EmailTemplate;
+use DarkOak\Models\EmailTrigger;
+use DarkOak\Services\Themes\ThemePaletteService;
 
 class EmailTemplateSeeder extends Seeder
 {
@@ -56,7 +56,7 @@ class EmailTemplateSeeder extends Seeder
 
         $defaultTheme = EmailTheme::query()
             ->where('name', $defaultData['name'])
-            ->orWhere('name', 'Everest Default')
+            ->orWhere('name', 'DarkOak Default')
             ->orWhere('is_default', true)
             ->first();
 
@@ -277,3 +277,4 @@ MD,
         }
     }
 }
+

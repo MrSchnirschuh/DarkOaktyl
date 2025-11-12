@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Tests\Integration\Api\Client\Server\Schedule;
+namespace DarkOak\Tests\Integration\Api\Client\Server\Schedule;
 
-use Everest\Models\Schedule;
-use Everest\Helpers\Utilities;
-use Everest\Models\Permission;
-use Everest\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
+use DarkOak\Models\Schedule;
+use DarkOak\Helpers\Utilities;
+use DarkOak\Models\Permission;
+use DarkOak\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 
 class UpdateServerScheduleTest extends ClientApiIntegrationTestCase
 {
@@ -31,7 +31,7 @@ class UpdateServerScheduleTest extends ClientApiIntegrationTestCase
     {
         [$user, $server] = $this->generateTestAccount($permissions);
 
-        /** @var \Everest\Models\Schedule $schedule */
+        /** @var \DarkOak\Models\Schedule $schedule */
         $schedule = Schedule::factory()->create(['server_id' => $server->id]);
         $expected = Utilities::getScheduleNextRunDate('5', '*', '*', '*', '*');
 
@@ -83,13 +83,13 @@ class UpdateServerScheduleTest extends ClientApiIntegrationTestCase
      * Test that the "is_processing" field gets reset to false when the schedule is enabled
      * or disabled so that an invalid state can be more easily fixed.
      *
-     * @see https://github.com/pterodactyl/panel/issues/2425
+     * @see https://github.com/DarkOaktyl/panel/issues/2425
      */
     public function testScheduleIsProcessingIsSetToFalseWhenActiveStateChanges()
     {
         [$user, $server] = $this->generateTestAccount();
 
-        /** @var \Everest\Models\Schedule $schedule */
+        /** @var \DarkOak\Models\Schedule $schedule */
         $schedule = Schedule::factory()->create([
             'server_id' => $server->id,
             'is_active' => true,
@@ -114,3 +114,5 @@ class UpdateServerScheduleTest extends ClientApiIntegrationTestCase
         return [[[]], [[Permission::ACTION_SCHEDULE_UPDATE]]];
     }
 }
+
+

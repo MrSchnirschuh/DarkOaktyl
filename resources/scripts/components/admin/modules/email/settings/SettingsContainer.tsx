@@ -9,13 +9,13 @@ import Spinner from '@elements/Spinner';
 import useFlash from '@/plugins/useFlash';
 import { useStoreActions, useStoreState } from '@/state/hooks';
 import { getEmailSettings, getEmailThemes, updateEmailSetting, type EmailSettingsResponse } from '@/api/admin/emails';
-import type { EverestSettings } from '@/state/everest';
+import type { DarkOakSettings } from '@/state/DarkOak';
 import type { EmailTheme } from '@definitions/admin/models';
 
 const SettingsContainer = () => {
     const { addFlash, clearFlashes, clearAndAddHttpError } = useFlash();
-    const updateEverest = useStoreActions(actions => actions.everest.updateEverest);
-    const everestEmails = useStoreState(state => state.everest.data?.emails);
+    const updateDarkOak = useStoreActions(actions => actions.DarkOak.updateDarkOak);
+    const DarkOakEmails = useStoreState(state => state.DarkOak.data?.emails);
 
     const [settings, setSettings] = useState<EmailSettingsResponse | null>(null);
     const [themes, setThemes] = useState<EmailTheme[]>([]);
@@ -36,16 +36,16 @@ const SettingsContainer = () => {
 
     const currentDefaultUuid = useMemo(() => settings?.defaultTheme ?? null, [settings]);
 
-    const syncEverestStore = (partial: Partial<EverestSettings['emails']>) => {
+    const syncDarkOakStore = (partial: Partial<DarkOakSettings['emails']>) => {
         if (!settings) return;
 
-        const base: EverestSettings['emails'] = {
-            enabled: everestEmails?.enabled ?? settings.enabled,
-            defaultTheme: everestEmails?.defaultTheme ?? settings.defaultTheme,
-            defaults: everestEmails?.defaults ?? settings.defaults,
+        const base: DarkOakSettings['emails'] = {
+            enabled: DarkOakEmails?.enabled ?? settings.enabled,
+            defaultTheme: DarkOakEmails?.defaultTheme ?? settings.defaultTheme,
+            defaults: DarkOakEmails?.defaults ?? settings.defaults,
         };
 
-        updateEverest({
+        updateDarkOak({
             emails: {
                 enabled: partial.enabled ?? base.enabled,
                 defaultTheme: partial.defaultTheme ?? base.defaultTheme ?? null,
@@ -61,7 +61,7 @@ const SettingsContainer = () => {
         updateEmailSetting('enabled', value)
             .then(() => {
                 setSettings(prev => (prev ? { ...prev, enabled: value } : prev));
-                syncEverestStore({ enabled: value });
+                syncDarkOakStore({ enabled: value });
                 addFlash({
                     key: 'admin:emails:settings',
                     type: 'success',
@@ -79,7 +79,7 @@ const SettingsContainer = () => {
             .then(() => {
                 setSettings(prev => (prev ? { ...prev, defaultTheme: uuid } : prev));
                 setThemes(prev => prev.map(theme => ({ ...theme, isDefault: uuid ? theme.uuid === uuid : false })));
-                syncEverestStore({ defaultTheme: uuid ?? null });
+                syncDarkOakStore({ defaultTheme: uuid ?? null });
                 addFlash({
                     key: 'admin:emails:settings',
                     type: 'success',
@@ -155,3 +155,4 @@ const SettingsContainer = () => {
 };
 
 export default SettingsContainer;
+

@@ -1,9 +1,10 @@
 <?php
 
-namespace Everest\Exceptions\Http\Base;
+namespace DarkOak\Exceptions\Http\Base;
 
-use Everest\Exceptions\DisplayException;
+use DarkOak\Exceptions\DisplayException;
 
 class InvalidPasswordProvidedException extends DisplayException
 {
 }
+

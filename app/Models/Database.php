@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Models;
+namespace DarkOak\Models;
 
 use Illuminate\Container\Container;
-use Everest\Contracts\Extensions\HashidsInterface;
+use DarkOak\Contracts\Extensions\HashidsInterface;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
@@ -17,8 +17,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $max_connections
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @property \Everest\Models\Server $server
- * @property \Everest\Models\DatabaseHost $host
+ * @property \DarkOak\Models\Server $server
+ * @property \DarkOak\Models\DatabaseHost $host
  */
 class Database extends Model
 {
@@ -108,3 +108,4 @@ class Database extends Model
         return $this->belongsTo(Server::class);
     }
 }
+

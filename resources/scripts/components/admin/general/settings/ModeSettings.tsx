@@ -42,7 +42,7 @@ export default () => {
                 <ul className={'my-4 text-gray-300'}>
                     <li>&bull; SSH into your Webserver console</li>
                     <li className={'my-1'}>
-                        &bull; Navigate to <code className={'bg-black/50 p-1 rounded-lg'}>/var/www/jexactyl</code>
+                        &bull; Navigate to <code className={'bg-black/50 p-1 rounded-lg'}>/var/www/DarkOaktyl</code>
                     </li>
                     <li className={'my-1'}>
                         &bull; Open the environment file (<code className={'bg-black/50 p-1 rounded-lg'}>.env</code>)
@@ -57,7 +57,7 @@ export default () => {
                 title={'Standard Mode'}
                 image={<StandardModeSvg color={primary} />}
             >
-                Standard mode enables all the typical features of Jexactyl, including our billing system, tickets, user
+                Standard mode enables all the typical features of DarkOaktyl, including our billing system, tickets, user
                 registration and so much more.
                 <p className={'text-right mt-2'}>
                     <Button disabled={settings.mode === 'standard'} onClick={() => updateMode('standard')}>
@@ -82,7 +82,7 @@ export default () => {
             </FeatureContainer>
             <div className={'h-px bg-gray-700 rounded-full my-4'} />
             <FeatureContainer noHeight icon={faTerminal} title={'Debug Mode'} image={<ServerSvg color={primary} />}>
-                When Jexactyl is in Debug mode, all HTTP request data is exposed and errors are reported including
+                When DarkOaktyl is in Debug mode, all HTTP request data is exposed and errors are reported including
                 sensitive details. Use this mode with caution, and especially{' '}
                 <strong>do not use this mode in production.</strong>
                 <p className={'text-right mt-2'}>
@@ -94,3 +94,4 @@ export default () => {
         </>
     );
 };
+

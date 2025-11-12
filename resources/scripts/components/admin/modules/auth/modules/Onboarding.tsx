@@ -17,8 +17,8 @@ export default () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [success, setSuccess] = useState<boolean>(false);
     const { clearFlashes, clearAndAddHttpError } = useFlash();
-    const force2fa = useStoreState(state => state.everest.data!.auth.security.force2fa);
-    const content = useStoreState(state => state.everest.data!.auth.modules.onboarding.content);
+    const force2fa = useStoreState(state => state.DarkOak.data!.auth.security.force2fa);
+    const content = useStoreState(state => state.DarkOak.data!.auth.modules.onboarding.content);
 
     const update = async (key: string, value: any) => {
         clearFlashes();
@@ -89,3 +89,4 @@ export default () => {
         </AdminBox>
     );
 };
+

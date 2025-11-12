@@ -1,37 +1,37 @@
 <?php
 
-namespace Everest\Http;
+namespace DarkOak\Http;
 
-use Everest\Http\Middleware\TrimStrings;
+use DarkOak\Http\Middleware\TrimStrings;
 use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Http\Middleware\HandleCors;
-use Everest\Http\Middleware\EncryptCookies;
-use Everest\Http\Middleware\Api\IsValidJson;
-use Everest\Http\Middleware\VerifyCsrfToken;
-use Everest\Http\Middleware\VerifyReCaptcha;
+use DarkOak\Http\Middleware\EncryptCookies;
+use DarkOak\Http\Middleware\Api\IsValidJson;
+use DarkOak\Http\Middleware\VerifyCsrfToken;
+use DarkOak\Http\Middleware\VerifyReCaptcha;
 use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Http\Middleware\TrustProxies;
-use Everest\Http\Middleware\LanguageMiddleware;
+use DarkOak\Http\Middleware\LanguageMiddleware;
 use Illuminate\Session\Middleware\StartSession;
-use Everest\Http\Middleware\Activity\TrackAPIKey;
-use Everest\Http\Middleware\MaintenanceMiddleware;
-use Everest\Http\Middleware\EnsureStatefulRequests;
+use DarkOak\Http\Middleware\Activity\TrackAPIKey;
+use DarkOak\Http\Middleware\MaintenanceMiddleware;
+use DarkOak\Http\Middleware\EnsureStatefulRequests;
 use Illuminate\Routing\Middleware\ThrottleRequests;
-use Everest\Http\Middleware\RedirectIfAuthenticated;
+use DarkOak\Http\Middleware\RedirectIfAuthenticated;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
-use Everest\Http\Middleware\Api\AuthenticateIPAccess;
+use DarkOak\Http\Middleware\Api\AuthenticateIPAccess;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
-use Everest\Http\Middleware\Api\Daemon\DaemonAuthenticate;
-use Everest\Http\Middleware\Api\Client\RequireClientApiKey;
-use Everest\Http\Middleware\RequireTwoFactorAuthentication;
+use DarkOak\Http\Middleware\Api\Daemon\DaemonAuthenticate;
+use DarkOak\Http\Middleware\Api\Client\RequireClientApiKey;
+use DarkOak\Http\Middleware\RequireTwoFactorAuthentication;
 use Illuminate\Foundation\Http\Middleware\ValidatePostSize;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
-use Everest\Http\Middleware\Api\Client\SubstituteClientBindings;
+use DarkOak\Http\Middleware\Api\Client\SubstituteClientBindings;
 use Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull;
-use Everest\Http\Middleware\Api\Application\AuthenticateApplicationUser;
+use DarkOak\Http\Middleware\Api\Application\AuthenticateApplicationUser;
 use Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance;
 
 class Kernel extends HttpKernel
@@ -99,3 +99,4 @@ class Kernel extends HttpKernel
         'node.maintenance' => MaintenanceMiddleware::class,
     ];
 }
+

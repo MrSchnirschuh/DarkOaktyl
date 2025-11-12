@@ -1,13 +1,13 @@
 <?php
 
-namespace Everest\Services\Databases\Hosts;
+namespace DarkOak\Services\Databases\Hosts;
 
-use Everest\Models\DatabaseHost;
+use DarkOak\Models\DatabaseHost;
 use Illuminate\Database\DatabaseManager;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Contracts\Encryption\Encrypter;
-use Everest\Extensions\DynamicDatabaseConnection;
-use Everest\Contracts\Repository\DatabaseHostRepositoryInterface;
+use DarkOak\Extensions\DynamicDatabaseConnection;
+use DarkOak\Contracts\Repository\DatabaseHostRepositoryInterface;
 
 class HostCreationService
 {
@@ -49,3 +49,4 @@ class HostCreationService
         });
     }
 }
+

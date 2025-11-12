@@ -26,5 +26,6 @@ return [
     | That way, you can access vars, like "SomeNamespace.someVariable."
     |
     */
-    'js_namespace' => 'Everest',
+    'js_namespace' => 'DarkOak',
 ];
+

@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Models;
+namespace DarkOak\Models;
 
 class EggMount extends Model
 {
@@ -10,3 +10,4 @@ class EggMount extends Model
 
     public $incrementing = false;
 }
+

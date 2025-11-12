@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Client\Servers\Network;
+namespace DarkOak\Http\Requests\Api\Client\Servers\Network;
 
-use Everest\Models\Permission;
-use Everest\Http\Requests\Api\Client\ClientApiRequest;
+use DarkOak\Models\Permission;
+use DarkOak\Http\Requests\Api\Client\ClientApiRequest;
 
 class DeleteAllocationRequest extends ClientApiRequest
 {
@@ -12,3 +12,4 @@ class DeleteAllocationRequest extends ClientApiRequest
         return Permission::ACTION_ALLOCATION_DELETE;
     }
 }
+

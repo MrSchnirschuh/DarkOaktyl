@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Billing\Products;
+namespace DarkOak\Http\Requests\Api\Application\Billing\Products;
 
-use Everest\Models\AdminRole;
-use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
+use DarkOak\Models\AdminRole;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class UpdateBillingProductRequest extends ApplicationApiRequest
 {
@@ -12,3 +12,4 @@ class UpdateBillingProductRequest extends ApplicationApiRequest
         return AdminRole::BILLING_PRODUCTS_UPDATE;
     }
 }
+

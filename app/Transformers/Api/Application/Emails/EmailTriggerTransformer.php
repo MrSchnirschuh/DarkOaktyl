@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Transformers\Api\Application\Emails;
+namespace DarkOak\Transformers\Api\Application\Emails;
 
-use Everest\Models\EmailTrigger;
-use Everest\Transformers\Api\Transformer;
+use DarkOak\Models\EmailTrigger;
+use DarkOak\Transformers\Api\Transformer;
 
 class EmailTriggerTransformer extends Transformer
 {
@@ -44,3 +44,4 @@ class EmailTriggerTransformer extends Transformer
         return $template ? $this->item($template, new EmailTemplateTransformer(), 'email_template') : null;
     }
 }
+

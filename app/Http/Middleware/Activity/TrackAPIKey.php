@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Http\Middleware\Activity;
+namespace DarkOak\Http\Middleware\Activity;
 
-use Everest\Models\ApiKey;
+use DarkOak\Models\ApiKey;
 use Illuminate\Http\Request;
-use Everest\Facades\LogTarget;
+use DarkOak\Facades\LogTarget;
 
 class TrackAPIKey
 {
@@ -25,3 +25,4 @@ class TrackAPIKey
         return $next($request);
     }
 }
+

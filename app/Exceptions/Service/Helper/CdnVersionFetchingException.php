@@ -1,7 +1,8 @@
 <?php
 
-namespace Everest\Exceptions\Service\Helper;
+namespace DarkOak\Exceptions\Service\Helper;
 
 class CdnVersionFetchingException extends \Exception
 {
 }
+

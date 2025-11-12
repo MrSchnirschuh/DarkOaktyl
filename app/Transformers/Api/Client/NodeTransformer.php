@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Transformers\Api\Client;
+namespace DarkOak\Transformers\Api\Client;
 
-use Everest\Models\Node;
-use Everest\Transformers\Api\Transformer;
+use DarkOak\Models\Node;
+use DarkOak\Transformers\Api\Transformer;
 
 class NodeTransformer extends Transformer
 {
@@ -29,3 +29,4 @@ class NodeTransformer extends Transformer
         return $response;
     }
 }
+

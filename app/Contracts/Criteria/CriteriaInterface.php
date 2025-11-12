@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Contracts\Criteria;
+namespace DarkOak\Contracts\Criteria;
 
-use Everest\Repositories\Repository;
+use DarkOak\Repositories\Repository;
 use Illuminate\Database\Eloquent\Model;
 
 interface CriteriaInterface
@@ -12,3 +12,4 @@ interface CriteriaInterface
      */
     public function apply(Model $model, Repository $repository): mixed;
 }
+

@@ -1,7 +1,8 @@
 <?php
 
-namespace Everest\Events;
+namespace DarkOak\Events;
 
 abstract class Event
 {
 }
+

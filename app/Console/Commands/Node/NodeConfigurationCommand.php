@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Console\Commands\Node;
+namespace DarkOak\Console\Commands\Node;
 
-use Everest\Models\Node;
+use DarkOak\Models\Node;
 use Illuminate\Console\Command;
 
 class NodeConfigurationCommand extends Command
@@ -17,7 +17,7 @@ class NodeConfigurationCommand extends Command
     {
         $column = ctype_digit((string) $this->argument('node')) ? 'id' : 'uuid';
 
-        /** @var \Everest\Models\Node $node */
+        /** @var \DarkOak\Models\Node $node */
         $node = Node::query()->where($column, $this->argument('node'))->firstOr(function () {
             $this->error('The selected node does not exist.');
 
@@ -42,3 +42,4 @@ class NodeConfigurationCommand extends Command
         return 0;
     }
 }
+

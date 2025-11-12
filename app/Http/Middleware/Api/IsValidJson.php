@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Http\Middleware\Api;
+namespace DarkOak\Http\Middleware\Api;
 
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -25,3 +25,4 @@ class IsValidJson
         return $next($request);
     }
 }
+

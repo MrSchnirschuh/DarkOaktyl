@@ -2,7 +2,7 @@ import { createStore } from 'easy-peasy';
 import user, { UserStore } from '@/state/user';
 import theme, { ThemeStore } from '@/state/theme';
 import flashes, { FlashStore } from '@/state/flashes';
-import everest, { EverestStore } from '@/state/everest';
+import DarkOak, { DarkOakStore } from '@/state/DarkOak';
 import settings, { SettingsStore } from '@/state/settings';
 import progress, { ProgressStore } from '@/state/progress';
 import permissions, { GloablPermissionsStore } from '@/state/permissions';
@@ -13,7 +13,7 @@ export interface ApplicationStore {
     user: UserStore;
     settings: SettingsStore;
     progress: ProgressStore;
-    everest: EverestStore;
+    DarkOak: DarkOakStore;
     theme: ThemeStore;
 }
 
@@ -23,8 +23,9 @@ const state: ApplicationStore = {
     user,
     settings,
     progress,
-    everest,
+    DarkOak,
     theme,
 };
 
 export const store = createStore(state);
+

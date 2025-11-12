@@ -1,27 +1,27 @@
 <?php
 
-namespace Everest\Console\Commands;
+namespace DarkOak\Console\Commands;
 
-use Everest\Console\Kernel;
+use DarkOak\Console\Kernel;
 use Illuminate\Console\Command;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Console\Helper\ProgressBar;
 
 class AutoUpdateCommand extends Command
 {
-    protected const DEFAULT_URL = 'https://github.com/jexactyl/jexactyl/releases/%s/panel.tar.gz';
+    protected const DEFAULT_URL = 'https://github.com/DarkOaktyl/DarkOaktyl/releases/%s/panel.tar.gz';
 
     protected $signature = 'p:auto-update
         {--user= : The user that PHP runs under. All files will be owned by this user.}
         {--group= : The group that PHP runs under. All files will be owned by this group.}
         {--url= : The specific archive to download.}
-        {--release= : A specific Jexactyl version to download from GitHub. Leave blank to use latest.}';
+        {--release= : A specific DarkOaktyl version to download from GitHub. Leave blank to use latest.}';
 
-    protected $description = 'Downloads a new archive for Jexactyl from GitHub and then executes the normal upgrade commands.';
+    protected $description = 'Downloads a new archive for DarkOaktyl from GitHub and then executes the normal upgrade commands.';
 
     /**
      * Executes an upgrade command which will run through all of our standard
-     * commands for Jexactyl and enable users to basically just download
+     * commands for DarkOaktyl and enable users to basically just download
      * the archive and execute this and be done.
      *
      * @throws \Exception
@@ -77,7 +77,7 @@ class AutoUpdateCommand extends Command
 
         /** @var \Illuminate\Foundation\Application $app */
         $app = require __DIR__ . '/../../../bootstrap/app.php';
-        /** @var \Everest\Console\Kernel $kernel */
+        /** @var \DarkOak\Console\Kernel $kernel */
         $kernel = $app->make(Kernel::class);
         $kernel->bootstrap();
         $this->setLaravel($app);
@@ -137,3 +137,5 @@ class AutoUpdateCommand extends Command
         return sprintf(self::DEFAULT_URL, $this->option('release') ? 'download/v' . $this->option('release') : 'latest/download');
     }
 }
+
+

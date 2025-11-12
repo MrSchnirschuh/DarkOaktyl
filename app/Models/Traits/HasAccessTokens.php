@@ -1,16 +1,16 @@
 <?php
 
-namespace Everest\Models\Traits;
+namespace DarkOak\Models\Traits;
 
-use Everest\Models\ApiKey;
+use DarkOak\Models\ApiKey;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\Sanctum;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Everest\Extensions\Laravel\Sanctum\NewAccessToken;
+use DarkOak\Extensions\Laravel\Sanctum\NewAccessToken;
 
 /**
- * @mixin \Everest\Models\Model
+ * @mixin \DarkOak\Models\Model
  */
 trait HasAccessTokens
 {
@@ -26,7 +26,7 @@ trait HasAccessTokens
 
     public function createToken(?string $memo, ?array $ips): NewAccessToken
     {
-        /** @var \Everest\Models\ApiKey $token */
+        /** @var \DarkOak\Models\ApiKey $token */
         $token = $this->tokens()->forceCreate([
             'user_id' => $this->id,
             'key_type' => ApiKey::TYPE_ACCOUNT,
@@ -39,3 +39,4 @@ trait HasAccessTokens
         return new NewAccessToken($token, $plain);
     }
 }
+

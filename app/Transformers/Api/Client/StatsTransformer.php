@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Transformers\Api\Client;
+namespace DarkOak\Transformers\Api\Client;
 
 use Illuminate\Support\Arr;
-use Everest\Transformers\Api\Transformer;
+use DarkOak\Transformers\Api\Transformer;
 
 class StatsTransformer extends Transformer
 {
@@ -32,3 +32,4 @@ class StatsTransformer extends Transformer
         ];
     }
 }
+

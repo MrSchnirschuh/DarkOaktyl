@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Emails;
+namespace DarkOak\Http\Requests\Api\Application\Emails;
 
 class UpdateEmailThemeRequest extends StoreEmailThemeRequest
 {
@@ -35,3 +35,4 @@ class UpdateEmailThemeRequest extends StoreEmailThemeRequest
         return $rules;
     }
 }
+

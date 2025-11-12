@@ -1,16 +1,16 @@
 <?php
 
-namespace Everest\Services\Users;
+namespace DarkOak\Services\Users;
 
 use Carbon\Carbon;
-use Everest\Models\User;
+use DarkOak\Models\User;
 use Illuminate\Support\Str;
 use PragmaRX\Google2FA\Google2FA;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Contracts\Encryption\Encrypter;
-use Everest\Contracts\Repository\UserRepositoryInterface;
-use Everest\Repositories\Eloquent\RecoveryTokenRepository;
-use Everest\Exceptions\Service\User\TwoFactorAuthenticationTokenInvalid;
+use DarkOak\Contracts\Repository\UserRepositoryInterface;
+use DarkOak\Repositories\Eloquent\RecoveryTokenRepository;
+use DarkOak\Exceptions\Service\User\TwoFactorAuthenticationTokenInvalid;
 
 class ToggleTwoFactorService
 {
@@ -33,13 +33,13 @@ class ToggleTwoFactorService
      * @throws \PragmaRX\Google2FA\Exceptions\IncompatibleWithGoogleAuthenticatorException
      * @throws \PragmaRX\Google2FA\Exceptions\InvalidCharactersException
      * @throws \PragmaRX\Google2FA\Exceptions\SecretKeyTooShortException
-     * @throws \Everest\Exceptions\Service\User\TwoFactorAuthenticationTokenInvalid
+     * @throws \DarkOak\Exceptions\Service\User\TwoFactorAuthenticationTokenInvalid
      */
     public function handle(User $user, string $token, bool $toggleState = null): array
     {
         $secret = $this->encrypter->decrypt($user->totp_secret);
 
-        $isValidToken = $this->google2FA->verifyKey($secret, $token, config()->get('everest.auth.2fa.window'));
+        $isValidToken = $this->google2FA->verifyKey($secret, $token, config()->get('DarkOak.auth.2fa.window'));
 
         if (!$isValidToken) {
             throw new TwoFactorAuthenticationTokenInvalid();
@@ -87,3 +87,4 @@ class ToggleTwoFactorService
         });
     }
 }
+

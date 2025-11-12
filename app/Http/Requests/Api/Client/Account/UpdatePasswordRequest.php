@@ -1,16 +1,16 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Client\Account;
+namespace DarkOak\Http\Requests\Api\Client\Account;
 
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Hashing\Hasher;
-use Everest\Http\Requests\Api\Client\ClientApiRequest;
-use Everest\Exceptions\Http\Base\InvalidPasswordProvidedException;
+use DarkOak\Http\Requests\Api\Client\ClientApiRequest;
+use DarkOak\Exceptions\Http\Base\InvalidPasswordProvidedException;
 
 class UpdatePasswordRequest extends ClientApiRequest
 {
     /**
-     * @throws \Everest\Exceptions\Http\Base\InvalidPasswordProvidedException
+     * @throws \DarkOak\Exceptions\Http\Base\InvalidPasswordProvidedException
      */
     public function authorize(): bool
     {
@@ -35,3 +35,4 @@ class UpdatePasswordRequest extends ClientApiRequest
         ];
     }
 }
+

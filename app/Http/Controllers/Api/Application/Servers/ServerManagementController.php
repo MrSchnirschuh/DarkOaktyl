@@ -1,13 +1,13 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Servers;
+namespace DarkOak\Http\Controllers\Api\Application\Servers;
 
-use Everest\Models\Server;
+use DarkOak\Models\Server;
 use Illuminate\Http\Response;
-use Everest\Services\Servers\SuspensionService;
-use Everest\Services\Servers\ReinstallServerService;
-use Everest\Http\Requests\Api\Application\Servers\ServerWriteRequest;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Services\Servers\SuspensionService;
+use DarkOak\Services\Servers\ReinstallServerService;
+use DarkOak\Http\Requests\Api\Application\Servers\ServerWriteRequest;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
 
 class ServerManagementController extends ApplicationApiController
 {
@@ -73,3 +73,4 @@ class ServerManagementController extends ApplicationApiController
         return $this->returnNoContent();
     }
 }
+

@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Contracts\Http;
+namespace DarkOak\Contracts\Http;
 
 interface ClientPermissionsRequest
 {
@@ -11,3 +11,4 @@ interface ClientPermissionsRequest
      */
     public function permission(): string;
 }
+

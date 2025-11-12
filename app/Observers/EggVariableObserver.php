@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Observers;
+namespace DarkOak\Observers;
 
-use Everest\Models\EggVariable;
+use DarkOak\Models\EggVariable;
 
 class EggVariableObserver
 {
@@ -20,3 +20,4 @@ class EggVariableObserver
         }
     }
 }
+

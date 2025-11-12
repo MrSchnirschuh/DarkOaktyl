@@ -1,14 +1,14 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Remote\Backups;
+namespace DarkOak\Http\Controllers\Api\Remote\Backups;
 
-use Everest\Models\Backup;
+use DarkOak\Models\Backup;
 use Carbon\CarbonImmutable;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use Everest\Http\Controllers\Controller;
-use Everest\Extensions\Backups\BackupManager;
-use Everest\Extensions\Filesystem\S3Filesystem;
+use DarkOak\Http\Controllers\Controller;
+use DarkOak\Extensions\Backups\BackupManager;
+use DarkOak\Extensions\Filesystem\S3Filesystem;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
@@ -38,7 +38,7 @@ class BackupRemoteUploadController extends Controller
             throw new BadRequestHttpException('A non-empty "size" query parameter must be provided.');
         }
 
-        /** @var \Everest\Models\Backup $backup */
+        /** @var \DarkOak\Models\Backup $backup */
         $backup = Backup::query()->where('uuid', $backup)->firstOrFail();
 
         // Prevent backups that have already been completed from trying to
@@ -121,3 +121,4 @@ class BackupRemoteUploadController extends Controller
         return $maxPartSize;
     }
 }
+

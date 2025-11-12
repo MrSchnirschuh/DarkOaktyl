@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Http\Controllers\Auth;
+namespace DarkOak\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Everest\Exceptions\DisplayException;
-use Everest\Services\Users\UserUpdateService;
+use DarkOak\Exceptions\DisplayException;
+use DarkOak\Services\Users\UserUpdateService;
 
 class ForgotPasswordController extends AbstractLoginController
 {
@@ -46,3 +46,4 @@ class ForgotPasswordController extends AbstractLoginController
         }
     }
 }
+

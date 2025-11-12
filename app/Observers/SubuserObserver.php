@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Observers;
+namespace DarkOak\Observers;
 
-use Everest\Events;
-use Everest\Models\Subuser;
+use DarkOak\Events;
+use DarkOak\Models\Subuser;
 
 class SubuserObserver
 {
@@ -39,3 +39,4 @@ class SubuserObserver
         event(new Events\Subuser\Deleted($subuser));
     }
 }
+

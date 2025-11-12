@@ -38,7 +38,7 @@ export default () => {
     const name = useStoreState(state => state.settings.data!.name);
     const uuid = useStoreState(state => state.user.data!.uuid);
     const user = useStoreState(state => state.user.data!);
-    const billing = useStoreState(state => state.everest.data!.billing.enabled);
+    const billing = useStoreState(state => state.DarkOak.data!.billing.enabled);
     const [showOnlyAdmin, setShowOnlyAdmin] = usePersistedState(`${uuid}:show_all_servers`, false);
 
     const { data: servers, error } = useSWR<PaginatedResult<Server>>(
@@ -173,3 +173,4 @@ export default () => {
         </PageContentBlock>
     );
 };
+

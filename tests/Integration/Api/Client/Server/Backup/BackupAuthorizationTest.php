@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Tests\Integration\Api\Client\Server\Backup;
+namespace DarkOak\Tests\Integration\Api\Client\Server\Backup;
 
-use Everest\Models\Backup;
+use DarkOak\Models\Backup;
 use Carbon\CarbonImmutable;
-use Everest\Models\Subuser;
-use Everest\Services\Backups\DeleteBackupService;
-use Everest\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
+use DarkOak\Models\Subuser;
+use DarkOak\Services\Backups\DeleteBackupService;
+use DarkOak\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 
 class BackupAuthorizationTest extends ClientApiIntegrationTestCase
 {
@@ -63,3 +63,4 @@ class BackupAuthorizationTest extends ClientApiIntegrationTestCase
         ];
     }
 }
+

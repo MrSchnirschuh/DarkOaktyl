@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Http\Middleware\Api\Client\Server;
+namespace DarkOak\Http\Middleware\Api\Client\Server;
 
-use Everest\Models\Server;
+use DarkOak\Models\Server;
 use Illuminate\Http\Request;
-use Everest\Exceptions\Http\Server\ServerStateConflictException;
+use DarkOak\Exceptions\Http\Server\ServerStateConflictException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AuthenticateServerAccess
@@ -28,7 +28,7 @@ class AuthenticateServerAccess
      */
     public function handle(Request $request, \Closure $next): mixed
     {
-        /** @var \Everest\Models\User $user */
+        /** @var \DarkOak\Models\User $user */
         $user = $request->user();
         $server = $request->route()->parameter('server');
 
@@ -66,3 +66,4 @@ class AuthenticateServerAccess
         return $next($request);
     }
 }
+

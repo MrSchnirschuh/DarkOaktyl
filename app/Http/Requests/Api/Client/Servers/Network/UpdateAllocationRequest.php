@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Client\Servers\Network;
+namespace DarkOak\Http\Requests\Api\Client\Servers\Network;
 
-use Everest\Models\Allocation;
-use Everest\Models\Permission;
-use Everest\Http\Requests\Api\Client\ClientApiRequest;
+use DarkOak\Models\Allocation;
+use DarkOak\Models\Permission;
+use DarkOak\Http\Requests\Api\Client\ClientApiRequest;
 
 class UpdateAllocationRequest extends ClientApiRequest
 {
@@ -22,3 +22,4 @@ class UpdateAllocationRequest extends ClientApiRequest
         ];
     }
 }
+

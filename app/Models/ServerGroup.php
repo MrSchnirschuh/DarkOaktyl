@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Models;
+namespace DarkOak\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -62,3 +62,4 @@ class ServerGroup extends Model
         return $this->hasMany(Server::class, 'group_id');
     }
 }
+

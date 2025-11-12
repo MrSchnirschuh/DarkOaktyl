@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Http\Requests\Auth;
+namespace DarkOak\Http\Requests\Auth;
 
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -39,3 +39,4 @@ class LoginCheckpointRequest extends FormRequest
         ];
     }
 }
+

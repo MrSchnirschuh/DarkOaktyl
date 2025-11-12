@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Transformers\Api\Application;
+namespace DarkOak\Transformers\Api\Application;
 
-use Everest\Models\AdminRole;
-use Everest\Transformers\Api\Transformer;
+use DarkOak\Models\AdminRole;
+use DarkOak\Transformers\Api\Transformer;
 
 class AdminRoleTransformer extends Transformer
 {
@@ -29,3 +29,4 @@ class AdminRoleTransformer extends Transformer
         ];
     }
 }
+

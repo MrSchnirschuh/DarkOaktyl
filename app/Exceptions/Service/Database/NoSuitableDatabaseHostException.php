@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Exceptions\Service\Database;
+namespace DarkOak\Exceptions\Service\Database;
 
-use Everest\Exceptions\DisplayException;
+use DarkOak\Exceptions\DisplayException;
 
 class NoSuitableDatabaseHostException extends DisplayException
 {
@@ -14,3 +14,4 @@ class NoSuitableDatabaseHostException extends DisplayException
         parent::__construct('No database host was found that meets the requirements for this server.');
     }
 }
+

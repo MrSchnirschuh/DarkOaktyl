@@ -1,9 +1,10 @@
 <?php
 
-namespace Everest\Exceptions\Service\Subuser;
+namespace DarkOak\Exceptions\Service\Subuser;
 
-use Everest\Exceptions\DisplayException;
+use DarkOak\Exceptions\DisplayException;
 
 class ServerSubuserExistsException extends DisplayException
 {
 }
+

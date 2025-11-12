@@ -27,8 +27,8 @@ function LoginContainer() {
     const token = useRef('');
 
     const appName = useStoreState(state => state.settings.data!.name);
-    const modules = useStoreState(state => state.everest.data!.auth.modules);
-    const registration = useStoreState(state => state.everest.data!.auth.registration.enabled);
+    const modules = useStoreState(state => state.DarkOak.data!.auth.modules);
+    const registration = useStoreState(state => state.DarkOak.data!.auth.registration.enabled);
 
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const { enabled: recaptchaEnabled, siteKey } = useStoreState(state => state.settings.data!.recaptcha);
@@ -102,7 +102,7 @@ function LoginContainer() {
                         label={'Username or Email'}
                         name={'username'}
                         disabled={isSubmitting}
-                        placeholder={'user@jexpanel.com'}
+                        placeholder={'user@DarkOak.eu'}
                     />
                     <div css={tw`mt-6`}>
                         <Label>
@@ -178,3 +178,4 @@ function LoginContainer() {
 }
 
 export default LoginContainer;
+

@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application;
+namespace DarkOak\Http\Controllers\Api\Application;
 
 use Illuminate\Http\Request;
-use Everest\Models\ActivityLog;
+use DarkOak\Models\ActivityLog;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
-use Everest\Transformers\Api\Application\ActivityLogTransformer;
+use DarkOak\Transformers\Api\Application\ActivityLogTransformer;
 
 class ActivityLogController extends ApplicationApiController
 {
@@ -30,3 +30,4 @@ class ActivityLogController extends ApplicationApiController
             ->toArray();
     }
 }
+

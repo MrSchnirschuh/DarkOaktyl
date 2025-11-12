@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use Everest\Models\Subuser;
-use Everest\Models\Permission;
+use DarkOak\Models\Subuser;
+use DarkOak\Models\Permission;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SubuserFactory extends Factory
@@ -27,3 +27,4 @@ class SubuserFactory extends Factory
         ];
     }
 }
+

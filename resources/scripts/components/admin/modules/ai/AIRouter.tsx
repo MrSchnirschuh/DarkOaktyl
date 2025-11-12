@@ -12,23 +12,23 @@ import SettingsContainer from './SettingsContainer';
 
 export default () => {
     const theme = useStoreState(state => state.theme.data!);
-    const settings = useStoreState(state => state.everest.data!.ai);
+    const settings = useStoreState(state => state.DarkOak.data!.ai);
 
     if (!settings.enabled) return <EnableAI />;
     if (settings.enabled && !settings.key) return <ConfigureAI />;
 
     return (
-        <AdminContentBlock title={'Jexactyl AI'}>
+        <AdminContentBlock title={'DarkOaktyl AI'}>
             <FlashMessageRender byKey={'admin:ai'} className={'mb-4'} />
             <div className={'w-full flex flex-row items-center mb-8'}>
                 <div className={'flex flex-col flex-shrink'} style={{ minWidth: '0' }}>
-                    <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>Jexactyl AI</h2>
+                    <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>DarkOaktyl AI</h2>
                     <p
                         className={
                             'hidden lg:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden'
                         }
                     >
-                        Use Artificial Intelligence to add more power to Jexactyl.
+                        Use Artificial Intelligence to add more power to DarkOaktyl.
                     </p>
                 </div>
             </div>
@@ -49,3 +49,5 @@ export default () => {
         </AdminContentBlock>
     );
 };
+
+

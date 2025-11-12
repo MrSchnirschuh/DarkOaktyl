@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Models;
+namespace DarkOak\Models;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -97,3 +97,4 @@ class EggVariable extends Model
         return $this->hasMany(ServerVariable::class, 'variable_id');
     }
 }
+

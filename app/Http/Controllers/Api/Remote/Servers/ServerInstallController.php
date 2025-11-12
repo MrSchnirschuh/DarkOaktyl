@@ -1,15 +1,15 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Remote\Servers;
+namespace DarkOak\Http\Controllers\Api\Remote\Servers;
 
-use Everest\Models\Server;
+use DarkOak\Models\Server;
 use Carbon\CarbonImmutable;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
-use Everest\Http\Controllers\Controller;
-use Everest\Repositories\Eloquent\ServerRepository;
-use Everest\Http\Requests\Api\Remote\InstallationDataRequest;
+use DarkOak\Http\Controllers\Controller;
+use DarkOak\Repositories\Eloquent\ServerRepository;
+use DarkOak\Http\Requests\Api\Remote\InstallationDataRequest;
 use Illuminate\Contracts\Events\Dispatcher as EventDispatcher;
 
 class ServerInstallController extends Controller
@@ -24,7 +24,7 @@ class ServerInstallController extends Controller
     /**
      * Returns installation information for a server.
      *
-     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
+     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
      */
     public function index(Request $request, string $uuid): JsonResponse
     {
@@ -41,8 +41,8 @@ class ServerInstallController extends Controller
     /**
      * Updates the installation state of a server.
      *
-     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
-     * @throws \Everest\Exceptions\Model\DataValidationException
+     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
+     * @throws \DarkOak\Exceptions\Model\DataValidationException
      */
     public function store(InstallationDataRequest $request, string $uuid): JsonResponse
     {
@@ -68,3 +68,4 @@ class ServerInstallController extends Controller
         return new JsonResponse([], Response::HTTP_NO_CONTENT);
     }
 }
+

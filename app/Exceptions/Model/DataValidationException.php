@@ -1,15 +1,15 @@
 <?php
 
-namespace Everest\Exceptions\Model;
+namespace DarkOak\Exceptions\Model;
 
 use Illuminate\Support\MessageBag;
 use Illuminate\Database\Eloquent\Model;
-use Everest\Exceptions\PterodactylException;
+use DarkOak\Exceptions\DarkOaktylException;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Contracts\Support\MessageProvider;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
-class DataValidationException extends PterodactylException implements HttpExceptionInterface, MessageProvider
+class DataValidationException extends DarkOaktylException implements HttpExceptionInterface, MessageProvider
 {
     /**
      * DataValidationException constructor.
@@ -57,3 +57,5 @@ class DataValidationException extends PterodactylException implements HttpExcept
         return $this->model;
     }
 }
+
+

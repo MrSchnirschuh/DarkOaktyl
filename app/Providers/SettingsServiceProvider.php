@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Providers;
+namespace DarkOak\Providers;
 
 use Psr\Log\LoggerInterface as Log;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Encryption\Encrypter;
-use Everest\Contracts\Repository\SettingsRepositoryInterface;
+use DarkOak\Contracts\Repository\SettingsRepositoryInterface;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
 
 class SettingsServiceProvider extends ServiceProvider
@@ -16,7 +16,7 @@ class SettingsServiceProvider extends ServiceProvider
      * if they exist.
      */
     protected array $keys = [
-        // Jexactyl-specific keys
+        // DarkOaktyl-specific keys
         'app:name',
         'app:mode',
         'app:setup',
@@ -27,14 +27,14 @@ class SettingsServiceProvider extends ServiceProvider
         'recaptcha:enabled',
         'recaptcha:secret_key',
         'recaptcha:website_key',
-        'pterodactyl:guzzle:timeout',
-        'pterodactyl:guzzle:connect_timeout',
-        'pterodactyl:console:count',
-        'pterodactyl:console:frequency',
-        'pterodactyl:auth:2fa_required',
-        'pterodactyl:client_features:allocations:enabled',
-        'pterodactyl:client_features:allocations:range_start',
-        'pterodactyl:client_features:allocations:range_end',
+        'DarkOaktyl:guzzle:timeout',
+        'DarkOaktyl:guzzle:connect_timeout',
+        'DarkOaktyl:console:count',
+        'DarkOaktyl:console:frequency',
+        'DarkOaktyl:auth:2fa_required',
+        'DarkOaktyl:client_features:allocations:enabled',
+        'DarkOaktyl:client_features:allocations:range_start',
+        'DarkOaktyl:client_features:allocations:range_end',
 
         // Authentication module settings
         'modules:auth:registration:enabled',
@@ -129,3 +129,5 @@ class SettingsServiceProvider extends ServiceProvider
         }
     }
 }
+
+

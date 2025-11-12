@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Services\Acl\Api;
+namespace DarkOak\Services\Acl\Api;
 
-use Everest\Models\ApiKey;
+use DarkOak\Models\ApiKey;
 
 class AdminAcl
 {
@@ -69,3 +69,4 @@ class AdminAcl
         })->values()->toArray();
     }
 }
+

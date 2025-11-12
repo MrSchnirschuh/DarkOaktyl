@@ -3,7 +3,7 @@ import { useStoreState } from '@/state/hooks';
 import { updateSettings } from '@/api/admin/billing';
 
 export default () => {
-    const enabled = useStoreState(state => state.everest.data!.billing.enabled);
+    const enabled = useStoreState(state => state.DarkOak.data!.billing.enabled);
 
     const submit = () => {
         updateSettings('enabled', !enabled).then(() => {
@@ -18,3 +18,4 @@ export default () => {
         </div>
     );
 };
+

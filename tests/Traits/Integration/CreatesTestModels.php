@@ -1,14 +1,14 @@
 <?php
 
-namespace Everest\Tests\Traits\Integration;
+namespace DarkOak\Tests\Traits\Integration;
 
 use Ramsey\Uuid\Uuid;
-use Everest\Models\Egg;
-use Everest\Models\Node;
-use Everest\Models\User;
-use Everest\Models\Server;
-use Everest\Models\Subuser;
-use Everest\Models\Allocation;
+use DarkOak\Models\Egg;
+use DarkOak\Models\Node;
+use DarkOak\Models\User;
+use DarkOak\Models\Server;
+use DarkOak\Models\Subuser;
+use DarkOak\Models\Allocation;
 
 trait CreatesTestModels
 {
@@ -26,19 +26,19 @@ trait CreatesTestModels
         }
 
         if (!isset($attributes['owner_id'])) {
-            /** @var \Everest\Models\User $user */
+            /** @var \DarkOak\Models\User $user */
             $user = User::factory()->create();
             $attributes['owner_id'] = $user->id;
         }
 
         if (!isset($attributes['node_id'])) {
-            /** @var \Everest\Models\Node $node */
+            /** @var \DarkOak\Models\Node $node */
             $node = Node::factory()->create();
             $attributes['node_id'] = $node->id;
         }
 
         if (!isset($attributes['allocation_id'])) {
-            /** @var \Everest\Models\Allocation $allocation */
+            /** @var \DarkOak\Models\Allocation $allocation */
             $allocation = Allocation::factory()->create(['node_id' => $attributes['node_id']]);
             $attributes['allocation_id'] = $allocation->id;
         }
@@ -58,7 +58,7 @@ trait CreatesTestModels
 
         unset($attributes['user_id']);
 
-        /** @var \Everest\Models\Server $server */
+        /** @var \DarkOak\Models\Server $server */
         $server = Server::factory()->create($attributes);
 
         Allocation::query()->where('id', $server->allocation_id)->update(['server_id' => $server->id]);
@@ -74,11 +74,11 @@ trait CreatesTestModels
      *
      * @param string[] $permissions
      *
-     * @return array{\Everest\Models\User, \Everest\Models\Server}
+     * @return array{\DarkOak\Models\User, \DarkOak\Models\Server}
      */
     public function generateTestAccount(array $permissions = []): array
     {
-        /** @var \Everest\Models\User $user */
+        /** @var \DarkOak\Models\User $user */
         $user = User::factory()->create();
 
         if (empty($permissions)) {
@@ -106,7 +106,7 @@ trait CreatesTestModels
         $model->uuid = Uuid::uuid4()->toString();
         $model->push();
 
-        /** @var \Everest\Models\Egg $model */
+        /** @var \DarkOak\Models\Egg $model */
         $model = $model->fresh();
 
         foreach ($egg->variables as $variable) {
@@ -122,9 +122,11 @@ trait CreatesTestModels
      */
     private function getBungeecordEgg(): Egg
     {
-        /** @var \Everest\Models\Egg $egg */
-        $egg = Egg::query()->where('author', 'support@pterodactyl.io')->where('name', 'Bungeecord')->firstOrFail();
+        /** @var \DarkOak\Models\Egg $egg */
+        $egg = Egg::query()->where('author', 'support@DarkOaktyl.io')->where('name', 'Bungeecord')->firstOrFail();
 
         return $egg;
     }
 }
+
+

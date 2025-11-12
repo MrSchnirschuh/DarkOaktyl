@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Emails;
+namespace DarkOak\Http\Requests\Api\Application\Emails;
 
 class UpdateEmailTriggerRequest extends StoreEmailTriggerRequest
 {
@@ -21,3 +21,4 @@ class UpdateEmailTriggerRequest extends StoreEmailTriggerRequest
         ];
     }
 }
+

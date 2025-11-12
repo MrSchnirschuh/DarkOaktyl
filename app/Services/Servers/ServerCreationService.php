@@ -1,26 +1,26 @@
 <?php
 
-namespace Everest\Services\Servers;
+namespace DarkOak\Services\Servers;
 
 use Carbon\Carbon;
 use Ramsey\Uuid\Uuid;
-use Everest\Models\Egg;
-use Everest\Models\Node;
-use Everest\Models\User;
-use Everest\Models\Server;
+use DarkOak\Models\Egg;
+use DarkOak\Models\Node;
+use DarkOak\Models\User;
+use DarkOak\Models\Server;
 use Illuminate\Support\Arr;
 use Webmozart\Assert\Assert;
-use Everest\Models\Allocation;
+use DarkOak\Models\Allocation;
 use Illuminate\Support\Collection;
-use Everest\Models\Billing\BillingTerm;
-use Everest\Models\Objects\DeploymentObject;
+use DarkOak\Models\Billing\BillingTerm;
+use DarkOak\Models\Objects\DeploymentObject;
 use Illuminate\Database\ConnectionInterface;
-use Everest\Repositories\Eloquent\ServerRepository;
-use Everest\Repositories\Wings\DaemonServerRepository;
-use Everest\Services\Deployment\FindViableNodesService;
-use Everest\Repositories\Eloquent\ServerVariableRepository;
-use Everest\Services\Deployment\AllocationSelectionService;
-use Everest\Exceptions\Http\Connection\DaemonConnectionException;
+use DarkOak\Repositories\Eloquent\ServerRepository;
+use DarkOak\Repositories\Wings\DaemonServerRepository;
+use DarkOak\Services\Deployment\FindViableNodesService;
+use DarkOak\Repositories\Eloquent\ServerVariableRepository;
+use DarkOak\Services\Deployment\AllocationSelectionService;
+use DarkOak\Exceptions\Http\Connection\DaemonConnectionException;
 use Illuminate\Support\Facades\Schema;
 
 class ServerCreationService
@@ -48,11 +48,11 @@ class ServerCreationService
      * no node_id the node_is will be picked from the allocation.
      *
      * @throws \Throwable
-     * @throws \Everest\Exceptions\DisplayException
+     * @throws \DarkOak\Exceptions\DisplayException
      * @throws \Illuminate\Validation\ValidationException
-     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
-     * @throws \Everest\Exceptions\Service\Deployment\NoViableNodeException
-     * @throws \Everest\Exceptions\Service\Deployment\NoViableAllocationException
+     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
+     * @throws \DarkOak\Exceptions\Service\Deployment\NoViableNodeException
+     * @throws \DarkOak\Exceptions\Service\Deployment\NoViableAllocationException
      */
     public function handle(array $data, DeploymentObject $deployment = null): Server
     {
@@ -158,9 +158,9 @@ class ServerCreationService
     /**
      * Gets an allocation to use for automatic deployment.
      *
-     * @throws \Everest\Exceptions\DisplayException
-     * @throws \Everest\Exceptions\Service\Deployment\NoViableAllocationException
-     * @throws \Everest\Exceptions\Service\Deployment\NoViableNodeException
+     * @throws \DarkOak\Exceptions\DisplayException
+     * @throws \DarkOak\Exceptions\Service\Deployment\NoViableAllocationException
+     * @throws \DarkOak\Exceptions\Service\Deployment\NoViableNodeException
      */
     private function configureDeployment(array $data, DeploymentObject $deployment): Allocation
     {
@@ -179,7 +179,7 @@ class ServerCreationService
     /**
      * Store the server in the database and return the model.
      *
-     * @throws \Everest\Exceptions\Model\DataValidationException
+     * @throws \DarkOak\Exceptions\Model\DataValidationException
      */
     private function createModel(array $data): Server
     {
@@ -266,3 +266,4 @@ class ServerCreationService
         return $uuid;
     }
 }
+

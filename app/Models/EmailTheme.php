@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Models;
+namespace DarkOak\Models;
 
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -73,3 +73,4 @@ class EmailTheme extends Model
         return $this->hasMany(EmailTemplate::class, 'theme_id');
     }
 }
+

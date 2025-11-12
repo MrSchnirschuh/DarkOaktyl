@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Services\Nodes;
+namespace DarkOak\Services\Nodes;
 
-use Everest\Models\Node;
+use DarkOak\Models\Node;
 use Illuminate\Contracts\Translation\Translator;
-use Everest\Contracts\Repository\NodeRepositoryInterface;
-use Everest\Exceptions\Service\HasActiveServersException;
-use Everest\Contracts\Repository\ServerRepositoryInterface;
+use DarkOak\Contracts\Repository\NodeRepositoryInterface;
+use DarkOak\Exceptions\Service\HasActiveServersException;
+use DarkOak\Contracts\Repository\ServerRepositoryInterface;
 
 class NodeDeletionService
 {
@@ -23,7 +23,7 @@ class NodeDeletionService
     /**
      * Delete a node from the panel if no servers are attached to it.
      *
-     * @throws \Everest\Exceptions\Service\HasActiveServersException
+     * @throws \DarkOak\Exceptions\Service\HasActiveServersException
      */
     public function handle(int|Node $node): int
     {
@@ -39,3 +39,4 @@ class NodeDeletionService
         return $this->repository->delete($node);
     }
 }
+

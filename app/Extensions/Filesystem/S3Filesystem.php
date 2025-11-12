@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Extensions\Filesystem;
+namespace DarkOak\Extensions\Filesystem;
 
 use Aws\S3\S3ClientInterface;
 use League\Flysystem\AwsS3V3\AwsS3V3Adapter;
@@ -33,3 +33,4 @@ class S3Filesystem extends AwsS3V3Adapter
         return $this->bucket;
     }
 }
+

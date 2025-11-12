@@ -1,15 +1,15 @@
 <?php
 
-namespace Everest\Providers;
+namespace DarkOak\Providers;
 
-use Everest\Models\Database;
+use DarkOak\Models\Database;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Everest\Http\Middleware\TrimStrings;
+use DarkOak\Http\Middleware\TrimStrings;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Support\Facades\RateLimiter;
-use Everest\Http\Middleware\AdminAuthenticate;
-use Everest\Http\Middleware\RequireTwoFactorAuthentication;
+use DarkOak\Http\Middleware\AdminAuthenticate;
+use DarkOak\Http\Middleware\RequireTwoFactorAuthentication;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
 class RouteServiceProvider extends ServiceProvider
@@ -108,3 +108,4 @@ class RouteServiceProvider extends ServiceProvider
         });
     }
 }
+

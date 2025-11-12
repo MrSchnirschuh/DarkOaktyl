@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Services\Servers;
+namespace DarkOak\Services\Servers;
 
-use Everest\Models\User;
-use Everest\Models\EggVariable;
+use DarkOak\Models\User;
+use DarkOak\Models\EggVariable;
 use Illuminate\Support\Collection;
-use Everest\Traits\Services\HasUserLevels;
+use DarkOak\Traits\Services\HasUserLevels;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;
 
@@ -34,7 +34,7 @@ class VariableValidatorService
             $query = $query->where('user_editable', true)->where('user_viewable', true);
         }
 
-        /** @var \Everest\Models\EggVariable[] $variables */
+        /** @var \DarkOak\Models\EggVariable[] $variables */
         $variables = $query->get();
 
         $data = $rules = $customAttributes = [];
@@ -59,3 +59,4 @@ class VariableValidatorService
         });
     }
 }
+

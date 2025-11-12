@@ -1,15 +1,15 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Theme;
+namespace DarkOak\Http\Controllers\Api\Application\Theme;
 
-use Everest\Models\Theme;
+use DarkOak\Models\Theme;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Everest\Contracts\Repository\ThemeRepositoryInterface;
-use Everest\Services\Themes\ThemePaletteService;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
-use Everest\Http\Requests\Application\Theme\UpdatePaletteRequest;
+use DarkOak\Contracts\Repository\ThemeRepositoryInterface;
+use DarkOak\Services\Themes\ThemePaletteService;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Http\Requests\Application\Theme\UpdatePaletteRequest;
 
 class ThemeController extends ApplicationApiController
 {
@@ -81,3 +81,4 @@ class ThemeController extends ApplicationApiController
         return $this->returnNoContent();
     }
 }
+

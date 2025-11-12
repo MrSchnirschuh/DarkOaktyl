@@ -95,7 +95,7 @@ const Suspended = ({ date, id }: { date: Date; id?: number }) => {
     const [product, setProduct] = useState<Product>();
 
     const navigate = useNavigate();
-    const currency = useStoreState(state => state.everest.data!.billing.currency.symbol);
+    const currency = useStoreState(state => state.DarkOak.data!.billing.currency.symbol);
     const { secondary } = useStoreState(state => state.theme.data!.colors);
 
     useEffect(() => {
@@ -146,3 +146,4 @@ const Suspended = ({ date, id }: { date: Date; id?: number }) => {
 
 export { ServerError, NotFound, Suspended };
 export default ScreenBlock;
+

@@ -1,16 +1,16 @@
 <?php
 
-namespace Everest\Http\Middleware\Api\Client\Server;
+namespace DarkOak\Http\Middleware\Api\Client\Server;
 
-use Everest\Models\Task;
-use Everest\Models\User;
-use Everest\Models\Backup;
-use Everest\Models\Server;
-use Everest\Models\Subuser;
-use Everest\Models\Database;
-use Everest\Models\Schedule;
+use DarkOak\Models\Task;
+use DarkOak\Models\User;
+use DarkOak\Models\Backup;
+use DarkOak\Models\Server;
+use DarkOak\Models\Subuser;
+use DarkOak\Models\Database;
+use DarkOak\Models\Schedule;
 use Illuminate\Http\Request;
-use Everest\Models\Allocation;
+use DarkOak\Models\Allocation;
 use Illuminate\Database\Eloquent\Model;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -86,3 +86,4 @@ class ResourceBelongsToServer
         return $next($request);
     }
 }
+

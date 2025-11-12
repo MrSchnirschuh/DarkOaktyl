@@ -31,7 +31,7 @@ export default () => {
 
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const theme = useStoreState(state => state.theme.data!);
-    const { billing } = useStoreState(state => state.everest.data!);
+    const { billing } = useStoreState(state => state.DarkOak.data!);
     const { data: server, error, isValidating, mutate } = useServerFromRoute();
 
     useEffect(() => {
@@ -116,3 +116,4 @@ export default () => {
         </AdminContentBlock>
     );
 };
+

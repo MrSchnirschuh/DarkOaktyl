@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Nodes;
+namespace DarkOak\Http\Requests\Api\Application\Nodes;
 
-use Everest\Models\AdminRole;
-use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
+use DarkOak\Models\AdminRole;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class DeleteNodeRequest extends ApplicationApiRequest
 {
@@ -12,3 +12,4 @@ class DeleteNodeRequest extends ApplicationApiRequest
         return AdminRole::NODES_DELETE;
     }
 }
+

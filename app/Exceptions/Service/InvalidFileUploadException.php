@@ -1,9 +1,10 @@
 <?php
 
-namespace Everest\Exceptions\Service;
+namespace DarkOak\Exceptions\Service;
 
-use Everest\Exceptions\DisplayException;
+use DarkOak\Exceptions\DisplayException;
 
 class InvalidFileUploadException extends DisplayException
 {
 }
+

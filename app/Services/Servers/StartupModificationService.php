@@ -1,13 +1,13 @@
 <?php
 
-namespace Everest\Services\Servers;
+namespace DarkOak\Services\Servers;
 
-use Everest\Models\Egg;
-use Everest\Models\User;
-use Everest\Models\Server;
+use DarkOak\Models\Egg;
+use DarkOak\Models\User;
+use DarkOak\Models\Server;
 use Illuminate\Support\Arr;
-use Everest\Models\ServerVariable;
-use Everest\Traits\Services\HasUserLevels;
+use DarkOak\Models\ServerVariable;
+use DarkOak\Traits\Services\HasUserLevels;
 use Illuminate\Database\ConnectionInterface;
 
 class StartupModificationService
@@ -70,7 +70,7 @@ class StartupModificationService
         $eggId = Arr::get($data, 'egg_id');
 
         if (is_digit($eggId) && $server->egg_id !== (int) $eggId) {
-            /** @var \Everest\Models\Egg $egg */
+            /** @var \DarkOak\Models\Egg $egg */
             $egg = Egg::query()->findOrFail($data['egg_id']);
 
             $server = $server->forceFill([
@@ -86,3 +86,4 @@ class StartupModificationService
         ])->save();
     }
 }
+

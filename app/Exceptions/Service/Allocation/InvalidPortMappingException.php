@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Exceptions\Service\Allocation;
+namespace DarkOak\Exceptions\Service\Allocation;
 
-use Everest\Exceptions\DisplayException;
+use DarkOak\Exceptions\DisplayException;
 
 class InvalidPortMappingException extends DisplayException
 {
@@ -14,3 +14,4 @@ class InvalidPortMappingException extends DisplayException
         parent::__construct(trans('exceptions.allocations.invalid_mapping', ['port' => $port]));
     }
 }
+

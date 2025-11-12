@@ -1,17 +1,17 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Client\Servers;
+namespace DarkOak\Http\Controllers\Api\Client\Servers;
 
-use Everest\Models\Server;
-use Everest\Facades\Activity;
+use DarkOak\Models\Server;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
 use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Exception\BadResponseException;
-use Everest\Repositories\Wings\DaemonCommandRepository;
+use DarkOak\Repositories\Wings\DaemonCommandRepository;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Everest\Http\Controllers\Api\Client\ClientApiController;
-use Everest\Http\Requests\Api\Client\Servers\SendCommandRequest;
-use Everest\Exceptions\Http\Connection\DaemonConnectionException;
+use DarkOak\Http\Controllers\Api\Client\ClientApiController;
+use DarkOak\Http\Requests\Api\Client\Servers\SendCommandRequest;
+use DarkOak\Exceptions\Http\Connection\DaemonConnectionException;
 
 class CommandController extends ClientApiController
 {
@@ -26,7 +26,7 @@ class CommandController extends ClientApiController
     /**
      * Send a command to a running server.
      *
-     * @throws \Everest\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws \DarkOak\Exceptions\Http\Connection\DaemonConnectionException
      */
     public function index(SendCommandRequest $request, Server $server): Response
     {
@@ -52,3 +52,4 @@ class CommandController extends ClientApiController
         return $this->returnNoContent();
     }
 }
+

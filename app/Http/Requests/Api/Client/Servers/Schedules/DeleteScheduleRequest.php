@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Client\Servers\Schedules;
+namespace DarkOak\Http\Requests\Api\Client\Servers\Schedules;
 
-use Everest\Models\Permission;
+use DarkOak\Models\Permission;
 
 class DeleteScheduleRequest extends ViewScheduleRequest
 {
@@ -11,3 +11,4 @@ class DeleteScheduleRequest extends ViewScheduleRequest
         return Permission::ACTION_SCHEDULE_DELETE;
     }
 }
+

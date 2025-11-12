@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Traits\Controllers;
+namespace DarkOak\Traits\Controllers;
 
 use JavaScript;
 
@@ -14,3 +14,4 @@ trait PlainJavascriptInjection
         \JavaScript::put($data);
     }
 }
+

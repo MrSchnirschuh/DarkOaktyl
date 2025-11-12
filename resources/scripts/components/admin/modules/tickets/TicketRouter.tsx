@@ -13,7 +13,7 @@ import TicketOptionsContainer from './TicketOptionsContainer';
 
 export default () => {
     const theme = useStoreState(state => state.theme.data!);
-    const enabled = useStoreState(state => state.everest.data!.tickets.enabled);
+    const enabled = useStoreState(state => state.DarkOak.data!.tickets.enabled);
 
     if (!enabled) return <EnableTicketsContainer />;
 
@@ -53,3 +53,4 @@ export default () => {
         </AdminContentBlock>
     );
 };
+

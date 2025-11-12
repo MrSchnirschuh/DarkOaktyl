@@ -1,14 +1,14 @@
 <?php
 
-namespace Everest\Tests\Integration\Api\Client\Server\Schedule;
+namespace DarkOak\Tests\Integration\Api\Client\Server\Schedule;
 
-use Everest\Models\Task;
-use Everest\Models\Schedule;
+use DarkOak\Models\Task;
+use DarkOak\Models\Schedule;
 use Illuminate\Http\Response;
-use Everest\Models\Permission;
+use DarkOak\Models\Permission;
 use Illuminate\Support\Facades\Bus;
-use Everest\Jobs\Schedule\RunTaskJob;
-use Everest\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
+use DarkOak\Jobs\Schedule\RunTaskJob;
+use DarkOak\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 
 class ExecuteScheduleTest extends ClientApiIntegrationTestCase
 {
@@ -23,7 +23,7 @@ class ExecuteScheduleTest extends ClientApiIntegrationTestCase
 
         Bus::fake();
 
-        /** @var \Everest\Models\Schedule $schedule */
+        /** @var \DarkOak\Models\Schedule $schedule */
         $schedule = Schedule::factory()->create([
             'server_id' => $server->id,
         ]);
@@ -33,7 +33,7 @@ class ExecuteScheduleTest extends ClientApiIntegrationTestCase
         $response->assertJsonPath('errors.0.code', 'DisplayException');
         $response->assertJsonPath('errors.0.detail', 'Cannot process schedule for task execution: no tasks are registered.');
 
-        /** @var \Everest\Models\Task $task */
+        /** @var \DarkOak\Models\Task $task */
         $task = Task::factory()->create([
             'schedule_id' => $schedule->id,
             'sequence_id' => 1,
@@ -58,7 +58,7 @@ class ExecuteScheduleTest extends ClientApiIntegrationTestCase
     {
         [$user, $server] = $this->generateTestAccount([Permission::ACTION_SCHEDULE_CREATE]);
 
-        /** @var \Everest\Models\Schedule $schedule */
+        /** @var \DarkOak\Models\Schedule $schedule */
         $schedule = Schedule::factory()->create(['server_id' => $server->id]);
 
         $this->actingAs($user)->postJson($this->link($schedule, '/execute'))->assertForbidden();
@@ -69,3 +69,4 @@ class ExecuteScheduleTest extends ClientApiIntegrationTestCase
         return [[[]], [[Permission::ACTION_SCHEDULE_UPDATE]]];
     }
 }
+

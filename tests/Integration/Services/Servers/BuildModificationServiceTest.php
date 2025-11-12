@@ -1,18 +1,18 @@
 <?php
 
-namespace Everest\Tests\Integration\Services\Servers;
+namespace DarkOak\Tests\Integration\Services\Servers;
 
-use Everest\Models\Server;
+use DarkOak\Models\Server;
 use Mockery\MockInterface;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use Everest\Models\Allocation;
-use Everest\Exceptions\DisplayException;
+use DarkOak\Models\Allocation;
+use DarkOak\Exceptions\DisplayException;
 use GuzzleHttp\Exception\RequestException;
-use Everest\Tests\Integration\IntegrationTestCase;
-use Everest\Repositories\Wings\DaemonServerRepository;
-use Everest\Services\Servers\BuildModificationService;
-use Everest\Exceptions\Http\Connection\DaemonConnectionException;
+use DarkOak\Tests\Integration\IntegrationTestCase;
+use DarkOak\Repositories\Wings\DaemonServerRepository;
+use DarkOak\Services\Servers\BuildModificationService;
+use DarkOak\Exceptions\Http\Connection\DaemonConnectionException;
 
 class BuildModificationServiceTest extends IntegrationTestCase
 {
@@ -37,7 +37,7 @@ class BuildModificationServiceTest extends IntegrationTestCase
         $server = $this->createServerModel();
         $server2 = $this->createServerModel();
 
-        /** @var \Everest\Models\Allocation[] $allocations */
+        /** @var \DarkOak\Models\Allocation[] $allocations */
         $allocations = Allocation::factory()->times(4)->create(['node_id' => $server->node_id, 'notes' => 'Random notes']);
 
         $initialAllocationId = $server->allocation_id;
@@ -84,7 +84,7 @@ class BuildModificationServiceTest extends IntegrationTestCase
     public function testExceptionIsThrownIfRemovingTheDefaultAllocation()
     {
         $server = $this->createServerModel();
-        /** @var \Everest\Models\Allocation[] $allocations */
+        /** @var \DarkOak\Models\Allocation[] $allocations */
         $allocations = Allocation::factory()->times(4)->create(['node_id' => $server->node_id]);
 
         $allocations[0]->update(['server_id' => $server->id]);
@@ -168,7 +168,7 @@ class BuildModificationServiceTest extends IntegrationTestCase
     public function testNoExceptionIsThrownIfOnlyRemovingAllocation()
     {
         $server = $this->createServerModel();
-        /** @var \Everest\Models\Allocation $allocation */
+        /** @var \DarkOak\Models\Allocation $allocation */
         $allocation = Allocation::factory()->create(['node_id' => $server->node_id, 'server_id' => $server->id]);
 
         $this->daemonServerRepository->expects('setServer->sync')->andReturnUndefined();
@@ -191,7 +191,7 @@ class BuildModificationServiceTest extends IntegrationTestCase
     public function testAllocationInBothAddAndRemoveIsAdded()
     {
         $server = $this->createServerModel();
-        /** @var \Everest\Models\Allocation $allocation */
+        /** @var \DarkOak\Models\Allocation $allocation */
         $allocation = Allocation::factory()->create(['node_id' => $server->node_id]);
 
         $this->daemonServerRepository->expects('setServer->sync')->andReturnUndefined();
@@ -210,9 +210,9 @@ class BuildModificationServiceTest extends IntegrationTestCase
     public function testUsingSameAllocationIdMultipleTimesDoesNotError()
     {
         $server = $this->createServerModel();
-        /** @var \Everest\Models\Allocation $allocation */
+        /** @var \DarkOak\Models\Allocation $allocation */
         $allocation = Allocation::factory()->create(['node_id' => $server->node_id, 'server_id' => $server->id]);
-        /** @var \Everest\Models\Allocation $allocation2 */
+        /** @var \DarkOak\Models\Allocation $allocation2 */
         $allocation2 = Allocation::factory()->create(['node_id' => $server->node_id]);
 
         $this->daemonServerRepository->expects('setServer->sync')->andReturnUndefined();
@@ -235,7 +235,7 @@ class BuildModificationServiceTest extends IntegrationTestCase
     public function testThatUpdatesAreRolledBackIfExceptionIsEncountered()
     {
         $server = $this->createServerModel();
-        /** @var \Everest\Models\Allocation $allocation */
+        /** @var \DarkOak\Models\Allocation $allocation */
         $allocation = Allocation::factory()->create(['node_id' => $server->node_id]);
 
         $this->daemonServerRepository->expects('setServer->sync')->andThrows(new DisplayException('Test'));
@@ -252,3 +252,4 @@ class BuildModificationServiceTest extends IntegrationTestCase
         return $this->app->make(BuildModificationService::class);
     }
 }
+

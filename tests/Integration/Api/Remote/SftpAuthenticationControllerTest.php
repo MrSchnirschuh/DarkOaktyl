@@ -1,14 +1,14 @@
 <?php
 
-namespace Everest\Tests\Integration\Api\Remote;
+namespace DarkOak\Tests\Integration\Api\Remote;
 
-use Everest\Models\Node;
-use Everest\Models\User;
-use Everest\Models\Server;
-use Everest\Models\Permission;
-use Everest\Models\UserSSHKey;
+use DarkOak\Models\Node;
+use DarkOak\Models\User;
+use DarkOak\Models\Server;
+use DarkOak\Models\Permission;
+use DarkOak\Models\UserSSHKey;
 use phpseclib3\Crypt\EC\PrivateKey;
-use Everest\Tests\Integration\IntegrationTestCase;
+use DarkOak\Tests\Integration\IntegrationTestCase;
 
 class SftpAuthenticationControllerTest extends IntegrationTestCase
 {
@@ -248,3 +248,4 @@ class SftpAuthenticationControllerTest extends IntegrationTestCase
         $this->withHeader('Authorization', 'Bearer ' . $node->daemon_token_id . '.' . decrypt($node->daemon_token));
     }
 }
+

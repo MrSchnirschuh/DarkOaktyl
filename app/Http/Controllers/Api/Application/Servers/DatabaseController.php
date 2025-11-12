@@ -1,19 +1,19 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Servers;
+namespace DarkOak\Http\Controllers\Api\Application\Servers;
 
-use Everest\Models\Server;
-use Everest\Models\Database;
+use DarkOak\Models\Server;
+use DarkOak\Models\Database;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
-use Everest\Services\Databases\DatabasePasswordService;
-use Everest\Services\Databases\DatabaseManagementService;
-use Everest\Transformers\Api\Application\ServerDatabaseTransformer;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
-use Everest\Http\Requests\Api\Application\Servers\Databases\GetServerDatabaseRequest;
-use Everest\Http\Requests\Api\Application\Servers\Databases\GetServerDatabasesRequest;
-use Everest\Http\Requests\Api\Application\Servers\Databases\ServerDatabaseWriteRequest;
-use Everest\Http\Requests\Api\Application\Servers\Databases\StoreServerDatabaseRequest;
+use DarkOak\Services\Databases\DatabasePasswordService;
+use DarkOak\Services\Databases\DatabaseManagementService;
+use DarkOak\Transformers\Api\Application\ServerDatabaseTransformer;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Http\Requests\Api\Application\Servers\Databases\GetServerDatabaseRequest;
+use DarkOak\Http\Requests\Api\Application\Servers\Databases\GetServerDatabasesRequest;
+use DarkOak\Http\Requests\Api\Application\Servers\Databases\ServerDatabaseWriteRequest;
+use DarkOak\Http\Requests\Api\Application\Servers\Databases\StoreServerDatabaseRequest;
 
 class DatabaseController extends ApplicationApiController
 {
@@ -88,3 +88,4 @@ class DatabaseController extends ApplicationApiController
         return $this->returnNoContent();
     }
 }
+

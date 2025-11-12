@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Tests\Unit\Helpers;
+namespace DarkOak\Tests\Unit\Helpers;
 
-use Everest\Tests\TestCase;
-use Everest\Traits\Commands\EnvironmentWriterTrait;
+use DarkOak\Tests\TestCase;
+use DarkOak\Traits\Commands\EnvironmentWriterTrait;
 
 class EnvironmentWriterTraitTest extends TestCase
 {
@@ -41,3 +41,4 @@ class FooClass
 {
     use EnvironmentWriterTrait;
 }
+

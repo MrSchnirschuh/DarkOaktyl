@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Client\Servers\Startup;
+namespace DarkOak\Http\Requests\Api\Client\Servers\Startup;
 
-use Everest\Models\Permission;
-use Everest\Http\Requests\Api\Client\ClientApiRequest;
+use DarkOak\Models\Permission;
+use DarkOak\Http\Requests\Api\Client\ClientApiRequest;
 
 class UpdateStartupVariableRequest extends ClientApiRequest
 {
@@ -23,3 +23,4 @@ class UpdateStartupVariableRequest extends ClientApiRequest
         ];
     }
 }
+

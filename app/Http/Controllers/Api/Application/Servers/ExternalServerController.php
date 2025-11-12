@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Servers;
+namespace DarkOak\Http\Controllers\Api\Application\Servers;
 
-use Everest\Models\Server;
-use Everest\Transformers\Api\Application\ServerTransformer;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
-use Everest\Http\Requests\Api\Application\Servers\GetExternalServerRequest;
+use DarkOak\Models\Server;
+use DarkOak\Transformers\Api\Application\ServerTransformer;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Http\Requests\Api\Application\Servers\GetExternalServerRequest;
 
 class ExternalServerController extends ApplicationApiController
 {
@@ -21,3 +21,4 @@ class ExternalServerController extends ApplicationApiController
             ->toArray();
     }
 }
+

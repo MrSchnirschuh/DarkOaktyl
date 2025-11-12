@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Client\Servers;
+namespace DarkOak\Http\Requests\Api\Client\Servers;
 
-use Everest\Http\Requests\Api\Client\ClientApiRequest;
+use DarkOak\Http\Requests\Api\Client\ClientApiRequest;
 
 class GetServerRequest extends ClientApiRequest
 {
@@ -16,3 +16,4 @@ class GetServerRequest extends ClientApiRequest
         return true;
     }
 }
+

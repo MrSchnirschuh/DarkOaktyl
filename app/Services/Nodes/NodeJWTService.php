@@ -1,16 +1,16 @@
 <?php
 
-namespace Everest\Services\Nodes;
+namespace DarkOak\Services\Nodes;
 
-use Everest\Models\Node;
-use Everest\Models\User;
+use DarkOak\Models\Node;
+use DarkOak\Models\User;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Str;
 use Lcobucci\JWT\Token\Plain;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
 use Lcobucci\JWT\Signer\Key\InMemory;
-use Everest\Extensions\Lcobucci\JWT\Encoding\TimestampDates;
+use DarkOak\Extensions\Lcobucci\JWT\Encoding\TimestampDates;
 
 class NodeJWTService
 {
@@ -101,3 +101,4 @@ class NodeJWTService
             ->getToken($config->signer(), $config->signingKey());
     }
 }
+

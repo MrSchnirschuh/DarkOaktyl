@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Services\Servers;
+namespace DarkOak\Services\Servers;
 
-use Everest\Models\Mount;
-use Everest\Models\Server;
+use DarkOak\Models\Mount;
+use DarkOak\Models\Server;
 
 class ServerConfigurationStructureService
 {
@@ -125,3 +125,4 @@ class ServerConfigurationStructureService
         ];
     }
 }
+

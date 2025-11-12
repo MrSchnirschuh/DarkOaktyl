@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Services\Emails;
+namespace DarkOak\Services\Emails;
 
 class AnonymousRecipient
 {
@@ -20,3 +20,4 @@ class AnonymousRecipient
         return new self($email, $username);
     }
 }
+

@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Transformers\Api\Application;
+namespace DarkOak\Transformers\Api\Application;
 
-use Everest\Models\Database;
+use DarkOak\Models\Database;
 use League\Fractal\Resource\Item;
-use Everest\Services\Acl\Api\AdminAcl;
-use Everest\Transformers\Api\Transformer;
+use DarkOak\Services\Acl\Api\AdminAcl;
+use DarkOak\Transformers\Api\Transformer;
 use League\Fractal\Resource\NullResource;
 use Illuminate\Contracts\Encryption\Encrypter;
 
@@ -73,3 +73,4 @@ class ServerDatabaseTransformer extends Transformer
         }, 'database_password');
     }
 }
+

@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Contracts\Repository;
+namespace DarkOak\Contracts\Repository;
 
-use Everest\Models\Server;
+use DarkOak\Models\Server;
 use Illuminate\Support\Collection;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
@@ -26,7 +26,7 @@ interface ServerRepositoryInterface extends RepositoryInterface
     /**
      * Return a server model and all variables associated with the server.
      *
-     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
+     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
      */
     public function findWithVariables(int $id): Server;
 
@@ -57,7 +57,7 @@ interface ServerRepositoryInterface extends RepositoryInterface
     /**
      * Return a server by UUID.
      *
-     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
+     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
      */
     public function getByUuid(string $uuid): Server;
 
@@ -71,3 +71,4 @@ interface ServerRepositoryInterface extends RepositoryInterface
      */
     public function loadAllServersForNode(int $node, int $limit): LengthAwarePaginator;
 }
+

@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Http\Middleware\Api;
+namespace DarkOak\Http\Middleware\Api;
 
 use IPTools\IP;
 use IPTools\Range;
 use Illuminate\Http\Request;
-use Everest\Facades\Activity;
+use DarkOak\Facades\Activity;
 use Laravel\Sanctum\TransientToken;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
@@ -19,7 +19,7 @@ class AuthenticateIPAccess
      */
     public function handle(Request $request, \Closure $next): mixed
     {
-        /** @var \Laravel\Sanctum\TransientToken|\Everest\Models\ApiKey $token */
+        /** @var \Laravel\Sanctum\TransientToken|\DarkOak\Models\ApiKey $token */
         $token = $request->user()->currentAccessToken();
 
         // If this is a stateful request just push the request through to the next
@@ -46,3 +46,4 @@ class AuthenticateIPAccess
         throw new AccessDeniedHttpException('This IP address (' . $request->ip() . ') does not have permission to access the API using these credentials.');
     }
 }
+

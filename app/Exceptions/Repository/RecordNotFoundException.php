@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Exceptions\Repository;
+namespace DarkOak\Exceptions\Repository;
 
 use Illuminate\Http\Response;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
@@ -23,3 +23,4 @@ class RecordNotFoundException extends RepositoryException implements HttpExcepti
         return [];
     }
 }
+

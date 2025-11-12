@@ -57,7 +57,8 @@ return [
     */
 
     'middleware' => [
-        'verify_csrf_token' => Everest\Http\Middleware\VerifyCsrfToken::class,
-        'encrypt_cookies' => Everest\Http\Middleware\EncryptCookies::class,
+        'verify_csrf_token' => DarkOak\Http\Middleware\VerifyCsrfToken::class,
+        'encrypt_cookies' => DarkOak\Http\Middleware\EncryptCookies::class,
     ],
 ];
+

@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Services\Servers;
+namespace DarkOak\Services\Servers;
 
-use Everest\Models\Server;
+use DarkOak\Models\Server;
 use Illuminate\Database\ConnectionInterface;
-use Everest\Repositories\Wings\DaemonServerRepository;
+use DarkOak\Repositories\Wings\DaemonServerRepository;
 
 class ReinstallServerService
 {
@@ -33,3 +33,4 @@ class ReinstallServerService
         });
     }
 }
+

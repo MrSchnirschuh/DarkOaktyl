@@ -1,5 +1,5 @@
 import http from '@/api/http';
-import { AlertPosition, AlertType } from '@/state/everest';
+import { AlertPosition, AlertType } from '@/state/DarkOak';
 
 export interface AlertSettings {
     enabled: boolean;
@@ -15,3 +15,4 @@ export const updateAlertSettings = async (settings: Partial<AlertSettings>): Pro
             .catch(reject);
     });
 };
+

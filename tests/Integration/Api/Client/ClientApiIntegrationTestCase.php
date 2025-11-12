@@ -1,21 +1,21 @@
 <?php
 
-namespace Everest\Tests\Integration\Api\Client;
+namespace DarkOak\Tests\Integration\Api\Client;
 
-use Everest\Models\Node;
-use Everest\Models\Task;
-use Everest\Models\User;
-use Everest\Models\Model;
-use Everest\Models\Backup;
-use Everest\Models\Server;
-use Everest\Models\Database;
-use Everest\Models\Schedule;
-use Everest\Models\Allocation;
-use Everest\Models\DatabaseHost;
+use DarkOak\Models\Node;
+use DarkOak\Models\Task;
+use DarkOak\Models\User;
+use DarkOak\Models\Model;
+use DarkOak\Models\Backup;
+use DarkOak\Models\Server;
+use DarkOak\Models\Database;
+use DarkOak\Models\Schedule;
+use DarkOak\Models\Allocation;
+use DarkOak\Models\DatabaseHost;
 use Illuminate\Support\Collection;
-use Everest\Transformers\Api\Transformer;
-use Everest\Tests\Integration\TestResponse;
-use Everest\Tests\Integration\IntegrationTestCase;
+use DarkOak\Transformers\Api\Transformer;
+use DarkOak\Tests\Integration\TestResponse;
+use DarkOak\Tests\Integration\IntegrationTestCase;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 
 abstract class ClientApiIntegrationTestCase extends IntegrationTestCase
@@ -84,7 +84,7 @@ abstract class ClientApiIntegrationTestCase extends IntegrationTestCase
     protected function assertJsonTransformedWith(array $data, Model|EloquentModel $model)
     {
         $reflect = new \ReflectionClass($model);
-        $transformer = sprintf('\\Everest\\Transformers\\Api\\Client\\%sTransformer', $reflect->getShortName());
+        $transformer = sprintf('\\DarkOak\\Transformers\\Api\\Client\\%sTransformer', $reflect->getShortName());
 
         $transformer = new $transformer();
         $this->assertInstanceOf(Transformer::class, $transformer);
@@ -95,3 +95,4 @@ abstract class ClientApiIntegrationTestCase extends IntegrationTestCase
         );
     }
 }
+

@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Http\Middleware;
+namespace DarkOak\Http\Middleware;
 
-use Everest\Models\User;
+use DarkOak\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Everest\Exceptions\Http\TwoFactorAuthRequiredException;
+use DarkOak\Exceptions\Http\TwoFactorAuthRequiredException;
 
 class RequireTwoFactorAuthentication
 {
@@ -24,7 +24,7 @@ class RequireTwoFactorAuthentication
      * order to perform actions. If so, we check the level at which it is required (all users
      * or just admins) and then check if the user has enabled it for their account.
      *
-     * @throws \Everest\Exceptions\Http\TwoFactorAuthRequiredException
+     * @throws \DarkOak\Exceptions\Http\TwoFactorAuthRequiredException
      */
     public function handle(Request $request, \Closure $next): mixed
     {
@@ -59,3 +59,4 @@ class RequireTwoFactorAuthentication
         return redirect()->to($this->redirectRoute);
     }
 }
+

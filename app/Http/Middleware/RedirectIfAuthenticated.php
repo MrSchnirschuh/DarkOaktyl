@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Http\Middleware;
+namespace DarkOak\Http\Middleware;
 
 use Illuminate\Http\Request;
 use Illuminate\Auth\AuthManager;
@@ -26,3 +26,4 @@ class RedirectIfAuthenticated
         return $next($request);
     }
 }
+

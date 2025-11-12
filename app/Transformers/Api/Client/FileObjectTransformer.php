@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Transformers\Api\Client;
+namespace DarkOak\Transformers\Api\Client;
 
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
-use Everest\Transformers\Api\Transformer;
+use DarkOak\Transformers\Api\Transformer;
 
 class FileObjectTransformer extends Transformer
 {
@@ -31,3 +31,4 @@ class FileObjectTransformer extends Transformer
         ];
     }
 }
+

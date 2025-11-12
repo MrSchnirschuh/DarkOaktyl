@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Alerts;
+namespace DarkOak\Http\Requests\Api\Application\Alerts;
 
-use Everest\Models\AdminRole;
-use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
+use DarkOak\Models\AdminRole;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class AlertSettingsRequest extends ApplicationApiRequest
 {
@@ -22,3 +22,4 @@ class AlertSettingsRequest extends ApplicationApiRequest
         return AdminRole::ALERTS_UPDATE;
     }
 }
+

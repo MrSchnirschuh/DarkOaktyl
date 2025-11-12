@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Repositories\Eloquent;
+namespace DarkOak\Repositories\Eloquent;
 
-use Everest\Models\Subuser;
-use Everest\Exceptions\Repository\RecordNotFoundException;
-use Everest\Contracts\Repository\SubuserRepositoryInterface;
+use DarkOak\Models\Subuser;
+use DarkOak\Exceptions\Repository\RecordNotFoundException;
+use DarkOak\Contracts\Repository\SubuserRepositoryInterface;
 
 class SubuserRepository extends EloquentRepository implements SubuserRepositoryInterface
 {
@@ -51,7 +51,7 @@ class SubuserRepository extends EloquentRepository implements SubuserRepositoryI
     /**
      * Return a subuser and associated permissions given a user_id and server_id.
      *
-     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
+     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
      */
     public function getWithPermissionsUsingUserAndServer(int $user, int $server): Subuser
     {
@@ -67,3 +67,4 @@ class SubuserRepository extends EloquentRepository implements SubuserRepositoryI
         return $instance;
     }
 }
+

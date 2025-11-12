@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Billing\Config;
+namespace DarkOak\Http\Requests\Api\Application\Billing\Config;
 
-use Everest\Models\AdminRole;
-use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
+use DarkOak\Models\AdminRole;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class ExportBillingConfigRequest extends ApplicationApiRequest
 {
@@ -12,3 +12,4 @@ class ExportBillingConfigRequest extends ApplicationApiRequest
         return AdminRole::BILLING_EXPORT;
     }
 }
+

@@ -1,44 +1,44 @@
 <?php
 
-namespace Everest\Providers;
+namespace DarkOak\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Everest\Repositories\Eloquent\EggRepository;
-use Everest\Repositories\Eloquent\NestRepository;
-use Everest\Repositories\Eloquent\NodeRepository;
-use Everest\Repositories\Eloquent\TaskRepository;
-use Everest\Repositories\Eloquent\UserRepository;
-use Everest\Repositories\Eloquent\ThemeRepository;
-use Everest\Repositories\Eloquent\ApiKeyRepository;
-use Everest\Repositories\Eloquent\ServerRepository;
-use Everest\Repositories\Eloquent\SessionRepository;
-use Everest\Repositories\Eloquent\SubuserRepository;
-use Everest\Repositories\Eloquent\DatabaseRepository;
-use Everest\Repositories\Eloquent\LocationRepository;
-use Everest\Repositories\Eloquent\ScheduleRepository;
-use Everest\Repositories\Eloquent\SettingsRepository;
-use Everest\Repositories\Eloquent\AllocationRepository;
-use Everest\Contracts\Repository\EggRepositoryInterface;
-use Everest\Repositories\Eloquent\EggVariableRepository;
-use Everest\Contracts\Repository\NestRepositoryInterface;
-use Everest\Contracts\Repository\NodeRepositoryInterface;
-use Everest\Contracts\Repository\TaskRepositoryInterface;
-use Everest\Contracts\Repository\UserRepositoryInterface;
-use Everest\Repositories\Eloquent\DatabaseHostRepository;
-use Everest\Contracts\Repository\ThemeRepositoryInterface;
-use Everest\Contracts\Repository\ApiKeyRepositoryInterface;
-use Everest\Contracts\Repository\ServerRepositoryInterface;
-use Everest\Repositories\Eloquent\ServerVariableRepository;
-use Everest\Contracts\Repository\SessionRepositoryInterface;
-use Everest\Contracts\Repository\SubuserRepositoryInterface;
-use Everest\Contracts\Repository\DatabaseRepositoryInterface;
-use Everest\Contracts\Repository\LocationRepositoryInterface;
-use Everest\Contracts\Repository\ScheduleRepositoryInterface;
-use Everest\Contracts\Repository\SettingsRepositoryInterface;
-use Everest\Contracts\Repository\AllocationRepositoryInterface;
-use Everest\Contracts\Repository\EggVariableRepositoryInterface;
-use Everest\Contracts\Repository\DatabaseHostRepositoryInterface;
-use Everest\Contracts\Repository\ServerVariableRepositoryInterface;
+use DarkOak\Repositories\Eloquent\EggRepository;
+use DarkOak\Repositories\Eloquent\NestRepository;
+use DarkOak\Repositories\Eloquent\NodeRepository;
+use DarkOak\Repositories\Eloquent\TaskRepository;
+use DarkOak\Repositories\Eloquent\UserRepository;
+use DarkOak\Repositories\Eloquent\ThemeRepository;
+use DarkOak\Repositories\Eloquent\ApiKeyRepository;
+use DarkOak\Repositories\Eloquent\ServerRepository;
+use DarkOak\Repositories\Eloquent\SessionRepository;
+use DarkOak\Repositories\Eloquent\SubuserRepository;
+use DarkOak\Repositories\Eloquent\DatabaseRepository;
+use DarkOak\Repositories\Eloquent\LocationRepository;
+use DarkOak\Repositories\Eloquent\ScheduleRepository;
+use DarkOak\Repositories\Eloquent\SettingsRepository;
+use DarkOak\Repositories\Eloquent\AllocationRepository;
+use DarkOak\Contracts\Repository\EggRepositoryInterface;
+use DarkOak\Repositories\Eloquent\EggVariableRepository;
+use DarkOak\Contracts\Repository\NestRepositoryInterface;
+use DarkOak\Contracts\Repository\NodeRepositoryInterface;
+use DarkOak\Contracts\Repository\TaskRepositoryInterface;
+use DarkOak\Contracts\Repository\UserRepositoryInterface;
+use DarkOak\Repositories\Eloquent\DatabaseHostRepository;
+use DarkOak\Contracts\Repository\ThemeRepositoryInterface;
+use DarkOak\Contracts\Repository\ApiKeyRepositoryInterface;
+use DarkOak\Contracts\Repository\ServerRepositoryInterface;
+use DarkOak\Repositories\Eloquent\ServerVariableRepository;
+use DarkOak\Contracts\Repository\SessionRepositoryInterface;
+use DarkOak\Contracts\Repository\SubuserRepositoryInterface;
+use DarkOak\Contracts\Repository\DatabaseRepositoryInterface;
+use DarkOak\Contracts\Repository\LocationRepositoryInterface;
+use DarkOak\Contracts\Repository\ScheduleRepositoryInterface;
+use DarkOak\Contracts\Repository\SettingsRepositoryInterface;
+use DarkOak\Contracts\Repository\AllocationRepositoryInterface;
+use DarkOak\Contracts\Repository\EggVariableRepositoryInterface;
+use DarkOak\Contracts\Repository\DatabaseHostRepositoryInterface;
+use DarkOak\Contracts\Repository\ServerVariableRepositoryInterface;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -68,3 +68,4 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
     }
 }
+

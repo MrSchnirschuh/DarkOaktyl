@@ -1,15 +1,15 @@
 <?php
 
-namespace Everest\Services\Eggs\Sharing;
+namespace DarkOak\Services\Eggs\Sharing;
 
-use Everest\Models\Egg;
-use Everest\Models\EggVariable;
+use DarkOak\Models\Egg;
+use DarkOak\Models\EggVariable;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
-use Everest\Services\Eggs\EggParserService;
+use DarkOak\Services\Eggs\EggParserService;
 use Illuminate\Database\ConnectionInterface;
-use Everest\Exceptions\Service\Egg\BadJsonFormatException;
-use Everest\Exceptions\Service\InvalidFileUploadException;
+use DarkOak\Exceptions\Service\Egg\BadJsonFormatException;
+use DarkOak\Exceptions\Service\InvalidFileUploadException;
 
 class EggUpdateImporterService
 {
@@ -25,7 +25,7 @@ class EggUpdateImporterService
     /**
      * Update an existing Egg using an uploaded JSON file.
      *
-     * @throws \Everest\Exceptions\Service\InvalidFileUploadException|\Throwable
+     * @throws \DarkOak\Exceptions\Service\InvalidFileUploadException|\Throwable
      */
     public function handle(Egg $egg, UploadedFile $file): Egg
     {
@@ -60,3 +60,4 @@ class EggUpdateImporterService
         });
     }
 }
+

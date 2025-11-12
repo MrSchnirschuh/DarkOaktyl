@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Transformers\Api\Client;
+namespace DarkOak\Transformers\Api\Client;
 
-use Everest\Models\Billing\Order;
-use Everest\Transformers\Api\Transformer;
+use DarkOak\Models\Billing\Order;
+use DarkOak\Transformers\Api\Transformer;
 
 class OrderTransformer extends Transformer
 {
@@ -33,3 +33,4 @@ class OrderTransformer extends Transformer
         ];
     }
 }
+

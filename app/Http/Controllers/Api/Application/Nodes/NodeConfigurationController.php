@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Nodes;
+namespace DarkOak\Http\Controllers\Api\Application\Nodes;
 
-use Everest\Models\Node;
+use DarkOak\Models\Node;
 use Illuminate\Http\JsonResponse;
-use Everest\Http\Requests\Api\Application\Nodes\GetNodeRequest;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Http\Requests\Api\Application\Nodes\GetNodeRequest;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
 
 class NodeConfigurationController extends ApplicationApiController
 {
@@ -23,3 +23,4 @@ class NodeConfigurationController extends ApplicationApiController
         return new JsonResponse($node->getConfiguration());
     }
 }
+

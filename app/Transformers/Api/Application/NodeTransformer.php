@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Transformers\Api\Application;
+namespace DarkOak\Transformers\Api\Application;
 
-use Everest\Models\Node;
-use Everest\Services\Acl\Api\AdminAcl;
+use DarkOak\Models\Node;
+use DarkOak\Services\Acl\Api\AdminAcl;
 use League\Fractal\Resource\Collection;
-use Everest\Transformers\Api\Transformer;
+use DarkOak\Transformers\Api\Transformer;
 use League\Fractal\Resource\NullResource;
 
 class NodeTransformer extends Transformer
@@ -68,3 +68,4 @@ class NodeTransformer extends Transformer
         return $this->collection($node->servers, new ServerTransformer());
     }
 }
+

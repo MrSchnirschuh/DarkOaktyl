@@ -1,14 +1,14 @@
 <?php
 
-namespace Everest\Services\Users;
+namespace DarkOak\Services\Users;
 
 use Ramsey\Uuid\Uuid;
-use Everest\Models\User;
+use DarkOak\Models\User;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Contracts\Auth\PasswordBroker;
-use Everest\Contracts\Repository\UserRepositoryInterface;
+use DarkOak\Contracts\Repository\UserRepositoryInterface;
 
 class UserCreationService
 {
@@ -27,7 +27,7 @@ class UserCreationService
      * Create a new user on the system.
      *
      * @throws \Exception
-     * @throws \Everest\Exceptions\Model\DataValidationException
+     * @throws \DarkOak\Exceptions\Model\DataValidationException
      */
     public function handle(array $data): User
     {
@@ -43,7 +43,7 @@ class UserCreationService
 
         $data['recovery_code'] = Crypt::encryptString(str_random(32));
 
-        /** @var \Everest\Models\User $user */
+        /** @var \DarkOak\Models\User $user */
         $user = $this->repository->create(array_merge($data, [
             'uuid' => Uuid::uuid4()->toString(),
         ]), true, true);
@@ -61,3 +61,4 @@ class UserCreationService
         return $user;
     }
 }
+

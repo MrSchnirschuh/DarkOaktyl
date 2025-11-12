@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Services\Permission;
+namespace DarkOak\Services\Permission;
 
-use Everest\Models\User;
-use Everest\Models\AdminRole;
+use DarkOak\Models\User;
+use DarkOak\Models\AdminRole;
 
 class AdminPermissionService
 {
@@ -24,3 +24,4 @@ class AdminPermissionService
         return $permissions;
     }
 }
+

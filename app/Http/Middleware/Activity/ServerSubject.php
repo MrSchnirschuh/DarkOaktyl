@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Http\Middleware\Activity;
+namespace DarkOak\Http\Middleware\Activity;
 
-use Everest\Models\Server;
+use DarkOak\Models\Server;
 use Illuminate\Http\Request;
-use Everest\Facades\LogTarget;
+use DarkOak\Facades\LogTarget;
 
 class ServerSubject
 {
@@ -27,3 +27,4 @@ class ServerSubject
         return $next($request);
     }
 }
+

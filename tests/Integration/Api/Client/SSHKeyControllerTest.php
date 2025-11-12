@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Tests\Integration\Api\Client;
+namespace DarkOak\Tests\Integration\Api\Client;
 
-use Everest\Models\User;
+use DarkOak\Models\User;
 use phpseclib3\Crypt\EC;
-use Everest\Models\UserSSHKey;
+use DarkOak\Models\UserSSHKey;
 
 class SSHKeyControllerTest extends ClientApiIntegrationTestCase
 {
@@ -142,3 +142,4 @@ class SSHKeyControllerTest extends ClientApiIntegrationTestCase
         $this->assertEquals(1, $user->sshKeys()->count());
     }
 }
+

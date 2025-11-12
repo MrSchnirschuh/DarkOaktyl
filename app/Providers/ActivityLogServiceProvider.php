@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Providers;
+namespace DarkOak\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Everest\Services\Activity\ActivityLogBatchService;
-use Everest\Services\Activity\ActivityLogTargetableService;
+use DarkOak\Services\Activity\ActivityLogBatchService;
+use DarkOak\Services\Activity\ActivityLogTargetableService;
 
 class ActivityLogServiceProvider extends ServiceProvider
 {
@@ -18,3 +18,4 @@ class ActivityLogServiceProvider extends ServiceProvider
         $this->app->scoped(ActivityLogTargetableService::class);
     }
 }
+

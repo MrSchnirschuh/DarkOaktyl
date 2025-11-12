@@ -1,16 +1,16 @@
 <?php
 
-namespace Everest\Models;
+namespace DarkOak\Models;
 
-use Everest\Rules\Username;
-use Everest\Facades\Activity;
+use DarkOak\Rules\Username;
+use DarkOak\Facades\Activity;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\Rules\In;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Builder;
-use Everest\Models\Traits\HasAccessTokens;
-use Everest\Traits\Helpers\AvailableLanguages;
+use DarkOak\Models\Traits\HasAccessTokens;
+use DarkOak\Traits\Helpers\AvailableLanguages;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -22,7 +22,7 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 /**
- * Everest\Models\User.
+ * DarkOak\Models\User.
  *
  * @property int $id
  * @property string|null $external_id
@@ -45,18 +45,18 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
  * @property string $recovery_code
  * @property string|null $admin_role_name
  * @property string $md5
- * @property \Everest\Models\AdminRole|null $adminRole
- * @property \Illuminate\Database\Eloquent\Collection|\Everest\Models\ApiKey[] $apiKeys
+ * @property \DarkOak\Models\AdminRole|null $adminRole
+ * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\ApiKey[] $apiKeys
  * @property int|null $api_keys_count
  * @property \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property int|null $notifications_count
- * @property \Illuminate\Database\Eloquent\Collection|\Everest\Models\RecoveryToken[] $recoveryTokens
+ * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\RecoveryToken[] $recoveryTokens
  * @property int|null $recovery_tokens_count
- * @property \Illuminate\Database\Eloquent\Collection|\Everest\Models\Server[] $servers
+ * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\Server[] $servers
  * @property int|null $servers_count
- * @property \Illuminate\Database\Eloquent\Collection|\Everest\Models\UserSSHKey[] $sshKeys
+ * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\UserSSHKey[] $sshKeys
  * @property int|null $ssh_keys_count
- * @property \Illuminate\Database\Eloquent\Collection|\Everest\Models\ApiKey[] $tokens
+ * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\ApiKey[] $tokens
  * @property int|null $tokens_count
  *
  * @method static \Database\Factories\UserFactory factory(...$parameters)
@@ -302,3 +302,4 @@ class User extends Model implements
             ->groupBy('servers.id');
     }
 }
+

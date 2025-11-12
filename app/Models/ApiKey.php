@@ -1,14 +1,14 @@
 <?php
 
-namespace Everest\Models;
+namespace DarkOak\Models;
 
 use Illuminate\Support\Str;
 use Webmozart\Assert\Assert;
-use Everest\Services\Acl\Api\AdminAcl;
+use DarkOak\Services\Acl\Api\AdminAcl;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * Everest\Models\ApiKey.
+ * DarkOak\Models\ApiKey.
  *
  * @property int $id
  * @property int $user_id
@@ -30,8 +30,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $r_eggs
  * @property int $r_database_hosts
  * @property int $r_server_databases
- * @property \Everest\Models\User $tokenable
- * @property \Everest\Models\User $user
+ * @property \DarkOak\Models\User $tokenable
+ * @property \DarkOak\Models\User $user
  *
  * @method static \Database\Factories\ApiKeyFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|ApiKey newModelQuery()
@@ -208,3 +208,4 @@ class ApiKey extends Model
         return $prefix . Str::random(self::IDENTIFIER_LENGTH - strlen($prefix));
     }
 }
+

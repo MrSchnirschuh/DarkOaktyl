@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Billing\Quotes;
+namespace DarkOak\Http\Requests\Api\Application\Billing\Quotes;
 
-use Everest\Models\AdminRole;
-use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
+use DarkOak\Models\AdminRole;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
@@ -71,3 +71,4 @@ class CalculateBillingQuoteRequest extends ApplicationApiRequest
         parent::prepareForValidation();
     }
 }
+

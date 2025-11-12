@@ -1,14 +1,14 @@
 <?php
 
-namespace Everest\Console\Commands\Server;
+namespace DarkOak\Console\Commands\Server;
 
-use Everest\Models\Server;
+use DarkOak\Models\Server;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Validation\ValidationException;
-use Everest\Repositories\Wings\DaemonPowerRepository;
+use DarkOak\Repositories\Wings\DaemonPowerRepository;
 use Illuminate\Validation\Factory as ValidatorFactory;
-use Everest\Exceptions\Http\Connection\DaemonConnectionException;
+use DarkOak\Exceptions\Http\Connection\DaemonConnectionException;
 
 class BulkPowerActionCommand extends Command
 {
@@ -104,3 +104,4 @@ class BulkPowerActionCommand extends Command
         return $instance->with('node');
     }
 }
+

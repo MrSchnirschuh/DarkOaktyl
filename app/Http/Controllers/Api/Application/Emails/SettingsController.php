@@ -1,18 +1,18 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Emails;
+namespace DarkOak\Http\Controllers\Api\Application\Emails;
 
-use Everest\Facades\Activity;
-use Everest\Models\EmailTheme;
-use Everest\Models\EmailTemplate;
-use Everest\Models\EmailTrigger;
+use DarkOak\Facades\Activity;
+use DarkOak\Models\EmailTheme;
+use DarkOak\Models\EmailTemplate;
+use DarkOak\Models\EmailTrigger;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
-use Everest\Contracts\Repository\SettingsRepositoryInterface;
-use Everest\Http\Requests\Api\Application\Emails\GetEmailSettingsRequest;
-use Everest\Http\Requests\Api\Application\Emails\UpdateEmailSettingsRequest;
-use Everest\Services\Themes\ThemePaletteService;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Contracts\Repository\SettingsRepositoryInterface;
+use DarkOak\Http\Requests\Api\Application\Emails\GetEmailSettingsRequest;
+use DarkOak\Http\Requests\Api\Application\Emails\UpdateEmailSettingsRequest;
+use DarkOak\Services\Themes\ThemePaletteService;
 
 class SettingsController extends ApplicationApiController
 {
@@ -97,3 +97,4 @@ class SettingsController extends ApplicationApiController
         config(['modules.email.default_theme' => null]);
     }
 }
+

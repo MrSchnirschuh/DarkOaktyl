@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application;
+namespace DarkOak\Http\Controllers\Api\Application;
 
 use Illuminate\Http\Request;
 
@@ -11,3 +11,4 @@ class PermissionsController extends ApplicationApiController
         return $this->adminPermissions($request);
     }
 }
+

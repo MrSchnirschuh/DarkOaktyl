@@ -1,17 +1,17 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Remote\Servers;
+namespace DarkOak\Http\Controllers\Api\Remote\Servers;
 
 use Illuminate\Http\Response;
-use Everest\Models\Allocation;
+use DarkOak\Models\Allocation;
 use Illuminate\Http\JsonResponse;
-use Everest\Models\ServerTransfer;
+use DarkOak\Models\ServerTransfer;
 use Illuminate\Support\Facades\Log;
-use Everest\Http\Controllers\Controller;
+use DarkOak\Http\Controllers\Controller;
 use Illuminate\Database\ConnectionInterface;
-use Everest\Repositories\Eloquent\ServerRepository;
-use Everest\Repositories\Wings\DaemonServerRepository;
-use Everest\Exceptions\Http\Connection\DaemonConnectionException;
+use DarkOak\Repositories\Eloquent\ServerRepository;
+use DarkOak\Repositories\Wings\DaemonServerRepository;
+use DarkOak\Exceptions\Http\Connection\DaemonConnectionException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 
 class ServerTransferController extends Controller
@@ -55,7 +55,7 @@ class ServerTransferController extends Controller
             throw new ConflictHttpException('Server is not being transferred.');
         }
 
-        /** @var \Everest\Models\Server $server */
+        /** @var \DarkOak\Models\Server $server */
         $server = $this->connection->transaction(function () use ($server, $transfer) {
             $allocations = array_merge([$transfer->old_allocation], $transfer->old_additional_allocations);
 
@@ -105,3 +105,4 @@ class ServerTransferController extends Controller
         return new JsonResponse([], Response::HTTP_NO_CONTENT);
     }
 }
+

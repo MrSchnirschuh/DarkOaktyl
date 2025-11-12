@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Tests\Integration\Api\Client\Server\Startup;
+namespace DarkOak\Tests\Integration\Api\Client\Server\Startup;
 
-use Everest\Models\User;
+use DarkOak\Models\User;
 use Illuminate\Http\Response;
-use Everest\Models\Permission;
-use Everest\Models\EggVariable;
-use Everest\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
+use DarkOak\Models\Permission;
+use DarkOak\Models\EggVariable;
+use DarkOak\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 
 class UpdateStartupVariableTest extends ClientApiIntegrationTestCase
 {
@@ -17,7 +17,7 @@ class UpdateStartupVariableTest extends ClientApiIntegrationTestCase
      */
     public function testStartupVariableCanBeUpdated(array $permissions)
     {
-        /** @var \Everest\Models\Server $server */
+        /** @var \DarkOak\Models\Server $server */
         [$user, $server] = $this->generateTestAccount($permissions);
         $server->fill([
             'startup' => 'java {{SERVER_JARFILE}} --version {{BUNGEE_VERSION}}',
@@ -52,7 +52,7 @@ class UpdateStartupVariableTest extends ClientApiIntegrationTestCase
      */
     public function testStartupVariableCannotBeUpdatedIfNotUserViewableOrEditable(array $permissions)
     {
-        /** @var \Everest\Models\Server $server */
+        /** @var \DarkOak\Models\Server $server */
         [$user, $server] = $this->generateTestAccount($permissions);
 
         $egg = $this->cloneEggAndVariables($server->egg);
@@ -87,7 +87,7 @@ class UpdateStartupVariableTest extends ClientApiIntegrationTestCase
      */
     public function testHiddenVariablesAreNotReturnedInStartupCommandWhenUpdatingVariable()
     {
-        /** @var \Everest\Models\Server $server */
+        /** @var \DarkOak\Models\Server $server */
         [$user, $server] = $this->generateTestAccount();
 
         $egg = $this->cloneEggAndVariables($server->egg);
@@ -114,11 +114,11 @@ class UpdateStartupVariableTest extends ClientApiIntegrationTestCase
      * Test that an egg variable with a validation rule of 'nullable|string' works if no value
      * is passed through in the request.
      *
-     * @see https://github.com/pterodactyl/panel/issues/2433
+     * @see https://github.com/DarkOaktyl/panel/issues/2433
      */
     public function testEggVariableWithNullableStringIsNotRequired()
     {
-        /** @var \Everest\Models\Server $server */
+        /** @var \DarkOak\Models\Server $server */
         [$user, $server] = $this->generateTestAccount();
 
         $egg = $this->cloneEggAndVariables($server->egg);
@@ -154,3 +154,5 @@ class UpdateStartupVariableTest extends ClientApiIntegrationTestCase
         return [[[]], [[Permission::ACTION_STARTUP_UPDATE]]];
     }
 }
+
+

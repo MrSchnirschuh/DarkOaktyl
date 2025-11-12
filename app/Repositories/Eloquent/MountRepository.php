@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Repositories\Eloquent;
+namespace DarkOak\Repositories\Eloquent;
 
-use Everest\Models\Mount;
-use Everest\Models\Server;
+use DarkOak\Models\Mount;
+use DarkOak\Models\Server;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Everest\Exceptions\Repository\RecordNotFoundException;
+use DarkOak\Exceptions\Repository\RecordNotFoundException;
 
 class MountRepository extends EloquentRepository
 {
@@ -29,7 +29,7 @@ class MountRepository extends EloquentRepository
     /**
      * Return all the mounts and their respective relations.
      *
-     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
+     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
      */
     public function getWithRelations(string $id): Mount
     {
@@ -55,3 +55,4 @@ class MountRepository extends EloquentRepository
             ->get($this->getColumns());
     }
 }
+

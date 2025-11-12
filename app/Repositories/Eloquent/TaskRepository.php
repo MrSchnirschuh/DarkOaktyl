@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Repositories\Eloquent;
+namespace DarkOak\Repositories\Eloquent;
 
-use Everest\Models\Task;
+use DarkOak\Models\Task;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Everest\Contracts\Repository\TaskRepositoryInterface;
-use Everest\Exceptions\Repository\RecordNotFoundException;
+use DarkOak\Contracts\Repository\TaskRepositoryInterface;
+use DarkOak\Exceptions\Repository\RecordNotFoundException;
 
 class TaskRepository extends EloquentRepository implements TaskRepositoryInterface
 {
@@ -20,7 +20,7 @@ class TaskRepository extends EloquentRepository implements TaskRepositoryInterfa
     /**
      * Get a task and the server relationship for that task.
      *
-     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
+     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
      */
     public function getTaskForJobProcess(int $id): Task
     {
@@ -42,3 +42,4 @@ class TaskRepository extends EloquentRepository implements TaskRepositoryInterfa
             ->first($this->getColumns());
     }
 }
+

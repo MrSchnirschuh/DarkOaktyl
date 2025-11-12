@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Exceptions\Http\Server;
+namespace DarkOak\Exceptions\Http\Server;
 
-use Everest\Models\Server;
+use DarkOak\Models\Server;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 
 class ServerStateConflictException extends ConflictHttpException
@@ -29,3 +29,4 @@ class ServerStateConflictException extends ConflictHttpException
         parent::__construct($message, $previous);
     }
 }
+

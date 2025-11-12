@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Tests\Unit\Helpers;
+namespace DarkOak\Tests\Unit\Helpers;
 
-use Everest\Tests\TestCase;
+use DarkOak\Tests\TestCase;
 
 class IsDigitTest extends TestCase
 {
@@ -46,3 +46,4 @@ class IsDigitTest extends TestCase
         ];
     }
 }
+

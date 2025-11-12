@@ -19,7 +19,7 @@ export interface WebhookSettings {
 export default () => {
     const { addFlash, clearFlashes, clearAndAddHttpError } = useFlash();
 
-    const settings = useStoreState(state => state.everest.data!.webhooks);
+    const settings = useStoreState(state => state.DarkOak.data!.webhooks);
 
     const submit = (values: WebhookSettings) => {
         clearFlashes();
@@ -86,3 +86,4 @@ export default () => {
         </Formik>
     );
 };
+

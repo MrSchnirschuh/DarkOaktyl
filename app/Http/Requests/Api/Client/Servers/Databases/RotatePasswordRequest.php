@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Client\Servers\Databases;
+namespace DarkOak\Http\Requests\Api\Client\Servers\Databases;
 
-use Everest\Models\Permission;
-use Everest\Http\Requests\Api\Client\ClientApiRequest;
+use DarkOak\Models\Permission;
+use DarkOak\Http\Requests\Api\Client\ClientApiRequest;
 
 class RotatePasswordRequest extends ClientApiRequest
 {
@@ -15,3 +15,4 @@ class RotatePasswordRequest extends ClientApiRequest
         return Permission::ACTION_DATABASE_UPDATE;
     }
 }
+

@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Tests\Traits;
+namespace DarkOak\Tests\Traits;
 
 use Mockery as m;
 use Ramsey\Uuid\Uuid;
@@ -34,3 +34,4 @@ trait MocksUuids
         return $this->knownUuid;
     }
 }
+

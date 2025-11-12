@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Listeners\Auth;
+namespace DarkOak\Listeners\Auth;
 
 use Illuminate\Http\Request;
-use Everest\Facades\Activity;
+use DarkOak\Facades\Activity;
 use Illuminate\Auth\Events\PasswordReset;
 
 class PasswordResetListener
@@ -23,3 +23,4 @@ class PasswordResetListener
             ->log();
     }
 }
+

@@ -41,7 +41,7 @@ export default () => {
     const [categoriesLoading, setCategoriesLoading] = useState<boolean>(true);
     const [categoriesError, setCategoriesError] = useState<boolean>(false);
 
-    const settings = useStoreState(s => s.everest.data!.billing);
+    const settings = useStoreState(s => s.DarkOak.data!.billing);
     const { colors } = useStoreState(state => state.theme.data!);
 
     useEffect(() => {
@@ -275,3 +275,4 @@ export default () => {
         </PageContentBlock>
     );
 };
+

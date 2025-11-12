@@ -1,18 +1,18 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Api;
+namespace DarkOak\Http\Controllers\Api\Application\Api;
 
-use Everest\Models\ApiKey;
-use Everest\Facades\Activity;
+use DarkOak\Models\ApiKey;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Spatie\QueryBuilder\QueryBuilder;
-use Everest\Services\Api\KeyCreationService;
-use Everest\Transformers\Api\Application\ApiKeyTransformer;
-use Everest\Exceptions\Http\QueryValueOutOfRangeHttpException;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
-use Everest\Http\Requests\Api\Application\Api\GetApplicationApiKeysRequest;
-use Everest\Http\Requests\Api\Application\Api\StoreApplicationApiKeyRequest;
+use DarkOak\Services\Api\KeyCreationService;
+use DarkOak\Transformers\Api\Application\ApiKeyTransformer;
+use DarkOak\Exceptions\Http\QueryValueOutOfRangeHttpException;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Http\Requests\Api\Application\Api\GetApplicationApiKeysRequest;
+use DarkOak\Http\Requests\Api\Application\Api\StoreApplicationApiKeyRequest;
 
 class ApiController extends ApplicationApiController
 {
@@ -81,3 +81,4 @@ class ApiController extends ApplicationApiController
         return $this->returnNoContent();
     }
 }
+

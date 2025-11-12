@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Contracts\Repository;
+namespace DarkOak\Contracts\Repository;
 
-use Everest\Models\User;
+use DarkOak\Models\User;
 use Illuminate\Support\Collection;
 
 interface ApiKeyRepositoryInterface extends RepositoryInterface
@@ -27,3 +27,4 @@ interface ApiKeyRepositoryInterface extends RepositoryInterface
      */
     public function deleteApplicationKey(User $user, string $identifier): int;
 }
+

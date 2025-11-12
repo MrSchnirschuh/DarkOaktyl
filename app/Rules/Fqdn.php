@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Rules;
+namespace DarkOak\Rules;
 
 use Illuminate\Support\Arr;
 use Illuminate\Contracts\Validation\Rule;
@@ -78,3 +78,4 @@ final class Fqdn implements Rule, DataAwareRule
         });
     }
 }
+

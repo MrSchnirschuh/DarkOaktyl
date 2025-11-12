@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Transformers\Api\Application;
+namespace DarkOak\Transformers\Api\Application;
 
-use Everest\Models\Billing\Coupon;
-use Everest\Transformers\Api\Transformer;
+use DarkOak\Models\Billing\Coupon;
+use DarkOak\Transformers\Api\Transformer;
 
 class CouponTransformer extends Transformer
 {
@@ -47,3 +47,4 @@ class CouponTransformer extends Transformer
         ];
     }
 }
+

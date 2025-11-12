@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Services\Emails;
+namespace DarkOak\Services\Emails;
 
-use Everest\Mail\TemplatedMail;
-use Everest\Models\EmailTemplate;
-use Everest\Models\User;
-use Everest\Services\Emails\AnonymousRecipient;
+use DarkOak\Mail\TemplatedMail;
+use DarkOak\Models\EmailTemplate;
+use DarkOak\Models\User;
+use DarkOak\Services\Emails\AnonymousRecipient;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Support\Collection;
 
@@ -99,3 +99,4 @@ class EmailDispatchService
         return $value;
     }
 }
+

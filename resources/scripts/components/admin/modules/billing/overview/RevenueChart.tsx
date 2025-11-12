@@ -19,7 +19,7 @@ export default ({ data, history }: { data: BillingAnalytics; history: number }) 
     const now = new Date();
     const startDate = new Date(now);
     startDate.setDate(now.getDate() - history);
-    const symbol = useStoreState(s => s.everest.data!.billing.currency.symbol);
+    const symbol = useStoreState(s => s.DarkOak.data!.billing.currency.symbol);
 
     const daysRange = eachDayOfInterval({
         start: startOfDay(startDate),
@@ -88,3 +88,4 @@ export default ({ data, history }: { data: BillingAnalytics; history: number }) 
 
     return <Line data={chartData} options={chartOptions} />;
 };
+

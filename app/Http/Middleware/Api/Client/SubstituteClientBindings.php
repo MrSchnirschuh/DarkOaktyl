@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Http\Middleware\Api\Client;
+namespace DarkOak\Http\Middleware\Api\Client;
 
-use Everest\Models\Server;
+use DarkOak\Models\Server;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 
 class SubstituteClientBindings extends SubstituteBindings
@@ -19,7 +19,7 @@ class SubstituteClientBindings extends SubstituteBindings
         });
 
         $this->router->bind('user', function ($value, $route) {
-            /** @var \Everest\Models\Subuser $match */
+            /** @var \DarkOak\Models\Subuser $match */
             $match = $route->parameter('server')
                 ->subusers()
                 ->whereRelation('user', 'uuid', '=', $value)
@@ -31,3 +31,4 @@ class SubstituteClientBindings extends SubstituteBindings
         return parent::handle($request, $next);
     }
 }
+

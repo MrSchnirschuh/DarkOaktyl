@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Nests;
+namespace DarkOak\Http\Requests\Api\Application\Nests;
 
-use Everest\Models\Nest;
-use Everest\Models\AdminRole;
+use DarkOak\Models\Nest;
+use DarkOak\Models\AdminRole;
 
 class UpdateNestRequest extends StoreNestRequest
 {
@@ -17,3 +17,4 @@ class UpdateNestRequest extends StoreNestRequest
         return AdminRole::NESTS_UPDATE;
     }
 }
+

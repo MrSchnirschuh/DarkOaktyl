@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Billing\Terms;
+namespace DarkOak\Http\Requests\Api\Application\Billing\Terms;
 
-use Everest\Models\AdminRole;
-use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
+use DarkOak\Models\AdminRole;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class GetBillingTermRequest extends ApplicationApiRequest
 {
@@ -12,3 +12,4 @@ class GetBillingTermRequest extends ApplicationApiRequest
         return AdminRole::BILLING_READ;
     }
 }
+

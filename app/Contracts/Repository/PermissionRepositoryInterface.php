@@ -1,7 +1,8 @@
 <?php
 
-namespace Everest\Contracts\Repository;
+namespace DarkOak\Contracts\Repository;
 
 interface PermissionRepositoryInterface extends RepositoryInterface
 {
 }
+

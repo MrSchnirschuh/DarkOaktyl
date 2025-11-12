@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Models;
+namespace DarkOak\Models;
 
 /**
- * Everest\Models\Theme.
+ * DarkOak\Models\Theme.
  *
  * @property int $id
  * @property string $key
@@ -25,3 +25,4 @@ class Theme extends Model
         'value' => 'string',
     ];
 }
+

@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Tests\Integration\Api\Client;
+namespace DarkOak\Tests\Integration\Api\Client;
 
-use Everest\Models\User;
-use Everest\Models\Server;
-use Everest\Models\Subuser;
-use Everest\Models\Allocation;
-use Everest\Models\Permission;
+use DarkOak\Models\User;
+use DarkOak\Models\Server;
+use DarkOak\Models\Subuser;
+use DarkOak\Models\Allocation;
+use DarkOak\Models\Permission;
 
 class ClientControllerTest extends ClientApiIntegrationTestCase
 {
@@ -336,3 +336,4 @@ class ClientControllerTest extends ClientApiIntegrationTestCase
         return [['admin'], ['admin-all']];
     }
 }
+

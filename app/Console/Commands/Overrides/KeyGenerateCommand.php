@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Console\Commands\Overrides;
+namespace DarkOak\Console\Commands\Overrides;
 
 use Illuminate\Foundation\Console\KeyGenerateCommand as BaseKeyGenerateCommand;
 
@@ -26,3 +26,4 @@ class KeyGenerateCommand extends BaseKeyGenerateCommand
         parent::handle();
     }
 }
+

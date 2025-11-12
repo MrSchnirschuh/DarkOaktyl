@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Everest\Http\Controllers\Api\Application;
-use Everest\Http\Middleware\Activity\AdminSubject;
+use DarkOak\Http\Controllers\Api\Application;
+use DarkOak\Http\Middleware\Activity\AdminSubject;
 
 Route::middleware([AdminSubject::class])->group(function () {
     Route::get('/permissions', [Application\PermissionsController::class, 'index']);
@@ -463,3 +463,4 @@ Route::middleware([AdminSubject::class])->group(function () {
         Route::delete('/{role:id}', [Application\Roles\RoleController::class, 'delete']);
     });
 });
+

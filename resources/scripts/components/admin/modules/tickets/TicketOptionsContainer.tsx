@@ -20,7 +20,7 @@ export interface TicketSettings {
 export default () => {
     const { addFlash, clearFlashes, clearAndAddHttpError } = useFlash();
 
-    const settings = useStoreState(state => state.everest.data!.tickets);
+    const settings = useStoreState(state => state.DarkOak.data!.tickets);
 
     const submit = (values: TicketSettings) => {
         clearFlashes();
@@ -81,3 +81,4 @@ export default () => {
         </Formik>
     );
 };
+

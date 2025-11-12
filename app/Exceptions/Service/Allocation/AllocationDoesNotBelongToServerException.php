@@ -1,9 +1,11 @@
 <?php
 
-namespace Everest\Exceptions\Service\Allocation;
+namespace DarkOak\Exceptions\Service\Allocation;
 
-use Everest\Exceptions\PterodactylException;
+use DarkOak\Exceptions\DarkOaktylException;
 
-class AllocationDoesNotBelongToServerException extends PterodactylException
+class AllocationDoesNotBelongToServerException extends DarkOaktylException
 {
 }
+
+

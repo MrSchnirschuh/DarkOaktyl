@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Services\Users;
+namespace DarkOak\Services\Users;
 
-use Everest\Models\User;
-use Everest\Exceptions\DisplayException;
+use DarkOak\Models\User;
+use DarkOak\Exceptions\DisplayException;
 use Illuminate\Contracts\Translation\Translator;
-use Everest\Contracts\Repository\UserRepositoryInterface;
-use Everest\Contracts\Repository\ServerRepositoryInterface;
+use DarkOak\Contracts\Repository\UserRepositoryInterface;
+use DarkOak\Contracts\Repository\ServerRepositoryInterface;
 
 class UserDeletionService
 {
@@ -23,7 +23,7 @@ class UserDeletionService
     /**
      * Delete a user from the panel only if they have no servers attached to their account.
      *
-     * @throws \Everest\Exceptions\DisplayException
+     * @throws \DarkOak\Exceptions\DisplayException
      */
     public function handle(int|User $user): void
     {
@@ -39,3 +39,4 @@ class UserDeletionService
         $this->repository->delete($user);
     }
 }
+

@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Tests\Unit\Http\Middleware;
+namespace DarkOak\Tests\Unit\Http\Middleware;
 
 use Mockery as m;
 use Mockery\MockInterface;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\RedirectResponse;
-use Everest\Http\Middleware\RedirectIfAuthenticated;
+use DarkOak\Http\Middleware\RedirectIfAuthenticated;
 
 class RedirectIfAuthenticatedTest extends MiddlewareTestCase
 {
@@ -54,3 +54,4 @@ class RedirectIfAuthenticatedTest extends MiddlewareTestCase
         return new RedirectIfAuthenticated($this->authManager);
     }
 }
+

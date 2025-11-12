@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Client\Servers;
+namespace DarkOak\Http\Requests\Api\Client\Servers;
 
-use Everest\Models\Permission;
-use Everest\Http\Requests\Api\Client\ClientApiRequest;
+use DarkOak\Models\Permission;
+use DarkOak\Http\Requests\Api\Client\ClientApiRequest;
 
 class SendCommandRequest extends ClientApiRequest
 {
@@ -25,3 +25,4 @@ class SendCommandRequest extends ClientApiRequest
         ];
     }
 }
+

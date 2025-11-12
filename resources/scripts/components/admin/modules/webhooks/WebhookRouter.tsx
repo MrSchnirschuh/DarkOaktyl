@@ -11,7 +11,7 @@ import WebhookEventsContainer from './events/WebhookEventsContainer';
 
 export default () => {
     const theme = useStoreState(state => state.theme.data!);
-    const enabled = useStoreState(state => state.everest.data!.webhooks.enabled);
+    const enabled = useStoreState(state => state.DarkOak.data!.webhooks.enabled);
 
     if (!enabled) return <EnableWebhooks />;
 
@@ -47,3 +47,4 @@ export default () => {
         </AdminContentBlock>
     );
 };
+

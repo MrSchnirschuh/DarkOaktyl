@@ -1,14 +1,14 @@
 <?php
 
-namespace Everest\Transformers\Api\Client;
+namespace DarkOak\Transformers\Api\Client;
 
-use Everest\Models\Database;
-use Everest\Models\Permission;
+use DarkOak\Models\Database;
+use DarkOak\Models\Permission;
 use League\Fractal\Resource\Item;
-use Everest\Transformers\Api\Transformer;
+use DarkOak\Transformers\Api\Transformer;
 use League\Fractal\Resource\NullResource;
 use Illuminate\Contracts\Encryption\Encrypter;
-use Everest\Contracts\Extensions\HashidsInterface;
+use DarkOak\Contracts\Extensions\HashidsInterface;
 
 class DatabaseTransformer extends Transformer
 {
@@ -64,3 +64,4 @@ class DatabaseTransformer extends Transformer
         }, 'database_password');
     }
 }
+

@@ -1,9 +1,11 @@
 <?php
 
-namespace Everest\Exceptions\Repository;
+namespace DarkOak\Exceptions\Repository;
 
-use Everest\Exceptions\PterodactylException;
+use DarkOak\Exceptions\DarkOaktylException;
 
-class RepositoryException extends PterodactylException
+class RepositoryException extends DarkOaktylException
 {
 }
+
+
