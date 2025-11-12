@@ -4,6 +4,7 @@ namespace Everest\Http\Controllers\Api\Application\Billing;
 
 use Everest\Models\Billing\BillingTerm;
 use Everest\Models\Billing\Coupon;
+use Everest\Models\Node;
 use Everest\Services\Billing\BillingPricingService;
 use Everest\Http\Controllers\Api\Application\ApplicationApiController;
 use Everest\Http\Requests\Api\Application\Billing\Quotes\CalculateBillingQuoteRequest;
@@ -32,6 +33,15 @@ class QuoteController extends ApplicationApiController
         $options = [
             'snapToStep' => $request->boolean('options.snap_to_step', true),
         ];
+
+        if ($request->has('options.validate_capacity')) {
+            $options['validate_capacity'] = $request->boolean('options.validate_capacity');
+        }
+
+        $node = $this->resolveNodeFromRequest($request);
+        if ($node) {
+            $options['node'] = $node;
+        }
 
         $quote = $this->pricing->calculateQuote($selections, $term, $options);
 
@@ -67,5 +77,18 @@ class QuoteController extends ApplicationApiController
                 'usage_count' => $coupon->redemptions_count,
             ])->values()->toArray(),
         ];
+    }
+
+    private function resolveNodeFromRequest(CalculateBillingQuoteRequest $request): ?Node
+    {
+        if ($request->filled('options.node_uuid')) {
+            return Node::query()->where('uuid', $request->input('options.node_uuid'))->first();
+        }
+
+        if ($request->filled('options.node_id')) {
+            return Node::query()->find((int) $request->input('options.node_id'));
+        }
+
+        return null;
     }
 }

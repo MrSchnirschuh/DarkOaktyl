@@ -19,9 +19,12 @@ use Everest\Http\Requests\Api\Application\Emails\StoreEmailTemplateRequest;
 use Everest\Http\Requests\Api\Application\Emails\UpdateEmailTemplateRequest;
 use Everest\Transformers\Api\Application\Emails\EmailThemeTransformer;
 use Everest\Transformers\Api\Application\Emails\EmailTemplateTransformer;
+use Everest\Services\Emails\AnonymousRecipient;
 use Everest\Services\Emails\EmailDispatchService;
 use Everest\Services\Emails\EmailTemplateRenderer;
 use Everest\Exceptions\Http\QueryValueOutOfRangeHttpException;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Carbon;
 use Illuminate\Validation\ValidationException;
 
 class TemplateController extends ApplicationApiController
@@ -162,7 +165,7 @@ class TemplateController extends ApplicationApiController
             $template->setRelation('theme', $theme);
         }
 
-        $rendered = $this->renderer->render($template, $request->input('data', []));
+    $rendered = $this->renderer->render($template, $this->preparePreviewContext($request->input('data', [])));
 
         $themeTransformer = new EmailThemeTransformer();
 
@@ -172,6 +175,89 @@ class TemplateController extends ApplicationApiController
             'text' => $rendered['text'],
             'theme' => $themeTransformer->transform($rendered['theme']),
         ];
+    }
+
+    private function preparePreviewContext(array $data): array
+    {
+        $context = $data;
+
+        $context['user'] = $this->resolvePreviewUser($context['user'] ?? null, $context);
+
+        $resolvedCouponCode = $context['couponCode'] ?? $context['code'] ?? null;
+        if (!$resolvedCouponCode) {
+            $context['couponCode'] = 'PREVIEW-CODE';
+            $resolvedCouponCode = $context['couponCode'];
+        }
+
+        if ($resolvedCouponCode && !isset($context['coupon'])) {
+            $context['coupon'] = (object) [
+                'code' => $resolvedCouponCode,
+                'expires_at' => Carbon::now()->addDays(14),
+            ];
+        }
+
+        return $context;
+    }
+
+    private function resolvePreviewUser(mixed $value, array $context): User|AnonymousRecipient
+    {
+        if ($value instanceof User || $value instanceof AnonymousRecipient) {
+            return $value;
+        }
+
+        if ($value === null) {
+            return $this->makeAnonymousRecipient(
+                Arr::get($context, 'email'),
+                Arr::get($context, 'username')
+            );
+        }
+
+        if (is_string($value)) {
+            if (filter_var($value, FILTER_VALIDATE_EMAIL)) {
+                return AnonymousRecipient::fromEmail($value);
+            }
+
+            return $this->makeAnonymousRecipient(null, $value);
+        }
+
+    $payload = (array) $value;
+
+        $email = Arr::get($payload, 'email', Arr::get($context, 'email'));
+        $username = Arr::get($payload, 'username', Arr::get($payload, 'name'));
+        $mode = Arr::get($payload, 'appearance_mode', Arr::get($payload, 'appearance.mode'));
+        $lastMode = Arr::get(
+            $payload,
+            'appearance_last_mode',
+            Arr::get($payload, 'appearance.last_mode', Arr::get($payload, 'appearance.lastMode'))
+        );
+
+        if ($username === null && $email) {
+            $username = strstr($email, '@', true) ?: $email;
+        }
+
+        return new AnonymousRecipient(
+            $this->resolvePreviewEmail($email),
+            $username ?: 'Preview User',
+            $mode ?: 'system',
+            $lastMode ?: null
+        );
+    }
+
+    private function makeAnonymousRecipient(?string $email, ?string $username): AnonymousRecipient
+    {
+        $resolvedEmail = $this->resolvePreviewEmail($email);
+        $resolvedUsername = $username ?: (strstr($resolvedEmail, '@', true) ?: $resolvedEmail);
+
+        return new AnonymousRecipient($resolvedEmail, $resolvedUsername, 'system', 'dark');
+    }
+
+    private function resolvePreviewEmail(?string $email): string
+    {
+        if ($email && filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return $email;
+        }
+
+        return 'preview@example.com';
     }
 
     private function buildTemplatePayload(StoreEmailTemplateRequest|UpdateEmailTemplateRequest $request, ?EmailTemplate $existing = null): array

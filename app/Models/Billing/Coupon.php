@@ -42,8 +42,11 @@ class Coupon extends Model
         'max_usages',
         'per_user_limit',
         'applies_to_term_id',
-        'created_by_id',
-        'updated_by_id',
+    'created_by_id',
+    'updated_by_id',
+    'personalized_for_id',
+    'parent_coupon_id',
+    'usage_count',
         'starts_at',
         'expires_at',
         'is_active',
@@ -56,6 +59,9 @@ class Coupon extends Model
         'max_usages' => 'integer',
         'per_user_limit' => 'integer',
         'applies_to_term_id' => 'integer',
+        'parent_coupon_id' => 'integer',
+        'personalized_for_id' => 'integer',
+        'usage_count' => 'integer',
         'starts_at' => 'datetime',
         'expires_at' => 'datetime',
         'is_active' => 'bool',
@@ -88,6 +94,21 @@ class Coupon extends Model
     public function updater(): BelongsTo
     {
         return $this->belongsTo(User::class, 'updated_by_id');
+    }
+
+    public function personalizedFor(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'personalized_for_id');
+    }
+
+    public function parent(): BelongsTo
+    {
+        return $this->belongsTo(self::class, 'parent_coupon_id');
+    }
+
+    public function personalizedChildren(): HasMany
+    {
+        return $this->hasMany(self::class, 'parent_coupon_id');
     }
 
     public function term(): BelongsTo

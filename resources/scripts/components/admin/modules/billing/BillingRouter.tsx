@@ -12,10 +12,28 @@ import CategoryTable from '@admin/modules/billing/products/CategoryTable';
 import OrdersContainer from '@admin/modules/billing/orders/OrdersContainer';
 import ProductContainer from '@admin/modules/billing/products/ProductContainer';
 import CategoryContainer from '@admin/modules/billing/products/CategoryContainer';
-import { CogIcon, DesktopComputerIcon, ShoppingCartIcon, ViewGridIcon, XCircleIcon } from '@heroicons/react/outline';
+import {
+    AdjustmentsIcon,
+    CalendarIcon,
+    CogIcon,
+    DesktopComputerIcon,
+    ShoppingCartIcon,
+    TicketIcon,
+    ViewGridIcon,
+    XCircleIcon,
+} from '@heroicons/react/outline';
 import Unfinished from '@elements/Unfinished';
 import SettingsContainer from '@admin/modules/billing/SettingsContainer';
 import BillingExceptionsContainer from './exceptions/BillingExceptionsContainer';
+import ResourcePriceTable from './resources/ResourcePriceTable';
+import ResourcePriceForm from './resources/ResourcePriceForm';
+import ResourcePriceContainer from './resources/ResourcePriceContainer';
+import BillingTermTable from './terms/BillingTermTable';
+import BillingTermForm from './terms/BillingTermForm';
+import BillingTermContainer from './terms/BillingTermContainer';
+import CouponTable from './coupons/CouponTable';
+import CouponForm from './coupons/CouponForm';
+import CouponContainer from './coupons/CouponContainer';
 
 export default () => {
     const theme = useStoreState(state => state.theme.data!);
@@ -42,6 +60,15 @@ export default () => {
                 <SubNavigationLink to={'/admin/billing'} name={'Overview'} base>
                     <DesktopComputerIcon />
                 </SubNavigationLink>
+                <SubNavigationLink to={'/admin/billing/pricing'} name={'Pricing'}>
+                    <AdjustmentsIcon />
+                </SubNavigationLink>
+                <SubNavigationLink to={'/admin/billing/terms'} name={'Terms'}>
+                    <CalendarIcon />
+                </SubNavigationLink>
+                <SubNavigationLink to={'/admin/billing/coupons'} name={'Coupons'}>
+                    <TicketIcon />
+                </SubNavigationLink>
                 <SubNavigationLink to={'/admin/billing/categories'} name={'Products'}>
                     <ViewGridIcon />
                 </SubNavigationLink>
@@ -57,6 +84,18 @@ export default () => {
             </SubNavigation>
             <Routes>
                 <Route path={'/'} element={<OverviewContainer />} />
+
+                <Route path={'/pricing'} element={<ResourcePriceTable />} />
+                <Route path={'/pricing/new'} element={<ResourcePriceForm />} />
+                <Route path={'/pricing/:uuid'} element={<ResourcePriceContainer />} />
+
+                <Route path={'/terms'} element={<BillingTermTable />} />
+                <Route path={'/terms/new'} element={<BillingTermForm />} />
+                <Route path={'/terms/:uuid'} element={<BillingTermContainer />} />
+
+                <Route path={'/coupons'} element={<CouponTable />} />
+                <Route path={'/coupons/new'} element={<CouponForm />} />
+                <Route path={'/coupons/:uuid'} element={<CouponContainer />} />
 
                 <Route path={'/categories'} element={<CategoryTable />} />
                 <Route path={'/categories/new'} element={<CategoryForm />} />

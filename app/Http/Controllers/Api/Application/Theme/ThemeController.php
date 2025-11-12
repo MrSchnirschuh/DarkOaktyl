@@ -3,11 +3,13 @@
 namespace Everest\Http\Controllers\Api\Application\Theme;
 
 use Everest\Models\Theme;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Everest\Contracts\Repository\ThemeRepositoryInterface;
 use Everest\Services\Themes\ThemePaletteService;
 use Everest\Http\Controllers\Api\Application\ApplicationApiController;
+use Everest\Http\Requests\Application\Theme\UpdatePaletteRequest;
 
 class ThemeController extends ApplicationApiController
 {
@@ -19,6 +21,20 @@ class ThemeController extends ApplicationApiController
         private ThemePaletteService $paletteService
     ) {
         parent::__construct();
+    }
+
+    public function palette(): JsonResponse
+    {
+        return response()->json($this->paletteService->getUnifiedPalettePayload());
+    }
+
+    public function updatePalette(UpdatePaletteRequest $request): JsonResponse
+    {
+        $payload = $request->validated();
+
+        return response()->json(
+            $this->paletteService->persistUnifiedPalette($payload['modes'] ?? [])
+        );
     }
 
     /**

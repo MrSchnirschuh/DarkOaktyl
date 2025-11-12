@@ -20,7 +20,7 @@ class NodeCapacityServiceTest extends TestCase
 
     private MockInterface $configurationRepository;
 
-    protected function setUp(): void
+    public function setUp(): void
     {
         parent::setUp();
 

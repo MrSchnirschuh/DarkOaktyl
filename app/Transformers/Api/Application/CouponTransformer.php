@@ -14,7 +14,7 @@ class CouponTransformer extends Transformer
 
     public function transform(Coupon $model): array
     {
-        $model->loadMissing(['term', 'redemptions']);
+    $model->loadMissing(['term', 'redemptions', 'parent', 'personalizedFor']);
 
         return [
             'id' => $model->id,
@@ -28,6 +28,10 @@ class CouponTransformer extends Transformer
             'max_usages' => $model->max_usages,
             'per_user_limit' => $model->per_user_limit,
             'applies_to_term_id' => $model->applies_to_term_id,
+            'parent_coupon_id' => $model->parent_coupon_id,
+            'personalized_for_id' => $model->personalized_for_id,
+            'parent_coupon_uuid' => $model->parent ? $model->parent->uuid : null,
+            'personalized_for' => $model->personalizedFor ? $model->personalizedFor->only(['id', 'uuid', 'email']) : null,
             'term' => $model->term ? [
                 'id' => $model->term->id,
                 'uuid' => $model->term->uuid,

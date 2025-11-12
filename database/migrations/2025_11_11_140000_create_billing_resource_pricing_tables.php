@@ -43,7 +43,7 @@ return new class extends Migration {
                 $table->json('metadata')->nullable();
                 $table->timestamps();
 
-                $table->unique(['resource_price_id', 'threshold', 'mode']);
+                $table->unique(['resource_price_id', 'threshold', 'mode'], 'brsr_resource_thresh_mode_unique');
             });
         }
 

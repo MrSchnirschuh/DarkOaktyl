@@ -258,3 +258,103 @@ interface EmailTriggerEvent extends Model {
     description: string;
     context: string[];
 }
+
+type ResourceScalingMode = 'multiplier' | 'surcharge';
+
+interface ResourceScalingRule extends Model {
+    id: number;
+    threshold: number;
+    multiplier: number;
+    mode: ResourceScalingMode;
+    label?: string | null;
+    metadata?: Record<string, unknown> | null;
+    createdAt: Date;
+    updatedAt?: Date | null;
+}
+
+interface ResourcePrice extends Model {
+    id: number;
+    uuid: string;
+    resource: string;
+    displayName: string;
+    description?: string | null;
+    unit?: string | null;
+    baseQuantity: number;
+    price: number;
+    currency: string;
+    minQuantity: number;
+    maxQuantity?: number | null;
+    defaultQuantity: number;
+    stepQuantity: number;
+    isVisible: boolean;
+    isMetered: boolean;
+    sortOrder: number;
+    metadata?: Record<string, unknown> | null;
+    scalingRules: ResourceScalingRule[];
+    createdAt: Date;
+    updatedAt?: Date | null;
+}
+
+interface BillingTerm extends Model {
+    id: number;
+    uuid: string;
+    name: string;
+    slug: string;
+    durationDays: number;
+    multiplier: number;
+    isActive: boolean;
+    isDefault: boolean;
+    sortOrder: number;
+    metadata?: Record<string, unknown> | null;
+    createdAt: Date;
+    updatedAt?: Date | null;
+}
+
+type CouponType = 'amount' | 'percentage' | 'resource' | 'duration';
+
+interface Coupon extends Model {
+    id: number;
+    uuid: string;
+    code: string;
+    name: string;
+    description?: string | null;
+    type: CouponType;
+    value?: number | null;
+    percentage?: number | null;
+    maxUsages?: number | null;
+    perUserLimit?: number | null;
+    appliesToTermId?: number | null;
+    parentCouponId?: number | null;
+    parentCouponUuid?: string | null;
+    personalizedForId?: number | null;
+    personalizedFor?: {
+        id: number;
+        uuid: string;
+        email: string;
+    } | null;
+    term?: {
+        id: number;
+        uuid: string;
+        name: string;
+    } | null;
+    usageCount: number;
+    isActive: boolean;
+    startsAt?: Date | null;
+    expiresAt?: Date | null;
+    metadata?: Record<string, unknown> | null;
+    createdAt: Date;
+    updatedAt?: Date | null;
+}
+
+interface CouponRedemption extends Model {
+    id: number;
+    couponId: number;
+    userId?: number | null;
+    orderId?: number | null;
+    amount: number;
+    metadata?: Record<string, unknown> | null;
+    redeemedAt: Date;
+    createdAt: Date;
+    updatedAt?: Date | null;
+}
+

@@ -205,6 +205,34 @@ Share the joy and happy gaming!
 {{ config('app.name') }}
 MD,
             ],
+            [
+                'key' => 'billing.coupon_personalized',
+                'name' => 'Personalized coupon delivery',
+                'subject' => '{{ $user->username ?? $user->email }}, here is your exclusive {{ config(\'app.name\') }} offer',
+                'description' => 'Sent when issuing a personalized coupon code to a specific customer.',
+                'content' => <<<'MD'
+# Your exclusive offer awaits
+
+Hello {{ $user->username ?? 'there' }},
+
+We've generated a unique offer just for your account. Use the personalized coupon code below during checkout to apply the discount automatically.
+
+> **Coupon code:** `{{ $couponCode ?? $code ?? 'UNAVAILABLE' }}`
+
+**How to redeem**
+
+1. Sign in to your {{ config('app.name') }} account.
+2. Add the resources or products you want to your order.
+3. Enter the code above at checkout to apply your discount.
+
+This code is valid until {{ optional($coupon->expires_at ?? $personalizedExpiresAt ?? null)->toFormattedDateString() ?? 'the listed expiration date' }} and can only be used on your account.
+
+Need any help or have questions about the offer? Just reply to this email and our team will get back to you.
+
+Happy building,
+{{ config('app.name') }} Support Team
+MD,
+            ],
         ];
 
         foreach ($templates as $templateData) {

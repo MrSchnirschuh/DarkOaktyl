@@ -2,6 +2,7 @@
 
 namespace Everest\Http\Controllers\Api\Application\Billing;
 
+use Carbon\Carbon;
 use Everest\Facades\Activity;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
@@ -150,20 +151,111 @@ class CouponController extends ApplicationApiController
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $context = array_merge($request->input('context', []), [
-            'coupon' => $coupon,
-            'code' => $coupon->code,
-        ]);
+        $contextInput = $request->input('context', []);
+        $personalize = $request->boolean('personalize');
 
-        $this->emailDispatcher->send($template, $recipients, $context);
+        if ($personalize) {
+            $issuedCoupons = collect();
+            $codePrefix = strtoupper((string) $request->input('personalized_code_prefix', ''));
+            $codeLength = (int) ($request->input('personalized_code_length') ?? 8);
+            $codeLength = max(4, min($codeLength, 24));
+            $maxUsages = (int) ($request->input('personalized_max_usages') ?? 1);
+            $perUserLimit = (int) ($request->input('personalized_per_user_limit') ?? 1);
+            $startsAt = $request->filled('personalized_starts_at') ? Carbon::parse($request->input('personalized_starts_at')) : $coupon->starts_at;
+            $expiresAt = $request->filled('personalized_expires_at') ? Carbon::parse($request->input('personalized_expires_at')) : $coupon->expires_at;
+            $metadataOverride = $request->input('personalized_metadata');
 
-        Activity::event('admin:billing:coupons:send')
-            ->property('coupon', $coupon)
-            ->property('recipients', $recipients->map(function ($item) {
-                return $item instanceof User ? $item->only(['id', 'email']) : $item;
-            })->values())
-            ->description('A billing coupon code was emailed to recipients')
-            ->log();
+            DB::transaction(function () use ($userRecipients, $coupon, $request, $codePrefix, $codeLength, $maxUsages, $perUserLimit, $startsAt, $expiresAt, $metadataOverride, &$issuedCoupons) {
+                foreach ($userRecipients as $user) {
+                    $personalizedCoupon = $coupon->replicate();
+                    $personalizedCoupon->uuid = (string) Str::uuid();
+                    $personalizedCoupon->code = $this->generateUniqueCouponCode($codePrefix, $codeLength);
+                    $personalizedCoupon->usage_count = 0;
+                    $personalizedCoupon->max_usages = $maxUsages;
+                    $personalizedCoupon->per_user_limit = $perUserLimit;
+                    $personalizedCoupon->starts_at = $startsAt;
+                    $personalizedCoupon->expires_at = $expiresAt;
+                    $personalizedCoupon->created_by_id = $request->user()->id;
+                    $personalizedCoupon->updated_by_id = $request->user()->id;
+                    $personalizedCoupon->personalized_for_id = $user->id;
+                    $personalizedCoupon->parent_coupon_id = $coupon->id;
+
+                    $baseMetadata = $coupon->metadata ?? [];
+                    $override = is_array($metadataOverride) ? $metadataOverride : [];
+                    $personalizedCoupon->metadata = array_merge($baseMetadata, $override, [
+                        'personalized' => true,
+                        'parent_coupon_id' => $coupon->id,
+                        'parent_coupon_uuid' => $coupon->uuid,
+                        'personalized_for' => [
+                            'id' => $user->id,
+                            'email' => $user->email,
+                        ],
+                    ]);
+
+                    $personalizedCoupon->save();
+
+                    $issuedCoupons->push([
+                        'user' => $user,
+                        'coupon' => $personalizedCoupon,
+                    ]);
+                }
+            });
+
+            $issuedIndex = $issuedCoupons->keyBy(fn ($entry) => $entry['user']->id);
+
+            $this->emailDispatcher->send($template, $issuedCoupons->pluck('user'), function ($recipient) use ($contextInput, $coupon, $issuedIndex) {
+                $entry = $issuedIndex->get($recipient->id);
+                $personalCoupon = $entry['coupon'];
+
+                return array_merge($contextInput, [
+                    'coupon' => $personalCoupon,
+                    'code' => $personalCoupon->code,
+                    'couponCode' => $personalCoupon->code,
+                    'parentCoupon' => $coupon,
+                ]);
+            });
+
+            Activity::event('admin:billing:coupons:send')
+                ->property('coupon', $coupon)
+                ->property('mode', 'personalized')
+                ->property('recipients', $issuedCoupons->map(function ($entry) {
+                    /** @var User $user */
+                    $user = $entry['user'];
+
+                    return $user->only(['id', 'email']);
+                })->values())
+                ->property('issued', $issuedCoupons->map(function ($entry) {
+                    /** @var User $user */
+                    $user = $entry['user'];
+                    /** @var Coupon $child */
+                    $child = $entry['coupon'];
+
+                    return [
+                        'user_id' => $user->id,
+                        'coupon_uuid' => $child->uuid,
+                        'code' => $child->code,
+                    ];
+                })->values())
+                ->description('Personalized billing coupons were generated and emailed to users')
+                ->log();
+        } else {
+            $context = array_merge($contextInput, [
+                'coupon' => $coupon,
+                'code' => $coupon->code,
+                'couponCode' => $coupon->code,
+            ]);
+
+            $this->emailDispatcher->send($template, $recipients, $context);
+
+            Activity::event('admin:billing:coupons:send')
+                ->property('coupon', $coupon)
+                ->property('mode', 'shared')
+                ->property('recipients', $recipients->map(function ($item) {
+                    return $item instanceof User ? $item->only(['id', 'email']) : $item;
+                })->values())
+                ->description('A billing coupon code was emailed to recipients')
+                ->log();
+        }
 
         return $this->returnNoContent();
     }
@@ -245,5 +337,14 @@ class CouponController extends ApplicationApiController
         }
 
         return $attributes;
+    }
+
+    protected function generateUniqueCouponCode(string $prefix, int $length): string
+    {
+        do {
+            $code = $prefix . Str::upper(Str::random($length));
+        } while (Coupon::query()->where('code', $code)->exists());
+
+        return $code;
     }
 }

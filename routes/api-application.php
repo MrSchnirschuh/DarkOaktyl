@@ -269,6 +269,8 @@ Route::middleware([AdminSubject::class])->group(function () {
     |
     */
     Route::group(['prefix' => '/theme'], function () {
+        Route::get('/palette', [Application\Theme\ThemeController::class, 'palette']);
+        Route::put('/palette', [Application\Theme\ThemeController::class, 'updatePalette']);
         Route::put('/colors', [Application\Theme\ThemeController::class, 'colors']);
         Route::delete('/colors', [Application\Theme\ThemeController::class, 'deleteColor']);
 

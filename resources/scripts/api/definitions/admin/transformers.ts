@@ -10,6 +10,11 @@ import { WebhookEvent } from '@/api/admin/webhooks';
 
 const isList = (data: FractalResponseList | FractalResponseData): data is FractalResponseList => data.object === 'list';
 
+const mapTimestamp = (value?: string | null): Date | null => {
+    if (!value) return null;
+    return new Date(value);
+};
+
 function transform<T, M = undefined>(
     data: undefined,
     transformer: (callback: FractalResponseData) => T,
@@ -348,6 +353,95 @@ export default class Transformers {
         enabled: attributes.enabled,
         createdAt: new Date(attributes.created_at),
         updatedAt: attributes.updated_at ? new Date(attributes.updated_at) : null,
+    });
+
+    private static mapResourceScalingRule = (rule: any): Models.ResourceScalingRule => ({
+        id: rule.id,
+        threshold: rule.threshold,
+        multiplier: rule.multiplier,
+        mode: rule.mode,
+        label: rule.label ?? null,
+        metadata: rule.metadata ?? null,
+        createdAt: mapTimestamp(rule.created_at) ?? new Date(),
+        updatedAt: mapTimestamp(rule.updated_at),
+    });
+
+    static toResourcePrice = ({ attributes }: FractalResponseData): Models.ResourcePrice => ({
+        id: attributes.id,
+        uuid: attributes.uuid,
+        resource: attributes.resource,
+        displayName: attributes.display_name,
+        description: attributes.description,
+        unit: attributes.unit,
+        baseQuantity: attributes.base_quantity,
+        price: attributes.price,
+        currency: attributes.currency,
+        minQuantity: attributes.min_quantity,
+        maxQuantity: attributes.max_quantity,
+        defaultQuantity: attributes.default_quantity,
+        stepQuantity: attributes.step_quantity,
+        isVisible: attributes.is_visible,
+        isMetered: attributes.is_metered,
+        sortOrder: attributes.sort_order,
+        metadata: attributes.metadata ?? null,
+        scalingRules: Array.isArray(attributes.scaling_rules)
+            ? attributes.scaling_rules.map(this.mapResourceScalingRule)
+            : [],
+        createdAt: mapTimestamp(attributes.created_at) ?? new Date(),
+        updatedAt: mapTimestamp(attributes.updated_at),
+    });
+
+    static toBillingTerm = ({ attributes }: FractalResponseData): Models.BillingTerm => ({
+        id: attributes.id,
+        uuid: attributes.uuid,
+        name: attributes.name,
+        slug: attributes.slug,
+        durationDays: attributes.duration_days,
+        multiplier: attributes.multiplier,
+        isActive: attributes.is_active,
+        isDefault: attributes.is_default,
+        sortOrder: attributes.sort_order,
+        metadata: attributes.metadata ?? null,
+        createdAt: mapTimestamp(attributes.created_at) ?? new Date(),
+        updatedAt: mapTimestamp(attributes.updated_at),
+    });
+
+    static toCoupon = ({ attributes }: FractalResponseData): Models.Coupon => ({
+        id: attributes.id,
+        uuid: attributes.uuid,
+        code: attributes.code,
+        name: attributes.name,
+        description: attributes.description,
+        type: attributes.type,
+        value: attributes.value,
+        percentage: attributes.percentage,
+        maxUsages: attributes.max_usages,
+        perUserLimit: attributes.per_user_limit,
+        appliesToTermId: attributes.applies_to_term_id,
+        parentCouponId: attributes.parent_coupon_id ?? null,
+        parentCouponUuid: attributes.parent_coupon_uuid ?? null,
+        personalizedForId: attributes.personalized_for_id ?? null,
+        personalizedFor: attributes.personalized_for
+            ? {
+                  id: attributes.personalized_for.id,
+                  uuid: attributes.personalized_for.uuid,
+                  email: attributes.personalized_for.email,
+              }
+            : null,
+        term: attributes.term
+            ? {
+                  id: attributes.term.id,
+                  uuid: attributes.term.uuid,
+                  name: attributes.term.name,
+              }
+            : null,
+        usageCount: attributes.usage_count ?? 0,
+        isActive: attributes.is_active,
+        startsAt: mapTimestamp(attributes.starts_at),
+        expiresAt: mapTimestamp(attributes.expires_at),
+        metadata: attributes.metadata ?? null,
+        createdAt: mapTimestamp(attributes.created_at) ?? new Date(),
+        updatedAt: mapTimestamp(attributes.updated_at),
     });
 
     private static mapEmailThemeAttributes = (attributes: any): Models.EmailTheme => {

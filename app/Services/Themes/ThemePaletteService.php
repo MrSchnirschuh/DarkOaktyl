@@ -13,6 +13,72 @@ class ThemePaletteService
     }
 
     /**
+     * Canonical tokens exposed in the theme designer UI and persisted as configurable colors.
+     */
+    private const DESIGNER_KEYS = [
+        'primary',
+        'secondary',
+        'accent_primary',
+        'accent_secondary',
+        'background',
+        'body',
+        'headers',
+        'sidebar',
+        'text_primary',
+        'text_secondary',
+        'muted_text',
+        'button',
+        'button_text',
+    ];
+
+    private function designerGroups(): array
+    {
+        return [
+            [
+                'id' => 'brand',
+                'label' => 'Brand & Accent',
+                'description' => 'Primary brand colors used for actions, highlights, and emphasis across the panel and emails.',
+                'keys' => [
+                    ['key' => 'primary', 'label' => 'Primary', 'description' => 'Main brand color applied to key surfaces and accents.'],
+                    ['key' => 'secondary', 'label' => 'Secondary', 'description' => 'Supporting brand tone used for muted surfaces and dividers.'],
+                    ['key' => 'accent_primary', 'label' => 'Accent', 'description' => 'High-emphasis accent utilized for highlights and callouts.'],
+                    ['key' => 'accent_secondary', 'label' => 'Accent Contrast', 'description' => 'Complementary accent color for secondary highlights and hover states.'],
+                ],
+            ],
+            [
+                'id' => 'surfaces',
+                'label' => 'Surfaces',
+                'description' => 'Backgrounds, panels, and structural surfaces displayed throughout the interface.',
+                'keys' => [
+                    ['key' => 'background', 'label' => 'App Background', 'description' => 'Outer application shell, including login views.'],
+                    ['key' => 'body', 'label' => 'Content Surface', 'description' => 'Primary content background behind cards and forms.'],
+                    ['key' => 'headers', 'label' => 'Header Surface', 'description' => 'Navigation bars, section headers, and toolbars.'],
+                    ['key' => 'sidebar', 'label' => 'Sidebar Surface', 'description' => 'Navigation sidebar and related rails.'],
+                ],
+            ],
+            [
+                'id' => 'typography',
+                'label' => 'Typography',
+                'description' => 'Primary and secondary text colors used for readability and subtle contrast.',
+                'keys' => [
+                    ['key' => 'text_primary', 'label' => 'Primary Text', 'description' => 'Body text and prominent labels.'],
+                    ['key' => 'text_secondary', 'label' => 'Secondary Text', 'description' => 'Metadata, captions, and subdued text.'],
+                    ['key' => 'muted_text', 'label' => 'Muted Text', 'description' => 'Disabled states and helper copy.'],
+                ],
+            ],
+            [
+                'id' => 'interactive',
+                'label' => 'Interactive Elements',
+                'description' => 'Buttons and actionable elements shared between the panel and email layouts.',
+                'keys' => [
+                    ['key' => 'button', 'label' => 'Button Background', 'description' => 'Primary button background color.'],
+                    ['key' => 'button_text', 'label' => 'Button Text', 'description' => 'Text color rendered on primary buttons.'],
+                ],
+            ],
+        ];
+    }
+
+    /**
      * Returns the merged theme color configuration combining config defaults and stored overrides.
      */
     public function getRawColors(): array
@@ -33,6 +99,19 @@ class ThemePaletteService
         }
 
         return $colors;
+    }
+
+    public function getThemeConfiguration(): array
+    {
+        $canonical = $this->getCanonicalPalettes();
+
+        return [
+            'colors' => $this->getRawColors(),
+            'palettes' => array_map(static fn(array $palette): array => $palette['tokens'], $canonical),
+            'textPalettes' => array_map(static fn(array $palette): array => $palette['text'], $canonical),
+            'surfacePalettes' => array_map(static fn(array $palette): array => $palette['surfaces'], $canonical),
+            'emailPalettes' => array_map(static fn(array $palette): array => $palette['email'], $canonical),
+        ];
     }
 
     /**
@@ -97,6 +176,56 @@ class ThemePaletteService
         ]);
     }
 
+    public function getUnifiedPalettePayload(): array
+    {
+        $raw = $this->getRawColors();
+        $defaults = config('modules.theme.colors', []);
+        $canonical = $this->getCanonicalPalettes();
+        $defaultCanonicalDark = $this->buildCanonicalPalette($defaults, 'dark');
+        $defaultCanonicalLight = $this->buildCanonicalPalette($defaults, 'light', $defaultCanonicalDark['tokens']);
+
+        return [
+            'groups' => $this->designerGroups(),
+            'modes' => [
+                'dark' => $this->buildModeTokenMap($raw, 'dark', $canonical['dark']['tokens']),
+                'light' => $this->buildModeTokenMap($raw, 'light', $canonical['light']['tokens']),
+            ],
+            'defaults' => [
+                'dark' => $this->buildModeTokenMap($defaults, 'dark', $defaultCanonicalDark['tokens']),
+                'light' => $this->buildModeTokenMap($defaults, 'light', $defaultCanonicalLight['tokens']),
+            ],
+            'overrides' => [
+                'dark' => $this->buildModeOverrides('dark'),
+                'light' => $this->buildModeOverrides('light'),
+            ],
+            'email' => [
+                'defaults' => $this->getEmailDefaults(),
+                'palettes' => $this->getEmailPalettes(),
+            ],
+            'theme' => $this->getThemeConfiguration(),
+        ];
+    }
+
+    public function persistUnifiedPalette(array $modes): array
+    {
+        $normalizedDark = $this->normalizeIncomingMode($modes['dark'] ?? []);
+        $normalizedLight = $this->normalizeIncomingMode($modes['light'] ?? []);
+
+        foreach (self::DESIGNER_KEYS as $key) {
+            $this->persistColorKey($key . '_dark', $normalizedDark[$key] ?? null);
+            $this->persistColorKey($key . '_light', $normalizedLight[$key] ?? null);
+        }
+
+        foreach (self::DESIGNER_KEYS as $key) {
+            $base = $normalizedDark[$key] ?? $normalizedLight[$key] ?? null;
+            $this->persistColorKey($key, $base);
+        }
+
+        $this->syncDefaultEmailTheme();
+
+        return $this->getUnifiedPalettePayload();
+    }
+
     /**
      * Returns the fully normalized palette metadata shared across panel and mail rendering.
      */
@@ -111,6 +240,93 @@ class ThemePaletteService
             'dark' => $dark,
             'light' => $light,
         ];
+    }
+
+    private function buildModeTokenMap(array $source, string $mode, array $fallbackTokens = []): array
+    {
+        $tokens = [];
+
+        foreach (self::DESIGNER_KEYS as $key) {
+            $value = $this->extractColorFromSource($source, $key, $mode);
+            if ($value === null && isset($fallbackTokens[$key])) {
+                $value = $fallbackTokens[$key];
+            }
+            $tokens[$key] = $value ?? '#000000';
+        }
+
+        return $tokens;
+    }
+
+    private function buildModeOverrides(string $mode): array
+    {
+        $suffix = $mode === 'light' ? '_light' : '_dark';
+        $overrides = [];
+
+        foreach (self::DESIGNER_KEYS as $key) {
+            $overrides[$key] = $this->hasColorOverride($key . $suffix);
+        }
+
+        return $overrides;
+    }
+
+    private function normalizeIncomingMode(array $modeValues): array
+    {
+        $normalized = [];
+
+        foreach (self::DESIGNER_KEYS as $key) {
+            if (!array_key_exists($key, $modeValues)) {
+                continue;
+            }
+
+            $value = $modeValues[$key];
+            if ($value === null || $value === '') {
+                $normalized[$key] = null;
+                continue;
+            }
+
+            if (is_string($value) && preg_match('/^#([0-9a-fA-F]{6})$/', $value)) {
+                $normalized[$key] = strtoupper($value);
+            }
+        }
+
+        return $normalized;
+    }
+
+    private function persistColorKey(string $key, ?string $value): void
+    {
+        $fullKey = 'theme::colors:' . $key;
+
+        if ($value === null) {
+            $this->repository->forget($fullKey);
+
+            return;
+        }
+
+        $this->repository->set($fullKey, strtoupper($value));
+    }
+
+    private function extractColorFromSource(array $source, string $token, string $mode): ?string
+    {
+        $suffix = $mode === 'light' ? '_light' : '_dark';
+        $alternateSuffix = $mode === 'light' ? '_dark' : '_light';
+
+        foreach (["{$token}{$suffix}", $token, "{$token}{$alternateSuffix}"] as $candidate) {
+            if (array_key_exists($candidate, $source) && is_string($source[$candidate]) && trim($source[$candidate]) !== '') {
+                $value = strtoupper(trim($source[$candidate]));
+                if (preg_match('/^#([0-9A-F]{6})$/', $value)) {
+                    return $value;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    private function hasColorOverride(string $key): bool
+    {
+        $sentinel = '__THEME_MISSING__';
+
+        return $this->repository->get('theme::colors:' . $key, $sentinel) !== $sentinel;
     }
 
     private function buildCanonicalPalette(array $colors, string $mode, array $referenceTokens = []): array
@@ -226,9 +442,9 @@ class ThemePaletteService
         ];
 
         $emailPalette = [
-            'primary_color' => $accentPrimary,
+            'primary_color' => $primary,
             'secondary_color' => $secondary,
-            'accent_color' => $accentSecondary,
+            'accent_color' => $accentPrimary,
             'background_color' => $background,
             'body_color' => $body,
             'text_color' => $textPrimary,
@@ -442,15 +658,11 @@ class ThemePaletteService
     public function syncDefaultEmailTheme(): void
     {
         try {
-            $defaultTheme = EmailTheme::query()->where('is_default', true)->first();
-            if (!$defaultTheme) {
-                return;
-            }
-
             $defaults = $this->getEmailDefaults();
-
+            $variantMode = $defaults['variant_mode'] ?? 'dual';
             $expectedLightPalette = $defaults['light_palette'] ?? null;
-            $changes = [];
+
+            $defaultTheme = EmailTheme::query()->where('is_default', true)->first();
 
             $fields = [
                 'primary_color',
@@ -464,6 +676,33 @@ class ThemePaletteService
                 'button_text_color',
             ];
 
+            if (!$defaultTheme) {
+                EmailTheme::query()->update(['is_default' => false]);
+
+                $defaultTheme = new EmailTheme([
+                    'name' => 'DarkOaktyl Default',
+                    'description' => 'Automatically mirrors the panel theme.',
+                    'is_default' => true,
+                    'variant_mode' => $variantMode,
+                ]);
+
+                foreach ($fields as $field) {
+                    if (array_key_exists($field, $defaults)) {
+                        $defaultTheme->{$field} = $defaults[$field];
+                    }
+                }
+
+                if ($expectedLightPalette !== null) {
+                    $defaultTheme->light_palette = $expectedLightPalette;
+                }
+
+                $defaultTheme->save();
+
+                return;
+            }
+
+            $changes = [];
+
             foreach ($fields as $field) {
                 if (!array_key_exists($field, $defaults)) {
                     continue;
@@ -475,7 +714,6 @@ class ThemePaletteService
                 }
             }
 
-            $variantMode = $defaults['variant_mode'] ?? 'dual';
             if ($defaultTheme->variant_mode !== $variantMode) {
                 $changes['variant_mode'] = $variantMode;
             }

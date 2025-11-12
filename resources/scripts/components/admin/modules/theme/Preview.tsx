@@ -8,20 +8,15 @@ export default ({
     reload,
     mode,
     size = 'medium',
+    className,
 }: {
     reload: boolean;
     mode: 'light' | 'dark';
     size?: 'small' | 'medium' | 'large';
+    className?: string;
 }) => {
     const colors = useStoreState(s => s.theme.data!.colors) as Record<string, string>;
-    const primary = colors[`primary_${mode}`] ?? colors.primary;
-    const textColor =
-        colors[`text_primary_${mode}`] ??
-        colors[`text_${mode}`] ??
-        colors.text_primary ??
-        colors.text ??
-        primary ??
-        '#ffffff';
+    const primary = colors[`primary_${mode}`] ?? colors.primary ?? '#008000';
 
     const heightClass = size === 'small' ? 'h-[40vh]' : size === 'large' ? 'h-[80vh]' : 'h-[60vh]';
 
@@ -119,28 +114,31 @@ export default ({
         }
     }, [mode, colors, applyPreviewVars]);
 
+    const wrapperClass = className ?? 'lg:col-span-2';
+
     return (
-        <AdminBox title={'Preview'} icon={faDesktop} className={'lg:col-span-2'}>
+        <AdminBox title={'Preview'} icon={faDesktop} className={wrapperClass}>
             <div
-                className={`w-full rounded-lg ${heightClass} border-2 transition duration-500 overflow-hidden`}
+                className={`relative w-full rounded-lg ${heightClass} border-2 transition duration-500 overflow-hidden bg-neutral-950`}
                 style={{ borderColor: primary }}
             >
                 <iframe
                     ref={iframeRef}
-                    src={reload ? '/null' : '/'}
-                    className={'w-full h-full'}
+                    src={reload ? 'about:blank' : '/admin'}
+                    className={'w-full h-full border-0'}
                     style={{ background: 'transparent' }}
                     onLoad={onLoad}
+                    title={'Theme preview'}
                 />
-                <div className={'p-4'}>
-                    <div className={'rounded p-4'} style={{ background: 'rgba(0,0,0,0.4)' }}>
-                        <h3 className={'text-lg font-medium'} style={{ color: textColor }}>
-                            Sample Heading
-                        </h3>
-                        <p className={'text-sm mt-2'} style={{ color: textColor }}>
-                            This is a small preview of the text color for the <strong>{mode}</strong> mode.
-                        </p>
-                    </div>
+                <div
+                    className={
+                        'pointer-events-none absolute inset-x-0 bottom-0 flex justify-between gap-2 bg-gradient-to-t from-black/60 to-transparent p-3 text-xs text-neutral-200'
+                    }
+                >
+                    <span>Interaktiver Panel-Vorschau. Navigationen wirken sich nur auf dieses Fenster aus.</span>
+                    <span className={'hidden sm:block'}>
+                        Modus: <strong>{mode === 'dark' ? 'Dark' : 'Light'}</strong>
+                    </span>
                 </div>
             </div>
         </AdminBox>

@@ -25,6 +25,9 @@ class CalculateBillingQuoteRequest extends ApplicationApiRequest
             'coupons.*' => ['string', 'max:64', Rule::exists('coupons', 'code')],
             'options' => ['nullable', 'array'],
             'options.snap_to_step' => ['nullable', 'boolean'],
+            'options.validate_capacity' => ['nullable', 'boolean'],
+            'options.node_uuid' => ['nullable', 'string', 'max:191', Rule::exists('nodes', 'uuid')],
+            'options.node_id' => ['nullable', 'integer', Rule::exists('nodes', 'id')],
         ];
     }
 
@@ -52,6 +55,15 @@ class CalculateBillingQuoteRequest extends ApplicationApiRequest
 
         if ($this->has('term') && $this->input('term') !== null) {
             $data['term'] = Str::lower((string) $this->input('term'));
+        }
+
+        $options = $this->input('options', []);
+        if (is_array($options)) {
+            if (array_key_exists('node_id', $options) && $options['node_id'] !== null) {
+                $options['node_id'] = (int) $options['node_id'];
+            }
+
+            $data['options'] = $options;
         }
 
         $this->merge($data);

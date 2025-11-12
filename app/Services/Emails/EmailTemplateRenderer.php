@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Blade;
 use Everest\Models\EmailTheme;
 use Everest\Models\EmailTemplate;
 use Everest\Models\User;
+use Everest\Services\Emails\AnonymousRecipient;
 use Everest\Services\Themes\ThemePaletteService;
 
 class EmailTemplateRenderer
@@ -103,7 +104,7 @@ class EmailTemplateRenderer
         ]);
     }
 
-    private function determineAppearanceMode(?User $user, array $data): string
+    private function determineAppearanceMode(User|AnonymousRecipient|null $user, array $data): string
     {
         $explicit = Arr::get($data, 'theme_mode');
         if (in_array($explicit, ['light', 'dark'], true)) {

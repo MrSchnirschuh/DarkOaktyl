@@ -44,7 +44,10 @@ interface TestEmailFormValues {
 const formSchema = object({
     key: string()
         .required('A template key is required.')
-        .matches(/^[A-Za-z0-9_.-]+$/, 'Key may only contain letters, numbers, dots, underscores, and dashes.'),
+        .matches(
+            /^[A-Za-z0-9._/-]+$/,
+            'Key may only contain letters, numbers, dots, slashes, underscores, and dashes.',
+        ),
     name: string().required('A display name is required.'),
     subject: string().required('Subject is required.'),
     locale: string().required('Locale is required.'),

@@ -2,15 +2,21 @@
 
 namespace Everest\Services\Billing;
 
-use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Everest\Models\Billing\BillingTerm;
 use Everest\Models\Billing\Coupon;
 use Everest\Models\Billing\ResourcePrice;
-use Everest\Models\Billing\ResourceScalingRule;
+use Everest\Services\Billing\ValueObjects\QuoteOptions;
+use Everest\Services\Billing\ValueObjects\QuoteResult;
+use Everest\Services\Billing\ValueObjects\ResourceSelection;
+use Everest\Services\Servers\NodeCapacityService;
 
 class BillingPricingService
 {
+    public function __construct(private NodeCapacityService $nodeCapacityService)
+    {
+    }
+
     /**
      * Returns all resource prices optionally filtered by visibility.
      */
@@ -46,15 +52,19 @@ class BillingPricingService
      *
      * @param array $selections keyed by resource identifier => quantity
      * @param BillingTerm|null $term optional billing term to apply
-     * @param array $options additional calculation options (e.g. 'snapToStep' => true)
+     * @param QuoteOptions|array $options additional calculation options (e.g. 'snapToStep' => true)
      *
      * @return array{subtotal: float,total: float,term_multiplier: float,term?: array|null,resources: array<string,array>,options: array}
      */
-    public function calculateQuote(array $selections, ?BillingTerm $term = null, array $options = []): array
+    public function calculateQuote(array $selections, ?BillingTerm $term = null, QuoteOptions|array $options = []): array
     {
+        $options = $options instanceof QuoteOptions ? $options : QuoteOptions::fromArray($options);
+
+        /** @var Collection<string, ResourcePrice> $resources */
         $resources = $this->getResourcePrices()->keyBy('resource');
-        $breakdown = [];
+        $selectionsVO = [];
         $subtotal = 0.0;
+        $capacityDemand = [];
 
         foreach ($selections as $resourceKey => $rawQuantity) {
             /** @var ResourcePrice|null $resource */
@@ -63,25 +73,21 @@ class BillingPricingService
                 continue;
             }
 
-            $normalizedQuantity = $this->normalizeQuantity($resource, (int) $rawQuantity, Arr::get($options, 'snapToStep', true));
-            $resourceCost = $this->calculateResourceCost($resource, $normalizedQuantity);
+            $selection = ResourceSelection::fromResource($resource, (int) $rawQuantity, $options);
+            $selectionsVO[$resourceKey] = $selection;
+            $subtotal += $selection->total();
 
-            $subtotal += $resourceCost['total'];
-
-            $breakdown[$resourceKey] = [
-                'resource' => $resource->resource,
-                'display_name' => $resource->display_name,
-                'quantity' => $normalizedQuantity,
-                'unit' => $resource->unit,
-                'base_quantity' => $resource->base_quantity,
-                'base_price' => $resource->price,
-                'applied_rules' => $resourceCost['applied_rules'],
-                'total' => $resourceCost['total'],
-            ];
+            foreach ($selection->capacityRequirements() as $metric => $value) {
+                $capacityDemand[$metric] = ($capacityDemand[$metric] ?? 0) + $value;
+            }
         }
 
-        $termData = null;
+        if ($options->shouldValidateCapacity()) {
+            $this->assertNodeCapacity($options, $capacityDemand);
+        }
+
         $termMultiplier = 1.0;
+        $termData = null;
 
         if ($term) {
             $termMultiplier = max(0.0, (float) $term->multiplier);
@@ -95,16 +101,9 @@ class BillingPricingService
             ];
         }
 
-        $total = round($subtotal * $termMultiplier, 4);
+        $quote = new QuoteResult($selectionsVO, $subtotal, $termMultiplier, $termData, $options);
 
-        return [
-            'subtotal' => round($subtotal, 4),
-            'total' => $total,
-            'term_multiplier' => $termMultiplier,
-            'term' => $termData,
-            'resources' => $breakdown,
-            'options' => $options,
-        ];
+        return $quote->toArray();
     }
 
     /**
@@ -165,63 +164,35 @@ class BillingPricingService
     }
 
     /**
-     * Ensures the provided quantity abides by minimum, maximum, and step rules.
+     * @param array<string, int> $capacityDemand
      */
-    public function normalizeQuantity(ResourcePrice $resource, int $quantity, bool $snapToStep = true): int
+    private function assertNodeCapacity(QuoteOptions $options, array $capacityDemand): void
     {
-        $quantity = max($quantity, $resource->min_quantity);
+        $node = $options->node();
 
-        if ($resource->max_quantity !== null) {
-            $quantity = min($quantity, $resource->max_quantity);
+        if (!$node) {
+            return;
         }
 
-        if ($snapToStep && $resource->step_quantity > 0) {
-            $step = max(1, $resource->step_quantity);
-            $quantity = (int) (ceil($quantity / $step) * $step);
-        }
+        $memoryMb = 0;
+        $diskMb = 0;
 
-        return $quantity;
-    }
-
-    /**
-     * Calculates the total cost for the provided resource & quantity pair.
-     *
-     * @return array{total: float,applied_rules: array<int,array{rule: string|null,mode: string,multiplier: float}>}
-     */
-    protected function calculateResourceCost(ResourcePrice $resource, int $quantity): array
-    {
-        $baseBlocks = $resource->base_quantity > 0 ? $quantity / $resource->base_quantity : $quantity;
-        $baseCost = $baseBlocks * (float) $resource->price;
-
-        $rules = $resource->scalingRules;
-        $applied = [];
-        $multiplier = 1.0;
-
-        /** @var ResourceScalingRule $rule */
-        foreach ($rules as $rule) {
-            if ($quantity < $rule->threshold) {
-                continue;
+        foreach (['memory', 'memory_mb'] as $key) {
+            if (isset($capacityDemand[$key])) {
+                $memoryMb += (int) $capacityDemand[$key];
             }
-
-            if ($rule->mode === 'multiplier') {
-                $multiplier = (float) $rule->multiplier;
-            } elseif ($rule->mode === 'surcharge') {
-                $baseCost += (float) $rule->multiplier;
-            }
-
-            $applied[] = [
-                'rule' => $rule->label,
-                'mode' => $rule->mode,
-                'multiplier' => (float) $rule->multiplier,
-                'threshold' => $rule->threshold,
-            ];
         }
 
-        $total = round($baseCost * $multiplier, 4);
+        foreach (['disk', 'disk_mb'] as $key) {
+            if (isset($capacityDemand[$key])) {
+                $diskMb += (int) $capacityDemand[$key];
+            }
+        }
 
-        return [
-            'total' => $total,
-            'applied_rules' => $applied,
-        ];
+        if ($memoryMb <= 0 && $diskMb <= 0) {
+            return;
+        }
+
+        $this->nodeCapacityService->assertCanAllocate($node, $memoryMb, $diskMb);
     }
 }
