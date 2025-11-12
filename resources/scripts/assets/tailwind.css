@@ -4,19 +4,19 @@
 
 @layer utilities {
 	.text-muted {
-		color: var(--theme-text-secondary, #9ca3af);
+		color: var(--theme-text-secondary, #94a3b8);
 	}
 
 	.text-primary-var {
-		color: var(--theme-text-primary, #e5e7eb);
+		color: var(--theme-text-primary, #fafafa);
 	}
 
 	.text-gray-400 {
-		color: var(--theme-text-primary, #e5e7eb);
+		color: var(--theme-text-secondary, #94a3b8);
 	}
 
 	.hover\:text-gray-400:hover {
-		color: var(--theme-text-primary, #e5e7eb);
+		color: var(--theme-text-secondary, #94a3b8);
 	}
 
 	.text-accent {

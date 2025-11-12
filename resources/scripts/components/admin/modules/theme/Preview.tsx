@@ -43,12 +43,12 @@ export default ({
                 effective['text'] ??
                 effective[`primary_${mode}`] ??
                 effective['primary'] ??
-                '#e5e7eb';
+                (mode === 'light' ? '#1e293b' : '#fafafa');
 
             const getTextSecondary = () =>
                 effective[`text_secondary_${mode}`] ??
                 effective['text_secondary'] ??
-                (mode === 'light' ? '#4b5563' : '#9ca3af');
+                (mode === 'light' ? '#475569' : '#94a3b8');
 
             const primaryCol = effective[`primary_${mode}`] ?? effective['primary'] ?? '#16a34a';
             const secondaryCol = effective[`secondary_${mode}`] ?? effective['secondary'] ?? '#27272a';

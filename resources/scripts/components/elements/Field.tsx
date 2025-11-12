@@ -31,7 +31,7 @@ const InputWrapper = styled.div<{ $bgColor: string; $isLight: boolean }>`
 const IconWrapper = styled.div<{ $bgColor: string; $isLight: boolean }>`
     ${tw`pl-3 flex-shrink-0`};
     color: ${({ $isLight }) =>
-        $isLight ? 'var(--theme-text-secondary, #4b5563)' : 'var(--theme-text-secondary, #9ca3af)'};
+        $isLight ? 'var(--theme-text-secondary, #475569)' : 'var(--theme-text-secondary, #94a3b8)'};
     background-color: ${({ $bgColor }) => $bgColor};
 `;
 const StyledInput = styled(Input)`

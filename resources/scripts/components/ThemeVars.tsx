@@ -139,12 +139,12 @@ export default function ThemeVars() {
             effectiveColors['text'] ??
             effectiveColors[`primary_${mode}`] ??
             effectiveColors['primary'] ??
-            '#e5e7eb';
+            (mode === 'light' ? '#1e293b' : '#fafafa');
         // Secondary text (greys)
         const textSecondary =
             effectiveColors[`text_secondary_${mode}`] ??
             effectiveColors['text_secondary'] ??
-            (mode === 'light' ? '#4b5563' : '#d1d5db');
+            (mode === 'light' ? '#475569' : '#94a3b8');
 
         const primary = effectiveColors[`primary_${mode}`] ?? effectiveColors['primary'] ?? '#16a34a';
         const secondary = effectiveColors[`secondary_${mode}`] ?? effectiveColors['secondary'] ?? '#27272a';

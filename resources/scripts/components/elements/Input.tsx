@@ -52,7 +52,7 @@ const inputStyle = () => {
                         ? tw`text-red-500`
                         : tw`text-red-200`
                     : css`
-                          color: var(--theme-text-secondary, #9ca3af);
+                          color: var(--theme-text-secondary, #94a3b8);
                       `};
         }
 
