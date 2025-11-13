@@ -35,33 +35,54 @@ class RouteServiceProvider extends ServiceProvider
         Route::model('database', Database::class);
 
         $this->routes(function () {
-            Route::middleware('web')->group(function () {
-                Route::middleware(['auth.session', RequireTwoFactorAuthentication::class])
-                    ->group(base_path('routes/base.php'));
+            // Determine if we're using subdomain routing
+            $panelSubdomain = env('PANEL_SUBDOMAIN', 'panel');
+            $rootDomain = env('APP_ROOT_DOMAIN', null);
+            
+            // Panel routes closure
+            $panelRoutes = function () {
+                Route::middleware('web')->group(function () {
+                    Route::middleware(['auth.session', RequireTwoFactorAuthentication::class])
+                        ->group(base_path('routes/base.php'));
 
-                Route::middleware(['auth.session', RequireTwoFactorAuthentication::class, AdminAuthenticate::class])
-                    ->prefix('/admin')
-                    ->group(base_path('routes/admin.php'));
+                    Route::middleware(['auth.session', RequireTwoFactorAuthentication::class, AdminAuthenticate::class])
+                        ->prefix('/admin')
+                        ->group(base_path('routes/admin.php'));
 
-                Route::middleware('guest')->prefix('/auth')->group(base_path('routes/auth.php'));
-            });
+                    Route::middleware('guest')->prefix('/auth')->group(base_path('routes/auth.php'));
+                });
 
-            Route::middleware(['api', RequireTwoFactorAuthentication::class])->group(function () {
-                Route::middleware(['application-api', 'throttle:api.application'])
-                    ->prefix('/api/application')
+                Route::middleware(['api', RequireTwoFactorAuthentication::class])->group(function () {
+                    Route::middleware(['application-api', 'throttle:api.application'])
+                        ->prefix('/api/application')
+                        ->scopeBindings()
+                        ->group(base_path('routes/api-application.php'));
+
+                    Route::middleware(['client-api', 'throttle:api.client'])
+                        ->prefix('/api/client')
+                        ->scopeBindings()
+                        ->group(base_path('routes/api-client.php'));
+                });
+
+                Route::middleware('daemon')
+                    ->prefix('/api/remote')
                     ->scopeBindings()
-                    ->group(base_path('routes/api-application.php'));
-
-                Route::middleware(['client-api', 'throttle:api.client'])
-                    ->prefix('/api/client')
-                    ->scopeBindings()
-                    ->group(base_path('routes/api-client.php'));
-            });
-
-            Route::middleware('daemon')
-                ->prefix('/api/remote')
-                ->scopeBindings()
-                ->group(base_path('routes/api-remote.php'));
+                    ->group(base_path('routes/api-remote.php'));
+            };
+            
+            if ($rootDomain) {
+                // Domain separation enabled
+                // Public website routes on root domain
+                Route::domain($rootDomain)
+                    ->middleware('web')
+                    ->group(base_path('routes/public.php'));
+                
+                // Panel routes on subdomain
+                Route::domain($panelSubdomain . '.' . $rootDomain)->group($panelRoutes);
+            } else {
+                // No domain separation, load all panel routes normally
+                $panelRoutes();
+            }
         });
     }
 
