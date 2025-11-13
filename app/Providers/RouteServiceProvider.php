@@ -39,13 +39,7 @@ class RouteServiceProvider extends ServiceProvider
             $panelSubdomain = env('PANEL_SUBDOMAIN', 'panel');
             $rootDomain = env('APP_ROOT_DOMAIN', null);
             
-            // Public website routes (only on root domain if configured)
-            if ($rootDomain && request()->getHost() === $rootDomain) {
-                Route::middleware('web')
-                    ->group(base_path('routes/public.php'));
-            }
-            
-            // Panel routes (either on subdomain or all domains if not configured)
+            // Panel routes closure
             $panelRoutes = function () {
                 Route::middleware('web')->group(function () {
                     Route::middleware(['auth.session', RequireTwoFactorAuthentication::class])
@@ -77,10 +71,16 @@ class RouteServiceProvider extends ServiceProvider
             };
             
             if ($rootDomain) {
-                // Only load panel routes on the subdomain
+                // Domain separation enabled
+                // Public website routes on root domain
+                Route::domain($rootDomain)
+                    ->middleware('web')
+                    ->group(base_path('routes/public.php'));
+                
+                // Panel routes on subdomain
                 Route::domain($panelSubdomain . '.' . $rootDomain)->group($panelRoutes);
             } else {
-                // No domain separation, load all panel routes
+                // No domain separation, load all panel routes normally
                 $panelRoutes();
             }
         });
