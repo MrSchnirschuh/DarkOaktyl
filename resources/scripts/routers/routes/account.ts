@@ -42,15 +42,23 @@ const account: RouteDefinition[] = [
         icon: Icon.CashIcon,
         condition: flags => flags.billing.enabled,
     }),
-    route('billing/order/:id', OrderContainer),
+    route('billing/order/:id', OrderContainer, {
+        condition: flags => flags.billing.enabled,
+    }),
     route('billing/orders', OrdersContainer, {
         name: 'Orders',
         icon: Icon.ClipboardListIcon,
         condition: flags => flags.billing.enabled,
     }),
-    route('billing/processing', Processing),
-    route('billing/success', Success),
-    route('billing/cancel', Cancel),
+    route('billing/processing', Processing, {
+        condition: flags => flags.billing.enabled,
+    }),
+    route('billing/success', Success, {
+        condition: flags => flags.billing.enabled,
+    }),
+    route('billing/cancel', Cancel, {
+        condition: flags => flags.billing.enabled,
+    }),
 ];
 
 export default account;

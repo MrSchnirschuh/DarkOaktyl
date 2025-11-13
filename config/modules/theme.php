@@ -38,12 +38,15 @@ return [
 
         // Explicit primary/secondary text and accent colors (editable)
         'text_primary' => env('THEME_COLORS_TEXT_PRIMARY', 'hsl(0 0% 98%)'),
+        'text_primary_dark' => env('THEME_COLORS_TEXT_PRIMARY_DARK', 'hsl(0 0% 98%)'),
         'text_primary_light' => env('THEME_COLORS_TEXT_PRIMARY_LIGHT', 'hsl(210 24% 12%)'),
 
-        'text_secondary' => env('THEME_COLORS_TEXT_SECONDARY', 'hsl(210 16% 58%)'),
+        'text_secondary' => env('THEME_COLORS_TEXT_SECONDARY', 'hsl(215 16% 65%)'),
+        'text_secondary_dark' => env('THEME_COLORS_TEXT_SECONDARY_DARK', 'hsl(215 16% 65%)'),
         'text_secondary_light' => env('THEME_COLORS_TEXT_SECONDARY_LIGHT', 'hsl(210 18% 34%)'),
 
         'accent_primary' => env('THEME_COLORS_ACCENT_PRIMARY', 'hsl(142 66% 45%)'),
+        'accent_primary_dark' => env('THEME_COLORS_ACCENT_PRIMARY_DARK', 'hsl(142 66% 45%)'),
         'accent_primary_light' => env('THEME_COLORS_ACCENT_PRIMARY_LIGHT', 'hsl(142 66% 45%)'),
 
         'accent_secondary' => env('THEME_COLORS_ACCENT_SECONDARY', 'hsl(32 94% 55%)'),

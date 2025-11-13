@@ -43,12 +43,12 @@ export default ({
                 effective['text'] ??
                 effective[`primary_${mode}`] ??
                 effective['primary'] ??
-                '#e5e7eb';
+                (mode === 'light' ? '#1e293b' : '#fafafa');
 
             const getTextSecondary = () =>
                 effective[`text_secondary_${mode}`] ??
                 effective['text_secondary'] ??
-                (mode === 'light' ? '#4b5563' : '#9ca3af');
+                (mode === 'light' ? '#475569' : '#94a3b8');
 
             const primaryCol = effective[`primary_${mode}`] ?? effective['primary'] ?? '#16a34a';
             const secondaryCol = effective[`secondary_${mode}`] ?? effective['secondary'] ?? '#27272a';
@@ -122,13 +122,13 @@ export default ({
     return (
         <AdminBox title={'Preview'} icon={faDesktop} className={'lg:col-span-2'}>
             <div
-                className={`w-full rounded-lg ${heightClass} border-2 transition duration-500 overflow-hidden`}
+                className={`w-full rounded-lg ${heightClass} overflow-hidden border-2 transition duration-500`}
                 style={{ borderColor: primary }}
             >
                 <iframe
                     ref={iframeRef}
                     src={reload ? '/null' : '/'}
-                    className={'w-full h-full'}
+                    className={'h-full w-full'}
                     style={{ background: 'transparent' }}
                     onLoad={onLoad}
                 />
@@ -137,7 +137,7 @@ export default ({
                         <h3 className={'text-lg font-medium'} style={{ color: textColor }}>
                             Sample Heading
                         </h3>
-                        <p className={'text-sm mt-2'} style={{ color: textColor }}>
+                        <p className={'mt-2 text-sm'} style={{ color: textColor }}>
                             This is a small preview of the text color for the <strong>{mode}</strong> mode.
                         </p>
                     </div>

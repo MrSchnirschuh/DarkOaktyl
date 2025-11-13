@@ -42,26 +42,26 @@ export default () => {
                 Performing this action will immediately wipe all of your custom theming settings. Only do this if you
                 wish to return to the stock appearance of Jexactyl. This action cannot be reversed.
             </Dialog.Confirm>
-            <div className={'w-full flex flex-row items-center mb-8'}>
-                <div className={'flex flex-col flex-shrink'} style={{ minWidth: '0' }}>
-                    <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>System Theme</h2>
+            <div className={'mb-8 flex w-full flex-row items-center'}>
+                <div className={'flex flex-shrink flex-col'} style={{ minWidth: '0' }}>
+                    <h2 className={'font-header text-2xl font-medium text-neutral-50'}>System Theme</h2>
                     <p
                         className={
-                            'hidden lg:block text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden'
+                            'hidden overflow-hidden overflow-ellipsis whitespace-nowrap text-neutral-400 lg:block'
                         }
                     >
                         View and update the theme of this interface.
                     </p>
                 </div>
-                <div className={'flex ml-auto pl-4 items-center'}>
+                <div className={'ml-auto flex items-center pl-4'}>
                     <div className={'mr-4 flex items-center'}>
                         <label className={'mr-3 text-sm text-neutral-400'}>Mode</label>
                         <div className={'flex items-center space-x-2'}>
                             <button
-                                className={`px-3 py-1 rounded ${
+                                className={`rounded px-3 py-1 ${
                                     mode === 'light'
                                         ? 'bg-neutral-700 text-white'
-                                        : 'bg-transparent text-neutral-400 border border-neutral-700'
+                                        : 'border border-neutral-700 bg-transparent text-neutral-400'
                                 }`}
                                 onClick={() => setMode('light')}
                                 type="button"
@@ -69,10 +69,10 @@ export default () => {
                                 Light
                             </button>
                             <button
-                                className={`px-3 py-1 rounded ${
+                                className={`rounded px-3 py-1 ${
                                     mode === 'dark'
                                         ? 'bg-neutral-700 text-white'
-                                        : 'bg-transparent text-neutral-400 border border-neutral-700'
+                                        : 'border border-neutral-700 bg-transparent text-neutral-400'
                                 }`}
                                 onClick={() => setMode('dark')}
                                 type="button"
@@ -86,30 +86,30 @@ export default () => {
                         <label className={'mr-3 text-sm text-neutral-400'}>Preview</label>
                         <div className={'flex items-center space-x-2'}>
                             <button
-                                className={`px-2 py-1 rounded ${
+                                className={`rounded px-2 py-1 ${
                                     previewSize === 'small'
                                         ? 'bg-neutral-700 text-white'
-                                        : 'bg-transparent text-neutral-400 border border-neutral-700'
+                                        : 'border border-neutral-700 bg-transparent text-neutral-400'
                                 }`}
                                 onClick={() => setPreviewSize('small')}
                             >
                                 S
                             </button>
                             <button
-                                className={`px-2 py-1 rounded ${
+                                className={`rounded px-2 py-1 ${
                                     previewSize === 'medium'
                                         ? 'bg-neutral-700 text-white'
-                                        : 'bg-transparent text-neutral-400 border border-neutral-700'
+                                        : 'border border-neutral-700 bg-transparent text-neutral-400'
                                 }`}
                                 onClick={() => setPreviewSize('medium')}
                             >
                                 M
                             </button>
                             <button
-                                className={`px-2 py-1 rounded ${
+                                className={`rounded px-2 py-1 ${
                                     previewSize === 'large'
                                         ? 'bg-neutral-700 text-white'
-                                        : 'bg-transparent text-neutral-400 border border-neutral-700'
+                                        : 'border border-neutral-700 bg-transparent text-neutral-400'
                                 }`}
                                 onClick={() => setPreviewSize('large')}
                             >
@@ -122,7 +122,7 @@ export default () => {
                         type={'button'}
                         size={Button.Sizes.Large}
                         onClick={() => setVisible(true)}
-                        className={'h-10 px-4 py-0 whitespace-nowrap'}
+                        className={'h-10 whitespace-nowrap px-4 py-0'}
                     >
                         Reset to Defaults
                     </Button>
@@ -142,10 +142,10 @@ export default () => {
                             key={t.id}
                             onClick={() => setActiveTab(t.id as any)}
                             aria-selected={activeTab === (t.id as any)}
-                            className={`px-3 py-1 rounded ${
+                            className={`rounded px-3 py-1 ${
                                 activeTab === (t.id as any)
                                     ? 'bg-neutral-700 text-white'
-                                    : 'bg-transparent text-neutral-400 border border-neutral-700'
+                                    : 'border border-neutral-700 bg-transparent text-neutral-400'
                             }`}
                             type="button"
                         >
@@ -155,7 +155,7 @@ export default () => {
                 </nav>
             </div>
 
-            <div className={'grid md:grid-cols-3 gap-4'}>
+            <div className={'grid gap-4 md:grid-cols-3'}>
                 <div className={'md:col-span-1'}>
                     {activeTab !== 'presets' && (
                         <>

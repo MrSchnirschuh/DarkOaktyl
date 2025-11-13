@@ -1,4 +1,5 @@
 export type OrderStatus = 'pending' | 'expired' | 'failed' | 'processed';
+export type CouponDiscountType = 'percentage' | 'fixed';
 
 export interface ProductValues {
     categoryUuid: string;
@@ -75,8 +76,18 @@ export interface BillingExceptionFilters {
     title?: string;
 }
 
-export interface PricingConfigurationFilters {
-    id?: number;
-    name?: string;
-    enabled?: boolean;
+export interface CouponValues {
+    code: string;
+    description?: string;
+    discountType: CouponDiscountType;
+    discountValue: number;
+    maxUses?: number;
+    expiresAt?: string;
+    isActive: boolean;
+}
+
+export interface CouponFilters {
+    code?: string;
+    discountType?: CouponDiscountType;
+    isActive?: boolean;
 }

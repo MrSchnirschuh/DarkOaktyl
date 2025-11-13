@@ -30,7 +30,8 @@ const InputWrapper = styled.div<{ $bgColor: string; $isLight: boolean }>`
 
 const IconWrapper = styled.div<{ $bgColor: string; $isLight: boolean }>`
     ${tw`pl-3 flex-shrink-0`};
-    color: ${({ $isLight }) => ($isLight ? 'var(--theme-text-secondary, #4b5563)' : 'var(--theme-text-secondary, #9ca3af)')};
+    color: ${({ $isLight }) =>
+        $isLight ? 'var(--theme-text-secondary, #475569)' : 'var(--theme-text-secondary, #94a3b8)'};
     background-color: ${({ $bgColor }) => $bgColor};
 `;
 const StyledInput = styled(Input)`
@@ -70,7 +71,7 @@ const Field = forwardRef<HTMLInputElement, Props>(
                         )}
 
                         {touched[field.name] && errors[field.name] ? (
-                            <p className={'input-help error text-red-400 text-xs mt-1'}>
+                            <p className={'input-help error mt-1 text-xs text-red-400'}>
                                 {(errors[field.name] as string).charAt(0).toUpperCase() +
                                     (errors[field.name] as string).slice(1)}
                             </p>

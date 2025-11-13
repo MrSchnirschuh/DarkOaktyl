@@ -49,9 +49,9 @@ export default ({ server }: { server: Server }) => {
                             <div>
                                 <div className={'flex'}>
                                     <Label>
-                                        <CashIcon className={'w-4 inline-flex'} /> Billing Status
+                                        <CashIcon className={'inline-flex w-4'} /> Billing Status
                                     </Label>
-                                    <span className={'ml-2 italic text-gray-400 text-sm'}>
+                                    <span className={'ml-2 text-sm italic text-gray-400'}>
                                         Should this server be billed automatically?
                                     </span>
                                 </div>
@@ -80,9 +80,9 @@ export default ({ server }: { server: Server }) => {
                             <div>
                                 <div className={'flex'}>
                                     <Label>
-                                        <ClockIcon className={'w-4 inline-flex'} /> Renewal Date
+                                        <ClockIcon className={'inline-flex w-4'} /> Renewal Date
                                     </Label>
-                                    <span className={'ml-2 italic text-gray-400 text-sm'}>
+                                    <span className={'ml-2 text-sm italic text-gray-400'}>
                                         Adjust when this server will renew.
                                     </span>
                                 </div>

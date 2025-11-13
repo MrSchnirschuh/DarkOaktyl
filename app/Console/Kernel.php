@@ -13,6 +13,7 @@ use Everest\Console\Commands\Billing\SuspendBillableServersCommand;
 use Everest\Console\Commands\Maintenance\PruneOrphanedBackupsCommand;
 use Everest\Console\Commands\Billing\CalculateOrderThreatIndexCommand;
 use Everest\Console\Commands\Maintenance\CleanServiceBackupFilesCommand;
+use Everest\Console\Commands\Email\ProcessScheduledEmailsCommand;
 
 class Kernel extends ConsoleKernel
 {
@@ -54,5 +55,8 @@ class Kernel extends ConsoleKernel
             $schedule->command(SuspendBillableServersCommand::class)->daily();
             $schedule->command(CalculateOrderThreatIndexCommand::class)->everyFiveMinutes();
         }
+
+        // Process scheduled emails every 5 minutes
+        $schedule->command(ProcessScheduledEmailsCommand::class)->everyFiveMinutes();
     }
 }

@@ -69,7 +69,7 @@ const MessageBox = ({ title, children, type }: Props) => {
                     <span css={tw`mr-2 text-left flex-auto`}>{children}</span>
                     <span
                         className={
-                            'text-right text-[var(--theme-text-secondary)] font-medium cursor-pointer hover:text-[var(--theme-text-primary)] duration-300'
+                            'cursor-pointer text-right font-medium text-[var(--theme-text-secondary)] duration-300 hover:text-[var(--theme-text-primary)]'
                         }
                     >
                         <FontAwesomeIcon icon={faXmark} onClick={() => setOpen(false)} />

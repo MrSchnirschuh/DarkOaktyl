@@ -67,7 +67,7 @@ export default () => {
                     The product package you purchase initially no longer exists, so some details may not be shown.
                 </Alert>
             )}
-            <div className={'grid lg:grid-cols-3 gap-4'}>
+            <div className={'grid gap-4 lg:grid-cols-3'}>
                 {!renewalDate ? (
                     <Alert type={'warning'}>There is no present renewal date for your server.</Alert>
                 ) : (
@@ -75,7 +75,7 @@ export default () => {
                         <SpinnerOverlay visible={loading} />
                         <div>
                             <Label>Next renewal due</Label>
-                            <p className={'text-gray-400 text-sm'}>
+                            <p className={'text-sm text-gray-400'}>
                                 {new Date(renewalDate).toLocaleDateString()}
                                 {' - '}
                                 {timeUntil(renewalDate).days} days, {timeUntil(renewalDate).hours} hours
@@ -83,13 +83,13 @@ export default () => {
                         </div>
                         <div className={'my-6'}>
                             <Label>Your package</Label>
-                            <p className={'text-gray-400 text-sm'}>{product ? product.name : 'Unknown'}</p>
-                            <p className={'text-gray-500 text-xs'}>{product && product.description}</p>
+                            <p className={'text-sm text-gray-400'}>{product ? product.name : 'Unknown'}</p>
+                            <p className={'text-xs text-gray-500'}>{product && product.description}</p>
                         </div>
                         <div>
                             <Label>Plan cost</Label>
                             <div className={'flex justify-between'}>
-                                <p className={'text-gray-400 text-sm'}>
+                                <p className={'text-sm text-gray-400'}>
                                     {settings.currency.symbol}
                                     {product ? product.price : '...'} {settings.currency.code.toUpperCase()} every 30
                                     days
@@ -97,7 +97,7 @@ export default () => {
                                 <Link
                                     to={'/account/billing/orders'}
                                     className={
-                                        'text-[var(--theme-accent-text)] text-xs transition-colors duration-200 hover:text-[var(--theme-accent-contrast)]'
+                                        'text-xs text-[var(--theme-accent-text)] transition-colors duration-200 hover:text-[var(--theme-accent-contrast)]'
                                     }
                                 >
                                     View order <FontAwesomeIcon icon={faArrowRight} />
@@ -108,7 +108,7 @@ export default () => {
                 )}
                 <ContentBox title={'Renew Server'} className={'lg:col-span-2'}>
                     <div className={'mb-4'}>
-                        <p className={'text-gray-400 text-xs'}>
+                        <p className={'text-xs text-gray-400'}>
                             If you renew now, your server will be active for a further 30 days, making your next renewal
                             date
                             <strong className={'ml-1'}>
