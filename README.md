@@ -25,7 +25,7 @@ DarkOaktyl is a modern, high-performance **game server management panel** built 
 ## Useful Links
 
 - Website & Documentation: [DarkOak.eu](https://DarkOak.eu)  
-- GitHub Repository: [DarkOaktyl/DarkOaktyl](https://github.com/DarkOaktyl/DarkOaktyl)
+- GitHub Repository: [DarkOaktyl/DarkOaktyl](https://github.com/MrSchnirschuh/DarkOaktyl)
 - Discord: [discord.com/jexpanel](https://discord.gg/qttGR4Z5Pk) (Jexactyl / Jexpanel) Do not ask for Support
 - Discord: [discord.com/just-calls](https://discord.gg/ecCVKteUBE) (DarkOaktyl) ask here for Support
 
