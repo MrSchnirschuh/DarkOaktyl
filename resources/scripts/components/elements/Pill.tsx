@@ -5,7 +5,7 @@ export type PillSize = 'normal' | 'large' | 'small' | 'xsmall';
 export type PillStatus = 'success' | 'info' | 'warn' | 'danger' | 'unknown';
 
 function getColor(type?: PillStatus): string {
-    let value = 'bg-gray-600 text-gray-200';
+    let value = 'bg-gray-600 text-theme-secondary';
 
     switch (type) {
         case 'success':

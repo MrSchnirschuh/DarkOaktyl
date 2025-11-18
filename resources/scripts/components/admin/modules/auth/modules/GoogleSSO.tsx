@@ -68,7 +68,7 @@ export default () => {
                     placeholder={settings.clientId ? '••••••••••••••••' : ''}
                 />
 
-                <p className={'text-xs text-gray-400 mt-1'}>Set the Google Client ID.</p>
+                <p className={'text-xs text-theme-muted mt-1'}>Set the Google Client ID.</p>
             </div>
             <div className={'my-6'}>
                 <Label>Client Secret {!settings.clientSecret && <RequiredFieldIcon />}</Label>
@@ -79,7 +79,7 @@ export default () => {
                     onChange={e => update('client_secret', e.target.value)}
                     placeholder={settings.clientSecret ? '••••••••••••••••' : ''}
                 />
-                <p className={'text-xs text-gray-400 mt-1'}>Set the Google Client Secret.</p>
+                <p className={'text-xs text-theme-muted mt-1'}>Set the Google Client Secret.</p>
             </div>
             <Alert type={'info'}>
                 <div>

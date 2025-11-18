@@ -35,7 +35,7 @@ const MessagesTable = ({ ticketId }: { ticketId: number }) => {
             {/* this is a really dumb comparison but TS is dumber. */}
             {visible !== null && (
                 <Dialog open={Boolean(visible)} onClose={() => setVisible(null)} title={'Message Content'}>
-                    <p className={'text-gray-300 italic'}>{visible.toString()}</p>
+                    <p className={'text-theme-secondary italic'}>{visible.toString()}</p>
                 </Dialog>
             )}
             <AdminTable className={'mt-6'}>
@@ -62,7 +62,7 @@ const MessagesTable = ({ ticketId }: { ticketId: number }) => {
                                             .map(message => (
                                                 <TableRow key={message.id}>
                                                     <td
-                                                        css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}
+                                                        css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
                                                     >
                                                         <CopyOnClick text={message.id}>
                                                             <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>
@@ -72,7 +72,7 @@ const MessagesTable = ({ ticketId }: { ticketId: number }) => {
                                                     </td>
                                                     {message.author ? (
                                                         <td
-                                                            css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}
+                                                            css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
                                                         >
                                                             <Link
                                                                 to={`/admin/users/${message.author.id}`}
@@ -84,7 +84,7 @@ const MessagesTable = ({ ticketId }: { ticketId: number }) => {
                                                         </td>
                                                     ) : (
                                                         <td
-                                                            css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}
+                                                            css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
                                                         >
                                                             <Link
                                                                 to={`/admin/users`}
@@ -96,13 +96,13 @@ const MessagesTable = ({ ticketId }: { ticketId: number }) => {
                                                         </td>
                                                     )}
                                                     <td
-                                                        css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}
+                                                        css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
                                                     >
                                                         {message.message.slice(0, 64)}
                                                         {message.message.length > 64 && '...'}
                                                     </td>
                                                     <td
-                                                        css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}
+                                                        css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
                                                     >
                                                         {Math.abs(differenceInHours(message.created_at, new Date())) >
                                                         48
@@ -112,7 +112,7 @@ const MessagesTable = ({ ticketId }: { ticketId: number }) => {
                                                               })}
                                                     </td>
                                                     <td
-                                                        css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}
+                                                        css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
                                                     >
                                                         <Button onClick={() => setVisible(message.message)}>
                                                             Read Message

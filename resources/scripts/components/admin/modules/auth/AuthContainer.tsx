@@ -28,9 +28,9 @@ export default () => {
             )}
             <div css={tw`w-full flex flex-row items-center mb-8`}>
                 <div css={tw`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
-                    <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>Authentication</h2>
+                    <h2 css={tw`text-2xl text-theme-primary font-header font-medium`}>Authentication</h2>
                     <p
-                        css={tw`hidden lg:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden`}
+                        css={tw`hidden lg:block text-base text-theme-muted whitespace-nowrap overflow-ellipsis overflow-hidden`}
                     >
                         Configure and manage the authentication flow for users.
                     </p>

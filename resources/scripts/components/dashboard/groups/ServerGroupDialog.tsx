@@ -82,7 +82,7 @@ export default ({ open, setOpen, groups, setGroups }: Props) => {
                         ))}
                     </div>
                 ) : (
-                    <div className={'text-gray-400 mt-4 text-center font-semibold'}>
+                    <div className={'text-theme-muted mt-4 text-center font-semibold'}>
                         No groups exist on this account.
                     </div>
                 )}
@@ -122,7 +122,7 @@ export default ({ open, setOpen, groups, setGroups }: Props) => {
                         ))}
                     </div>
                 ) : (
-                    <div className={'text-gray-400 mt-4 text-center font-semibold'}>
+                    <div className={'text-theme-muted mt-4 text-center font-semibold'}>
                         No groups exist on this account.
                     </div>
                 )}

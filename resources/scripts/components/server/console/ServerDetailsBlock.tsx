@@ -29,7 +29,7 @@ function Limit({ limit, children }: { limit: string | null; children: ReactNode 
     return (
         <>
             {children}
-            <span className={'ml-1 select-none text-[70%] text-slate-300'}>/ {limit || <>&infin;</>}</span>
+            <span className={'ml-1 select-none text-[70%] text-theme-secondary'}>/ {limit || <>&infin;</>}</span>
         </>
     );
 }
@@ -109,7 +109,7 @@ function ServerDetailsBlock({ className }: { className?: string }) {
                 color={getBackgroundColor(stats.cpu, limits.cpu)}
             >
                 {status === 'offline' ? (
-                    <span className={'text-slate-400'}>Offline</span>
+                    <span className={'text-theme-muted'}>Offline</span>
                 ) : (
                     <Limit limit={textLimits.cpu}>{stats.cpu.toFixed(2)}%</Limit>
                 )}
@@ -121,7 +121,7 @@ function ServerDetailsBlock({ className }: { className?: string }) {
                 color={getBackgroundColor(stats.memory / 1024, limits.memory * 1024)}
             >
                 {status === 'offline' ? (
-                    <span className={'text-slate-400'}>Offline</span>
+                    <span className={'text-theme-muted'}>Offline</span>
                 ) : (
                     <Limit limit={textLimits.memory}>{bytesToString(stats.memory)}</Limit>
                 )}

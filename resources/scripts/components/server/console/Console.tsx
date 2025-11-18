@@ -252,7 +252,7 @@ export default ({ expand, setExpand }: Props) => {
                     />
                     <div
                         className={classNames(
-                            'text-slate-100 peer-focus:animate-pulse peer-focus:text-slate-50',
+                            'text-theme-primary peer-focus:animate-pulse peer-focus:text-theme-primary',
                             styles.command_icon,
                         )}
                     >

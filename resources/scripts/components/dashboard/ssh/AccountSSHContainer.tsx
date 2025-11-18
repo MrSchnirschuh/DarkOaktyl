@@ -44,13 +44,13 @@ export default () => {
                                 key={key.fingerprint}
                                 css={[tw`bg-black/50 flex space-x-4 items-center`, index > 0 && tw`mt-2`]}
                             >
-                                <FontAwesomeIcon icon={faKey} css={tw`text-neutral-300`} />
+                                <FontAwesomeIcon icon={faKey} css={tw`text-theme-secondary`} />
                                 <div css={tw`flex-1`}>
                                     <p css={tw`text-lg font-bold break-words`}>{key.name}</p>
-                                    <p css={tw`text-xs mt-1 font-mono truncate text-gray-300`}>
+                                    <p css={tw`text-xs mt-1 font-mono truncate text-theme-secondary`}>
                                         SHA256:{key.fingerprint}
                                     </p>
-                                    <p css={tw`text-xs mt-1 text-gray-400 uppercase`}>
+                                    <p css={tw`text-xs mt-1 text-theme-muted uppercase`}>
                                         Added on:&nbsp;
                                         {key.created_at.toLocaleString()}
                                     </p>

@@ -113,13 +113,13 @@ export default ({ mode, paletteVersion, className }: Props) => {
         <AdminBox title={'Email Preview'} icon={faEnvelope} className={className}>
             <div className={'mb-4 space-y-2'}>
                 <div className={'flex items-center justify-between gap-3'}>
-                    <label htmlFor={'theme-email-preview-template'} className={'text-sm text-neutral-300'}>
+                    <label htmlFor={'theme-email-preview-template'} className={'text-sm text-theme-secondary'}>
                         Template
                     </label>
                     <div className={'flex items-center gap-2'}>
                         <select
                             id={'theme-email-preview-template'}
-                            className={'rounded bg-neutral-800 border border-neutral-700 px-3 py-2 text-sm text-neutral-200'}
+                            className={'rounded bg-neutral-800 border border-neutral-700 px-3 py-2 text-sm text-theme-secondary'}
                             value={selectedUuid}
                             onChange={event => setSelectedUuid(event.target.value)}
                             disabled={loadingTemplates || (!templates.length && !selectedUuid)}
@@ -136,7 +136,7 @@ export default ({ mode, paletteVersion, className }: Props) => {
                         </Button.Text>
                     </div>
                 </div>
-                <p className={'text-xs text-neutral-500'}>
+                <p className={'text-xs text-theme-muted'}>
                     Preview renders the selected template using the current default email theme palette.
                 </p>
             </div>
@@ -155,7 +155,7 @@ export default ({ mode, paletteVersion, className }: Props) => {
                         sandbox={'allow-same-origin allow-popups allow-forms'}
                     />
                 ) : (
-                    <div className={'flex h-[240px] items-center justify-center text-sm text-neutral-400'}>
+                    <div className={'flex h-[240px] items-center justify-center text-sm text-theme-muted'}>
                         {loadingTemplates || loadingPreview
                             ? 'Loading previewâ€¦'
                             : 'Select a template to see the rendered email.'}
@@ -164,8 +164,8 @@ export default ({ mode, paletteVersion, className }: Props) => {
             </div>
 
             {preview && (
-                <div className={'mt-3 text-xs text-neutral-400'}>
-                    <span className={'font-semibold text-neutral-300'}>Subject:</span> {preview.subject}
+                <div className={'mt-3 text-xs text-theme-muted'}>
+                    <span className={'font-semibold text-theme-secondary'}>Subject:</span> {preview.subject}
                 </div>
             )}
         </AdminBox>

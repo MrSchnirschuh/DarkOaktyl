@@ -52,7 +52,7 @@ export default () => {
             <AdminBox title={'Add PayPal integration'} icon={faPaypal}>
                 Adding PayPal to DarkOaktyl allows users to purchase products via another channel, improving order success
                 rate and global payment availability.
-                <p className={'text-gray-400 mt-2'}>
+                <p className={'text-theme-muted mt-2'}>
                     PayPal module is currently{' '}
                     <span className={settings.paypal ? 'text-green-500' : 'text-red-500'}>
                         {settings.paypal ? 'enabled' : 'disabled'}
@@ -77,7 +77,7 @@ export default () => {
             <AdminBox title={'Add Link integration'} icon={faStripe}>
                 Adding Link to DarkOaktyl allows users to purchase products via another channel, improving order success
                 rate and global payment availability.
-                <p className={'text-gray-400 mt-2'}>
+                <p className={'text-theme-muted mt-2'}>
                     Link module is currently{' '}
                     <span className={settings.link ? 'text-green-500' : 'text-red-500'}>
                         {settings.link ? 'enabled' : 'disabled'}

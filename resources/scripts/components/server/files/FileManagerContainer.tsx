@@ -114,7 +114,7 @@ export default () => {
                     ) : (
                         <>
                             {!files.length ? (
-                                <p css={tw`text-sm text-neutral-400 text-center`}>This directory seems to be empty.</p>
+                                <p css={tw`text-sm text-theme-muted text-center`}>This directory seems to be empty.</p>
                             ) : (
                                 <FadeTransition duration="duration-150" appear show>
                                     <div>
@@ -163,7 +163,7 @@ export default () => {
                         <div css={tw`mt-6 flex items-center`}>
                             <div css={tw`flex-1`}>
                                 <div css={tw`border-l-4 border-cyan-500 p-3`}>
-                                    <p css={tw`text-xs text-neutral-200`}>
+                                    <p css={tw`text-xs text-theme-secondary`}>
                                         Your SFTP password is the same as the password you use to access this panel.
                                     </p>
                                 </div>

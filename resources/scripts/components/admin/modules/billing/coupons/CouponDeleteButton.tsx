@@ -47,7 +47,7 @@ export default ({ coupon }: Props) => {
                 confirm={'Delete'}
             >
                 <FlashMessageRender byKey={'admin:billing:coupons:delete'} className={'mb-2'} />
-                <p className={'text-sm text-neutral-300'}>
+                <p className={'text-sm text-theme-secondary'}>
                     Removing this coupon will immediately disable it for customers. Any existing redemptions will remain
                     valid. To confirm, type{' '}
                     <span className={'px-1 py-0.5 bg-neutral-900 rounded font-mono text-xs'}>{coupon.code}</span> below.

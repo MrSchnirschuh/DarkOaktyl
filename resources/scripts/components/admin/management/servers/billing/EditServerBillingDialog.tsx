@@ -51,7 +51,7 @@ export default ({ server }: { server: Server }) => {
                                     <Label>
                                         <CashIcon className={'w-4 inline-flex'} /> Billing Status
                                     </Label>
-                                    <span className={'ml-2 italic text-gray-400 text-sm'}>
+                                    <span className={'ml-2 italic text-theme-muted text-sm'}>
                                         Should this server be billed automatically?
                                     </span>
                                 </div>
@@ -82,7 +82,7 @@ export default ({ server }: { server: Server }) => {
                                     <Label>
                                         <ClockIcon className={'w-4 inline-flex'} /> Renewal Date
                                     </Label>
-                                    <span className={'ml-2 italic text-gray-400 text-sm'}>
+                                    <span className={'ml-2 italic text-theme-muted text-sm'}>
                                         Adjust when this server will renew.
                                     </span>
                                 </div>

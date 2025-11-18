@@ -74,7 +74,7 @@ export default () => {
                     onChange={e => update('client_id', e.target.value)}
                     placeholder={settings.clientId ? '••••••••••••••••' : ''}
                 />
-                <p className={'text-xs text-gray-400 mt-1'}>
+                <p className={'text-xs text-theme-muted mt-1'}>
                     Set the Discord Client ID. You can find this in the{' '}
                     <Link
                         to={'https://discord.com/developers/docs/intro'}
@@ -95,7 +95,7 @@ export default () => {
                     onChange={e => update('client_secret', e.target.value)}
                     placeholder={settings.clientSecret ? '••••••••••••••••' : ''}
                 />
-                <p className={'text-xs text-gray-400 mt-1'}>
+                <p className={'text-xs text-theme-muted mt-1'}>
                     Set the Discord Client Secret. You can find this in the{' '}
                     <Link
                         to={'https://discord.com/developers/docs/intro'}

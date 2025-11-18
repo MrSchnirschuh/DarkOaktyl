@@ -42,8 +42,14 @@ const SpinnerComponent = styled.div<Props>`
               `
             : null};
 
-    border-color: ${props => (!props.isBlue ? 'rgba(255, 255, 255, 0.2)' : 'hsla(212, 92%, 43%, 0.2)')};
-    border-top-color: ${props => (!props.isBlue ? 'rgb(255, 255, 255)' : 'hsl(212, 92%, 43%)')};
+    border-color: ${props =>
+        !props.isBlue
+            ? 'var(--theme-spinner-track, var(--theme-background, rgba(255, 255, 255, 0.2)))'
+            : 'var(--theme-spinner-track-accent, hsla(212, 92%, 43%, 0.2))'};
+    border-top-color: ${props =>
+        !props.isBlue
+            ? 'var(--theme-spinner-foreground, var(--theme-primary, rgb(255, 255, 255)))'
+            : 'var(--theme-spinner-foreground-accent, hsl(212, 92%, 43%))'};
 `;
 
 const Spinner: Spinner = ({ centered, ...props }) =>

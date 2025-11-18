@@ -91,7 +91,7 @@ function ServersTable({ filters }: Props) {
                                     length > 0 &&
                                     servers.items.map(server => (
                                         <tr key={server.id} css={tw`h-14 hover:bg-neutral-600`}>
-                                            <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                            <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
                                                 <CopyOnClick text={server.identifier}>
                                                     <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>
                                                         {server.identifier}
@@ -115,11 +115,11 @@ function ServersTable({ filters }: Props) {
                                                     to={`/admin/users/${server.relations.user?.id}`}
                                                     css={tw`text-primary-400 hover:text-primary-300`}
                                                 >
-                                                    <div css={tw`text-sm text-neutral-200`}>
+                                                    <div css={tw`text-sm text-theme-secondary`}>
                                                         {server.relations.user?.email}
                                                     </div>
 
-                                                    <div css={tw`text-sm text-neutral-400`}>
+                                                    <div css={tw`text-sm text-theme-muted`}>
                                                         {server.relations.user?.uuid.split('-')[0]}
                                                     </div>
                                                 </NavLink>
@@ -128,11 +128,11 @@ function ServersTable({ filters }: Props) {
                                             {/* TODO: Have permission check for displaying node information. */}
                                             <td css={tw`px-6 text-sm text-left whitespace-nowrap`}>
                                                 <NavLink to={`/admin/nodes/${server.relations.node?.id}`}>
-                                                    <div css={tw`text-sm text-neutral-200`}>
+                                                    <div css={tw`text-sm text-theme-secondary`}>
                                                         {server.relations.node?.name}
                                                     </div>
 
-                                                    <div css={tw`text-sm text-neutral-400`}>
+                                                    <div css={tw`text-sm text-theme-muted`}>
                                                         {server.relations.node?.fqdn}
                                                     </div>
                                                 </NavLink>

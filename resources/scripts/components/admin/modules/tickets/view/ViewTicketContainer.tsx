@@ -79,7 +79,7 @@ export default () => {
                     </h2>
                     <p
                         className={
-                            'text-base text-sm mt-1 text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden'
+                            'text-base text-sm mt-1 text-theme-muted whitespace-nowrap overflow-ellipsis overflow-hidden'
                         }
                     >
                         First created&nbsp;
@@ -113,7 +113,7 @@ export default () => {
                                         <option value={'resolved'}>Resolved</option>
                                         <option value={'unresolved'}>Unresolved</option>
                                     </Select>
-                                    <p className={'text-xs mt-1 text-gray-400'}>
+                                    <p className={'text-xs mt-1 text-theme-muted'}>
                                         Change the state of this ticket for the user.
                                     </p>
                                 </div>
@@ -127,18 +127,18 @@ export default () => {
                                                 <FontAwesomeIcon
                                                     icon={unassign ? faCheckCircle : faXmarkCircle}
                                                     onClick={() => setUnassign(!unassign)}
-                                                    className={'mt-10 w-5 text-gray-400'}
+                                                    className={'mt-10 w-5 text-theme-muted'}
                                                 />
                                             </div>
                                         )}
                                     </div>
-                                    <p className={'text-xs mt-1 text-gray-400'}>
+                                    <p className={'text-xs mt-1 text-theme-muted'}>
                                         You may assign a Panel administrator to be responsible for this ticket.
                                     </p>
                                 </div>
                                 <div>
                                     <UserSelect selected={ticket.user} />
-                                    <p className={'text-xs mt-1 text-gray-400'}>
+                                    <p className={'text-xs mt-1 text-theme-muted'}>
                                         If needed, you can re-assign this ticket to a different user.
                                     </p>
                                 </div>

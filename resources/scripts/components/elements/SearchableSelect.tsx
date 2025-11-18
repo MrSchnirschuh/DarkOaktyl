@@ -51,7 +51,7 @@ export const Option = <T extends IdObj>({
                 id={selectId + '-select-item-' + id}
                 role="option"
                 css={[
-                    tw`relative py-2 pl-3 cursor-pointer select-none text-neutral-200 pr-9 hover:bg-neutral-700`,
+                    tw`relative py-2 pl-3 cursor-pointer select-none text-theme-secondary pr-9 hover:bg-neutral-700`,
                     isHighlighted ? tw`bg-neutral-700` : null,
                 ]}
                 onClick={onClick(item)}
@@ -84,7 +84,7 @@ export const Option = <T extends IdObj>({
             id={selectId + 'select-item-' + id}
             role="option"
             css={[
-                tw`relative py-2 pl-3 cursor-pointer select-none text-neutral-200 pr-9 hover:bg-neutral-700`,
+                tw`relative py-2 pl-3 cursor-pointer select-none text-theme-secondary pr-9 hover:bg-neutral-700`,
                 isHighlighted ? tw`bg-neutral-700` : null,
             ]}
             onClick={onClick(item)}
@@ -328,7 +328,7 @@ export const SearchableSelect = <T extends IdObj>({
                 >
                     {((inputText !== '' && expanded) || (nullable && selected && !expanded)) && (
                         <svg
-                            css={tw`w-5 h-5 text-neutral-400 cursor-pointer`}
+                            css={tw`w-5 h-5 text-theme-muted cursor-pointer`}
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 20 20"
                             fill="currentColor"
@@ -351,7 +351,7 @@ export const SearchableSelect = <T extends IdObj>({
                         </svg>
                     )}
                     <svg
-                        css={tw`w-5 h-5 text-neutral-400 pointer-events-none`}
+                        css={tw`w-5 h-5 text-theme-muted pointer-events-none`}
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 20 20"
                         fill="currentColor"

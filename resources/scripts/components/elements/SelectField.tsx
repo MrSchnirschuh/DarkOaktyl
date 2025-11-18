@@ -303,7 +303,7 @@ const SelectField = forwardRef<HTMLElement, SelectFieldProps>(function Select2(
                                 (errors[field.name] as string).slice(1)}
                         </p>
                     ) : description ? (
-                        <p css={tw`text-neutral-400 text-xs mt-1`}>{description}</p>
+                        <p css={tw`text-theme-muted text-xs mt-1`}>{description}</p>
                     ) : null}
                 </div>
             )}
@@ -365,7 +365,7 @@ const AsyncSelectField = forwardRef<HTMLElement, AsyncSelectFieldProps>(function
                                 (errors[field.name] as string).slice(1)}
                         </p>
                     ) : description ? (
-                        <p css={tw`text-neutral-400 text-xs mt-1`}>{description}</p>
+                        <p css={tw`text-theme-muted text-xs mt-1`}>{description}</p>
                     ) : null}
                 </div>
             )}

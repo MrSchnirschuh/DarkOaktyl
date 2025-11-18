@@ -17,7 +17,7 @@ const RightNavigation = styled.div<{ theme: SiteTheme }>`
     & > button,
     & > div,
     & > .navigation-link {
-        ${tw`flex items-center h-full no-underline text-neutral-300 px-6 cursor-pointer transition-all duration-300 gap-x-2`};
+        ${tw`flex items-center h-full no-underline text-theme-secondary px-6 cursor-pointer transition-all duration-300 gap-x-2`};
         ${tw`font-medium`};
         color: var(--theme-text-secondary);
 
@@ -153,11 +153,11 @@ const NavigationBar = () => {
                             })()}
                         >
                             {currentPreference === 'dark' ? (
-                                <MoonIcon className="w-5 h-5 text-neutral-300" />
+                                <MoonIcon className="w-5 h-5 text-theme-secondary" />
                             ) : currentPreference === 'light' ? (
-                                <SunIcon className="w-5 h-5 text-white" />
+                                <SunIcon className="w-5 h-5" style={{ color: 'var(--theme-text-primary, #111827)' }} />
                             ) : (
-                                <DesktopComputerIcon className="w-5 h-5 text-neutral-300" />
+                                <DesktopComputerIcon className="w-5 h-5 text-theme-secondary" />
                             )}
                         </button>
                     </div>

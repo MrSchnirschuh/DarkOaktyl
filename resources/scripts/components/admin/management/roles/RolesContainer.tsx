@@ -60,8 +60,8 @@ const RolesContainer = () => {
         <AdminContentBlock title={'Roles'}>
             <div css={tw`w-full flex flex-row items-center mb-8`}>
                 <div css={tw`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
-                    <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>Administrator Roles</h2>
-                    <p css={tw`text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden`}>
+                    <h2 css={tw`text-2xl text-theme-primary font-header font-medium`}>Administrator Roles</h2>
+                    <p css={tw`text-base text-theme-muted whitespace-nowrap overflow-ellipsis overflow-hidden`}>
                         Roles are sets of permissions that you can assign to your panel administrators.
                     </p>
                 </div>
@@ -100,7 +100,7 @@ const RolesContainer = () => {
                                         length > 0 &&
                                         roles.items.map(role => (
                                             <TableRow key={role.id}>
-                                                <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
                                                     <CopyOnClick text={role.id.toString()}>
                                                         <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>
                                                             {role.id}
@@ -108,7 +108,7 @@ const RolesContainer = () => {
                                                     </CopyOnClick>
                                                 </td>
 
-                                                <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
                                                     <NavLink
                                                         to={`${window.location.pathname}/${role.id}`}
                                                         style={{ color: role.color ?? colors.primary }}
@@ -118,10 +118,10 @@ const RolesContainer = () => {
                                                     </NavLink>
                                                 </td>
 
-                                                <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
                                                     {role.description}
                                                 </td>
-                                                <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
                                                     <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>
                                                         {role.permissions.length}
                                                     </code>

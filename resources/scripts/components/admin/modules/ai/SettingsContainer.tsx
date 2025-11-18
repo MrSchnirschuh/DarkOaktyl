@@ -51,7 +51,7 @@ export default () => {
                                     defaultChecked={ai.user_access}
                                 />
                             </div>
-                            <p className={'text-gray-400 text-xs mt-1.5'}>
+                            <p className={'text-theme-muted text-xs mt-1.5'}>
                                 If enabled, standard DarkOaktyl users will be able to interact with DarkOaktyl AI as well as
                                 administrators.
                             </p>
@@ -60,7 +60,7 @@ export default () => {
                     <AdminBox title={'Modify API Key'} icon={faKey}>
                         <div>
                             <Field id={'key'} name={'key'} type={'input'} />
-                            <p className={'text-gray-400 text-xs mt-1.5'}>
+                            <p className={'text-theme-muted text-xs mt-1.5'}>
                                 If you are experiencing &apos;Invalid API Key&apos; errors, you can enter a new one here
                                 to reset it.
                             </p>
@@ -68,7 +68,7 @@ export default () => {
                     </AdminBox>
                 </div>
                 <div className={'w-full flex flex-row items-center mt-6'}>
-                    <div className={'flex text-xs text-gray-500'}>
+                    <div className={'flex text-xs text-theme-muted'}>
                         These changes may not apply until this page is reloaded.
                     </div>
                     <div className={'flex ml-auto'}>

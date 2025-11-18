@@ -37,11 +37,11 @@ export default ({ extOpen }: { extOpen?: boolean }) => {
     return (
         <Dialog open={open} onClose={() => setOpen(false)} title={'Configure Stripe API'}>
             <div className={'p-3 bg-black/50 rounded-lg mb-4'}>
-                <p className={'text-gray-200 font-semibold'}>
+                <p className={'text-theme-secondary font-semibold'}>
                     <FontAwesomeIcon icon={faInfoCircle} className={'text-blue-400 mr-2'} />
                     Still setting up?
                 </p>
-                <p className={'text-gray-400 text-sm'}>
+                <p className={'text-theme-muted text-sm'}>
                     Feel free to skip this message by closing the dialog and proceed to set up your products and
                     categories. Once you&apos;re ready, head to the Settings tab to input your API key and secret.
                 </p>

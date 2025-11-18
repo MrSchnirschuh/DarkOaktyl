@@ -78,7 +78,7 @@ export default () => {
             <FlashMessageRender className={'my-4'} byKey={'dashboard'} />
             <div className={'grid lg:grid-cols-3 gap-4'}>
                 <div className="relative overflow-x-auto lg:col-span-2">
-                    <h2 css={tw`text-neutral-300 mb-4 px-4 text-2xl flex justify-between`}>
+                    <h2 css={tw`text-theme-secondary mb-4 px-4 text-2xl flex justify-between`}>
                         <div className={'inline-flex'}>
                             {user.rootAdmin && (
                                 <div className={'mr-3 mt-1.5'}>
@@ -97,7 +97,7 @@ export default () => {
                     </h2>
                     <ContentBox>
                         {!servers || servers.items.length < 1 ? (
-                            <div className={'text-[var(--theme-text-secondary)]'}>
+                            <div className={'text-theme-secondary'}>
                                 <div className={'grid lg:grid-cols-2 gap-6 m-4'}>
                                     <ServerSvg color={colors.primary} />
                                     <div>
@@ -111,7 +111,9 @@ export default () => {
                                                     you&apos;d like to run.
                                                     <div className={'text-right'}>
                                                         <Link to={'/account/billing/order'}>
-                                                            <Button className={'w-1/2 text-white font-normal'}>
+                                                            <Button
+                                                                className={'w-1/2 text-theme-on-accent font-normal'}
+                                                            >
                                                                 View Options{' '}
                                                                 <FontAwesomeIcon
                                                                     icon={faCircleArrowRight}
@@ -144,7 +146,7 @@ export default () => {
                                         ))
                                     ) : (
                                         <div className={'w-full'} style={{ backgroundColor: colors.secondary }}>
-                                            <div className={'px-6 py-4 text-gray-300'}>
+                                            <div className={'px-6 py-4 text-theme-secondary'}>
                                                 <div css={tw`flex justify-center`}>
                                                     <div
                                                         css={tw`w-full sm:w-3/4 md:w-1/2 rounded-lg text-center relative`}
@@ -153,7 +155,7 @@ export default () => {
                                                             src={NotFoundSvg}
                                                             css={tw`w-2/3 h-auto select-none mx-auto`}
                                                         />
-                                                        <h2 css={tw`mt-10 mb-6 text-white font-medium text-xl`}>
+                                                        <h2 css={tw`mt-10 mb-6 text-theme-primary font-medium text-xl`}>
                                                             No servers could be found.
                                                         </h2>
                                                     </div>

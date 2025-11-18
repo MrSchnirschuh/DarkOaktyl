@@ -40,7 +40,7 @@ export default ({ name, title, disabled, recommended, description, icon }: Props
             </Button>
             {description}
             {recommended && (
-                <div className={'mt-2 bg-zinc-700 p-2 rounded-lg text-xs text-gray-400'}>
+                <div className={'mt-2 bg-zinc-700 p-2 rounded-lg text-xs text-theme-muted'}>
                     <FontAwesomeIcon icon={faStar} className={'text-yellow-500 mr-1'} />
                     {recommended}
                 </div>

@@ -64,8 +64,8 @@ const AdminBox = ({
                 css={tw`flex flex-row rounded-t px-4 xl:px-5 py-3 border-b border-black transition duration-300`}
             >
                 {typeof title === 'string' ? (
-                    <p css={tw`font-semibold`}>
-                        {icon && <FontAwesomeIcon icon={icon} css={tw`mr-2 text-neutral-300`} />}
+                    <p css={tw`font-semibold text-theme-primary`}>
+                        {icon && <FontAwesomeIcon icon={icon} css={tw`mr-2 text-theme-secondary`} />}
                         {title}
                     </p>
                 ) : (

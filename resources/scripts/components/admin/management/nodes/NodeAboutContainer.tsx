@@ -55,8 +55,8 @@ const ResourceBox = ({
                     </div>
                 </div>
                 <div className={'col-span-2 my-auto'}>
-                    <p className={'text-xs uppercase text-gray-400 font-bold'}>{title}</p>
-                    <p className={'text-lg text-gray-200 font-semibold'}>{usage}</p>
+                    <p className={'text-xs uppercase text-theme-muted font-bold'}>{title}</p>
+                    <p className={'text-lg text-theme-secondary font-semibold'}>{usage}</p>
                 </div>
             </div>
         </div>
@@ -177,7 +177,7 @@ export default () => {
                                             <FontAwesomeIcon
                                                 icon={faQuestionCircle}
                                                 size={'sm'}
-                                                className={'my-auto text-gray-300 ml-2'}
+                                                className={'my-auto text-theme-secondary ml-2'}
                                             />
                                         </Tooltip>
                                     </td>

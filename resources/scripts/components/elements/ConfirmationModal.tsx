@@ -21,7 +21,7 @@ function ConfirmationModal({ title, children, buttonText, onConfirmed }: Props) 
     return (
         <>
             <h2 css={tw`text-2xl mb-6`}>{title}</h2>
-            <div css={tw`text-neutral-300`}>{children}</div>
+            <div css={tw`text-theme-secondary`}>{children}</div>
 
             <div css={tw`flex flex-wrap items-center justify-end mt-8`}>
                 <Button onClick={() => dismiss()} css={tw`w-full sm:w-auto border-transparent`}>

@@ -263,7 +263,7 @@ const TriggersContainer = () => {
                 </div>
             ) : triggers.length === 0 ? (
                 <AdminBox title={'No triggers defined yet'}>
-                    <p css={tw`text-sm text-neutral-400`}>
+                    <p css={tw`text-sm text-theme-muted`}>
                         Configure triggers to send emails on automation events, scheduled reminders, or resource
                         updates.
                     </p>
@@ -283,24 +283,24 @@ const TriggersContainer = () => {
                                 {trigger.scheduleType && <Pill type={'info'}>{trigger.scheduleType}</Pill>}
                             </div>
                             {trigger.description && (
-                                <p css={tw`text-sm text-neutral-300 mb-3`}>{trigger.description}</p>
+                                <p css={tw`text-sm text-theme-secondary mb-3`}>{trigger.description}</p>
                             )}
                             {trigger.eventKey && (
-                                <p css={tw`text-xs text-neutral-400 mb-1`}>
+                                <p css={tw`text-xs text-theme-muted mb-1`}>
                                     Event:{' '}
                                     {events.find(event => event.key === trigger.eventKey)?.label ?? trigger.eventKey}
                                 </p>
                             )}
-                            <p css={tw`text-xs text-neutral-400 mb-1`}>
+                            <p css={tw`text-xs text-theme-muted mb-1`}>
                                 Template: {resolveTemplateLabel(templates, trigger.templateUuid)}
                             </p>
                             {trigger.nextRunAt && (
-                                <p css={tw`text-xs text-neutral-400 mb-1`}>
+                                <p css={tw`text-xs text-theme-muted mb-1`}>
                                     Next run: {trigger.nextRunAt.toLocaleString()}
                                 </p>
                             )}
                             {trigger.lastRunAt && (
-                                <p css={tw`text-xs text-neutral-500 mb-4`}>
+                                <p css={tw`text-xs text-theme-muted mb-4`}>
                                     Last run: {trigger.lastRunAt.toLocaleString()}
                                 </p>
                             )}
@@ -387,10 +387,10 @@ const TriggersContainer = () => {
                 >
                     {({ values, isSubmitting }) => (
                         <Form>
-                            <h2 css={tw`text-2xl font-semibold text-neutral-100 mb-4`}>
+                            <h2 css={tw`text-2xl font-semibold text-theme-primary mb-4`}>
                                 {editing ? 'Edit trigger' : 'Create trigger'}
                             </h2>
-                            <p css={tw`text-sm text-neutral-400 mb-6`}>
+                            <p css={tw`text-sm text-theme-muted mb-6`}>
                                 Automate outbound messages when specific events occur or on a defined schedule.
                             </p>
 

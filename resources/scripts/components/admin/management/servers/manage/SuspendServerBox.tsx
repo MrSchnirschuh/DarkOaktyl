@@ -50,7 +50,7 @@ export default () => {
                     <Button.Warn size={Button.Sizes.Large} css={tw`w-full`} onClick={() => setVisible(true)}>
                         Suspend Server
                     </Button.Warn>
-                    <p css={tw`text-xs text-neutral-400 mt-2`}>
+                    <p css={tw`text-xs text-theme-muted mt-2`}>
                         This will suspend the server, stop any running processes, and immediately block the user from
                         being able to manage their server through the panel.
                     </p>

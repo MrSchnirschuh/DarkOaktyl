@@ -54,7 +54,7 @@ export default () => {
                     <option value={180}>Last 6 months</option>
                     <option value={360}>Last year</option>
                 </Select>
-                <h2 className={'text-neutral-300 mb-4 px-4 text-2xl'}>Suggested Actions</h2>
+                <h2 className={'text-theme-secondary mb-4 px-4 text-2xl'}>Suggested Actions</h2>
                 <Stepper className={'text-green-500'} icon={faCheck} content={'Enable billing module'} />
                 <Stepper
                     className={hasProducts ? 'text-green-500' : 'text-blue-500'}
@@ -63,7 +63,7 @@ export default () => {
                     link={'/admin/billing/categories'}
                 />
                 <Stepper
-                    className={hasOrders ? 'text-green-500' : hasProducts ? 'text-blue-500' : 'text-gray-500'}
+                    className={hasOrders ? 'text-green-500' : hasProducts ? 'text-blue-500' : 'text-theme-muted'}
                     icon={hasOrders ? faCheck : faEllipsis}
                     content={'Secure your first sale'}
                     link={'/admin/billing/orders'}
@@ -81,7 +81,7 @@ export default () => {
                         <h1 className={'text-2xl font-bold'}>
                             <span className={'text-4xl'}>{successRate}</span>% conversion rate
                         </h1>
-                        <p className={'text-gray-400 text-sm mt-2'}>
+                        <p className={'text-theme-muted text-sm mt-2'}>
                             Out of {allOrders.length} orders, {successfulOrders.length} were processed.
                         </p>
                         <SuccessChart data={analytics} history={history} />
@@ -91,7 +91,7 @@ export default () => {
                             {settings.currency.symbol}
                             <span className={'text-4xl'}>{revenue}</span> total revenue
                         </h1>
-                        <p className={'text-gray-400 text-sm mt-2'}>
+                        <p className={'text-theme-muted text-sm mt-2'}>
                             Your {successfulOrders.length} successful orders have generated {settings.currency.symbol}
                             {revenue} {settings.currency.code} over the last {history} days.
                         </p>

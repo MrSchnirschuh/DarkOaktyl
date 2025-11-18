@@ -52,7 +52,7 @@ export default () => {
                     <Button.Danger size={Button.Sizes.Large} css={tw`w-full`} onClick={() => setVisible(true)}>
                         Reinstall Server
                     </Button.Danger>
-                    <p css={tw`text-xs text-neutral-400 mt-2`}>
+                    <p css={tw`text-xs text-theme-muted mt-2`}>
                         This will reinstall the server with the assigned service scripts.
                         <br />
                         <FontAwesomeIcon icon={faExclamationTriangle} className={'mr-1 text-red-500'} />

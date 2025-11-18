@@ -255,7 +255,7 @@ const TemplatesContainer = () => {
                 </div>
             ) : templates.length === 0 ? (
                 <AdminBox title={'No templates yet'}>
-                    <p css={tw`text-sm text-neutral-400`}>
+                    <p css={tw`text-sm text-theme-muted`}>
                         Create templates to control onboarding journeys, coupon announcements, or resource drop alerts.
                     </p>
                     <Button className={'mt-4'} onClick={openCreate}>
@@ -267,7 +267,7 @@ const TemplatesContainer = () => {
                     {templates.map(template => (
                         <AdminBox key={template.uuid} title={template.name}>
                             <div css={tw`flex items-center justify-between mb-3`}>
-                                <span css={tw`text-xs text-neutral-400`}>Key</span>
+                                <span css={tw`text-xs text-theme-muted`}>Key</span>
                                 <code css={tw`text-[10px] bg-neutral-800 px-2 py-1 rounded`}>{template.key}</code>
                             </div>
                             <div css={tw`flex flex-wrap gap-2 mb-3`}>
@@ -283,9 +283,9 @@ const TemplatesContainer = () => {
                                 )}
                             </div>
                             {template.description && (
-                                <p css={tw`text-sm text-neutral-300 mb-3`}>{template.description}</p>
+                                <p css={tw`text-sm text-theme-secondary mb-3`}>{template.description}</p>
                             )}
-                            <p css={tw`text-xs text-neutral-500 mb-4`}>
+                            <p css={tw`text-xs text-theme-muted mb-4`}>
                                 Last updated {template.updatedAt?.toLocaleString() ?? '—'}
                             </p>
                             <div css={tw`flex flex-wrap gap-2`}>
@@ -362,10 +362,10 @@ const TemplatesContainer = () => {
                 >
                     {({ isSubmitting }) => (
                         <Form>
-                            <h2 css={tw`text-2xl font-semibold text-neutral-100 mb-4`}>
+                            <h2 css={tw`text-2xl font-semibold text-theme-primary mb-4`}>
                                 {editing ? 'Edit Template' : 'Create Template'}
                             </h2>
-                            <p css={tw`text-sm text-neutral-400 mb-6`}>
+                            <p css={tw`text-sm text-theme-muted mb-6`}>
                                 Define the content, subject, and optional metadata for this email template. Use Twig
                                 variables just like in your Laravel views.
                             </p>
@@ -464,23 +464,23 @@ const TemplatesContainer = () => {
             >
                 <div css={tw`space-y-4`}>
                     <div>
-                        <h2 css={tw`text-2xl font-semibold text-neutral-100`}>{previewSubject}</h2>
-                        <p css={tw`text-sm text-neutral-400`}>Preview renders with the current template metadata.</p>
+                        <h2 css={tw`text-2xl font-semibold text-theme-primary`}>{previewSubject}</h2>
+                        <p css={tw`text-sm text-theme-muted`}>Preview renders with the current template metadata.</p>
                     </div>
                     <div css={tw`rounded bg-neutral-900/70 border border-neutral-700 p-4 overflow-y-auto max-h-[60vh]`}>
                         {previewHtml ? (
                             <div
                                 css={[
-                                    tw`text-sm leading-relaxed text-neutral-100 space-y-3`,
+                                    tw`text-sm leading-relaxed text-theme-primary space-y-3`,
                                     {
-                                        '& h1': tw`text-3xl font-semibold text-neutral-100`.style,
-                                        '& h2': tw`text-2xl font-semibold text-neutral-100`.style,
-                                        '& h3': tw`text-xl font-semibold text-neutral-100`.style,
-                                        '& h4': tw`text-lg font-semibold text-neutral-100`.style,
-                                        '& p': tw`mb-3 text-neutral-200`.style,
+                                        '& h1': tw`text-3xl font-semibold text-theme-primary`.style,
+                                        '& h2': tw`text-2xl font-semibold text-theme-primary`.style,
+                                        '& h3': tw`text-xl font-semibold text-theme-primary`.style,
+                                        '& h4': tw`text-lg font-semibold text-theme-primary`.style,
+                                        '& p': tw`mb-3 text-theme-secondary`.style,
                                         '& a': tw`text-primary-300 underline`.style,
-                                        '& ul': tw`list-disc list-inside mb-3 text-neutral-200`.style,
-                                        '& ol': tw`list-decimal list-inside mb-3 text-neutral-200`.style,
+                                        '& ul': tw`list-disc list-inside mb-3 text-theme-secondary`.style,
+                                        '& ol': tw`list-decimal list-inside mb-3 text-theme-secondary`.style,
                                         '& code': tw`font-mono bg-neutral-800 px-1 py-0.5 rounded text-xs`.style,
                                         '& pre': tw`
                                             bg-neutral-900
@@ -550,8 +550,8 @@ const TemplatesContainer = () => {
                     >
                         {({ isSubmitting }) => (
                             <Form>
-                                <h2 css={tw`text-2xl font-semibold text-neutral-100 mb-4`}>Send Test Email</h2>
-                                <p css={tw`text-sm text-neutral-400 mb-6`}>
+                                <h2 css={tw`text-2xl font-semibold text-theme-primary mb-4`}>Send Test Email</h2>
+                                <p css={tw`text-sm text-theme-muted mb-6`}>
                                     Deliver a real message using {testTemplate.name} to verify its layout and data.
                                 </p>
 

@@ -17,13 +17,13 @@ const AdminContentBlock: React.FC<{
         <>
             {showFlashKey && <FlashMessageRender byKey={showFlashKey} css={tw`mb-4`} />}
             {children}
-            <p css={tw`text-center text-neutral-500 text-xs mt-4 mb-8`}>
+            <p css={tw`text-center text-theme-muted text-xs mt-4 mb-8`}>
                 &copy; {new Date().getFullYear()}&nbsp;
                 <a
                     rel={'noopener nofollow noreferrer'}
                     href={'https://DarkOak.eu'}
                     target={'_blank'}
-                    css={tw`no-underline text-neutral-500 hover:text-neutral-300`}
+                    css={tw`no-underline text-theme-muted hover:text-theme-secondary`}
                 >
                     DarkOak.eu
                 </a>

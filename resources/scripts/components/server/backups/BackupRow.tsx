@@ -56,7 +56,7 @@ export default ({ backup }: Props) => {
                         backup.isLocked ? (
                             <FontAwesomeIcon icon={faLock} css={tw`text-yellow-500 mx-3`} size={'lg'} />
                         ) : (
-                            <FontAwesomeIcon icon={faArchive} css={tw`text-neutral-300 mx-3`} size={'lg'} />
+                            <FontAwesomeIcon icon={faArchive} css={tw`text-theme-secondary mx-3`} size={'lg'} />
                         )
                     ) : (
                         <Spinner size={'small'} />
@@ -73,22 +73,22 @@ export default ({ backup }: Props) => {
                         )}
                         <p css={tw`break-words truncate font-semibold`}>{backup.name}</p>
                         {backup.completedAt !== null && backup.isSuccessful && (
-                            <span css={tw`ml-3 text-neutral-300 text-xs font-extralight hidden sm:inline`}>
+                            <span css={tw`ml-3 text-theme-secondary text-xs font-extralight hidden sm:inline`}>
                                 {bytesToString(backup.bytes)}
                             </span>
                         )}
                     </div>
-                    <p css={tw`mt-1 md:mt-0 text-xs text-neutral-400 font-mono truncate`}>{backup.checksum}</p>
+                    <p css={tw`mt-1 md:mt-0 text-xs text-theme-muted font-mono truncate`}>{backup.checksum}</p>
                 </div>
             </div>
             <div css={tw`flex-1 md:flex-none md:w-48 mt-4 md:mt-0 md:ml-8 md:text-center`}>
                 <p title={format(backup.createdAt, 'ddd, MMMM do, yyyy HH:mm:ss')} css={tw`text-sm`}>
                     {formatDistanceToNow(backup.createdAt, { includeSeconds: true, addSuffix: true })}
                 </p>
-                <p css={tw`text-2xs text-neutral-500 uppercase mt-1`}>Created</p>
+                <p css={tw`text-2xs text-theme-muted uppercase mt-1`}>Created</p>
             </div>
             <Can action={['backup.download', 'backup.restore', 'backup.delete']} matchAny>
-                <div css={tw`mr-3 text-gray-400 hover:text-white duration-300`}>
+                <div css={tw`mr-3 text-theme-muted hover:text-theme-on-accent duration-300`}>
                     <BackupContextMenu backup={backup} visible={visible} setVisible={setVisible} />
                 </div>
             </Can>

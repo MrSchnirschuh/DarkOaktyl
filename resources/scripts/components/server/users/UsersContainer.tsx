@@ -53,14 +53,14 @@ export default () => {
         <PageContentBlock title={'Subusers'} header description={'Control the access of other users to this server.'}>
             <FlashMessageRender byKey={'users'} css={tw`mb-4`} />
             {!subusers.length ? (
-                <p css={tw`text-center text-sm text-neutral-300`}>It looks like you don&apos;t have any subusers.</p>
+                <p css={tw`text-center text-sm text-theme-secondary`}>It looks like you don&apos;t have any subusers.</p>
             ) : (
                 subusers.map(subuser => <UserRow key={subuser.uuid} subuser={subuser} />)
             )}
             <Can action={'user.create'}>
                 <div css={tw`mt-6 sm:flex items-center justify-end`}>
                     {limit > 0 && subusers.length > 0 && (
-                        <p css={tw`text-sm text-neutral-300 mb-4 sm:mr-6 sm:mb-0`}>
+                        <p css={tw`text-sm text-theme-secondary mb-4 sm:mr-6 sm:mb-0`}>
                             {subusers.length} of {limit} subusers have been created for this server.
                         </p>
                     )}

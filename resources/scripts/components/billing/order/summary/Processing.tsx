@@ -48,14 +48,14 @@ export default () => {
                     style={{ backgroundColor: colors.secondary }}
                 >
                     <FlashMessageRender byKey={'billing:process'} className={'mb-6'} />
-                    <h2 className={'text-white font-bold text-4xl'}>
+                    <h2 className={'text-theme-primary font-bold text-4xl'}>
                         Processing Order <Spinner centered />
                     </h2>
-                    <p className={'text-sm text-neutral-200 mt-2'}>
+                    <p className={'text-sm text-theme-secondary mt-2'}>
                         Our systems are currently working on deploying your server to our systems. Sit tight while your
                         new server is deployed!
                     </p>
-                    <p className={'text-2xs text-neutral-400 mt-8'}>Session {intent ?? 'Unknown'}</p>
+                    <p className={'text-2xs text-theme-muted mt-8'}>Session {intent ?? 'Unknown'}</p>
                 </div>
             </div>
         </PageContentBlock>

@@ -154,17 +154,17 @@ const RoleEditContainer = () => {
             <div css={tw`w-full flex flex-row items-center mb-8`}>
                 <div css={tw`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
                     <h2
-                        css={tw`text-2xl text-neutral-50 font-header font-medium`}
+                        css={tw`text-2xl text-theme-primary font-header font-medium`}
                         style={{ color: role.color ?? 'white' }}
                     >
                         {role.name}
                     </h2>
                     {(role.description || '').length < 1 ? (
-                        <p css={tw`text-base text-neutral-400`}>
+                        <p css={tw`text-base text-theme-muted`}>
                             <span css={tw`italic`}>No description</span>
                         </p>
                     ) : (
-                        <p css={tw`text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden`}>
+                        <p css={tw`text-base text-theme-muted whitespace-nowrap overflow-ellipsis overflow-hidden`}>
                             {role.description}
                         </p>
                     )}
@@ -174,8 +174,8 @@ const RoleEditContainer = () => {
             <EditInformationContainer />
             <div css={tw`w-full flex flex-row items-center my-8`}>
                 <div css={tw`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
-                    <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>Role Permissions</h2>
-                    <p css={tw`text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden`}>
+                    <h2 css={tw`text-2xl text-theme-primary font-header font-medium`}>Role Permissions</h2>
+                    <p css={tw`text-base text-theme-muted whitespace-nowrap overflow-ellipsis overflow-hidden`}>
                         This table contains the permissions that you can assign to the role.
                     </p>
                 </div>

@@ -71,7 +71,7 @@ export default () => {
                     defaultValue={delay || 0}
                     onChange={e => update('delay', parseInt(e.target.value))}
                 />
-                <p className={'text-xs text-gray-400 mt-1'}>
+                <p className={'text-xs text-theme-muted mt-1'}>
                     If you wish to automatically approve user signups, this variable can make it so that users cannot
                     access the Panel for a certain period of time in order to prevent bot attacks.
                 </p>

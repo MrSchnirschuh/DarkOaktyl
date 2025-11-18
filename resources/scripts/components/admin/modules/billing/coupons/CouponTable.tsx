@@ -88,12 +88,12 @@ const CouponTable = () => {
     return (
         <>
             <div className={'w-full flex flex-row items-center my-8 px-8'}>
-                <TicketIcon className={'w-10 h-10 mr-4 text-neutral-300'} />
+                <TicketIcon className={'w-10 h-10 mr-4 text-theme-secondary'} />
                 <div className={'flex flex-col flex-shrink'} style={{ minWidth: '0' }}>
-                    <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>Coupons</h2>
+                    <h2 className={'text-2xl text-theme-primary font-header font-medium'}>Coupons</h2>
                     <p
                         className={
-                            'hidden lg:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden'
+                            'hidden lg:block text-base text-theme-muted whitespace-nowrap overflow-ellipsis overflow-hidden'
                         }
                     >
                         Manage discount codes, free resources, and promotional offers for customers.
@@ -138,21 +138,21 @@ const CouponTable = () => {
                                         coupons.items.length > 0 &&
                                         coupons.items.map(coupon => (
                                             <TableRow key={coupon.uuid}>
-                                                <td css={tw`pl-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                                <td css={tw`pl-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
                                                     <span
                                                         className={
-                                                            'px-2 py-0.5 rounded bg-neutral-900 text-neutral-200 font-mono text-xs'
+                                                            'px-2 py-0.5 rounded bg-neutral-900 text-theme-secondary font-mono text-xs'
                                                         }
                                                     >
                                                         {coupon.id}
                                                     </span>
                                                 </td>
-                                                <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
                                                     <code className={'font-mono bg-neutral-900 rounded py-1 px-2'}>
                                                         {coupon.code}
                                                     </code>
                                                 </td>
-                                                <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
                                                     <NavLink
                                                         to={`/admin/billing/coupons/${coupon.uuid}`}
                                                         style={{ color: theme.colors.primary }}
@@ -161,7 +161,7 @@ const CouponTable = () => {
                                                         {coupon.name}
                                                     </NavLink>
                                                 </td>
-                                                <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
                                                     <span
                                                         className={`px-2 py-0.5 rounded-full text-xs font-medium ${getTypeColor(
                                                             coupon.type,
@@ -170,18 +170,18 @@ const CouponTable = () => {
                                                         {getTypeDisplay(coupon.type)}
                                                     </span>
                                                 </td>
-                                                <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
                                                     {coupon.type === 'amount' && coupon.value
                                                         ? `${coupon.value.toFixed(2)}`
                                                         : coupon.type === 'percentage' && coupon.percentage
                                                         ? `${coupon.percentage}%`
                                                         : '—'}
                                                 </td>
-                                                <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
                                                     {coupon.usageCount ?? 0}
                                                     {coupon.maxUsages ? ` / ${coupon.maxUsages}` : ''}
                                                 </td>
-                                                <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
                                                     <span
                                                         className={`px-2 py-0.5 rounded-full text-xs font-medium ${
                                                             coupon.isActive
@@ -192,7 +192,7 @@ const CouponTable = () => {
                                                         {coupon.isActive ? 'Active' : 'Inactive'}
                                                     </span>
                                                 </td>
-                                                <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
                                                     {coupon.expiresAt
                                                         ? Math.abs(differenceInHours(coupon.expiresAt, new Date())) > 48
                                                             ? format(coupon.expiresAt, 'MMM do, yyyy')
@@ -202,7 +202,7 @@ const CouponTable = () => {
                                                         : '—'}
                                                 </td>
                                                 <td
-                                                    css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap text-right`}
+                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap text-right`}
                                                 >
                                                     <Link
                                                         to={`/admin/billing/coupons/${coupon.uuid}`}

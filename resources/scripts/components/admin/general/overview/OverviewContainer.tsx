@@ -51,7 +51,7 @@ const SuggestionCard = ({ icon, title, description, link, action }: SuggestionPr
             <h1 className={'text-xl font-semibold mb-2'}>
                 <FontAwesomeIcon icon={icon} /> {title}
             </h1>
-            <p className={'text-gray-300'}>{description}</p>
+            <p className={'text-theme-secondary'}>{description}</p>
             <p className={'mt-2 text-right text-sm'} style={{ color: colors.primary }}>
                 <Link to={link}>
                     {action ?? 'Manage'} <FontAwesomeIcon icon={faArrowRight} />
@@ -92,9 +92,9 @@ export default () => {
         <AdminContentBlock title={'Overview'}>
             <div css={tw`w-full flex flex-row items-center mb-8`}>
                 <div css={tw`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
-                    <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>Overview</h2>
+                    <h2 css={tw`text-2xl text-theme-primary font-header font-medium`}>Overview</h2>
                     <p
-                        css={tw`hidden md:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden`}
+                        css={tw`hidden md:block text-base text-theme-muted whitespace-nowrap overflow-ellipsis overflow-hidden`}
                     >
                         A quick glance at your system.
                     </p>
@@ -113,7 +113,7 @@ export default () => {
                     <Spinner size={'large'} centered />
                 ) : (
                     <>
-                        <div className={'text-gray-200 mb-2'}>
+                        <div className={'text-theme-secondary mb-2'}>
                             You are currently running version&nbsp;
                             <CopyOnClick text={versionData?.panel.current}>
                                 <Code>{versionData?.panel.current}</Code>

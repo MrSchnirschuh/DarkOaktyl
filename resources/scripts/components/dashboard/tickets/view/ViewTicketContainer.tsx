@@ -41,7 +41,7 @@ export default () => {
             ) : (
                 <div className={'grid lg:grid-cols-3 gap-4'}>
                     <div className={'lg:col-span-2'}>
-                        <h2 className={'text-neutral-300 mb-4 px-4 text-2xl'}>
+                        <h2 className={'text-theme-secondary mb-4 px-4 text-2xl'}>
                             {ticket.title}
                             <span
                                 className={classNames(
@@ -73,7 +73,7 @@ export default () => {
                                                     </p>
                                                     {message.message.toString()}
                                                 </div>
-                                                <p className={'text-2xs text-gray-300 mt-1 text-right'}>
+                                                <p className={'text-2xs text-theme-secondary mt-1 text-right'}>
                                                     Sent&nbsp;
                                                     {formatDistanceToNow(message.createdAt, {
                                                         includeSeconds: true,
@@ -86,7 +86,7 @@ export default () => {
                                 </>
                             )}
                         </ContentBox>
-                        <p className={'text-xs text-gray-400 mt-2'}>Sorted by latest message</p>
+                        <p className={'text-xs text-theme-muted mt-2'}>Sorted by latest message</p>
                     </div>
                     <ContentBox title={'Add Message'}>
                         <AddTicketMessageForm ticketId={ticket.id} />

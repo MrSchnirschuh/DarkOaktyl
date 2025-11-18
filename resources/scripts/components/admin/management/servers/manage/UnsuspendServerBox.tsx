@@ -50,7 +50,7 @@ export default () => {
                     <Button.Warn size={Button.Sizes.Large} css={tw`w-full`} onClick={() => setVisible(true)}>
                         Unsuspend Server
                     </Button.Warn>
-                    <p css={tw`text-xs text-neutral-400 mt-2`}>
+                    <p css={tw`text-xs text-theme-muted mt-2`}>
                         This action will allow users to access the server like normal.
                     </p>
                 </AdminBox>

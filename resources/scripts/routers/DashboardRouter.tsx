@@ -62,7 +62,7 @@ function DashboardRouter() {
                     onClick={() => setCollapsed(!collapsed)}
                 >
                     {!collapsed ? (
-                        <h1 className={'text-2xl text-neutral-50 whitespace-nowrap font-medium'}>{name}</h1>
+                        <h1 className={'text-2xl whitespace-nowrap font-medium'} style={{ color: 'var(--theme-text-primary, #111827)' }}>{name}</h1>
                     ) : (
                         <img
                             src={'https://avatars.githubusercontent.com/u/91636558'}
@@ -114,7 +114,7 @@ function DashboardRouter() {
                     <div className={'flex flex-col ml-3'}>
                         <span
                             className={
-                                'font-sans font-normal text-xs text-gray-300 whitespace-nowrap leading-tight select-none'
+                                'font-sans font-normal text-xs text-theme-secondary whitespace-nowrap leading-tight select-none'
                             }
                         >
                             <div className={'text-[var(--theme-text-secondary)] text-sm'}>Welcome back,</div>

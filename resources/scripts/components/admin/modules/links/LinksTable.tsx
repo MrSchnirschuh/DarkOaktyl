@@ -82,24 +82,24 @@ const LinksTable = ({ setOpen, setLink }: Props) => {
                                     length > 0 &&
                                     links.items.map(link => (
                                         <TableRow key={link.id}>
-                                            <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                            <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
                                                 <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>
                                                     {link.id}
                                                 </code>
                                             </td>
                                             <td
-                                                css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap font-bold hover:brightness-125`}
+                                                css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap font-bold hover:brightness-125`}
                                                 style={{ color: colors.primary }}
                                             >
                                                 {link.name}
                                             </td>
                                             <td
-                                                css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap font-bold hover:brightness-125`}
+                                                css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap font-bold hover:brightness-125`}
                                             >
                                                 {link.url}
                                             </td>
                                             <td
-                                                css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap font-bold hover:brightness-125`}
+                                                css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap font-bold hover:brightness-125`}
                                             >
                                                 {link.visible ? (
                                                     <Pill type={'success'}>Visible</Pill>

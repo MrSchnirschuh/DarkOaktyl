@@ -227,12 +227,12 @@ export default ({ coupon }: { coupon?: Coupon }) => {
             <div className={'w-full flex flex-row items-center m-8'}>
                 <FontAwesomeIcon icon={faTicketAlt} className={'w-8 h-8 mr-4'} />
                 <div className={'flex flex-col flex-shrink'} style={{ minWidth: '0' }}>
-                    <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>
+                    <h2 className={'text-2xl text-theme-primary font-header font-medium'}>
                         {coupon ? coupon.name : 'New Coupon'}
                     </h2>
                     <p
                         className={
-                            'hidden lg:block text-base text-neutral-400 whitespace-nowrap overflow-hidden overflow-ellipsis'
+                            'hidden lg:block text-base text-theme-muted whitespace-nowrap overflow-hidden overflow-ellipsis'
                         }
                     >
                         {coupon ? coupon.uuid : 'Create discount codes and promotional offers for customers.'}
@@ -288,14 +288,14 @@ export default ({ coupon }: { coupon?: Coupon }) => {
                                 >
                                     <FieldRow>
                                         <div>
-                                            <label className={'text-sm text-neutral-300 mb-2 block'}>Type</label>
+                                            <label className={'text-sm text-theme-secondary mb-2 block'}>Type</label>
                                             <Field id={'type'} name={'type'} as={Select}>
                                                 <option value={'percentage'}>Percentage Discount</option>
                                                 <option value={'amount'}>Fixed Amount Discount</option>
                                                 <option value={'resource'}>Resource Credit</option>
                                                 <option value={'duration'}>Free Time Period</option>
                                             </Field>
-                                            <p className={'text-xs text-neutral-500 mt-2'}>
+                                            <p className={'text-xs text-theme-muted mt-2'}>
                                                 Choose the type of discount this coupon provides.
                                             </p>
                                         </div>
@@ -364,7 +364,7 @@ export default ({ coupon }: { coupon?: Coupon }) => {
                                     <div className={'mt-4'}>
                                         <label className={'inline-flex items-center space-x-3'}>
                                             <Field id={'isActive'} name={'isActive'} type={'checkbox'} />
-                                            <span className={'text-sm text-neutral-200'}>Active</span>
+                                            <span className={'text-sm text-theme-secondary'}>Active</span>
                                         </label>
                                     </div>
                                 </AdminBox>
@@ -398,7 +398,7 @@ export default ({ coupon }: { coupon?: Coupon }) => {
                                     className={'mt-6'}
                                     isLoading={isSubmitting}
                                 >
-                                    <p className={'text-xs text-neutral-400 mb-4'}>
+                                    <p className={'text-xs text-theme-muted mb-4'}>
                                         Optional JSON metadata for custom integrations or tracking information.
                                     </p>
                                     <TextareaField

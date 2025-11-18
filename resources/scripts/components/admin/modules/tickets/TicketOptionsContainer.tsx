@@ -61,14 +61,14 @@ export default () => {
                                 <Label className={'mt-1 mr-2'}>What should the limit be?</Label>
                                 <Field id={'maxCount'} name={'maxCount'} defaultValue={settings.maxCount} />
                             </div>
-                            <p className={'text-gray-400 text-xs mt-1.5'}>
+                            <p className={'text-theme-muted text-xs mt-1.5'}>
                                 If you wish, you can set a maximum amount of tickets that a user can create.
                             </p>
                         </div>
                     </AdminBox>
                 </div>
                 <div css={tw`w-full flex flex-row items-center mt-6`}>
-                    <div css={tw`flex text-xs text-gray-500`}>
+                    <div css={tw`flex text-xs text-theme-muted`}>
                         These changes may not apply until users refresh the page.
                     </div>
 

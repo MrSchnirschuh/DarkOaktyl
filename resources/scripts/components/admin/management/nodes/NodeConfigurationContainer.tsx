@@ -42,7 +42,7 @@ export default () => {
                         <CopyOnClick text={configuration} showInNotification={false}>
                             <FontAwesomeIcon
                                 icon={faClipboard}
-                                className={'p-4 text-gray-400 hover:text-gray-200 duration-300'}
+                                className={'p-4 text-theme-muted hover:text-theme-secondary duration-300'}
                             />
                         </CopyOnClick>
                     </div>

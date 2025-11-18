@@ -137,10 +137,10 @@ const FileDropdownMenu = ({ file }: { file: FileObject }) => {
                 onConfirmed={doDeletion}
             >
                 You will not be able to recover the contents of&nbsp;
-                <span className={'font-semibold text-slate-50'}>{file.name}</span> once deleted.
+                <span className={'font-semibold text-theme-primary'}>{file.name}</span> once deleted.
             </Dialog.Confirm>
             <div
-                css={tw`absolute top-0 right-0 p-2 hover:text-white text-gray-400 duration-250`}
+                css={tw`absolute top-0 right-0 p-2 hover:text-theme-on-accent text-theme-muted duration-250`}
                 onClick={() => setVisible(true)}
             >
                 <FontAwesomeIcon icon={faEllipsisH} className={'p-1 bg-black/25 rounded'} />

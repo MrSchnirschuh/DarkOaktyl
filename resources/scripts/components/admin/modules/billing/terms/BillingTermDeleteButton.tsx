@@ -47,7 +47,7 @@ export default ({ term }: Props) => {
                 confirm={'Delete'}
             >
                 <FlashMessageRender byKey={'admin:billing:terms:delete'} className={'mb-2'} />
-                <p className={'text-sm text-neutral-300'}>
+                <p className={'text-sm text-theme-secondary'}>
                     Removing this term will immediately remove it from selection in the configurator. To confirm, type{' '}
                     <span className={'px-1 py-0.5 bg-neutral-900 rounded font-mono text-xs'}>
                         {term.slug || term.name}

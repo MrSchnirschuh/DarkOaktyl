@@ -11,7 +11,7 @@ interface Props {
 }
 
 const GreyRowBox = styled.div<{ $hoverable?: boolean; theme: SiteTheme }>`
-    ${tw`flex rounded no-underline text-neutral-200 items-center p-4 border border-transparent transition-colors duration-150 overflow-hidden`};
+    ${tw`flex rounded no-underline text-theme-secondary items-center p-4 border border-transparent transition-colors duration-150 overflow-hidden`};
 
     background-color: ${({ theme }) => theme.colors.secondary};
 

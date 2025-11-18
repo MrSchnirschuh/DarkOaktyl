@@ -173,12 +173,12 @@ export default ({ resource }: { resource?: ResourcePrice }) => {
             <div className={'w-full flex flex-row items-center m-8'}>
                 <FontAwesomeIcon icon={faCubes} className={'w-8 h-8 mr-4'} />
                 <div className={'flex flex-col flex-shrink'} style={{ minWidth: '0' }}>
-                    <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>
+                    <h2 className={'text-2xl text-theme-primary font-header font-medium'}>
                         {resource ? resource.displayName : 'New Resource'}
                     </h2>
                     <p
                         className={
-                            'hidden lg:block text-base text-neutral-400 whitespace-nowrap overflow-hidden overflow-ellipsis'
+                            'hidden lg:block text-base text-theme-muted whitespace-nowrap overflow-hidden overflow-ellipsis'
                         }
                     >
                         {resource ? resource.uuid : 'Define pricing for a reusable resource token.'}
@@ -305,11 +305,11 @@ export default ({ resource }: { resource?: ResourcePrice }) => {
                                     <div className={'mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4'}>
                                         <label className={'inline-flex items-center space-x-3'}>
                                             <Field id={'isVisible'} name={'isVisible'} type={'checkbox'} />
-                                            <span className={'text-sm text-neutral-200'}>Visible in admin UI</span>
+                                            <span className={'text-sm text-theme-secondary'}>Visible in admin UI</span>
                                         </label>
                                         <label className={'inline-flex items-center space-x-3'}>
                                             <Field id={'isMetered'} name={'isMetered'} type={'checkbox'} />
-                                            <span className={'text-sm text-neutral-200'}>
+                                            <span className={'text-sm text-theme-secondary'}>
                                                 Metered resource (bill on usage)
                                             </span>
                                         </label>
@@ -318,7 +318,7 @@ export default ({ resource }: { resource?: ResourcePrice }) => {
                             </div>
                             <div className={'w-full flex flex-col'}>
                                 <AdminBox title={'Scaling Rules'} icon={faSlidersH} isLoading={isSubmitting}>
-                                    <p className={'text-xs text-neutral-400 mb-4'}>
+                                    <p className={'text-xs text-theme-muted mb-4'}>
                                         Define optional tiers that adjust pricing once a threshold is exceeded. Leave
                                         empty for flat pricing.
                                     </p>
@@ -327,7 +327,7 @@ export default ({ resource }: { resource?: ResourcePrice }) => {
                                         render={arrayHelpers => (
                                             <div className={'space-y-4'}>
                                                 {values.scalingRules.length === 0 && (
-                                                    <p className={'text-sm text-neutral-500'}>
+                                                    <p className={'text-sm text-theme-muted'}>
                                                         No scaling rules configured.
                                                     </p>
                                                 )}
@@ -357,7 +357,7 @@ export default ({ resource }: { resource?: ResourcePrice }) => {
                                                         </div>
                                                         <div className={'grid grid-cols-1 sm:grid-cols-2 gap-4'}>
                                                             <div>
-                                                                <label className={'text-sm text-neutral-300'}>
+                                                                <label className={'text-sm text-theme-secondary'}>
                                                                     Mode
                                                                 </label>
                                                                 <Select
@@ -374,7 +374,7 @@ export default ({ resource }: { resource?: ResourcePrice }) => {
                                                                     <option value={'multiplier'}>Multiplier</option>
                                                                     <option value={'surcharge'}>Surcharge</option>
                                                                 </Select>
-                                                                <p className={'text-xs text-neutral-500 mt-2'}>
+                                                                <p className={'text-xs text-theme-muted mt-2'}>
                                                                     Multiplier scales the price; surcharge adds a fixed
                                                                     amount.
                                                                 </p>

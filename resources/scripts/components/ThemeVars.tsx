@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useStoreState } from '@/state/hooks';
 import useFlash from '@/plugins/useFlash';
-import { ensureReadableText, accentForeground } from '@/helpers/colorContrast';
+import { ensureReadableText, accentForeground, mixColors, colorToRgbString } from '@/helpers/colorContrast';
 
 export default function ThemeVars() {
     const theme = useStoreState(s => s.theme.data);
@@ -238,6 +238,11 @@ export default function ThemeVars() {
             textPalette?.on_accent ?? effectiveColors['text_on_accent'] ?? accentForeground(accent);
         const onAccent = ensureReadableText(onAccentCandidate, accent, accentForeground(accent), 3);
 
+        const spinnerTrack = mixColors(primary, background, mode === 'light' ? 0.35 : 0.65);
+        const spinnerForeground = ensureReadableText(primary, background, primary, 3);
+        const spinnerAccentTrack = mixColors(accent, background, mode === 'light' ? 0.45 : 0.7);
+        const spinnerAccentForeground = ensureReadableText(accent, background, accent, 3);
+
         const headingAccent = accent;
         const contrastAccent = accent;
 
@@ -271,6 +276,46 @@ export default function ThemeVars() {
         set('--theme-accent-text', headingAccent);
         set('--theme-accent-contrast', contrastAccent);
         set('--theme-on-accent', onAccent);
+        set('--theme-spinner-track', spinnerTrack);
+        set('--theme-spinner-foreground', spinnerForeground);
+        set('--theme-spinner-track-accent', spinnerAccentTrack);
+        set('--theme-spinner-foreground-accent', spinnerAccentForeground);
+
+        const backgroundRgb = colorToRgbString(background) ?? '15 23 42';
+        const bodySurfaceRgb = colorToRgbString(bodySurface) ?? '17 24 39';
+        const headersSurfaceRgb = colorToRgbString(headersSurface) ?? bodySurfaceRgb;
+        const sidebarSurfaceRgb = colorToRgbString(sidebarSurface) ?? bodySurfaceRgb;
+        const surfaceCardRgb = colorToRgbString(cardSurface) ?? bodySurfaceRgb;
+        const secondaryRgb = colorToRgbString(secondary) ?? '39 39 42';
+        const textPrimaryRgb = colorToRgbString(textPrimary) ?? '229 231 235';
+        const textSecondaryRgb = colorToRgbString(textSecondary) ?? '148 163 184';
+        const mutedTextRgb = colorToRgbString(mutedText) ?? '156 163 175';
+        const textInverseRgb = colorToRgbString(textInverse) ?? '15 23 42';
+        const primaryRgb = colorToRgbString(primary) ?? '34 197 94';
+        const accentRgb = colorToRgbString(accent) ?? primaryRgb;
+        const onAccentRgb = colorToRgbString(onAccent) ?? '249 250 251';
+        const spinnerTrackRgb = colorToRgbString(spinnerTrack) ?? textSecondaryRgb;
+        const spinnerForegroundRgb = colorToRgbString(spinnerForeground) ?? primaryRgb;
+        const spinnerAccentTrackRgb = colorToRgbString(spinnerAccentTrack) ?? accentRgb;
+        const spinnerAccentForegroundRgb = colorToRgbString(spinnerAccentForeground) ?? onAccentRgb;
+
+        set('--theme-background-rgb', backgroundRgb);
+        set('--theme-body-rgb', bodySurfaceRgb);
+        set('--theme-headers-rgb', headersSurfaceRgb);
+        set('--theme-sidebar-rgb', sidebarSurfaceRgb);
+        set('--theme-surface-card-rgb', surfaceCardRgb);
+        set('--theme-secondary-rgb', secondaryRgb);
+        set('--theme-text-primary-rgb', textPrimaryRgb);
+        set('--theme-text-secondary-rgb', textSecondaryRgb);
+        set('--theme-text-muted-rgb', mutedTextRgb);
+        set('--theme-text-inverse-rgb', textInverseRgb);
+        set('--theme-primary-rgb', primaryRgb);
+        set('--theme-accent-rgb', accentRgb);
+        set('--theme-on-accent-rgb', onAccentRgb);
+        set('--theme-spinner-track-rgb', spinnerTrackRgb);
+        set('--theme-spinner-foreground-rgb', spinnerForegroundRgb);
+        set('--theme-spinner-track-accent-rgb', spinnerAccentTrackRgb);
+        set('--theme-spinner-foreground-accent-rgb', spinnerAccentForegroundRgb);
         // background image per-mode
         const bgImage = effectiveColors[`background_image_${mode}`] ?? effectiveColors['background_image'] ?? '';
         if (bgImage) set('--theme-background-image', `url(${bgImage})`);

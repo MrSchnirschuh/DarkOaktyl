@@ -238,18 +238,18 @@ export default ({ setReload }: { setReload: (v: boolean) => void }) => {
                         onChange={e => setIsDefault(e.target.checked)}
                         className={'mr-2'}
                     />
-                    <label htmlFor={'preset_default'} className={'text-sm text-gray-300 select-none'}>
+                    <label htmlFor={'preset_default'} className={'text-sm text-theme-secondary select-none'}>
                         Set as default preset (only one can be default)
                     </label>
                 </div>
-                <p className={'text-xs text-gray-400 mt-2'}>
+                <p className={'text-xs text-theme-muted mt-2'}>
                     Save the current theme colors as a named preset. You can later apply or delete presets.
                 </p>
             </div>
 
             <div className={'mt-6'}>
                 <Label>Available presets</Label>
-                {presets.length === 0 && <p className={'text-sm text-gray-400'}>No presets saved yet.</p>}
+                {presets.length === 0 && <p className={'text-sm text-theme-muted'}>No presets saved yet.</p>}
                 {presets.map(p => {
                     let meta: any = null;
                     try {
@@ -262,7 +262,7 @@ export default ({ setReload }: { setReload: (v: boolean) => void }) => {
                         <div key={p.key} className={'flex items-center justify-between mt-2'}>
                             <div>
                                 <div className={'font-medium'}>{p.key.replace('presets:', '')}</div>
-                                <div className={'text-xs text-gray-400'}>
+                                <div className={'text-xs text-theme-muted'}>
                                     {meta && meta.modes ? (
                                         <>
                                             {meta.default && <span className={'mr-2'}>[Default]</span>}

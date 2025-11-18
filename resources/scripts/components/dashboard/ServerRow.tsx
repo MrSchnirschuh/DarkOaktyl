@@ -55,7 +55,7 @@ const UtilBox = ({
                 rounded === 'full' && 'lg:rounded-lg lg:col-span-3',
             )}
         >
-            <div className={'text-gray-300 font-bold text-center'}>
+            <div className={'text-theme-secondary font-bold text-center'}>
                 <p className={'my-auto inline-flex text-sm'}>
                     <FontAwesomeIcon icon={icon} className={'my-auto mr-1'} size={'xs'} />
                     <p className={'my-auto'}>
@@ -140,10 +140,10 @@ export default ({
                 />
                 <Link
                     to={`/server/${server.id}`}
-                    className="whitespace-nowrap text-white col-span-1 lg:col-span-6 mb-4 lg:mb-0 hover:brightness-150 transition duration-300"
+                    className="whitespace-nowrap text-theme-primary col-span-1 lg:col-span-6 mb-4 lg:mb-0 hover:brightness-150 transition duration-300"
                 >
                     {server.name}
-                    <div className={'text-gray-500 text-xs my-auto'}>
+                    <div className={'text-theme-secondary text-xs my-auto'}>
                         {server.allocations[0]?.ip.toString()}:{server.allocations[0]?.port.toString()}
                     </div>
                 </Link>
@@ -164,7 +164,7 @@ export default ({
                         <div
                             onClick={() => setOpen({ open: 'add', serverId: server.uuid })}
                             className={
-                                'hidden xl:inline-flex leading-5 font-medium text-2xs px-2 py-0.25 text-gray-500 rounded-full border border-gray-400 border-dashed cursor-pointer hover:bg-white/10 hover:text-white transition duration-300'
+                                'hidden xl:inline-flex leading-5 font-medium text-2xs px-2 py-0.25 text-theme-secondary rounded-full border border-theme-muted border-dashed cursor-pointer hover:bg-[color:rgb(var(--theme-text-primary-rgb)/0.08)] hover:text-theme-primary transition duration-300'
                             }
                         >
                             <FontAwesomeIcon icon={faPlus} className={'mr-1 my-auto'} />

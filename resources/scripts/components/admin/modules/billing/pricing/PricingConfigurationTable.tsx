@@ -18,7 +18,7 @@ export default () => {
             {!configurations || (configurations.items.length === 0 && isValidating) ? (
                 <Spinner size={'large'} centered />
             ) : configurations.items.length === 0 ? (
-                <p css={tw`text-center text-sm text-neutral-400`}>
+                <p css={tw`text-center text-sm text-theme-muted`}>
                     There are no pricing configurations configured. Create one to get started.
                 </p>
             ) : (
@@ -29,35 +29,35 @@ export default () => {
                                 <tr>
                                     <th css={tw`px-6 py-3 bg-neutral-800`}>
                                         <span
-                                            css={tw`text-xs leading-4 font-medium text-neutral-300 uppercase tracking-wider`}
+                                            css={tw`text-xs leading-4 font-medium text-theme-secondary uppercase tracking-wider`}
                                         >
                                             Name
                                         </span>
                                     </th>
                                     <th css={tw`px-6 py-3 bg-neutral-800`}>
                                         <span
-                                            css={tw`text-xs leading-4 font-medium text-neutral-300 uppercase tracking-wider`}
+                                            css={tw`text-xs leading-4 font-medium text-theme-secondary uppercase tracking-wider`}
                                         >
                                             Status
                                         </span>
                                     </th>
                                     <th css={tw`px-6 py-3 bg-neutral-800`}>
                                         <span
-                                            css={tw`text-xs leading-4 font-medium text-neutral-300 uppercase tracking-wider`}
+                                            css={tw`text-xs leading-4 font-medium text-theme-secondary uppercase tracking-wider`}
                                         >
                                             CPU Price
                                         </span>
                                     </th>
                                     <th css={tw`px-6 py-3 bg-neutral-800`}>
                                         <span
-                                            css={tw`text-xs leading-4 font-medium text-neutral-300 uppercase tracking-wider`}
+                                            css={tw`text-xs leading-4 font-medium text-theme-secondary uppercase tracking-wider`}
                                         >
                                             Memory Price
                                         </span>
                                     </th>
                                     <th css={tw`px-6 py-3 bg-neutral-800`}>
                                         <span
-                                            css={tw`text-xs leading-4 font-medium text-neutral-300 uppercase tracking-wider`}
+                                            css={tw`text-xs leading-4 font-medium text-theme-secondary uppercase tracking-wider`}
                                         >
                                             Disk Price
                                         </span>
@@ -77,7 +77,7 @@ export default () => {
                                         <td css={tw`px-6 py-4 whitespace-nowrap`}>
                                             <Link
                                                 to={`/admin/billing/pricing/${config.id}`}
-                                                css={tw`text-sm leading-5 text-neutral-200 hover:text-neutral-100`}
+                                                css={tw`text-sm leading-5 text-theme-secondary hover:text-theme-primary`}
                                             >
                                                 {config.name}
                                             </Link>
@@ -93,13 +93,13 @@ export default () => {
                                                 </Pill>
                                             )}
                                         </td>
-                                        <td css={tw`px-6 py-4 whitespace-nowrap text-sm text-neutral-300`}>
+                                        <td css={tw`px-6 py-4 whitespace-nowrap text-sm text-theme-secondary`}>
                                             ${config.cpuPrice.toFixed(4)}
                                         </td>
-                                        <td css={tw`px-6 py-4 whitespace-nowrap text-sm text-neutral-300`}>
+                                        <td css={tw`px-6 py-4 whitespace-nowrap text-sm text-theme-secondary`}>
                                             ${config.memoryPrice.toFixed(6)} / MB
                                         </td>
-                                        <td css={tw`px-6 py-4 whitespace-nowrap text-sm text-neutral-300`}>
+                                        <td css={tw`px-6 py-4 whitespace-nowrap text-sm text-theme-secondary`}>
                                             ${config.diskPrice.toFixed(6)} / MB
                                         </td>
                                         <td css={tw`px-6 py-4 whitespace-nowrap text-right text-sm font-medium`}>
@@ -122,14 +122,14 @@ export default () => {
                                     <button
                                         disabled={isFirstPage}
                                         onClick={prevPage}
-                                        css={tw`px-4 py-2 border border-neutral-600 rounded-l text-sm text-neutral-200 hover:bg-neutral-700 disabled:opacity-50 disabled:cursor-not-allowed`}
+                                        css={tw`px-4 py-2 border border-neutral-600 rounded-l text-sm text-theme-secondary hover:bg-neutral-700 disabled:opacity-50 disabled:cursor-not-allowed`}
                                     >
                                         Previous
                                     </button>
                                     <button
                                         disabled={isLastPage}
                                         onClick={nextPage}
-                                        css={tw`px-4 py-2 border border-neutral-600 rounded-r text-sm text-neutral-200 hover:bg-neutral-700 disabled:opacity-50 disabled:cursor-not-allowed`}
+                                        css={tw`px-4 py-2 border border-neutral-600 rounded-r text-sm text-theme-secondary hover:bg-neutral-700 disabled:opacity-50 disabled:cursor-not-allowed`}
                                     >
                                         Next
                                     </button>

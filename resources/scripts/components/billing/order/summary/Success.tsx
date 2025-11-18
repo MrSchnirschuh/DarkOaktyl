@@ -13,8 +13,8 @@ export default () => {
                     style={{ backgroundColor: colors.secondary }}
                 >
                     <SuccessSvg color={colors.primary} />
-                    <h2 className={'mt-10 text-white font-bold text-4xl'}>Order Processed</h2>
-                    <p className={'text-sm text-neutral-400 mt-2'}>
+                    <h2 className={'mt-10 text-theme-primary font-bold text-4xl'}>Order Processed</h2>
+                    <p className={'text-sm text-theme-secondary mt-2'}>
                         Thank you for your payment - your server has now been created. Navigate to the
                         &apos;Servers&apos; tab at the top of your screen to view your new server.
                     </p>

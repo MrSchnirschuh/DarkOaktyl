@@ -131,7 +131,7 @@ function EggVariableDeleteButton({ onClick }: { onClick: (success: () => void) =
 
             <button
                 type={'button'}
-                css={tw`ml-auto text-neutral-500 hover:text-neutral-300`}
+                css={tw`ml-auto text-theme-muted hover:text-theme-secondary`}
                 onClick={() => setVisible(true)}
             >
                 <TrashIcon className="h-5 w-5" />

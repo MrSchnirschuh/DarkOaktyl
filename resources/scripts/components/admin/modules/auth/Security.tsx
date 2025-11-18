@@ -37,7 +37,7 @@ export default () => {
                         Disabled
                     </option>
                 </Select>
-                <p className={'text-xs text-gray-400 mt-1'}>Toggle whether users must use two-factor authentication.</p>
+                <p className={'text-xs text-theme-muted mt-1'}>Toggle whether users must use two-factor authentication.</p>
             </div>
             <div className={'mt-6'}>
                 <Label>Login Attempt Limit</Label>
@@ -48,7 +48,7 @@ export default () => {
                     name={'attempts'}
                     onChange={e => update('attempts', e.target.value)}
                 />
-                <p className={'text-xs text-gray-400 mt-1'}>
+                <p className={'text-xs text-theme-muted mt-1'}>
                     Set the maximum amount of attempts a user can make to login before being throttled.
                 </p>
             </div>

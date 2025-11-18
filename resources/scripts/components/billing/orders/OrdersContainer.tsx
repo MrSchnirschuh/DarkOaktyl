@@ -84,7 +84,7 @@ function OrderTable() {
         <PageContentBlock>
             <div className={'text-3xl lg:text-5xl font-bold mt-8 mb-12'}>
                 Billing Activity
-                <p className={'text-gray-400 font-normal text-sm mt-1'}>
+                <p className={'text-theme-muted font-normal text-sm mt-1'}>
                     View and manage the active and previous subscriptions you&apos;ve created.
                 </p>
                 <FlashMessageRender byKey={'billing:orders'} className={'mt-4'} />
@@ -124,15 +124,19 @@ function OrderTable() {
                                         orders.items.map(order => (
                                             <TableRow key={order.id}>
                                                 <td
-                                                    className={`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}
+                                                    className={`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
                                                 >
                                                     <CopyOnClick text={order.id}>
-                                                        <code className={`font-mono bg-neutral-900 rounded py-1 px-2`}>
+                                                        <code
+                                                            className={`font-mono bg-theme-surface rounded py-1 px-2`}
+                                                        >
                                                             {order.id}
                                                         </code>
                                                     </CopyOnClick>
                                                 </td>
-                                                <td className={'px-6 py-4 text-white font-bold'}>${order.total}/mo</td>
+                                                <td className={'px-6 py-4 text-theme-primary font-bold'}>
+                                                    ${order.total}/mo
+                                                </td>
                                                 <td className={'px-6 py-4'}>
                                                     {order.name.slice(0, 8)} {order.description}
                                                 </td>

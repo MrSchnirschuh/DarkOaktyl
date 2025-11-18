@@ -15,17 +15,17 @@ export default ({ setOpen }: { setOpen: Dispatch<SetStateAction<BillingSetupDial
             <Alert type={'warning'} className={'my-2'}>
                 If you skip this step, PayPal payments will not work.
             </Alert>
-            <p className={'text-lg font-semibold mt-4 text-white'}>1. Navigate to Stripe Dashboard</p>
+            <p className={'text-lg font-semibold mt-4 text-theme-primary'}>1. Navigate to Stripe Dashboard</p>
             First, navigate to&nbsp;
-            <a href={'https://dashboard.stripe.com'} className={'text-blue-300'}>
+            <a href={'https://dashboard.stripe.com'} className={'text-[color:var(--theme-accent)] hover:underline'}>
                 Stripe
             </a>
             &nbsp;and login using your credentials. Then, once logged in, go to{' '}
             <Code>Settings {'>'} Payment Methods</Code> and select the payment method configuration to update.
-            <p className={'text-lg font-semibold mt-4 text-white'}>2. Enable PayPal module in Stripe</p>
+            <p className={'text-lg font-semibold mt-4 text-theme-primary'}>2. Enable PayPal module in Stripe</p>
             Once you have navigated to the payment configuration page, scroll down and click the{' '}
             <Button.Text size={Button.Sizes.Small}>Turn On</Button.Text> button to activate it.
-            <p className={'text-lg font-semibold mt-4 text-white'}>3. Check DarkOaktyl for PayPal method</p>
+            <p className={'text-lg font-semibold mt-4 text-theme-primary'}>3. Check DarkOaktyl for PayPal method</p>
             Finally, go back to DarkOaktyl and visit the billing store. Select a plan, and head to the checkout. You
             should now be able to checkout with PayPal via DarkOaktyl.
             <Alert className={'mt-2'} type={'info'}>

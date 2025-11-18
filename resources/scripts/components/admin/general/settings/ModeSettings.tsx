@@ -39,7 +39,7 @@ export default () => {
         <>
             <Dialog open={warning} onClose={() => setWarning(false)} title={'How to activate Debug mode'}>
                 To set your application into debug mode:
-                <ul className={'my-4 text-gray-300'}>
+                <ul className={'my-4 text-theme-secondary'}>
                     <li>&bull; SSH into your Webserver console</li>
                     <li className={'my-1'}>
                         &bull; Navigate to <code className={'bg-black/50 p-1 rounded-lg'}>/var/www/DarkOaktyl</code>

@@ -37,11 +37,11 @@ export default () => {
     return (
         <Dialog open onClose={() => undefined} preventExternalClose hideCloseIcon title={'Configure DarkOaktyl AI'}>
             <SpinnerOverlay visible={loading} />
-            <p className={'text-gray-400'}>
+            <p className={'text-theme-muted'}>
                 In order to use <span style={{ color: theme.primary }}>DarkOaktyl AI</span>, you must get a Gemini API key
                 from Google.
             </p>
-            <p className={'text-gray-400 my-2'}>
+            <p className={'text-theme-muted my-2'}>
                 You can visit the{' '}
                 <a
                     href={'https://aistudio.google.com/'}

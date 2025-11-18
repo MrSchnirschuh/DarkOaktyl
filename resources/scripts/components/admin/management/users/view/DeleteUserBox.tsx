@@ -43,7 +43,7 @@ export default () => {
                     <Button.Danger size={Button.Sizes.Large} css={tw`w-full`} onClick={() => setVisible(true)}>
                         Delete User
                     </Button.Danger>
-                    <p css={tw`text-xs text-neutral-400 mt-2`}>
+                    <p css={tw`text-xs text-theme-muted mt-2`}>
                         This will remove the user&apos;s account, meaning they will not be able to access the Panel.
                     </p>
                 </AdminBox>

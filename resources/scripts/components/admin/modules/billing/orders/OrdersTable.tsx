@@ -135,16 +135,20 @@ function OrderTable({ minimal }: { minimal?: boolean }) {
                                             <TableRow key={order.id}>
                                                 {!minimal && (
                                                     <td
-                                                        css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}
+                                                        css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
                                                     >
                                                         <CopyOnClick text={order.id}>
-                                                            <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>
+                                                            <code
+                                                                css={tw`font-mono bg-theme-surface rounded py-1 px-2`}
+                                                            >
                                                                 {order.id}
                                                             </code>
                                                         </CopyOnClick>
                                                     </td>
                                                 )}
-                                                <td className={'px-6 py-4 text-white font-bold'}>${order.total}</td>
+                                                <td className={'px-6 py-4 text-theme-primary font-bold'}>
+                                                    ${order.total}
+                                                </td>
                                                 {!minimal && (
                                                     <td className={'px-6 py-4'}>
                                                         {order.name.slice(0, 8)} {order.description}

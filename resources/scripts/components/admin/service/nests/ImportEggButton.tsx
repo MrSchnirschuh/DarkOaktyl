@@ -76,7 +76,7 @@ export default ({ className }: { className?: string }) => {
             <Modal visible={visible} onDismissed={() => setVisible(false)}>
                 <FlashMessageRender byKey={'egg:import'} css={tw`mb-6`} />
 
-                <h2 css={tw`mb-6 text-2xl text-neutral-100`}>Import Egg</h2>
+                <h2 css={tw`mb-6 text-2xl text-theme-primary`}>Import Egg</h2>
 
                 <Editor
                     childClassName={tw`h-64 rounded`}

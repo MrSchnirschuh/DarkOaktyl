@@ -39,13 +39,13 @@ function PageContentBlock({ title, header, description, showFlashKey, className,
             </ContentContainer>
 
             <ContentContainer css={tw`mb-4`}>
-                <p css={tw`text-center text-neutral-500 text-xs`}>
+                <p css={tw`text-center text-theme-muted text-xs`}>
                     Powered by&nbsp;
                     <a
                         rel={'noopener nofollow noreferrer'}
                         href={'https://DarkOak.eu'}
                         target={'_blank'}
-                        css={tw`no-underline text-neutral-500 hover:text-neutral-300`}
+                        css={tw`no-underline text-theme-muted hover:text-theme-secondary`}
                     >
                         DarkOak.eu
                     </a>

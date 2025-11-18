@@ -111,7 +111,7 @@ const StartupContainer = () => {
                                     ))}
                                 </Select>
                             </InputSpinner>
-                            <p css={tw`text-xs text-neutral-300 mt-2`}>
+                            <p css={tw`text-xs text-theme-secondary mt-2`}>
                                 This is an advanced feature allowing you to select a Docker image to use when running
                                 this server instance.
                             </p>
@@ -120,7 +120,7 @@ const StartupContainer = () => {
                         <>
                             <Input disabled readOnly value={variables.dockerImage} />
                             {isCustomImage && (
-                                <p css={tw`text-xs text-neutral-300 mt-2`}>
+                                <p css={tw`text-xs text-theme-secondary mt-2`}>
                                     This {"server's"} Docker image has been manually set by an administrator and cannot
                                     be changed through this UI.
                                 </p>

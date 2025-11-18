@@ -50,7 +50,7 @@ export default () => {
                     <Button.Info size={Button.Sizes.Large} css={tw`w-full`} onClick={() => setVisible(true)}>
                         Set Server as {server.status === 'installing' ? 'Active' : 'Installing'}
                     </Button.Info>
-                    <p css={tw`text-xs text-neutral-400 mt-2`}>
+                    <p css={tw`text-xs text-theme-muted mt-2`}>
                         Change the server from being in an installed state to uninstalled, or vice versa. Your server is
                         currently marked as&nbsp;
                         <span className={'text-blue-400'}>

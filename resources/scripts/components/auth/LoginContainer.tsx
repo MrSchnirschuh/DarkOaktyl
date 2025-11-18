@@ -152,7 +152,7 @@ function LoginContainer() {
                         />
                     )}
                     {(modules.discord.enabled || modules.google.enabled || registration) && (
-                        <div className={'w-full text-center my-3 text-gray-400'}>OR</div>
+                        <div className={'w-full text-center my-3 text-theme-muted'}>OR</div>
                     )}
                     <div className={'mt-4 w-full grid gap-4 grid-cols-2'}>
                         {modules.discord.enabled && (

@@ -54,7 +54,7 @@ export default () => {
                     <Button.Warn size={Button.Sizes.Large} css={tw`w-full capitalize`} onClick={() => setVisible(true)}>
                         {action} User
                     </Button.Warn>
-                    <p css={tw`text-xs text-neutral-400 mt-2`}>
+                    <p css={tw`text-xs text-theme-muted mt-2`}>
                         This will {action} the user instantly. This account is currently&nbsp;
                         {user?.state === 'suspended' ? 'suspended' : 'active'}.
                     </p>

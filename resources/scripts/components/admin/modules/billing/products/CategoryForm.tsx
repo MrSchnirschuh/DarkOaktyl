@@ -87,7 +87,7 @@ function InternalForm({ category, visible, setVisible }: Props) {
                                             checked={!visible}
                                             onClick={() => setVisible(false)}
                                         />
-                                        <span css={tw`text-neutral-300 ml-2`}>No</span>
+                                        <span css={tw`text-theme-secondary ml-2`}>No</span>
                                     </label>
 
                                     <label css={tw`inline-flex items-center ml-2`}>
@@ -98,7 +98,7 @@ function InternalForm({ category, visible, setVisible }: Props) {
                                             checked={visible}
                                             onClick={() => setVisible(true)}
                                         />
-                                        <span css={tw`text-neutral-300 ml-2`}>Yes</span>
+                                        <span css={tw`text-theme-secondary ml-2`}>Yes</span>
                                     </label>
                                 </div>
                                 <p className={'mt-3 text-xs'}>Should this category be visible instantly?</p>
@@ -170,11 +170,11 @@ export default ({ category }: { category?: Category }) => {
                     <ShoppingCartIcon className={'w-8 h-8 mr-4'} />
                 )}
                 <div css={tw`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
-                    <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>
+                    <h2 css={tw`text-2xl text-theme-primary font-header font-medium`}>
                         {category?.name ?? 'New Product Category'}
                     </h2>
                     <p
-                        css={tw`hidden lg:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden`}
+                        css={tw`hidden lg:block text-base text-theme-muted whitespace-nowrap overflow-ellipsis overflow-hidden`}
                     >
                         {category?.uuid ?? 'Add a new category to the billing interface.'}
                     </p>

@@ -47,9 +47,9 @@ export default ({ renderLeft, withinFileEditor, isNewFile }: Props) => {
     };
 
     return (
-        <div css={tw`flex flex-grow-0 items-center text-sm text-neutral-500 overflow-x-hidden`}>
-            {renderLeft || <div css={tw`w-12`} />}/<span css={tw`px-1 text-neutral-300`}>home</span>/
-            <NavLink to={`/server/${id}/files`} css={tw`px-1 text-neutral-200 no-underline hover:text-neutral-100`}>
+        <div css={tw`flex flex-grow-0 items-center text-sm text-theme-muted overflow-x-hidden`}>
+            {renderLeft || <div css={tw`w-12`} />}/<span css={tw`px-1 text-theme-secondary`}>home</span>/
+            <NavLink to={`/server/${id}/files`} css={tw`px-1 text-theme-secondary no-underline hover:text-theme-primary`}>
                 container
             </NavLink>
             /
@@ -58,7 +58,7 @@ export default ({ renderLeft, withinFileEditor, isNewFile }: Props) => {
                     <Fragment key={index}>
                         <NavLink
                             to={`/server/${id}/files#${encodePathSegments(crumb.path)}`}
-                            css={tw`px-1 text-neutral-200 no-underline hover:text-neutral-100`}
+                            css={tw`px-1 text-theme-secondary no-underline hover:text-theme-primary`}
                             end
                         >
                             {crumb.name}
@@ -66,14 +66,14 @@ export default ({ renderLeft, withinFileEditor, isNewFile }: Props) => {
                         /
                     </Fragment>
                 ) : (
-                    <span key={index} css={tw`px-1 text-neutral-300`}>
+                    <span key={index} css={tw`px-1 text-theme-secondary`}>
                         {crumb.name}
                     </span>
                 ),
             )}
             {file && (
                 <Fragment>
-                    <span css={tw`px-1 text-neutral-300`}>{file}</span>
+                    <span css={tw`px-1 text-theme-secondary`}>{file}</span>
                 </Fragment>
             )}
         </div>

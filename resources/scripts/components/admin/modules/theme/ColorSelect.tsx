@@ -116,7 +116,7 @@ export default ({ setReload, mode, category = 'all' }: Props) => {
                             value={(colors as any)[`${base}_${mode}`] ?? (colors as any)[base] ?? '#ffffff'}
                             onChange={e => update(base, e.target.value)}
                         />
-                        <p className={'text-xs text-gray-400 mt-1'}>
+                        <p className={'text-xs text-theme-muted mt-1'}>
                             Configure the <strong>{base}</strong> color for the {mode} mode (falls back to canonical
                             value).
                         </p>

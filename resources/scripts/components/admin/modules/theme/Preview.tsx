@@ -132,8 +132,9 @@ export default ({
                 />
                 <div
                     className={
-                        'pointer-events-none absolute inset-x-0 bottom-0 flex justify-between gap-2 bg-gradient-to-t from-black/60 to-transparent p-3 text-xs text-neutral-200'
+                        'pointer-events-none absolute inset-x-0 bottom-0 flex justify-between gap-2 bg-gradient-to-t from-black/60 to-transparent p-3 text-xs'
                     }
+                    style={{ color: 'var(--theme-text-secondary, #9ca3af)' }}
                 >
                     <span>Interaktiver Panel-Vorschau. Navigationen wirken sich nur auf dieses Fenster aus.</span>
                     <span className={'hidden sm:block'}>

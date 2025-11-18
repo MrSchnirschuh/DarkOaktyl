@@ -63,7 +63,7 @@ function FileObjectRow({ file }: { file: FileObject }) {
                     )}
                 </div>
             </MemoizedClickable>
-            <div css={tw`text-center truncate text-gray-400 mb-8`}>{file.name}</div>
+            <div css={tw`text-center truncate text-theme-muted mb-8`}>{file.name}</div>
         </div>
     );
 }

@@ -60,7 +60,7 @@ export default () => {
                     >
                         <SpinnerOverlay visible={isSubmitting} />
                         <FlashMessageRender byKey={'role:create'} css={tw`mb-6`} />
-                        <h2 css={tw`mb-6 text-2xl text-neutral-100`}>New Role</h2>
+                        <h2 css={tw`mb-6 text-2xl text-theme-primary`}>New Role</h2>
                         <Form css={tw`m-0`}>
                             <Field
                                 type={'text'}

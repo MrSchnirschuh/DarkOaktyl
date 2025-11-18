@@ -75,7 +75,7 @@ const EggsTable = () => {
                                     length > 0 &&
                                     eggs.items.map(egg => (
                                         <TableRow key={egg.id}>
-                                            <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                            <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
                                                 <CopyOnClick text={egg.id.toString()}>
                                                     <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>
                                                         {egg.id}
@@ -83,7 +83,7 @@ const EggsTable = () => {
                                                 </CopyOnClick>
                                             </td>
 
-                                            <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                            <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
                                                 <NavLink
                                                     to={`/admin/nests/${params.nestId}/eggs/${egg.id}`}
                                                     style={{ color: colors.primary }}
@@ -93,7 +93,7 @@ const EggsTable = () => {
                                                 </NavLink>
                                             </td>
 
-                                            <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                            <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
                                                 {egg.description}
                                             </td>
                                         </TableRow>

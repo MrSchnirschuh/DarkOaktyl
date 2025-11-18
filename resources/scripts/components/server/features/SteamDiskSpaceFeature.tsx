@@ -50,7 +50,7 @@ const SteamDiskSpaceFeature = () => {
             {isAdmin ? (
                 <>
                     <div css={tw`mt-4 sm:flex items-center`}>
-                        <h2 css={tw`text-2xl mb-4 text-neutral-100 `}>Out of available disk space...</h2>
+                        <h2 css={tw`text-2xl mb-4 text-theme-primary `}>Out of available disk space...</h2>
                     </div>
                     <p css={tw`mt-4`}>
                         This server has run out of available disk space and cannot complete the install or update
@@ -70,7 +70,7 @@ const SteamDiskSpaceFeature = () => {
             ) : (
                 <>
                     <div css={tw`mt-4 sm:flex items-center`}>
-                        <h2 css={tw`text-2xl mb-4 text-neutral-100`}>Out of available disk space...</h2>
+                        <h2 css={tw`text-2xl mb-4 text-theme-primary`}>Out of available disk space...</h2>
                     </div>
                     <p css={tw`mt-4`}>
                         This server has run out of available disk space and cannot complete the install or update

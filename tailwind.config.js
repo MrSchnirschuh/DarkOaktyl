@@ -1,4 +1,5 @@
 const colors = require('tailwindcss/colors');
+const plugin = require('tailwindcss/plugin');
 
 module.exports = {
     content: ['./resources/scripts/**/*.{js,ts,tsx}'],
@@ -35,6 +36,71 @@ module.exports = {
         require('@tailwindcss/line-clamp'),
         require('@tailwindcss/forms')({
             strategy: 'class',
+        }),
+        plugin(({ addUtilities }) => {
+            const textUtilities = {
+                '.text-theme-primary': {
+                    color: 'var(--theme-text-primary, #e5e7eb)',
+                },
+                '.text-theme-secondary': {
+                    color: 'var(--theme-text-secondary, #9ca3af)',
+                },
+                '.text-theme-muted': {
+                    color: 'var(--theme-text-muted, #6b7280)',
+                },
+                '.text-theme-inverse': {
+                    color: 'var(--theme-text-inverse, #111827)',
+                },
+                '.text-theme-accent': {
+                    color: 'var(--theme-accent, #22c55e)',
+                },
+                '.text-theme-on-accent': {
+                    color: 'var(--theme-on-accent, #f9fafb)',
+                },
+            };
+
+            const backgroundUtilities = {
+                '.bg-theme-background': {
+                    backgroundColor: 'var(--theme-background, #0f172a)',
+                },
+                '.bg-theme-body': {
+                    backgroundColor: 'var(--theme-body, #111827)',
+                },
+                '.bg-theme-surface': {
+                    backgroundColor: 'var(--theme-surface-card, #1e293b)',
+                },
+            };
+
+            const borderUtilities = {
+                '.border-theme-primary': {
+                    borderColor: 'var(--theme-primary, #22c55e)',
+                },
+                '.border-theme-muted': {
+                    borderColor: 'var(--theme-text-muted, #6b7280)',
+                },
+            };
+
+            const spinnerUtilities = {
+                '.text-theme-spinner-track': {
+                    color: 'var(--theme-spinner-track, var(--theme-background, rgba(255, 255, 255, 0.2)))',
+                },
+                '.text-theme-spinner-foreground': {
+                    color: 'var(--theme-spinner-foreground, var(--theme-primary, rgb(255, 255, 255)))',
+                },
+                '.text-theme-spinner-track-accent': {
+                    color: 'var(--theme-spinner-track-accent, hsla(212, 92%, 43%, 0.2))',
+                },
+                '.text-theme-spinner-foreground-accent': {
+                    color: 'var(--theme-spinner-foreground-accent, hsl(212, 92%, 43%))',
+                },
+            };
+
+            const variants = ['responsive', 'hover', 'focus', 'focus-visible', 'active', 'group-hover', 'group-focus', 'peer-focus'];
+
+            addUtilities(textUtilities, variants);
+            addUtilities(backgroundUtilities, variants);
+            addUtilities(borderUtilities, variants);
+            addUtilities(spinnerUtilities, variants);
         }),
     ],
 };

@@ -69,7 +69,7 @@ export default function NewVariableButton() {
                     >
                         <FlashMessageRender byKey={'variable:create'} css={tw`mb-6`} />
 
-                        <h2 css={tw`mb-6 text-2xl text-neutral-100`}>New Variable</h2>
+                        <h2 css={tw`mb-6 text-2xl text-theme-primary`}>New Variable</h2>
 
                         <Form css={tw`m-0`}>
                             <EggVariableForm prefix={''} />

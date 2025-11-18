@@ -32,7 +32,7 @@ const selectStyle = () => {
         ${props =>
             !props.hideDropdownArrow &&
             css`
-                ${tw`border-neutral-500 text-neutral-200`};
+                ${tw`border-neutral-500 text-theme-secondary`};
 
                 filter: brightness(75%);
                 background-color: ${theme.colors.secondary};

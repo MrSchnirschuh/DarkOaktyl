@@ -45,7 +45,7 @@ export default ({ className }: { className?: string }) => {
                 css={tw`relative`}
             >
                 <SpinnerOverlay visible={loading} />
-                <h2 css={tw`mb-6 text-2xl text-neutral-100`}>Export Egg</h2>
+                <h2 css={tw`mb-6 text-2xl text-theme-primary`}>Export Egg</h2>
                 <FlashMessageRender byKey={'egg:export'} css={tw`mb-6`} />
 
                 <Editor

@@ -74,7 +74,7 @@ export default forwardRef<HTMLFormElement, Props>(({ title, ...props }, ref) => 
                                     style={{ display: loginLogo ? 'block' : 'none' }}
                                 />
                             )}
-                            <h2 css={tw`text-3xl text-center text-neutral-100 font-medium py-4`}>{title}</h2>
+                            <h2 css={tw`text-3xl text-center text-theme-primary font-medium py-4`}>{title}</h2>
                         </>
                     )}
                     <FlashMessageRender css={tw`mb-2 px-1`} />
@@ -83,13 +83,13 @@ export default forwardRef<HTMLFormElement, Props>(({ title, ...props }, ref) => 
                             <div css={tw`flex-1`}>{props.children}</div>
                         </div>
                     </Form>
-                    <p css={tw`text-center text-neutral-300 text-xs mt-4`}>
+                    <p css={tw`text-center text-theme-secondary text-xs mt-4`}>
                         &copy; {new Date().getFullYear()}&nbsp;
                         <a
                             rel={'noopener nofollow noreferrer'}
                             href={'https://DarkOak.eu'}
                             target={'_blank'}
-                            css={tw`no-underline text-neutral-300 hover:text-green-400 duration-300`}
+                            css={tw`no-underline text-theme-secondary hover:text-green-400 duration-300`}
                         >
                             DarkOak.eu
                         </a>

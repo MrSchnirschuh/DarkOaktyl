@@ -84,7 +84,7 @@ export default () => {
                 </Can>
             </Dialog>
             <PencilAltIcon
-                className={'text-white/50 hover:text-gray-200 transition duration-300 w-4'}
+                className={'text-theme-primary opacity-50 hover:text-theme-secondary transition duration-300 w-4'}
                 onClick={() => setOpen(true)}
             />
         </>

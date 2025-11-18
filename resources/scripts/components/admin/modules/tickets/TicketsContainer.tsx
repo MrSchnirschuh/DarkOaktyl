@@ -55,10 +55,10 @@ function TicketContainer() {
         <AdminContentBlock title={'Tickets'}>
             <div className={'w-full flex flex-row items-center mb-8'}>
                 <div className={'flex flex-col flex-shrink'} style={{ minWidth: '0' }}>
-                    <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>Tickets</h2>
+                    <h2 className={'text-2xl font-header font-medium'} style={{ color: 'var(--theme-text-primary, #111827)' }}>Tickets</h2>
                     <p
                         className={
-                            'hidden lg:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden'
+                            'hidden lg:block text-base text-theme-muted whitespace-nowrap overflow-ellipsis overflow-hidden'
                         }
                     >
                         Update settings and manage user tickets.
@@ -103,14 +103,14 @@ function TicketContainer() {
                                         tickets.items.length > 0 &&
                                         tickets.items.map(ticket => (
                                             <TableRow key={ticket.id}>
-                                                <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
                                                     <CopyOnClick text={ticket.id}>
                                                         <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>
                                                             {ticket.id}
                                                         </code>
                                                     </CopyOnClick>
                                                 </td>
-                                                <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
                                                     <NavLink
                                                         to={`/admin/tickets/${ticket.id}`}
                                                         style={{ color: colors.primary }}
@@ -119,7 +119,7 @@ function TicketContainer() {
                                                         {ticket.title}
                                                     </NavLink>
                                                 </td>
-                                                <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
                                                     <span
                                                         className={classNames(
                                                             statusToColor(ticket.status),
@@ -129,7 +129,7 @@ function TicketContainer() {
                                                         {ticket.status}
                                                     </span>
                                                 </td>
-                                                <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
                                                     <div className={'my-2 inline-flex'}>
                                                         <Avatar size={24} name={ticket.assigned_to?.email ?? 'null'} />
                                                         <div className={'ml-2'}>
@@ -137,7 +137,7 @@ function TicketContainer() {
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
                                                     {Math.abs(differenceInHours(ticket.created_at, new Date())) > 48
                                                         ? format(ticket.created_at, 'MMM do, yyyy h:mma')
                                                         : formatDistanceToNow(ticket.created_at, { addSuffix: true })}

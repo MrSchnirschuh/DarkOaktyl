@@ -78,21 +78,21 @@ function ProductTable() {
                                     products.items.length > 0 &&
                                     products.items.map(product => (
                                         <TableRow key={product.id}>
-                                            <td css={tw`pl-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                            <td css={tw`pl-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
                                                 {product.icon ? (
                                                     <img src={product.icon} className={'w-6 h-6 rounded-full'} />
                                                 ) : (
                                                     <ShoppingBagIcon className={'w-6 h-6'} />
                                                 )}
                                             </td>
-                                            <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                            <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
                                                 <CopyOnClick text={product.id}>
                                                     <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>
                                                         {product.id}
                                                     </code>
                                                 </CopyOnClick>
                                             </td>
-                                            <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                            <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
                                                 <NavLink
                                                     to={`/admin/billing/categories/${Number(params.id)}/products/${
                                                         product.id
@@ -103,15 +103,15 @@ function ProductTable() {
                                                     {product.name}
                                                 </NavLink>
                                             </td>
-                                            <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                            <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
                                                 <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>
                                                     ${product.price.toFixed(2)} / monthly
                                                 </code>
                                             </td>
-                                            <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                            <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
                                                 {product.description}
                                             </td>
-                                            <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                            <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
                                                 {Math.abs(differenceInHours(product.createdAt, new Date())) > 48
                                                     ? format(product.createdAt, 'MMM do, yyyy h:mma')
                                                     : formatDistanceToNow(product.createdAt, { addSuffix: true })}

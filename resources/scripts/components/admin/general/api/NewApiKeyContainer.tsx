@@ -105,7 +105,7 @@ export default () => {
 
                                     <div css={tw`mb-6`}>
                                         <Field id={'memo'} name={'memo'} label={'Key Memo'} type={'text'} />
-                                        <p className={'text-gray-400 text-xs mt-1'}>
+                                        <p className={'text-theme-muted text-xs mt-1'}>
                                             A simple name or description to identify your API key.
                                         </p>
                                     </div>

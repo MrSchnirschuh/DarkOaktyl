@@ -385,7 +385,7 @@ const ThemesContainer = () => {
                             <Pill type={'info'}>Updated {defaultTheme.updatedAt.toLocaleDateString()}</Pill>
                         ) : null}
                     </div>
-                    <p css={tw`text-sm text-neutral-300 mb-4`}>
+                    <p css={tw`text-sm text-theme-secondary mb-4`}>
                         Automatically mirrors the panel theme. Create a new mail theme to customize colors without
                         altering this default.
                     </p>
@@ -399,8 +399,8 @@ const ThemesContainer = () => {
                                         style={{ backgroundColor: darkValue }}
                                     />
                                     <div>
-                                        <p css={tw`text-xs text-neutral-400`}>{label}</p>
-                                        <p css={tw`text-xs font-mono text-neutral-300`}>{darkValue}</p>
+                                        <p css={tw`text-xs text-theme-muted`}>{label}</p>
+                                        <p css={tw`text-xs font-mono text-theme-secondary`}>{darkValue}</p>
                                     </div>
                                 </div>
                             );
@@ -408,7 +408,7 @@ const ThemesContainer = () => {
                     </div>
                     {defaults?.variant_mode === 'dual' && defaults?.light_palette ? (
                         <div>
-                            <p css={tw`text-xs uppercase tracking-wide text-neutral-400 mb-2`}>Light mode</p>
+                            <p css={tw`text-xs uppercase tracking-wide text-theme-muted mb-2`}>Light mode</p>
                             <div css={tw`grid grid-cols-2 gap-3`}>
                                 {colorFields.map(({ key, label }) => {
                                     const lightValue = getDefaultLightColor(key) ?? getDefaultColor(key) ?? '#000000';
@@ -419,8 +419,8 @@ const ThemesContainer = () => {
                                                 style={{ backgroundColor: lightValue }}
                                             />
                                             <div>
-                                                <p css={tw`text-xs text-neutral-400`}>{label}</p>
-                                                <p css={tw`text-xs font-mono text-neutral-300`}>{lightValue}</p>
+                                                <p css={tw`text-xs text-theme-muted`}>{label}</p>
+                                                <p css={tw`text-xs font-mono text-theme-secondary`}>{lightValue}</p>
                                             </div>
                                         </div>
                                     );
@@ -437,7 +437,7 @@ const ThemesContainer = () => {
                 </div>
             ) : customThemes.length === 0 ? (
                 <AdminBox title={'No themes yet'} icon={faPalette}>
-                    <p css={tw`text-sm text-neutral-400`}>
+                    <p css={tw`text-sm text-theme-muted`}>
                         Create your first theme to control colors, branding, and footer copy for all outbound emails.
                     </p>
                     <Button className={'mt-4'} onClick={openCreate}>
@@ -449,10 +449,10 @@ const ThemesContainer = () => {
                     {customThemes.map(theme => (
                         <AdminBox key={theme.uuid} title={theme.name} icon={faPalette}>
                             <div css={tw`flex items-center justify-between mb-3`}>
-                                <span css={tw`text-xs text-neutral-400`}>UUID</span>
+                                <span css={tw`text-xs text-theme-muted`}>UUID</span>
                                 <code css={tw`text-[10px] bg-neutral-800 px-2 py-1 rounded`}>{theme.uuid}</code>
                             </div>
-                            {theme.description && <p css={tw`text-sm text-neutral-300 mb-3`}>{theme.description}</p>}
+                            {theme.description && <p css={tw`text-sm text-theme-secondary mb-3`}>{theme.description}</p>}
                             <div css={tw`flex flex-wrap gap-2 mb-4`}>
                                 {theme.isDefault ? <Pill type={'success'}>Default</Pill> : null}
                                 <Pill type={theme.variantMode === 'dual' ? 'info' : 'warn'}>
@@ -468,15 +468,15 @@ const ThemesContainer = () => {
                                             style={{ backgroundColor: theme.colors[key] }}
                                         />
                                         <div>
-                                            <p css={tw`text-xs text-neutral-400`}>{label}</p>
-                                            <p css={tw`text-xs font-mono text-neutral-300`}>{theme.colors[key]}</p>
+                                            <p css={tw`text-xs text-theme-muted`}>{label}</p>
+                                            <p css={tw`text-xs font-mono text-theme-secondary`}>{theme.colors[key]}</p>
                                         </div>
                                     </div>
                                 ))}
                             </div>
                             {theme.variantMode === 'dual' && theme.lightColors ? (
                                 <div css={tw`mt-4`}>
-                                    <p css={tw`text-xs uppercase tracking-wide text-neutral-400 mb-2`}>Light mode</p>
+                                    <p css={tw`text-xs uppercase tracking-wide text-theme-muted mb-2`}>Light mode</p>
                                     <div css={tw`grid grid-cols-2 gap-3`}>
                                         {colorFields.map(({ key, label }) => (
                                             <div key={`light-${key}`} css={tw`flex items-center gap-2`}>
@@ -487,8 +487,8 @@ const ThemesContainer = () => {
                                                     }}
                                                 />
                                                 <div>
-                                                    <p css={tw`text-xs text-neutral-400`}>{label}</p>
-                                                    <p css={tw`text-xs font-mono text-neutral-300`}>
+                                                    <p css={tw`text-xs text-theme-muted`}>{label}</p>
+                                                    <p css={tw`text-xs font-mono text-theme-secondary`}>
                                                         {theme.lightColors?.[key] ?? theme.colors[key] ?? '—'}
                                                     </p>
                                                 </div>
@@ -555,10 +555,10 @@ const ThemesContainer = () => {
                 >
                     {({ handleChange, isSubmitting, values }) => (
                         <Form>
-                            <h2 css={tw`text-2xl font-semibold text-neutral-100 mb-4`}>
+                            <h2 css={tw`text-2xl font-semibold text-theme-primary mb-4`}>
                                 {editing ? 'Edit Theme' : 'Create Theme'}
                             </h2>
-                            <p css={tw`text-sm text-neutral-400 mb-6`}>
+                            <p css={tw`text-sm text-theme-muted mb-6`}>
                                 Define brand colors, optional logo, and footer text applied to email templates using
                                 this theme.
                             </p>
@@ -621,7 +621,7 @@ const ThemesContainer = () => {
 
                             {values.variantMode === 'dual' ? (
                                 <>
-                                    <h3 css={tw`text-lg font-semibold text-neutral-200 mb-3`}>Light Mode Palette</h3>
+                                    <h3 css={tw`text-lg font-semibold text-theme-secondary mb-3`}>Light Mode Palette</h3>
                                     <div css={tw`grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6`}>
                                         {colorFields.map(({ key, label }) => (
                                             <Field

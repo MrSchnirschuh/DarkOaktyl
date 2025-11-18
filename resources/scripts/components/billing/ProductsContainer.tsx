@@ -28,7 +28,7 @@ interface LimitProps {
 }
 
 const LimitBox = ({ icon, limit }: LimitProps) => (
-    <div className={'text-gray-400 mt-1'}>
+    <div className={'text-theme-muted mt-1'}>
         <FontAwesomeIcon icon={icon} className={'w-4 h-4 mr-2'} />
         {limit}
     </div>
@@ -129,13 +129,13 @@ export default () => {
         <PageContentBlock title={'Available Products'}>
             <div className={'text-3xl lg:text-5xl font-bold mt-8 mb-12'}>
                 Order a Product
-                <p className={'text-gray-400 font-normal text-sm mt-1'}>
+                <p className={'text-theme-muted font-normal text-sm mt-1'}>
                     Choose and configure any of the products below to your liking.
                 </p>
             </div>
             <div className={'grid lg:grid-cols-4 gap-4 lg:gap-12'}>
                 <div className={'border-r-4 border-gray-500'}>
-                    <p className={'text-2xl text-gray-300 mb-8 mt-4 font-bold'}>Categories</p>
+                    <p className={'text-2xl text-theme-secondary mb-8 mt-4 font-bold'}>Categories</p>
                     {categoriesLoading ? (
                         <div className={'flex justify-center py-4'}>
                             <Spinner size={'small'} />
@@ -149,7 +149,7 @@ export default () => {
                                 </Alert>
                             )}
                             {!categoriesError && (categories?.length ?? 0) < 1 && (
-                                <div className={'font-semibold my-4 text-gray-400'}>
+                                <div className={'font-semibold my-4 text-theme-muted'}>
                                     <FontAwesomeIcon
                                         icon={faExclamationTriangle}
                                         className={'w-5 h-5 mr-2 text-yellow-400'}
@@ -187,7 +187,7 @@ export default () => {
                     ) : (
                         <>
                             {products?.length < 1 && (
-                                <div className={'font-semibold my-4 text-gray-400'}>
+                                <div className={'font-semibold my-4 text-theme-muted'}>
                                     <FontAwesomeIcon
                                         icon={faExclamationTriangle}
                                         className={'w-5 h-5 mr-2 text-yellow-400'}
@@ -211,7 +211,7 @@ export default () => {
                                                 )}
                                             </div>
                                             <p className={'text-3xl font-bold text-center mt-3'}>{product.name}</p>
-                                            <p className={'text-lg font-semibold text-center mt-1 mb-4 text-gray-400'}>
+                                            <p className={'text-lg font-semibold text-center mt-1 mb-4 text-theme-muted'}>
                                                 <span style={{ color: colors.primary }} className={'mr-1'}>
                                                     {settings.currency.symbol}
                                                     {product.price.toFixed(2)}

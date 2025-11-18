@@ -47,7 +47,7 @@ export const SubNavigationLink = ({
     children,
     disabled,
 }: PropsWithIcon | PropsWithoutIcon) => (
-    <NavLink to={to} end={base} className={classNames(disabled ? 'text-gray-500' : 'text-neutral-300')}>
+    <NavLink to={to} end={base} className={classNames(disabled ? 'text-theme-muted' : 'text-theme-secondary')}>
         {IconComponent ? <IconComponent /> : children}
         {name}
     </NavLink>

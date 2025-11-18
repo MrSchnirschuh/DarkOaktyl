@@ -54,16 +54,16 @@ const OverviewContainer = () => {
             <div css={tw`grid gap-6 lg:grid-cols-2`}>
                 <AdminBox title={'Module Status'}>
                     <div css={tw`flex items-center justify-between`}>
-                        <span css={tw`text-sm text-neutral-300`}>Email sending</span>
+                        <span css={tw`text-sm text-theme-secondary`}>Email sending</span>
                         <Pill type={settings.enabled ? 'success' : 'danger'}>
                             {settings.enabled ? 'Enabled' : 'Disabled'}
                         </Pill>
                     </div>
                     <div css={tw`flex items-center justify-between mt-4`}>
-                        <span css={tw`text-sm text-neutral-300`}>Default theme UUID</span>
-                        <span css={tw`text-xs text-neutral-400 font-mono`}>{settings.defaultTheme || 'auto'}</span>
+                        <span css={tw`text-sm text-theme-secondary`}>Default theme UUID</span>
+                        <span css={tw`text-xs text-theme-muted font-mono`}>{settings.defaultTheme || 'auto'}</span>
                     </div>
-                    <p css={tw`text-xs text-neutral-500 mt-4 leading-relaxed`}>
+                    <p css={tw`text-xs text-theme-muted mt-4 leading-relaxed`}>
                         Emails are queued using your configured mail driver. Scheduled and event-driven triggers will
                         only run when the module is enabled.
                     </p>
@@ -71,19 +71,19 @@ const OverviewContainer = () => {
                 <AdminBox title={'Library Summary'}>
                     <dl css={tw`grid grid-cols-2 gap-y-3 gap-x-4 text-sm`}>
                         <div>
-                            <dt css={tw`text-neutral-400`}>Themes</dt>
-                            <dd css={tw`text-neutral-200 font-semibold`}>{settings.counts.themes}</dd>
+                            <dt css={tw`text-theme-muted`}>Themes</dt>
+                            <dd css={tw`text-theme-secondary font-semibold`}>{settings.counts.themes}</dd>
                         </div>
                         <div>
-                            <dt css={tw`text-neutral-400`}>Templates</dt>
-                            <dd css={tw`text-neutral-200 font-semibold`}>{settings.counts.templates}</dd>
+                            <dt css={tw`text-theme-muted`}>Templates</dt>
+                            <dd css={tw`text-theme-secondary font-semibold`}>{settings.counts.templates}</dd>
                         </div>
                         <div>
-                            <dt css={tw`text-neutral-400`}>Triggers</dt>
-                            <dd css={tw`text-neutral-200 font-semibold`}>{settings.counts.triggers}</dd>
+                            <dt css={tw`text-theme-muted`}>Triggers</dt>
+                            <dd css={tw`text-theme-secondary font-semibold`}>{settings.counts.triggers}</dd>
                         </div>
                     </dl>
-                    <p css={tw`text-xs text-neutral-500 mt-4 leading-relaxed`}>
+                    <p css={tw`text-xs text-theme-muted mt-4 leading-relaxed`}>
                         Use themes to control branding, templates to craft messages, and triggers to automate delivery
                         for lifecycle events, scheduled broadcasts, coupons, or resource drops.
                     </p>
@@ -92,7 +92,7 @@ const OverviewContainer = () => {
 
             {defaults && (
                 <AdminBox title={'Default Styling'}>
-                    <p css={tw`text-xs text-neutral-500 mb-4 leading-relaxed`}>
+                    <p css={tw`text-xs text-theme-muted mb-4 leading-relaxed`}>
                         These colors seed new themes and are applied when no custom theme has been selected. Update them
                         under the settings tab or by editing your default theme.
                     </p>
@@ -106,10 +106,10 @@ const OverviewContainer = () => {
                                         style={{ backgroundColor: value as string }}
                                     />
                                     <div>
-                                        <p css={tw`text-sm text-neutral-200 font-semibold`}>
+                                        <p css={tw`text-sm text-theme-secondary font-semibold`}>
                                             {colorTitles[key] ?? key}
                                         </p>
-                                        <p css={tw`text-xs text-neutral-500 font-mono`}>{value}</p>
+                                        <p css={tw`text-xs text-theme-muted font-mono`}>{value}</p>
                                     </div>
                                 </div>
                             ))}
@@ -118,7 +118,7 @@ const OverviewContainer = () => {
             )}
 
             <AdminBox title={'Getting Started'}>
-                <ol css={tw`list-decimal list-inside space-y-2 text-sm text-neutral-300`}>
+                <ol css={tw`list-decimal list-inside space-y-2 text-sm text-theme-secondary`}>
                     <li>Create a theme that matches your brand colors.</li>
                     <li>Build or import email templates for onboarding, coupons, or resource notifications.</li>
                     <li>Configure triggers to dispatch templates on events or on a schedule.</li>

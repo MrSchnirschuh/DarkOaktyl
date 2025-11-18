@@ -41,7 +41,7 @@ export default () => {
                     <div className={'grid gap-y-4'}>
                         <div>
                             <Label>Plan Name and Cost</Label>
-                            <p className={'text-gray-400'}>
+                            <p className={'text-theme-muted'}>
                                 {!server.billingProductId ? (
                                     'None'
                                 ) : !product ? (
@@ -56,7 +56,7 @@ export default () => {
                         </div>
                         <div>
                             <Label>Next Renewal Due</Label>
-                            <p className={'text-gray-400'}>
+                            <p className={'text-theme-muted'}>
                                 {!server.renewalDate ? (
                                     'None'
                                 ) : (
@@ -71,7 +71,7 @@ export default () => {
                         </div>
                         <div>
                             <Label>Resource Limits</Label>
-                            <p className={'text-gray-400'}>
+                            <p className={'text-theme-muted'}>
                                 {!server.billingProductId ? (
                                     'None'
                                 ) : !product ? (

@@ -156,12 +156,12 @@ export default ({ term }: { term?: BillingTerm }) => {
             <div className={'w-full flex flex-row items-center m-8'}>
                 <FontAwesomeIcon icon={faClock} className={'w-8 h-8 mr-4'} />
                 <div className={'flex flex-col flex-shrink'} style={{ minWidth: '0' }}>
-                    <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>
+                    <h2 className={'text-2xl text-theme-primary font-header font-medium'}>
                         {term ? term.name : 'New Billing Term'}
                     </h2>
                     <p
                         className={
-                            'hidden lg:block text-base text-neutral-400 whitespace-nowrap overflow-hidden overflow-ellipsis'
+                            'hidden lg:block text-base text-theme-muted whitespace-nowrap overflow-hidden overflow-ellipsis'
                         }
                     >
                         {term ? term.uuid : 'Define runtime tiers and multiplier factors for billing.'}
@@ -227,18 +227,18 @@ export default ({ term }: { term?: BillingTerm }) => {
                                     <div className={'mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4'}>
                                         <label className={'inline-flex items-center space-x-3'}>
                                             <Field id={'isActive'} name={'isActive'} type={'checkbox'} />
-                                            <span className={'text-sm text-neutral-200'}>Active</span>
+                                            <span className={'text-sm text-theme-secondary'}>Active</span>
                                         </label>
                                         <label className={'inline-flex items-center space-x-3'}>
                                             <Field id={'isDefault'} name={'isDefault'} type={'checkbox'} />
-                                            <span className={'text-sm text-neutral-200'}>Default term</span>
+                                            <span className={'text-sm text-theme-secondary'}>Default term</span>
                                         </label>
                                     </div>
                                 </AdminBox>
                             </div>
                             <div className={'w-full flex flex-col'}>
                                 <AdminBox title={'Metadata'} icon={faInfoCircle} isLoading={isSubmitting}>
-                                    <p className={'text-xs text-neutral-400 mb-4'}>
+                                    <p className={'text-xs text-theme-muted mb-4'}>
                                         Optional JSON metadata used for extensions or automation. Leave blank to ignore.
                                     </p>
                                     <TextareaField

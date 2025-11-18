@@ -75,7 +75,7 @@ export default () => {
                         <SpinnerOverlay visible={loading} />
                         <div>
                             <Label>Next renewal due</Label>
-                            <p className={'text-gray-400 text-sm'}>
+                            <p className={'text-theme-muted text-sm'}>
                                 {new Date(renewalDate).toLocaleDateString()}
                                 {' - '}
                                 {timeUntil(renewalDate).days} days, {timeUntil(renewalDate).hours} hours
@@ -83,13 +83,13 @@ export default () => {
                         </div>
                         <div className={'my-6'}>
                             <Label>Your package</Label>
-                            <p className={'text-gray-400 text-sm'}>{product ? product.name : 'Unknown'}</p>
-                            <p className={'text-gray-500 text-xs'}>{product && product.description}</p>
+                            <p className={'text-theme-muted text-sm'}>{product ? product.name : 'Unknown'}</p>
+                            <p className={'text-theme-muted text-xs'}>{product && product.description}</p>
                         </div>
                         <div>
                             <Label>Plan cost</Label>
                             <div className={'flex justify-between'}>
-                                <p className={'text-gray-400 text-sm'}>
+                                <p className={'text-theme-muted text-sm'}>
                                     {settings.currency.symbol}
                                     {product ? product.price : '...'} {settings.currency.code.toUpperCase()} every 30
                                     days
@@ -108,7 +108,7 @@ export default () => {
                 )}
                 <ContentBox title={'Renew Server'} className={'lg:col-span-2'}>
                     <div className={'mb-4'}>
-                        <p className={'text-gray-400 text-xs'}>
+                        <p className={'text-theme-muted text-xs'}>
                             If you renew now, your server will be active for a further 30 days, making your next renewal
                             date
                             <strong className={'ml-1'}>

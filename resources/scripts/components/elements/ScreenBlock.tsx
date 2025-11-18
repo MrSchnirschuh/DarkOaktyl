@@ -66,8 +66,8 @@ const ScreenBlock = ({ title, image, message, onBack, onRetry }: ScreenBlockProp
                         </div>
                     )}
                     <img src={image} css={tw`w-2/3 h-auto select-none mx-auto`} />
-                    <h2 css={tw`mt-10 text-white font-bold text-4xl`}>{title}</h2>
-                    <p css={tw`text-sm text-neutral-400 mt-2`}>{message}</p>
+                    <h2 css={tw`mt-10 font-bold text-4xl`} style={{ color: 'var(--theme-text-primary, #111827)' }}>{title}</h2>
+                    <p css={tw`text-sm text-theme-muted mt-2`}>{message}</p>
                 </div>
             </div>
         </PageContentBlock>
@@ -122,14 +122,14 @@ const Suspended = ({ date, id }: { date: Date; id?: number }) => {
                             <FontAwesomeIcon icon={faArrowLeft} />
                         </ActionButton>
                     </div>
-                    <h2 css={tw`text-white font-bold text-4xl`}>Suspended - No Payment</h2>
-                    <p css={tw`text-sm text-neutral-400 mt-2`}>
+                    <h2 css={tw`font-bold text-4xl`} style={{ color: 'var(--theme-text-primary, #111827)' }}>Suspended - No Payment</h2>
+                    <p css={tw`text-sm text-theme-muted mt-2`}>
                         Your server has been suspended due to a lack of payment. Your server will be deleted{' '}
                         <span className={'font-bold'}>on {date.toDateString()}</span>
                         if you do not choose to pay the monthly cost for your server.
-                        <div className={'mt-2 text-gray-300 font-semibold'}>
+                        <div className={'mt-2 text-theme-secondary font-semibold'}>
                             Your outstanding balance is:
-                            <span className={'text-white ml-2 font-bold'}>
+                            <span style={{ color: 'var(--theme-text-primary, #111827)' }} className={'ml-2 font-bold'}>
                                 {currency}
                                 {product.price}
                             </span>

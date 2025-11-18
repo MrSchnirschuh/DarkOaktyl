@@ -48,19 +48,19 @@ function LoginCheckpointContainer() {
                     Continue
                 </Button>
             </div>
-            <div css={tw`mt-6 text-center text-neutral-500 text-xs tracking-wide no-underline`}>
+            <div css={tw`mt-6 text-center text-theme-muted text-xs tracking-wide no-underline`}>
                 <span
                     onClick={() => {
                         setFieldValue('code', '');
                         setFieldValue('recoveryCode', '');
                         setIsMissingDevice(s => !s);
                     }}
-                    css={tw`cursor-pointer hover:text-neutral-400 duration-300`}
+                    css={tw`cursor-pointer hover:text-theme-muted duration-300`}
                 >
                     {!isMissingDevice ? "I've Lost My Device" : 'I Have My Device'}
                 </span>
                 <span className={'mx-3'}>&bull;</span>
-                <Link to={'/auth/login'} css={tw`hover:text-neutral-400 duration-300`}>
+                <Link to={'/auth/login'} css={tw`hover:text-theme-muted duration-300`}>
                     Return to Login
                 </Link>
             </div>

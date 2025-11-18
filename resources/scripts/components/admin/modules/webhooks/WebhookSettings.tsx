@@ -68,14 +68,14 @@ export default () => {
                                     }
                                 />
                             </div>
-                            <p className={'text-gray-400 text-xs mt-1.5'}>
+                            <p className={'text-theme-muted text-xs mt-1.5'}>
                                 Set the webhook URL to use for sending data.
                             </p>
                         </div>
                     </AdminBox>
                 </div>
                 <div css={tw`w-full flex flex-row items-center mt-6`}>
-                    <div css={tw`flex text-xs text-gray-500`}>These changes will apply as soon you save them.</div>
+                    <div css={tw`flex text-xs text-theme-muted`}>These changes will apply as soon you save them.</div>
 
                     <div css={tw`flex ml-auto`}>
                         <ToggleWebhooksButton />

@@ -120,7 +120,7 @@ const SettingsContainer = () => {
                             }
                             onChange={event => handleToggleModule(event.currentTarget.checked)}
                         />
-                        <div css={tw`text-xs text-neutral-500 leading-relaxed`}>
+                        <div css={tw`text-xs text-theme-muted leading-relaxed`}>
                             The module honors your Laravel mail configuration. Scheduled triggers run from the panel
                             scheduler when enabled.
                         </div>
@@ -128,7 +128,7 @@ const SettingsContainer = () => {
                 </AdminBox>
 
                 <AdminBox title={'Default Theme'}>
-                    <label css={tw`text-sm text-neutral-300 mb-2 block`}>Theme applied when none selected</label>
+                    <label css={tw`text-sm text-theme-secondary mb-2 block`}>Theme applied when none selected</label>
                     <Select
                         value={currentDefaultUuid ?? ''}
                         onChange={event => handleDefaultThemeChange(event.currentTarget.value || null)}
@@ -141,7 +141,7 @@ const SettingsContainer = () => {
                         ))}
                     </Select>
                     <div css={tw`flex items-center justify-between mt-4`}>
-                        <span css={tw`text-xs text-neutral-500`}>
+                        <span css={tw`text-xs text-theme-muted`}>
                             Setting a default theme ensures consistent branding for every template preview and dispatch.
                         </span>
                         <Button.Text size={Button.Sizes.Small} disabled={refreshingThemes} onClick={refreshThemeList}>

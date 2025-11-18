@@ -43,12 +43,12 @@ export default ({ link, setOpen }: { link?: CustomLink; setOpen: Dispatch<SetSta
             <div className={'mt-4'}>
                 <Label>Link Name</Label>
                 <InputField defaultValue={values.name} name={'name'} onChange={updateValues}></InputField>
-                <p className={'text-gray-400 text-sm mt-1'}>Give the link a friendly name which clients can read.</p>
+                <p className={'text-theme-muted text-sm mt-1'}>Give the link a friendly name which clients can read.</p>
             </div>
             <div className={'mt-2'}>
                 <Label>Link URL</Label>
                 <InputField defaultValue={values.url} name={'url'} onChange={updateValues}></InputField>
-                <p className={'text-gray-400 text-sm mt-1'}>
+                <p className={'text-theme-muted text-sm mt-1'}>
                     This is the URL which the link points to outside of the Panel.
                 </p>
             </div>

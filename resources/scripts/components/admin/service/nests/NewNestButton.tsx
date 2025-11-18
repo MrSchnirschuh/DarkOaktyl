@@ -64,7 +64,7 @@ export default () => {
                     >
                         <FlashMessageRender byKey={'nest:create'} css={tw`mb-6`} />
 
-                        <h2 css={tw`mb-6 text-2xl text-neutral-100`}>New Nest</h2>
+                        <h2 css={tw`mb-6 text-2xl text-theme-primary`}>New Nest</h2>
 
                         <Form css={tw`m-0`}>
                             <Field

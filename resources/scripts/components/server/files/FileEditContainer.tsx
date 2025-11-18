@@ -107,7 +107,7 @@ export default () => {
 
             {filename === '.pteroignore' ? (
                 <div css={tw`mb-4 p-4 border-l-4 bg-neutral-900 rounded border-cyan-400`}>
-                    <p css={tw`text-neutral-300 text-sm`}>
+                    <p css={tw`text-theme-secondary text-sm`}>
                         You&apos;re editing a <code css={tw`font-mono bg-black rounded py-px px-1`}>.pteroignore</code>{' '}
                         file. Any files or directories listed in here will be excluded from backups. Wildcards are
                         supported by using an asterisk (<code css={tw`font-mono bg-black rounded py-px px-1`}>*</code>).

@@ -84,14 +84,16 @@ function BillingExceptionTable() {
                                     exceptions.items.length > 0 &&
                                     exceptions.items.map(exception => (
                                         <TableRow key={exception.id}>
-                                            <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                            <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
                                                 <CopyOnClick text={exception.id}>
-                                                    <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>
+                                                    <code css={tw`font-mono bg-theme-surface rounded py-1 px-2`}>
                                                         {exception.id}
                                                     </code>
                                                 </CopyOnClick>
                                             </td>
-                                            <td className={'px-6 py-4 text-white font-bold'}>{exception.title}</td>
+                                            <td className={'px-6 py-4 text-theme-primary font-bold'}>
+                                                {exception.title}
+                                            </td>
                                             <td className={'px-6 py-4'}>{exception.description}</td>
                                             <td className={'px-6 py-4'}>
                                                 <Pill type={getColor(exception.exception_type)}>
@@ -105,7 +107,7 @@ function BillingExceptionTable() {
                                                 {resolved.includes(exception.id) ? (
                                                     <Button.Text
                                                         size={Button.Sizes.Small}
-                                                        className={'text-white font-bold'}
+                                                        className={'text-theme-on-accent font-bold'}
                                                         disabled
                                                     >
                                                         <CheckCircleIcon className={'w-4 h-4 mt-[2px] mr-0.5'} />{' '}
@@ -114,7 +116,7 @@ function BillingExceptionTable() {
                                                 ) : (
                                                     <Button
                                                         size={Button.Sizes.Small}
-                                                        className={'text-white font-bold'}
+                                                        className={'text-theme-on-accent font-bold'}
                                                         onClick={() => {
                                                             resolveBillingException(exception.uuid);
                                                             setResolved(prevResolved => [

@@ -20,11 +20,11 @@ export default ({ node, selected, setSelected }: Props) => {
                 <CheckCircleIcon
                     className={classNames(
                         'transition-colors duration-500 absolute w-5 h-5 top-2 right-2',
-                        selected === Number(node.id) ? 'text-green-500' : 'text-gray-500',
+                        selected === Number(node.id) ? 'text-green-500' : 'text-theme-muted',
                     )}
                 />
                 <ServerIcon className={'mr-2 w-8 h-8'} style={{ color: colors.primary }} />
-                <p className={'text-gray-200 font-semibold'}>{node.name}</p>
+                <p className={'text-theme-secondary font-semibold'}>{node.name}</p>
             </GreyRowBox>
         </div>
     );

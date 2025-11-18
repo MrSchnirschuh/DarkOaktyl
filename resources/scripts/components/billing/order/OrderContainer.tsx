@@ -35,7 +35,7 @@ import FlashMessageRender from '@/components/FlashMessageRender';
 
 const LimitBox = ({ icon, content }: { icon: IconDefinition; content: string }) => {
     return (
-        <div className={'font-semibold text-gray-400 my-1'}>
+        <div className={'font-semibold text-theme-muted my-1'}>
             <FontAwesomeIcon icon={icon} className={'w-4 h-4 inline-flex mr-2 '} />
             {content}
         </div>
@@ -127,18 +127,18 @@ export default () => {
             <Elements stripe={stripe} options={options}>
                 <div className={'text-3xl lg:text-5xl font-bold mt-8 mb-12'}>
                     Your Order
-                    <p className={'text-gray-400 font-normal text-sm mt-1'}>
+                    <p className={'text-theme-muted font-normal text-sm mt-1'}>
                         Customize your selected plan and submit a payment.
                     </p>
                 </div>
                 <div className={'grid lg:grid-cols-8 gap-4 lg:gap-12'}>
                     <div className={'lg:border-r-4 border-gray-500 lg:col-span-2'}>
-                        <p className={'text-2xl text-gray-300 my-4 font-bold'}>
+                        <p className={'text-2xl text-theme-secondary my-4 font-bold'}>
                             Selected Plan
                             {product.icon && <img src={product.icon} className={'w-8 h-8 ml-2 inline-flex'} />}
                         </p>
                         <LimitBox icon={faIdBadge} content={product.name} />
-                        <div className={'font-semibold text-gray-400 text-lg my-1'}>
+                        <div className={'font-semibold text-theme-muted text-lg my-1'}>
                             <FontAwesomeIcon icon={faCreditCard} className={'w-4 h-4 inline-flex mr-2 '} />
                             <span style={{ color: colors.primary }} className={'mr-1'}>
                                 ${product.price}
@@ -159,7 +159,7 @@ export default () => {
                             <div className={'my-10'}>
                                 <div className={'text-xl lg:text-3xl font-semibold mb-4'}>
                                     Choose a location
-                                    <p className={'text-gray-400 font-normal text-sm mt-1'}>
+                                    <p className={'text-theme-muted font-normal text-sm mt-1'}>
                                         Select a location from our list to deploy your server to.
                                     </p>
                                 </div>
@@ -186,7 +186,7 @@ export default () => {
                                     <div className={'my-10'}>
                                         <div className={'text-xl lg:text-3xl font-semibold mb-4'}>
                                             Plan Variables
-                                            <p className={'text-gray-400 font-normal text-sm mt-1'}>
+                                            <p className={'text-theme-muted font-normal text-sm mt-1'}>
                                                 Modify your server variables before your server is even created for ease
                                                 of use.
                                             </p>
@@ -215,7 +215,7 @@ export default () => {
                                 </div>
                             ) : (
                                 <div className={'flex w-full mt-8'}>
-                                    <p className={'font-semibold text-gray-400'}>
+                                    <p className={'font-semibold text-theme-muted'}>
                                         As this product is free, no purchase needs to be made via our payment gateways.
                                     </p>
                                     <Button className={'ml-auto'} onClick={createFree}>

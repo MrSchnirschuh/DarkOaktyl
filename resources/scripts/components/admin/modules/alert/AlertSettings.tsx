@@ -71,7 +71,7 @@ export default () => {
                                     defaultChecked={alert.enabled}
                                 />
                             </div>
-                            <p className={'text-gray-400 text-xs mt-1.5'}>
+                            <p className={'text-theme-muted text-xs mt-1.5'}>
                                 If enabled, your alert as it is currently configured will instantly be displayed to
                                 users.
                             </p>
@@ -90,18 +90,18 @@ export default () => {
                                     <option value={'danger'}>Danger (Red)</option>
                                 </Select>
                             </div>
-                            <p className={'text-gray-400 text-xs mt-1.5'}>
+                            <p className={'text-theme-muted text-xs mt-1.5'}>
                                 This option allows you to customize the severity and color of the alert shown.
                             </p>
                         </div>
                     </AdminBox>
                     <AdminBox title={'Alert Content'} icon={faPaintBrush} className={'md:col-span-2'}>
                         <Field id={'content'} name={'content'} type={'text'} description={''} />
-                        <p className={'text-gray-400 text-xs mt-1.5'}>
+                        <p className={'text-theme-muted text-xs mt-1.5'}>
                             Configure the alert to display content to end users.
                         </p>
-                        <p className={'text-gray-400 text-xs mt-1'}>
-                            Current UUID: <span className={'text-gray-600'}>{alert.uuid}</span>
+                        <p className={'text-theme-muted text-xs mt-1'}>
+                            Current UUID: <span className={'text-theme-muted'}>{alert.uuid}</span>
                         </p>
                     </AdminBox>
                 </div>

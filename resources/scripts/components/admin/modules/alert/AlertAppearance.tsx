@@ -25,7 +25,7 @@ const DemoBox = ({ children, selected }: { children: ReactNode; selected: boolea
             )}
             style={{ borderColor: primary }}
         >
-            <div className={'absolute top-0 right-0 p-2 text-gray-400 text-xs font-semibold'}>
+            <div className={'absolute top-0 right-0 p-2 text-theme-muted text-xs font-semibold'}>
                 <FontAwesomeIcon icon={faCircle} className={'text-green-500/75 mx-0.5'} size={'xs'} />
                 <FontAwesomeIcon icon={faCircle} className={'text-yellow-500/75 mx-0.5'} size={'xs'} />
                 <FontAwesomeIcon icon={faCircle} className={'text-red-500/75 mx-0.5'} size={'xs'} />
@@ -76,7 +76,7 @@ export default () => {
                     <Alert type={alert.type}>{alert.content}</Alert>
                 ) : alert.position === 'bottom-right' ? (
                     <>
-                        <p className={'text-center text-lg text-gray-400 font-semibold'}>
+                        <p className={'text-center text-lg text-theme-muted font-semibold'}>
                             Alert is being displayed in the bottom-right mode.
                         </p>
                         <div className={'fixed bottom-2 right-2 z-50 m-4'}>
@@ -85,7 +85,7 @@ export default () => {
                     </>
                 ) : alert.position === 'bottom-left' ? (
                     <>
-                        <p className={'text-center text-lg text-gray-400 font-semibold'}>
+                        <p className={'text-center text-lg text-theme-muted font-semibold'}>
                             Alert is being displayed in the bottom-left mode.
                         </p>
                         <div className={'fixed bottom-2 left-64 z-50 m-4'}>
@@ -93,11 +93,11 @@ export default () => {
                         </div>
                     </>
                 ) : alert.position === 'center' ? (
-                    <p className={'text-center text-lg text-gray-400 font-semibold'}>
+                    <p className={'text-center text-lg text-theme-muted font-semibold'}>
                         Alert is being displayed as a dialog in the center.
                     </p>
                 ) : (
-                    <p className={'text-center text-lg text-gray-400 font-semibold'}>
+                    <p className={'text-center text-lg text-theme-muted font-semibold'}>
                         Alert is currently disabled, so no preview is available.
                     </p>
                 )}
@@ -112,7 +112,7 @@ export default () => {
                                     className={'absolute inset-x-12 top-12 h-5 rounded'}
                                 ></div>
                             </DemoBox>
-                            <p className={'text-xs text-gray-400 mt-1'}>
+                            <p className={'text-xs text-theme-muted mt-1'}>
                                 Position the alert in the center of the page.
                             </p>
                         </div>
@@ -125,7 +125,7 @@ export default () => {
                                     &nbsp;
                                 </div>
                             </DemoBox>
-                            <p className={'text-xs text-gray-400 mt-1'}>Position the alert to the bottom right.</p>
+                            <p className={'text-xs text-theme-muted mt-1'}>Position the alert to the bottom right.</p>
                         </div>
                         <div onClick={() => submit('bottom-left' as AlertPosition)}>
                             <DemoBox selected={alert.position === 'bottom-left'}>
@@ -136,7 +136,7 @@ export default () => {
                                     &nbsp;
                                 </div>
                             </DemoBox>
-                            <p className={'text-xs text-gray-400 mt-1'}>
+                            <p className={'text-xs text-theme-muted mt-1'}>
                                 Position the alert to the bottom left of the page.
                             </p>
                         </div>
@@ -156,7 +156,7 @@ export default () => {
                                     &nbsp;
                                 </div>
                             </DemoBox>
-                            <p className={'text-xs text-gray-400 mt-1'}>
+                            <p className={'text-xs text-theme-muted mt-1'}>
                                 Position the alert in the center of the page as a dialog.
                             </p>
                         </div>

@@ -73,7 +73,7 @@ export default () => {
                     defaultValue={content || "You can change these at any time in the 'Account' tab."}
                     onChange={e => update('content', e.target.value)}
                 />
-                <p className={'text-xs text-gray-400 mt-1'}>
+                <p className={'text-xs text-theme-muted mt-1'}>
                     Set the description that should be displayed in the Onboarding dialog. You can leave this empty if
                     you wish.
                 </p>

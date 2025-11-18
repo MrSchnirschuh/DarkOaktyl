@@ -75,7 +75,7 @@ export default () => {
                                     length > 0 &&
                                     databases.items.map(database => (
                                         <TableRow key={database.id}>
-                                            <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                            <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
                                                 <CopyOnClick text={database.id.toString()}>
                                                     <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>
                                                         {database.id}
@@ -83,7 +83,7 @@ export default () => {
                                                 </CopyOnClick>
                                             </td>
 
-                                            <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                            <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
                                                 <NavLink
                                                     to={`/admin/databases/${database.id}`}
                                                     style={{ color: colors.primary }}
@@ -93,7 +93,7 @@ export default () => {
                                                 </NavLink>
                                             </td>
 
-                                            <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                            <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
                                                 <CopyOnClick text={database.getAddress()}>
                                                     <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>
                                                         {database.getAddress()}
@@ -101,10 +101,10 @@ export default () => {
                                                 </CopyOnClick>
                                             </td>
 
-                                            <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                            <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
                                                 {database.username}
                                             </td>
-                                            <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                            <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
                                                 <DatabaseStatus database={database.getAddress()} />
                                             </td>
                                         </TableRow>

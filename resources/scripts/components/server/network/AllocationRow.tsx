@@ -20,7 +20,7 @@ import { ip } from '@/lib/formatters';
 import Code from '@elements/Code';
 
 const Label = styled.label`
-    ${tw`uppercase text-xs mt-1 text-neutral-400 block px-1 select-none transition-colors duration-150`}
+    ${tw`uppercase text-xs mt-1 text-theme-muted block px-1 select-none transition-colors duration-150`}
 `;
 
 interface Props {
@@ -60,7 +60,7 @@ const AllocationRow = ({ allocation }: Props) => {
     return (
         <GreyRowBox $hoverable={false} className={'mt-2 flex-wrap md:flex-nowrap'}>
             <div className={'flex w-full items-center md:w-auto'}>
-                <div className={'pl-4 pr-6 text-neutral-400'}>
+                <div className={'pl-4 pr-6 text-theme-muted'}>
                     <FontAwesomeIcon icon={faNetworkWired} />
                 </div>
                 <div className={'mr-4 flex-1 md:w-40'}>
@@ -94,7 +94,7 @@ const AllocationRow = ({ allocation }: Props) => {
             </div>
             <div className={'mt-4 flex w-full justify-end space-x-4 md:mt-0 md:w-48'}>
                 {allocation.isDefault ? (
-                    <Button size={Button.Sizes.Small} className={'!bg-blue-600 !text-slate-50'} disabled>
+                    <Button size={Button.Sizes.Small} className={'!bg-blue-600 !text-theme-primary'} disabled>
                         Primary
                     </Button>
                 ) : (

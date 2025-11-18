@@ -45,7 +45,7 @@ export default () => {
             <FlashMessageRender byKey={'account:tickets'} />
             <div className={'text-3xl lg:text-5xl font-bold mt-8 mb-12'}>
                 Your Support Tickets
-                <p className={'text-gray-400 font-normal text-sm mt-1'}>
+                <p className={'text-theme-muted font-normal text-sm mt-1'}>
                     Create a ticket to gain support from an administrator.
                 </p>
             </div>
@@ -87,7 +87,7 @@ export default () => {
                                                 }
                                             >
                                                 <p className={'text-sm'}>{format(ticket.createdAt, 'MMMM do, yyyy')}</p>
-                                                <p className={'text-2xs text-gray-300 uppercase mt-1'}>
+                                                <p className={'text-2xs text-theme-secondary uppercase mt-1'}>
                                                     Created{' '}
                                                     {formatDistanceToNow(ticket.createdAt, {
                                                         includeSeconds: true,

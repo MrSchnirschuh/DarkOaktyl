@@ -21,8 +21,8 @@ import { useStoreState } from '@/state/hooks';
 
 const CronBox = ({ title, value, color }: { title: string; value: string; color: string }) => (
     <div css={tw`rounded p-3`} style={{ backgroundColor: color }}>
-        <p css={tw`text-neutral-300 text-sm`}>{title}</p>
-        <p css={tw`text-xl font-medium text-neutral-100`}>{value}</p>
+        <p css={tw`text-theme-secondary text-sm`}>{title}</p>
+        <p css={tw`text-xl font-medium text-theme-primary`}>{value}</p>
     </div>
 );
 
@@ -90,7 +90,7 @@ export default () => {
                             style={{ backgroundColor: colors.secondary }}
                         >
                             <div css={tw`flex-1`}>
-                                <h3 css={tw`flex items-center text-neutral-100 text-2xl`}>
+                                <h3 css={tw`flex items-center text-theme-primary text-2xl`}>
                                     {schedule.name}
                                     {schedule.isProcessing ? (
                                         <span
@@ -103,19 +103,19 @@ export default () => {
                                         <ActivePill active={schedule.isActive} />
                                     )}
                                 </h3>
-                                <p css={tw`mt-1 text-sm text-neutral-200`}>
+                                <p css={tw`mt-1 text-sm text-theme-secondary`}>
                                     Last run at:&nbsp;
                                     {schedule.lastRunAt ? (
                                         format(schedule.lastRunAt, "MMM do 'at' h:mma")
                                     ) : (
-                                        <span css={tw`text-neutral-300`}>n/a</span>
+                                        <span css={tw`text-theme-secondary`}>n/a</span>
                                     )}
                                     <span css={tw`ml-4 pl-4 border-l-4 border-neutral-600 py-px`}>
                                         Next run at:&nbsp;
                                         {schedule.nextRunAt ? (
                                             format(schedule.nextRunAt, "MMM do 'at' h:mma")
                                         ) : (
-                                            <span css={tw`text-neutral-300`}>n/a</span>
+                                            <span css={tw`text-theme-secondary`}>n/a</span>
                                         )}
                                     </span>
                                 </p>

@@ -21,7 +21,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                         [styles.large]: size === Options.Size.Large,
                     },
                     className,
-                    loading && 'text-gray-300',
+                    loading && 'text-theme-secondary',
                 )}
                 {...rest}
                 disabled={loading}

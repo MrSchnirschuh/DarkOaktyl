@@ -63,7 +63,7 @@ export default ({ role }: { role: UserRole }) => {
                             key={key}
                             className={'relative'}
                         >
-                            <p className={'mb-4 text-gray-400 text-xs'}>{permissions[key]?.description}</p>
+                            <p className={'mb-4 text-theme-muted text-xs'}>{permissions[key]?.description}</p>
                             <div className={'absolute top-0 right-0 pt-2 pr-4'}>
                                 <Checkbox
                                     id={`select-all-${key}`}

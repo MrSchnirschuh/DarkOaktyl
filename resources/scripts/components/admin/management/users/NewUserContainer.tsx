@@ -34,9 +34,9 @@ export default () => {
         <AdminContentBlock title={'New User'}>
             <div css={tw`w-full flex flex-row items-center mb-8`}>
                 <div css={tw`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
-                    <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>New User</h2>
+                    <h2 css={tw`text-2xl text-theme-primary font-header font-medium`}>New User</h2>
                     <p
-                        css={tw`hidden md:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden`}
+                        css={tw`hidden md:block text-base text-theme-muted whitespace-nowrap overflow-ellipsis overflow-hidden`}
                     >
                         Add a new user to the panel.
                     </p>

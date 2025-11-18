@@ -47,7 +47,7 @@ export default ({ resource }: Props) => {
                 confirm={'Delete'}
             >
                 <FlashMessageRender byKey={'admin:billing:resources:delete'} className={'mb-2'} />
-                <p className={'text-sm text-neutral-300'}>
+                <p className={'text-sm text-theme-secondary'}>
                     Removing this entry will immediately detach this resource from the billing calculator. To confirm,
                     type{' '}
                     <span className={'px-1 py-0.5 bg-neutral-900 rounded font-mono text-xs'}>{resource.resource}</span>{' '}

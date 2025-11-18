@@ -294,13 +294,13 @@ export default () => {
 
             <div className={'mb-8 flex flex-wrap items-center gap-4'}>
                 <div className={'min-w-0 flex-1'}>
-                    <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>System Theme</h2>
-                    <p className={'text-neutral-400'}>Design panel and email colours from a single palette.</p>
+                    <h2 className={'text-2xl font-header font-medium text-theme-primary'}>System Theme</h2>
+                    <p className={'text-theme-secondary'}>Design panel and email colours from a single palette.</p>
                 </div>
 
                 <div className={'flex items-center gap-3'}>
-                    <div className={'flex items-center gap-2 rounded border border-neutral-700 px-3 py-1'}>
-                        <span className={'text-sm text-neutral-400'}>Preview</span>
+                    <div className={'flex items-center gap-2 rounded border border-theme-muted px-3 py-1'}>
+                        <span className={'text-sm text-theme-secondary'}>Preview</span>
                         {(['dark', 'light'] as ThemeMode[]).map(modeKey => (
                             <button
                                 key={modeKey}
@@ -308,8 +308,8 @@ export default () => {
                                 onClick={() => setMode(modeKey)}
                                 className={`rounded px-3 py-1 text-sm ${
                                     mode === modeKey
-                                        ? 'bg-neutral-700 text-white'
-                                        : 'bg-transparent text-neutral-400 border border-transparent'
+                                        ? 'bg-theme-surface text-theme-primary'
+                                        : 'bg-transparent text-theme-muted border border-transparent'
                                 }`}
                             >
                                 {modeKey === 'dark' ? 'Dark' : 'Light'}

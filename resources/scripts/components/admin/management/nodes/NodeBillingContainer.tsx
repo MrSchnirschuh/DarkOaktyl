@@ -16,15 +16,15 @@ export default () => {
                 <div>
                     <label css={tw`inline-flex items-center mr-2`}>
                         <FormikField name={'deployable'} type={'radio'} value={'true'} />
-                        <span css={tw`text-neutral-300 ml-2`}>Enabled</span>
+                        <span css={tw`text-theme-secondary ml-2`}>Enabled</span>
                     </label>
 
                     <label css={tw`inline-flex items-center ml-2`}>
                         <FormikField name={'deployable'} type={'radio'} value={'false'} />
-                        <span css={tw`text-neutral-300 ml-2`}>Disabled</span>
+                        <span css={tw`text-theme-secondary ml-2`}>Disabled</span>
                     </label>
                 </div>
-                <p className={'text-sm text-gray-400 mt-1'}>
+                <p className={'text-sm text-theme-muted mt-1'}>
                     Allows users to deploy servers to this node via the Billing system if it is enabled.
                 </p>
             </div>
@@ -33,15 +33,15 @@ export default () => {
                 <div>
                     <label css={tw`inline-flex items-center mr-2`}>
                         <FormikField name={'deployableFree'} type={'radio'} value={'true'} />
-                        <span css={tw`text-neutral-300 ml-2`}>Enabled</span>
+                        <span css={tw`text-theme-secondary ml-2`}>Enabled</span>
                     </label>
 
                     <label css={tw`inline-flex items-center ml-2`}>
                         <FormikField name={'deployableFree'} type={'radio'} value={'false'} />
-                        <span css={tw`text-neutral-300 ml-2`}>Disabled</span>
+                        <span css={tw`text-theme-secondary ml-2`}>Disabled</span>
                     </label>
                 </div>
-                <p className={'text-sm text-gray-400 mt-1'}>
+                <p className={'text-sm text-theme-muted mt-1'}>
                     Allows users to deploy <strong>free</strong> servers to this node via the billing system.
                 </p>
             </div>

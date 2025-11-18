@@ -26,7 +26,7 @@ export default ({ subuser }: Props) => {
             </div>
             <div css={tw`ml-4 flex-1 overflow-hidden`}>
                 <p css={tw`truncate font-semibold`}>{subuser.email}</p>
-                <p css={tw`mt-1 text-xs truncate text-gray-400 font-mono`}>{subuser.uuid}</p>
+                <p css={tw`mt-1 text-xs truncate text-theme-muted font-mono`}>{subuser.uuid}</p>
             </div>
             <div css={tw`ml-4`}>
                 <p css={tw`font-medium text-center`}>
@@ -38,13 +38,13 @@ export default ({ subuser }: Props) => {
                     />
                     &nbsp;
                 </p>
-                <p css={tw`text-2xs text-neutral-300 uppercase hidden md:block`}>2FA Enabled</p>
+                <p css={tw`text-2xs text-theme-secondary uppercase hidden md:block`}>2FA Enabled</p>
             </div>
             <div css={tw`ml-4 hidden md:block`}>
                 <p css={tw`font-medium text-center`}>
                     {subuser.permissions.filter(permission => permission !== 'websocket.connect').length}
                 </p>
-                <p css={tw`text-2xs text-neutral-300 uppercase`}>Permissions</p>
+                <p css={tw`text-2xs text-theme-secondary uppercase`}>Permissions</p>
             </div>
             {subuser.uuid !== uuid && (
                 <>
@@ -52,7 +52,7 @@ export default ({ subuser }: Props) => {
                         <button
                             type={'button'}
                             aria-label={'Edit subuser'}
-                            css={tw`block text-sm p-1 md:p-2 text-neutral-500 hover:text-neutral-100 transition-colors duration-150 mx-4`}
+                            css={tw`block text-sm p-1 md:p-2 text-theme-muted hover:text-theme-primary transition-colors duration-150 mx-4`}
                             onClick={() => setVisible(true)}
                         >
                             <FontAwesomeIcon icon={faPencilAlt} />

@@ -50,7 +50,7 @@ const FileUploadList = () => {
                     <Code className={'flex-1 truncate'}>{name}</Code>
                     <button
                         onClick={cancelFileUpload.bind(this, name)}
-                        className={'text-slate-500 transition-colors duration-75 hover:text-slate-200'}
+                        className={'text-theme-muted transition-colors duration-75 hover:text-theme-secondary'}
                     >
                         <XIcon className={'h-5 w-5'} />
                     </button>
