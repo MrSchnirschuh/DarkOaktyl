@@ -26,6 +26,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import getMetrics, { MetricData } from '@/api/admin/getMetrics';
 import { Alert } from '@elements/alert';
+import NodeSummary from './NodeSummary';
 
 interface SuggestionProps {
     icon: IconDefinition;
@@ -195,6 +196,7 @@ export default () => {
                     />
                 </div>
             </AdminBox>
+            <NodeSummary />
         </AdminContentBlock>
     );
 };
