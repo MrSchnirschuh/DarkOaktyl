@@ -16,6 +16,8 @@ export default function NodeSummary() {
     const nodes = nodesData?.items ?? [];
     const [selected, setSelected] = useState<number[]>([]);
     const [loading, setLoading] = useState(false);
+    const [metric, setMetric] = useState<'cpu' | 'memory' | 'disk' | 'swap' | 'backups'>('cpu');
+    const [timeframe, setTimeframe] = useState<'1h' | '6h' | '24h' | '7d'>('24h');
 
     const cpuChart = useChart('CPU', { sets: 1, options: 100 });
     const memChart = useChart('Memory', { sets: 1, options: 100 });
@@ -43,22 +45,76 @@ export default function NodeSummary() {
             }
 
             if (results.length) {
-                // compute average CPU and memory percent used (used/total)
-                const avgCpu = results.reduce((s, r) => s + r.cpu, 0) / results.length;
-                const avgMemPercent =
-                    (results.reduce((s, r) => s + (r.memory.used / Math.max(1, r.memory.total)), 0) / results.length) *
-                    100;
+                // compute the metric value per selected metric
+                const values = results.map(r => {
+                    switch (metric) {
+                        case 'cpu':
+                            return r.cpu;
+                        case 'memory':
+                            return (r.memory.used / Math.max(1, r.memory.total)) * 100;
+                        case 'disk':
+                            return (r.disk.used / Math.max(1, r.disk.total)) * 100;
+                        case 'swap':
+                            return (r.swap.used / Math.max(1, r.swap.total)) * 100;
+                        default:
+                            return null;
+                    }
+                });
 
-                cpuChart.push(avgCpu);
-                memChart.push(avgMemPercent);
+                const avg = values.reduce((s, v) => s + (typeof v === 'number' ? v : 0), 0) / values.length;
+
+                // push to chart(s). When metric is cpu we use cpuChart, otherwise reuse memChart for percent-based metrics.
+                if (metric === 'cpu') {
+                    cpuChart.push(avg);
+                } else {
+                    memChart.push(avg);
+                }
             } else {
-                cpuChart.push(null);
-                memChart.push(null);
+                // no results (network error / nothing selected)
+                if (metric === 'cpu') cpuChart.push(null);
+                else memChart.push(null);
             }
         } finally {
             setLoading(false);
         }
     };
+
+    // Fetch backup aggregates from server when metric === 'backups'
+    useEffect(() => {
+        if (metric !== 'backups') return;
+        if (!selected.length) return;
+
+        const buckets = 20;
+        const end = new Date();
+        let start = new Date();
+        switch (timeframe) {
+            case '1h':
+                start.setHours(end.getHours() - 1);
+                break;
+            case '6h':
+                start.setHours(end.getHours() - 6);
+                break;
+            case '7d':
+                start.setDate(end.getDate() - 7);
+                break;
+            default:
+                start.setDate(end.getDate() - 1);
+        }
+
+        setLoading(true);
+        // lazy-import API wrapper to avoid circular deps
+        import('@/api/admin/nodes/getNodeAggregates').then(({ default: getNodeAggregates }) =>
+            getNodeAggregates(selected, start.toISOString(), end.toISOString(), buckets)
+                .then(data => {
+                    // push series values into memChart (we use memChart for percent-style charts / counts)
+                    const series = data.backups.series.map(v => (typeof v === 'number' ? v : null));
+                    // push each bucket value sequentially replacing chart dataset history — we'll clear then push
+                    memChart.clear();
+                    series.forEach(s => memChart.push(s));
+                })
+                .finally(() => setLoading(false)),
+        );
+    }, [metric, timeframe, selected.join(',')]);
 
     useEffect(() => {
         // immediate fetch
@@ -68,14 +124,16 @@ export default function NodeSummary() {
     }, [selected.join(',')]);
 
     const current = useMemo(() => {
-        // derive current totals from last dataset point
+        // derive current totals from last dataset point; treat negative placeholders as no-data
         const cpuData = cpuChart.props.data.datasets[0].data;
         const memData = memChart.props.data.datasets[0].data;
-        const lastCpu = cpuData[cpuData.length - 1] ?? null;
-        const lastMem = memData[memData.length - 1] ?? null;
+        const lastCpuRaw = cpuData[cpuData.length - 1];
+        const lastMemRaw = memData[memData.length - 1];
+        const lastCpu = typeof lastCpuRaw === 'number' && lastCpuRaw >= 0 ? lastCpuRaw : null;
+        const lastMem = typeof lastMemRaw === 'number' && lastMemRaw >= 0 ? lastMemRaw : null;
         return {
-            cpu: typeof lastCpu === 'number' ? lastCpu : null,
-            memoryPercent: typeof lastMem === 'number' ? lastMem : null,
+            cpu: lastCpu,
+            memoryPercent: lastMem,
         };
     }, [cpuChart.props.data, memChart.props.data]);
 
@@ -120,6 +178,75 @@ export default function NodeSummary() {
                             Clear
                         </button>
                     </div>
+                    <div className={'mt-4'}>
+                        <div className={'text-sm text-theme-muted mb-2'}>Metric</div>
+                        <div className={'flex items-center space-x-2'}>
+                            <button
+                                type="button"
+                                className={`px-2 py-1 rounded ${metric === 'cpu' ? 'bg-theme-surface text-theme-primary' : 'bg-transparent text-theme-muted border border-theme-muted'}`}
+                                onClick={() => setMetric('cpu')}
+                            >
+                                CPU
+                            </button>
+                            <button
+                                type="button"
+                                className={`px-2 py-1 rounded ${metric === 'memory' ? 'bg-theme-surface text-theme-primary' : 'bg-transparent text-theme-muted border border-theme-muted'}`}
+                                onClick={() => setMetric('memory')}
+                            >
+                                Memory
+                            </button>
+                            <button
+                                type="button"
+                                className={`px-2 py-1 rounded ${metric === 'disk' ? 'bg-theme-surface text-theme-primary' : 'bg-transparent text-theme-muted border border-theme-muted'}`}
+                                onClick={() => setMetric('disk')}
+                            >
+                                Disk
+                            </button>
+                            <button
+                                type="button"
+                                className={`px-2 py-1 rounded ${metric === 'swap' ? 'bg-theme-surface text-theme-primary' : 'bg-transparent text-theme-muted border border-theme-muted'}`}
+                                onClick={() => setMetric('swap')}
+                            >
+                                Swap
+                            </button>
+                        </div>
+                        <div className={'text-xs text-theme-muted mt-2'}>
+                            Backups are available via aggregation; bandwidth metrics are not currently available per-node.
+                        </div>
+                        <div className={'mt-3'}>
+                            <div className={'text-sm text-theme-muted mb-2'}>Timeframe</div>
+                            <div className={'flex items-center space-x-2'}>
+                                <button
+                                    type="button"
+                                    className={`px-2 py-1 rounded ${timeframe === '1h' ? 'bg-theme-surface text-theme-primary' : 'bg-transparent text-theme-muted border border-theme-muted'}`}
+                                    onClick={() => setTimeframe('1h')}
+                                >
+                                    1h
+                                </button>
+                                <button
+                                    type="button"
+                                    className={`px-2 py-1 rounded ${timeframe === '6h' ? 'bg-theme-surface text-theme-primary' : 'bg-transparent text-theme-muted border border-theme-muted'}`}
+                                    onClick={() => setTimeframe('6h')}
+                                >
+                                    6h
+                                </button>
+                                <button
+                                    type="button"
+                                    className={`px-2 py-1 rounded ${timeframe === '24h' ? 'bg-theme-surface text-theme-primary' : 'bg-transparent text-theme-muted border border-theme-muted'}`}
+                                    onClick={() => setTimeframe('24h')}
+                                >
+                                    24h
+                                </button>
+                                <button
+                                    type="button"
+                                    className={`px-2 py-1 rounded ${timeframe === '7d' ? 'bg-theme-surface text-theme-primary' : 'bg-transparent text-theme-muted border border-theme-muted'}`}
+                                    onClick={() => setTimeframe('7d')}
+                                >
+                                    7d
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                     <div className={'mt-4 text-sm text-theme-muted'}>
                         Current CPU: <span className={'font-semibold'}>{current.cpu ? formatPercent(current.cpu) : '—'}</span>
                         <br />
@@ -130,13 +257,10 @@ export default function NodeSummary() {
                 <div className={'col-span-2'}>
                     <div className={'grid gap-4'}>
                         <div className={'bg-black/25 p-3 rounded'}>
-                            <div className={'text-xs text-theme-muted mb-2'}>CPU utilization (avg across selected nodes)</div>
-                            <Line {...cpuChart.props} />
-                        </div>
-
-                        <div className={'bg-black/25 p-3 rounded'}>
-                            <div className={'text-xs text-theme-muted mb-2'}>Memory utilization % (avg)</div>
-                            <Line {...memChart.props} />
+                            <div className={'text-xs text-theme-muted mb-2'}>
+                                {metric === 'cpu' ? 'CPU utilization (avg across selected nodes)' : `${metric.charAt(0).toUpperCase() + metric.slice(1)} utilization % (avg)`}
+                            </div>
+                            {metric === 'cpu' ? <Line {...cpuChart.props} /> : <Line {...memChart.props} />}
                         </div>
                     </div>
                 </div>
