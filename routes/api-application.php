@@ -372,6 +372,7 @@ Route::middleware([AdminSubject::class])->group(function () {
         Route::get('/{node:id}/utilization', [Application\Nodes\NodeInformationController::class, 'utilization']);
     // Aggregated node metrics (backups, etc.) for dashboard charts
     Route::get('/aggregates', [Application\Nodes\NodeAggregateController::class, 'index']);
+        Route::get('/snapshots', [Application\Nodes\NodeSnapshotController::class, 'index']);
 
         Route::post('/', [Application\Nodes\NodeController::class, 'store']);
 
@@ -421,6 +422,23 @@ Route::middleware([AdminSubject::class])->group(function () {
 
             Route::delete('/{database:id}', [Application\Servers\DatabaseController::class, 'delete']);
         });
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | Server Presets Controller Routes
+    |--------------------------------------------------------------------------
+    |
+    | Endpoint: /api/application/presets
+    |
+    */
+    Route::group(['prefix' => '/presets'], function () {
+        Route::get('/', [Application\Presets\ServerPresetController::class, 'index']);
+        Route::get('/{preset:id}', [Application\Presets\ServerPresetController::class, 'view']);
+
+        Route::post('/', [Application\Presets\ServerPresetController::class, 'store']);
+        Route::patch('/{preset:id}', [Application\Presets\ServerPresetController::class, 'update']);
+        Route::delete('/{preset:id}', [Application\Presets\ServerPresetController::class, 'delete']);
     });
 
     /*

@@ -53,7 +53,9 @@ export default () => {
         <PageContentBlock title={'Subusers'} header description={'Control the access of other users to this server.'}>
             <FlashMessageRender byKey={'users'} css={tw`mb-4`} />
             {!subusers.length ? (
-                <p css={tw`text-center text-sm text-theme-secondary`}>It looks like you don&apos;t have any subusers.</p>
+                <p css={tw`text-center text-sm text-theme-secondary`}>
+                    It looks like you don&apos;t have any subusers.
+                </p>
             ) : (
                 subusers.map(subuser => <UserRow key={subuser.uuid} subuser={subuser} />)
             )}

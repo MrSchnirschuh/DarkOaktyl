@@ -107,15 +107,21 @@ const ResourcePriceTable = () => {
                                         resources.items.length > 0 &&
                                         resources.items.map(resource => (
                                             <TableRow key={resource.uuid}>
-                                                <td css={tw`pl-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
+                                                <td
+                                                    css={tw`pl-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                >
                                                     <TagIcon className={'w-5 h-5'} />
                                                 </td>
-                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
+                                                <td
+                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                >
                                                     <code className={'font-mono bg-neutral-900 rounded py-1 px-2'}>
                                                         {resource.resource}
                                                     </code>
                                                 </td>
-                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
+                                                <td
+                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                >
                                                     <NavLink
                                                         to={`/admin/billing/pricing/${resource.uuid}`}
                                                         style={{ color: theme.colors.primary }}
@@ -124,16 +130,24 @@ const ResourcePriceTable = () => {
                                                         {resource.displayName}
                                                     </NavLink>
                                                 </td>
-                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
+                                                <td
+                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                >
                                                     {resource.baseQuantity}
                                                 </td>
-                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
+                                                <td
+                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                >
                                                     {resource.price.toFixed(4)} {resource.currency}
                                                 </td>
-                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
+                                                <td
+                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                >
                                                     {resource.unit ?? '—'}
                                                 </td>
-                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
+                                                <td
+                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                >
                                                     <span
                                                         className={`px-2 py-0.5 rounded-full text-xs font-medium ${
                                                             resource.isVisible
@@ -144,7 +158,9 @@ const ResourcePriceTable = () => {
                                                         {resource.isVisible ? 'Visible' : 'Hidden'}
                                                     </span>
                                                 </td>
-                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
+                                                <td
+                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                >
                                                     {resource.updatedAt
                                                         ? Math.abs(differenceInHours(resource.updatedAt, new Date())) >
                                                           48

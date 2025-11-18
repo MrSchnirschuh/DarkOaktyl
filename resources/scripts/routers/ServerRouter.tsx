@@ -108,7 +108,12 @@ function ServerRouter() {
                         onClick={() => setCollapsed(!collapsed)}
                     >
                         {!collapsed ? (
-                            <h1 className={'text-2xl whitespace-nowrap font-medium'} style={{ color: 'var(--theme-text-primary, #111827)' }}>{name}</h1>
+                            <h1
+                                className={'text-2xl whitespace-nowrap font-medium'}
+                                style={{ color: 'var(--theme-text-primary, #111827)' }}
+                            >
+                                {name}
+                            </h1>
                         ) : (
                             <img
                                 src={'https://avatars.githubusercontent.com/u/91636558'}

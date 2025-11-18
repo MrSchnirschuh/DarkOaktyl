@@ -10,7 +10,7 @@ import { createCoupon, updateCoupon } from '@/api/admin/billing/coupons';
 import type { Coupon } from '@/api/definitions/admin';
 import { faTicketAlt, faInfoCircle, faClock, faGift } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { boolean, number, object, string } from 'yup';
+import { boolean, object, string } from 'yup';
 import Select from '@elements/Select';
 import CouponDeleteButton from './CouponDeleteButton';
 import type { CouponValues } from '@/api/admin/billing/types';

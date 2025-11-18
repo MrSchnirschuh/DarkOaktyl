@@ -9,13 +9,12 @@ export default () => {
 
     return (
         <FeatureContainer image={<AISvg color={primary} />} icon={faWandMagicSparkles} title={'DarkOaktyl AI'}>
-            Use DarkOaktyl&apos;s Artificial Intelligence suite to give users better insights into errors, provide instant
-            support and help administrators take better control over their Panel. DarkOaktyl uses Gemini AI in order to
-            serve intelligence requests.
+            Use DarkOaktyl&apos;s Artificial Intelligence suite to give users better insights into errors, provide
+            instant support and help administrators take better control over their Panel. DarkOaktyl uses Gemini AI in
+            order to serve intelligence requests.
             <p className={'text-right mt-2'}>
                 <ToggleFeatureButton />
             </p>
         </FeatureContainer>
     );
 };
-

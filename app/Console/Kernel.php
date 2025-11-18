@@ -9,6 +9,7 @@ use DarkOak\Console\Commands\AutoUpdateCommand;
 use DarkOak\Console\Commands\Billing\CleanupOrdersCommand;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use DarkOak\Console\Commands\Schedule\ProcessRunnableCommand;
+use DarkOak\Console\Commands\Node\CollectNodeSnapshotsCommand;
 use DarkOak\Console\Commands\Billing\SuspendBillableServersCommand;
 use DarkOak\Console\Commands\Maintenance\PruneOrphanedBackupsCommand;
 use DarkOak\Console\Commands\Billing\CalculateOrderThreatIndexCommand;
@@ -35,6 +36,8 @@ class Kernel extends ConsoleKernel
 
         // Execute scheduled commands for servers every minute, as if there was a normal cron running.
         $schedule->command(ProcessRunnableCommand::class)->everyMinute()->withoutOverlapping();
+    // Collect node snapshots (bandwidth/cpu/memory) from wings every minute.
+    $schedule->command(CollectNodeSnapshotsCommand::class)->everyMinute()->withoutOverlapping();
         $schedule->command(CleanServiceBackupFilesCommand::class)->daily();
 
         if (config('backups.prune_age')) {

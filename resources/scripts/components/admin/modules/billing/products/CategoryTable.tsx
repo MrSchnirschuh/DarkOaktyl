@@ -93,21 +93,27 @@ function CategoryTable() {
                                         categories.items.length > 0 &&
                                         categories.items.map(category => (
                                             <TableRow key={category.id}>
-                                                <td css={tw`pl-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
+                                                <td
+                                                    css={tw`pl-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                >
                                                     {category.icon ? (
                                                         <img src={category.icon} className={'w-6 h-6 rounded-full'} />
                                                     ) : (
                                                         <ShoppingCartIcon className={'w-6 h-6'} />
                                                     )}
                                                 </td>
-                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
+                                                <td
+                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                >
                                                     <CopyOnClick text={category.id}>
                                                         <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>
                                                             {category.id}
                                                         </code>
                                                     </CopyOnClick>
                                                 </td>
-                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
+                                                <td
+                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                >
                                                     <NavLink
                                                         to={`/admin/billing/categories/${category.id}`}
                                                         style={{ color: colors.primary }}
@@ -116,15 +122,21 @@ function CategoryTable() {
                                                         {category.name}
                                                     </NavLink>
                                                 </td>
-                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
+                                                <td
+                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                >
                                                     {category.description}
                                                 </td>
-                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
+                                                <td
+                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                >
                                                     {Math.abs(differenceInHours(category.createdAt, new Date())) > 48
                                                         ? format(category.createdAt, 'MMM do, yyyy h:mma')
                                                         : formatDistanceToNow(category.createdAt, { addSuffix: true })}
                                                 </td>
-                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
+                                                <td
+                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                >
                                                     <span
                                                         className={classNames(
                                                             'px-2 rounded-full inline-flex text-xs leading-5 font-medium',

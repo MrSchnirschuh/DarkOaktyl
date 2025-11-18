@@ -52,4 +52,3 @@ const ToggleEmailsButton = () => {
 };
 
 export default ToggleEmailsButton;
-

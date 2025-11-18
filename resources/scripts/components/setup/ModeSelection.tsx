@@ -50,8 +50,9 @@ export default () => {
                     <StandardMoveSvg color={primary} />
                     <p className={'text-2xl lg:text-4xl font-bold mb-2'}>Standard Mode</p>
                     <p className={'text-[var(--theme-text-secondary)]'}>
-                        Standard Mode allows all of the DarkOaktyl features by default, such as billing, tickets, webhooks
-                        and more. It&apos;s ideal for businesses or large groups who need more control over their users.
+                        Standard Mode allows all of the DarkOaktyl features by default, such as billing, tickets,
+                        webhooks and more. It&apos;s ideal for businesses or large groups who need more control over
+                        their users.
                     </p>
                     <div className={'absolute top-0 right-0 p-3'}>
                         <Button.Text disabled={mode === 'standard'} onClick={() => updateMode('standard')}>
@@ -63,4 +64,3 @@ export default () => {
         </div>
     );
 };
-

@@ -57,7 +57,9 @@ function ServerConsoleContainer() {
             <div className={'mb-4 flex justify-between gap-4 bg-black/50 rounded-lg p-5'}>
                 <div className={'hidden pr-4 sm:col-span-2 sm:block lg:col-span-3'}>
                     <div className={'flex items-center space-x-2'}>
-                        <h1 className={'font-header text-2xl leading-relaxed text-theme-primary line-clamp-1'}>{name}</h1>
+                        <h1 className={'font-header text-2xl leading-relaxed text-theme-primary line-clamp-1'}>
+                            {name}
+                        </h1>
                         <Pill>
                             {isInstalling && (
                                 <>

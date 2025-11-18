@@ -50,8 +50,8 @@ export default () => {
             {open === 'link' && <SetupLink setOpen={setOpen} />}
             {open === 'setup' && <SetupStripe extOpen />}
             <AdminBox title={'Add PayPal integration'} icon={faPaypal}>
-                Adding PayPal to DarkOaktyl allows users to purchase products via another channel, improving order success
-                rate and global payment availability.
+                Adding PayPal to DarkOaktyl allows users to purchase products via another channel, improving order
+                success rate and global payment availability.
                 <p className={'text-theme-muted mt-2'}>
                     PayPal module is currently{' '}
                     <span className={settings.paypal ? 'text-green-500' : 'text-red-500'}>
@@ -155,5 +155,3 @@ export default () => {
         </div>
     );
 };
-
-

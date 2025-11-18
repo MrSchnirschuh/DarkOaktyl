@@ -97,5 +97,3 @@ export default ({ extOpen }: { extOpen?: boolean }) => {
         </Dialog>
     );
 };
-
-

@@ -115,7 +115,9 @@ function UsersContainer() {
                                         length > 0 &&
                                         users.items.map(user => (
                                             <TableRow key={user.id}>
-                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
+                                                <td
+                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                >
                                                     <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>
                                                         {user.id}
                                                     </code>
@@ -126,10 +128,14 @@ function UsersContainer() {
                                                 >
                                                     <NavLink to={`/admin/users/${user.id}`}>{user.username}</NavLink>
                                                 </td>
-                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
+                                                <td
+                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                >
                                                     {user.email}
                                                 </td>
-                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
+                                                <td
+                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                >
                                                     {user.isUsingTwoFactor ? (
                                                         <Pill type={'success'}>
                                                             <FontAwesomeIcon
@@ -150,7 +156,9 @@ function UsersContainer() {
                                                         </Pill>
                                                     )}
                                                 </td>
-                                                <td className={'px-6 py-4 whitespace-nowrap text-sm text-theme-primary'}>
+                                                <td
+                                                    className={'px-6 py-4 whitespace-nowrap text-sm text-theme-primary'}
+                                                >
                                                     {user.state === 'suspended' ? (
                                                         <Pill type={'warn'}>
                                                             <FontAwesomeIcon
@@ -171,7 +179,9 @@ function UsersContainer() {
                                                         </Pill>
                                                     )}
                                                 </td>
-                                                <td className={'px-6 py-4 whitespace-nowrap text-sm text-theme-primary'}>
+                                                <td
+                                                    className={'px-6 py-4 whitespace-nowrap text-sm text-theme-primary'}
+                                                >
                                                     {user.isRootAdmin || user.admin_role_id ? (
                                                         <>
                                                             <Pill type={'success'}>

@@ -91,7 +91,9 @@ function AllocationsTable({ nodeId, filters }: Props) {
                                             </td>
 
                                             {allocation.alias !== null ? (
-                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
+                                                <td
+                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                >
                                                     <CopyOnClick text={allocation.alias}>
                                                         <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>
                                                             {allocation.alias}
@@ -111,7 +113,9 @@ function AllocationsTable({ nodeId, filters }: Props) {
                                             </td>
 
                                             {allocation.relations.server !== undefined ? (
-                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
+                                                <td
+                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                >
                                                     <NavLink
                                                         to={`/admin/servers/${allocation.serverId}`}
                                                         style={{ color: colors.primary }}

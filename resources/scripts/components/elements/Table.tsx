@@ -55,13 +55,15 @@ const PaginatedFooter = ({
         >
             <div className={'flex justify-between space-x-2'}>
                 <p className={'text-xs font-bold text-[var(--theme-text-secondary)] my-auto'}>
-                    Showing <span style={{ color: 'var(--theme-text-primary, #111827)' }}>{pagination.startIndex + 1}</span> to{' '}
+                    Showing{' '}
+                    <span style={{ color: 'var(--theme-text-primary, #111827)' }}>{pagination.startIndex + 1}</span> to{' '}
                     <span style={{ color: 'var(--theme-text-primary, #111827)' }}>{pagination.endIndex}</span> of{' '}
                     <span style={{ color: 'var(--theme-text-primary, #111827)' }}>{pagination.totalItems}</span> results
                 </p>
                 <div className={'inline-flex'}>
                     <p className={'text-xs font-bold text-[var(--theme-text-secondary)] my-auto mr-2'}>
-                        Page <span style={{ color: 'var(--theme-text-primary, #111827)' }}>{pagination.currentPage}</span> of{' '}
+                        Page{' '}
+                        <span style={{ color: 'var(--theme-text-primary, #111827)' }}>{pagination.currentPage}</span> of{' '}
                         <span style={{ color: 'var(--theme-text-primary, #111827)' }}>{pagination.totalPages}</span>
                     </p>
                     <Button.Text

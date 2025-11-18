@@ -51,6 +51,7 @@ export default () => {
                 indicators: settings.indicators,
                 auto_update: settings.auto_update,
                 speed_dial: settings.speed_dial,
+                presets_module: settings.presets_module ?? false,
             }}
         >
             <Form>
@@ -113,6 +114,7 @@ export default () => {
                             </p>
                         </div>
                     </AdminBox>
+                    {/* Server Presets settings moved to Admin → Modules → Presets → Settings */}
                 </div>
                 <div css={tw`w-full flex flex-row items-center mt-6`}>
                     <div css={tw`flex text-xs text-theme-muted`}>
@@ -127,4 +129,3 @@ export default () => {
         </Formik>
     );
 };
-

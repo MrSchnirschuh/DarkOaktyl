@@ -52,8 +52,8 @@ export default () => {
                                 />
                             </div>
                             <p className={'text-theme-muted text-xs mt-1.5'}>
-                                If enabled, standard DarkOaktyl users will be able to interact with DarkOaktyl AI as well as
-                                administrators.
+                                If enabled, standard DarkOaktyl users will be able to interact with DarkOaktyl AI as
+                                well as administrators.
                             </p>
                         </div>
                     </AdminBox>
@@ -79,5 +79,3 @@ export default () => {
         </Formik>
     );
 };
-
-

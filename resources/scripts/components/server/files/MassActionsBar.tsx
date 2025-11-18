@@ -74,8 +74,8 @@ const MassActionsBar = () => {
                 >
                     <p className="mb-2">
                         Are you sure you want to delete&nbsp;
-                        <span className="font-semibold text-theme-primary">{selectedFiles.length} files</span>? This is a
-                        permanent action and the files cannot be recovered.
+                        <span className="font-semibold text-theme-primary">{selectedFiles.length} files</span>? This is
+                        a permanent action and the files cannot be recovered.
                     </p>
                     {selectedFiles.slice(0, 15).map(file => (
                         <li key={file}>{file}</li>

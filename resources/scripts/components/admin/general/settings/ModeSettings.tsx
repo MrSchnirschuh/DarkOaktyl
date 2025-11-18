@@ -57,8 +57,8 @@ export default () => {
                 title={'Standard Mode'}
                 image={<StandardModeSvg color={primary} />}
             >
-                Standard mode enables all the typical features of DarkOaktyl, including our billing system, tickets, user
-                registration and so much more.
+                Standard mode enables all the typical features of DarkOaktyl, including our billing system, tickets,
+                user registration and so much more.
                 <p className={'text-right mt-2'}>
                     <Button disabled={settings.mode === 'standard'} onClick={() => updateMode('standard')}>
                         {settings.mode === 'standard' ? 'Currently Active' : 'Enable Now'}
@@ -94,4 +94,3 @@ export default () => {
         </>
     );
 };
-

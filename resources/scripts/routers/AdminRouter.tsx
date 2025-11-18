@@ -45,7 +45,12 @@ function AdminRouter() {
                     onClick={() => setCollapsed(!collapsed)}
                 >
                     {!collapsed ? (
-                        <h1 className={'text-2xl whitespace-nowrap font-medium'} style={{ color: 'var(--theme-text-primary, #111827)' }}>{settings.name}</h1>
+                        <h1
+                            className={'text-2xl whitespace-nowrap font-medium'}
+                            style={{ color: 'var(--theme-text-primary, #111827)' }}
+                        >
+                            {settings.name}
+                        </h1>
                     ) : (
                         <img
                             src={
@@ -85,7 +90,9 @@ function AdminRouter() {
                         <Avatar.User />
                     </span>
                     <div className={'flex flex-col ml-3'}>
-                        <span className={'font-sans font-normal text-xs text-theme-secondary leading-tight select-none'}>
+                        <span
+                            className={'font-sans font-normal text-xs text-theme-secondary leading-tight select-none'}
+                        >
                             <div className={'w-full flex justify-between mb-1'}>
                                 <p className={'text-sm text-[var(--theme-text-secondary)]'}>Welcome,</p>
                                 <Pill size={'xsmall'} type={'info'}>

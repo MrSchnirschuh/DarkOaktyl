@@ -171,26 +171,14 @@ const secondarySurfaceBackgroundRule = createBackgroundRule(
     'var(--theme-secondary, #1f2937)',
 );
 
-const cardBackgroundClasses = [
-    'bg-neutral-700',
-    'bg-gray-700',
-    'bg-slate-700',
-    'bg-zinc-700',
-    'bg-stone-700',
-];
+const cardBackgroundClasses = ['bg-neutral-700', 'bg-gray-700', 'bg-slate-700', 'bg-zinc-700', 'bg-stone-700'];
 const cardBackgroundRule = createBackgroundRule(cardBackgroundClasses, 'var(--theme-surface-card, #1e293b)');
 const cardBackgroundAlphaRule = createBackgroundRule(
     ['bg-neutral-700/20'],
     'rgb(var(--theme-surface-card-rgb, 30 41 59) / 0.2)',
 );
 
-const tertiaryBackgroundClasses = [
-    'bg-neutral-600',
-    'bg-gray-600',
-    'bg-slate-600',
-    'bg-zinc-600',
-    'bg-stone-600',
-];
+const tertiaryBackgroundClasses = ['bg-neutral-600', 'bg-gray-600', 'bg-slate-600', 'bg-zinc-600', 'bg-stone-600'];
 const tertiaryBackgroundRule = createBackgroundRule(tertiaryBackgroundClasses, 'var(--theme-surface-card, #334155)');
 const tertiaryBackgroundAlphaRule = createBackgroundRule(
     ['bg-neutral-600/95'],
@@ -281,4 +269,3 @@ export default createGlobalStyle`
     ${cardBackgroundAlphaRule}
     ${tertiaryBackgroundAlphaRule}
 `;
-

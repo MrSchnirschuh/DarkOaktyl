@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import { useEffect, useState, type ChangeEvent } from 'react';
+import { useStoreState } from '@/state/hooks';
 import type { ThemeDesignerGroup, ThemeMode, ThemePaletteResponse } from '@/api/admin/theme/getPalette';
 import { hexToHslCss, hexToRgbCss, normalizeColorHex } from '@/helpers/colorContrast';
 
@@ -41,8 +42,12 @@ const ColorEditor = ({ token, modes, defaults, overrides, onColorChange, onReset
         }
     };
 
-    const darkRaw = modes.dark?.[token.key] ?? '#000000';
-    const lightRaw = modes.light?.[token.key] ?? '#000000';
+    const theme = useStoreState(s => s.theme.data);
+
+    const darkRaw =
+        modes.dark?.[token.key] ?? theme?.colors?.[`${token.key}_dark`] ?? theme?.colors?.[token.key] ?? '#000000';
+    const lightRaw =
+        modes.light?.[token.key] ?? theme?.colors?.[`${token.key}_light`] ?? theme?.colors?.[token.key] ?? '#000000';
 
     const resolveHexValue = (mode: ThemeMode): string => {
         const source = mode === 'dark' ? darkRaw : lightRaw;
@@ -75,7 +80,16 @@ const ColorEditor = ({ token, modes, defaults, overrides, onColorChange, onReset
         const storedDraft = drafts[mode];
         const displayValue = storedDraft !== undefined ? storedDraft : formatHexForDisplay(currentHex);
         const isOverridden = overrides[mode]?.[token.key] ?? false;
-        const fallbackRaw = defaults[mode]?.[token.key] ?? '#000000';
+        const infoDefaults: Record<string, string> = {
+            danger: '#dc2626',
+            info: '#f59e0b',
+            warning: '#f97316',
+            experimental: '#facc15',
+            success: theme?.colors?.primary ?? '#16a34a',
+        };
+
+        const fallbackRaw =
+            defaults[mode]?.[token.key] ?? theme?.colors?.[token.key] ?? infoDefaults[token.key] ?? '#000000';
         const fallbackHex = normalizeInputColor(fallbackRaw);
         const fallbackDisplay = fallbackHex ? formatHexForDisplay(fallbackHex) : fallbackRaw;
 
@@ -211,7 +225,27 @@ const ThemeDesigner = ({
     onResetColor,
 }: Props) => {
     const [colorFormat, setColorFormat] = useState<ColorFormat>('hex');
-    const active = groups.find(group => group.id === activeGroup) ?? groups[0] ?? null;
+    const effectiveGroups = (() => {
+        const copy = [...groups];
+        if (!copy.find(g => g.id === 'information')) {
+            copy.push({
+                id: 'information',
+                label: 'Information',
+                description: 'Alert and badge colours: danger, info, warning, experimental and success.',
+                keys: [
+                    { key: 'danger', label: 'Danger', description: 'Error / destructive actions' },
+                    { key: 'info', label: 'Info', description: 'Informational / neutral notices' },
+                    { key: 'warning', label: 'Warning', description: 'Warnings / cautions' },
+                    { key: 'experimental', label: 'Experimental', description: 'Experimental / feature flags' },
+                    { key: 'success', label: 'Success', description: 'Success / positive states' },
+                ],
+            } as any);
+        }
+
+        return copy;
+    })();
+
+    const active = effectiveGroups.find(group => group.id === activeGroup) ?? effectiveGroups[0] ?? null;
 
     if (!active) {
         return null;
@@ -221,7 +255,7 @@ const ThemeDesigner = ({
         <div className={'space-y-6'}>
             <div className={'flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between'}>
                 <div className={'flex flex-wrap items-center gap-3'}>
-                    {groups.map(group => (
+                    {effectiveGroups.map(group => (
                         <button
                             key={group.id}
                             type={'button'}

@@ -66,7 +66,9 @@ const ScreenBlock = ({ title, image, message, onBack, onRetry }: ScreenBlockProp
                         </div>
                     )}
                     <img src={image} css={tw`w-2/3 h-auto select-none mx-auto`} />
-                    <h2 css={tw`mt-10 font-bold text-4xl`} style={{ color: 'var(--theme-text-primary, #111827)' }}>{title}</h2>
+                    <h2 css={tw`mt-10 font-bold text-4xl`} style={{ color: 'var(--theme-text-primary, #111827)' }}>
+                        {title}
+                    </h2>
                     <p css={tw`text-sm text-theme-muted mt-2`}>{message}</p>
                 </div>
             </div>
@@ -122,7 +124,9 @@ const Suspended = ({ date, id }: { date: Date; id?: number }) => {
                             <FontAwesomeIcon icon={faArrowLeft} />
                         </ActionButton>
                     </div>
-                    <h2 css={tw`font-bold text-4xl`} style={{ color: 'var(--theme-text-primary, #111827)' }}>Suspended - No Payment</h2>
+                    <h2 css={tw`font-bold text-4xl`} style={{ color: 'var(--theme-text-primary, #111827)' }}>
+                        Suspended - No Payment
+                    </h2>
                     <p css={tw`text-sm text-theme-muted mt-2`}>
                         Your server has been suspended due to a lack of payment. Your server will be deleted{' '}
                         <span className={'font-bold'}>on {date.toDateString()}</span>
@@ -146,4 +150,3 @@ const Suspended = ({ date, id }: { date: Date; id?: number }) => {
 
 export { ServerError, NotFound, Suspended };
 export default ScreenBlock;
-

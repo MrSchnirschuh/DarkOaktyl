@@ -269,4 +269,3 @@ export default ({ expand, setExpand }: Props) => {
         </div>
     );
 };
-

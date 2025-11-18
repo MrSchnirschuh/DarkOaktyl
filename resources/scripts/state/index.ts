@@ -28,4 +28,3 @@ const state: ApplicationStore = {
 };
 
 export const store = createStore(state);
-

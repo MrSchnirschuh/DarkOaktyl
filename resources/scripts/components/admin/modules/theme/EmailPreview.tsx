@@ -119,7 +119,9 @@ export default ({ mode, paletteVersion, className }: Props) => {
                     <div className={'flex items-center gap-2'}>
                         <select
                             id={'theme-email-preview-template'}
-                            className={'rounded bg-neutral-800 border border-neutral-700 px-3 py-2 text-sm text-theme-secondary'}
+                            className={
+                                'rounded bg-neutral-800 border border-neutral-700 px-3 py-2 text-sm text-theme-secondary'
+                            }
                             value={selectedUuid}
                             onChange={event => setSelectedUuid(event.target.value)}
                             disabled={loadingTemplates || (!templates.length && !selectedUuid)}
@@ -143,7 +145,11 @@ export default ({ mode, paletteVersion, className }: Props) => {
 
             <div className={'relative w-full overflow-hidden rounded-lg border border-neutral-700 bg-neutral-900'}>
                 {(loadingTemplates || loadingPreview) && (
-                    <div className={'absolute inset-0 z-10 flex items-center justify-center bg-neutral-950/70 backdrop-blur-sm'}>
+                    <div
+                        className={
+                            'absolute inset-0 z-10 flex items-center justify-center bg-neutral-950/70 backdrop-blur-sm'
+                        }
+                    >
                         <Spinner />
                     </div>
                 )}

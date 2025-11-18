@@ -16,8 +16,8 @@ export default function NodeSummary() {
     const nodes = nodesData?.items ?? [];
     const [selected, setSelected] = useState<number[]>([]);
     const [loading, setLoading] = useState(false);
-    const [metric, setMetric] = useState<'cpu' | 'memory' | 'disk' | 'swap' | 'backups'>('cpu');
-    const [timeframe, setTimeframe] = useState<'1h' | '6h' | '24h' | '7d'>('24h');
+    const [metric, setMetric] = useState<'cpu' | 'memory' | 'disk' | 'swap' | 'backups' | 'bandwidth' | 'io'>('cpu');
+    const [timeframe, setTimeframe] = useState<'1h' | '6h' | '24h' | '7d' | '1M'>('24h');
 
     const cpuChart = useChart('CPU', { sets: 1, options: 100 });
     const memChart = useChart('Memory', { sets: 1, options: 100 });
@@ -79,14 +79,14 @@ export default function NodeSummary() {
         }
     };
 
-    // Fetch backup aggregates from server when metric === 'backups'
+    // Fetch backup / snapshots aggregates from server when metric is a historical type
     useEffect(() => {
-        if (metric !== 'backups') return;
+        if (metric !== 'backups' && metric !== 'bandwidth' && metric !== 'io' && metric !== 'disk') return;
         if (!selected.length) return;
 
         const buckets = 20;
         const end = new Date();
-        let start = new Date();
+        const start = new Date();
         switch (timeframe) {
             case '1h':
                 start.setHours(end.getHours() - 1);
@@ -97,20 +97,58 @@ export default function NodeSummary() {
             case '7d':
                 start.setDate(end.getDate() - 7);
                 break;
+            case '1M':
+                start.setMonth(end.getMonth() - 1);
+                break;
             default:
                 start.setDate(end.getDate() - 1);
         }
 
         setLoading(true);
-        // lazy-import API wrapper to avoid circular deps
-        import('@/api/admin/nodes/getNodeAggregates').then(({ default: getNodeAggregates }) =>
-            getNodeAggregates(selected, start.toISOString(), end.toISOString(), buckets)
+
+        if (metric === 'backups') {
+            import('@/api/admin/nodes/getNodeAggregates').then(({ default: getNodeAggregates }) =>
+                getNodeAggregates(selected, start.toISOString(), end.toISOString(), buckets)
+                    .then(data => {
+                        const series = data.backups.series.map(v => (typeof v === 'number' ? v : null));
+                        memChart.clear();
+                        series.forEach(s => memChart.push(s));
+                    })
+                    .finally(() => setLoading(false)),
+            );
+            return;
+        }
+
+        // bandwidth / io / disk (historical)
+        import('@/api/admin/nodes/getNodeSnapshots').then(({ default: getNodeSnapshots }) =>
+            getNodeSnapshots(selected, start.toISOString(), end.toISOString(), buckets)
                 .then(data => {
-                    // push series values into memChart (we use memChart for percent-style charts / counts)
-                    const series = data.backups.series.map(v => (typeof v === 'number' ? v : null));
-                    // push each bucket value sequentially replacing chart dataset history — we'll clear then push
-                    memChart.clear();
-                    series.forEach(s => memChart.push(s));
+                    if (metric === 'bandwidth') {
+                        const rx = data.bandwidth.rx_speed_bps ?? data.bandwidth.rx_bytes ?? [];
+                        const tx = data.bandwidth.tx_speed_bps ?? data.bandwidth.tx_bytes ?? [];
+                        const series = rx.map((v: any, i: number) => {
+                            const a = typeof v === 'number' ? v : 0;
+                            const b = typeof tx[i] === 'number' ? tx[i] : 0;
+                            return a + b > 0 ? a + b : null;
+                        });
+                        memChart.clear();
+                        series.forEach((s: number | null) => memChart.push(s));
+                    } else if (metric === 'io') {
+                        const read = data.io.read_speed_bps ?? [];
+                        const write = data.io.write_speed_bps ?? [];
+                        const series = read.map((v: any, i: number) => {
+                            const a = typeof v === 'number' ? v : 0;
+                            const b = typeof write[i] === 'number' ? write[i] : 0;
+                            return a + b > 0 ? a + b : null;
+                        });
+                        memChart.clear();
+                        series.forEach((s: number | null) => memChart.push(s));
+                    } else if (metric === 'disk') {
+                        // show storage percent series for historical disk view
+                        const series = data.storage.percent.map((v: any) => (typeof v === 'number' ? v : null));
+                        memChart.clear();
+                        series.forEach((s: number | null) => memChart.push(s));
+                    }
                 })
                 .finally(() => setLoading(false)),
         );
@@ -131,11 +169,29 @@ export default function NodeSummary() {
         const lastMemRaw = memData[memData.length - 1];
         const lastCpu = typeof lastCpuRaw === 'number' && lastCpuRaw >= 0 ? lastCpuRaw : null;
         const lastMem = typeof lastMemRaw === 'number' && lastMemRaw >= 0 ? lastMemRaw : null;
+        // also derive last metric value from memChart (used for backups/counts or bytes/sec depending on metric)
+        const metricData = memChart.props.data.datasets[0].data;
+        const lastMetricRaw = metricData[metricData.length - 1];
+        const lastMetric = typeof lastMetricRaw === 'number' && lastMetricRaw >= 0 ? lastMetricRaw : null;
+
         return {
             cpu: lastCpu,
             memoryPercent: lastMem,
+            metricValue: lastMetric,
         };
     }, [cpuChart.props.data, memChart.props.data]);
+
+    const formatBytesPerSecond = (b?: number | null) => {
+        if (b === null || typeof b === 'undefined') return '—';
+        const abs = Math.abs(b);
+        const KB = 1024;
+        const MB = KB * 1024;
+        const GB = MB * 1024;
+        if (abs >= GB) return `${(b / GB).toFixed(2)} GB/s`;
+        if (abs >= MB) return `${(b / MB).toFixed(2)} MB/s`;
+        if (abs >= KB) return `${(b / KB).toFixed(2)} KB/s`;
+        return `${b.toFixed(0)} B/s`;
+    };
 
     const toggleNode = (id: number) => {
         setSelected(prev => (prev.includes(id) ? prev.filter(x => x !== id) : prev.concat(id)));
@@ -172,7 +228,9 @@ export default function NodeSummary() {
                         </button>
                         <button
                             type={'button'}
-                            className={'ml-2 px-3 py-1 rounded bg-transparent text-theme-muted border border-theme-muted'}
+                            className={
+                                'ml-2 px-3 py-1 rounded bg-transparent text-theme-muted border border-theme-muted'
+                            }
                             onClick={() => setSelected([])}
                         >
                             Clear
@@ -183,74 +241,176 @@ export default function NodeSummary() {
                         <div className={'flex items-center space-x-2'}>
                             <button
                                 type="button"
-                                className={`px-2 py-1 rounded ${metric === 'cpu' ? 'bg-theme-surface text-theme-primary' : 'bg-transparent text-theme-muted border border-theme-muted'}`}
+                                className={`px-2 py-1 rounded ${
+                                    metric === 'cpu'
+                                        ? 'bg-theme-surface text-theme-primary'
+                                        : 'bg-transparent text-theme-muted border border-theme-muted'
+                                }`}
                                 onClick={() => setMetric('cpu')}
                             >
                                 CPU
                             </button>
                             <button
                                 type="button"
-                                className={`px-2 py-1 rounded ${metric === 'memory' ? 'bg-theme-surface text-theme-primary' : 'bg-transparent text-theme-muted border border-theme-muted'}`}
+                                className={`px-2 py-1 rounded ${
+                                    metric === 'memory'
+                                        ? 'bg-theme-surface text-theme-primary'
+                                        : 'bg-transparent text-theme-muted border border-theme-muted'
+                                }`}
                                 onClick={() => setMetric('memory')}
                             >
                                 Memory
                             </button>
                             <button
                                 type="button"
-                                className={`px-2 py-1 rounded ${metric === 'disk' ? 'bg-theme-surface text-theme-primary' : 'bg-transparent text-theme-muted border border-theme-muted'}`}
+                                className={`px-2 py-1 rounded ${
+                                    metric === 'disk'
+                                        ? 'bg-theme-surface text-theme-primary'
+                                        : 'bg-transparent text-theme-muted border border-theme-muted'
+                                }`}
                                 onClick={() => setMetric('disk')}
                             >
                                 Disk
                             </button>
                             <button
                                 type="button"
-                                className={`px-2 py-1 rounded ${metric === 'swap' ? 'bg-theme-surface text-theme-primary' : 'bg-transparent text-theme-muted border border-theme-muted'}`}
+                                className={`px-2 py-1 rounded ${
+                                    metric === 'swap'
+                                        ? 'bg-theme-surface text-theme-primary'
+                                        : 'bg-transparent text-theme-muted border border-theme-muted'
+                                }`}
                                 onClick={() => setMetric('swap')}
                             >
                                 Swap
                             </button>
+                            <button
+                                type="button"
+                                className={`px-2 py-1 rounded ${
+                                    metric === 'backups'
+                                        ? 'bg-theme-surface text-theme-primary'
+                                        : 'bg-transparent text-theme-muted border border-theme-muted'
+                                }`}
+                                onClick={() => setMetric('backups')}
+                            >
+                                Backups
+                            </button>
+                            <button
+                                type="button"
+                                className={`px-2 py-1 rounded ${
+                                    metric === 'bandwidth'
+                                        ? 'bg-theme-surface text-theme-primary'
+                                        : 'bg-transparent text-theme-muted border border-theme-muted'
+                                }`}
+                                onClick={() => setMetric('bandwidth')}
+                            >
+                                Bandwidth
+                            </button>
+                            <button
+                                type="button"
+                                className={`px-2 py-1 rounded ${
+                                    metric === 'io'
+                                        ? 'bg-theme-surface text-theme-primary'
+                                        : 'bg-transparent text-theme-muted border border-theme-muted'
+                                }`}
+                                onClick={() => setMetric('io')}
+                            >
+                                I/O
+                            </button>
                         </div>
                         <div className={'text-xs text-theme-muted mt-2'}>
-                            Backups are available via aggregation; bandwidth metrics are not currently available per-node.
+                            Backups and bandwidth (if your Wings instances report network counters) are available via
+                            aggregation.
                         </div>
                         <div className={'mt-3'}>
                             <div className={'text-sm text-theme-muted mb-2'}>Timeframe</div>
                             <div className={'flex items-center space-x-2'}>
                                 <button
                                     type="button"
-                                    className={`px-2 py-1 rounded ${timeframe === '1h' ? 'bg-theme-surface text-theme-primary' : 'bg-transparent text-theme-muted border border-theme-muted'}`}
+                                    className={`px-2 py-1 rounded ${
+                                        timeframe === '1h'
+                                            ? 'bg-theme-surface text-theme-primary'
+                                            : 'bg-transparent text-theme-muted border border-theme-muted'
+                                    }`}
                                     onClick={() => setTimeframe('1h')}
                                 >
                                     1h
                                 </button>
                                 <button
                                     type="button"
-                                    className={`px-2 py-1 rounded ${timeframe === '6h' ? 'bg-theme-surface text-theme-primary' : 'bg-transparent text-theme-muted border border-theme-muted'}`}
+                                    className={`px-2 py-1 rounded ${
+                                        timeframe === '6h'
+                                            ? 'bg-theme-surface text-theme-primary'
+                                            : 'bg-transparent text-theme-muted border border-theme-muted'
+                                    }`}
                                     onClick={() => setTimeframe('6h')}
                                 >
                                     6h
                                 </button>
                                 <button
                                     type="button"
-                                    className={`px-2 py-1 rounded ${timeframe === '24h' ? 'bg-theme-surface text-theme-primary' : 'bg-transparent text-theme-muted border border-theme-muted'}`}
+                                    className={`px-2 py-1 rounded ${
+                                        timeframe === '24h'
+                                            ? 'bg-theme-surface text-theme-primary'
+                                            : 'bg-transparent text-theme-muted border border-theme-muted'
+                                    }`}
                                     onClick={() => setTimeframe('24h')}
                                 >
                                     24h
                                 </button>
                                 <button
                                     type="button"
-                                    className={`px-2 py-1 rounded ${timeframe === '7d' ? 'bg-theme-surface text-theme-primary' : 'bg-transparent text-theme-muted border border-theme-muted'}`}
+                                    className={`px-2 py-1 rounded ${
+                                        timeframe === '7d'
+                                            ? 'bg-theme-surface text-theme-primary'
+                                            : 'bg-transparent text-theme-muted border border-theme-muted'
+                                    }`}
                                     onClick={() => setTimeframe('7d')}
                                 >
                                     7d
+                                </button>
+                                <button
+                                    type="button"
+                                    className={`px-2 py-1 rounded ${
+                                        timeframe === '1M'
+                                            ? 'bg-theme-surface text-theme-primary'
+                                            : 'bg-transparent text-theme-muted border border-theme-muted'
+                                    }`}
+                                    onClick={() => setTimeframe('1M')}
+                                >
+                                    1M
                                 </button>
                             </div>
                         </div>
                     </div>
                     <div className={'mt-4 text-sm text-theme-muted'}>
-                        Current CPU: <span className={'font-semibold'}>{current.cpu ? formatPercent(current.cpu) : '—'}</span>
+                        Current CPU:{' '}
+                        <span className={'font-semibold'}>{current.cpu ? formatPercent(current.cpu) : '—'}</span>
                         <br />
-                        Current Memory: <span className={'font-semibold'}>{current.memoryPercent ? formatPercent(current.memoryPercent) : '—'}</span>
+                        Current Memory:{' '}
+                        <span className={'font-semibold'}>
+                            {current.memoryPercent ? formatPercent(current.memoryPercent) : '—'}
+                        </span>
+                        <br />
+                        {metric === 'bandwidth' && (
+                            <>
+                                Current Bandwidth:{' '}
+                                <span className={'font-semibold'}>{formatBytesPerSecond(current.metricValue)}</span>
+                            </>
+                        )}
+                        {metric === 'io' && (
+                            <>
+                                Current Disk I/O:{' '}
+                                <span className={'font-semibold'}>{formatBytesPerSecond(current.metricValue)}</span>
+                            </>
+                        )}
+                        {metric === 'disk' && timeframe !== '24h' && (
+                            <>
+                                Current Storage:{' '}
+                                <span className={'font-semibold'}>
+                                    {current.metricValue ? formatPercent(current.metricValue) : '—'}
+                                </span>
+                            </>
+                        )}
                     </div>
                 </div>
 
@@ -258,14 +418,20 @@ export default function NodeSummary() {
                     <div className={'grid gap-4'}>
                         <div className={'bg-black/25 p-3 rounded'}>
                             <div className={'text-xs text-theme-muted mb-2'}>
-                                {metric === 'cpu' ? 'CPU utilization (avg across selected nodes)' : `${metric.charAt(0).toUpperCase() + metric.slice(1)} utilization % (avg)`}
+                                {metric === 'cpu'
+                                    ? 'CPU utilization (avg across selected nodes)'
+                                    : `${metric.charAt(0).toUpperCase() + metric.slice(1)} utilization % (avg)`}
                             </div>
                             {metric === 'cpu' ? <Line {...cpuChart.props} /> : <Line {...memChart.props} />}
                         </div>
                     </div>
                 </div>
             </div>
-            {loading && <div className={'mt-3'}><Spinner centered size={'small'} /></div>}
+            {loading && (
+                <div className={'mt-3'}>
+                    <Spinner centered size={'small'} />
+                </div>
+            )}
         </AdminBox>
     );
 }

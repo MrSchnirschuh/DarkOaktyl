@@ -79,4 +79,3 @@ export default ({ defaultColor }: { defaultColor: string }) => {
         </div>
     );
 };
-

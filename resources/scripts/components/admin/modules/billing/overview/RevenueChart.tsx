@@ -88,4 +88,3 @@ export default ({ data, history }: { data: BillingAnalytics; history: number }) 
 
     return <Line data={chartData} options={chartOptions} />;
 };
-

@@ -281,6 +281,19 @@ export default function ThemeVars() {
         set('--theme-spinner-track-accent', spinnerAccentTrack);
         set('--theme-spinner-foreground-accent', spinnerAccentForeground);
 
+        // Additional informational colors exposed for admin-configurable alerts and badges
+        const danger = effectiveColors['danger'] ?? '#dc2626';
+        const info = effectiveColors['info'] ?? '#f59e0b';
+        const warning = effectiveColors['warning'] ?? '#f97316';
+        const experimental = effectiveColors['experimental'] ?? '#facc15';
+        const success = effectiveColors['success'] ?? primary;
+
+        set('--theme-danger', danger);
+        set('--theme-info', info);
+        set('--theme-warning', warning);
+        set('--theme-experimental', experimental);
+        set('--theme-success', success);
+
         const backgroundRgb = colorToRgbString(background) ?? '15 23 42';
         const bodySurfaceRgb = colorToRgbString(bodySurface) ?? '17 24 39';
         const headersSurfaceRgb = colorToRgbString(headersSurface) ?? bodySurfaceRgb;
@@ -299,6 +312,12 @@ export default function ThemeVars() {
         const spinnerAccentTrackRgb = colorToRgbString(spinnerAccentTrack) ?? accentRgb;
         const spinnerAccentForegroundRgb = colorToRgbString(spinnerAccentForeground) ?? onAccentRgb;
 
+        const dangerRgb = colorToRgbString(danger) ?? '220 38 38';
+        const infoRgb = colorToRgbString(info) ?? '245 158 11';
+        const warningRgb = colorToRgbString(warning) ?? '249 115 22';
+        const experimentalRgb = colorToRgbString(experimental) ?? '250 204 21';
+        const successRgb = colorToRgbString(success) ?? primaryRgb;
+
         set('--theme-background-rgb', backgroundRgb);
         set('--theme-body-rgb', bodySurfaceRgb);
         set('--theme-headers-rgb', headersSurfaceRgb);
@@ -316,6 +335,11 @@ export default function ThemeVars() {
         set('--theme-spinner-foreground-rgb', spinnerForegroundRgb);
         set('--theme-spinner-track-accent-rgb', spinnerAccentTrackRgb);
         set('--theme-spinner-foreground-accent-rgb', spinnerAccentForegroundRgb);
+        set('--theme-danger-rgb', dangerRgb);
+        set('--theme-info-rgb', infoRgb);
+        set('--theme-warning-rgb', warningRgb);
+        set('--theme-experimental-rgb', experimentalRgb);
+        set('--theme-success-rgb', successRgb);
         // background image per-mode
         const bgImage = effectiveColors[`background_image_${mode}`] ?? effectiveColors['background_image'] ?? '';
         if (bgImage) set('--theme-background-image', `url(${bgImage})`);

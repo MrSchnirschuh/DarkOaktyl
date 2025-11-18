@@ -357,4 +357,3 @@ interface CouponRedemption extends Model {
     createdAt: Date;
     updatedAt?: Date | null;
 }
-

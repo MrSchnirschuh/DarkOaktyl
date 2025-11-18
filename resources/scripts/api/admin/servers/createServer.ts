@@ -38,7 +38,7 @@ export interface CreateServerRequest {
     startOnCompletion: boolean;
 }
 
-export default (r: CreateServerRequest, include: string[] = []): Promise<Server> => {
+const createServer = (r: CreateServerRequest, include: string[] = []): Promise<Server> => {
     return new Promise((resolve, reject) => {
         http.post(
             '/api/application/servers',
@@ -84,3 +84,6 @@ export default (r: CreateServerRequest, include: string[] = []): Promise<Server>
             .catch(reject);
     });
 };
+
+export default createServer;
+export { createServer };

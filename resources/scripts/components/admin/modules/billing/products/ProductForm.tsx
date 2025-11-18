@@ -71,7 +71,9 @@ export default ({ product }: { product?: Product }) => {
                     <CubeIcon className={'w-8 h-8 mr-4'} />
                 )}
                 <div css={tw`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
-                    <h2 css={tw`text-2xl text-theme-primary font-header font-medium`}>{product?.name ?? 'New Product'}</h2>
+                    <h2 css={tw`text-2xl text-theme-primary font-header font-medium`}>
+                        {product?.name ?? 'New Product'}
+                    </h2>
                     <p
                         css={tw`hidden lg:block text-base text-theme-muted whitespace-nowrap overflow-ellipsis overflow-hidden`}
                     >

@@ -37,7 +37,9 @@ export default () => {
                         Disabled
                     </option>
                 </Select>
-                <p className={'text-xs text-theme-muted mt-1'}>Toggle whether users must use two-factor authentication.</p>
+                <p className={'text-xs text-theme-muted mt-1'}>
+                    Toggle whether users must use two-factor authentication.
+                </p>
             </div>
             <div className={'mt-6'}>
                 <Label>Login Attempt Limit</Label>
@@ -55,4 +57,3 @@ export default () => {
         </AdminBox>
     );
 };
-

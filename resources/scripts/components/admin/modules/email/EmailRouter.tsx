@@ -56,4 +56,3 @@ const EmailRouter = () => {
 };
 
 export default EmailRouter;
-

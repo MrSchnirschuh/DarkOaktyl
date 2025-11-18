@@ -1,6 +1,10 @@
 import { faNetworkWired } from '@fortawesome/free-solid-svg-icons';
 import type { FormikHelpers } from 'formik';
 import { Form, Formik, useFormikContext } from 'formik';
+import { useCallback } from 'react';
+import { useStoreState } from '@/state/hooks';
+import { getPresets as fetchPresets } from '@/api/admin/presets';
+import PresetSaveModal from '@admin/management/servers/PresetSaveModal';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import tw from 'twin.macro';
@@ -35,12 +39,26 @@ import getAllocations from '@/api/admin/nodes/getAllocations';
 import { Alert } from '@/components/elements/alert';
 
 function InternalForm() {
-    const {
-        isSubmitting,
-        isValid,
-        setFieldValue,
-        values: { environment },
-    } = useFormikContext<CreateServerRequest>();
+    const { isSubmitting, isValid, setFieldValue, values } = useFormikContext<CreateServerRequest>();
+    const { environment } = values as any;
+
+    const [presets, setPresets] = useState<any[]>([]);
+    const [saveModalOpen, setSaveModalOpen] = useState(false);
+    const settings = useStoreState(s => s.settings.data!);
+
+    const loadPresets = useCallback(async () => {
+        try {
+            const list = await fetchPresets();
+            setPresets(list);
+        } catch (e) {
+            setPresets([]);
+        }
+    }, []);
+
+    // load presets once (only if module enabled)
+    useEffect(() => {
+        if (settings.presets_module) loadPresets();
+    }, [loadPresets, settings.presets_module]);
 
     const [egg, setEgg] = useState<WithRelationships<Egg, 'variables'> | undefined>(undefined);
     const [node, setNode] = useState<Node | undefined>(undefined);
@@ -70,9 +88,71 @@ function InternalForm() {
         );
     };
 
+    // helper removed: unused
+
+    const applyPreset = (preset: any) => {
+        if (!preset || !preset.settings) return;
+        const s = preset.settings;
+        // shallow merge for known keys
+        if (s.name) setFieldValue('name', s.name);
+        if (s.description) setFieldValue('description', s.description);
+        if (s.node_id) setFieldValue('nodeId', s.node_id);
+
+        if (s.limits) {
+            Object.entries(s.limits).forEach(([k, v]) => setFieldValue(`limits.${k}` as any, v));
+        }
+        if (s.feature_limits) {
+            Object.entries(s.feature_limits).forEach(([k, v]) => setFieldValue(`featureLimits.${k}` as any, v));
+        }
+        if (s.allocation) {
+            if (s.allocation.default) setFieldValue('allocation.default' as any, s.allocation.default);
+            if (s.allocation.additional) setFieldValue('allocation.additional' as any, s.allocation.additional);
+        }
+        if (s.startup) setFieldValue('startup', s.startup);
+        if (s.environment) setFieldValue('environment', s.environment);
+        if (s.egg_id) setFieldValue('eggId', s.egg_id);
+        if (s.image) setFieldValue('image', s.image);
+        if (s.skip_scripts !== undefined) setFieldValue('skipScripts', s.skip_scripts);
+        if (s.start_on_completion !== undefined) setFieldValue('startOnCompletion', s.start_on_completion);
+    };
+
     return (
         <Form>
             <div className="grid grid-cols-2 gap-y-6 gap-x-8 mb-16">
+                {/* Preset selector row */}
+                {settings.presets_module && (
+                    <div className="col-span-2 mb-2 flex items-center space-x-3">
+                        <div className="flex-1">
+                            <Label>Preset</Label>
+                            <select
+                                className="w-full p-2 rounded bg-neutral-900 border border-neutral-800"
+                                onChange={e => {
+                                    const id = Number(e.target.value || 0);
+                                    const p = presets.find(x => x.id === id);
+                                    applyPreset(p);
+                                }}
+                            >
+                                <option value="">-- Select preset --</option>
+                                {presets.map(p => (
+                                    <option key={p.id} value={p.id}>
+                                        {p.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div>
+                            <Button type="button" onClick={() => setSaveModalOpen(true)} className="h-10">
+                                Save as preset
+                            </Button>
+                        </div>
+                    </div>
+                )}
+                <PresetSaveModal
+                    visible={saveModalOpen}
+                    onDismissed={() => setSaveModalOpen(false)}
+                    values={values as any}
+                    onSaved={() => loadPresets()}
+                />
                 <div className="grid grid-cols-1 gap-y-6 col-span-2 md:col-span-1">
                     <BaseSettingsBox>
                         <NodeSelect node={node!} setNode={setNode} />

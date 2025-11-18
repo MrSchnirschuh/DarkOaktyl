@@ -211,7 +211,11 @@ export default () => {
                                                 )}
                                             </div>
                                             <p className={'text-3xl font-bold text-center mt-3'}>{product.name}</p>
-                                            <p className={'text-lg font-semibold text-center mt-1 mb-4 text-theme-muted'}>
+                                            <p
+                                                className={
+                                                    'text-lg font-semibold text-center mt-1 mb-4 text-theme-muted'
+                                                }
+                                            >
                                                 <span style={{ color: colors.primary }} className={'mr-1'}>
                                                     {settings.currency.symbol}
                                                     {product.price.toFixed(2)}
@@ -275,4 +279,3 @@ export default () => {
         </PageContentBlock>
     );
 };
-

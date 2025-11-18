@@ -6,6 +6,10 @@ export interface GeneralSettings {
     auto_update: boolean;
     indicators: boolean;
     speed_dial: boolean;
+    // Presets module toggle and global port ranges used as fallback when saving presets
+    presets_module?: boolean;
+    presets_global_port_start?: number | null;
+    presets_global_port_end?: number | null;
 }
 
 export const updateGeneralSettings = async (settings: Partial<GeneralSettings>): Promise<void> => {

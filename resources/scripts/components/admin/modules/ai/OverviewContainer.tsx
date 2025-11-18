@@ -91,16 +91,16 @@ export default () => {
             </div>
             <div className={'col-span-2 space-y-4'}>
                 <Alert type={'warning'} className={'mt-16 md:mt-0'}>
-                    DarkOaktyl AI relies on Google Gemini models for requests. Information provided could be inaccurate or
-                    outdated. Use with caution!
+                    DarkOaktyl AI relies on Google Gemini models for requests. Information provided could be inaccurate
+                    or outdated. Use with caution!
                 </Alert>
                 <Alert type={'info'}>
                     API requests are limited on Gemini&apos;s public API to 120/second - if you experience ratelimiting,
                     you may need to upgrade your license.
                 </Alert>
                 <AdminBox title={'Disable DarkOaktyl AI'} className={'col-span-2 h-min'}>
-                    Clicking the button below will disable DarkOaktyl AI for both clients and administrators. Your API key
-                    will remain in the database unless you choose to delete it manually.
+                    Clicking the button below will disable DarkOaktyl AI for both clients and administrators. Your API
+                    key will remain in the database unless you choose to delete it manually.
                     <div className={'text-right mt-2'}>
                         <ToggleFeatureButton />
                     </div>
@@ -109,4 +109,3 @@ export default () => {
         </div>
     );
 };
-
