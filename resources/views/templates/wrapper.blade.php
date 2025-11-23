@@ -14,6 +14,20 @@
     $initialText = $initialMode === 'light'
         ? ($themeColors['text_primary_light'] ?? '#0f172a')
         : ($themeColors['text_primary'] ?? '#f5f5f5');
+    $initialAccent = $initialMode === 'light'
+        ? (
+            $themeColors['accent_primary_light']
+            ?? $themeColors['accent_primary']
+            ?? $themeColors['accent']
+            ?? $themeColors['primary_light']
+            ?? '#008000'
+        )
+        : (
+            $themeColors['accent_primary']
+            ?? $themeColors['accent']
+            ?? $themeColors['primary']
+            ?? '#008000'
+        );
 @endphp
 <!DOCTYPE html>
 <html lang="en" data-initial-theme="{{ $initialMode }}">
@@ -27,13 +41,14 @@
             <meta name="csrf-token" content="{{ csrf_token() }}">
             <meta name="robots" content="noindex">
             <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+            <link rel="icon" type="image/svg+xml" href="/assets/brand/DarkOak_CL.svg">
             <link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
             <link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
             <link rel="manifest" href="/favicons/manifest.json">
-            <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#bc6e3c">
+            <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="{{ $initialAccent }}">
             <link rel="shortcut icon" href="/favicons/favicon.ico">
             <meta name="msapplication-config" content="/favicons/browserconfig.xml">
-            <meta name="theme-color" content="#0e4688">
+            <meta name="theme-color" content="{{ $initialAccent }}" data-theme-color>
         @show
 
         @section('user-data')

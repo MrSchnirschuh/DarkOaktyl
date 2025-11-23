@@ -25,6 +25,8 @@ class CategoryTransformer extends Transformer
             'name' => $model->name,
             'icon' => $model->icon,
             'description' => $model->description,
+            'egg_id' => $model->egg_id,
+            'nest_id' => $model->nest_id,
         ];
     }
 }

@@ -14,14 +14,22 @@ import { CustomLink } from '@/api/admin/links';
 import { getLinks } from '@/api/getLinks';
 import http from '@/api/http';
 import NavigationBar from '@/components/NavigationBar';
+import { DEFAULT_PANEL_LOGO } from '@/constants/branding';
 
 function DashboardRouter() {
     const user = useStoreState(s => s.user.data!);
     const { name } = useStoreState(s => s.settings.data!);
     const theme = useStoreState(state => state.theme.data!);
+    const currentMode = useStoreState(s => s.theme.mode ?? 'dark');
     const [links, setLinks] = useState<CustomLink[] | null>();
     const flags = useStoreState(state => state.DarkOak.data!);
     const [collapsed, setCollapsed] = usePersistedState<boolean>(`sidebar_user_${user.uuid}`, false);
+    const collapsedLogo =
+        theme.colors[`logo_panel_${currentMode}`] ||
+        theme.colors['logo_panel'] ||
+        theme.colors[`logo_login_${currentMode}`] ||
+        theme.colors['logo_login'] ||
+        DEFAULT_PANEL_LOGO;
 
     useEffect(() => {
         getLinks().then(setLinks).catch();
@@ -69,11 +77,7 @@ function DashboardRouter() {
                             {name}
                         </h1>
                     ) : (
-                        <img
-                            src={'https://avatars.githubusercontent.com/u/91636558'}
-                            className={'mt-4 w-12'}
-                            alt={'Logo'}
-                        />
+                        <img src={collapsedLogo} className={'mt-4 w-12'} alt={'Logo'} />
                     )}
                 </div>
                 <Sidebar.Wrapper theme={theme}>

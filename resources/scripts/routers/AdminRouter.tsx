@@ -12,6 +12,7 @@ import Spinner from '@/components/elements/Spinner';
 import { NotFound } from '@/components/elements/ScreenBlock';
 import { PuzzleIcon, ReplyIcon } from '@heroicons/react/outline';
 import { Fragment } from 'react';
+import { DEFAULT_PANEL_LOGO } from '@/constants/branding';
 
 function AdminRouter() {
     const theme = useStoreState(state => state.theme.data!);
@@ -21,6 +22,12 @@ function AdminRouter() {
 
     const categories = ['general', 'modules', 'appearance', 'management', 'services'] as const;
     const [collapsed, setCollapsed] = usePersistedState<boolean>(`sidebar_admin_${user.uuid}`, false);
+    const collapsedLogo =
+        theme.colors[`logo_panel_${currentMode}`] ||
+        theme.colors['logo_panel'] ||
+        theme.colors[`logo_login_${currentMode}`] ||
+        theme.colors['logo_login'] ||
+        DEFAULT_PANEL_LOGO;
 
     return (
         <div className={'h-screen flex'}>
@@ -52,15 +59,7 @@ function AdminRouter() {
                             {settings.name}
                         </h1>
                     ) : (
-                        <img
-                            src={
-                                theme.colors[`logo_panel_${currentMode}`] ||
-                                theme.colors['logo_panel'] ||
-                                'https://avatars.githubusercontent.com/u/91636558'
-                            }
-                            className={'mt-4 w-12'}
-                            alt={'Logo'}
-                        />
+                        <img src={collapsedLogo} className={'mt-4 w-12'} alt={'Logo'} />
                     )}
                 </div>
                 <Sidebar.Wrapper theme={theme} $admin>

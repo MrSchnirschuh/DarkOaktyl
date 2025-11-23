@@ -21,6 +21,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { Alert } from '@elements/alert';
+import BuilderStorefront from '@/components/billing/builder/BuilderStorefront';
 
 interface LimitProps {
     icon: IconDefinition;
@@ -34,7 +35,7 @@ const LimitBox = ({ icon, limit }: LimitProps) => (
     </div>
 );
 
-export default () => {
+const LegacyProductStorefront = () => {
     const [category, setCategory] = useState<number>();
     const [products, setProducts] = useState<Product[] | undefined>();
     const [categories, setCategories] = useState<Category[] | undefined>();
@@ -115,15 +116,6 @@ export default () => {
             isMounted = false;
         };
     }, [category]);
-
-    if (!settings.keys.publishable) {
-        return (
-            <Alert type={'danger'}>
-                Due to a configuration error, the store is currently unavailable. Please try again later, or refresh the
-                page.
-            </Alert>
-        );
-    }
 
     return (
         <PageContentBlock title={'Available Products'}>
@@ -279,3 +271,66 @@ export default () => {
         </PageContentBlock>
     );
 };
+
+const StorefrontSwitcher = () => {
+    const billingSettings = useStoreState(s => s.DarkOak.data!.billing);
+    const [view, setView] = useState<'products' | 'builder'>(
+        billingSettings.storefrontMode === 'builder' ? 'builder' : 'products',
+    );
+
+    const showBuilder = billingSettings.storefrontMode !== 'products';
+    const showProducts = billingSettings.storefrontMode !== 'builder';
+
+    useEffect(() => {
+        if (!showProducts) {
+            setView('builder');
+        } else if (!showBuilder) {
+            setView('products');
+        }
+    }, [showProducts, showBuilder]);
+
+    if (!billingSettings.keys.publishable) {
+        return (
+            <Alert type={'danger'}>
+                Due to a configuration error, the store is currently unavailable. Please try again later, or refresh the
+                page.
+            </Alert>
+        );
+    }
+
+    if (showBuilder && !showProducts) {
+        return <BuilderStorefront />;
+    }
+
+    if (!showBuilder && showProducts) {
+        return <LegacyProductStorefront />;
+    }
+
+    return (
+        <>
+            <div className={'flex justify-center gap-4 mt-6'}>
+                <button
+                    className={classNames(
+                        'px-6 py-2 rounded-full border border-dark-400 text-sm font-semibold transition-colors',
+                        view === 'products' ? 'bg-theme-primary text-black' : 'bg-dark-500 text-theme-muted',
+                    )}
+                    onClick={() => setView('products')}
+                >
+                    Products
+                </button>
+                <button
+                    className={classNames(
+                        'px-6 py-2 rounded-full border border-dark-400 text-sm font-semibold transition-colors',
+                        view === 'builder' ? 'bg-theme-primary text-black' : 'bg-dark-500 text-theme-muted',
+                    )}
+                    onClick={() => setView('builder')}
+                >
+                    Builder
+                </button>
+            </div>
+            {view === 'builder' ? <BuilderStorefront /> : <LegacyProductStorefront />}
+        </>
+    );
+};
+
+export default StorefrontSwitcher;

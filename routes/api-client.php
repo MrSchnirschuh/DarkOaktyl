@@ -59,6 +59,15 @@ Route::prefix('/')->middleware([SuspendedAccount::class])->group(function () {
             Route::post('/remove', [Client\SSHKeyController::class, 'delete']);
         });
 
+        Route::prefix('/passkeys')->group(function () {
+            Route::get('/', [Client\PasskeyController::class, 'index']);
+            Route::post('/options', [Client\PasskeyController::class, 'options']);
+            Route::post('/', [Client\PasskeyController::class, 'store']);
+            Route::delete('/{passkey}', [Client\PasskeyController::class, 'delete']);
+        });
+
+        Route::patch('/auth-login-method', [Client\PasskeyController::class, 'updateMethod']);
+
         Route::prefix('/tickets')->group(function () {
             Route::get('/', [Client\TicketController::class, 'index']);
             Route::post('/', [Client\TicketController::class, 'store']);
@@ -86,6 +95,19 @@ Route::prefix('/')->middleware([SuspendedAccount::class])->group(function () {
 
         Route::post('/process', [Client\Billing\PaymentController::class, 'process'])->name('api:client.billing.process');
         Route::post('/process/free', [Client\Billing\FreeProductController::class, 'process']);
+
+        Route::prefix('/builder')->group(function () {
+            Route::get('/resources', [Client\Billing\BuilderController::class, 'resources']);
+            Route::get('/terms', [Client\Billing\BuilderController::class, 'terms']);
+            Route::post('/quote', [Client\Billing\BuilderController::class, 'quote']);
+            Route::get('/nodes', [Client\Billing\NodesController::class, 'builder']);
+
+            Route::get('/key', [Client\Billing\PaymentController::class, 'builderKey']);
+            Route::post('/intent', [Client\Billing\PaymentController::class, 'builderIntent']);
+            Route::put('/intent', [Client\Billing\PaymentController::class, 'updateBuilderIntent']);
+
+            Route::post('/free', [Client\Billing\BuilderFreeOrderController::class, 'process']);
+        });
 
         Route::get('/orders', [Client\Billing\OrderController::class, 'index']);
         Route::get('/orders/{id}', [Client\Billing\OrderController::class, 'view']);

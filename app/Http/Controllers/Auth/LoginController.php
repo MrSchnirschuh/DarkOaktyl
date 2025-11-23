@@ -59,6 +59,10 @@ class LoginController extends AbstractLoginController
             $this->sendFailedLoginResponse($request);
         }
 
+        if (!$user->canLoginWithPassword()) {
+            $this->sendFailedLoginResponse($request, $user);
+        }
+
         // Ensure that the account is using a valid username and password before trying to
         // continue. Previously this was handled in the 2FA checkpoint, however that has
         // a flaw in which you can discover if an account exists simply by seeing if you

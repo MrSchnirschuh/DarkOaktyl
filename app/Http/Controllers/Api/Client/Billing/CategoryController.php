@@ -26,7 +26,9 @@ class CategoryController extends ClientApiController
             static fn () => Category::where('visible', true)->orderBy('name')->get(),
         );
 
-        if ($categories->isEmpty()) {
+        $storefrontMode = config('modules.billing.storefront.mode', 'products');
+
+        if ($categories->isEmpty() && $storefrontMode === 'products') {
             BillingException::firstOrCreate(
                 [
                     'title' => 'No product categories are visible',

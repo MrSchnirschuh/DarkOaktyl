@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { FormEvent, useEffect, useMemo, useState } from 'react';
 import tw from 'twin.macro';
 import AdminBox from '@elements/AdminBox';
 import FlashMessageRender from '@/components/FlashMessageRender';
@@ -6,9 +6,18 @@ import Switch from '@elements/Switch';
 import Select from '@elements/Select';
 import { Button } from '@elements/button';
 import Spinner from '@elements/Spinner';
+import Input from '@elements/Input';
+import Label from '@elements/Label';
 import useFlash from '@/plugins/useFlash';
 import { useStoreActions, useStoreState } from '@/state/hooks';
-import { getEmailSettings, getEmailThemes, updateEmailSetting, type EmailSettingsResponse } from '@/api/admin/emails';
+import {
+    getEmailSettings,
+    getEmailThemes,
+    updateEmailEnvironment,
+    updateEmailSetting,
+    type EmailEnvironmentSettings,
+    type EmailSettingsResponse,
+} from '@/api/admin/emails';
 import type { DarkOakSettings } from '@/state/DarkOak';
 import type { EmailTheme } from '@definitions/admin/models';
 
@@ -21,12 +30,15 @@ const SettingsContainer = () => {
     const [themes, setThemes] = useState<EmailTheme[]>([]);
     const [loading, setLoading] = useState(true);
     const [refreshingThemes, setRefreshingThemes] = useState(false);
+    const [environment, setEnvironment] = useState<EmailEnvironmentSettings | null>(null);
+    const [savingEnvironment, setSavingEnvironment] = useState(false);
 
     useEffect(() => {
         Promise.all([getEmailSettings(), getEmailThemes()])
             .then(([loadedSettings, loadedThemes]) => {
                 setSettings(loadedSettings);
                 setThemes(loadedThemes);
+                setEnvironment(loadedSettings.environment);
             })
             .catch(error => {
                 clearAndAddHttpError({ key: 'admin:emails:settings', error });
@@ -43,6 +55,7 @@ const SettingsContainer = () => {
             enabled: DarkOakEmails?.enabled ?? settings.enabled,
             defaultTheme: DarkOakEmails?.defaultTheme ?? settings.defaultTheme,
             defaults: DarkOakEmails?.defaults ?? settings.defaults,
+            environment: DarkOakEmails?.environment ?? settings.environment,
         };
 
         updateDarkOak({
@@ -50,6 +63,7 @@ const SettingsContainer = () => {
                 enabled: partial.enabled ?? base.enabled,
                 defaultTheme: partial.defaultTheme ?? base.defaultTheme ?? null,
                 defaults: partial.defaults ?? base.defaults,
+                environment: partial.environment ?? base.environment ?? null,
             },
         });
     };
@@ -95,6 +109,31 @@ const SettingsContainer = () => {
             .then(setThemes)
             .catch(error => clearAndAddHttpError({ key: 'admin:emails:settings', error }))
             .finally(() => setRefreshingThemes(false));
+    };
+
+    const handleEnvironmentChange = (field: keyof EmailEnvironmentSettings, value: string) => {
+        setEnvironment(prev => (prev ? { ...prev, [field]: value } : prev));
+    };
+
+    const handleEnvironmentSubmit = (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        if (!environment) return;
+
+        clearFlashes('admin:emails:settings');
+        setSavingEnvironment(true);
+
+        updateEmailEnvironment(environment)
+            .then(() => {
+                setSettings(prev => (prev ? { ...prev, environment } : prev));
+                syncDarkOakStore({ environment });
+                addFlash({
+                    key: 'admin:emails:settings',
+                    type: 'success',
+                    message: 'Mail driver settings updated.',
+                });
+            })
+            .catch(error => clearAndAddHttpError({ key: 'admin:emails:settings', error }))
+            .finally(() => setSavingEnvironment(false));
     };
 
     if (loading || !settings) {
@@ -150,6 +189,112 @@ const SettingsContainer = () => {
                     </div>
                 </AdminBox>
             </div>
+
+            {environment && (
+                <AdminBox title={'Mail Transport Configuration'}>
+                    <form onSubmit={handleEnvironmentSubmit} css={tw`space-y-4`}>
+                        <div>
+                            <Label>Mailer</Label>
+                            <Select
+                                value={environment.mailer}
+                                onChange={event => handleEnvironmentChange('mailer', event.currentTarget.value)}
+                                disabled={savingEnvironment}
+                            >
+                                {(settings.mailers.length ? settings.mailers : ['smtp']).map(mailer => (
+                                    <option key={mailer} value={mailer}>
+                                        {mailer.toUpperCase()}
+                                    </option>
+                                ))}
+                            </Select>
+                        </div>
+                        <div css={tw`grid gap-4 md:grid-cols-2`}>
+                            <div>
+                                <Label>Host</Label>
+                                <Input
+                                    value={environment.host}
+                                    onChange={event => handleEnvironmentChange('host', event.currentTarget.value)}
+                                    placeholder={'smtp.example.com'}
+                                    disabled={savingEnvironment}
+                                />
+                            </div>
+                            <div>
+                                <Label>Port</Label>
+                                <Input
+                                    value={environment.port}
+                                    onChange={event => handleEnvironmentChange('port', event.currentTarget.value)}
+                                    placeholder={'465'}
+                                    disabled={savingEnvironment}
+                                />
+                            </div>
+                        </div>
+                        <div css={tw`grid gap-4 md:grid-cols-2`}>
+                            <div>
+                                <Label>Username</Label>
+                                <Input
+                                    value={environment.username}
+                                    onChange={event => handleEnvironmentChange('username', event.currentTarget.value)}
+                                    autoComplete={'off'}
+                                    disabled={savingEnvironment}
+                                />
+                            </div>
+                            <div>
+                                <Label>Password</Label>
+                                <Input
+                                    type={'password'}
+                                    value={environment.password}
+                                    onChange={event => handleEnvironmentChange('password', event.currentTarget.value)}
+                                    autoComplete={'off'}
+                                    disabled={savingEnvironment}
+                                />
+                            </div>
+                        </div>
+                        <div css={tw`grid gap-4 md:grid-cols-2`}>
+                            <div>
+                                <Label>Encryption</Label>
+                                <Select
+                                    value={environment.encryption || ''}
+                                    onChange={event => handleEnvironmentChange('encryption', event.currentTarget.value)}
+                                    disabled={savingEnvironment}
+                                >
+                                    <option value={''}>Automatic</option>
+                                    <option value={'tls'}>TLS</option>
+                                    <option value={'ssl'}>SSL</option>
+                                    <option value={'starttls'}>STARTTLS</option>
+                                </Select>
+                            </div>
+                            <div>
+                                <Label>From Address</Label>
+                                <Input
+                                    value={environment.fromAddress}
+                                    onChange={event =>
+                                        handleEnvironmentChange('fromAddress', event.currentTarget.value)
+                                    }
+                                    placeholder={'noreply@example.com'}
+                                    disabled={savingEnvironment}
+                                />
+                            </div>
+                        </div>
+                        <div>
+                            <Label>From Name</Label>
+                            <Input
+                                value={environment.fromName}
+                                onChange={event => handleEnvironmentChange('fromName', event.currentTarget.value)}
+                                placeholder={'DarkOaktyl'}
+                                disabled={savingEnvironment}
+                            />
+                            <p css={tw`text-xs text-theme-muted mt-2`}>
+                                These values mirror the entries in your <code>.env</code> file and update it when saved.
+                                Make sure queue workers are restarted after changing credentials.
+                            </p>
+                        </div>
+                        <div css={tw`text-right`}>
+                            <Button type={'submit'} disabled={savingEnvironment}>
+                                {savingEnvironment ? 'Saving…' : 'Save changes'}
+                            </Button>
+                        </div>
+                    </form>
+                </AdminBox>
+            )}
         </div>
     );
 };

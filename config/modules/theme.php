@@ -65,5 +65,14 @@ return [
         'button_text' => env('THEME_COLORS_BUTTON_TEXT', '#FFFFFF'),
         'button_text_dark' => env('THEME_COLORS_BUTTON_TEXT_DARK', '#FFFFFF'),
         'button_text_light' => env('THEME_COLORS_BUTTON_TEXT_LIGHT', '#0F0F0F'),
+
+        // Default logos wired into the theme colors map so React consumers get them automatically.
+        'logo_panel' => env('THEME_LOGO_PANEL', '/assets/brand/DarkOak_CL.svg'),
+        'logo_panel_light' => env('THEME_LOGO_PANEL_LIGHT', env('THEME_LOGO_PANEL', '/assets/brand/DarkOak_CL.svg')),
+        'logo_panel_dark' => env('THEME_LOGO_PANEL_DARK', env('THEME_LOGO_PANEL', '/assets/brand/DarkOak_CL.svg')),
+
+        'logo_login' => env('THEME_LOGO_LOGIN', '/assets/brand/DarkOak_CL.svg'),
+        'logo_login_light' => env('THEME_LOGO_LOGIN_LIGHT', env('THEME_LOGO_LOGIN', '/assets/brand/DarkOak_CL.svg')),
+        'logo_login_dark' => env('THEME_LOGO_LOGIN_DARK', env('THEME_LOGO_LOGIN', '/assets/brand/DarkOak_CL.svg')),
     ],
 ];

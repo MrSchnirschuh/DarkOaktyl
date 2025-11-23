@@ -5,6 +5,8 @@ export interface Category {
     name: string;
     icon?: string;
     description?: string;
+    eggId?: number;
+    nestId?: number;
 }
 
 export const rawDataToCategory = ({ attributes: data }: FractalResponseData): Category => ({
@@ -12,6 +14,8 @@ export const rawDataToCategory = ({ attributes: data }: FractalResponseData): Ca
     name: data.name,
     icon: data.icon,
     description: data.description,
+    eggId: data.egg_id ? Number(data.egg_id) : undefined,
+    nestId: data.nest_id ? Number(data.nest_id) : undefined,
 });
 
 export default (): Promise<Category[]> => {

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Http;
 use DarkOak\Exceptions\DisplayException;
 use DarkOak\Contracts\Repository\ThemeRepositoryInterface;
 use DarkOak\Contracts\Repository\SettingsRepositoryInterface;
+use function url;
 
 class WebhookEventService
 {
@@ -44,7 +45,7 @@ class WebhookEventService
                     'timestamp' => now()->toIso8601String(),
                     'footer' => [
                         'text' => 'DarkOaktyl v4',
-                        'icon_url' => 'https://avatars.githubusercontent.com/u/91636558?s=200&v=4',
+                        'icon_url' => url('/assets/brand/DarkOak_CL.png'),
                     ],
                     'author' => [
                         'name' => $user->email,

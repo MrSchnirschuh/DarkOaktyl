@@ -4,6 +4,7 @@ namespace DarkOak\Http\Controllers\Api\Client\Billing;
 
 use DarkOak\Models\Node;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use DarkOak\Models\Billing\Product;
 use DarkOak\Models\Billing\BillingException;
 use DarkOak\Transformers\Api\Client\NodeTransformer;
@@ -24,6 +25,19 @@ class NodesController extends ClientApiController
     {
         $free = (float) $product->price === 0.00;
 
+        return $this->transformNodesResponse($this->gatherNodes($free), $free);
+    }
+
+    public function builder(Request $request): array
+    {
+        $type = strtolower((string) $request->query('type', 'paid'));
+        $free = $type === 'free';
+
+        return $this->transformNodesResponse($this->gatherNodes($free), $free);
+    }
+
+    private function gatherNodes(bool $free): Collection
+    {
         $nodes = Node::where($free ? 'deployable_free' : 'deployable', true)->get();
 
         if ($nodes->isEmpty() && !$free) {
@@ -33,9 +47,7 @@ class NodesController extends ClientApiController
                 'description' => 'Ensure at least one node has the "deployable" box checked',
             ]);
 
-            return $this->fractal->collection(collect())
-                ->transformWith(NodeTransformer::class)
-                ->toArray();
+            return collect();
         }
 
         $availableNodes = collect();
@@ -63,7 +75,18 @@ class NodesController extends ClientApiController
             ]);
         }
 
-        return $this->fractal->collection($availableNodes)
+        return $availableNodes;
+    }
+
+    private function transformNodesResponse(Collection $nodes, bool $free): array
+    {
+        if ($nodes->isEmpty() && $free) {
+            return $this->fractal->collection(collect())
+                ->transformWith(NodeTransformer::class)
+                ->toArray();
+        }
+
+        return $this->fractal->collection($nodes)
             ->transformWith(NodeTransformer::class)
             ->toArray();
     }

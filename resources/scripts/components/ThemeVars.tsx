@@ -193,6 +193,13 @@ export default function ThemeVars() {
         const secondary = effectiveColors[`secondary_${mode}`] ?? effectiveColors['secondary'] ?? '#27272a';
         const accent = effectiveColors[`accent_primary_${mode}`] ?? effectiveColors['accent_primary'] ?? '#008000';
 
+        if (accent) {
+            const meta = document.querySelector('meta[name="theme-color"][data-theme-color]');
+            if (meta) {
+                meta.setAttribute('content', accent);
+            }
+        }
+
         const textPrimaryRaw =
             textPalette?.primary ??
             effectiveColors[`text_primary_${mode}`] ??

@@ -246,6 +246,7 @@ return [
         DarkOak\Providers\BladeServiceProvider::class,
         DarkOak\Providers\EventServiceProvider::class,
         DarkOak\Providers\HashidsServiceProvider::class,
+        DarkOak\Providers\PasskeyServiceProvider::class,
         DarkOak\Providers\RouteServiceProvider::class,
         DarkOak\Providers\RepositoryServiceProvider::class,
         DarkOak\Providers\ViewComposerServiceProvider::class,

@@ -30,6 +30,7 @@ class UserFactory extends Factory
             'username' => $this->faker->userName . '_' . Str::random(10),
             'email' => Str::random(32) . '@example.com',
             'password' => $password ?: $password = bcrypt('password'),
+            'auth_login_method' => User::AUTH_LOGIN_METHOD_PASSWORD,
             'language' => 'en',
             'root_admin' => false,
             'use_totp' => false,

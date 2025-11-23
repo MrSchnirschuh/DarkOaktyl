@@ -20,6 +20,7 @@ import { CogIcon, DesktopComputerIcon, PuzzleIcon, ReplyIcon } from '@heroicons/
 import SidebarControls from '@/components/server/console/SidebarControls';
 import classNames from 'classnames';
 import NavigationBar from '@/components/NavigationBar';
+import { DEFAULT_PANEL_LOGO } from '@/constants/branding';
 
 function statusToColor(status: ServerStatus): string {
     switch (status) {
@@ -46,6 +47,7 @@ function ServerRouter() {
     const user = useStoreState(state => state.user.data!);
     const theme = useStoreState(state => state.theme.data!);
     const name = useStoreState(state => state.settings.data!.name);
+    const currentMode = useStoreState(state => state.theme.mode ?? 'dark');
     const inConflictState = ServerContext.useStoreState(state => state.server.inConflictState);
     const getServer = ServerContext.useStoreActions(actions => actions.server.getServer);
     const clearServerState = ServerContext.useStoreActions(actions => actions.clearServerState);
@@ -55,6 +57,12 @@ function ServerRouter() {
     const status = ServerContext.useStoreState(state => state.status.value);
 
     const categories = ['data', 'configuration'] as const;
+    const collapsedLogo =
+        theme.colors[`logo_panel_${currentMode}`] ||
+        theme.colors['logo_panel'] ||
+        theme.colors[`logo_login_${currentMode}`] ||
+        theme.colors['logo_login'] ||
+        DEFAULT_PANEL_LOGO;
 
     useEffect(() => {
         clearServerState();
@@ -115,11 +123,7 @@ function ServerRouter() {
                                 {name}
                             </h1>
                         ) : (
-                            <img
-                                src={'https://avatars.githubusercontent.com/u/91636558'}
-                                className={'mt-4 w-12'}
-                                alt={'Logo'}
-                            />
+                            <img src={collapsedLogo} className={'mt-4 w-12'} alt={'Logo'} />
                         )}
                     </div>
                     <Sidebar.Wrapper theme={theme} className={'mb-auto'}>

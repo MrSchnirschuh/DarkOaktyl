@@ -19,6 +19,19 @@ interface SSHKey extends Model {
     created_at: Date;
 }
 
+export type AuthLoginMethod = 'password' | 'passkey' | 'both';
+
+export interface Passkey extends Model {
+    uuid: string;
+    name: string;
+    attestationType: string | null;
+    aaguid: string | null;
+    transports: string[];
+    counter?: number;
+    createdAt: Date;
+    lastUsedAt: Date | null;
+}
+
 interface ApiKey extends Model {
     id?: number;
     identifier: string;

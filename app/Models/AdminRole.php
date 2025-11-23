@@ -99,6 +99,9 @@ class AdminRole extends Model
     public const EMAILS_UPDATE = 'emails.update';
     public const EMAILS_TRIGGERS = 'emails.triggers';
 
+    public const LEGAL_READ = 'legal.read';
+    public const LEGAL_UPDATE = 'legal.update';
+
     public const TICKETS_READ = 'tickets.read';
     public const TICKETS_CREATE = 'tickets.create';
     public const TICKETS_UPDATE = 'tickets.update';
@@ -240,6 +243,13 @@ class AdminRole extends Model
                 'read' => 'View email module configuration and templates.',
                 'update' => 'Create or update email templates and themes.',
                 'triggers' => 'Create, update, or run automated email triggers.',
+            ],
+        ],
+        'legal' => [
+            'description' => 'Permissions to configure legal documents such as Terms of Service and Legal Notice.',
+            'keys' => [
+                'read' => 'View existing legal documents.',
+                'update' => 'Update legal document content and status.',
             ],
         ],
         'tickets' => [

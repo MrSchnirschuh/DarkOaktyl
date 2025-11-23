@@ -10,6 +10,7 @@ use Illuminate\Auth\Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Builder;
 use DarkOak\Models\Traits\HasAccessTokens;
+use DarkOak\Models\UserPasskey;
 use DarkOak\Traits\Helpers\AvailableLanguages;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -30,6 +31,7 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
  * @property string $username
  * @property string $email
  * @property string $password
+ * @property string $auth_login_method
  * @property string|null $remember_token
  * @property string $language
  * @property int|null $admin_role_id
@@ -100,6 +102,10 @@ class User extends Model implements
     public const USER_LEVEL_USER = 0;
     public const USER_LEVEL_ADMIN = 1;
 
+    public const AUTH_LOGIN_METHOD_PASSWORD = 'password';
+    public const AUTH_LOGIN_METHOD_PASSKEY = 'passkey';
+    public const AUTH_LOGIN_METHOD_BOTH = 'both';
+
     /**
      * The resource name for this model when it is transformed into an
      * API representation using fractal.
@@ -125,6 +131,7 @@ class User extends Model implements
         'email',
         'password',
         'language',
+        'auth_login_method',
         'use_totp',
         'totp_secret',
         'admin_role_id',
@@ -145,6 +152,7 @@ class User extends Model implements
         'use_totp' => 'boolean',
         'gravatar' => 'boolean',
         'totp_authenticated_at' => 'datetime',
+        'auth_login_method' => 'string',
     ];
 
     /**
@@ -164,6 +172,7 @@ class User extends Model implements
         'state' => null,
         'appearance_mode' => 'system',
         'appearance_last_mode' => 'dark',
+        'auth_login_method' => self::AUTH_LOGIN_METHOD_PASSWORD,
     ];
 
     /**
@@ -182,6 +191,7 @@ class User extends Model implements
         'admin_role_id' => 'nullable|exists:admin_roles,id',
         'totp_secret' => 'nullable|string',
         'recovery_code' => 'nullable|string',
+        'auth_login_method' => 'in:' . self::AUTH_LOGIN_METHOD_PASSWORD . ',' . self::AUTH_LOGIN_METHOD_PASSKEY . ',' . self::AUTH_LOGIN_METHOD_BOTH,
     ];
 
     /**
@@ -282,9 +292,24 @@ class User extends Model implements
         return $this->hasMany(UserSSHKey::class);
     }
 
+    public function passkeys(): HasMany
+    {
+        return $this->hasMany(UserPasskey::class);
+    }
+
     public function tickets(): HasMany
     {
         return $this->hasMany(Ticket::class);
+    }
+
+    public function canLoginWithPassword(): bool
+    {
+        return in_array($this->auth_login_method, [self::AUTH_LOGIN_METHOD_PASSWORD, self::AUTH_LOGIN_METHOD_BOTH], true);
+    }
+
+    public function canLoginWithPasskey(): bool
+    {
+        return in_array($this->auth_login_method, [self::AUTH_LOGIN_METHOD_PASSKEY, self::AUTH_LOGIN_METHOD_BOTH], true);
     }
 
     /**

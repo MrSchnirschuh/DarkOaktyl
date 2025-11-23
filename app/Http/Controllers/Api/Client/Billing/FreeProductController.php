@@ -47,7 +47,16 @@ class FreeProductController extends ClientApiController
             throw new DisplayException('Free servers cannot be deployed to this node.');
         }
 
-        $order = $this->orderService->create(null, $user, $product, Order::STATUS_PENDING, $this->getOrderType($request));
+        $order = $this->orderService->create(
+            null,
+            $user,
+            $product,
+            Order::STATUS_PENDING,
+            $this->getOrderType($request),
+            [
+                'storefront' => Order::STOREFRONT_PRODUCTS,
+            ],
+        );
 
         if ($order->type === Order::TYPE_REN && $request->has('server_id')) {
             $server = Server::findOrFail((int) $request->input('server_id'));

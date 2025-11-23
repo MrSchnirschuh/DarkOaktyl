@@ -11,6 +11,7 @@ use DarkOak\Models\Allocation;
 use DarkOak\Models\EggVariable;
 use DarkOak\Models\Billing\Order;
 use DarkOak\Models\Billing\Product;
+use DarkOak\Models\Billing\Category;
 use DarkOak\Exceptions\DisplayException;
 use DarkOak\Models\Billing\BillingException;
 use DarkOak\Services\Servers\ServerCreationService;
@@ -66,6 +67,83 @@ class CreateServerService
                 'order_id' => $order->id,
                 'exception_type' => BillingException::TYPE_DEPLOYMENT,
                 'title' => 'Failed to create billable server',
+                'description' => $ex->getMessage(),
+            ]);
+
+            throw new DisplayException('Unable to create server: ' . $ex->getMessage());
+        }
+
+        return $server;
+    }
+
+    /**
+     * Process the creation of a server based on builder metadata.
+     */
+    public function processBuilder(Request $request, array $metadata, Order $order): Server
+    {
+        $categoryData = $metadata['category'] ?? null;
+        $nodeData = $metadata['node'] ?? null;
+
+        if (!is_array($categoryData) || empty($categoryData['id'])) {
+            throw new DisplayException('Unable to determine category for this order.');
+        }
+
+        if (!is_array($nodeData) || empty($nodeData['id'])) {
+            throw new DisplayException('Unable to determine node for this order.');
+        }
+
+        $category = Category::findOrFail((int) $categoryData['id']);
+        $egg = Egg::findOrFail($category->egg_id);
+        $nodeId = (int) $nodeData['id'];
+
+        $limits = $metadata['limits'] ?? [];
+        $defaults = config('modules.billing.builder.defaults', []);
+
+        $memory = max(1, (int) ($limits['memory'] ?? ($defaults['memory'] ?? 1024)));
+        $disk = max(1, (int) ($limits['disk'] ?? ($defaults['disk'] ?? 10240)));
+        $cpu = max(1, (int) ($limits['cpu'] ?? ($defaults['cpu'] ?? 100)));
+        $backupLimit = (int) ($limits['backup_limit'] ?? ($defaults['backup_limit'] ?? 0));
+        $databaseLimit = (int) ($limits['database_limit'] ?? ($defaults['database_limit'] ?? 0));
+        $allocationLimit = (int) ($limits['allocation_limit'] ?? ($defaults['allocation_limit'] ?? 1));
+        $subuserLimit = (int) ($limits['subuser_limit'] ?? ($defaults['subuser_limit'] ?? 3));
+        $swap = (int) ($limits['swap'] ?? ($defaults['swap'] ?? 0));
+        $io = (int) ($limits['io'] ?? ($defaults['io'] ?? 500));
+
+        $allocation = $this->getAllocation($nodeId, $order->id);
+        $environment = $this->getEnvironmentWithDefaults($egg->id);
+        $environment = $this->applyBuilderVariables($environment, $metadata['variables'] ?? []);
+
+        $durationDays = (int) data_get($metadata, 'term.duration_days', 30);
+        $durationDays = $durationDays > 0 ? $durationDays : 30;
+
+        try {
+            $server = $this->creation->handle([
+                'node_id' => $nodeId,
+                'allocation_id' => $allocation,
+                'egg_id' => $egg->id,
+                'nest_id' => $category->nest_id,
+                'name' => $request->user()->username . '\'s server',
+                'owner_id' => $request->user()->id,
+                'memory' => $memory,
+                'swap' => $swap,
+                'disk' => $disk,
+                'io' => $io,
+                'cpu' => $cpu,
+                'startup' => $egg->startup,
+                'environment' => $environment,
+                'image' => current($egg->docker_images),
+                'billing_product_id' => null,
+                'renewal_date' => Carbon::now()->addDays($durationDays),
+                'database_limit' => $databaseLimit,
+                'backup_limit' => $backupLimit,
+                'allocation_limit' => $allocationLimit,
+                'subuser_limit' => $subuserLimit,
+            ]);
+        } catch (DisplayException $ex) {
+            BillingException::create([
+                'order_id' => $order->id,
+                'exception_type' => BillingException::TYPE_DEPLOYMENT,
+                'title' => 'Failed to create builder server',
                 'description' => $ex->getMessage(),
             ]);
 
@@ -134,6 +212,20 @@ class CreateServerService
         }
 
         return $variables;
+    }
+
+    private function applyBuilderVariables(array $environment, array $variables): array
+    {
+        foreach ($variables as $variable) {
+            $key = $variable['key'] ?? null;
+            if (!$key) {
+                continue;
+            }
+
+            $environment[$key] = $variable['value'] ?? '';
+        }
+
+        return $environment;
     }
 
     /**

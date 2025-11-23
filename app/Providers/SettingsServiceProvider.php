@@ -54,6 +54,7 @@ class SettingsServiceProvider extends ServiceProvider
 
         'modules:auth:jguard:enabled',
         'modules:auth:jguard:delay',
+        'modules:auth:passkeys:enabled',
 
         // Billing module settings
         'modules:billing:enabled',
@@ -63,6 +64,7 @@ class SettingsServiceProvider extends ServiceProvider
         'modules:billing:keys:secret',
         'modules:billing:currency:code',
         'modules:billing:currency:symbol',
+        'modules:billing:storefront:mode',
 
     // Email module settings
     'modules:email:enabled',

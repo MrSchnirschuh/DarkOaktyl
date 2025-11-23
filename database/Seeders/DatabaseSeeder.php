@@ -15,5 +15,6 @@ class DatabaseSeeder extends Seeder
         $this->call(EggSeeder::class);
         $this->call(WebhookSeeder::class);
         $this->call(EmailTemplateSeeder::class);
+        $this->call(LegalDocumentsSeeder::class);
     }
 }

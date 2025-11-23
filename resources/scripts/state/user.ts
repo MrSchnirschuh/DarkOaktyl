@@ -1,4 +1,5 @@
 import { updateAccountEmail, updateAccountAppearance } from '@/api/account';
+import type { AuthLoginMethod } from '@definitions/user';
 import { Action, action, Thunk, thunk } from 'easy-peasy';
 
 export interface UserData {
@@ -16,6 +17,7 @@ export interface UserData {
     updatedAt: Date;
     appearanceMode: 'light' | 'dark' | 'system';
     appearanceLastMode: 'light' | 'dark';
+    authLoginMethod: AuthLoginMethod;
 }
 
 export interface UserStore {

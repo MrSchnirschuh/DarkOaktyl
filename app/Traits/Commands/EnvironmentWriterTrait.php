@@ -32,6 +32,10 @@ trait EnvironmentWriterTrait
             throw new DarkOaktylException('Cannot locate .env file, was this software installed correctly?');
         }
 
+        if (!is_writable($path)) {
+            throw new DarkOaktylException('The .env file is not writable by the panel process.');
+        }
+
         $saveContents = file_get_contents($path);
         collect($values)->each(function ($value, $key) use (&$saveContents) {
             $key = strtoupper($key);
@@ -44,7 +48,9 @@ trait EnvironmentWriterTrait
             }
         });
 
-        file_put_contents($path, $saveContents);
+        if (file_put_contents($path, $saveContents) === false) {
+            throw new DarkOaktylException('Unable to persist environment changes to the .env file.');
+        }
     }
 }
 

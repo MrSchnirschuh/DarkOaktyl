@@ -39,15 +39,39 @@ function PageContentBlock({ title, header, description, showFlashKey, className,
             </ContentContainer>
 
             <ContentContainer css={tw`mb-4`}>
-                <p css={tw`text-center text-theme-muted text-xs`}>
-                    Powered by&nbsp;
+                <p css={tw`text-center text-theme-muted text-xs flex flex-wrap gap-1 justify-center items-center`}>
                     <a
                         rel={'noopener nofollow noreferrer'}
                         href={'https://DarkOak.eu'}
                         target={'_blank'}
-                        css={tw`no-underline text-theme-muted hover:text-theme-secondary`}
+                        css={tw`no-underline text-theme-muted hover:text-theme-accent transition-colors`}
+                        aria-label={'Powered by DarkOak.eu'}
                     >
-                        DarkOak.eu
+                        Powered by DarkOak.eu
+                    </a>
+                    <span css={tw`opacity-60`}>|</span>
+                    <a
+                        rel={'noopener nofollow noreferrer'}
+                        href={'https://DarkOak.eu'}
+                        target={'_blank'}
+                        css={tw`no-underline text-theme-muted hover:text-theme-accent transition-colors`}
+                        aria-label={'Copyright 2025 DarkOak.eu'}
+                    >
+                        © 2025 DarkOak.eu
+                    </a>
+                    <span css={tw`opacity-60`}>|</span>
+                    <a
+                        href={'/legal/terms-of-service'}
+                        css={tw`no-underline text-theme-muted hover:text-theme-accent transition-colors`}
+                    >
+                        Terms of Service
+                    </a>
+                    <span css={tw`opacity-60`}>|</span>
+                    <a
+                        href={'/legal/legal-notice'}
+                        css={tw`no-underline text-theme-muted hover:text-theme-accent transition-colors`}
+                    >
+                        Legal Notice
                     </a>
                 </p>
             </ContentContainer>

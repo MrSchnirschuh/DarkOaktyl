@@ -141,6 +141,8 @@ Route::middleware([AdminSubject::class])->group(function () {
             ->name('application.emails.settings.index');
         Route::patch('/settings', [Application\Emails\SettingsController::class, 'update'])
             ->name('application.emails.settings.update');
+        Route::put('/settings/environment', [Application\Emails\SettingsController::class, 'updateEnvironment'])
+            ->name('application.emails.settings.environment');
 
         Route::get('/themes', [Application\Emails\ThemeController::class, 'index'])
             ->name('application.emails.themes.index');
@@ -182,6 +184,15 @@ Route::middleware([AdminSubject::class])->group(function () {
             ->name('application.emails.triggers.run');
         Route::delete('/triggers/{trigger:uuid}', [Application\Emails\TriggerController::class, 'delete'])
             ->name('application.emails.triggers.delete');
+    });
+
+    Route::group(['prefix' => '/legal'], function () {
+        Route::get('/documents', [Application\Legal\LegalDocumentController::class, 'index'])
+            ->name('application.legal.documents.index');
+        Route::get('/documents/{slug}', [Application\Legal\LegalDocumentController::class, 'show'])
+            ->name('application.legal.documents.show');
+        Route::put('/documents/{slug}', [Application\Legal\LegalDocumentController::class, 'update'])
+            ->name('application.legal.documents.update');
     });
 
     /*

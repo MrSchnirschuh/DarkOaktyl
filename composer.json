@@ -26,6 +26,8 @@
         "league/flysystem-aws-s3-v3": "~3.12.2",
         "league/flysystem-memory": "~3.10.3",
         "matriphe/iso-639": "~1.2",
+        "paragonie/constant_time_encoding": "2.6",
+        "phpdocumentor/reflection-docblock": "5.4",
         "phpseclib/phpseclib": "~3.0.18",
         "pragmarx/google2fa": "~8.0.0",
         "predis/predis": "~2.1.1",
@@ -34,11 +36,18 @@
         "s1lentium/iptools": "~1.2.0",
         "spatie/laravel-fractal": "~6.0.3",
         "spatie/laravel-query-builder": "~5.1.2",
+        "spomky-labs/cbor-php": "3.2",
+        "spomky-labs/pki-framework": "1.4",
         "staudenmeir/belongs-to-through": "~2.13",
         "symfony/http-client": "~6.2.6",
         "symfony/mailgun-mailer": "~6.2.5",
         "symfony/postmark-mailer": "~6.2.5",
+        "symfony/property-access": "6.4",
+        "symfony/property-info": "6.4",
+        "symfony/serializer": "6.4.3",
         "symfony/yaml": "~6.2.5",
+        "web-auth/cose-lib": "4.4",
+        "web-auth/webauthn-lib": "4.9",
         "webmozart/assert": "~1.11.0"
     },
     "require-dev": {
@@ -97,4 +106,3 @@
     "minimum-stability": "stable",
     "prefer-stable": true
 }
-

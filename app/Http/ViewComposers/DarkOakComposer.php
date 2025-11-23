@@ -17,6 +17,18 @@ class DarkOakComposer
     public function compose(View $view): void
     {
         $emailDefaults = $this->paletteService->getEmailDefaults();
+        $mailPort = config('mail.mailers.smtp.port');
+
+        $mailEnvironment = [
+            'mailer' => config('mail.default', 'smtp'),
+            'host' => config('mail.mailers.smtp.host'),
+            'port' => is_null($mailPort) ? null : (string) $mailPort,
+            'username' => config('mail.mailers.smtp.username'),
+            'password' => config('mail.mailers.smtp.password'),
+            'encryption' => config('mail.mailers.smtp.encryption'),
+            'fromAddress' => config('mail.from.address'),
+            'fromName' => config('mail.from.name'),
+        ];
 
         $view->with('DarkOakConfiguration', [
             'auth' => [
@@ -45,6 +57,10 @@ class DarkOakComposer
                     'jguard' => [
                         'enabled' => boolval(config('modules.auth.jguard.enabled', false)),
                     ],
+                    'passkeys' => [
+                        'enabled' => boolval(config('modules.auth.passkeys.enabled', false)),
+                        'max' => (int) config('modules.auth.passkeys.max_per_user', 5),
+                    ],
                 ],
             ],
             'tickets' => [
@@ -55,6 +71,7 @@ class DarkOakComposer
                 'enabled' => boolval(config('modules.billing.enabled', false)),
                 'paypal' => config('modules.billing.paypal'),
                 'link' => config('modules.billing.link'),
+                'storefrontMode' => config('modules.billing.storefront.mode', 'products'),
                 'keys' => [
                     'publishable' => boolval(config('modules.billing.keys.publishable')),
                     'secret' => boolval(config('modules.billing.keys.secret')),
@@ -68,6 +85,7 @@ class DarkOakComposer
                 'enabled' => boolval(config('modules.email.enabled', false)),
                 'defaultTheme' => config('modules.email.default_theme'),
                 'defaults' => $emailDefaults,
+                'environment' => $mailEnvironment,
             ],
             'alert' => [
                 'enabled' => boolval(config('modules.alert.enabled', false)),

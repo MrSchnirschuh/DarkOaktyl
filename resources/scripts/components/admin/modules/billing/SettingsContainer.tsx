@@ -2,7 +2,7 @@ import { useState } from 'react';
 import AdminBox from '@elements/AdminBox';
 import { Button } from '@elements/button';
 import ToggleFeatureButton from './ToggleFeatureButton';
-import { faDollar, faExchange, faKey, faPowerOff } from '@fortawesome/free-solid-svg-icons';
+import { faDollar, faExchange, faKey, faPowerOff, faStore } from '@fortawesome/free-solid-svg-icons';
 import { useStoreActions, useStoreState } from '@/state/hooks';
 import { faPaypal, faStripe } from '@fortawesome/free-brands-svg-icons';
 import SetupPayPal from './guides/SetupPayPal';
@@ -124,6 +124,22 @@ export default () => {
                 <div className={'text-right mt-3'}>
                     <ExportConfigButton />
                     <ImportConfigButton />
+                </div>
+            </AdminBox>
+            <AdminBox title={'Storefront Experience'} icon={faStore}>
+                Choose which ordering experience is presented to end-users. The legacy products view displays fixed
+                packages, while the builder experience lets customers assemble resources from pricing rules. Selecting
+                hybrid exposes both and lets users switch between them on the storefront.
+                <div className={'mt-4'}>
+                    <Label>Active Storefront</Label>
+                    <Select
+                        value={settings.storefrontMode}
+                        onChange={event => submit('storefront:mode', event.target.value)}
+                    >
+                        <option value={'products'}>Products only</option>
+                        <option value={'builder'}>Builder only</option>
+                        <option value={'hybrid'}>Hybrid (both)</option>
+                    </Select>
                 </div>
             </AdminBox>
             {!settings.keys.publishable || !settings.keys.secret ? (
