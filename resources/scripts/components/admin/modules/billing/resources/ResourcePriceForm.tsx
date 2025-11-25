@@ -14,6 +14,7 @@ import { array, boolean, number, object, string } from 'yup';
 import Select from '@elements/Select';
 import ResourcePriceDeleteButton from './ResourcePriceDeleteButton';
 import type { ResourcePriceValues } from '@/api/admin/billing/types';
+import currencyDictionary from '@/assets/currency';
 
 interface RuleFormValue {
     id?: number;
@@ -69,7 +70,7 @@ const buildInitialValues = (resource?: ResourcePrice): FormValues => {
         unit: resource.unit ?? '',
         baseQuantity: String(resource.baseQuantity),
         price: resource.price.toFixed(4),
-        currency: resource.currency ?? '',
+        currency: resource.currency ? resource.currency.toUpperCase() : '',
         minQuantity: String(resource.minQuantity),
         maxQuantity:
             resource.maxQuantity !== null && resource.maxQuantity !== undefined ? String(resource.maxQuantity) : '',
@@ -195,7 +196,7 @@ export default ({ resource }: { resource?: ResourcePrice }) => {
                 validationSchema={validationSchema}
                 onSubmit={handleSubmit}
             >
-                {({ values, isSubmitting }) => (
+                {({ values, isSubmitting, setFieldValue }) => (
                     <Form>
                         <FlashMessageRender byKey={'admin:billing:resources'} className={'mb-4'} />
                         <div className={'grid grid-cols-1 lg:grid-cols-2 gap-6'}>
@@ -257,15 +258,29 @@ export default ({ resource }: { resource?: ResourcePrice }) => {
                                             label={'Base Price'}
                                             description={'Price charged per base quantity.'}
                                         />
-                                        <Field
-                                            id={'currency'}
-                                            name={'currency'}
-                                            type={'text'}
-                                            label={'Currency'}
-                                            description={
-                                                '3-letter ISO currency code. Leave blank to use panel default.'
-                                            }
-                                        />
+                                        <div>
+                                            <label className={'text-sm text-theme-secondary'} htmlFor={'currency'}>
+                                                Currency Override
+                                            </label>
+                                            <Select
+                                                id={'currency'}
+                                                name={'currency'}
+                                                value={values.currency}
+                                                onChange={event => setFieldValue('currency', event.currentTarget.value)}
+                                                className={'mt-1'}
+                                            >
+                                                <option value={''}>Use panel default</option>
+                                                {Object.keys(currencyDictionary).map(code => (
+                                                    <option key={code} value={code}>
+                                                        {code} - {currencyDictionary[code]!.name}
+                                                    </option>
+                                                ))}
+                                            </Select>
+                                            <p className={'text-xs text-theme-muted mt-2'}>
+                                                Select a billing currency for this resource or inherit the primary
+                                                currency.
+                                            </p>
+                                        </div>
                                         <Field
                                             id={'minQuantity'}
                                             name={'minQuantity'}

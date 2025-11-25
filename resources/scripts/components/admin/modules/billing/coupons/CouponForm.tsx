@@ -1,5 +1,6 @@
 import { Form, Formik } from 'formik';
 import { useNavigate } from 'react-router-dom';
+import { useMemo } from 'react';
 import AdminContentBlock from '@elements/AdminContentBlock';
 import AdminBox from '@elements/AdminBox';
 import Field, { FieldRow, TextareaField } from '@elements/Field';
@@ -14,6 +15,7 @@ import { boolean, object, string } from 'yup';
 import Select from '@elements/Select';
 import CouponDeleteButton from './CouponDeleteButton';
 import type { CouponValues } from '@/api/admin/billing/types';
+import { useGetResourcePrices } from '@/api/admin/billing/resourcePrices';
 
 interface FormValues {
     code: string;
@@ -22,6 +24,9 @@ interface FormValues {
     type: 'amount' | 'percentage' | 'resource' | 'duration';
     value: string;
     percentage: string;
+    resourceKey: string;
+    resourceQuantity: string;
+    resourceLabel: string;
     maxUsages: string;
     perUserLimit: string;
     appliesToTermId: string;
@@ -40,6 +45,9 @@ const buildInitialValues = (coupon?: Coupon): FormValues => {
             type: 'percentage',
             value: '',
             percentage: '10',
+            resourceKey: '',
+            resourceQuantity: '',
+            resourceLabel: '',
             maxUsages: '',
             perUserLimit: '',
             appliesToTermId: '',
@@ -50,13 +58,34 @@ const buildInitialValues = (coupon?: Coupon): FormValues => {
         };
     }
 
+    const resourceMetadata = (coupon.metadata ?? null) as Record<string, unknown> | null;
+    const resourceKey =
+        coupon.type === 'resource' && resourceMetadata && typeof resourceMetadata['resource'] === 'string'
+            ? (resourceMetadata['resource'] as string)
+            : '';
+    const resourceQuantity =
+        coupon.type === 'resource'
+            ? coupon.value?.toString() ??
+              (resourceMetadata &&
+              (typeof resourceMetadata['quantity'] === 'number' || typeof resourceMetadata['quantity'] === 'string')
+                  ? String(resourceMetadata['quantity'])
+                  : '')
+            : '';
+    const resourceLabel =
+        coupon.type === 'resource' && resourceMetadata && typeof resourceMetadata['resource_label'] === 'string'
+            ? (resourceMetadata['resource_label'] as string)
+            : resourceKey;
+
     return {
         code: coupon.code,
         name: coupon.name,
         description: coupon.description ?? '',
         type: coupon.type,
-        value: coupon.value ? coupon.value.toString() : '',
+        value: coupon.value && coupon.type !== 'resource' ? coupon.value.toString() : '',
         percentage: coupon.percentage ? coupon.percentage.toString() : '',
+        resourceKey,
+        resourceQuantity,
+        resourceLabel,
         maxUsages: coupon.maxUsages ? coupon.maxUsages.toString() : '',
         perUserLimit: coupon.perUserLimit ? coupon.perUserLimit.toString() : '',
         appliesToTermId: coupon.appliesToTermId ? coupon.appliesToTermId.toString() : '',
@@ -97,19 +126,39 @@ const toPayload = (values: FormValues): CouponValues => {
     };
 
     // Set value or percentage based on type
-    if (values.type === 'amount' || values.type === 'resource') {
+    if (values.type === 'amount' || values.type === 'duration') {
         base.value = values.value.trim() !== '' ? Number(values.value) : null;
     } else if (values.type === 'percentage') {
         base.percentage = values.percentage.trim() !== '' ? Number(values.percentage) : null;
-    } else if (values.type === 'duration') {
-        base.value = values.value.trim() !== '' ? Number(values.value) : null;
+    } else if (values.type === 'resource') {
+        base.value = values.resourceQuantity.trim() !== '' ? Number(values.resourceQuantity) : null;
     }
 
+    let metadata: Record<string, unknown> | null = null;
     if (values.metadata.trim() !== '') {
-        base.metadata = normalizeMetadata(values.metadata) ?? null;
-    } else {
-        base.metadata = null;
+        metadata = normalizeMetadata(values.metadata) ?? null;
     }
+
+    if (values.type === 'resource') {
+        const resourceKey = values.resourceKey.trim();
+        const resourceQuantity = values.resourceQuantity.trim() !== '' ? Number(values.resourceQuantity) : null;
+        const labelInput = values.resourceLabel.trim();
+        const resourceLabel = labelInput !== '' ? labelInput : resourceKey;
+
+        const mergedMetadata: Record<string, unknown> = {
+            ...(metadata ?? {}),
+            resource: resourceKey,
+            quantity: resourceQuantity,
+        };
+
+        if (resourceLabel) {
+            mergedMetadata.resource_label = resourceLabel;
+        }
+
+        metadata = mergedMetadata;
+    }
+
+    base.metadata = metadata;
 
     return base;
 };
@@ -124,13 +173,13 @@ const validationSchema = object().shape({
     type: string().oneOf(['amount', 'percentage', 'resource', 'duration']),
     value: string()
         .when('type', {
-            is: (val: string) => val === 'amount' || val === 'resource' || val === 'duration',
+            is: (val: string) => val === 'amount' || val === 'duration',
             then: () => string().required('Value is required for this coupon type'),
             otherwise: () => string(),
         })
         .test('valid-number', 'Value must be a valid number', function (value) {
             const { type } = this.parent;
-            if ((type === 'amount' || type === 'resource' || type === 'duration') && value) {
+            if ((type === 'amount' || type === 'duration') && value) {
                 return !isNaN(Number(value)) && Number(value) >= 0;
             }
             return true;
@@ -149,6 +198,28 @@ const validationSchema = object().shape({
             }
             return true;
         }),
+    resourceKey: string()
+        .when('type', {
+            is: 'resource',
+            then: () => string().required('Select a resource').max(64),
+            otherwise: () => string(),
+        })
+        .nullable(),
+    resourceQuantity: string()
+        .when('type', {
+            is: 'resource',
+            then: () =>
+                string()
+                    .required('Quantity is required')
+                    .test('valid-resource-quantity', 'Quantity must be a positive number', value => {
+                        if (!value) {
+                            return false;
+                        }
+                        return !isNaN(Number(value)) && Number(value) > 0;
+                    }),
+            otherwise: () => string(),
+        })
+        .nullable(),
     maxUsages: string()
         .transform(value => (value === undefined ? value : value.trim()))
         .nullable()
@@ -188,6 +259,14 @@ const validationSchema = object().shape({
 export default ({ coupon }: { coupon?: Coupon }) => {
     const navigate = useNavigate();
     const { clearFlashes, clearAndAddHttpError } = useFlash();
+    const { data: resourcePrices } = useGetResourcePrices();
+    const resourceOptions = resourcePrices?.items ?? [];
+    const resourceLabelMap = useMemo(() => {
+        return resourceOptions.reduce<Record<string, string>>((acc, resource) => {
+            acc[resource.resource] = resource.displayName ?? resource.resource;
+            return acc;
+        }, {});
+    }, [resourceOptions]);
 
     const handleSubmit = (values: FormValues, { setSubmitting }: { setSubmitting: (value: boolean) => void }) => {
         clearFlashes('admin:billing:coupons');
@@ -249,7 +328,7 @@ export default ({ coupon }: { coupon?: Coupon }) => {
                 validationSchema={validationSchema}
                 onSubmit={handleSubmit}
             >
-                {({ values, isSubmitting }) => (
+                {({ values, isSubmitting, setFieldValue, setFieldTouched, errors, touched }) => (
                     <Form>
                         <FlashMessageRender byKey={'admin:billing:coupons'} className={'mb-4'} />
                         <div className={'grid grid-cols-1 lg:grid-cols-2 gap-6'}>
@@ -288,38 +367,106 @@ export default ({ coupon }: { coupon?: Coupon }) => {
                                 >
                                     <FieldRow>
                                         <div>
-                                            <label className={'text-sm text-theme-secondary mb-2 block'}>Type</label>
-                                            <Field id={'type'} name={'type'} as={Select}>
+                                            <label
+                                                className={'text-sm text-theme-secondary mb-2 block'}
+                                                htmlFor={'couponType'}
+                                            >
+                                                Type
+                                            </label>
+                                            <Select
+                                                id={'couponType'}
+                                                value={values.type}
+                                                onChange={event => {
+                                                    const nextType = event.currentTarget.value as FormValues['type'];
+                                                    setFieldValue('type', nextType);
+                                                    if (nextType !== 'resource') {
+                                                        setFieldValue('resourceKey', '');
+                                                        setFieldValue('resourceQuantity', '');
+                                                        setFieldValue('resourceLabel', '');
+                                                    }
+                                                }}
+                                            >
                                                 <option value={'percentage'}>Percentage Discount</option>
                                                 <option value={'amount'}>Fixed Amount Discount</option>
                                                 <option value={'resource'}>Resource Credit</option>
                                                 <option value={'duration'}>Free Time Period</option>
-                                            </Field>
+                                            </Select>
                                             <p className={'text-xs text-theme-muted mt-2'}>
                                                 Choose the type of discount this coupon provides.
                                             </p>
                                         </div>
 
-                                        {(values.type === 'amount' ||
-                                            values.type === 'resource' ||
-                                            values.type === 'duration') && (
+                                        {values.type === 'resource' && (
+                                            <div className={'space-y-4'}>
+                                                <div>
+                                                    <label
+                                                        className={'text-sm text-theme-secondary mb-2 block'}
+                                                        htmlFor={'resourceKey'}
+                                                    >
+                                                        Resource
+                                                    </label>
+                                                    <Select
+                                                        id={'resourceKey'}
+                                                        value={values.resourceKey}
+                                                        onChange={event => {
+                                                            const selected = event.currentTarget.value;
+                                                            setFieldTouched('resourceKey', true, true);
+                                                            setFieldValue('resourceKey', selected);
+                                                            setFieldValue(
+                                                                'resourceLabel',
+                                                                resourceLabelMap[selected] ?? '',
+                                                            );
+                                                        }}
+                                                        disabled={resourceOptions.length === 0}
+                                                    >
+                                                        <option value={''}>
+                                                            {resourceOptions.length === 0
+                                                                ? 'No resources available'
+                                                                : 'Select resource'}
+                                                        </option>
+                                                        {resourceOptions.map(resource => (
+                                                            <option key={resource.uuid} value={resource.resource}>
+                                                                {resource.displayName} ({resource.resource})
+                                                            </option>
+                                                        ))}
+                                                    </Select>
+                                                    {resourceOptions.length === 0 ? (
+                                                        <p className={'text-xs text-theme-muted mt-2'}>
+                                                            Define resource pricing entries before issuing resource
+                                                            credits.
+                                                        </p>
+                                                    ) : touched.resourceKey && errors.resourceKey ? (
+                                                        <p className={'text-xs text-red-400 mt-2'}>
+                                                            {errors.resourceKey as string}
+                                                        </p>
+                                                    ) : (
+                                                        <p className={'text-xs text-theme-muted mt-2'}>
+                                                            Choose the resource this coupon grants for free.
+                                                        </p>
+                                                    )}
+                                                </div>
+                                                <Field
+                                                    id={'resourceQuantity'}
+                                                    name={'resourceQuantity'}
+                                                    type={'number'}
+                                                    step={'0.01'}
+                                                    min={'0'}
+                                                    label={'Complimentary Quantity'}
+                                                    description={'How much of the selected resource to grant for free.'}
+                                                />
+                                            </div>
+                                        )}
+
+                                        {(values.type === 'amount' || values.type === 'duration') && (
                                             <Field
                                                 id={'value'}
                                                 name={'value'}
                                                 type={'number'}
                                                 step={'0.01'}
-                                                label={
-                                                    values.type === 'amount'
-                                                        ? 'Amount'
-                                                        : values.type === 'resource'
-                                                        ? 'Resource Value'
-                                                        : 'Duration (days)'
-                                                }
+                                                label={values.type === 'amount' ? 'Amount' : 'Duration (days)'}
                                                 description={
                                                     values.type === 'amount'
                                                         ? 'Fixed discount amount in currency.'
-                                                        : values.type === 'resource'
-                                                        ? 'Value of free resources to grant.'
                                                         : 'Number of free days to grant.'
                                                 }
                                             />

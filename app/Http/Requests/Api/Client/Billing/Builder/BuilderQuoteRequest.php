@@ -22,6 +22,7 @@ class BuilderQuoteRequest extends ClientApiRequest
             'options.validate_capacity' => ['nullable', 'boolean'],
             'options.node_uuid' => ['nullable', 'string', 'max:191', Rule::exists('nodes', 'uuid')],
             'options.node_id' => ['nullable', 'integer', Rule::exists('nodes', 'id')],
+            'deployment_type' => ['nullable', 'string', Rule::in(['paid', 'free', 'metered'])],
         ];
     }
 
@@ -62,6 +63,10 @@ class BuilderQuoteRequest extends ClientApiRequest
 
         if ($this->has('node_id') && $this->input('node_id') !== null) {
             $data['node_id'] = (int) $this->input('node_id');
+        }
+
+        if ($this->has('deployment_type') && $this->input('deployment_type') !== null) {
+            $data['deployment_type'] = Str::lower((string) $this->input('deployment_type'));
         }
 
         $this->merge($data);

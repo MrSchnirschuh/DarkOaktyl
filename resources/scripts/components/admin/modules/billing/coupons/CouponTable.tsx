@@ -18,7 +18,93 @@ import { useStoreState } from '@/state/hooks';
 import useFlash from '@/plugins/useFlash';
 import { Context, useGetCoupons } from '@/api/admin/billing/coupons';
 import { type CouponFilters } from '@/api/admin/billing/types';
+import type { Coupon } from '@/api/definitions/admin';
 import { TicketIcon } from '@heroicons/react/outline';
+
+interface ResourceDetails {
+    resource: string | null;
+    label: string | null;
+    quantity: number | null;
+}
+
+const formatQuantity = (quantity: number | null): string => {
+    if (quantity === null || quantity === undefined) {
+        return '—';
+    }
+
+    return Number.isInteger(quantity) ? quantity.toString() : quantity.toFixed(2);
+};
+
+const getResourceDetails = (coupon: Coupon): ResourceDetails | null => {
+    if (coupon.type !== 'resource') {
+        return null;
+    }
+
+    const metadata = (coupon.metadata ?? null) as Record<string, unknown> | null;
+
+    const resource =
+        metadata && typeof metadata.resource === 'string' && metadata.resource.trim().length > 0
+            ? (metadata.resource as string)
+            : null;
+
+    const label =
+        metadata && typeof metadata.resource_label === 'string' && metadata.resource_label.trim().length > 0
+            ? (metadata.resource_label as string)
+            : resource;
+
+    let quantity: number | null = null;
+
+    if (typeof coupon.value === 'number') {
+        quantity = coupon.value;
+    } else if (metadata) {
+        if (typeof metadata.quantity === 'number') {
+            quantity = metadata.quantity;
+        } else if (
+            typeof metadata.quantity === 'string' &&
+            metadata.quantity.trim() !== '' &&
+            !isNaN(Number(metadata.quantity))
+        ) {
+            quantity = Number(metadata.quantity);
+        }
+    }
+
+    if (!resource && !label && quantity === null) {
+        return null;
+    }
+
+    return {
+        resource,
+        label,
+        quantity,
+    };
+};
+
+const formatCouponValue = (coupon: Coupon, resourceDetails: ResourceDetails | null): string => {
+    if (coupon.type === 'amount' && typeof coupon.value === 'number') {
+        return coupon.value.toFixed(2);
+    }
+
+    if (coupon.type === 'percentage' && typeof coupon.percentage === 'number') {
+        return `${coupon.percentage}%`;
+    }
+
+    if (coupon.type === 'duration' && typeof coupon.value === 'number') {
+        const value = Number.isInteger(coupon.value) ? coupon.value : coupon.value.toFixed(2);
+        return `${value} days`;
+    }
+
+    if (coupon.type === 'resource' && resourceDetails) {
+        const label = resourceDetails.label ?? resourceDetails.resource ?? 'resource';
+
+        if (resourceDetails.quantity !== null) {
+            return `${formatQuantity(resourceDetails.quantity)} × ${label}`;
+        }
+
+        return `Free ${label}`;
+    }
+
+    return '—';
+};
 
 const CouponTable = () => {
     const { data: coupons, error } = useGetCoupons();
@@ -136,99 +222,113 @@ const CouponTable = () => {
                                 <TableBody>
                                     {coupons !== undefined &&
                                         coupons.items.length > 0 &&
-                                        coupons.items.map(coupon => (
-                                            <TableRow key={coupon.uuid}>
-                                                <td
-                                                    css={tw`pl-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
-                                                >
-                                                    <span
-                                                        className={
-                                                            'px-2 py-0.5 rounded bg-neutral-900 text-theme-secondary font-mono text-xs'
-                                                        }
+                                        coupons.items.map(coupon => {
+                                            const resourceDetails = getResourceDetails(coupon);
+
+                                            return (
+                                                <TableRow key={coupon.uuid}>
+                                                    <td
+                                                        css={tw`pl-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
                                                     >
-                                                        {coupon.id}
-                                                    </span>
-                                                </td>
-                                                <td
-                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
-                                                >
-                                                    <code className={'font-mono bg-neutral-900 rounded py-1 px-2'}>
-                                                        {coupon.code}
-                                                    </code>
-                                                </td>
-                                                <td
-                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
-                                                >
-                                                    <NavLink
-                                                        to={`/admin/billing/coupons/${coupon.uuid}`}
-                                                        style={{ color: theme.colors.primary }}
-                                                        className={'hover:brightness-125 duration-300'}
+                                                        <span
+                                                            className={
+                                                                'px-2 py-0.5 rounded bg-neutral-900 text-theme-secondary font-mono text-xs'
+                                                            }
+                                                        >
+                                                            {coupon.id}
+                                                        </span>
+                                                    </td>
+                                                    <td
+                                                        css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
                                                     >
-                                                        {coupon.name}
-                                                    </NavLink>
-                                                </td>
-                                                <td
-                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
-                                                >
-                                                    <span
-                                                        className={`px-2 py-0.5 rounded-full text-xs font-medium ${getTypeColor(
-                                                            coupon.type,
-                                                        )}`}
+                                                        <code className={'font-mono bg-neutral-900 rounded py-1 px-2'}>
+                                                            {coupon.code}
+                                                        </code>
+                                                    </td>
+                                                    <td
+                                                        css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
                                                     >
-                                                        {getTypeDisplay(coupon.type)}
-                                                    </span>
-                                                </td>
-                                                <td
-                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
-                                                >
-                                                    {coupon.type === 'amount' && coupon.value
-                                                        ? `${coupon.value.toFixed(2)}`
-                                                        : coupon.type === 'percentage' && coupon.percentage
-                                                        ? `${coupon.percentage}%`
-                                                        : '—'}
-                                                </td>
-                                                <td
-                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
-                                                >
-                                                    {coupon.usageCount ?? 0}
-                                                    {coupon.maxUsages ? ` / ${coupon.maxUsages}` : ''}
-                                                </td>
-                                                <td
-                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
-                                                >
-                                                    <span
-                                                        className={`px-2 py-0.5 rounded-full text-xs font-medium ${
-                                                            coupon.isActive
-                                                                ? 'bg-green-200 text-green-900'
-                                                                : 'bg-red-200 text-red-900'
-                                                        }`}
+                                                        <NavLink
+                                                            to={`/admin/billing/coupons/${coupon.uuid}`}
+                                                            style={{ color: theme.colors.primary }}
+                                                            className={'hover:brightness-125 duration-300'}
+                                                        >
+                                                            {coupon.name}
+                                                        </NavLink>
+                                                    </td>
+                                                    <td
+                                                        css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
                                                     >
-                                                        {coupon.isActive ? 'Active' : 'Inactive'}
-                                                    </span>
-                                                </td>
-                                                <td
-                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
-                                                >
-                                                    {coupon.expiresAt
-                                                        ? Math.abs(differenceInHours(coupon.expiresAt, new Date())) > 48
-                                                            ? format(coupon.expiresAt, 'MMM do, yyyy')
-                                                            : formatDistanceToNow(coupon.expiresAt, {
-                                                                  addSuffix: true,
-                                                              })
-                                                        : '—'}
-                                                </td>
-                                                <td
-                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap text-right`}
-                                                >
-                                                    <Link
-                                                        to={`/admin/billing/coupons/${coupon.uuid}`}
-                                                        className={'text-primary-400 hover:text-primary-300'}
+                                                        <span
+                                                            className={`px-2 py-0.5 rounded-full text-xs font-medium ${getTypeColor(
+                                                                coupon.type,
+                                                            )}`}
+                                                        >
+                                                            {getTypeDisplay(coupon.type)}
+                                                        </span>
+                                                        {resourceDetails && (
+                                                            <div className={'text-xs text-theme-muted mt-1'}>
+                                                                {resourceDetails.label ??
+                                                                    resourceDetails.resource ??
+                                                                    'Resource'}
+                                                                {resourceDetails.quantity !== null
+                                                                    ? ` • Free ${formatQuantity(
+                                                                          resourceDetails.quantity,
+                                                                      )}`
+                                                                    : ''}
+                                                            </div>
+                                                        )}
+                                                    </td>
+                                                    <td
+                                                        css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
                                                     >
-                                                        Edit
-                                                    </Link>
-                                                </td>
-                                            </TableRow>
-                                        ))}
+                                                        {formatCouponValue(coupon, resourceDetails)}
+                                                    </td>
+                                                    <td
+                                                        css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                    >
+                                                        {coupon.usageCount ?? 0}
+                                                        {coupon.maxUsages ? ` / ${coupon.maxUsages}` : ''}
+                                                    </td>
+                                                    <td
+                                                        css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                    >
+                                                        <span
+                                                            className={`px-2 py-0.5 rounded-full text-xs font-medium ${
+                                                                coupon.isActive
+                                                                    ? 'bg-green-200 text-green-900'
+                                                                    : 'bg-red-200 text-red-900'
+                                                            }`}
+                                                        >
+                                                            {coupon.isActive ? 'Active' : 'Inactive'}
+                                                        </span>
+                                                    </td>
+                                                    <td
+                                                        css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                    >
+                                                        {coupon.expiresAt
+                                                            ? Math.abs(
+                                                                  differenceInHours(coupon.expiresAt, new Date()),
+                                                              ) > 48
+                                                                ? format(coupon.expiresAt, 'MMM do, yyyy')
+                                                                : formatDistanceToNow(coupon.expiresAt, {
+                                                                      addSuffix: true,
+                                                                  })
+                                                            : '—'}
+                                                    </td>
+                                                    <td
+                                                        css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap text-right`}
+                                                    >
+                                                        <Link
+                                                            to={`/admin/billing/coupons/${coupon.uuid}`}
+                                                            className={'text-primary-400 hover:text-primary-300'}
+                                                        >
+                                                            Edit
+                                                        </Link>
+                                                    </td>
+                                                </TableRow>
+                                            );
+                                        })}
                                 </TableBody>
                             </table>
                             {coupons === undefined ? <Loading /> : coupons.items.length < 1 ? <NoItems /> : null}

@@ -12,6 +12,7 @@ export interface Values {
     daemonBase: string;
     deployable: boolean;
     deployableFree: boolean;
+    deployableMetered: boolean;
 
     memory: number;
     memoryOverallocate: number;

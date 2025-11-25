@@ -126,7 +126,8 @@ class PaymentController extends ClientApiController
             throw new DisplayException('This configuration does not require payment. Use the free checkout.');
         }
 
-        $this->assertNodeType($node, false);
+        $deploymentType = $this->determineDeploymentType($quoteResult['deployment_type'] ?? null);
+        $this->assertNodeDeployment($node, $deploymentType);
 
         $paymentMethodTypes = ['card'];
         if ($this->settings->get('settings::modules:billing:paypal')) {
@@ -148,6 +149,7 @@ class PaymentController extends ClientApiController
                 'storefront' => Order::STOREFRONT_BUILDER,
                 'node_id' => (string) $node->id,
                 'server_id' => (string) ($request->input('server_id') ?? 0),
+                'deployment_type' => $deploymentType,
                 'variables' => !empty($variables) ? json_encode($variables) : '',
             ],
         ]);
@@ -169,6 +171,7 @@ class PaymentController extends ClientApiController
             $variables,
             $quoteResult['term'],
             $couponCodes,
+            $deploymentType,
         );
 
         $this->orderService->create(
@@ -215,7 +218,9 @@ class PaymentController extends ClientApiController
         }
 
         $node = Node::findOrFail($request->input('node_id'));
-        $this->assertNodeType($node, false);
+        $builderMetadata = $order->builder_metadata ?? [];
+        $deploymentType = $this->determineDeploymentType($builderMetadata['deployment_type'] ?? ($builderMetadata['node']['type'] ?? null));
+        $this->assertNodeDeployment($node, $deploymentType);
 
         $variables = $request->input('variables', []);
 
@@ -225,20 +230,21 @@ class PaymentController extends ClientApiController
             'storefront' => Order::STOREFRONT_BUILDER,
             'node_id' => (string) $node->id,
             'server_id' => (string) ($request->input('server_id') ?? 0),
+            'deployment_type' => $deploymentType,
             'variables' => !empty($variables) ? json_encode($variables) : '',
         ]);
         $intent->save();
 
-        $metadata = $order->builder_metadata ?? [];
-        $metadata['node'] = [
+        $builderMetadata['node'] = [
             'id' => $node->id,
             'name' => $node->name,
             'fqdn' => $node->fqdn,
-            'type' => $node->deployable_free ? 'free' : 'paid',
+            'type' => $deploymentType,
         ];
-        $metadata['variables'] = $variables;
+        $builderMetadata['deployment_type'] = $deploymentType;
+        $builderMetadata['variables'] = $variables;
 
-        $order->builder_metadata = $metadata;
+        $order->builder_metadata = $builderMetadata;
         $order->node_id = $node->id;
         $order->type = $this->getOrderType($request);
         $order->save();
@@ -333,6 +339,8 @@ class PaymentController extends ClientApiController
         // Process the renewal or product purchase
         if ($order->storefront === Order::STOREFRONT_BUILDER) {
             $builderMetadata = $order->builder_metadata ?? [];
+            $deploymentType = $this->determineDeploymentType($builderMetadata['deployment_type'] ?? ($intent->metadata->deployment_type ?? null));
+            $builderMetadata['deployment_type'] = $deploymentType;
 
             if (!empty($intent->metadata->variables)) {
                 $builderMetadata['variables'] = json_decode($intent->metadata->variables, true) ?? ($builderMetadata['variables'] ?? []);
@@ -341,11 +349,12 @@ class PaymentController extends ClientApiController
             if (!empty($intent->metadata->node_id)) {
                 $node = Node::find((int) $intent->metadata->node_id);
                 if ($node) {
+                    $this->assertNodeDeployment($node, $deploymentType);
                     $builderMetadata['node'] = [
                         'id' => $node->id,
                         'name' => $node->name,
                         'fqdn' => $node->fqdn,
-                        'type' => $node->deployable_free ? 'free' : 'paid',
+                        'type' => $deploymentType,
                     ];
                 }
             }
@@ -430,15 +439,26 @@ class PaymentController extends ClientApiController
         return $this->stripe;
     }
 
-    private function assertNodeType(Node $node, bool $isFree): void
+    private function determineDeploymentType(?string $type): string
     {
-        if ($isFree && !$node->deployable_free) {
-            throw new DisplayException('Free servers cannot be deployed to this node.');
+        $normalized = strtolower((string) $type);
+
+        return in_array($normalized, ['free', 'metered', 'paid'], true) ? $normalized : 'paid';
+    }
+
+    private function assertNodeDeployment(Node $node, string $type): void
+    {
+        if ($node->allowsDeploymentType($type)) {
+            return;
         }
 
-        if (!$isFree && !$node->deployable) {
-            throw new DisplayException('Paid servers cannot be deployed to this node.');
-        }
+        $message = match ($type) {
+            'free' => 'Free servers cannot be deployed to this node.',
+            'metered' => 'Usage-billed servers cannot be deployed to this node.',
+            default => 'Paid servers cannot be deployed to this node.',
+        };
+
+        throw new DisplayException($message);
     }
 }
 

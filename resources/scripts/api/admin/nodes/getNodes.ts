@@ -27,6 +27,7 @@ export interface Node {
     daemonBase: string;
     deployable: boolean;
     deployableFree: boolean;
+    deployableMetered: boolean;
     createdAt: Date;
     updatedAt: Date;
 
@@ -62,6 +63,7 @@ export const rawDataToNode = ({ attributes, meta }: FractalResponseData): Node =
     daemonBase: attributes.daemon_base,
     deployable: attributes.deployable,
     deployableFree: attributes.deployable_free,
+    deployableMetered: attributes.deployable_metered,
     createdAt: new Date(attributes.created_at),
     updatedAt: new Date(attributes.updated_at),
 

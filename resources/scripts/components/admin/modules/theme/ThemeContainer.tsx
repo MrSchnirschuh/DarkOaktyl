@@ -20,6 +20,73 @@ type DraftState = ThemePaletteDraft;
 
 const MODE_ORDER: ThemeMode[] = ['dark', 'light'];
 
+const EMAIL_FALLBACKS: Record<string, string> = {
+    primary_color: '#2563EB',
+    secondary_color: '#1E40AF',
+    accent_color: '#F97316',
+    background_color: '#0F172A',
+    body_color: '#111827',
+    text_color: '#F8FAFC',
+    muted_text_color: '#94A3B8',
+    button_color: '#2563EB',
+    button_text_color: '#FFFFFF',
+} as const;
+
+const pickDarkDefaults = (source: Record<string, unknown>): Record<string, string> => ({
+    primary_color: typeof source.primary_color === 'string' ? (source.primary_color as string) : '',
+    secondary_color: typeof source.secondary_color === 'string' ? (source.secondary_color as string) : '',
+    accent_color: typeof source.accent_color === 'string' ? (source.accent_color as string) : '',
+    background_color: typeof source.background_color === 'string' ? (source.background_color as string) : '',
+    body_color: typeof source.body_color === 'string' ? (source.body_color as string) : '',
+    text_color: typeof source.text_color === 'string' ? (source.text_color as string) : '',
+    muted_text_color: typeof source.muted_text_color === 'string' ? (source.muted_text_color as string) : '',
+    button_color: typeof source.button_color === 'string' ? (source.button_color as string) : '',
+    button_text_color: typeof source.button_text_color === 'string' ? (source.button_text_color as string) : '',
+});
+
+const mapLightDefaults = (source?: Record<string, string> | null): Record<string, string> => ({
+    primary_color: source?.primary ?? '',
+    secondary_color: source?.secondary ?? '',
+    accent_color: source?.accent ?? '',
+    background_color: source?.background ?? '',
+    body_color: source?.body ?? '',
+    text_color: source?.text ?? '',
+    muted_text_color: source?.muted ?? '',
+    button_color: source?.button ?? '',
+    button_text_color: source?.button_text ?? '',
+});
+
+const buildEmailPaletteFromTokens = (
+    tokens: Record<string, string> | undefined,
+    existing: Record<string, string> | undefined,
+    defaults: Record<string, string>,
+) => ({
+    primary_color:
+        tokens?.primary ?? existing?.primary_color ?? defaults.primary_color ?? EMAIL_FALLBACKS.primary_color,
+    secondary_color:
+        tokens?.secondary ?? existing?.secondary_color ?? defaults.secondary_color ?? EMAIL_FALLBACKS.secondary_color,
+    accent_color:
+        tokens?.accent_primary ?? existing?.accent_color ?? defaults.accent_color ?? EMAIL_FALLBACKS.accent_color,
+    background_color:
+        tokens?.background ??
+        existing?.background_color ??
+        defaults.background_color ??
+        EMAIL_FALLBACKS.background_color,
+    body_color: tokens?.body ?? existing?.body_color ?? defaults.body_color ?? EMAIL_FALLBACKS.body_color,
+    text_color: tokens?.text_primary ?? existing?.text_color ?? defaults.text_color ?? EMAIL_FALLBACKS.text_color,
+    muted_text_color:
+        tokens?.muted_text ??
+        existing?.muted_text_color ??
+        defaults.muted_text_color ??
+        EMAIL_FALLBACKS.muted_text_color,
+    button_color: tokens?.button ?? existing?.button_color ?? defaults.button_color ?? EMAIL_FALLBACKS.button_color,
+    button_text_color:
+        tokens?.button_text ??
+        existing?.button_text_color ??
+        defaults.button_text_color ??
+        EMAIL_FALLBACKS.button_text_color,
+});
+
 function buildPayload(data: ThemePaletteResponse, draft: DraftState): ThemePaletteDraft {
     const payload: ThemePaletteDraft = { dark: {}, light: {} };
 
@@ -68,6 +135,20 @@ function buildPreviewTheme(data: ThemePaletteResponse): SiteTheme {
     });
 
     const palettes = data.theme.palettes ?? {};
+    const emailPalettes = data.theme.emailPalettes ?? {};
+    const lightDefaults = mapLightDefaults((data.email.defaults.light_palette ?? {}) as Record<string, string>);
+    const darkDefaults = pickDarkDefaults(data.email.defaults as Record<string, unknown>);
+
+    const nextEmailPalettes = {
+        dark: buildEmailPaletteFromTokens(data.modes.dark, emailPalettes.dark, {
+            ...EMAIL_FALLBACKS,
+            ...darkDefaults,
+        }),
+        light: buildEmailPaletteFromTokens(data.modes.light, emailPalettes.light, {
+            ...EMAIL_FALLBACKS,
+            ...lightDefaults,
+        }),
+    } as SiteTheme['emailPalettes'];
 
     return {
         ...data.theme,
@@ -77,6 +158,7 @@ function buildPreviewTheme(data: ThemePaletteResponse): SiteTheme {
             dark: { ...(palettes.dark ?? ({} as ThemePalette)), ...data.modes.dark } as ThemePalette,
             light: { ...(palettes.light ?? ({} as ThemePalette)), ...data.modes.light } as ThemePalette,
         },
+        emailPalettes: nextEmailPalettes,
     };
 }
 

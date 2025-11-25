@@ -14,7 +14,7 @@ return new class extends Migration {
 
         Schema::create('node_snapshots', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('node_id')->index();
+            $table->unsignedInteger('node_id')->index();
             $table->timestamp('recorded_at')->index();
 
             // Basic utilization

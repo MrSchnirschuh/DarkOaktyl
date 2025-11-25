@@ -66,6 +66,26 @@ return [
         'button_text_dark' => env('THEME_COLORS_BUTTON_TEXT_DARK', '#FFFFFF'),
         'button_text_light' => env('THEME_COLORS_BUTTON_TEXT_LIGHT', '#0F0F0F'),
 
+        'danger' => env('THEME_COLORS_DANGER', '#DC2626'),
+        'danger_dark' => env('THEME_COLORS_DANGER_DARK', '#DC2626'),
+        'danger_light' => env('THEME_COLORS_DANGER_LIGHT', '#EF4444'),
+
+        'info' => env('THEME_COLORS_INFO', '#F59E0B'),
+        'info_dark' => env('THEME_COLORS_INFO_DARK', '#D97706'),
+        'info_light' => env('THEME_COLORS_INFO_LIGHT', '#FBBF24'),
+
+        'warning' => env('THEME_COLORS_WARNING', '#F97316'),
+        'warning_dark' => env('THEME_COLORS_WARNING_DARK', '#EA580C'),
+        'warning_light' => env('THEME_COLORS_WARNING_LIGHT', '#FB923C'),
+
+        'experimental' => env('THEME_COLORS_EXPERIMENTAL', '#FACC15'),
+        'experimental_dark' => env('THEME_COLORS_EXPERIMENTAL_DARK', '#FACC15'),
+        'experimental_light' => env('THEME_COLORS_EXPERIMENTAL_LIGHT', '#FCD34D'),
+
+        'success' => env('THEME_COLORS_SUCCESS', '#16A34A'),
+        'success_dark' => env('THEME_COLORS_SUCCESS_DARK', '#15803D'),
+        'success_light' => env('THEME_COLORS_SUCCESS_LIGHT', '#22C55E'),
+
         // Default logos wired into the theme colors map so React consumers get them automatically.
         'logo_panel' => env('THEME_LOGO_PANEL', '/assets/brand/DarkOak_CL.svg'),
         'logo_panel_light' => env('THEME_LOGO_PANEL_LIGHT', env('THEME_LOGO_PANEL', '/assets/brand/DarkOak_CL.svg')),

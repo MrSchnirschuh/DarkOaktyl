@@ -3,6 +3,7 @@
 namespace DarkOak\Models;
 
 use DarkOak\Models\Billing\Product;
+use DarkOak\Models\ServerDomain;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Query\JoinClause;
 use Znck\Eloquent\Traits\BelongsToThrough;
@@ -69,6 +70,8 @@ use DarkOak\Exceptions\Http\Server\ServerStateConflictException;
  * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\Subuser[] $subusers
  * @property int|null $subusers_count
  * @property \DarkOak\Models\ServerTransfer|null $transfer
+ * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\ServerDomain[] $domains
+ * @property int|null $domains_count
  * @property \DarkOak\Models\User $user
  * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\EggVariable[] $variables
  * @property int|null $variables_count
@@ -344,6 +347,11 @@ class Server extends Model
     public function mounts(): HasManyThrough
     {
         return $this->hasManyThrough(Mount::class, MountServer::class, 'server_id', 'id', 'id', 'mount_id');
+    }
+
+    public function domains(): HasMany
+    {
+        return $this->hasMany(ServerDomain::class);
     }
 
     /**

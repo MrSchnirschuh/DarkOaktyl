@@ -40,7 +40,8 @@ class BuilderOrderService
      * @param array<string, mixed> $quote
      * @param array<string, int> $limits
      * @param array<int, array{key:string,value:?string}> $variables
-     * @param array<int, string> $couponCodes
+    * @param array<int, string> $couponCodes
+    * @param string $deploymentType
      */
     public function buildMetadata(
         Category $category,
@@ -50,7 +51,8 @@ class BuilderOrderService
         array $limits,
         array $variables = [],
         ?BillingTerm $term = null,
-        array $couponCodes = []
+        array $couponCodes = [],
+        string $deploymentType = 'paid'
     ): array {
         return [
             'category' => [
@@ -64,8 +66,9 @@ class BuilderOrderService
                 'id' => $node->id,
                 'name' => $node->name,
                 'fqdn' => $node->fqdn,
-                'type' => $node->deployable_free ? 'free' : 'paid',
+                'type' => $deploymentType,
             ],
+            'deployment_type' => $deploymentType,
             'selections' => $selections,
             'limits' => $limits,
             'variables' => array_values($variables),

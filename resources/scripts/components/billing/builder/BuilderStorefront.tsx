@@ -52,7 +52,11 @@ const resolveInitialQuantity = (resource: BuilderResource): number => {
 const mapSelections = (resources: Record<string, number>) =>
     Object.entries(resources).map(([resource, quantity]) => ({ resource, quantity }));
 
-const BuilderStorefront = () => {
+interface BuilderStorefrontProps {
+    embedded?: boolean;
+}
+
+const BuilderStorefront = ({ embedded = false }: BuilderStorefrontProps) => {
     const [loading, setLoading] = useState(true);
     const [loadError, setLoadError] = useState<string | null>(null);
     const [resources, setResources] = useState<BuilderResource[]>([]);
@@ -60,6 +64,7 @@ const BuilderStorefront = () => {
     const [categories, setCategories] = useState<Category[]>([]);
     const [paidNodes, setPaidNodes] = useState<Node[]>([]);
     const [freeNodes, setFreeNodes] = useState<Node[]>([]);
+    const [meteredNodes, setMeteredNodes] = useState<Node[]>([]);
     const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
     const [selectedTerm, setSelectedTerm] = useState<BuilderTerm | null>(null);
     const [resourceSelections, setResourceSelections] = useState<Record<string, number>>({});
@@ -76,6 +81,7 @@ const BuilderStorefront = () => {
     const [hasStripeKey, setHasStripeKey] = useState(false);
     const [paymentIntent, setPaymentIntent] = useState<PaymentIntent | null>(null);
     const [paymentLoading, setPaymentLoading] = useState(false);
+    const [quoteDeploymentType, setQuoteDeploymentType] = useState<'paid' | 'free' | 'metered' | null>(null);
 
     const settings = useStoreState(state => state.DarkOak.data!.billing);
     const { colors } = useStoreState(state => state.theme.data!);
@@ -85,14 +91,21 @@ const BuilderStorefront = () => {
     useEffect(() => {
         let isMounted = true;
 
+        const fetchNodes = (type: 'paid' | 'free' | 'metered') =>
+            getBuilderNodes(type).catch(error => {
+                console.error(`Failed to load ${type} nodes for builder`, error);
+                return [] as Node[];
+            });
+
         Promise.all([
             getBuilderResources(),
             getBuilderTerms(),
             getCategories(),
-            getBuilderNodes('paid'),
-            getBuilderNodes('free'),
+            fetchNodes('paid'),
+            fetchNodes('free'),
+            fetchNodes('metered'),
         ])
-            .then(([resourceData, termData, categoryData, paid, free]) => {
+            .then(([resourceData, termData, categoryData, paid, free, metered]) => {
                 if (!isMounted) return;
 
                 const sortedResources = [...resourceData].sort((a, b) => a.sort_order - b.sort_order);
@@ -113,7 +126,8 @@ const BuilderStorefront = () => {
 
                 setPaidNodes(paid);
                 setFreeNodes(free);
-                const defaultNode = paid[0] ?? free[0];
+                setMeteredNodes(metered);
+                const defaultNode = paid[0] ?? metered[0] ?? free[0];
                 setSelectedNode(defaultNode ? Number(defaultNode.id) : 0);
             })
             .catch(error => {
@@ -139,12 +153,14 @@ const BuilderStorefront = () => {
         if (selectionsArray.length < 1 || !selectedNode) {
             setQuote(null);
             setQuoteCoupons([]);
+            setQuoteDeploymentType(null);
             return;
         }
 
         let isMounted = true;
         setQuoteLoading(true);
         setQuoteError(null);
+        setQuoteDeploymentType(null);
 
         getBuilderQuote({
             resources: selectionsArray,
@@ -157,6 +173,7 @@ const BuilderStorefront = () => {
                 if (!isMounted) return;
                 setQuote(response.quote);
                 setQuoteCoupons(response.coupons);
+                setQuoteDeploymentType(response.deployment_type ?? 'paid');
             })
             .catch(error => {
                 console.error(error);
@@ -164,6 +181,7 @@ const BuilderStorefront = () => {
                     setQuote(null);
                     setQuoteCoupons([]);
                     setQuoteError('Unable to calculate a quote for the current selection.');
+                    setQuoteDeploymentType(null);
                 }
             })
             .finally(() => {
@@ -200,17 +218,54 @@ const BuilderStorefront = () => {
 
     const totalDue = quote ? quote.total_after_discount ?? quote.total : 0;
     const isFreeOrder = totalDue <= 0;
-    const availableNodes = isFreeOrder ? freeNodes : paidNodes;
+
+    const activeDeploymentType = useMemo(() => {
+        if (quoteDeploymentType) {
+            return quoteDeploymentType;
+        }
+
+        if (selectedNode) {
+            if (paidNodes.some(node => Number(node.id) === selectedNode)) {
+                return 'paid';
+            }
+
+            if (meteredNodes.some(node => Number(node.id) === selectedNode)) {
+                return 'metered';
+            }
+
+            if (freeNodes.some(node => Number(node.id) === selectedNode)) {
+                return 'free';
+            }
+        }
+
+        if (paidNodes.length > 0) {
+            return 'paid';
+        }
+
+        if (meteredNodes.length > 0) {
+            return 'metered';
+        }
+
+        return 'free';
+    }, [quoteDeploymentType, selectedNode, paidNodes, meteredNodes, freeNodes]);
+
+    const availableNodes =
+        activeDeploymentType === 'free' ? freeNodes : activeDeploymentType === 'metered' ? meteredNodes : paidNodes;
+    const nodeTypeLabel =
+        activeDeploymentType === 'free' ? 'free' : activeDeploymentType === 'metered' ? 'usage-billed' : 'paid';
+    const freeCheckoutLabel = activeDeploymentType === 'metered' ? 'Deploy Usage-Billed Server' : 'Deploy Free Server';
 
     useEffect(() => {
-        if (isFreeOrder) {
-            if (!selectedNode || !freeNodes.some(node => Number(node.id) === selectedNode)) {
-                setSelectedNode(freeNodes[0] ? Number(freeNodes[0].id) : 0);
-            }
-        } else if (!selectedNode || !paidNodes.some(node => Number(node.id) === selectedNode)) {
-            setSelectedNode(paidNodes[0] ? Number(paidNodes[0].id) : 0);
+        const fallbackNode = availableNodes[0];
+        if (!fallbackNode) {
+            setSelectedNode(0);
+            return;
         }
-    }, [isFreeOrder, freeNodes, paidNodes, selectedNode]);
+
+        if (!selectedNode || !availableNodes.some(node => Number(node.id) === selectedNode)) {
+            setSelectedNode(Number(fallbackNode.id));
+        }
+    }, [availableNodes, selectedNode]);
 
     useEffect(() => {
         setPaymentIntent(null);
@@ -261,6 +316,7 @@ const BuilderStorefront = () => {
             term: selectedTerm?.uuid,
             coupons: appliedCoupons,
             variables: Array.from(vars.entries()).map(([key, value]) => ({ key, value })),
+            deployment_type: quoteDeploymentType ?? activeDeploymentType,
         };
     };
 
@@ -342,10 +398,10 @@ const BuilderStorefront = () => {
         );
     }
 
-    return (
-        <PageContentBlock title={'Build a Custom Server'}>
+    const content = (
+        <>
             <FlashMessageRender byKey={'billing:builder'} className={'mb-4'} />
-            <div className={'text-3xl lg:text-5xl font-bold mt-8 mb-12'}>
+            <div className={classNames('text-3xl lg:text-5xl font-bold mb-12', embedded ? 'mt-4' : 'mt-8')}>
                 Configure Your Resources
                 <p className={'text-theme-muted font-normal text-sm mt-1'}>
                     Pick a category, dial in the resources you need, choose a billing term, and continue to checkout.
@@ -394,7 +450,9 @@ const BuilderStorefront = () => {
                                         Billing Term
                                     </label>
                                     <select
-                                        className={'mt-1 bg-dark-500 rounded px-3 py-2 w-full lg:w-64'}
+                                        className={
+                                            'mt-1 bg-zinc-900 border border-zinc-700 rounded px-3 py-2 w-full lg:w-64'
+                                        }
                                         value={selectedTerm?.uuid ?? ''}
                                         onChange={event => {
                                             const term = terms.find(t => t.uuid === event.target.value) ?? null;
@@ -411,7 +469,7 @@ const BuilderStorefront = () => {
                             </div>
                             <div className={'mt-6 space-y-4'}>
                                 {resources.map(resource => (
-                                    <div key={resource.uuid} className={'border border-dark-400 rounded-lg p-4'}>
+                                    <div key={resource.uuid} className={'border border-zinc-700 rounded-lg p-4'}>
                                         <div
                                             className={
                                                 'flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4'
@@ -427,7 +485,9 @@ const BuilderStorefront = () => {
                                                 </Button.Text>
                                                 <input
                                                     type={'number'}
-                                                    className={'w-24 text-center bg-dark-600 rounded px-2 py-1'}
+                                                    className={
+                                                        'w-24 text-center bg-zinc-900 border border-zinc-700 rounded px-2 py-1'
+                                                    }
                                                     value={
                                                         resourceSelections[resource.resource] ??
                                                         resolveInitialQuantity(resource)
@@ -452,7 +512,7 @@ const BuilderStorefront = () => {
                                 <input
                                     type={'text'}
                                     placeholder={'Enter coupon code'}
-                                    className={'flex-1 bg-dark-600 rounded px-3 py-2'}
+                                    className={'flex-1 bg-zinc-900 border border-zinc-700 rounded px-3 py-2'}
                                     value={couponInput}
                                     onChange={event => setCouponInput(event.target.value)}
                                 />
@@ -461,7 +521,12 @@ const BuilderStorefront = () => {
                             {appliedCoupons.length > 0 && (
                                 <div className={'mt-4 flex flex-wrap gap-2'}>
                                     {appliedCoupons.map(code => (
-                                        <span key={code} className={'bg-dark-500 rounded-full px-3 py-1 text-sm'}>
+                                        <span
+                                            key={code}
+                                            className={
+                                                'bg-zinc-800 border border-zinc-700 rounded-full px-3 py-1 text-sm'
+                                            }
+                                        >
                                             {code}
                                             <button
                                                 className={'ml-2 text-xs text-red-400'}
@@ -480,7 +545,7 @@ const BuilderStorefront = () => {
                             <p className={'text-xl font-semibold mb-4'}>Choose a Location</p>
                             {availableNodes.length < 1 ? (
                                 <Alert type={'danger'}>
-                                    <span>There are no {isFreeOrder ? 'free' : 'paid'} nodes available right now.</span>
+                                    <span>There are no {nodeTypeLabel} nodes available right now.</span>
                                     <span>Please contact support.</span>
                                 </Alert>
                             ) : (
@@ -560,7 +625,7 @@ const BuilderStorefront = () => {
                             )}
                             {isFreeOrder ? (
                                 <Button disabled={!selectedNode || paymentLoading} onClick={handleFreeCheckout}>
-                                    Deploy Free Server
+                                    {freeCheckoutLabel}
                                 </Button>
                             ) : paymentIntent ? (
                                 stripe && paymentIntent ? (
@@ -594,8 +659,14 @@ const BuilderStorefront = () => {
                     </ContentBox>
                 </div>
             </div>
-        </PageContentBlock>
+        </>
     );
+
+    if (embedded) {
+        return content;
+    }
+
+    return <PageContentBlock title={'Build a Custom Server'}>{content}</PageContentBlock>;
 };
 
 export default BuilderStorefront;

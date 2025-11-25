@@ -1,6 +1,14 @@
 const colors = require('tailwindcss/colors');
 const plugin = require('tailwindcss/plugin');
 
+const withOpacityValue = variable => ({ opacityValue }) => {
+    if (opacityValue === undefined) {
+        return `rgb(var(${variable}))`;
+    }
+
+    return `rgb(var(${variable}) / ${opacityValue})`;
+};
+
 module.exports = {
     content: ['./resources/scripts/**/*.{js,ts,tsx}'],
     theme: {
@@ -17,6 +25,39 @@ module.exports = {
                 neutral: colors.slate,
                 cyan: colors.cyan,
                 zinc: colors.zinc,
+                red: {
+                    ...colors.red,
+                    50: withOpacityValue('--theme-danger-soft-alt-rgb'),
+                    100: withOpacityValue('--theme-danger-soft-alt-rgb'),
+                    200: withOpacityValue('--theme-danger-soft-rgb'),
+                    300: withOpacityValue('--theme-danger-soft-rgb'),
+                    400: withOpacityValue('--theme-danger-rgb'),
+                    500: withOpacityValue('--theme-danger-rgb'),
+                    600: withOpacityValue('--theme-danger-rgb'),
+                    700: withOpacityValue('--theme-danger-strong-rgb'),
+                    800: withOpacityValue('--theme-danger-strong-rgb'),
+                },
+                yellow: {
+                    ...colors.yellow,
+                    100: withOpacityValue('--theme-warning-soft-alt-rgb'),
+                    200: withOpacityValue('--theme-warning-soft-rgb'),
+                    300: withOpacityValue('--theme-warning-soft-rgb'),
+                    400: withOpacityValue('--theme-warning-rgb'),
+                    500: withOpacityValue('--theme-warning-rgb'),
+                    600: withOpacityValue('--theme-warning-rgb'),
+                    800: withOpacityValue('--theme-warning-strong-rgb'),
+                    900: withOpacityValue('--theme-warning-strong-rgb'),
+                },
+                green: {
+                    ...colors.green,
+                    100: withOpacityValue('--theme-success-soft-alt-rgb'),
+                    200: withOpacityValue('--theme-success-soft-rgb'),
+                    300: withOpacityValue('--theme-success-soft-rgb'),
+                    400: withOpacityValue('--theme-success-rgb'),
+                    500: withOpacityValue('--theme-success-rgb'),
+                    600: withOpacityValue('--theme-success-rgb'),
+                    700: withOpacityValue('--theme-success-strong-rgb'),
+                },
             },
             fontSize: {
                 '2xs': '0.625rem',

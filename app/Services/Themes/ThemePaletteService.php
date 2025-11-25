@@ -29,6 +29,11 @@ class ThemePaletteService
         'muted_text',
         'button',
         'button_text',
+        'danger',
+        'info',
+        'warning',
+        'experimental',
+        'success',
     ];
 
     private function designerGroups(): array
@@ -73,6 +78,18 @@ class ThemePaletteService
                 'keys' => [
                     ['key' => 'button', 'label' => 'Button Background', 'description' => 'Primary button background color.'],
                     ['key' => 'button_text', 'label' => 'Button Text', 'description' => 'Text color rendered on primary buttons.'],
+                ],
+            ],
+            [
+                'id' => 'information',
+                'label' => 'Information',
+                'description' => 'Alert and badge colours: danger, info, warning, experimental and success.',
+                'keys' => [
+                    ['key' => 'danger', 'label' => 'Danger', 'description' => 'Error / destructive actions'],
+                    ['key' => 'info', 'label' => 'Info', 'description' => 'Informational / neutral notices'],
+                    ['key' => 'warning', 'label' => 'Warning', 'description' => 'Warnings / cautions'],
+                    ['key' => 'experimental', 'label' => 'Experimental', 'description' => 'Experimental / feature flags'],
+                    ['key' => 'success', 'label' => 'Success', 'description' => 'Success / positive states'],
                 ],
             ],
         ];
@@ -358,6 +375,16 @@ class ThemePaletteService
             'accent_primary' => '#008000',
             'accent_secondary' => '#1F2937',
             'button' => '#008000',
+            'danger_dark' => '#DC2626',
+            'danger_light' => '#EF4444',
+            'info_dark' => '#D97706',
+            'info_light' => '#FBBF24',
+            'warning_dark' => '#EA580C',
+            'warning_light' => '#FB923C',
+            'experimental_dark' => '#FACC15',
+            'experimental_light' => '#FCD34D',
+            'success_dark' => '#16A34A',
+            'success_light' => '#22C55E',
         ];
 
         $secondaryFallbackKey = $mode === 'light' ? 'secondary_light' : 'secondary_dark';
@@ -408,6 +435,36 @@ class ThemePaletteService
         $textInverseCandidate = $this->resolveColor($colors, ["text_inverse{$suffix}", 'text_inverse']);
         $textInverse = $this->ensureContrast($textInverseCandidate, $textPrimary, $textInverseFallback, 4.5);
 
+        $dangerFallbackKey = $mode === 'light' ? 'danger_light' : 'danger_dark';
+        $danger = $this->colorToHex(
+            $this->resolveColor($colors, ["danger{$suffix}", 'danger', "danger{$alternateSuffix}"]),
+            $fallbacks[$dangerFallbackKey]
+        );
+
+        $infoFallbackKey = $mode === 'light' ? 'info_light' : 'info_dark';
+        $info = $this->colorToHex(
+            $this->resolveColor($colors, ["info{$suffix}", 'info', "info{$alternateSuffix}"]),
+            $fallbacks[$infoFallbackKey]
+        );
+
+        $warningFallbackKey = $mode === 'light' ? 'warning_light' : 'warning_dark';
+        $warning = $this->colorToHex(
+            $this->resolveColor($colors, ["warning{$suffix}", 'warning', "warning{$alternateSuffix}"]),
+            $fallbacks[$warningFallbackKey]
+        );
+
+        $experimentalFallbackKey = $mode === 'light' ? 'experimental_light' : 'experimental_dark';
+        $experimental = $this->colorToHex(
+            $this->resolveColor($colors, ["experimental{$suffix}", 'experimental', "experimental{$alternateSuffix}"]),
+            $fallbacks[$experimentalFallbackKey]
+        );
+
+        $successFallbackKey = $mode === 'light' ? 'success_light' : 'success_dark';
+        $success = $this->colorToHex(
+            $this->resolveColor($colors, ["success{$suffix}", 'success', "success{$alternateSuffix}", 'primary']),
+            $fallbacks[$successFallbackKey]
+        );
+
         $tokens = [
             'primary' => $primary,
             'secondary' => $secondary,
@@ -423,6 +480,11 @@ class ThemePaletteService
             'text_inverse' => $textInverse,
             'button' => $button,
             'button_text' => $buttonText,
+            'danger' => $danger,
+            'info' => $info,
+            'warning' => $warning,
+            'experimental' => $experimental,
+            'success' => $success,
         ];
 
         $textPalette = [

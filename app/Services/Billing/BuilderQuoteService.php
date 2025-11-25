@@ -45,6 +45,7 @@ class BuilderQuoteService
 
         $quote = $this->pricing->calculateQuote($selections, $term, $options);
         $couponsResult = $this->applyCoupons($quote, $request->input('coupons', []));
+        $deploymentType = $this->determineDeploymentType($couponsResult['quote']);
 
         return [
             'quote' => $couponsResult['quote'],
@@ -52,6 +53,7 @@ class BuilderQuoteService
             'term' => $term,
             'node' => $node,
             'selections' => $selections,
+            'deployment_type' => $deploymentType,
         ];
     }
 
@@ -95,6 +97,25 @@ class BuilderQuoteService
         ])->values()->toArray();
 
         return ['quote' => $quote, 'coupons' => $payload];
+    }
+
+    private function determineDeploymentType(array $quote): string
+    {
+        $resources = $quote['resources'] ?? [];
+        foreach ($resources as $resource) {
+            $quantity = (int) ($resource['quantity'] ?? 0);
+            if ($quantity <= 0) {
+                continue;
+            }
+
+            if (!empty($resource['is_metered'])) {
+                return 'metered';
+            }
+        }
+
+        $total = (float) ($quote['total_after_discount'] ?? $quote['total'] ?? 0.0);
+
+        return $total <= 0.0 ? 'free' : 'paid';
     }
 
     private function resolveNodeFromRequest(BuilderQuoteRequest $request): ?Node

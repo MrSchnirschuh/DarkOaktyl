@@ -306,6 +306,21 @@ Route::middleware([AdminSubject::class])->group(function () {
 
     /*
     |--------------------------------------------------------------------------
+    | Domain controller routes
+    |--------------------------------------------------------------------------
+    |
+    | Endpoint: /api/application/domains
+    |
+    */
+    Route::group(['prefix' => '/domains'], function () {
+        Route::get('/roots', [Application\Domains\DomainRootController::class, 'index']);
+        Route::post('/roots', [Application\Domains\DomainRootController::class, 'store']);
+        Route::patch('/roots/{id}', [Application\Domains\DomainRootController::class, 'update']);
+        Route::delete('/roots/{id}', [Application\Domains\DomainRootController::class, 'delete']);
+    });
+
+    /*
+    |--------------------------------------------------------------------------
     | Database Controller Routes
     |--------------------------------------------------------------------------
     |

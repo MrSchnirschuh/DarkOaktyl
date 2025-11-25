@@ -147,7 +147,7 @@ crontab -e
 
 Add this line:
 
-```
+```cron
 * * * * * php /var/www/DarkOaktyl/artisan schedule:run >> /dev/null 2>&1
 ```
 
@@ -165,9 +165,9 @@ certbot --nginx -d darkoak.eu -d panel.darkoak.eu
 
 ## Accessing Your Installation
 
-- **Public Website**: https://darkoak.eu
-- **Panel**: https://panel.darkoak.eu
-- **Documentation**: https://darkoak.eu/documentation
+- **Public Website**: <https://darkoak.eu>
+- **Panel**: <https://panel.darkoak.eu>
+- **Documentation**: <https://darkoak.eu/documentation>
 
 ## First Login
 
@@ -196,6 +196,26 @@ php artisan config:cache
 - Check that `APP_ROOT_DOMAIN` is set in .env
 - Verify DNS points both domains to your server
 - Check nginx configuration is correct
+
+### Frontend build fails inside WSL (esbuild platform mismatch)
+
+If you install `node_modules` on Windows and then try to run `pnpm lint` or `pnpm build` inside WSL, Vite/esbuild aborts with an error similar to:
+
+```text
+You installed esbuild for another platform than the one you're currently using.
+Specifically the "@esbuild/win32-x64" package is present but this platform needs
+the "@esbuild/linux-x64" package instead.
+```
+
+Fix it by reinstalling dependencies _inside_ WSL (and without `sudo`):
+
+```bash
+rm -rf node_modules
+corepack enable pnpm
+pnpm install
+```
+
+This ensures pnpm downloads the Linux binaries. Avoid running pnpm as `root` against Windows-mounted paths (`/mnt/c`, `/mnt/d`, …); WSL cannot rename files there when ownership mismatches. Stay on your normal user account or move the repo to the WSL filesystem (`~/DarkOaktyl`).
 
 ### Permission errors
 
@@ -244,6 +264,6 @@ systemctl restart darkoaktyl-worker
 
 ## Support
 
-- Discord: https://discord.gg/ecCVKteUBE
-- GitHub: https://github.com/MrSchnirschuh/DarkOaktyl
-- Website: https://darkoak.eu
+- Discord: <https://discord.gg/ecCVKteUBE>
+- GitHub: <https://github.com/MrSchnirschuh/DarkOaktyl>
+- Website: <https://darkoak.eu>

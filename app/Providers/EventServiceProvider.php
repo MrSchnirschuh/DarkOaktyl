@@ -7,6 +7,7 @@ use DarkOak\Models\Server;
 use DarkOak\Models\Subuser;
 use DarkOak\Models\EggVariable;
 use DarkOak\Observers\UserObserver;
+use DarkOak\Listeners\Domains\DomainEventSubscriber;
 use DarkOak\Listeners\Emails\EmailTriggerEventSubscriber;
 use DarkOak\Observers\ServerObserver;
 use DarkOak\Observers\SubuserObserver;
@@ -19,6 +20,7 @@ class EventServiceProvider extends ServiceProvider
     protected $subscribe = [
         AuthenticationListener::class,
         EmailTriggerEventSubscriber::class,
+        DomainEventSubscriber::class,
     ];
 
     /**

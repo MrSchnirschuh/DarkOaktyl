@@ -6,6 +6,7 @@ export interface Node {
     fqdn: string;
     deployable?: boolean;
     deployable_free?: boolean;
+    deployable_metered?: boolean;
 }
 
 export const rawDataToNode = ({ attributes: data }: FractalResponseData): Node => ({
@@ -14,6 +15,7 @@ export const rawDataToNode = ({ attributes: data }: FractalResponseData): Node =
     fqdn: data.fqdn,
     deployable: data.deployable,
     deployable_free: data.deployable_free,
+    deployable_metered: data.deployable_metered,
 });
 
 export default (productId: number): Promise<Node[]> => {

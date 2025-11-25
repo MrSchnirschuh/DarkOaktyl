@@ -103,6 +103,7 @@ final class ResourceSelection
             'unit' => $this->resource->unit,
             'base_quantity' => $this->resource->base_quantity,
             'base_price' => $this->resource->price,
+            'is_metered' => (bool) $this->resource->is_metered,
             'applied_rules' => $this->appliedRules,
             'total' => $this->total,
         ];

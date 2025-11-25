@@ -86,3 +86,17 @@ export const useCouponFromRoute = (): SWRResponse<Coupon> => {
 
     return useSWR(`/api/application/billing/coupons/${params.uuid}`, async () => getCoupon(params.uuid!));
 };
+
+export const listActiveCoupons = async (limit = 5): Promise<Coupon[]> => {
+    const { data } = await http.get('/api/application/billing/coupons', {
+        params: {
+            'filter[is_active]': true,
+            per_page: limit,
+            include: 'term',
+        },
+    });
+
+    const coupons = Array.isArray(data?.data) ? data.data : [];
+
+    return coupons.map(Transformers.toCoupon);
+};

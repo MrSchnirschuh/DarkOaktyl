@@ -39,10 +39,12 @@ class ModifyIpStorageMethod extends Migration
         }
 
         // Updated the server allocations, remove old fields
-        Schema::table('servers', function (Blueprint $table) {
-            $table->dropColumn('ip');
-            $table->dropColumn('port');
-        });
+        if (Schema::getConnection()->getDriverName() !== 'sqlite') {
+            Schema::table('servers', function (Blueprint $table) {
+                $table->dropColumn('ip');
+                $table->dropColumn('port');
+            });
+        }
     }
 
     /**
@@ -72,8 +74,10 @@ class ModifyIpStorageMethod extends Migration
             }
         }
 
-        Schema::table('servers', function (Blueprint $table) {
-            $table->dropColumn('allocation');
-        });
+        if (Schema::getConnection()->getDriverName() !== 'sqlite') {
+            Schema::table('servers', function (Blueprint $table) {
+                $table->dropColumn('allocation');
+            });
+        }
     }
 }

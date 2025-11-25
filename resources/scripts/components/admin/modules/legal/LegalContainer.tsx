@@ -75,7 +75,9 @@ const LegalContainer = () => {
                                 <Label>Title</Label>
                                 <Input
                                     value={document.title}
-                                    onChange={event => updateLocalDocument(document.slug, { title: event.target.value })}
+                                    onChange={event =>
+                                        updateLocalDocument(document.slug, { title: event.target.value })
+                                    }
                                     placeholder={'Enter title'}
                                 />
                             </div>
@@ -84,7 +86,9 @@ const LegalContainer = () => {
                                 <Textarea
                                     value={document.content}
                                     rows={10}
-                                    onChange={event => updateLocalDocument(document.slug, { content: event.target.value })}
+                                    onChange={event =>
+                                        updateLocalDocument(document.slug, { content: event.target.value })
+                                    }
                                     placeholder={'Paste the legal text here...'}
                                 />
                                 <p css={tw`text-xs text-theme-muted mt-1`}>
@@ -106,10 +110,7 @@ const LegalContainer = () => {
                                 </p>
                             )}
                             <div css={tw`text-right`}>
-                                <Button
-                                    onClick={() => handleSave(document)}
-                                    disabled={saving === document.slug}
-                                >
+                                <Button onClick={() => handleSave(document)} disabled={saving === document.slug}>
                                     {saving === document.slug ? 'Saving...' : 'Save changes'}
                                 </Button>
                             </div>

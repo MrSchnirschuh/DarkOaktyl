@@ -12,6 +12,10 @@ use DarkOak\Exceptions\Http\Connection\DaemonConnectionException;
 use DarkOak\Tests\TestCase;
 use GuzzleHttp\Exception\GuzzleException;
 
+class FakeGuzzleException extends \Exception implements GuzzleException
+{
+}
+
 class NodeCapacityServiceTest extends TestCase
 {
     use RefreshDatabase;
@@ -95,7 +99,7 @@ class NodeCapacityServiceTest extends TestCase
         $this->configurationRepository->shouldReceive('setNode')->with($node)->once()->andReturnSelf();
         $this->configurationRepository->shouldReceive('getSystemInformation')
             ->once()
-            ->andThrow(new DaemonConnectionException(\Mockery::mock(GuzzleException::class)));
+            ->andThrow(new DaemonConnectionException(new FakeGuzzleException('daemon unavailable')));
 
         $this->service->assertCanAllocate($node, 256, 256);
 

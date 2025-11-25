@@ -35,7 +35,11 @@ const LimitBox = ({ icon, limit }: LimitProps) => (
     </div>
 );
 
-const LegacyProductStorefront = () => {
+interface StorefrontProps {
+    embedded?: boolean;
+}
+
+const LegacyProductStorefront = ({ embedded = false }: StorefrontProps) => {
     const [category, setCategory] = useState<number>();
     const [products, setProducts] = useState<Product[] | undefined>();
     const [categories, setCategories] = useState<Category[] | undefined>();
@@ -117,9 +121,9 @@ const LegacyProductStorefront = () => {
         };
     }, [category]);
 
-    return (
-        <PageContentBlock title={'Available Products'}>
-            <div className={'text-3xl lg:text-5xl font-bold mt-8 mb-12'}>
+    const content = (
+        <>
+            <div className={classNames('text-3xl lg:text-5xl font-bold mb-12', embedded ? 'mt-4' : 'mt-8')}>
                 Order a Product
                 <p className={'text-theme-muted font-normal text-sm mt-1'}>
                     Choose and configure any of the products below to your liking.
@@ -268,8 +272,14 @@ const LegacyProductStorefront = () => {
                     )}
                 </div>
             </div>
-        </PageContentBlock>
+        </>
     );
+
+    if (embedded) {
+        return content;
+    }
+
+    return <PageContentBlock title={'Available Products'}>{content}</PageContentBlock>;
 };
 
 const StorefrontSwitcher = () => {
@@ -307,29 +317,41 @@ const StorefrontSwitcher = () => {
     }
 
     return (
-        <>
-            <div className={'flex justify-center gap-4 mt-6'}>
-                <button
-                    className={classNames(
-                        'px-6 py-2 rounded-full border border-dark-400 text-sm font-semibold transition-colors',
-                        view === 'products' ? 'bg-theme-primary text-black' : 'bg-dark-500 text-theme-muted',
-                    )}
-                    onClick={() => setView('products')}
-                >
-                    Products
-                </button>
-                <button
-                    className={classNames(
-                        'px-6 py-2 rounded-full border border-dark-400 text-sm font-semibold transition-colors',
-                        view === 'builder' ? 'bg-theme-primary text-black' : 'bg-dark-500 text-theme-muted',
-                    )}
-                    onClick={() => setView('builder')}
-                >
-                    Builder
-                </button>
+        <PageContentBlock title={'Order a Server'}>
+            <ContentBox>
+                <div className={'p-4 lg:p-6 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between'}>
+                    <div>
+                        <p className={'text-xl font-semibold'}>Choose your storefront view</p>
+                        <p className={'text-theme-muted text-sm'}>
+                            Switch between bundled products or the resource-based configurator at any time.
+                        </p>
+                    </div>
+                    <div className={'flex gap-3'}>
+                        <button
+                            className={classNames(
+                                'px-6 py-2 rounded-full border border-zinc-700 text-sm font-semibold transition-colors',
+                                view === 'products' ? 'bg-theme-primary text-black' : 'bg-zinc-800 text-theme-muted',
+                            )}
+                            onClick={() => setView('products')}
+                        >
+                            Products
+                        </button>
+                        <button
+                            className={classNames(
+                                'px-6 py-2 rounded-full border border-zinc-700 text-sm font-semibold transition-colors',
+                                view === 'builder' ? 'bg-theme-primary text-black' : 'bg-zinc-800 text-theme-muted',
+                            )}
+                            onClick={() => setView('builder')}
+                        >
+                            Builder
+                        </button>
+                    </div>
+                </div>
+            </ContentBox>
+            <div className={'mt-6'}>
+                {view === 'builder' ? <BuilderStorefront embedded /> : <LegacyProductStorefront embedded />}
             </div>
-            {view === 'builder' ? <BuilderStorefront /> : <LegacyProductStorefront />}
-        </>
+        </PageContentBlock>
     );
 };
 

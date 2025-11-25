@@ -14,6 +14,7 @@ use DarkOak\Models\Billing\Product;
 use DarkOak\Models\Billing\Category;
 use DarkOak\Exceptions\DisplayException;
 use DarkOak\Models\Billing\BillingException;
+use DarkOak\Services\Domains\DomainProvisioningService;
 use DarkOak\Services\Servers\ServerCreationService;
 use DarkOak\Services\Servers\VariableValidatorService;
 use DarkOak\Exceptions\Service\Deployment\NoViableAllocationException;
@@ -26,6 +27,7 @@ class CreateServerService
     public function __construct(
         private ServerCreationService $creation,
         private VariableValidatorService $variableValidator,
+        private DomainProvisioningService $domainProvisioning,
     ) {
     }
 
@@ -72,6 +74,8 @@ class CreateServerService
 
             throw new DisplayException('Unable to create server: ' . $ex->getMessage());
         }
+
+        $this->triggerDomainProvisioning($server, $order);
 
         return $server;
     }
@@ -150,6 +154,8 @@ class CreateServerService
             throw new DisplayException('Unable to create server: ' . $ex->getMessage());
         }
 
+        $this->triggerDomainProvisioning($server, $order);
+
         return $server;
     }
 
@@ -195,6 +201,8 @@ class CreateServerService
 
             throw new DisplayException('Unable to create server: ' . $ex->getMessage());
         }
+
+        $this->triggerDomainProvisioning($server, $order);
 
         return $server;
     }
@@ -270,6 +278,17 @@ class CreateServerService
         }
 
         return $allocation->id;
+    }
+
+    private function triggerDomainProvisioning(Server $server, Order $order): void
+    {
+        $request = $order->domain_request;
+
+        if (empty($request)) {
+            return;
+        }
+
+        $this->domainProvisioning->requestProvision($server, $request);
     }
 }
 

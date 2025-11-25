@@ -23,28 +23,34 @@ class NodesController extends ClientApiController
      */
     public function index(Request $request, Product $product): array
     {
-        $free = (float) $product->price === 0.00;
+        $defaultType = (float) $product->price === 0.00 ? 'free' : 'paid';
+        $type = $this->resolveDeploymentType($request->query('type'), $defaultType);
 
-        return $this->transformNodesResponse($this->gatherNodes($free), $free);
+        return $this->transformNodesResponse($this->gatherNodes($type), $type);
     }
 
     public function builder(Request $request): array
     {
-        $type = strtolower((string) $request->query('type', 'paid'));
-        $free = $type === 'free';
+        $type = $this->resolveDeploymentType($request->query('type'), 'paid');
 
-        return $this->transformNodesResponse($this->gatherNodes($free), $free);
+        return $this->transformNodesResponse($this->gatherNodes($type), $type);
     }
 
-    private function gatherNodes(bool $free): Collection
+    private function gatherNodes(string $type): Collection
     {
-        $nodes = Node::where($free ? 'deployable_free' : 'deployable', true)->get();
+        $column = match ($type) {
+            'free' => 'deployable_free',
+            'metered' => 'deployable_metered',
+            default => 'deployable',
+        };
 
-        if ($nodes->isEmpty() && !$free) {
+        $nodes = Node::where($column, true)->get();
+
+        if ($nodes->isEmpty() && $type !== 'free') {
             BillingException::create([
                 'title' => 'No deployable nodes found',
                 'exception_type' => BillingException::TYPE_DEPLOYMENT,
-                'description' => 'Ensure at least one node has the "deployable" box checked',
+                'description' => $this->missingDeploymentTypeMessage($type),
             ]);
 
             return collect();
@@ -67,7 +73,7 @@ class NodesController extends ClientApiController
             $availableNodes->push($node);
         }
 
-        if ($availableNodes->isEmpty()) {
+        if ($availableNodes->isEmpty() && $type !== 'free') {
             BillingException::create([
                 'title' => 'No nodes satisfy requirements',
                 'exception_type' => BillingException::TYPE_DEPLOYMENT,
@@ -78,9 +84,9 @@ class NodesController extends ClientApiController
         return $availableNodes;
     }
 
-    private function transformNodesResponse(Collection $nodes, bool $free): array
+    private function transformNodesResponse(Collection $nodes, string $type): array
     {
-        if ($nodes->isEmpty() && $free) {
+        if ($nodes->isEmpty() && $type === 'free') {
             return $this->fractal->collection(collect())
                 ->transformWith(NodeTransformer::class)
                 ->toArray();
@@ -89,6 +95,21 @@ class NodesController extends ClientApiController
         return $this->fractal->collection($nodes)
             ->transformWith(NodeTransformer::class)
             ->toArray();
+    }
+
+    private function resolveDeploymentType(?string $requestedType, string $fallback): string
+    {
+        $type = strtolower((string) ($requestedType ?? $fallback));
+
+        return in_array($type, ['paid', 'free', 'metered'], true) ? $type : $fallback;
+    }
+
+    private function missingDeploymentTypeMessage(string $type): string
+    {
+        return match ($type) {
+            'metered' => 'Ensure at least one node has the "deployable for metered servers" option enabled',
+            default => 'Ensure at least one node has the "deployable" box checked',
+        };
     }
 }
 

@@ -17,9 +17,9 @@ function getBackgroundColor(value: number, max: number | null): string | undefin
 
     if (delta > 0.8) {
         if (delta > 0.9) {
-            return '#ef4444';
+            return 'var(--theme-danger, #dc2626)';
         }
-        return '#f59e0b';
+        return 'var(--theme-warning, #f97316)';
     }
 
     return undefined;

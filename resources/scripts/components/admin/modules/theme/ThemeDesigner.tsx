@@ -80,16 +80,12 @@ const ColorEditor = ({ token, modes, defaults, overrides, onColorChange, onReset
         const storedDraft = drafts[mode];
         const displayValue = storedDraft !== undefined ? storedDraft : formatHexForDisplay(currentHex);
         const isOverridden = overrides[mode]?.[token.key] ?? false;
-        const infoDefaults: Record<string, string> = {
-            danger: '#dc2626',
-            info: '#f59e0b',
-            warning: '#f97316',
-            experimental: '#facc15',
-            success: theme?.colors?.primary ?? '#16a34a',
-        };
-
+        const themeColors = theme?.colors as Record<string, string> | undefined;
         const fallbackRaw =
-            defaults[mode]?.[token.key] ?? theme?.colors?.[token.key] ?? infoDefaults[token.key] ?? '#000000';
+            defaults[mode]?.[token.key] ??
+            themeColors?.[`${token.key}_${mode}`] ??
+            themeColors?.[token.key] ??
+            '#000000';
         const fallbackHex = normalizeInputColor(fallbackRaw);
         const fallbackDisplay = fallbackHex ? formatHexForDisplay(fallbackHex) : fallbackRaw;
 
@@ -225,27 +221,9 @@ const ThemeDesigner = ({
     onResetColor,
 }: Props) => {
     const [colorFormat, setColorFormat] = useState<ColorFormat>('hex');
-    const effectiveGroups = (() => {
-        const copy = [...groups];
-        if (!copy.find(g => g.id === 'information')) {
-            copy.push({
-                id: 'information',
-                label: 'Information',
-                description: 'Alert and badge colours: danger, info, warning, experimental and success.',
-                keys: [
-                    { key: 'danger', label: 'Danger', description: 'Error / destructive actions' },
-                    { key: 'info', label: 'Info', description: 'Informational / neutral notices' },
-                    { key: 'warning', label: 'Warning', description: 'Warnings / cautions' },
-                    { key: 'experimental', label: 'Experimental', description: 'Experimental / feature flags' },
-                    { key: 'success', label: 'Success', description: 'Success / positive states' },
-                ],
-            } as any);
-        }
+    const availableGroups = groups.length ? groups : [];
 
-        return copy;
-    })();
-
-    const active = effectiveGroups.find(group => group.id === activeGroup) ?? effectiveGroups[0] ?? null;
+    const active = availableGroups.find(group => group.id === activeGroup) ?? availableGroups[0] ?? null;
 
     if (!active) {
         return null;
@@ -255,7 +233,7 @@ const ThemeDesigner = ({
         <div className={'space-y-6'}>
             <div className={'flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between'}>
                 <div className={'flex flex-wrap items-center gap-3'}>
-                    {effectiveGroups.map(group => (
+                    {availableGroups.map(group => (
                         <button
                             key={group.id}
                             type={'button'}

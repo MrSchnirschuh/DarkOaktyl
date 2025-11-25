@@ -39,6 +39,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
  * @property string $daemon_base
  * @property bool|null $deployable
  * @property bool|null $deployable_free
+ * @property bool|null $deployable_metered
  * @property int $servers_count
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
@@ -92,6 +93,7 @@ class Node extends Model
         'maintenance_mode' => 'boolean',
         'deployable' => 'boolean',
         'deployable_free' => 'boolean',
+        'deployable_metered' => 'boolean',
     ];
 
     /**
@@ -103,7 +105,7 @@ class Node extends Model
         'fqdn', 'scheme', 'behind_proxy',
         'memory', 'memory_overallocate', 'disk',
         'disk_overallocate', 'upload_size', 'daemon_base',
-        'description', 'maintenance_mode', 'deployable', 'deployable_free',
+        'description', 'maintenance_mode', 'deployable', 'deployable_free', 'deployable_metered',
     ];
 
     public static array $validationRules = [
@@ -127,6 +129,7 @@ class Node extends Model
         'upload_size' => 'int|between:1,1024',
         'deployable' => 'nullable|boolean',
         'deployable_free' => 'nullable|boolean',
+        'deployable_metered' => 'nullable|boolean',
     ];
 
     /**
@@ -302,6 +305,18 @@ class Node extends Model
             'disk' => round($diskPercent, 1),
             'allocations' => round($allocationsPercent, 1),
         ];
+    }
+
+    /**
+     * Determine if this node allows deployments for the given billing type.
+     */
+    public function allowsDeploymentType(string $type): bool
+    {
+        return match (strtolower($type)) {
+            'free' => (bool) $this->deployable_free,
+            'metered' => (bool) $this->deployable_metered,
+            default => (bool) $this->deployable,
+        };
     }
 }
 

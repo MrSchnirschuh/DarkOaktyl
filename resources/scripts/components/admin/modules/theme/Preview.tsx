@@ -3,6 +3,7 @@ import { useStoreState } from '@/state/hooks';
 import { faDesktop } from '@fortawesome/free-solid-svg-icons';
 import { useRef, useCallback, useEffect } from 'react';
 import { ensureReadableAccent } from '@/helpers/colorContrast';
+import { deriveThemeVariables } from '@/theme/deriveThemeVariables';
 
 export default ({
     reload,
@@ -15,8 +16,9 @@ export default ({
     size?: 'small' | 'medium' | 'large';
     className?: string;
 }) => {
-    const colors = useStoreState(s => s.theme.data!.colors) as Record<string, string>;
-    const primary = colors[`primary_${mode}`] ?? colors.primary ?? '#008000';
+    const theme = useStoreState(s => s.theme.data);
+    const colorTokens = (theme?.colors as Record<string, string>) ?? {};
+    const primary = colorTokens[`primary_${mode}`] ?? colorTokens.primary ?? '#008000';
 
     const heightClass = size === 'small' ? 'h-[40vh]' : size === 'large' ? 'h-[80vh]' : 'h-[60vh]';
 
@@ -25,73 +27,42 @@ export default ({
     const applyPreviewVars = useCallback(() => {
         try {
             const iframe = iframeRef.current;
-            if (!iframe || !iframe.contentDocument) return;
+            if (!iframe || !iframe.contentDocument || !theme) return;
             const docEl = iframe.contentDocument.documentElement as HTMLElement;
+            const { cssVariables } = deriveThemeVariables(theme, mode);
 
-            // derive values similar to ThemeVars but specific to the preview mode
-            const effective = { ...(colors as Record<string, string>) } as Record<string, string>;
-
-            const getTextPrimary = () =>
-                effective[`text_primary_${mode}`] ??
-                effective[`text_${mode}`] ??
-                effective['text_primary'] ??
-                effective['text'] ??
-                effective[`primary_${mode}`] ??
-                effective['primary'] ??
-                '#e5e7eb';
-
-            const getTextSecondary = () =>
-                effective[`text_secondary_${mode}`] ??
-                effective['text_secondary'] ??
-                (mode === 'light' ? '#4b5563' : '#9ca3af');
-
-            const primaryCol = effective[`primary_${mode}`] ?? effective['primary'] ?? '#008000';
-            const secondaryCol = effective[`secondary_${mode}`] ?? effective['secondary'] ?? '#27272a';
-            const backgroundCol = effective[`background_${mode}`] ?? effective['background'] ?? '#0f172a';
-            const headers = effective[`headers_${mode}`] ?? effective['headers'] ?? '#111827';
-            const sidebar = effective[`sidebar_${mode}`] ?? effective['sidebar'] ?? '#0b0f14';
-            const accent =
-                effective[`accent_primary_${mode}`] ??
-                effective['accent_primary'] ??
-                effective[`primary_${mode}`] ??
-                effective['primary'] ??
-                '#008000';
-            const accentText = ensureReadableAccent(accent, backgroundCol, getTextPrimary());
-            const accentContrast = ensureReadableAccent(
-                accent,
-                mode === 'light' ? '#ffffff' : '#1f2937',
-                getTextPrimary(),
-            );
-
-            // set property even when value is empty string (to allow clearing)
-            const setVar = (n: string, v?: string) => {
-                if (typeof v === 'undefined') return;
+            Object.entries(cssVariables).forEach(([name, value]) => {
                 try {
-                    docEl.style.setProperty(n, v);
-                } catch (e) {
+                    docEl.style.setProperty(name, value);
+                } catch (error) {
+                    // ignore iframe styling issues
+                }
+            });
+
+            const accent = cssVariables['--theme-accent'];
+            const textPrimary = cssVariables['--theme-text-primary'] ?? '#e5e7eb';
+            if (accent) {
+                const accentText = ensureReadableAccent(
+                    accent,
+                    cssVariables['--theme-background'] ?? '#0f172a',
+                    textPrimary,
+                );
+                const accentContrast = ensureReadableAccent(
+                    accent,
+                    mode === 'light' ? '#ffffff' : '#1f2937',
+                    textPrimary,
+                );
+                try {
+                    docEl.style.setProperty('--theme-accent-text', accentText);
+                    docEl.style.setProperty('--theme-accent-contrast', accentContrast);
+                } catch (error) {
                     // ignore
                 }
-            };
-
-            const textPrimary = getTextPrimary();
-            setVar('--theme-text-primary', textPrimary);
-            setVar('--theme-text', textPrimary);
-            setVar('--theme-text-secondary', getTextSecondary());
-            setVar('--theme-primary', primaryCol);
-            setVar('--theme-secondary', secondaryCol);
-            setVar('--theme-background', backgroundCol);
-            setVar('--theme-headers', headers);
-            setVar('--theme-sidebar', sidebar);
-            setVar('--theme-accent', accent);
-            setVar('--theme-accent-text', accentText);
-            setVar('--theme-accent-contrast', accentContrast);
-            // background image per-mode
-            const bgImage = effective[`background_image_${mode}`] ?? effective['background_image'] ?? '';
-            setVar('--theme-background-image', bgImage ? `url(${bgImage})` : '');
+            }
         } catch (e) {
             // ignore failures when accessing cross-origin iframe
         }
-    }, [colors, mode]);
+    }, [theme, mode]);
 
     const onLoad = useCallback(() => {
         // apply preview vars once iframe content has loaded
@@ -112,7 +83,7 @@ export default ({
         } catch (e) {
             // ignore cross-origin or access errors
         }
-    }, [mode, colors, applyPreviewVars]);
+    }, [mode, theme, applyPreviewVars]);
 
     const wrapperClass = className ?? 'lg:col-span-2';
 

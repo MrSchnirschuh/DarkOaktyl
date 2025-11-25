@@ -73,6 +73,7 @@ class BuilderController extends ClientApiController
         return [
             'quote' => $result['quote'],
             'coupons' => $result['coupons'],
+            'deployment_type' => $result['deployment_type'] ?? 'paid',
         ];
     }
 }

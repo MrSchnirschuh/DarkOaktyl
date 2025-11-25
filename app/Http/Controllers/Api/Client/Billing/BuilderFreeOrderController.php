@@ -35,12 +35,11 @@ class BuilderFreeOrderController extends ClientApiController
         $category = Category::findOrFail($request->input('category_id'));
         $node = Node::findOrFail($request->input('node_id'));
 
-        if (!$node->deployable_free) {
-            throw new DisplayException('Free servers cannot be deployed to this node.');
-        }
-
         $quoteResult = $this->builderQuotes->calculateFromRequest($request);
         $total = $this->builderOrders->resolveTotal($quoteResult['quote']);
+        $deploymentType = $quoteResult['deployment_type'] ?? 'free';
+
+        $this->assertNodeDeployment($node, $deploymentType);
 
         if ($total > 0.0) {
             throw new DisplayException('This configuration requires payment. Use the checkout instead.');
@@ -56,6 +55,7 @@ class BuilderFreeOrderController extends ClientApiController
             $request->input('variables', []),
             $quoteResult['term'],
             $request->input('coupons', []),
+            $deploymentType,
         );
 
         $order = $this->orderService->create(
@@ -102,5 +102,20 @@ class BuilderFreeOrderController extends ClientApiController
         }
 
         return Order::TYPE_NEW;
+    }
+
+    private function assertNodeDeployment(Node $node, string $type): void
+    {
+        if ($node->allowsDeploymentType($type)) {
+            return;
+        }
+
+        $message = match ($type) {
+            'metered' => 'Usage-billed servers cannot be deployed to this node.',
+            'free' => 'Free servers cannot be deployed to this node.',
+            default => 'Paid servers cannot be deployed to this node.',
+        };
+
+        throw new DisplayException($message);
     }
 }

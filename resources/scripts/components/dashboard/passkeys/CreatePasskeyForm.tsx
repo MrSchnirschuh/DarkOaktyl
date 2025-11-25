@@ -78,11 +78,14 @@ export default function CreatePasskeyForm({ mutate, limit, currentCount }: Props
                         </MessageBox>
                     )}
                     <FormikFieldWrapper label="Passkey Name" name="name">
-                        <Field name="name" as={Input} placeholder="e.g. MacBook Pro" disabled={!supported || limitReached} />
+                        <Field
+                            name="name"
+                            as={Input}
+                            placeholder="e.g. MacBook Pro"
+                            disabled={!supported || limitReached}
+                        />
                     </FormikFieldWrapper>
-                    <p css={tw`text-xs text-theme-muted mt-3`}>
-                        {`Passkeys registered: ${currentCount}/${limit}`}
-                    </p>
+                    <p css={tw`text-xs text-theme-muted mt-3`}>{`Passkeys registered: ${currentCount}/${limit}`}</p>
                     <div css={tw`flex justify-end mt-6`}>
                         <Button disabled={!supported || limitReached || isSubmitting}>Register Passkey</Button>
                     </div>

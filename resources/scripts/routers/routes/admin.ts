@@ -27,6 +27,7 @@ const LinksContainer = lazy(() => import('@/components/admin/modules/links/Links
 const ServersContainer = lazy(() => import('@/components/admin/management/servers/ServersContainer'));
 const NewServerContainer = lazy(() => import('@/components/admin/management/servers/NewServerContainer'));
 const ServerRouter = lazy(() => import('@/components/admin/management/servers/ServerRouter'));
+const DomainRootsContainer = lazy(() => import('@/components/admin/management/domains/DomainRootsContainer'));
 const AdminUsersContainer = lazy(() => import('@/components/admin/management/users/UsersContainer'));
 const NewUserContainer = lazy(() => import('@/components/admin/management/users/NewUserContainer'));
 const UserRouter = lazy(() => import('@/components/admin/management/users/UserRouter'));
@@ -89,6 +90,7 @@ const admin: AdminRouteDefinition[] = [
     route('nodes/*', NodesContainer, { name: 'Nodes', icon: Icon.ServerIcon, category: 'management' }),
     route('nodes/new', NewNodeContainer),
     route('nodes/:id/*', NodeRouter),
+    route('domains', DomainRootsContainer, { name: 'Domains', icon: Icon.GlobeAltIcon, category: 'management' }),
     route('servers', ServersContainer, { name: 'Servers', icon: Icon.TerminalIcon, category: 'management' }),
     route('servers/new', NewServerContainer),
     route('servers/:id/*', ServerRouter),

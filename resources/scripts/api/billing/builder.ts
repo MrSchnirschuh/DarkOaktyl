@@ -46,6 +46,7 @@ export interface BuilderQuotePayload {
     coupons?: string[];
     options?: Record<string, unknown>;
     node_id?: number;
+    deployment_type?: 'paid' | 'free' | 'metered';
 }
 
 export interface BuilderIntentPayload extends BuilderQuotePayload {
@@ -72,7 +73,10 @@ export interface BuilderQuoteResult {
         discount?: number;
         term_multiplier: number;
         term?: Record<string, unknown> | null;
-        resources: Record<string, { resource: string; display_name: string; quantity: number; unit: string; total: number }>;
+        resources: Record<
+            string,
+            { resource: string; display_name: string; quantity: number; unit: string; total: number }
+        >;
     };
     coupons: {
         uuid: string;
@@ -83,6 +87,7 @@ export interface BuilderQuoteResult {
         percentage?: number | null;
         metadata?: Record<string, unknown> | null;
     }[];
+    deployment_type?: 'paid' | 'free' | 'metered';
 }
 
 export const getBuilderResources = (): Promise<BuilderResource[]> => {
@@ -109,7 +114,7 @@ export const getBuilderQuote = (payload: BuilderQuotePayload): Promise<BuilderQu
     });
 };
 
-export const getBuilderNodes = (type: 'paid' | 'free' = 'paid'): Promise<Node[]> => {
+export const getBuilderNodes = (type: 'paid' | 'free' | 'metered' = 'paid'): Promise<Node[]> => {
     return new Promise((resolve, reject) => {
         http.get('/api/client/billing/builder/nodes', { params: { type } })
             .then(({ data }) => resolve((data.data || []).map((datum: FractalResponseData) => rawDataToNode(datum))))

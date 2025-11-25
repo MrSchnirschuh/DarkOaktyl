@@ -19,6 +19,7 @@ use DarkOak\Models\Model;
  * @property string $type
  * @property int $threat_index
  * @property string $payment_intent_id
+ * @property array|null $domain_request
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  */
@@ -53,7 +54,7 @@ class Order extends Model
     protected $fillable = [
         'name', 'user_id', 'description', 'payment_intent_id',
         'total', 'status', 'product_id', 'type', 'threat_index',
-        'billing_term_id', 'node_id', 'storefront', 'builder_metadata',
+        'billing_term_id', 'node_id', 'storefront', 'builder_metadata', 'domain_request',
     ];
 
     /**
@@ -67,6 +68,7 @@ class Order extends Model
         'node_id' => 'int',
         'threat_index' => 'int',
         'builder_metadata' => 'array',
+        'domain_request' => 'array',
     ];
 
     public static array $validationRules = [

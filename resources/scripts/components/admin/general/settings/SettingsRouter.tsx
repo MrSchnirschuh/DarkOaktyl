@@ -1,4 +1,4 @@
-import { AdjustmentsIcon, ChipIcon, InformationCircleIcon } from '@heroicons/react/outline';
+import { AdjustmentsIcon, ChipIcon } from '@heroicons/react/outline';
 import { Route, Routes } from 'react-router-dom';
 import tw from 'twin.macro';
 
@@ -8,7 +8,6 @@ import { SubNavigation, SubNavigationLink } from '@admin/SubNavigation';
 import GeneralSettings from '@admin/general/settings/GeneralSettings';
 import { useStoreState } from '@/state/hooks';
 import ModeSettings from './ModeSettings';
-import InfoColorsSettings from './InfoColorsSettings';
 
 const SettingsRouter = () => {
     const theme = useStoreState(state => state.theme.data!);
@@ -36,15 +35,11 @@ const SettingsRouter = () => {
                 <SubNavigationLink to="/admin/settings/mode" name="Modes">
                     <AdjustmentsIcon />
                 </SubNavigationLink>
-                <SubNavigationLink to="/admin/settings/information" name="Information">
-                    <InformationCircleIcon />
-                </SubNavigationLink>
             </SubNavigation>
 
             <Routes>
                 <Route path="/" element={<GeneralSettings />} />
                 <Route path="/mode" element={<ModeSettings />} />
-                <Route path="/information" element={<InfoColorsSettings />} />
             </Routes>
         </AdminContentBlock>
     );

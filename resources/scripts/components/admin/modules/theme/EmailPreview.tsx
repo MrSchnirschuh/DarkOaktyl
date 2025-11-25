@@ -7,17 +7,64 @@ import { getEmailTemplates, previewEmailTemplate, type EmailTemplatePreview } fr
 import type { EmailTemplate } from '@definitions/admin/models';
 import type { ThemeMode } from '@/api/admin/theme/getPalette';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { useStoreState } from '@/state/hooks';
+import { deriveThemeVariables, type DerivedThemeVariablesResult } from '@/theme/deriveThemeVariables';
+
+const EMAIL_PREVIEW_FLASH_KEY = 'theme:emailPreview';
+
+const normalizeHtmlForMode = (html: string, mode: ThemeMode): string =>
+    html.replace(/data-color-mode="responsive"/gi, `data-color-mode="${mode}"`);
+
+type EmailPaletteOverrides = Record<ThemeMode, DerivedThemeVariablesResult['emailPalette']>;
+
+const buildModeCss = (mode: ThemeMode, palette: DerivedThemeVariablesResult['emailPalette']): string => {
+    const headerText = mode === 'light' ? '#0f172a' : '#ffffff';
+
+    return `
+body[data-color-mode='${mode}'] {
+    background-color: ${palette.background_color} !important;
+    color: ${palette.text_color} !important;
+}
+body[data-color-mode='${mode}'] .email-wrapper {
+    background-color: ${palette.background_color} !important;
+}
+body[data-color-mode='${mode}'] .email-card {
+    background-color: ${palette.body_color} !important;
+    color: ${palette.text_color} !important;
+}
+body[data-color-mode='${mode}'] .email-body {
+    color: ${palette.text_color} !important;
+}
+body[data-color-mode='${mode}'] .email-footer {
+    color: ${palette.muted_text_color} !important;
+}
+body[data-color-mode='${mode}'] .email-button {
+    background-color: ${palette.button_color} !important;
+    color: ${palette.button_text_color} !important;
+}
+body[data-color-mode='${mode}'] .email-header {
+    background: linear-gradient(135deg, ${palette.primary_color}, ${palette.secondary_color}) !important;
+    color: ${headerText} !important;
+}
+`;
+};
+
+const injectEmailPaletteOverrides = (html: string, palettes: EmailPaletteOverrides | null): string => {
+    if (!palettes?.dark || !palettes?.light) {
+        return html;
+    }
+
+    const overrides = `${buildModeCss('dark', palettes.dark)}${buildModeCss('light', palettes.light)}`;
+    const styleTag = `<style data-theme-email-preview>${overrides}</style>`;
+
+    return html.includes('</head>') ? html.replace('</head>', `${styleTag}</head>`) : `${styleTag}${html}`;
+};
 
 interface Props {
     mode: ThemeMode;
     paletteVersion: number;
     className?: string;
 }
-
-const EMAIL_PREVIEW_FLASH_KEY = 'theme:emailPreview';
-
-const normalizeHtmlForMode = (html: string, mode: ThemeMode): string =>
-    html.replace(/data-color-mode="responsive"/gi, `data-color-mode="${mode}"`);
 
 const pickInitialTemplate = (templates: EmailTemplate[]): EmailTemplate | null => {
     if (!templates.length) return null;
@@ -32,6 +79,7 @@ const pickInitialTemplate = (templates: EmailTemplate[]): EmailTemplate | null =
 
 export default ({ mode, paletteVersion, className }: Props) => {
     const { clearAndAddHttpError, clearFlashes } = useFlash();
+    const theme = useStoreState(state => state.theme.data);
 
     const [templates, setTemplates] = useState<EmailTemplate[]>([]);
     const [selectedUuid, setSelectedUuid] = useState<string>('');
@@ -101,13 +149,25 @@ export default ({ mode, paletteVersion, className }: Props) => {
         }
     }, [selectedTemplate, loadPreview, paletteVersion]);
 
+    const emailPalettes = useMemo<EmailPaletteOverrides | null>(() => {
+        if (!theme) {
+            return null;
+        }
+
+        return {
+            dark: deriveThemeVariables(theme, 'dark').emailPalette,
+            light: deriveThemeVariables(theme, 'light').emailPalette,
+        };
+    }, [theme]);
+
     const iframeHtml = useMemo(() => {
         if (!preview) {
             return null;
         }
 
-        return normalizeHtmlForMode(preview.html, mode);
-    }, [preview, mode]);
+        const normalized = normalizeHtmlForMode(preview.html, mode);
+        return injectEmailPaletteOverrides(normalized, emailPalettes);
+    }, [preview, mode, emailPalettes]);
 
     return (
         <AdminBox title={'Email Preview'} icon={faEnvelope} className={className}>
