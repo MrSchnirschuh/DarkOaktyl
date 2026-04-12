@@ -16,6 +16,8 @@ const Processing = lazy(() => import('@account/billing/order/summary/Processing'
 const Success = lazy(() => import('@account/billing/order/summary/Success'));
 const Cancel = lazy(() => import('@account/billing/order/summary/Cancel'));
 
+const NotificationSettings = lazy(() => import('@account/notifications/NotificationSettings'));
+
 const account: RouteDefinition[] = [
     /**
      * Account - General Routes
@@ -23,6 +25,7 @@ const account: RouteDefinition[] = [
     route('', AccountOverviewContainer, { name: 'Account', end: true, icon: Icon.UserIcon }),
     route('api', AccountApiContainer, { name: 'API Credentials', icon: Icon.CodeIcon }),
     route('ssh', AccountSSHContainer, { name: 'SSH Keys', icon: Icon.TerminalIcon }),
+    route('notifications', NotificationSettings, { name: 'Notifications', icon: Icon.BellIcon }),
 
     /**
      * Account - Ticket Routes
