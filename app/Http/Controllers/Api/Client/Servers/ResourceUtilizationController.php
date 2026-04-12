@@ -34,9 +34,7 @@ class ResourceUtilizationController extends ClientApiController
             return $this->repository->setServer($server)->getDetails();
         });
 
-        return $this->fractal->item($stats)
-            ->transformWith(StatsTransformer::class)
-            ->toArray();
+        return $this->transform($stats, StatsTransformer::class);
     }
 }
 

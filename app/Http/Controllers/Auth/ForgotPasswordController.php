@@ -2,6 +2,7 @@
 
 namespace DarkOak\Http\Controllers\Auth;
 
+use Everest\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -40,10 +41,11 @@ class ForgotPasswordController extends AbstractLoginController
         $user = $this->updateService->handle($user, ['password' => $request->input('password')]);
 
         if (!$user->use_totp) {
-            $this->sendLoginResponse($user, $request);
-        } else {
-            redirect()->route('auth.login');
+            return $this->sendLoginResponse($user, $request);
         }
+
+        return redirect()->route('auth.login');
+
     }
 }
 

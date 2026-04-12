@@ -69,7 +69,7 @@ class DisplayException extends DarkOaktylException implements HttpExceptionInter
 
         try {
             $logger = Container::getInstance()->make(LoggerInterface::class);
-        } catch (Exception) {
+        } catch (\Exception) {
             throw $this->getPrevious();
         }
 

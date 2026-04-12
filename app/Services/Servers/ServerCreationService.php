@@ -37,7 +37,7 @@ class ServerCreationService
         private ServerRepository $repository,
         private ServerDeletionService $serverDeletionService,
         private ServerVariableRepository $serverVariableRepository,
-        private VariableValidatorService $validatorService
+        private VariableValidatorService $validatorService,
     ) {
     }
 
@@ -54,7 +54,7 @@ class ServerCreationService
      * @throws \DarkOak\Exceptions\Service\Deployment\NoViableNodeException
      * @throws \DarkOak\Exceptions\Service\Deployment\NoViableAllocationException
      */
-    public function handle(array $data, DeploymentObject $deployment = null): Server
+    public function handle(array $data, ?DeploymentObject $deployment = null): Server
     {
         // If a deployment object has been passed we need to get the allocation
         // that the server should use, and assign the node from that allocation.
@@ -197,9 +197,9 @@ class ServerCreationService
             'skip_scripts' => Arr::get($data, 'skip_scripts') ?? isset($data['skip_scripts']),
             'owner_id' => Arr::get($data, 'owner_id'),
             'memory' => Arr::get($data, 'memory'),
-            'swap' => Arr::get($data, 'swap'),
+            'swap' => Arr::get($data, 'swap') ?? 0,
             'disk' => Arr::get($data, 'disk'),
-            'io' => Arr::get($data, 'io'),
+            'io' => Arr::get($data, 'io') ?? 500,
             'cpu' => Arr::get($data, 'cpu'),
             'threads' => Arr::get($data, 'threads'),
             'oom_killer' => Arr::get($data, 'oom_killer') ?? false,

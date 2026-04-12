@@ -5,21 +5,21 @@ import { useState } from 'react';
 import tw from 'twin.macro';
 import { array, boolean, object, string } from 'yup';
 
-import deleteEggVariable from '@/api/admin/eggs/deleteEggVariable';
-import updateEggVariables from '@/api/admin/eggs/updateEggVariables';
-import { NoItems } from '@elements/AdminTable';
-import ConfirmationModal from '@elements/ConfirmationModal';
-import type { EggVariable } from '@/api/admin/egg';
-import { useEggFromRoute } from '@/api/admin/egg';
+import deleteEggVariable from '@/api/routes/admin/eggs/deleteEggVariable';
+import updateEggVariables from '@/api/routes/admin/eggs/updateEggVariables';
+import { NoItems } from '@/elements/AdminTable';
+import ConfirmationModal from '@/elements/ConfirmationModal';
+import type { EggVariable } from '@/api/routes/admin/egg';
+import { useEggFromRoute } from '@/api/routes/admin/egg';
 import NewVariableButton from '@admin/service/nests/eggs/NewVariableButton';
-import AdminBox from '@elements/AdminBox';
-import { Button } from '@elements/button';
-import Field, { FieldRow, TextareaField } from '@elements/Field';
-import SpinnerOverlay from '@elements/SpinnerOverlay';
+import AdminBox from '@/elements/AdminBox';
+import { Button } from '@/elements/button';
+import Field, { FieldRow, TextareaField } from '@/elements/Field';
+import SpinnerOverlay from '@/elements/SpinnerOverlay';
 import useFlash from '@/plugins/useFlash';
-import Label from '@elements/Label';
+import Label from '@/elements/Label';
 import { useStoreState } from '@/state/hooks';
-import Checkbox from '@elements/inputs/Checkbox';
+import Checkbox from '@/elements/inputs/Checkbox';
 
 export const validationSchema = object().shape({
     name: string().required().min(1).max(191),
@@ -31,8 +31,8 @@ export const validationSchema = object().shape({
     rules: string().required(),
 });
 
-export function EggVariableForm({ prefix, variable }: { prefix: string; variable: EggVariable }) {
-    console.log(variable.id === 5 && variable);
+export function EggVariableForm({ prefix, variable }: { prefix: string; variable?: EggVariable }) {
+    console.log(variable?.id === 5 && variable);
 
     return (
         <>
@@ -68,7 +68,7 @@ export function EggVariableForm({ prefix, variable }: { prefix: string; variable
                         type="checkbox"
                         // @ts-expect-error ignore type error
                         as={Checkbox}
-                        defaultChecked={variable.isUserViewable}
+                        defaultChecked={variable?.isUserViewable}
                         id={`${prefix}isUserViewable`}
                         name={`${prefix}isUserViewable`}
                     />
@@ -82,7 +82,7 @@ export function EggVariableForm({ prefix, variable }: { prefix: string; variable
                         type="checkbox"
                         // @ts-expect-error ignore type error
                         as={Checkbox}
-                        defaultChecked={variable.isUserEditable}
+                        defaultChecked={variable?.isUserEditable}
                         id={`${prefix}isUserEditable`}
                         name={`${prefix}isUserEditable`}
                     />

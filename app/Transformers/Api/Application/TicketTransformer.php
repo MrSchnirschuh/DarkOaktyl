@@ -14,9 +14,6 @@ class TicketTransformer extends Transformer
      */
     protected array $availableIncludes = ['messages'];
 
-    /**
-     * {@inheritdoc}
-     */
     public function getResourceName(): string
     {
         return Ticket::RESOURCE_NAME;
@@ -33,8 +30,8 @@ class TicketTransformer extends Transformer
             'status' => $model->status,
             'user' => $model->user,
             'assigned_to' => $model->assignedTo,
-            'created_at' => $model->created_at->toAtomString(),
-            'updated_at' => $model->updated_at ? $model->updated_at->toAtomString() : null,
+            'created_at' => $model->created_at->toIso8601String(),
+            'updated_at' => $model->updated_at->toIso8601String() ? $model->updated_at->toIso8601String() : null,
         ];
     }
 

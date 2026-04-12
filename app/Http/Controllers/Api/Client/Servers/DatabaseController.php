@@ -24,7 +24,7 @@ class DatabaseController extends ClientApiController
     public function __construct(
         private DeployServerDatabaseService $deployDatabaseService,
         private DatabaseManagementService $managementService,
-        private DatabasePasswordService $passwordService
+        private DatabasePasswordService $passwordService,
     ) {
         parent::__construct();
     }
@@ -34,9 +34,7 @@ class DatabaseController extends ClientApiController
      */
     public function index(GetDatabasesRequest $request, Server $server): array
     {
-        return $this->fractal->collection($server->databases)
-            ->transformWith(DatabaseTransformer::class)
-            ->toArray();
+        return $this->transform($server->databases, DatabaseTransformer::class);
     }
 
     /**
@@ -97,7 +95,7 @@ class DatabaseController extends ClientApiController
             ->property('name', $database->database)
             ->log();
 
-        return new Response('', Response::HTTP_NO_CONTENT);
+        return $this->returnNoContent();
     }
 }
 

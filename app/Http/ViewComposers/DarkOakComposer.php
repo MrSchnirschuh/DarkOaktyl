@@ -53,16 +53,22 @@ class DarkOakComposer
             ],
             'billing' => [
                 'enabled' => boolval(config('modules.billing.enabled', false)),
-                'paypal' => config('modules.billing.paypal'),
-                'link' => config('modules.billing.link'),
                 'keys' => [
-                    'publishable' => boolval(config('modules.billing.keys.publishable')),
                     'secret' => boolval(config('modules.billing.keys.secret')),
                 ],
                 'currency' => [
                     'symbol' => config('modules.billing.currency.symbol'),
                     'code' => config('modules.billing.currency.code'),
                 ],
+                'links' => [
+                    'terms' => config('modules.billing.links.terms'),
+                    'privacy' => config('modules.billing.links.privacy'),
+                ],
+                'renewal' => [
+                    'days' => config('modules.billing.renewal.days'),
+                    'threshold' => config('modules.billing.renewal.threshold'),
+                ],
+                'allow_upgrades' => config('modules.billing.allow_upgrades'),
             ],
             'emails' => [
                 'enabled' => boolval(config('modules.email.enabled', false)),

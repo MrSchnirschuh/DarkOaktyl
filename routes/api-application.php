@@ -62,6 +62,8 @@ Route::middleware([AdminSubject::class])->group(function () {
 
         Route::delete('/keys', [Application\Billing\BillingController::class, 'resetKeys']);
 
+        Route::get('/products/{product:id}', [Application\Billing\ProductController::class, 'view']);
+
         Route::group(['prefix' => '/categories'], function () {
             Route::get('/', [Application\Billing\CategoryController::class, 'index']);
             Route::post('/', [Application\Billing\CategoryController::class, 'store']);
@@ -114,6 +116,13 @@ Route::middleware([AdminSubject::class])->group(function () {
 
         Route::group(['prefix' => '/orders'], function () {
             Route::get('/', [Application\Billing\OrderController::class, 'index']);
+        });
+
+        Route::group(['prefix' => '/discount-codes'], function () {
+            Route::get('/', [Application\Billing\DiscountCodeController::class, 'index']);
+            Route::post('/', [Application\Billing\DiscountCodeController::class, 'store']);
+            Route::patch('/{discount_code:id}', [Application\Billing\DiscountCodeController::class, 'update']);
+            Route::delete('/{discount_code:id}', [Application\Billing\DiscountCodeController::class, 'delete']);
         });
 
         Route::group(['prefix' => '/exceptions'], function () {
@@ -195,8 +204,8 @@ Route::middleware([AdminSubject::class])->group(function () {
     |
     */
     Route::group(['prefix' => '/ai'], function () {
-        Route::put('/settings', [Application\AI\SettingsController::class, 'update']);
-        Route::post('/query', [Application\AI\SettingsController::class, 'query']);
+        Route::put('/settings', [Application\IntelligenceController::class, 'update']);
+        Route::post('/query', [Application\IntelligenceController::class, 'query']);
     });
 
     /*
@@ -208,11 +217,11 @@ Route::middleware([AdminSubject::class])->group(function () {
     |
     */
     Route::group(['prefix' => '/webhooks'], function () {
-        Route::get('/', [Application\Webhooks\EventsController::class, 'index']);
-        Route::put('/', [Application\Webhooks\SettingsController::class, 'update']);
+        Route::get('/', [Application\Webhooks\WebhookController::class, 'index']);
+        Route::put('/', [Application\Webhooks\WebhookController::class, 'settings']);
 
-        Route::post('/test', [Application\Webhooks\EventsController::class, 'test']);
-        Route::put('/status', [Application\Webhooks\EventsController::class, 'toggle']);
+        Route::post('/test', [Application\Webhooks\WebhookController::class, 'test']);
+        Route::put('/toggle', [Application\Webhooks\WebhookController::class, 'toggle']);
     });
 
     /*
@@ -246,8 +255,8 @@ Route::middleware([AdminSubject::class])->group(function () {
         Route::put('/{ticket:id}', [Application\Tickets\TicketController::class, 'update']);
         Route::delete('/{ticket:id}', [Application\Tickets\TicketController::class, 'delete']);
 
+        Route::post('/message', [Application\Tickets\TicketMessageController::class, 'store']);
         Route::get('/{ticket:id}/messages', [Application\Tickets\TicketMessageController::class, 'index']);
-        Route::post('/{ticket:id}/messages', [Application\Tickets\TicketMessageController::class, 'store']);
     });
 
     /*
@@ -397,6 +406,16 @@ Route::middleware([AdminSubject::class])->group(function () {
     */
     Route::group(['prefix' => '/servers'], function () {
         Route::get('/', [Application\Servers\ServerController::class, 'index']);
+
+        Route::group(['prefix' => '/presets'], function () {
+            Route::get('/', [Application\Servers\ServerPresetController::class, 'index']);
+            Route::post('/', [Application\Servers\ServerPresetController::class, 'store']);
+
+            Route::get('/{server_preset:id}', [Application\Servers\ServerPresetController::class, 'view']);
+            Route::patch('/{server_preset:id}', [Application\Servers\ServerPresetController::class, 'update']);
+            Route::delete('/{server_preset:id}', [Application\Servers\ServerPresetController::class, 'delete']);
+        });
+
         Route::get('/{server:id}', [Application\Servers\ServerController::class, 'view']);
         Route::get('/external/{external_id}', [Application\Servers\ExternalServerController::class, 'index']);
 
@@ -404,14 +423,15 @@ Route::middleware([AdminSubject::class])->group(function () {
         Route::patch('/{server:id}/startup', [Application\Servers\StartupController::class, 'index']);
 
         Route::post('/', [Application\Servers\ServerController::class, 'store']);
+        Route::post('/preset', [Application\Servers\ServerController::class, 'storeWithPreset']);
         Route::post('/{server:id}/toggle', [Application\Servers\ServerManagementController::class, 'toggle']);
         Route::post('/{server:id}/suspend', [Application\Servers\ServerManagementController::class, 'suspend']);
         Route::post('/{server:id}/unsuspend', [Application\Servers\ServerManagementController::class, 'unsuspend']);
         Route::post('/{server:id}/reinstall', [Application\Servers\ServerManagementController::class, 'reinstall']);
+        Route::post('/{server:id}/transfer', [Application\Servers\ServerManagementController::class, 'transfer']);
 
         Route::post('/{server:id}/delete', [Application\Servers\ServerController::class, 'delete']);
 
-        // Database Management Endpoint
         Route::group(['prefix' => '/{server:id}/databases'], function () {
             Route::get('/', [Application\Servers\DatabaseController::class, 'index']);
             Route::get('/{database:id}', [Application\Servers\DatabaseController::class, 'view']);
@@ -433,6 +453,20 @@ Route::middleware([AdminSubject::class])->group(function () {
     */
     Route::group(['prefix' => '/users'], function () {
         Route::get('/', [Application\Users\UserController::class, 'index']);
+
+        Route::group(['prefix' => '/roles'], function () {
+            Route::get('/', [Application\Roles\RoleController::class, 'index']);
+            Route::get('/permissions', [Application\Roles\RoleController::class, 'permissions']);
+            Route::get('/{role:id}', [Application\Roles\RoleController::class, 'view']);
+
+            Route::post('/', [Application\Roles\RoleController::class, 'store']);
+
+            Route::patch('/{role:id}', [Application\Roles\RoleController::class, 'update']);
+            Route::patch('/{role:id}/permissions', [Application\Roles\RoleController::class, 'updatePermissions']);
+
+            Route::delete('/{role:id}', [Application\Roles\RoleController::class, 'delete']);
+        });
+
         Route::get('/{user:id}', [Application\Users\UserController::class, 'view']);
         Route::get('/external/{external_id}', [Application\Users\ExternalUserController::class, 'index']);
 
@@ -442,27 +476,6 @@ Route::middleware([AdminSubject::class])->group(function () {
         Route::patch('/{user:id}', [Application\Users\UserController::class, 'update']);
 
         Route::delete('/{user:id}', [Application\Users\UserController::class, 'delete']);
-    });
-
-    /*
-    |--------------------------------------------------------------------------
-    | Role Controller Routes
-    |--------------------------------------------------------------------------
-    |
-    | Endpoint: /api/application/roles
-    |
-    */
-    Route::group(['prefix' => '/roles'], function () {
-        Route::get('/', [Application\Roles\RoleController::class, 'index']);
-        Route::get('/permissions', [Application\Roles\RoleController::class, 'permissions']);
-        Route::get('/{role:id}', [Application\Roles\RoleController::class, 'view']);
-
-        Route::post('/', [Application\Roles\RoleController::class, 'store']);
-
-        Route::patch('/{role:id}', [Application\Roles\RoleController::class, 'update']);
-        Route::patch('/{role:id}/permissions', [Application\Roles\RoleController::class, 'updatePermissions']);
-
-        Route::delete('/{role:id}', [Application\Roles\RoleController::class, 'delete']);
     });
 });
 

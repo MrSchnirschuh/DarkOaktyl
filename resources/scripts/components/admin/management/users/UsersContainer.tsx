@@ -1,8 +1,8 @@
 import tw from 'twin.macro';
 import { Link, NavLink } from 'react-router-dom';
-import AdminContentBlock from '@elements/AdminContentBlock';
-import { Button } from '@elements/button';
-import { RealFilters, useGetUsers, Context as UsersContext } from '@/api/admin/users';
+import AdminContentBlock from '@/elements/AdminContentBlock';
+import { Button } from '@/elements/button';
+import { RealFilters, useGetUsers, Context as UsersContext } from '@/api/routes/admin/users';
 import {
     faIdBadge,
     faLock,
@@ -25,9 +25,11 @@ import AdminTable, {
     TableHeader,
     TableRow,
     useTableHooks,
-} from '@/components/elements/AdminTable';
+} from '@/elements/AdminTable';
 import { useStoreState } from '@/state/hooks';
-import Pill from '@/components/elements/Pill';
+import Pill from '@/elements/Pill';
+import { SubNavigation, SubNavigationLink } from '../../SubNavigation';
+import { UsersIcon, UserAddIcon } from '@heroicons/react/outline';
 
 function UsersContainer() {
     const { data: users, error, isValidating } = useGetUsers();
@@ -70,6 +72,14 @@ function UsersContainer() {
                     </Link>
                 </div>
             </div>
+            <SubNavigation>
+                <SubNavigationLink to={`/admin/users`} name={'Users'} base>
+                    <UsersIcon />
+                </SubNavigationLink>
+                <SubNavigationLink to={`/admin/users/roles`} name={'Administrator Roles'}>
+                    <UserAddIcon />
+                </SubNavigationLink>
+            </SubNavigation>
             <AdminTable>
                 <ContentWrapper onSearch={onSearch}>
                     <Pagination data={users} onPageSelect={setPage}>

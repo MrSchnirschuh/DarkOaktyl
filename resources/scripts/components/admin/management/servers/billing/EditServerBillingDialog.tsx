@@ -1,51 +1,109 @@
-import { Server } from '@/api/admin/server';
-import updateServer, { Values } from '@/api/admin/servers/updateServer';
-import { Button } from '@/components/elements/button';
-import { Dialog } from '@/components/elements/dialog';
-import Input from '@/components/elements/Input';
-import Label from '@/components/elements/Label';
+import { Server } from '@/api/routes/admin/server';
+import { Button } from '@/elements/button';
+import { Dialog } from '@/elements/dialog';
+import Input from '@/elements/Input';
+import Label from '@/elements/Label';
 import { CashIcon, ClockIcon, PencilAltIcon } from '@heroicons/react/outline';
 import classNames from 'classnames';
 import { Form, Formik } from 'formik';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Category, Product } from '@definitions/admin';
+import Spinner from '@/elements/Spinner';
+import FlashMessageRender from '@/elements/FlashMessageRender';
+import Select from '@/elements/Select';
+import { getCategories } from '@/api/routes/admin/billing/categories';
+import { getProduct, getProducts } from '@/api/routes/admin/billing/products';
+import { useStoreState } from '@/state/hooks';
+import updateServer, { Values } from '@/api/routes/admin/servers/updateServer';
+
+const localToUTC = (localStr: string): Date => {
+    const localDate = new Date(localStr);
+    return new Date(localDate.getTime() - localDate.getTimezoneOffset() * 60000);
+};
+
+type LoadingState = 'loading' | 'ready';
 
 export default ({ server }: { server: Server }) => {
-    const [open, setOpen] = useState<boolean>(false);
-    const [billable, setBillable] = useState<boolean>(Boolean(server.billingProductId));
+    const billing = useStoreState(state => state.everest.data!.billing);
 
-    const [renewalDateStr, setRenewalDateStr] = useState<string>(
+    const [open, setOpen] = useState<boolean>(false);
+    const [loadingState, setLoadingState] = useState<LoadingState>('loading');
+    const [billable, setBillable] = useState<boolean>(Boolean(server.billingProductId));
+    const [categories, setCategories] = useState<Category[]>([]);
+    const [products, setProducts] = useState<Product[]>([]);
+
+    const [categoryId, setCategoryId] = useState<number | undefined>();
+    const [productId, setProductId] = useState<number | undefined>();
+
+    const [renewalDate, setRenewalDate] = useState<string>(
         server.renewalDate
             ? new Date(server.renewalDate).toISOString().slice(0, 16)
             : new Date().toISOString().slice(0, 16),
     );
 
-    const localStrToUTC = (localStr: string): Date => {
-        const localDate = new Date(localStr);
-        return new Date(localDate.getTime() - localDate.getTimezoneOffset() * 60000);
-    };
+    useEffect(() => {
+        const init = async () => {
+            const [cats, existingProduct] = await Promise.all([
+                getCategories(),
+                server.billingProductId ? getProduct(server.billingProductId) : Promise.resolve(null),
+            ]);
+
+            setCategories(cats);
+
+            if (existingProduct) {
+                const matchedCategory = cats.find(c => c.uuid === existingProduct.categoryUuid);
+                setCategoryId(matchedCategory?.id);
+                setProductId(existingProduct.id);
+            } else if (cats[0]) {
+                setCategoryId(cats[0].id);
+            }
+
+            setLoadingState('ready');
+        };
+
+        init().catch(err => {
+            console.error('Failed to load billing data:', err);
+            setLoadingState('ready');
+        });
+    }, []);
+
+    useEffect(() => {
+        if (!categoryId) return;
+
+        getProducts(categoryId).then(data => {
+            setProducts(data);
+
+            setProductId(prev => {
+                const stillValid = prev && data.some(p => p.id === prev);
+                return stillValid ? prev : data[0]?.id;
+            });
+        });
+    }, [categoryId]);
 
     const submit = () => {
-        if (!renewalDateStr) {
-            console.error('No date selected');
-            return;
+        const payload = server as Partial<Values>;
+
+        if (billable) {
+            payload.renewalDate = localToUTC(renewalDate);
+            payload.billingProductId = productId;
+        } else {
+            payload.renewalDate = null;
+            payload.billingProductId = null;
         }
 
-        const utcDate = localStrToUTC(renewalDateStr);
-
-        updateServer(server.id, {
-            ...(server as unknown as Partial<Values>),
-            renewalDate: utcDate,
-        })
+        updateServer(server.id, payload)
             .then(() => window.location.reload())
-            .catch(error => console.log(error.message));
+            .catch(error => console.log(error));
     };
 
     return (
         <>
             <Dialog open={open} onClose={() => setOpen(false)} title={'Edit Server Billing'}>
+                <FlashMessageRender byKey={'admin:server:billing'} />
                 <Formik onSubmit={submit} initialValues={{}}>
                     <Form>
                         <div className={'grid space-y-6'}>
+                            {/* Billing Status */}
                             <div>
                                 <div className={'flex'}>
                                     <Label>
@@ -77,6 +135,66 @@ export default ({ server }: { server: Server }) => {
                                 </button>
                             </div>
 
+                            {billable && (
+                                <>
+                                    {/* Billing Category */}
+                                    <div>
+                                        <div className={'flex'}>
+                                            <Label>
+                                                <CashIcon className={'w-4 inline-flex'} /> Billing Category
+                                            </Label>
+                                            <span className={'ml-2 italic text-gray-400 text-sm'}>
+                                                Select the category for billing.
+                                            </span>
+                                        </div>
+                                        {loadingState === 'loading' ? (
+                                            <Spinner centered />
+                                        ) : (
+                                            <Select
+                                                value={categoryId ?? ''}
+                                                onChange={e => setCategoryId(Number(e.target.value))}
+                                            >
+                                                {categories.map(category => (
+                                                    <option key={category.id} value={category.id}>
+                                                        {category.name} - {category.description}
+                                                    </option>
+                                                ))}
+                                            </Select>
+                                        )}
+                                    </div>
+
+                                    {/* Billing Product */}
+                                    <div>
+                                        <div className={'flex'}>
+                                            <Label>
+                                                <CashIcon className={'w-4 inline-flex'} /> Billing Product
+                                            </Label>
+                                            <span className={'ml-2 italic text-gray-400 text-sm'}>
+                                                Select the product to assign to this server.
+                                            </span>
+                                        </div>
+                                        {loadingState === 'loading' ? (
+                                            <Spinner centered />
+                                        ) : (
+                                            <Select
+                                                value={productId ?? ''}
+                                                onChange={e => setProductId(Number(e.target.value))}
+                                            >
+                                                {products.map(product => (
+                                                    <option key={product.id} value={product.id}>
+                                                        {product.name} ({product.limits.cpu}% CPU,{' '}
+                                                        {product.limits.memory / 1024}GB RAM,{' '}
+                                                        {product.limits.disk / 1024}GB Disk) - {billing.currency.symbol}
+                                                        {product.price}/mo
+                                                    </option>
+                                                ))}
+                                            </Select>
+                                        )}
+                                    </div>
+                                </>
+                            )}
+
+                            {/* Renewal Date */}
                             <div>
                                 <div className={'flex'}>
                                     <Label>
@@ -88,10 +206,9 @@ export default ({ server }: { server: Server }) => {
                                 </div>
                                 <Input
                                     type="datetime-local"
-                                    value={renewalDateStr}
-                                    onChange={e => setRenewalDateStr(e.target.value)}
+                                    value={renewalDate}
+                                    onChange={e => setRenewalDate(e.target.value)}
                                 />
-                                <p>Server will be set to next renew on: {renewalDateStr.split('T')[0]}</p>
                             </div>
 
                             <div className={'ml-auto'}>

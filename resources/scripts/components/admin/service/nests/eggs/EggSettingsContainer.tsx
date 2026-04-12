@@ -9,17 +9,17 @@ import { useNavigate } from 'react-router-dom';
 import tw from 'twin.macro';
 import { object } from 'yup';
 
-import { useEggFromRoute } from '@/api/admin/egg';
-import updateEgg from '@/api/admin/eggs/updateEgg';
-import AdminBox from '@elements/AdminBox';
+import { useEggFromRoute } from '@/api/routes/admin/egg';
+import updateEgg from '@/api/routes/admin/eggs/updateEgg';
+import AdminBox from '@/elements/AdminBox';
 import EggDeleteButton from '@admin/service/nests/eggs/EggDeleteButton';
 import EggExportButton from '@admin/service/nests/eggs/EggExportButton';
-import { Button } from '@elements/button';
-import { Editor } from '@elements/editor';
-import Field, { TextareaField } from '@elements/Field';
-import Input from '@elements/Input';
-import Label from '@elements/Label';
-import SpinnerOverlay from '@elements/SpinnerOverlay';
+import { Button } from '@/elements/button';
+import { Editor } from '@/elements/editor';
+import Field, { TextareaField } from '@/elements/Field';
+import Input from '@/elements/Input';
+import Label from '@/elements/Label';
+import SpinnerOverlay from '@/elements/SpinnerOverlay';
 import useFlash from '@/plugins/useFlash';
 import { useStoreState } from '@/state/hooks';
 
@@ -113,21 +113,27 @@ export const EggProcessContainer = forwardRef<any, EggProcessContainerProps>(fun
     let fetchStartupConfiguration: (() => Promise<string>) | null = null;
     let fetchFilesConfiguration: (() => Promise<string>) | null = null;
 
-    useImperativeHandle<EggProcessContainerRef, EggProcessContainerRef>(ref, () => ({
-        getStartupConfiguration: async () => {
-            if (fetchStartupConfiguration === null) {
-                return new Promise<null>(resolve => resolve(null));
-            }
-            return await fetchStartupConfiguration();
-        },
+    useImperativeHandle<EggProcessContainerRef, EggProcessContainerRef>(
+        ref,
+        () => ({
+            getStartupConfiguration: async () => {
+                if (fetchStartupConfiguration === null) {
+                    // If editor hasn't initialized, return current value instead of null
+                    return values.configStartup;
+                }
+                return await fetchStartupConfiguration();
+            },
 
-        getFilesConfiguration: async () => {
-            if (fetchFilesConfiguration === null) {
-                return new Promise<null>(resolve => resolve(null));
-            }
-            return await fetchFilesConfiguration();
-        },
-    }));
+            getFilesConfiguration: async () => {
+                if (fetchFilesConfiguration === null) {
+                    // If editor hasn't initialized, return current value instead of null
+                    return values.configFiles;
+                }
+                return await fetchFilesConfiguration();
+            },
+        }),
+        [fetchStartupConfiguration, fetchFilesConfiguration, values.configStartup, values.configFiles],
+    );
 
     return (
         <AdminBox icon={faMicrochip} title={'Process Configuration'} css={tw`relative`} className={className}>

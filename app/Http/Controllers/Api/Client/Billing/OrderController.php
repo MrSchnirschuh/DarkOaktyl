@@ -27,14 +27,15 @@ class OrderController extends ClientApiController
         }
 
         $orders = QueryBuilder::for(Order::query())
+            ->with('server')
+            ->allowedIncludes(['server'])
             ->where('user_id', $request->user()->id)
-            ->allowedFilters(['id', 'name'])
+            ->allowedFilters(['id', 'name', 'server_id'])
             ->allowedSorts(['id', 'name', 'total', 'is_renewal', 'created_at', 'threat_index'])
+            ->orderBy('created_at', 'desc')
             ->paginate($perPage);
 
-        return $this->fractal->collection($orders)
-            ->transformWith(OrderTransformer::class)
-            ->toArray();
+        return $this->transform($orders, OrderTransformer::class);
     }
 
     /**
@@ -46,9 +47,7 @@ class OrderController extends ClientApiController
             ->where('id', $id)
             ->first();
 
-        return $this->fractal->item($order)
-            ->transformWith(OrderTransformer::class)
-            ->toArray();
+        return $this->transform($order, OrderTransformer::class);
     }
 }
 

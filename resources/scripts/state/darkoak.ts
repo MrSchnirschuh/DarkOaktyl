@@ -39,16 +39,22 @@ export interface DarkOakSettings {
     };
     billing: {
         enabled: boolean;
-        paypal: boolean;
-        link: boolean;
         keys: {
-            publishable: boolean;
             secret: boolean;
         };
         currency: {
             symbol: string;
             code: string;
         };
+        links: {
+            terms: string;
+            privacy: string;
+        };
+        renewal: {
+            days: number;
+            threshold: number;
+        };
+        allow_upgrades: boolean;
     };
     emails: {
         enabled: boolean;

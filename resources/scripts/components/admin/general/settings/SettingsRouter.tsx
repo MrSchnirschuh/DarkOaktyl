@@ -1,16 +1,15 @@
-import { AdjustmentsIcon, ChipIcon } from '@heroicons/react/outline';
+import { AdjustmentsIcon, ChipIcon, LinkIcon } from '@heroicons/react/outline';
 import { Route, Routes } from 'react-router-dom';
 import tw from 'twin.macro';
 
-import AdminContentBlock from '@elements/AdminContentBlock';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import AdminContentBlock from '@/elements/AdminContentBlock';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import { SubNavigation, SubNavigationLink } from '@admin/SubNavigation';
 import GeneralSettings from '@admin/general/settings/GeneralSettings';
 import { useStoreState } from '@/state/hooks';
 import ModeSettings from './ModeSettings';
 
 const SettingsRouter = () => {
-    const theme = useStoreState(state => state.theme.data!);
     const appName = useStoreState(state => state.settings.data!.name);
 
     return (
@@ -28,12 +27,15 @@ const SettingsRouter = () => {
 
             <FlashMessageRender byKey={'admin:settings'} css={tw`mb-4`} />
 
-            <SubNavigation theme={theme}>
+            <SubNavigation>
                 <SubNavigationLink to="/admin/settings" name="Core" base>
                     <ChipIcon />
                 </SubNavigationLink>
                 <SubNavigationLink to="/admin/settings/mode" name="Modes">
                     <AdjustmentsIcon />
+                </SubNavigationLink>
+                <SubNavigationLink to="/admin/settings/webhooks" name="Webhooks">
+                    <LinkIcon />
                 </SubNavigationLink>
             </SubNavigation>
 

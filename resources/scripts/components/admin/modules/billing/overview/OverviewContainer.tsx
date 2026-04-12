@@ -1,16 +1,16 @@
-import Stepper from '@elements/Stepper';
+import Stepper from '@/elements/Stepper';
 import { faArrowRight, faCheck, faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
-import Spinner from '@elements/Spinner';
+import Spinner from '@/elements/Spinner';
 import { useStoreState } from '@/state/hooks';
-import ContentBox from '@elements/ContentBox';
+import ContentBox from '@/elements/ContentBox';
 import { differenceInDays, parseISO } from 'date-fns';
 import SuccessChart from './SuccessChart';
 import RevenueChart from './RevenueChart';
-import Select from '@elements/Select';
-import SetupStripe from '../guides/SetupStripe';
-import { getBillingAnalytics } from '@/api/admin/billing';
-import { BillingAnalytics, Order } from '@/api/definitions/admin';
+import Select from '@/elements/Select';
+import SetupStripe from '@admin/modules/billing/guides/SetupStripe';
+import { getBillingAnalytics } from '@/api/routes/admin/billing';
+import { BillingAnalytics, Order } from '@definitions/admin';
 
 export default () => {
     const now = new Date();
@@ -67,12 +67,6 @@ export default () => {
                     icon={hasOrders ? faCheck : faEllipsis}
                     content={'Secure your first sale'}
                     link={'/admin/billing/orders'}
-                />
-                <Stepper
-                    className={settings.link || settings.paypal ? 'text-green-500' : 'text-blue-500'}
-                    icon={settings.link || settings.paypal ? faCheck : faArrowRight}
-                    content={'Add PayPal support'}
-                    link={'/admin/billing/settings'}
                 />
             </ol>
             <div className={'flex flex-col items-center rounded-lg shadow md:flex-row col-span-4'}>

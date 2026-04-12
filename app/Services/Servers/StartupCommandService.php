@@ -19,7 +19,10 @@ class StartupCommandService
             $replace[] = ($variable->user_viewable && !$hideAllValues) ? ($variable->server_value ?? $variable->default_value) : '[hidden]';
         }
 
-        return str_replace($find, $replace, $server->startup);
+        // Use egg's default startup if server startup is null or empty
+        $startup = (!is_null($server->startup) && $server->startup !== '') ? $server->startup : $server->egg->startup;
+
+        return str_replace($find, $replace, $startup);
     }
 }
 

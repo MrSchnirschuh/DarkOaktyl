@@ -15,9 +15,7 @@ class LinkController extends ClientApiController
     {
         $links = CustomLink::where('visible', true)->get();
 
-        return $this->fractal->collection($links)
-            ->transformWith(LinkTransformer::class)
-            ->toArray();
+        return $this->transform($links, LinkTransformer::class);
     }
 }
 

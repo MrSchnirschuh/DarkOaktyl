@@ -1,9 +1,9 @@
-import { useServerFromRoute } from '@/api/admin/server';
+import { useServerFromRoute } from '@/api/routes/admin/server';
 import OrdersTable from '@/components/admin/modules/billing/orders/OrdersTable';
-import AdminBox from '@/components/elements/AdminBox';
-import { Alert } from '@/components/elements/alert';
-import Label from '@/components/elements/Label';
-import Spinner from '@/components/elements/Spinner';
+import AdminBox from '@/elements/AdminBox';
+import { Alert } from '@/elements/alert';
+import Label from '@/elements/Label';
+import Spinner from '@/elements/Spinner';
 import { useStoreState } from '@/state/hooks';
 import { faCashRegister } from '@fortawesome/free-solid-svg-icons';
 import EditServerBillingDialog from './EditServerBillingDialog';
@@ -23,6 +23,9 @@ function timeUntil(targetDate: Date | string) {
 export default () => {
     const { data: server } = useServerFromRoute();
     const billing = useStoreState(state => state.DarkOak.data!.billing);
+
+    // Get configurable renewal settings
+    const renewalDays = billing.renewal?.days || 30;
 
     if (!server) return null;
 
@@ -49,7 +52,7 @@ export default () => {
                                 ) : (
                                     <>
                                         {product.name} - {billing.currency.symbol}
-                                        {product.price} {billing.currency.code.toUpperCase()} every 30 days
+                                        {product.price} {billing.currency.code.toUpperCase()} every {renewalDays} days
                                     </>
                                 )}
                             </p>

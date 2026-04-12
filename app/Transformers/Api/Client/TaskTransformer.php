@@ -7,9 +7,6 @@ use DarkOak\Transformers\Api\Transformer;
 
 class TaskTransformer extends Transformer
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getResourceName(): string
     {
         return Task::RESOURCE_NAME;
@@ -28,8 +25,8 @@ class TaskTransformer extends Transformer
             'time_offset' => $model->time_offset,
             'is_queued' => $model->is_queued,
             'continue_on_failure' => $model->continue_on_failure,
-            'created_at' => self::formatTimestamp($model->created_at),
-            'updated_at' => self::formatTimestamp($model->updated_at),
+            'created_at' => $model->created_at->toIso8601String(),
+            'updated_at' => $model->updated_at->toIso8601String(),
         ];
     }
 }

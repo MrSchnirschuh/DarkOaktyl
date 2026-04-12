@@ -38,9 +38,7 @@ class CategoryController extends ClientApiController
             );
         }
 
-        return $this->fractal->collection($categories)
-            ->transformWith(CategoryTransformer::class)
-            ->toArray();
+        return $this->transform($categories, CategoryTransformer::class);
     }
 }
 

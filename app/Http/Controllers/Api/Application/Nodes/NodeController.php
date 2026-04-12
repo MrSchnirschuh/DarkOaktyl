@@ -5,7 +5,6 @@ namespace DarkOak\Http\Controllers\Api\Application\Nodes;
 use DarkOak\Models\Node;
 use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
-use Illuminate\Http\JsonResponse;
 use Spatie\QueryBuilder\QueryBuilder;
 use DarkOak\Services\Nodes\NodeUpdateService;
 use DarkOak\Services\Nodes\NodeCreationService;
@@ -27,7 +26,7 @@ class NodeController extends ApplicationApiController
     public function __construct(
         private NodeCreationService $creationService,
         private NodeDeletionService $deletionService,
-        private NodeUpdateService $updateService
+        private NodeUpdateService $updateService,
     ) {
         parent::__construct();
     }
@@ -47,9 +46,7 @@ class NodeController extends ApplicationApiController
             ->allowedSorts(['id', 'uuid', 'name', 'fqdn', 'memory', 'disk'])
             ->paginate($perPage);
 
-        return $this->fractal->collection($nodes)
-            ->transformWith(NodeTransformer::class)
-            ->toArray();
+        return $this->transform($nodes, NodeTransformer::class);
     }
 
     /**
@@ -69,7 +66,7 @@ class NodeController extends ApplicationApiController
      *
      * @throws \DarkOak\Exceptions\Model\DataValidationException
      */
-    public function store(StoreNodeRequest $request): JsonResponse
+    public function store(StoreNodeRequest $request): array
     {
         $node = $this->creationService->handle($request->validated());
 
@@ -78,9 +75,7 @@ class NodeController extends ApplicationApiController
             ->description('A node was created')
             ->log();
 
-        return $this->fractal->item($node)
-            ->transformWith(NodeTransformer::class)
-            ->respond(201);
+        return $this->transform($node, NodeTransformer::class);
     }
 
     /**
@@ -101,9 +96,7 @@ class NodeController extends ApplicationApiController
             ->description('A node was updated')
             ->log();
 
-        return $this->fractal->item($node)
-            ->transformWith(NodeTransformer::class)
-            ->toArray();
+        return $this->transform($node, NodeTransformer::class);
     }
 
     /**

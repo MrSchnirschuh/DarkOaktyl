@@ -1,7 +1,6 @@
+import { cleanDirectoryPath } from '@/lib/helpers';
 import type { Action } from 'easy-peasy';
 import { action } from 'easy-peasy';
-
-import { cleanDirectoryPath } from '@/helpers';
 
 interface FileUploadData {
     loaded: number;
@@ -9,15 +8,24 @@ interface FileUploadData {
     readonly total: number;
 }
 
+export type SortField = 'name' | 'modified' | 'size' | 'type';
+export type SortDirection = 'asc' | 'desc';
+
 interface ServerFileStore {
     directory: string;
     selectedFiles: string[];
     uploads: Record<string, FileUploadData>;
+    sortField: SortField;
+    sortDirection: SortDirection;
+    searchTerm: string;
 
     setDirectory: Action<ServerFileStore, string>;
     setSelectedFiles: Action<ServerFileStore, string[]>;
     appendSelectedFile: Action<ServerFileStore, string>;
     removeSelectedFile: Action<ServerFileStore, string>;
+    setSortField: Action<ServerFileStore, SortField>;
+    setSortDirection: Action<ServerFileStore, SortDirection>;
+    setSearchTerm: Action<ServerFileStore, string>;
 
     pushFileUpload: Action<ServerFileStore, { name: string; data: FileUploadData }>;
     setUploadProgress: Action<ServerFileStore, { name: string; loaded: number }>;
@@ -30,6 +38,9 @@ const files: ServerFileStore = {
     directory: '/',
     selectedFiles: [],
     uploads: {},
+    sortField: 'name',
+    sortDirection: 'asc',
+    searchTerm: '',
 
     setDirectory: action((state, payload) => {
         state.directory = cleanDirectoryPath(payload);
@@ -45,6 +56,18 @@ const files: ServerFileStore = {
 
     removeSelectedFile: action((state, payload) => {
         state.selectedFiles = state.selectedFiles.filter(f => f !== payload);
+    }),
+
+    setSortField: action((state, payload) => {
+        state.sortField = payload;
+    }),
+
+    setSortDirection: action((state, payload) => {
+        state.sortDirection = payload;
+    }),
+
+    setSearchTerm: action((state, payload) => {
+        state.searchTerm = payload;
     }),
 
     clearFileUploads: action(state => {

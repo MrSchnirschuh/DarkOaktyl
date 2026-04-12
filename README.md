@@ -20,7 +20,7 @@ DarkOaktyl is a modern, high-performance **game server management panel** built 
 - E-Mail Support with Timed Sending and 
 - Clean, user-friendly administrative interface  
 - Built with modern tech: PHP, Laravel, TypeScript, React, Docker  
-- Fully open-source, community-driven  
+- Fully open-source, community-driven
 
 ## Useful Links
 

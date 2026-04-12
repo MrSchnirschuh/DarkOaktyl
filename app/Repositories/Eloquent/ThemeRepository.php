@@ -24,7 +24,7 @@ class ThemeRepository extends EloquentRepository implements ThemeRepositoryInter
      *
      * @throws \DarkOak\Exceptions\Model\DataValidationException
      */
-    public function set(string $key, string $value = null)
+    public function set(string $key, ?string $value = null)
     {
         // Clear item from the cache.
         $this->clearCache($key);

@@ -1,15 +1,15 @@
 import { memo, useState } from 'react';
-import { EggVariable } from '@/api/definitions/server';
-import TitledGreyBox from '@elements/TitledGreyBox';
+import { EggVariable } from '@definitions/server';
+import TitledGreyBox from '@/elements/TitledGreyBox';
 import { usePermissions } from '@/plugins/usePermissions';
-import InputSpinner from '@elements/InputSpinner';
-import Input from '@elements/Input';
-import Switch from '@elements/Switch';
+import InputSpinner from '@/elements/InputSpinner';
+import Input from '@/elements/Input';
+import Switch from '@/elements/Switch';
 import { debounce } from 'debounce';
-import { updateStartupVariable, getServerStartup } from '@/api/server/startup';
+import { updateStartupVariable, getServerStartup } from '@/api/routes/server/startup';
 import useFlash from '@/plugins/useFlash';
-import FlashMessageRender from '@/components/FlashMessageRender';
-import Select from '@elements/Select';
+import FlashMessageRender from '@/elements/FlashMessageRender';
+import Select from '@/elements/Select';
 import isEqual from 'react-fast-compare';
 import { ServerContext } from '@/state/server';
 
@@ -25,13 +25,14 @@ const VariableBox = ({ variable }: Props) => {
     const [canEdit] = usePermissions(['startup.update']);
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const { mutate } = getServerStartup(uuid);
+    const setServerFromState = ServerContext.useStoreActions(actions => actions.server.setServerFromState);
 
     const setVariableValue = debounce((value: string) => {
         setLoading(true);
         clearFlashes(FLASH_KEY);
 
         updateStartupVariable(uuid, variable.envVariable, value)
-            .then(([response, invocation]) =>
+            .then(([response, invocation]) => {
                 mutate(
                     data => ({
                         ...data!,
@@ -41,8 +42,9 @@ const VariableBox = ({ variable }: Props) => {
                         ),
                     }),
                     false,
-                ),
-            )
+                );
+                setServerFromState(s => ({ ...s, invocation }));
+            })
             .catch(error => {
                 console.error(error);
                 clearAndAddHttpError({ key: FLASH_KEY, error });

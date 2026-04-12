@@ -1,9 +1,9 @@
 import { useContext, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import tw from 'twin.macro';
-import type { Filters } from '@/api/admin/nests/getNests';
-import getNests, { Context as NestsContext } from '@/api/admin/nests/getNests';
-import AdminContentBlock from '@elements/AdminContentBlock';
+import type { Filters } from '@/api/routes/admin/nests/getNests';
+import getNests, { Context as NestsContext } from '@/api/routes/admin/nests/getNests';
+import AdminContentBlock from '@/elements/AdminContentBlock';
 import AdminTable, {
     TableBody,
     TableHead,
@@ -14,12 +14,14 @@ import AdminTable, {
     NoItems,
     ContentWrapper,
     useTableHooks,
-} from '@elements/AdminTable';
-import CopyOnClick from '@elements/CopyOnClick';
+} from '@/elements/AdminTable';
+import CopyOnClick from '@/elements/CopyOnClick';
 import NewNestButton from '@admin/service/nests/NewNestButton';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import useFlash from '@/plugins/useFlash';
 import { useStoreState } from '@/state/hooks';
+import { TerminalIcon, AdjustmentsIcon, ArchiveIcon } from '@heroicons/react/outline';
+import { SubNavigation, SubNavigationLink } from '../../SubNavigation';
 
 const NestsContainer = () => {
     const { setPage, setFilters, sort, setSort, sortDirection } = useContext(NestsContext);
@@ -65,6 +67,18 @@ const NestsContainer = () => {
                     <NewNestButton />
                 </div>
             </div>
+
+            <SubNavigation>
+                <SubNavigationLink to="/admin/servers" name="All Servers" base>
+                    <TerminalIcon />
+                </SubNavigationLink>
+                <SubNavigationLink to="/admin/servers/presets" name="Presets">
+                    <AdjustmentsIcon />
+                </SubNavigationLink>
+                <SubNavigationLink to="/admin/nests" name="Nests">
+                    <ArchiveIcon />
+                </SubNavigationLink>
+            </SubNavigation>
 
             <FlashMessageRender byKey={'nests'} css={tw`mb-4`} />
 

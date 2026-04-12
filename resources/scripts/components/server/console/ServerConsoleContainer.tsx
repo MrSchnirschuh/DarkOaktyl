@@ -1,22 +1,23 @@
 import { memo } from 'react';
 import isEqual from 'react-fast-compare';
-import { Alert } from '@elements/alert';
-import Can from '@elements/Can';
-import Spinner from '@elements/Spinner';
-import Console from '@/components/server/console/Console';
-import PowerButtons from '@/components/server/console/PowerButtons';
-import ServerDetailsBlock from '@/components/server/console/ServerDetailsBlock';
-import StatGraphs from '@/components/server/console/StatGraphs';
+import { Alert } from '@/elements/alert';
+import Can from '@/elements/Can';
+import Spinner from '@/elements/Spinner';
+import Console from '@server/console/Console';
+import PowerButtons from '@server/console/PowerButtons';
+import ServerDetailsBlock from '@server/console/ServerDetailsBlock';
+import StatGraphs from '@server/console/StatGraphs';
 import Features from '@feature/Features';
 import { ServerContext, ServerStatus } from '@/state/server';
 import classNames from 'classnames';
 import { usePersistedState } from '@/plugins/usePersistedState';
 import { useStoreState } from '@/state/hooks';
-import Pill from '@/components/elements/Pill';
+import Pill from '@/elements/Pill';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle, faDownload, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import EditServerDialog from './EditServerDialog';
-import PageContentBlock from '@/components/elements/PageContentBlock';
+import PageContentBlock from '@/elements/PageContentBlock';
+import { timeUntil } from '../billing/ServerBillingContainer';
 
 export type PowerAction = 'start' | 'stop' | 'restart' | 'kill';
 
@@ -42,9 +43,31 @@ function ServerConsoleContainer() {
     const eggFeatures = ServerContext.useStoreState(state => state.server.data!.eggFeatures, isEqual);
     const isNodeUnderMaintenance = ServerContext.useStoreState(state => state.server.data!.isNodeUnderMaintenance);
     const status = ServerContext.useStoreState(state => state.status.value);
+    const renewalDate = ServerContext.useStoreState(state => state.server.data!.renewalDate);
+    const billingProductId = ServerContext.useStoreState(state => state.server.data!.billingProductId);
+    const settings = useStoreState(state => state.everest.data!.billing);
+
+    const freeGraceDays = settings.renewal?.free_suspension_days || 7;
+
+    const daysUntilRenewal = renewalDate
+        ? Math.floor((new Date(renewalDate).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24))
+        : null;
+
+    const showRenewalWarning =
+        billingProductId &&
+        daysUntilRenewal !== null &&
+        daysUntilRenewal <= 0 &&
+        Math.abs(daysUntilRenewal) <= freeGraceDays;
 
     return (
         <PageContentBlock title={'Server Console'} showFlashKey={'console:share'}>
+            {showRenewalWarning && (
+                <Alert type={'warning'} className={'mb-4'}>
+                    Your server is {Math.abs(daysUntilRenewal!)} day{Math.abs(daysUntilRenewal!) !== 1 ? 's' : ''}{' '}
+                    overdue for renewal. Please renew within {freeGraceDays} days to avoid permanent suspension. Your
+                    server files and data will be preserved.
+                </Alert>
+            )}
             {(isNodeUnderMaintenance || isInstalling || isTransferring) && (
                 <Alert type={'warning'} className={'mb-4'}>
                     {isNodeUnderMaintenance
@@ -83,7 +106,12 @@ function ServerConsoleContainer() {
                         </Pill>
                         <EditServerDialog />
                     </div>
-                    <p className={'text-sm line-clamp-2'}>{description ?? uuid}</p>
+                    <p className={'text-sm line-clamp-2'}>
+                        {description ?? uuid}
+                        {renewalDate && (
+                            <span className={'ml-1'}>&bull; {timeUntil(renewalDate!).days} days until renewal</span>
+                        )}
+                    </p>
                 </div>
                 <div className={'my-auto'}>
                     <Can action={['control.start', 'control.stop', 'control.restart']} matchAny>
