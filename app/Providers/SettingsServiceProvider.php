@@ -40,6 +40,7 @@ class SettingsServiceProvider extends ServiceProvider
         'modules:auth:registration:enabled',
         'modules:auth:security:force2fa',
         'modules:auth:security:attempts',
+        'modules:auth:security:2fa:enforcement',
 
         'modules:auth:discord:enabled',
         'modules:auth:discord:client_id',

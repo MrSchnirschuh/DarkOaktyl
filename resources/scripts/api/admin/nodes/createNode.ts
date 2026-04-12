@@ -1,5 +1,6 @@
 import http from '@/api/http';
 import { Node, rawDataToNode } from '@/api/admin/nodes/getNodes';
+import { handleApiError } from '@/api/errorHandler';
 
 export interface Values {
     name: string;
@@ -24,7 +25,7 @@ export interface Values {
     publicPortSFTP: number;
 }
 
-export default (values: Values, include: string[] = []): Promise<Node> => {
+export default (values: Values, include: string[] = [], flashMessage?: (msg: string) => void): Promise<Node> => {
     const data = {};
 
     Object.keys(values).forEach(key => {
@@ -39,6 +40,9 @@ export default (values: Values, include: string[] = []): Promise<Node> => {
     return new Promise((resolve, reject) => {
         http.post('/api/application/nodes', data, { params: { include: include.join(',') } })
             .then(({ data }) => resolve(rawDataToNode(data)))
-            .catch(reject);
+            .catch(error => {
+                handleApiError(error, flashMessage);
+                reject(error);
+            });
     });
 };

@@ -19,6 +19,38 @@ class RequireTwoFactorAuthentication
     protected string $redirectRoute = '/account';
 
     /**
+     * Get the current 2FA enforcement level from config.
+     * Supports new '2fa.enforcement' format with fallback to legacy 'force2fa'.
+     */
+    protected function getEnforcementLevel(): string
+    {
+        $config = config('modules.auth.security');
+
+        // New format: 2fa.enforcement
+        if (isset($config['2fa']['enforcement'])) {
+            $level = strtoupper($config['2fa']['enforcement']);
+            if (in_array($level, ['NONE', 'ADMIN', 'ALL'])) {
+                return $level;
+            }
+        }
+
+        // Legacy fallback: force2fa boolean
+        if (!empty($config['force2fa'])) {
+            return 'ALL';
+        }
+
+        return 'NONE';
+    }
+
+    /**
+     * Check if user is an admin based on root_admin flag or admin_role_id.
+     */
+    protected function isAdmin(User $user): bool
+    {
+        return $user->root_admin || !is_null($user->admin_role_id);
+    }
+
+    /**
      * Check the user state on the incoming request to determine if they should be allowed to
      * proceed or not. This checks if the Panel is configured to require 2FA on an account in
      * order to perform actions. If so, we check the level at which it is required (all users
@@ -38,19 +70,30 @@ class RequireTwoFactorAuthentication
             return $next($request);
         }
 
+        // Allow access to auth and account routes regardless of 2FA status
         if (Str::startsWith($uri, ['/auth/']) || Str::startsWith($current, ['auth.', 'account.'])) {
             return $next($request);
         }
 
-        $twoFactorRequired = (bool) config('modules.auth.security.force2fa');
-        // If this setting is not configured, or the user is already using 2FA then we can just
-        // send them right through, nothing else needs to be checked.
-        //
-        // If the level is set as admin and the user is not an admin, pass them through as well.
-        if (!$twoFactorRequired || $user->use_totp) {
+        // Get enforcement level
+        $enforcementLevel = $this->getEnforcementLevel();
+
+        // NONE = No enforcement required
+        if ($enforcementLevel === 'NONE') {
             return $next($request);
         }
 
+        // User already has 2FA enabled - allow through
+        if ($user->use_totp) {
+            return $next($request);
+        }
+
+        // ADMIN = Only require 2FA for admin users
+        if ($enforcementLevel === 'ADMIN' && !$this->isAdmin($user)) {
+            return $next($request);
+        }
+
+        // At this point, 2FA is required but user doesn't have it enabled
         // For API calls return an exception which gets rendered nicely in the API response.
         if ($request->isJson() || Str::startsWith($uri, '/api/')) {
             throw new TwoFactorAuthRequiredException();
