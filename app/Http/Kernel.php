@@ -12,6 +12,7 @@ use DarkOak\Http\Middleware\VerifyReCaptcha;
 use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Http\Middleware\TrustProxies;
 use DarkOak\Http\Middleware\LanguageMiddleware;
+use DarkOak\Http\Middleware\JGuardMiddleware;
 use Illuminate\Session\Middleware\StartSession;
 use DarkOak\Http\Middleware\Activity\TrackAPIKey;
 use DarkOak\Http\Middleware\MaintenanceMiddleware;
@@ -60,6 +61,7 @@ class Kernel extends HttpKernel
             VerifyCsrfToken::class,
             SubstituteBindings::class,
             LanguageMiddleware::class,
+            JGuardMiddleware::class,
         ],
         'api' => [
             EnsureStatefulRequests::class,
