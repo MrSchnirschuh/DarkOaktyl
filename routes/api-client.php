@@ -71,25 +71,28 @@ Route::prefix('/')->middleware([SuspendedAccount::class])->group(function () {
         Route::post('/setup', [Client\AccountController::class, 'setup']);
     });
 
-    Route::prefix('/billing')->group(function () {
-        Route::post('/nodes/{product:id}', [Client\Billing\NodesController::class, 'index']);
-        Route::get('/categories', [Client\Billing\CategoryController::class, 'index']);
+    // Only register billing routes if the billing module is enabled
+    if (config('modules.billing.enabled', false)) {
+        Route::prefix('/billing')->group(function () {
+            Route::post('/nodes/{product:id}', [Client\Billing\NodesController::class, 'index']);
+            Route::get('/categories', [Client\Billing\CategoryController::class, 'index']);
 
-        Route::get('/categories/{id}', [Client\Billing\ProductController::class, 'index']);
-        Route::get('/products/{id}', [Client\Billing\ProductController::class, 'view']);
-        Route::get('/products/{id}/variables', [Client\Billing\EggController::class, 'index']);
+            Route::get('/categories/{id}', [Client\Billing\ProductController::class, 'index']);
+            Route::get('/products/{id}', [Client\Billing\ProductController::class, 'view']);
+            Route::get('/products/{id}/variables', [Client\Billing\EggController::class, 'index']);
 
-        Route::get('/products/{id}/key', [Client\Billing\PaymentController::class, 'publicKey']);
+            Route::get('/products/{id}/key', [Client\Billing\PaymentController::class, 'publicKey']);
 
-        Route::post('/products/{id}/intent', [Client\Billing\PaymentController::class, 'intent']);
-        Route::put('/products/{id}/intent', [Client\Billing\PaymentController::class, 'updateIntent']);
+            Route::post('/products/{id}/intent', [Client\Billing\PaymentController::class, 'intent']);
+            Route::put('/products/{id}/intent', [Client\Billing\PaymentController::class, 'updateIntent']);
 
-        Route::post('/process', [Client\Billing\PaymentController::class, 'process'])->name('api:client.billing.process');
-        Route::post('/process/free', [Client\Billing\FreeProductController::class, 'process']);
+            Route::post('/process', [Client\Billing\PaymentController::class, 'process'])->name('api:client.billing.process');
+            Route::post('/process/free', [Client\Billing\FreeProductController::class, 'process']);
 
-        Route::get('/orders', [Client\Billing\OrderController::class, 'index']);
-        Route::get('/orders/{id}', [Client\Billing\OrderController::class, 'view']);
-    });
+            Route::get('/orders', [Client\Billing\OrderController::class, 'index']);
+            Route::get('/orders/{id}', [Client\Billing\OrderController::class, 'view']);
+        });
+    }
 
     /*
     |--------------------------------------------------------------------------

@@ -55,7 +55,8 @@ Route::middleware([AdminSubject::class])->group(function () {
     | Endpoint: /api/application/billing
     |
     */
-    Route::group(['prefix' => '/billing'], function () {
+    if (config('modules.billing.enabled', false)) {
+        Route::group(['prefix' => '/billing'], function () {
         Route::get('/analytics', [Application\Billing\BillingController::class, 'analytics']);
         Route::put('/settings', [Application\Billing\BillingController::class, 'settings']);
 
@@ -127,6 +128,7 @@ Route::middleware([AdminSubject::class])->group(function () {
             Route::post('/export', [Application\Billing\ConfigController::class, 'export']);
         });
     });
+    }
 
     /*
     |--------------------------------------------------------------------------
