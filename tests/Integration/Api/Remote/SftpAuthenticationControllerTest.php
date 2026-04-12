@@ -241,11 +241,10 @@ class SftpAuthenticationControllerTest extends IntegrationTestCase
     /**
      * Sets the authorization header for the rest of the test.
      */
-    protected function setAuthorization(Node $node = null): void
+    protected function setAuthorization(?Node $node = null): void
     {
         $node = $node ?? $this->server->node;
 
         $this->withHeader('Authorization', 'Bearer ' . $node->daemon_token_id . '.' . decrypt($node->daemon_token));
     }
 }
-

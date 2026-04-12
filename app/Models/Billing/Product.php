@@ -2,6 +2,7 @@
 
 namespace DarkOak\Models\Billing;
 
+use Carbon\Carbon;
 use DarkOak\Models\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -19,8 +20,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $backup_limit
  * @property int $database_limit
  * @property int $allocation_limit
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ * @property mixed $category
  */
 class Product extends Model
 {
@@ -82,5 +84,12 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class, 'category_uuid', 'uuid');
     }
-}
 
+    /**
+     * Identifies whether this is a free or paid product.
+     */
+    public function isPaid(): bool
+    {
+        return $this->price > 0;
+    }
+}

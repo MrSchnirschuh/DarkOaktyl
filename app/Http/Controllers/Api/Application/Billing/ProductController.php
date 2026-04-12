@@ -169,4 +169,3 @@ class ProductController extends ApplicationApiController
         Cache::forget("client.billing.product.{$product->id}");
     }
 }
-

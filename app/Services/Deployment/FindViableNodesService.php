@@ -53,7 +53,7 @@ class FindViableNodesService
      *
      * @throws \DarkOak\Exceptions\Service\Deployment\NoViableNodeException
      */
-    public function handle(int $perPage = null, int $page = null): LengthAwarePaginator|Collection
+    public function handle(?int $perPage = null, ?int $page = null): LengthAwarePaginator|Collection
     {
         Assert::integer($this->disk, 'Disk space must be an int, got %s');
         Assert::integer($this->memory, 'Memory usage must be an int, got %s');
@@ -81,4 +81,3 @@ class FindViableNodesService
         return $results;
     }
 }
-

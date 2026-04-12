@@ -161,4 +161,3 @@ class CategoryController extends ApplicationApiController
         Cache::forget("client.billing.category.{$category->uuid}.products");
     }
 }
-

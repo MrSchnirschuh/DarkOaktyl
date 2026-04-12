@@ -22,7 +22,7 @@ class DaemonFileRepository extends DaemonRepository
      * @throws \DarkOak\Exceptions\Http\Server\FileSizeTooLargeException
      * @throws \DarkOak\Exceptions\Http\Connection\DaemonConnectionException
      */
-    public function getContent(string $path, int $notLargerThan = null): string
+    public function getContent(string $path, ?int $notLargerThan = null): string
     {
         Assert::isInstanceOf($this->server, Server::class);
 
@@ -295,4 +295,3 @@ class DaemonFileRepository extends DaemonRepository
         }
     }
 }
-

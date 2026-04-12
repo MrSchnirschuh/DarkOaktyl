@@ -29,4 +29,32 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | OAuth2 Provider Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Configuration for Discord and Google OAuth2 authentication.
+    | These credentials are used by Laravel Socialite and the OAuth
+    | authentication modules in DarkOaktyl.
+    |
+    | To enable a provider, set the corresponding *_ENABLED flag
+    | and provide the client_id and client_secret.
+    |
+    */
+
+    'discord' => [
+        'enabled' => env('DISCORD_OAUTH_ENABLED', false),
+        'client_id' => env('DISCORD_CLIENT_ID'),
+        'client_secret' => env('DISCORD_CLIENT_SECRET'),
+        'redirect' => env('APP_URL') . '/auth/modules/discord/authenticate',
+    ],
+
+    'google' => [
+        'enabled' => env('GOOGLE_OAUTH_ENABLED', false),
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect' => env('APP_URL') . '/auth/modules/google/authenticate',
+    ],
 ];
