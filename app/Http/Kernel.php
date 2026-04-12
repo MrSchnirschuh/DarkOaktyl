@@ -27,6 +27,8 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
 use DarkOak\Http\Middleware\Api\Daemon\DaemonAuthenticate;
 use DarkOak\Http\Middleware\Api\Client\RequireClientApiKey;
+use DarkOak\Http\Middleware\ApiRateLimit;
+use DarkOak\Http\Middleware\SecurityHeaders;
 use DarkOak\Http\Middleware\RequireTwoFactorAuthentication;
 use Illuminate\Foundation\Http\Middleware\ValidatePostSize;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
@@ -47,6 +49,7 @@ class Kernel extends HttpKernel
         ValidatePostSize::class,
         TrimStrings::class,
         ConvertEmptyStringsToNull::class,
+        SecurityHeaders::class,
     ];
 
     /**
@@ -99,6 +102,8 @@ class Kernel extends HttpKernel
         'bindings' => SubstituteBindings::class,
         'recaptcha' => VerifyReCaptcha::class,
         'node.maintenance' => MaintenanceMiddleware::class,
+        'api.ratelimit' => ApiRateLimit::class,
+        'security.headers' => SecurityHeaders::class,
     ];
 }
 

@@ -7,6 +7,7 @@ use DarkOak\Models\ServerGroup;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Cache;
 use DarkOak\Exceptions\DisplayException;
+use DarkOak\Http\Requests\Api\Client\ClientApiRequest;
 use DarkOak\Http\Requests\Api\Client\ServerGroups\StoreServerGroupRequest;
 use DarkOak\Http\Requests\Api\Client\ServerGroups\UpdateServerGroupRequest;
 use DarkOak\Http\Requests\Api\Client\ServerGroups\ServerGroupActionRequest;
@@ -45,6 +46,8 @@ class ServerGroupController extends ClientApiController
             'icon' => $request->input('icon'),
         ]);
 
+        Cache::forget("client.server-groups.{$request->user()->id}");
+
         return $this->fractal->item($group)
             ->transformWith(ServerGroupTransformer::class)
             ->toArray();
@@ -58,6 +61,8 @@ class ServerGroupController extends ClientApiController
         $group = $this->authorizeGroup($id, $request->user()->id);
 
         $group->update($request->only(['name', 'description', 'color', 'icon']));
+
+        Cache::forget("client.server-groups.{$request->user()->id}");
 
         return $this->fractal->item($group->fresh())
             ->transformWith(ServerGroupTransformer::class)
@@ -75,6 +80,8 @@ class ServerGroupController extends ClientApiController
         Server::where('group_id', $group->id)->update(['group_id' => null]);
 
         $group->delete();
+
+        Cache::forget("client.server-groups.{$request->user()->id}");
 
         return new JsonResponse([], JsonResponse::HTTP_NO_CONTENT);
     }
@@ -96,6 +103,8 @@ class ServerGroupController extends ClientApiController
 
         $server->update(['group_id' => $group->id]);
 
+        Cache::forget("client.server-groups.{$request->user()->id}");
+
         return new JsonResponse([], JsonResponse::HTTP_NO_CONTENT);
     }
 
@@ -113,11 +122,15 @@ class ServerGroupController extends ClientApiController
 
         $server->update(['group_id' => null]);
 
+        Cache::forget("client.server-groups.{$request->user()->id}");
+
         return new JsonResponse([], JsonResponse::HTTP_NO_CONTENT);
     }
 
     /**
      * Authorize that the group belongs to the user.
+     *
+     * @throws DisplayException
      */
     private function authorizeGroup(int $groupId, int $userId): ServerGroup
     {
@@ -132,6 +145,8 @@ class ServerGroupController extends ClientApiController
 
     /**
      * Check that the user hasn't exceeded their group limit.
+     *
+     * @throws DisplayException
      */
     private function checkGroupLimit(int $userId): void
     {

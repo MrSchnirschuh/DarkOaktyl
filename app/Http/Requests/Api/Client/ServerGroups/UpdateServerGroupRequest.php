@@ -8,7 +8,7 @@ class UpdateServerGroupRequest extends ClientApiRequest
 {
     public function authorize(): bool
     {
-        return true;
+        return true; // Authorization handled in controller via authorizeGroup
     }
 
     public function rules(): array
@@ -17,7 +17,7 @@ class UpdateServerGroupRequest extends ClientApiRequest
             'name' => 'sometimes|string|min:1|max:255',
             'description' => 'nullable|string|max:1000',
             'color' => 'nullable|string|regex:/^#[0-9a-fA-F]{6}$/',
-            'icon' => 'nullable|string|max:50',
+            'icon' => 'nullable|string|max:50|alpha_dash',
         ];
     }
 }
