@@ -12,9 +12,6 @@ class WebhookTransformer extends Transformer
         return 'webhook';
     }
 
-    /**
-     * Transform this model into a representation that can be consumed by a client.
-     */
     public function transform(Webhook $model): array
     {
         return [
@@ -22,18 +19,18 @@ class WebhookTransformer extends Transformer
             'uuid' => $model->uuid,
             'name' => $model->name,
             'url' => $model->url,
-            'secret' => $model->secret ? '••••••••' : null,
+            'events' => $model->events ?? [],
+            'enabled' => (bool) $model->enabled,
             'has_secret' => !empty($model->secret),
-            'events' => $model->events,
-            'enabled' => $model->enabled,
             'last_response_code' => $model->last_response_code,
-            'last_sent_at' => $this->formatTimestamp($model->last_sent_at),
+            'last_sent_at' => $model->last_sent_at?->toIso8601String(),
             'stats' => [
-                'successful_count' => $model->successful_count ?? 0,
-                'failed_count' => $model->failed_count ?? 0,
+                'successful_count' => (int) ($model->successful_count ?? 0),
+                'failed_count' => (int) ($model->failed_count ?? 0),
             ],
-            'created_at' => $this->formatTimestamp($model->created_at),
-            'updated_at' => $this->formatTimestamp($model->updated_at),
+            'created_at' => $model->created_at?->toIso8601String(),
+            'updated_at' => $model->updated_at?->toIso8601String(),
         ];
     }
 }
+

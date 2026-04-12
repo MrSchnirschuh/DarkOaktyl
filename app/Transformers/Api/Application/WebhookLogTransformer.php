@@ -12,23 +12,21 @@ class WebhookLogTransformer extends Transformer
         return 'webhook_log';
     }
 
-    /**
-     * Transform this model into a representation that can be consumed by a client.
-     */
     public function transform(WebhookLog $model): array
     {
         return [
             'id' => $model->id,
             'webhook_id' => $model->webhook_id,
             'event' => $model->event,
-            'payload' => $model->getDecodedPayload(),
-            'attempt' => $model->attempt,
+            'payload' => $model->payload ?? [],
             'response_code' => $model->response_code,
-            'response_body' => $model->response_body ? json_decode($model->response_body) : null,
-            'success' => $model->success,
+            'response_body' => $model->response_body,
             'error_message' => $model->error_message,
-            'created_at' => $this->formatTimestamp($model->created_at),
-            'updated_at' => $this->formatTimestamp($model->updated_at),
+            'attempt' => $model->attempt,
+            'success' => (bool) $model->success,
+            'created_at' => $model->created_at?->toIso8601String(),
+            'updated_at' => $model->updated_at?->toIso8601String(),
         ];
     }
 }
+
