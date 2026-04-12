@@ -46,8 +46,8 @@ class Webhook extends Model
     public static array $validationRules = [
         'uuid' => 'required|string|size:36|unique:webhooks,uuid',
         'name' => 'required|string|max:191',
-        'url' => 'required|url|max:500',
-        'secret' => 'nullable|string|max:255',
+        'url' => 'required|url|max:500|starts_with:https://',
+        'secret' => 'required|string|min:16|max:255',
         'events' => 'required|array|min:1',
         'events.*' => 'string|in:server.created,server.deleted,user.registered,billing.order.completed',
         'enabled' => 'boolean',

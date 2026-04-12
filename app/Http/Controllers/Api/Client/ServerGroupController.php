@@ -6,30 +6,38 @@ use DarkOak\Models\Server;
 use DarkOak\Models\ServerGroup;
 use Illuminate\Http\JsonResponse;
 use DarkOak\Exceptions\DisplayException;
-use DarkOak\Http\Requests\Api\Client\ClientApiRequest;
+use DarkOak\Http\Requests\Api\Client\ServerGroups\StoreServerGroupRequest;
+use DarkOak\Http\Requests\Api\Client\ServerGroups\UpdateServerGroupRequest;
+use DarkOak\Http\Requests\Api\Client\ServerGroups\ServerGroupActionRequest;
 use DarkOak\Transformers\Api\Client\ServerGroupTransformer;
 
 class ServerGroupController extends ClientApiController
 {
     /**
-     * Returns all the API keys that exist for the given client.
+     * List all server groups for the authenticated user.
      */
     public function index(ClientApiRequest $request): array
     {
-        return $this->fractal->collection($request->user()->serverGroups)
+        $groups = $request->user()->serverGroups()->with('servers')->get();
+
+        return $this->fractal->collection($groups)
             ->transformWith(ServerGroupTransformer::class)
             ->toArray();
     }
 
     /**
-     * Create a new server group and store in the database.
+     * Create a new server group.
      */
-    public function store(ClientApiRequest $request): array
+    public function store(StoreServerGroupRequest $request): array
     {
+        $this->checkGroupLimit($request->user()->id);
+
         $group = ServerGroup::create([
-            'user_id' => $request->user()->id,
+            'owner_id' => $request->user()->id,
             'name' => $request->input('name'),
-            'color' => $request->input('color') ?? null,
+            'description' => $request->input('description'),
+            'color' => $request->input('color'),
+            'icon' => $request->input('icon'),
         ]);
 
         return $this->fractal->item($group)
@@ -38,27 +46,65 @@ class ServerGroupController extends ClientApiController
     }
 
     /**
-     * Add a server to the selected group.
+     * Update a server group.
      */
-    public function add(ClientApiRequest $request, int $id): JsonResponse
+    public function update(UpdateServerGroupRequest $request, int $id): array
     {
-        $server = Server::where('uuid', $request->input('server'))->first();
+        $group = $this->authorizeGroup($id, $request->user()->id);
 
-        try {
-            $server->update(['group_id' => $id]);
-        } catch (DisplayException $ex) {
-            throw new DisplayException('Unable to assign group to server.');
-        }
+        $group->update($request->only(['name', 'description', 'color', 'icon']));
+
+        return $this->fractal->item($group->fresh())
+            ->transformWith(ServerGroupTransformer::class)
+            ->toArray();
+    }
+
+    /**
+     * Delete a server group.
+     */
+    public function delete(ClientApiRequest $request, int $id): JsonResponse
+    {
+        $group = $this->authorizeGroup($id, $request->user()->id);
+
+        // Remove group association from all servers in this group
+        Server::where('group_id', $group->id)->update(['group_id' => null]);
+
+        $group->delete();
 
         return new JsonResponse([], JsonResponse::HTTP_NO_CONTENT);
     }
 
     /**
-     * Remove a server from the selected group.
+     * Add a server to a group.
      */
-    public function remove(ClientApiRequest $request, int $id): JsonResponse
+    public function add(ServerGroupActionRequest $request, int $id): JsonResponse
     {
-        $server = Server::where('uuid', $request->input('server'))->first();
+        $group = $this->authorizeGroup($id, $request->user()->id);
+
+        $server = Server::where('uuid', $request->input('server_uuid'))
+            ->where('owner_id', $request->user()->id)
+            ->firstOrFail();
+
+        if ($server->group_id !== null && $server->group_id !== $group->id) {
+            throw new DisplayException('Server is already in another group.');
+        }
+
+        $server->update(['group_id' => $group->id]);
+
+        return new JsonResponse([], JsonResponse::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * Remove a server from a group.
+     */
+    public function remove(ServerGroupActionRequest $request, int $id): JsonResponse
+    {
+        $group = $this->authorizeGroup($id, $request->user()->id);
+
+        $server = Server::where('uuid', $request->input('server_uuid'))
+            ->where('owner_id', $request->user()->id)
+            ->where('group_id', $group->id)
+            ->firstOrFail();
 
         $server->update(['group_id' => null]);
 
@@ -66,30 +112,29 @@ class ServerGroupController extends ClientApiController
     }
 
     /**
-     * Update a selected server group.
+     * Authorize that the group belongs to the user.
      */
-    public function update(ClientApiRequest $request, int $id): JsonResponse
+    private function authorizeGroup(int $groupId, int $userId): ServerGroup
     {
-        $group = ServerGroup::findOrFail($id);
+        $group = ServerGroup::findOrFail($groupId);
 
-        $group->update([
-            'name' => $request['name'] ?? $group->name,
-            'color' => $request['color'] ?? $group->color,
-        ]);
+        if ($group->owner_id !== $userId) {
+            throw new DisplayException('You do not have permission to access this group.');
+        }
 
-        return new JsonResponse([], JsonResponse::HTTP_NO_CONTENT);
+        return $group;
     }
 
     /**
-     * Delete a selected server group.
+     * Check that the user hasn't exceeded their group limit.
      */
-    public function delete(ClientApiRequest $request, int $id): JsonResponse
+    private function checkGroupLimit(int $userId): void
     {
-        $group = ServerGroup::findOrFail($id);
+        $limit = config('modules.server_groups.max_groups_per_user', 10);
+        $current = ServerGroup::where('owner_id', $userId)->count();
 
-        $group->delete();
-
-        return new JsonResponse([], JsonResponse::HTTP_NO_CONTENT);
+        if ($current >= $limit) {
+            throw new DisplayException("You have reached the maximum number of server groups ({$limit}).");
+        }
     }
 }
-
