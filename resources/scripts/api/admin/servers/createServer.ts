@@ -1,5 +1,6 @@
 import http from '@/api/http';
 import { Server, rawDataToServer } from '@/api/admin/servers/getServers';
+import { handleApiError } from '@/api/errorHandler';
 
 export interface CreateServerRequest {
     externalId: string;
@@ -38,7 +39,7 @@ export interface CreateServerRequest {
     startOnCompletion: boolean;
 }
 
-export default (r: CreateServerRequest, include: string[] = []): Promise<Server> => {
+export default (r: CreateServerRequest, include: string[] = [], flashMessage?: (msg: string) => void): Promise<Server> => {
     return new Promise((resolve, reject) => {
         http.post(
             '/api/application/servers',
@@ -81,6 +82,9 @@ export default (r: CreateServerRequest, include: string[] = []): Promise<Server>
             { params: { include: include.join(',') } },
         )
             .then(({ data }) => resolve(rawDataToServer(data)))
-            .catch(reject);
+            .catch(error => {
+                handleApiError(error, flashMessage);
+                reject(error);
+            });
     });
 };

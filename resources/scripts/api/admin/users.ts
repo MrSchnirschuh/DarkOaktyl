@@ -5,6 +5,7 @@ import type { User } from '@definitions/admin';
 import { Transformers } from '@definitions/admin';
 import { createContext } from '@/api';
 import { useContext } from 'react';
+import { handleApiError } from '@/api/errorHandler';
 
 export interface UpdateUserValues {
     externalId: string;
@@ -74,7 +75,7 @@ const searchUserAccounts = async (params: QueryBuilderParams<'username' | 'email
     return data.data.map(Transformers.toUser);
 };
 
-const createUser = (values: UpdateUserValues, include: string[] = []): Promise<User> => {
+const createUser = (values: UpdateUserValues, include: string[] = [], flashMessage?: (msg: string) => void): Promise<User> => {
     const data = {};
     Object.keys(values).forEach(k => {
         // @ts-expect-error todo
@@ -84,11 +85,14 @@ const createUser = (values: UpdateUserValues, include: string[] = []): Promise<U
     return new Promise((resolve, reject) => {
         http.post('/api/application/users', data, { params: { include: include.join(',') } })
             .then(({ data }) => resolve(Transformers.toUser(data)))
-            .catch(reject);
+            .catch(error => {
+                handleApiError(error, flashMessage);
+                reject(error);
+            });
     });
 };
 
-const updateUser = (id: number, values: Partial<UpdateUserValues>, include: string[] = []): Promise<User> => {
+const updateUser = (id: number, values: Partial<UpdateUserValues>, include: string[] = [], flashMessage?: (msg: string) => void): Promise<User> => {
     const data = {};
     Object.keys(values).forEach(k => {
         // Don't set password if it is empty.
@@ -101,7 +105,10 @@ const updateUser = (id: number, values: Partial<UpdateUserValues>, include: stri
     return new Promise((resolve, reject) => {
         http.patch(`/api/application/users/${id}`, data, { params: { include: include.join(',') } })
             .then(({ data }) => resolve(Transformers.toUser(data)))
-            .catch(reject);
+            .catch(error => {
+                handleApiError(error, flashMessage);
+                reject(error);
+            });
     });
 };
 
@@ -113,11 +120,14 @@ const suspendUser = (id: number): Promise<void> => {
     });
 };
 
-const deleteUser = (id: number): Promise<void> => {
+const deleteUser = (id: number, flashMessage?: (msg: string) => void): Promise<void> => {
     return new Promise((resolve, reject) => {
         http.delete(`/api/application/users/${id}`)
             .then(() => resolve())
-            .catch(reject);
+            .catch(error => {
+                handleApiError(error, flashMessage);
+                reject(error);
+            });
     });
 };
 
