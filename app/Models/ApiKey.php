@@ -179,10 +179,39 @@ class ApiKey extends Model
     public static function findToken(string $token): ?self
     {
         $identifier = substr($token, 0, self::IDENTIFIER_LENGTH);
+        $tokenSecret = substr($token, strlen($identifier));
 
         $model = static::where('identifier', $identifier)->first();
-        if (!is_null($model) && decrypt($model->token) === substr($token, strlen($identifier))) {
-            return $model;
+        if (is_null($model)) {
+            return null;
+        }
+
+        try {
+            $decryptedToken = decrypt($model->token);
+            if (hash_equals($decryptedToken, $tokenSecret)) {
+                return $model;
+            }
+        } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+            // Token might be stored unencrypted (legacy) or corrupted
+            // Log this for security monitoring
+            \Log::warning('Failed to decrypt API token', [
+                'identifier' => $identifier,
+                'error' => $e->getMessage(),
+            ]);
+
+            // Attempt legacy comparison (plaintext) for backward compatibility
+            // This should be removed after migration
+            if (hash_equals($model->token, $tokenSecret)) {
+                // Auto-migrate to encrypted storage
+                $model->token = encrypt($tokenSecret);
+                $model->save();
+                
+                \Log::info('Auto-migrated plaintext API token to encrypted storage', [
+                    'identifier' => $identifier,
+                ]);
+                
+                return $model;
+            }
         }
 
         return null;

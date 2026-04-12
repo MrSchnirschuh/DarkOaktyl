@@ -92,6 +92,23 @@ Route::prefix('/')->middleware([SuspendedAccount::class])->group(function () {
             Route::get('/orders', [Client\Billing\OrderController::class, 'index']);
             Route::get('/orders/{id}', [Client\Billing\OrderController::class, 'view']);
         });
+
+        /*
+        |--------------------------------------------------------------------------
+        | Stripe Webhook Route
+        |--------------------------------------------------------------------------
+        |
+        | This route handles incoming Stripe webhook events. It is placed outside
+        | the normal auth middleware because Stripe sends these requests directly.
+        | The route validates requests using Stripe's signature verification
+        | to prevent payment fraud and unauthorized access.
+        |
+        | SECURITY: Signature verification is MANDATORY in production.
+        |
+        */
+        Route::post('/billing/stripe/webhook', [Client\Billing\StripeWebhookController::class, 'handleWebhook'])
+            ->name('api:client.billing.stripe.webhook')
+            ->withoutMiddleware([SuspendedAccount::class, RequireTwoFactorAuthentication::class]);
     }
 
     /*

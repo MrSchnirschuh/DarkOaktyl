@@ -66,6 +66,7 @@ class RouteServiceProvider extends ServiceProvider
 
                 Route::middleware('daemon')
                     ->prefix('/api/remote')
+                    ->middleware(['throttle:api.daemon'])
                     ->scopeBindings()
                     ->group(base_path('routes/api-remote.php'));
             };
@@ -126,6 +127,62 @@ class RouteServiceProvider extends ServiceProvider
                 config('http.rate_limit.application_period'),
                 config('http.rate_limit.application')
             )->by($key);
+        });
+
+        // Daemon API rate limiting - Protects Wings daemon communication endpoints
+        // from DoS attacks while allowing legitimate high-frequency operations
+        RateLimiter::for('api.daemon', function (Request $request) {
+            // Use node ID if available, otherwise fall back to IP
+            $key = optional($request->attributes->get('node'))->id ?: $request->ip();
+
+            return Limit::perMinutes(
+                config('http.rate_limit.daemon_period'),
+                config('http.rate_limit.daemon')
+            )->by('daemon:' . $key)->response(function (Request $request) {
+                // Log rate limit hits for monitoring
+                \Illuminate\Support\Facades\Log::warning('Daemon API rate limit exceeded', [
+                    'ip' => $request->ip(),
+                    'node_id' => optional($request->attributes->get('node'))->id,
+                    'route' => $request->route()->getName() ?? $request->path(),
+                ]);
+
+                return new \Illuminate\Http\Response('Too Many Requests - Daemon API rate limit exceeded', 429);
+            });
+        });
+
+        // Stricter rate limiting for high-impact daemon endpoints (commands, SFTP)
+        RateLimiter::for('api.daemon.command', function (Request $request) {
+            $key = optional($request->attributes->get('node'))->id ?: $request->ip();
+
+            return Limit::perMinutes(
+                config('http.rate_limit.daemon_command_period'),
+                config('http.rate_limit.daemon_command')
+            )->by('daemon-cmd:' . $key)->response(function (Request $request) {
+                \Illuminate\Support\Facades\Log::warning('Daemon Command API rate limit exceeded', [
+                    'ip' => $request->ip(),
+                    'node_id' => optional($request->attributes->get('node'))->id,
+                    'route' => $request->route()->getName() ?? $request->path(),
+                ]);
+
+                return new \Illuminate\Http\Response('Too Many Requests - Command rate limit exceeded', 429);
+            });
+        });
+
+        RateLimiter::for('api.daemon.sftp', function (Request $request) {
+            $key = optional($request->attributes->get('node'))->id ?: $request->ip();
+
+            return Limit::perMinutes(
+                config('http.rate_limit.daemon_sftp_period'),
+                config('http.rate_limit.daemon_sftp')
+            )->by('daemon-sftp:' . $key)->response(function (Request $request) {
+                \Illuminate\Support\Facades\Log::warning('Daemon SFTP API rate limit exceeded', [
+                    'ip' => $request->ip(),
+                    'node_id' => optional($request->attributes->get('node'))->id,
+                    'route' => $request->route()->getName() ?? $request->path(),
+                ]);
+
+                return new \Illuminate\Http\Response('Too Many Requests - SFTP rate limit exceeded', 429);
+            });
         });
     }
 }
