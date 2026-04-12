@@ -3,6 +3,7 @@
 namespace DarkOak\Http\Requests\Api\Application\Webhooks;
 
 use DarkOak\Models\AdminRole;
+use DarkOak\Rules\ValidWebhookUrl;
 use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class UpdateWebhookRequest extends ApplicationApiRequest
@@ -11,8 +12,8 @@ class UpdateWebhookRequest extends ApplicationApiRequest
     {
         return [
             'name' => 'sometimes|string|max:191',
-            'url' => 'sometimes|url|max:500',
-            'secret' => 'nullable|string|max:255',
+            'url' => ['sometimes', 'max:500', new ValidWebhookUrl()],
+            'secret' => 'sometimes|string|min:16|max:255',
             'events' => 'sometimes|array|min:1',
             'events.*' => 'string|in:server.created,server.deleted,user.registered,billing.order.completed',
             'enabled' => 'sometimes|boolean',

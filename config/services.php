@@ -57,4 +57,15 @@ return [
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
         'redirect' => env('APP_URL') . '/auth/modules/google/authenticate',
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | VAPID Configuration for Web Push Notifications
+    |--------------------------------------------------------------------------
+    */
+
+    'vapid' => [
+        'public_key' => env('VAPID_PUBLIC_KEY'),
+        'private_key' => env('VAPID_PRIVATE_KEY'),
+    ],
 ];

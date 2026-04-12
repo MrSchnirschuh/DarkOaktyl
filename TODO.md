@@ -23,3 +23,30 @@
 - [ ] Documentation update (README, SETUP_GUIDE)
 - [ ] ESLint/Prettier frontend cleanup
 - [ ] CI/CD workflows for main branch
+
+## 🚀 New Feature Ideas (aus deiner Liste vom 12.04.)
+
+### ✅ Bereits vorhanden:
+- [x] **#2: Resource-Monitoring Dashboard** - Echtzeit CPU/RAM/Disk Graphen (existiert: getMetrics API + OverviewContainer)
+- [x] **#5: Scheduled Tasks** - Cron-Job Management im Panel (existiert: schedules/tasks DB-Tabellen)
+
+### Priorisiert (von dir bestätigt):
+- [ ] **#1: Push-Notifications** - Browser-Push bei Server-Events
+- [ ] **#3: Auto-Scaling** - Server automatisch skalieren bei Auslastung
+- [ ] **#4: Team/Org + Split-Kosten** - Server-Verwaltung für Teams + Kostenaufteilung
+- [ ] **#6: API Key Scopes** - Feingranulare API-Berechtigungen
+- [ ] **#7: One-Click Apps** - Vorgefertigte Server-Templates (Minecraft, Valheim, etc.)
+- [ ] **#8: Usage-Based Billing** - Pay-per-hour statt monatlich
+- [ ] **#9: Multi-Region** - Server in verschiedenen Rechenzentren
+
+### 🆕 Neues Feature (von dir gerade genannt):
+- [ ] **#11: Networking Daemon** - Neuer Daemon neben Wings für Firewall, VPN, SSL, Proxy
+  - Firewall-Management (firewalld oder ufw wählbar)
+  - VPN-Setup (WireGuard, OpenVPN, etc.)
+  - SSL/Zertifikate automatisch
+  - Proxy-Konfiguration (nginx, etc.)
+  - Multi-Node Setup: Panel VPS + Proxy VPS + Nodes zuhause
+  - Automatische Verbindung aller Komponenten
+
+### Übersprungen:
+- [ ] ~~**#10: PWA/Mobile App**~~ - (du: "nein")

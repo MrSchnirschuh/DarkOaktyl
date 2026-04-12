@@ -10,8 +10,8 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::table('orders', function (Blueprint $table) {
-            $table->string('transaction_id')->nullable();
+        Schema::table('users', function (Blueprint $table) {
+            $table->json('notification_settings')->nullable()->after('appearance_last_mode');
         });
     }
 
@@ -20,8 +20,8 @@ return new class () extends Migration {
      */
     public function down(): void
     {
-        Schema::table('orders', function (Blueprint $table) {
-            $table->dropColumn('transaction_id');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('notification_settings');
         });
     }
 };

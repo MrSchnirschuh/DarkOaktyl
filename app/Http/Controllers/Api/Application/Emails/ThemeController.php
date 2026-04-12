@@ -95,7 +95,7 @@ class ThemeController extends ApplicationApiController
             : null;
 
         DB::transaction(function () use ($theme, $attributes, $shouldSetDefault) {
-            if (!empty($attributes)) {
+            if ($attributes !== []) {
                 $theme->updateOrFail($attributes);
             }
 

@@ -38,7 +38,7 @@ return [
     /*
      * Sets the Access-Control-Allow-Headers response header. `['*']` allows all headers.
      */
-    'allowed_headers' => ['*'],
+    'allowed_headers' => ['Content-Type', 'X-Requested-With', 'Authorization', 'Accept', 'X-Webhook-Signature', 'X-Webhook-Event'],
 
     /*
      * Sets the Access-Control-Expose-Headers response header with these headers.
@@ -48,7 +48,7 @@ return [
     /*
      * Sets the Access-Control-Max-Age response header when > 0.
      */
-    'max_age' => 0,
+    'max_age' => 86400,
 
     /*
      * Sets the Access-Control-Allow-Credentials header.

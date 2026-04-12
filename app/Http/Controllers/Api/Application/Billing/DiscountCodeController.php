@@ -1,18 +1,18 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Billing;
+namespace DarkOak\Http\Controllers\Api\Application\Billing;
 
 use Illuminate\Http\Response;
 use Spatie\QueryBuilder\QueryBuilder;
-use Everest\Models\Billing\DiscountCode;
-use Everest\Exceptions\Http\QueryValueOutOfRangeHttpException;
-use Everest\Transformers\Api\Application\DiscountCodeTransformer;
-use Everest\Services\Billing\DiscountCodes\DiscountCodeUpdateService;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
-use Everest\Services\Billing\DiscountCodes\DiscountCodeCreationService;
-use Everest\Http\Requests\Api\Application\Billing\DiscountCodes\GetDiscountCodesRequest;
-use Everest\Http\Requests\Api\Application\Billing\DiscountCodes\StoreDiscountCodeRequest;
-use Everest\Http\Requests\Api\Application\Billing\DiscountCodes\DeleteDiscountCodeRequest;
+use DarkOak\Models\Billing\DiscountCode;
+use DarkOak\Exceptions\Http\QueryValueOutOfRangeHttpException;
+use DarkOak\Transformers\Api\Application\DiscountCodeTransformer;
+use DarkOak\Services\Billing\DiscountCodes\DiscountCodeUpdateService;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Services\Billing\DiscountCodes\DiscountCodeCreationService;
+use DarkOak\Http\Requests\Api\Application\Billing\DiscountCodes\GetDiscountCodesRequest;
+use DarkOak\Http\Requests\Api\Application\Billing\DiscountCodes\StoreDiscountCodeRequest;
+use DarkOak\Http\Requests\Api\Application\Billing\DiscountCodes\DeleteDiscountCodeRequest;
 
 class DiscountCodeController extends ApplicationApiController
 {

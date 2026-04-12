@@ -32,7 +32,7 @@ class UserOAuthAccount extends Model
      * Cast values to correct type.
      */
     protected $casts = [
-        'provider_data' => 'array',
+        'provider_data' => 'encrypted:array',
     ];
 
     /**

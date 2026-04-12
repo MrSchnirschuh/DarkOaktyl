@@ -5,6 +5,7 @@ namespace DarkOak\Http\Controllers\Api\Client;
 use DarkOak\Models\Server;
 use DarkOak\Models\ServerGroup;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Cache;
 use DarkOak\Exceptions\DisplayException;
 use DarkOak\Http\Requests\Api\Client\ServerGroups\StoreServerGroupRequest;
 use DarkOak\Http\Requests\Api\Client\ServerGroups\UpdateServerGroupRequest;
@@ -18,7 +19,11 @@ class ServerGroupController extends ClientApiController
      */
     public function index(ClientApiRequest $request): array
     {
-        $groups = $request->user()->serverGroups()->with('servers')->get();
+        $groups = Cache::remember(
+            "client.server-groups.{$request->user()->id}",
+            now()->addMinutes(5),
+            fn() => $request->user()->serverGroups()->with('servers')->get()
+        );
 
         return $this->fractal->collection($groups)
             ->transformWith(ServerGroupTransformer::class)

@@ -12,6 +12,8 @@ use DarkOak\Transformers\Api\Application\TicketTransformer;
 use DarkOak\Contracts\Repository\SettingsRepositoryInterface;
 use DarkOak\Exceptions\Http\QueryValueOutOfRangeHttpException;
 use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Http\Requests\Api\Application\Tickets\StoreTicketRequest;
+use DarkOak\Http\Requests\Api\Application\Tickets\UpdateTicketRequest;
 
 class TicketController extends ApplicationApiController
 {
@@ -47,14 +49,9 @@ class TicketController extends ApplicationApiController
     /**
      * Add a new ticket to the Panel.
      */
-    public function store(Request $request): JsonResponse
+    public function store(StoreTicketRequest $request): JsonResponse
     {
-        $ticket = Ticket::create([
-            'title' => $request['title'],
-            'user_id' => $request['user_id'],
-            'assigned_to' => $request['assigned_to'] ?? null,
-            'status' => $request['status'] ?? Ticket::STATUS_PENDING,
-        ]);
+        $ticket = Ticket::create($request->validated());
 
         Activity::event('admin:tickets:create')
             ->property('ticket', $ticket)
@@ -79,13 +76,14 @@ class TicketController extends ApplicationApiController
     /**
      * Update an existing ticket.
      */
-    public function update(Request $request, Ticket $ticket)
+    public function update(UpdateTicketRequest $request, Ticket $ticket)
     {
-        $ticket->update($request->all());
+        $validated = $request->validated();
+        $ticket->update($validated);
 
         Activity::event('admin:tickets:update')
             ->property('ticket', $ticket)
-            ->property('new_data', $request->all())
+            ->property('new_data', $validated)
             ->description('A ticket was updated')
             ->log();
 

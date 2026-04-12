@@ -126,7 +126,7 @@ class TemplateController extends ApplicationApiController
             ->description('An email template was updated')
             ->log();
 
-        return $this->fractal->item($template->refresh('theme'))
+        return $this->fractal->item($template->refresh())
             ->transformWith(EmailTemplateTransformer::class)
             ->toArray();
     }

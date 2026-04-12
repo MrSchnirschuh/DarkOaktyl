@@ -75,7 +75,8 @@ class WebhookController extends ApplicationApiController
 
         Activity::event('admin:webhooks:create')
             ->subject($webhook)
-            ->description('Created a new webhook', ['name' => $webhook->name])
+            ->property('name', $webhook->name)
+            ->description('Created a new webhook: ' . $webhook->name)
             ->log();
 
         return $this->returnCreatedResponse($webhook);
@@ -92,9 +93,10 @@ class WebhookController extends ApplicationApiController
 
         Activity::event('admin:webhooks:update')
             ->subject($webhook)
-            ->description('Updated webhook configuration', ['name' => $webhook->name])
+            ->property('name', $webhook->name)
             ->property('old', $original)
             ->property('new', $webhook->toArray())
+            ->description('Updated webhook configuration: ' . $webhook->name)
             ->log();
 
         return $this->returnNoContent();
@@ -107,7 +109,8 @@ class WebhookController extends ApplicationApiController
     {
         Activity::event('admin:webhooks:delete')
             ->subject($webhook)
-            ->description('Deleted webhook', ['name' => $webhook->name])
+            ->property('name', $webhook->name)
+            ->description('Deleted webhook: ' . $webhook->name)
             ->log();
 
         $webhook->delete();
@@ -141,7 +144,8 @@ class WebhookController extends ApplicationApiController
         if ($success) {
             Activity::event('admin:webhooks:test')
                 ->subject($webhook)
-                ->description('Test webhook sent successfully', ['name' => $webhook->name])
+                ->property('name', $webhook->name)
+                ->description('Test webhook sent successfully: ' . $webhook->name)
                 ->log();
 
             return $this->returnNoContent();
@@ -162,7 +166,8 @@ class WebhookController extends ApplicationApiController
 
         Activity::event('admin:webhooks:regenerate')
             ->subject($webhook)
-            ->description('Regenerated webhook secret', ['name' => $webhook->name])
+            ->property('name', $webhook->name)
+            ->description('Regenerated webhook secret: ' . $webhook->name)
             ->log();
 
         return $this->fractal->item($webhook)

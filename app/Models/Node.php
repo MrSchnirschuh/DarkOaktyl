@@ -40,6 +40,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
  * @property bool|null $deployable
  * @property bool|null $deployable_free
  * @property int $servers_count
+ * @property int|null $region_id
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property Allocation[]|Collection $allocations
@@ -47,6 +48,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
  * @property Mount[]|Collection $mounts
  * @property int[]|\Illuminate\Support\Collection $ports
  * @property Server[]|Collection $servers
+ * @property Region|null $region
  */
 class Node extends Model
 {
@@ -92,6 +94,7 @@ class Node extends Model
         'maintenance_mode' => 'boolean',
         'deployable' => 'boolean',
         'deployable_free' => 'boolean',
+        'region_id' => 'integer',
     ];
 
     /**
@@ -103,7 +106,7 @@ class Node extends Model
         'fqdn', 'scheme', 'behind_proxy',
         'memory', 'memory_overallocate', 'disk',
         'disk_overallocate', 'upload_size', 'daemon_base',
-        'description', 'maintenance_mode', 'deployable', 'deployable_free',
+        'description', 'maintenance_mode', 'deployable', 'deployable_free', 'region_id',
     ];
 
     public static array $validationRules = [
@@ -127,6 +130,7 @@ class Node extends Model
         'upload_size' => 'int|between:1,1024',
         'deployable' => 'nullable|boolean',
         'deployable_free' => 'nullable|boolean',
+        'region_id' => 'nullable|integer|exists:regions,id',
     ];
 
     /**
@@ -213,6 +217,14 @@ class Node extends Model
     public function isUnderMaintenance(): bool
     {
         return $this->maintenance_mode;
+    }
+
+    /**
+     * Returns the region associated with a node.
+     */
+    public function region(): BelongsTo
+    {
+        return $this->belongsTo(Region::class);
     }
 
     /**

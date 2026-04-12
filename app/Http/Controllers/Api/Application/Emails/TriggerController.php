@@ -104,7 +104,7 @@ class TriggerController extends ApplicationApiController
             ->description('An email trigger was updated')
             ->log();
 
-        return $this->fractal->item($trigger->refresh('template'))
+        return $this->fractal->item($trigger->refresh())
             ->transformWith(EmailTriggerTransformer::class)
             ->toArray();
     }

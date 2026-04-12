@@ -24,6 +24,7 @@ interface ApiKey extends Model {
     identifier: string;
     description: string;
     allowedIps: string[];
+    scopes: string[];
     createdAt: Date | null;
     lastUsedAt: Date | null;
 }

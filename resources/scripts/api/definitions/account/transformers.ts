@@ -17,6 +17,7 @@ export default class Transformers {
         identifier: attributes.identifier,
         description: attributes.description,
         allowedIps: attributes.allowed_ips,
+        scopes: attributes.scopes || [],
         createdAt: attributes.created_at ? new Date(attributes.created_at) : null,
         lastUsedAt: attributes.last_used_at ? new Date(attributes.last_used_at) : null,
     });

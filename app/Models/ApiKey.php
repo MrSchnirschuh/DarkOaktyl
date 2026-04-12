@@ -97,6 +97,7 @@ class ApiKey extends Model
      */
     protected $casts = [
         'allowed_ips' => 'array',
+        'scopes' => 'array',
         'user_id' => 'int',
         'last_used_at' => 'datetime',
         'expires_at' => 'datetime',

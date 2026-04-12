@@ -1,19 +1,19 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Servers;
+namespace DarkOak\Http\Controllers\Api\Application\Servers;
 
-use Everest\Facades\Activity;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
-use Everest\Models\ServerPreset;
+use DarkOak\Models\ServerPreset;
 use Spatie\QueryBuilder\QueryBuilder;
-use Everest\Exceptions\Http\QueryValueOutOfRangeHttpException;
-use Everest\Transformers\Api\Application\ServerPresetTransformer;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
-use Everest\Http\Requests\Api\Application\Servers\Presets\GetServerPresetRequest;
-use Everest\Http\Requests\Api\Application\Servers\Presets\GetServerPresetsRequest;
-use Everest\Http\Requests\Api\Application\Servers\Presets\StoreServerPresetRequest;
-use Everest\Http\Requests\Api\Application\Servers\Presets\DeleteServerPresetRequest;
-use Everest\Http\Requests\Api\Application\Servers\Presets\UpdateServerPresetRequest;
+use DarkOak\Exceptions\Http\QueryValueOutOfRangeHttpException;
+use DarkOak\Transformers\Api\Application\ServerPresetTransformer;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Http\Requests\Api\Application\Servers\Presets\GetServerPresetRequest;
+use DarkOak\Http\Requests\Api\Application\Servers\Presets\GetServerPresetsRequest;
+use DarkOak\Http\Requests\Api\Application\Servers\Presets\StoreServerPresetRequest;
+use DarkOak\Http\Requests\Api\Application\Servers\Presets\DeleteServerPresetRequest;
+use DarkOak\Http\Requests\Api\Application\Servers\Presets\UpdateServerPresetRequest;
 
 class ServerPresetController extends ApplicationApiController
 {
