@@ -18,15 +18,13 @@ use DarkOak\Http\Controllers\Api\Client\Organizations\OrganizationController;
 */
 
 // Push Notifications
-Route::prefix('notifications')->group(function () {
-    Route::get('/', [PushSubscriptionController::class, 'index']);
-    Route::post('/', [PushSubscriptionController::class, 'store']);
-    Route::get('/events', [PushSubscriptionController::class, 'events']);
-    Route::get('/vapid-key', [PushSubscriptionController::class, 'vapidPublicKey']);
-    Route::post('/test', [PushSubscriptionController::class, 'sendTest']);
-    Route::patch('/{uuid}', [PushSubscriptionController::class, 'update']);
-    Route::delete('/{uuid}', [PushSubscriptionController::class, 'destroy']);
-    Route::delete('/', [PushSubscriptionController::class, 'destroyAll']);
+// Matches service worker calls to /api/client/account/notifications/push/{subscribe,config}
+Route::prefix('account/notifications/push')->group(function () {
+    Route::get('/config', [PushSubscriptionController::class, 'config']);
+    Route::post('/subscribe', [PushSubscriptionController::class, 'store']);
+    Route::post('/test', [PushSubscriptionController::class, 'test']);
+    Route::delete('/unsubscribe', [PushSubscriptionController::class, 'delete']);
+    Route::patch('/preferences', [PushSubscriptionController::class, 'updatePreferences']);
 });
 
 // Auto-Scaling
