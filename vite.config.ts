@@ -4,6 +4,8 @@ import laravel from 'laravel-vite-plugin';
 import { dirname, resolve } from 'pathe';
 import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vite';
+import { visualizer } from 'rollup-plugin-visualizer';
+import viteCompression from 'vite-plugin-compression';
 
 const plugins = [
     react({
@@ -20,6 +22,27 @@ if (process.env.VITEST === undefined) {
         }),
     );
 }
+
+plugins.push(
+    viteCompression({
+        algorithm: 'gzip',
+        ext: '.gz',
+        threshold: 1024,
+        deleteOriginalAssets: false,
+    }),
+    viteCompression({
+        algorithm: 'brotliCompress',
+        ext: '.br',
+        threshold: 1024,
+        deleteOriginalAssets: false,
+    }),
+    visualizer({
+        filename: 'public/build/stats.html',
+        open: false,
+        gzipSize: true,
+        brotliSize: true,
+    }),
+);
 
 export default defineConfig({
     define:
@@ -72,6 +95,59 @@ export default defineConfig({
             'react-dom': 'preact/compat',
             'react/jsx-runtime': 'preact/jsx-runtime',
             'react-dom/test-utils': 'preact/test-utils',
+        },
+    },
+
+    build: {
+        sourcemap: false,
+        minify: 'terser',
+        terserOptions: {
+            compress: {
+                drop_console: true,
+                drop_debugger: true,
+            },
+        },
+        rollupOptions: {
+            output: {
+                manualChunks(id) {
+                    // Isolate CodeMirror into its own chunk (heavy, rarely changes)
+                    if (id.includes('node_modules/@codemirror')) {
+                        return 'codemirror';
+                    }
+
+                    // Isolate xterm.js into its own chunk
+                    if (id.includes('node_modules/xterm') || id.includes('node_modules/xterm-addon')) {
+                        return 'xterm';
+                    }
+
+                    // Vendor chunk for all other node_modules
+                    if (id.includes('node_modules')) {
+                        // Keep small/stable libs together
+                        if (
+                            id.includes('preact') ||
+                            id.includes('react-router-dom') ||
+                            id.includes('easy-peasy') ||
+                            id.includes('axios') ||
+                            id.includes('formik') ||
+                            id.includes('styled-components') ||
+                            id.includes('twin.macro')
+                        ) {
+                            return 'vendor-core';
+                        }
+                        // UI libraries
+                        if (
+                            id.includes('@headlessui') ||
+                            id.includes('@heroicons') ||
+                            id.includes('@fortawesome') ||
+                            id.includes('framer-motion')
+                        ) {
+                            return 'vendor-ui';
+                        }
+                        // Everything else
+                        return 'vendor';
+                    }
+                },
+            },
         },
     },
 
