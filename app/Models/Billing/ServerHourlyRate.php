@@ -85,7 +85,7 @@ class ServerHourlyRate extends Model
     /**
      * Get or create rate for a server.
      */
-    public static function forServer(int $serverId, float $hourlyRate = null): self
+    public static function forServer(int $serverId, ?float $hourlyRate = null): self
     {
         $rate = self::firstOrNew(['server_id' => $serverId]);
 

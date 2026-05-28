@@ -94,7 +94,7 @@ class CreditBalance extends Model
     /**
      * Add credit to the balance.
      */
-    public function addCredit(float $amount, string $description = null, $transactionable = null, string $referenceId = null, array $metadata = []): CreditTransaction
+    public function addCredit(float $amount, ?string $description = null, $transactionable = null, ?string $referenceId = null, array $metadata = []): CreditTransaction
     {
         $balanceBefore = $this->balance;
         $this->balance += $amount;
@@ -116,7 +116,7 @@ class CreditBalance extends Model
     /**
      * Debit credit from the balance.
      */
-    public function debitCredit(float $amount, string $description = null, $transactionable = null, string $referenceId = null, array $metadata = []): ?CreditTransaction
+    public function debitCredit(float $amount, ?string $description = null, $transactionable = null, ?string $referenceId = null, array $metadata = []): ?CreditTransaction
     {
         if (!$this->hasSufficientBalance($amount)) {
             return null;

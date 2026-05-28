@@ -101,9 +101,9 @@ class CreditTransaction extends Model
         float $amount,
         float $balanceBefore,
         float $balanceAfter,
-        string $description = null,
+        ?string $description = null,
         $transactionable = null,
-        string $referenceId = null,
+        ?string $referenceId = null,
         array $metadata = []
     ): self {
         $data = [
