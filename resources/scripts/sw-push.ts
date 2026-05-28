@@ -12,14 +12,12 @@ const CACHE_NAME = `darkoaktyl-push-v${SW_VERSION}`;
 
 // Installation event
 self.addEventListener('install', (event: ExtendableEvent) => {
-  console.log('[SW] Push Service Worker installing...', SW_VERSION);
   // Skip waiting to activate immediately
   (self as any).skipWaiting();
 });
 
 // Activation event
 self.addEventListener('activate', (event: ExtendableEvent) => {
-  console.log('[SW] Push Service Worker activated');
   event.waitUntil(
     // Claim clients immediately
     (self as any).clients.claim()
@@ -28,7 +26,6 @@ self.addEventListener('activate', (event: ExtendableEvent) => {
 
 // Push event - handle incoming push notifications
 self.addEventListener('push', (event: PushEvent) => {
-  console.log('[SW] Push received:', event);
 
   if (!event.data) {
     console.warn('[SW] Push event has no data');
@@ -67,8 +64,6 @@ self.addEventListener('push', (event: PushEvent) => {
 
 // Notification click event
 self.addEventListener('notificationclick', (event: NotificationEvent) => {
-  console.log('[SW] Notification clicked:', event);
-
   event.notification.close();
 
   const notificationData = event.notification.data;
@@ -133,20 +128,15 @@ self.addEventListener('notificationclick', (event: NotificationEvent) => {
 
 // Notification close event (notification dismissed without clicking)
 self.addEventListener('notificationclose', (event: NotificationEvent) => {
-  console.log('[SW] Notification closed:', event);
-
   // Track notification dismissals if needed
   const notificationData = event.notification.data;
-  if (notificationData.eventId) {
+  if (notificationData && notificationData.eventId) {
     // Could send analytics event here
-    console.log('[SW] Notification dismissed:', notificationData.eventId);
   }
 });
 
 // Push subscription change event
 self.addEventListener('pushsubscriptionchange', (event: any) => {
-  console.log('[SW] Push subscription changed:', event);
-
   const subscription = event.newSubscription;
   const oldSubscription = event.oldSubscription;
 
@@ -178,7 +168,6 @@ self.addEventListener('pushsubscriptionchange', (event: any) => {
         if (!response.ok) {
           throw new Error('Failed to update subscription');
         }
-        console.log('[SW] Subscription updated successfully');
       })
       .catch((error) => {
         console.error('[SW] Failed to update subscription:', error);
@@ -221,7 +210,7 @@ self.addEventListener('message', (event: MessageEvent) => {
       break;
 
     default:
-      console.log('[SW] Unknown message type:', data.type);
+      break;
   }
 });
 
@@ -233,7 +222,6 @@ self.addEventListener('sync', (event: any) => {
       (self as any).registration.pushManager.getSubscription()
         .then((subscription: PushSubscription | null) => {
           if (!subscription) {
-            console.log('[SW] No subscription found during sync');
             return;
           }
 
@@ -256,7 +244,7 @@ if ('periodicSync' in (self as any).registration) {
     tag: 'push-health-check',
     minInterval: 24 * 60 * 60 * 1000, // 24 hours
   }).catch((error: any) => {
-    console.log('[SW] Periodic sync registration failed:', error);
+    // Periodic sync not supported in all browsers
   });
 }
 
