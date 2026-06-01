@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('server_hourly_rates', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('server_id');
+            $table->unsignedInteger('server_id');
             $table->decimal('hourly_rate', 10, 4);
             $table->decimal('memory_rate', 10, 6)->nullable();
             $table->decimal('cpu_rate', 10, 6)->nullable();

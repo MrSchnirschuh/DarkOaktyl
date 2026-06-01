@@ -11,10 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (Schema::hasTable('organization_members')) {
+            return;
+        }
+
         Schema::create('organization_members', function (Blueprint $table) {
             $table->id()->primary();
-            $table->unsignedBigInteger('organization_id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedInteger('organization_id');
+            $table->unsignedInteger('user_id');
             $table->enum('role', ['owner', 'admin', 'member'])->default('member');
             $table->boolean('is_active')->default(true);
             $table->decimal('split_percentage', 5, 2)->nullable(); // Percentage (0-100)

@@ -3,7 +3,7 @@ import LoginContainer from '@/components/auth/LoginContainer';
 import ForgotPasswordContainer from '@/components/auth/ForgotPasswordContainer';
 import ResetPasswordContainer from '@/components/auth/ResetPasswordContainer';
 import LoginCheckpointContainer from '@/components/auth/LoginCheckpointContainer';
-import { NotFound } from '@/elements/ScreenBlock';
+import { NotFound } from '@elements/ScreenBlock';
 import tw, { styled } from 'twin.macro';
 import { useStoreState } from '@/state/hooks';
 import RegisterContainer from '@/components/auth/RegisterContainer';
@@ -16,7 +16,7 @@ const Container = styled.div`
 
 export default () => {
     const navigate = useNavigate();
-    const registration = useStoreState(state => state.DarkOak.data!.auth.registration.enabled);
+    const registration = useStoreState(state => state.DarkOak.data?.auth.registration.enabled ?? false);
 
     return (
         <Container>
@@ -33,4 +33,3 @@ export default () => {
         </Container>
     );
 };
-

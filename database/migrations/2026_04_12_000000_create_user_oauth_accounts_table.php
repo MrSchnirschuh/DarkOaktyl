@@ -11,14 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (Schema::hasTable('user_oauth_accounts')) {
+            return;
+        }
+
         Schema::create('user_oauth_accounts', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->increments('id');
+            $table->unsignedInteger('user_id');
             $table->string('provider', 50)->index(); // 'discord', 'google'
             $table->string('provider_id', 255)->index();
             $table->string('email', 191);
             $table->json('provider_data')->nullable();
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             // Unique constraint: one provider account per user
             $table->unique(['user_id', 'provider'], 'user_oauth_user_provider_unique');

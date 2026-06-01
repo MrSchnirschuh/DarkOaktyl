@@ -1,9 +1,9 @@
 import { faCashRegister } from '@fortawesome/free-solid-svg-icons';
 import { Field as FormikField, useFormikContext } from 'formik';
 import tw from 'twin.macro';
-import AdminBox from '@/elements/AdminBox';
-import Label from '@/elements/Label';
-import SpinnerOverlay from '@/elements/SpinnerOverlay';
+import AdminBox from '@elements/AdminBox';
+import Label from '@elements/Label';
+import SpinnerOverlay from '@elements/SpinnerOverlay';
 
 export default () => {
     const { isSubmitting } = useFormikContext();
@@ -43,6 +43,23 @@ export default () => {
                 </div>
                 <p className={'text-sm text-theme-muted mt-1'}>
                     Allows users to deploy <strong>free</strong> servers to this node via the billing system.
+                </p>
+            </div>
+            <div className={'mt-6'}>
+                <Label htmlFor={'deployableMetered'}>Deployable for usage-billed servers</Label>
+                <div>
+                    <label css={tw`inline-flex items-center mr-2`}>
+                        <FormikField name={'deployableMetered'} type={'radio'} value={'true'} />
+                        <span css={tw`text-theme-secondary ml-2`}>Enabled</span>
+                    </label>
+
+                    <label css={tw`inline-flex items-center ml-2`}>
+                        <FormikField name={'deployableMetered'} type={'radio'} value={'false'} />
+                        <span css={tw`text-theme-secondary ml-2`}>Disabled</span>
+                    </label>
+                </div>
+                <p className={'text-sm text-theme-muted mt-1'}>
+                    Restricts which nodes can host servers that are billed based on resource usage (metered resources).
                 </p>
             </div>
         </AdminBox>

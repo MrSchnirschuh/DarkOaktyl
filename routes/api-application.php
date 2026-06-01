@@ -204,8 +204,8 @@ Route::middleware([AdminSubject::class])->group(function () {
     |
     */
     Route::group(['prefix' => '/ai'], function () {
-        Route::put('/settings', [Application\IntelligenceController::class, 'update']);
-        Route::post('/query', [Application\IntelligenceController::class, 'query']);
+        Route::put('/settings', [Application\AI\SettingsController::class, 'update']);
+        Route::post('/query', [Application\AI\SettingsController::class, 'query']);
     });
 
     /*

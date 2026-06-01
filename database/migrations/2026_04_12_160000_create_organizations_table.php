@@ -11,12 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (Schema::hasTable('organizations')) {
+            return;
+        }
+
         Schema::create('organizations', function (Blueprint $table) {
             $table->id()->primary();
             $table->string('uuid', 36)->unique();
             $table->string('name', 191);
             $table->text('description')->nullable();
-            $table->unsignedBigInteger('owner_id');
+            $table->unsignedInteger('owner_id');
             $table->boolean('is_active')->default(true);
             $table->decimal('monthly_budget', 10, 2)->nullable();
             $table->text('billing_address')->nullable();

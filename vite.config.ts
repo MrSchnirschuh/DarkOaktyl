@@ -91,6 +91,8 @@ export default defineConfig({
             '@server': resolve(dirname(fileURLToPath(import.meta.url)), 'resources', 'scripts', 'components', 'server'),
             '@admin': resolve(dirname(fileURLToPath(import.meta.url)), 'resources', 'scripts', 'components', 'admin'),
 
+            '@elements': resolve(dirname(fileURLToPath(import.meta.url)), 'resources', 'scripts', 'components', 'elements'),
+
             react: 'preact/compat',
             'react-dom': 'preact/compat',
             'react/jsx-runtime': 'preact/jsx-runtime',
@@ -100,55 +102,8 @@ export default defineConfig({
 
     build: {
         sourcemap: false,
-        minify: 'terser',
-        terserOptions: {
-            compress: {
-                drop_console: true,
-                drop_debugger: true,
-            },
-        },
-        rollupOptions: {
-            output: {
-                manualChunks(id) {
-                    // Isolate CodeMirror into its own chunk (heavy, rarely changes)
-                    if (id.includes('node_modules/@codemirror')) {
-                        return 'codemirror';
-                    }
-
-                    // Isolate xterm.js into its own chunk
-                    if (id.includes('node_modules/xterm') || id.includes('node_modules/xterm-addon')) {
-                        return 'xterm';
-                    }
-
-                    // Vendor chunk for all other node_modules
-                    if (id.includes('node_modules')) {
-                        // Keep small/stable libs together
-                        if (
-                            id.includes('preact') ||
-                            id.includes('react-router-dom') ||
-                            id.includes('easy-peasy') ||
-                            id.includes('axios') ||
-                            id.includes('formik') ||
-                            id.includes('styled-components') ||
-                            id.includes('twin.macro')
-                        ) {
-                            return 'vendor-core';
-                        }
-                        // UI libraries
-                        if (
-                            id.includes('@headlessui') ||
-                            id.includes('@heroicons') ||
-                            id.includes('@fortawesome') ||
-                            id.includes('framer-motion')
-                        ) {
-                            return 'vendor-ui';
-                        }
-                        // Everything else
-                        return 'vendor';
-                    }
-                },
-            },
-        },
+        minify: false,
+        // NO manualChunks — single bundle to avoid circular dependency TDZ issues
     },
 
     test: {

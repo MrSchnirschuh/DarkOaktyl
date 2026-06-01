@@ -8,14 +8,14 @@ return new class extends Migration
 {
     public function up(): void
     {
+        if (Schema::hasTable('organization_members')) {
+            return;
+        }
+
         Schema::create('organization_members', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('organization_id')
-                ->constrained('organizations')
-                ->onDelete('cascade');
-            $table->foreignId('user_id')
-                ->constrained('users')
-                ->onDelete('cascade');
+            $table->increments('id');
+            $table->unsignedInteger('organization_id');
+            $table->unsignedInteger('user_id');
             $table->string('role')->default('member'); // owner, admin, member
             $table->timestamp('joined_at')->nullable();
             $table->decimal('monthly_share_amount', 10, 2)->nullable();
@@ -24,6 +24,8 @@ return new class extends Migration
             $table->timestamp('last_payment_at')->nullable();
             $table->timestamps();
 
+            $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unique(['organization_id', 'user_id']);
             $table->index(['organization_id', 'role']);
         });

@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import { useEffect, useState, type ChangeEvent } from 'react';
+import { useStoreState } from '@/state/hooks';
 import type { ThemeDesignerGroup, ThemeMode, ThemePaletteResponse } from '@/api/admin/theme/getPalette';
 import { hexToHslCss, hexToRgbCss, normalizeColorHex } from '@/helpers/colorContrast';
 
@@ -41,8 +42,12 @@ const ColorEditor = ({ token, modes, defaults, overrides, onColorChange, onReset
         }
     };
 
-    const darkRaw = modes.dark?.[token.key] ?? '#000000';
-    const lightRaw = modes.light?.[token.key] ?? '#000000';
+    const theme = useStoreState(s => s.theme.data);
+
+    const darkRaw =
+        modes.dark?.[token.key] ?? theme?.colors?.[`${token.key}_dark`] ?? theme?.colors?.[token.key] ?? '#000000';
+    const lightRaw =
+        modes.light?.[token.key] ?? theme?.colors?.[`${token.key}_light`] ?? theme?.colors?.[token.key] ?? '#000000';
 
     const resolveHexValue = (mode: ThemeMode): string => {
         const source = mode === 'dark' ? darkRaw : lightRaw;
@@ -75,7 +80,12 @@ const ColorEditor = ({ token, modes, defaults, overrides, onColorChange, onReset
         const storedDraft = drafts[mode];
         const displayValue = storedDraft !== undefined ? storedDraft : formatHexForDisplay(currentHex);
         const isOverridden = overrides[mode]?.[token.key] ?? false;
-        const fallbackRaw = defaults[mode]?.[token.key] ?? '#000000';
+        const themeColors = theme?.colors as Record<string, string> | undefined;
+        const fallbackRaw =
+            defaults[mode]?.[token.key] ??
+            themeColors?.[`${token.key}_${mode}`] ??
+            themeColors?.[token.key] ??
+            '#000000';
         const fallbackHex = normalizeInputColor(fallbackRaw);
         const fallbackDisplay = fallbackHex ? formatHexForDisplay(fallbackHex) : fallbackRaw;
 
@@ -211,7 +221,9 @@ const ThemeDesigner = ({
     onResetColor,
 }: Props) => {
     const [colorFormat, setColorFormat] = useState<ColorFormat>('hex');
-    const active = groups.find(group => group.id === activeGroup) ?? groups[0] ?? null;
+    const availableGroups = groups.length ? groups : [];
+
+    const active = availableGroups.find(group => group.id === activeGroup) ?? availableGroups[0] ?? null;
 
     if (!active) {
         return null;
@@ -221,7 +233,7 @@ const ThemeDesigner = ({
         <div className={'space-y-6'}>
             <div className={'flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between'}>
                 <div className={'flex flex-wrap items-center gap-3'}>
-                    {groups.map(group => (
+                    {availableGroups.map(group => (
                         <button
                             key={group.id}
                             type={'button'}

@@ -1,9 +1,9 @@
 import { useContext, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import tw from 'twin.macro';
-import type { Filters } from '@/api/routes/admin/nests/getNests';
-import getNests, { Context as NestsContext } from '@/api/routes/admin/nests/getNests';
-import AdminContentBlock from '@/elements/AdminContentBlock';
+import type { Filters } from '@/api/admin/nests/getNests';
+import getNests, { Context as NestsContext } from '@/api/admin/nests/getNests';
+import AdminContentBlock from '@elements/AdminContentBlock';
 import AdminTable, {
     TableBody,
     TableHead,
@@ -14,14 +14,12 @@ import AdminTable, {
     NoItems,
     ContentWrapper,
     useTableHooks,
-} from '@/elements/AdminTable';
-import CopyOnClick from '@/elements/CopyOnClick';
+} from '@elements/AdminTable';
+import CopyOnClick from '@elements/CopyOnClick';
 import NewNestButton from '@admin/service/nests/NewNestButton';
-import FlashMessageRender from '@/elements/FlashMessageRender';
+import FlashMessageRender from '@/components/FlashMessageRender';
 import useFlash from '@/plugins/useFlash';
 import { useStoreState } from '@/state/hooks';
-import { TerminalIcon, AdjustmentsIcon, ArchiveIcon } from '@heroicons/react/outline';
-import { SubNavigation, SubNavigationLink } from '../../SubNavigation';
 
 const NestsContainer = () => {
     const { setPage, setFilters, sort, setSort, sortDirection } = useContext(NestsContext);
@@ -55,7 +53,12 @@ const NestsContainer = () => {
         <AdminContentBlock title={'Nests'}>
             <div css={tw`w-full flex flex-row items-center mb-8`}>
                 <div css={tw`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
-                    <h2 css={tw`text-2xl font-header font-medium`} style={{ color: 'var(--theme-text-primary, #111827)' }}>Nests</h2>
+                    <h2
+                        css={tw`text-2xl font-header font-medium`}
+                        style={{ color: 'var(--theme-text-primary, #111827)' }}
+                    >
+                        Nests
+                    </h2>
                     <p
                         css={tw`hidden md:block text-base text-theme-muted whitespace-nowrap overflow-ellipsis overflow-hidden`}
                     >
@@ -67,18 +70,6 @@ const NestsContainer = () => {
                     <NewNestButton />
                 </div>
             </div>
-
-            <SubNavigation>
-                <SubNavigationLink to="/admin/servers" name="All Servers" base>
-                    <TerminalIcon />
-                </SubNavigationLink>
-                <SubNavigationLink to="/admin/servers/presets" name="Presets">
-                    <AdjustmentsIcon />
-                </SubNavigationLink>
-                <SubNavigationLink to="/admin/nests" name="Nests">
-                    <ArchiveIcon />
-                </SubNavigationLink>
-            </SubNavigation>
 
             <FlashMessageRender byKey={'nests'} css={tw`mb-4`} />
 
@@ -108,7 +99,9 @@ const NestsContainer = () => {
                                         length > 0 &&
                                         nests.items.map(nest => (
                                             <TableRow key={nest.id}>
-                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
+                                                <td
+                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                >
                                                     <CopyOnClick text={nest.id.toString()}>
                                                         <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>
                                                             {nest.id}
@@ -116,7 +109,9 @@ const NestsContainer = () => {
                                                     </CopyOnClick>
                                                 </td>
 
-                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
+                                                <td
+                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                >
                                                     <NavLink
                                                         to={`/admin/nests/${nest.id}`}
                                                         style={{ color: colors.primary }}
@@ -126,7 +121,9 @@ const NestsContainer = () => {
                                                     </NavLink>
                                                 </td>
 
-                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
+                                                <td
+                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                >
                                                     {nest.description}
                                                 </td>
                                             </TableRow>

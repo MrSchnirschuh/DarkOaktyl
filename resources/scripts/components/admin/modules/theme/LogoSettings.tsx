@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type ChangeEvent } from 'react';
 import AdminBox from '@elements/AdminBox';
 import Label from '@elements/Label';
 import Input from '@elements/Input';
@@ -77,6 +77,38 @@ export default () => {
         reader.readAsDataURL(file);
     };
 
+    const createFileHandler =
+        (key: string, setSavingState: (value: boolean) => void, setState: (value: string) => void) =>
+        (event: ChangeEvent<HTMLInputElement>) => {
+            const file = event.target.files ? event.target.files[0] : null;
+            handleFile(key, file, setSavingState, setState);
+        };
+
+    const FilePicker = ({
+        id,
+        accept,
+        onSelect,
+        hint,
+    }: {
+        id: string;
+        accept: string;
+        onSelect: (event: ChangeEvent<HTMLInputElement>) => void;
+        hint?: string;
+    }) => (
+        <div className={'flex flex-col items-start gap-1'}>
+            <input id={id} type={'file'} accept={accept} className={'sr-only'} onChange={onSelect} />
+            <label
+                htmlFor={id}
+                className={
+                    'inline-flex cursor-pointer items-center gap-2 rounded border border-theme-muted bg-theme-surface px-3 py-2 text-sm text-theme-primary transition hover:bg-theme-surface-card'
+                }
+            >
+                <span>Choose File</span>
+            </label>
+            {hint && <span className={'text-xs text-theme-muted'}>{hint}</span>}
+        </div>
+    );
+
     return (
         <AdminBox title={'Logos & Backgrounds'}>
             <div className={'mb-3'}>
@@ -84,25 +116,26 @@ export default () => {
                 <div className={'grid grid-cols-1 md:grid-cols-2 gap-4'}>
                     <div>
                         <Label>Light</Label>
-                        <div className={'flex items-center space-x-3'}>
-                            <Input
-                                value={panelLogoLight}
-                                onChange={e => setPanelLogoLight(e.target.value)}
-                                placeholder={'https://.../logo.png'}
-                            />
-                            <div>
-                                <input
+                        <div className={'flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3'}>
+                            <div className={'flex-1 min-w-0'}>
+                                <Input
+                                    value={panelLogoLight}
+                                    onChange={e => setPanelLogoLight(e.target.value)}
+                                    placeholder={'https://.../logo.png'}
+                                    className={'w-full truncate font-mono text-xs'}
+                                    title={panelLogoLight || undefined}
+                                />
+                            </div>
+                            <div className={'flex-shrink-0'}>
+                                <FilePicker
                                     id={'panel_logo_light_file'}
-                                    type={'file'}
                                     accept={'image/*'}
-                                    onChange={e =>
-                                        handleFile(
-                                            'logo_panel_light',
-                                            e.target.files ? e.target.files[0] : null,
-                                            setSavingPanelLight,
-                                            setPanelLogoLight,
-                                        )
-                                    }
+                                    onSelect={createFileHandler(
+                                        'logo_panel_light',
+                                        setSavingPanelLight,
+                                        setPanelLogoLight,
+                                    )}
+                                    hint={'SVG, PNG, JPG, or WEBP'}
                                 />
                             </div>
                         </div>
@@ -130,25 +163,26 @@ export default () => {
 
                     <div>
                         <Label>Dark</Label>
-                        <div className={'flex items-center space-x-3'}>
-                            <Input
-                                value={panelLogoDark}
-                                onChange={e => setPanelLogoDark(e.target.value)}
-                                placeholder={'https://.../logo.png'}
-                            />
-                            <div>
-                                <input
+                        <div className={'flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3'}>
+                            <div className={'flex-1 min-w-0'}>
+                                <Input
+                                    value={panelLogoDark}
+                                    onChange={e => setPanelLogoDark(e.target.value)}
+                                    placeholder={'https://.../logo.png'}
+                                    className={'w-full truncate font-mono text-xs'}
+                                    title={panelLogoDark || undefined}
+                                />
+                            </div>
+                            <div className={'flex-shrink-0'}>
+                                <FilePicker
                                     id={'panel_logo_dark_file'}
-                                    type={'file'}
                                     accept={'image/*'}
-                                    onChange={e =>
-                                        handleFile(
-                                            'logo_panel_dark',
-                                            e.target.files ? e.target.files[0] : null,
-                                            setSavingPanelDark,
-                                            setPanelLogoDark,
-                                        )
-                                    }
+                                    onSelect={createFileHandler(
+                                        'logo_panel_dark',
+                                        setSavingPanelDark,
+                                        setPanelLogoDark,
+                                    )}
+                                    hint={'SVG, PNG, JPG, or WEBP'}
                                 />
                             </div>
                         </div>
@@ -181,25 +215,26 @@ export default () => {
                 <div className={'grid grid-cols-1 md:grid-cols-2 gap-4'}>
                     <div>
                         <Label>Light</Label>
-                        <div className={'flex items-center space-x-3'}>
-                            <Input
-                                value={loginLogoLight}
-                                onChange={e => setLoginLogoLight(e.target.value)}
-                                placeholder={'https://.../logo.png'}
-                            />
-                            <div>
-                                <input
+                        <div className={'flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3'}>
+                            <div className={'flex-1 min-w-0'}>
+                                <Input
+                                    value={loginLogoLight}
+                                    onChange={e => setLoginLogoLight(e.target.value)}
+                                    placeholder={'https://.../logo.png'}
+                                    className={'w-full truncate font-mono text-xs'}
+                                    title={loginLogoLight || undefined}
+                                />
+                            </div>
+                            <div className={'flex-shrink-0'}>
+                                <FilePicker
                                     id={'login_logo_light_file'}
-                                    type={'file'}
                                     accept={'image/*'}
-                                    onChange={e =>
-                                        handleFile(
-                                            'logo_login_light',
-                                            e.target.files ? e.target.files[0] : null,
-                                            setSavingLoginLight,
-                                            setLoginLogoLight,
-                                        )
-                                    }
+                                    onSelect={createFileHandler(
+                                        'logo_login_light',
+                                        setSavingLoginLight,
+                                        setLoginLogoLight,
+                                    )}
+                                    hint={'SVG, PNG, JPG, or WEBP'}
                                 />
                             </div>
                         </div>
@@ -231,25 +266,26 @@ export default () => {
 
                     <div>
                         <Label>Dark</Label>
-                        <div className={'flex items-center space-x-3'}>
-                            <Input
-                                value={loginLogoDark}
-                                onChange={e => setLoginLogoDark(e.target.value)}
-                                placeholder={'https://.../logo.png'}
-                            />
-                            <div>
-                                <input
+                        <div className={'flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3'}>
+                            <div className={'flex-1 min-w-0'}>
+                                <Input
+                                    value={loginLogoDark}
+                                    onChange={e => setLoginLogoDark(e.target.value)}
+                                    placeholder={'https://.../logo.png'}
+                                    className={'w-full truncate font-mono text-xs'}
+                                    title={loginLogoDark || undefined}
+                                />
+                            </div>
+                            <div className={'flex-shrink-0'}>
+                                <FilePicker
                                     id={'login_logo_dark_file'}
-                                    type={'file'}
                                     accept={'image/*'}
-                                    onChange={e =>
-                                        handleFile(
-                                            'logo_login_dark',
-                                            e.target.files ? e.target.files[0] : null,
-                                            setSavingLoginDark,
-                                            setLoginLogoDark,
-                                        )
-                                    }
+                                    onSelect={createFileHandler(
+                                        'logo_login_dark',
+                                        setSavingLoginDark,
+                                        setLoginLogoDark,
+                                    )}
+                                    hint={'SVG, PNG, JPG, or WEBP'}
                                 />
                             </div>
                         </div>
@@ -286,25 +322,26 @@ export default () => {
                 <div className={'grid grid-cols-1 md:grid-cols-2 gap-4'}>
                     <div>
                         <Label>Light</Label>
-                        <div className={'flex items-center space-x-3'}>
-                            <Input
-                                value={backgroundLight}
-                                onChange={e => setBackgroundLight(e.target.value)}
-                                placeholder={'https://.../bg.png'}
-                            />
-                            <div>
-                                <input
+                        <div className={'flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3'}>
+                            <div className={'flex-1 min-w-0'}>
+                                <Input
+                                    value={backgroundLight}
+                                    onChange={e => setBackgroundLight(e.target.value)}
+                                    placeholder={'https://.../bg.png'}
+                                    className={'w-full truncate font-mono text-xs'}
+                                    title={backgroundLight || undefined}
+                                />
+                            </div>
+                            <div className={'flex-shrink-0'}>
+                                <FilePicker
                                     id={'background_light_file'}
-                                    type={'file'}
                                     accept={'image/*'}
-                                    onChange={e =>
-                                        handleFile(
-                                            'background_image_light',
-                                            e.target.files ? e.target.files[0] : null,
-                                            setSavingBackgroundLight,
-                                            setBackgroundLight,
-                                        )
-                                    }
+                                    onSelect={createFileHandler(
+                                        'background_image_light',
+                                        setSavingBackgroundLight,
+                                        setBackgroundLight,
+                                    )}
+                                    hint={'SVG, PNG, JPG, or WEBP'}
                                 />
                             </div>
                         </div>
@@ -336,25 +373,26 @@ export default () => {
 
                     <div>
                         <Label>Dark</Label>
-                        <div className={'flex items-center space-x-3'}>
-                            <Input
-                                value={backgroundDark}
-                                onChange={e => setBackgroundDark(e.target.value)}
-                                placeholder={'https://.../bg.png'}
-                            />
-                            <div>
-                                <input
+                        <div className={'flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3'}>
+                            <div className={'flex-1 min-w-0'}>
+                                <Input
+                                    value={backgroundDark}
+                                    onChange={e => setBackgroundDark(e.target.value)}
+                                    placeholder={'https://.../bg.png'}
+                                    className={'w-full truncate font-mono text-xs'}
+                                    title={backgroundDark || undefined}
+                                />
+                            </div>
+                            <div className={'flex-shrink-0'}>
+                                <FilePicker
                                     id={'background_dark_file'}
-                                    type={'file'}
                                     accept={'image/*'}
-                                    onChange={e =>
-                                        handleFile(
-                                            'background_image_dark',
-                                            e.target.files ? e.target.files[0] : null,
-                                            setSavingBackgroundDark,
-                                            setBackgroundDark,
-                                        )
-                                    }
+                                    onSelect={createFileHandler(
+                                        'background_image_dark',
+                                        setSavingBackgroundDark,
+                                        setBackgroundDark,
+                                    )}
+                                    hint={'SVG, PNG, JPG, or WEBP'}
                                 />
                             </div>
                         </div>

@@ -4,18 +4,19 @@ import { useEffect, useState } from 'react';
 import { Link, Route, Routes, useParams } from 'react-router-dom';
 import tw from 'twin.macro';
 
-import { getUser } from '@/api/routes/admin/users';
-import AdminContentBlock from '@/elements/AdminContentBlock';
+import { getUser } from '@/api/admin/users';
+import AdminContentBlock from '@elements/AdminContentBlock';
 import { SubNavigation, SubNavigationLink } from '@admin/SubNavigation';
 import UserAboutContainer from '@admin/management/users/view/AboutContainer';
 import UserServers from '@admin/management/users/view/ServersContainer';
-import Spinner from '@/elements/Spinner';
-import FlashMessageRender from '@/elements/FlashMessageRender';
+import Spinner from '@elements/Spinner';
+import FlashMessageRender from '@/components/FlashMessageRender';
 import type { ApplicationStore } from '@/state';
 import type { User } from '@definitions/admin';
 import { CogIcon, ServerIcon, UserIcon } from '@heroicons/react/outline';
 import ManageContainer from './view/ManageContainer';
-import { Button } from '@/elements/button';
+import { useStoreState } from '@/state/hooks';
+import { Button } from '@/components/elements/button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
@@ -42,6 +43,8 @@ const UserRouter = () => {
 
     const user = Context.useStoreState(state => state.user);
     const setUser = Context.useStoreActions(actions => actions.setUser);
+
+    const theme = useStoreState(state => state.theme.data!);
 
     useEffect(() => {
         clearFlashes('user');
@@ -89,7 +92,7 @@ const UserRouter = () => {
 
             <FlashMessageRender byKey={'user'} css={tw`mb-4`} />
 
-            <SubNavigation>
+            <SubNavigation theme={theme}>
                 <SubNavigationLink to={`/admin/users/${params.id}`} name={'About'} base>
                     <UserIcon />
                 </SubNavigationLink>

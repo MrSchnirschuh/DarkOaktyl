@@ -1,41 +1,46 @@
-/vendor
-*.DS_Store*
-!.env.ci
-!.env.example
+# Fix scripts (temporary)
+cleanup_empty_blocks.py
+fix_all_sqlite.py
+fix_all_v2.py
+fix_drop_foreign.py
+fix_migrations.php
+fix_multi_ops.py
+fix_mysql_fks.py
+fix_sqlite_comprehensive.py
+write_env.php
+docker-compose.dev.yml
+/tmp/
+
+# Node
+node_modules/
+.pnpm-store/
+pnpm-lock.yaml
+
+# Build output
+public/build/
+public/hot
+*.tsbuildinfo
+
+# PHP/Laravel
 .env
-.vagrant/*
-.vscode/*
-storage/framework/*
-/.idea
-/nbproject
-/.direnv
+.env.*
+storage/framework/cache/data/*
+storage/framework/sessions/*
+storage/framework/views/*
+storage/logs/*
+vendor/
+bootstrap/cache/*
 
-node_modules
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
 *.log
-_ide_helper.php
-_ide_helper_models.php
-.phpstorm.meta.php
-.yarn
-public/assets/manifest.json
-
-# For local development with docker
-# Remove if we ever put the Dockerfile in the repo
-.dockerignore
-docker-compose.yml
-
-# for image related files
-misc
-.php-cs-fixer.cache
-coverage.xml
-resources/lang/locales.js
-.phpunit.result.cache
-
-/public/build
-/public/hot
-result
-docker-compose.yaml
-.pnpm-store
-
-# Caddy/SSL files
-Caddyfile
-*.pem

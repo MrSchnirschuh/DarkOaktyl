@@ -13,7 +13,7 @@ return new class () extends Migration {
         Schema::create('auto_scaling_history', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('server_id');
-            $table->unsignedInteger('auto_scaling_rule_id');
+            $table->unsignedBigInteger('auto_scaling_rule_id');
 
             // Action type
             $table->enum('action', ['scale_up', 'scale_down', 'no_action'])->default('no_action');

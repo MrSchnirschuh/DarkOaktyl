@@ -11,7 +11,7 @@ import {
 } from 'chart.js';
 import { format, startOfDay, endOfDay, isWithinInterval, eachDayOfInterval } from 'date-fns';
 import { useStoreState } from '@/state/hooks';
-import { BillingAnalytics } from '@definitions/admin';
+import { BillingAnalytics } from '@/api/definitions/admin';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
@@ -88,4 +88,3 @@ export default ({ data, history }: { data: BillingAnalytics; history: number }) 
 
     return <Line data={chartData} options={chartOptions} />;
 };
-

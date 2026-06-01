@@ -2,8 +2,8 @@ import { useContext, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import tw from 'twin.macro';
 
-import type { Filters } from '@/api/routes/admin/nodes/allocations/getAllocations';
-import getAllocations, { Context as AllocationsContext } from '@/api/routes/admin/nodes/allocations/getAllocations';
+import type { Filters } from '@/api/admin/nodes/allocations/getAllocations';
+import getAllocations, { Context as AllocationsContext } from '@/api/admin/nodes/allocations/getAllocations';
 import AdminTable, {
     ContentWrapper,
     Loading,
@@ -13,9 +13,9 @@ import AdminTable, {
     TableHead,
     TableHeader,
     useTableHooks,
-} from '@/elements/AdminTable';
+} from '@elements/AdminTable';
 import DeleteAllocationButton from '@admin/management/nodes/allocations/DeleteAllocationButton';
-import CopyOnClick from '@/elements/CopyOnClick';
+import CopyOnClick from '@elements/CopyOnClick';
 import useFlash from '@/plugins/useFlash';
 import { useStoreState } from '@/state/hooks';
 
@@ -91,7 +91,9 @@ function AllocationsTable({ nodeId, filters }: Props) {
                                             </td>
 
                                             {allocation.alias !== null ? (
-                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
+                                                <td
+                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                >
                                                     <CopyOnClick text={allocation.alias}>
                                                         <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>
                                                             {allocation.alias}
@@ -111,7 +113,9 @@ function AllocationsTable({ nodeId, filters }: Props) {
                                             </td>
 
                                             {allocation.relations.server !== undefined ? (
-                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
+                                                <td
+                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                >
                                                     <NavLink
                                                         to={`/admin/servers/${allocation.serverId}`}
                                                         style={{ color: colors.primary }}

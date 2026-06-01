@@ -1,25 +1,26 @@
-import TransferListener from '@server/TransferListener';
+import TransferListener from '@/components/server/TransferListener';
 import { Fragment, useEffect, useState } from 'react';
 import { NavLink, Route, Routes, useParams } from 'react-router-dom';
-import WebsocketHandler from '@server/WebsocketHandler';
+import WebsocketHandler from '@/components/server/WebsocketHandler';
 import { ServerContext, ServerStatus } from '@/state/server';
-import Spinner from '@/elements/Spinner';
-import { NotFound, ServerError, Suspended } from '@/elements/ScreenBlock';
+import Spinner from '@elements/Spinner';
+import { NotFound, ServerError, Suspended } from '@elements/ScreenBlock';
 import { httpErrorToHuman } from '@/api/http';
 import { useStoreState } from 'easy-peasy';
-import InstallListener from '@server/InstallListener';
-import ErrorBoundary from '@/elements/ErrorBoundary';
+import InstallListener from '@/components/server/InstallListener';
+import ErrorBoundary from '@elements/ErrorBoundary';
 import { useLocation } from 'react-router-dom';
-import ConflictStateRenderer from '@server/ConflictStateRenderer';
-import MobileSidebar from '@/elements/MobileSidebar';
-import PermissionRoute from '@/elements/PermissionRoute';
+import ConflictStateRenderer from '@/components/server/ConflictStateRenderer';
+import MobileSidebar from '@elements/MobileSidebar';
+import PermissionRoute from '@elements/PermissionRoute';
 import routes from '@/routers/routes';
-import Sidebar from '@/elements/Sidebar';
+import Sidebar from '@elements/Sidebar';
 import { usePersistedState } from '@/plugins/usePersistedState';
 import { CogIcon, DesktopComputerIcon, PuzzleIcon, ReplyIcon } from '@heroicons/react/outline';
-import SidebarControls from '@server/console/SidebarControls';
+import SidebarControls from '@/components/server/console/SidebarControls';
 import classNames from 'classnames';
-import NavigationBar from '@/elements/NavigationBar';
+import NavigationBar from '@/components/NavigationBar';
+import { DEFAULT_PANEL_LOGO } from '@/constants/branding';
 
 function statusToColor(status: ServerStatus): string {
     switch (status) {
@@ -46,17 +47,22 @@ function ServerRouter() {
     const user = useStoreState(state => state.user.data!);
     const theme = useStoreState(state => state.theme.data!);
     const name = useStoreState(state => state.settings.data!.name);
-    const logo = useStoreState(state => state.settings.data!.logo);
+    const currentMode = useStoreState(state => state.theme.mode ?? 'dark');
     const inConflictState = ServerContext.useStoreState(state => state.server.inConflictState);
     const getServer = ServerContext.useStoreActions(actions => actions.server.getServer);
     const clearServerState = ServerContext.useStoreActions(actions => actions.clearServerState);
     const [collapsed, setCollapsed] = usePersistedState<boolean>(`sidebar_user_${user.uuid}`, false);
     const server = ServerContext.useStoreState(state => state.server.data);
-    const activityEnabled = useStoreState(state => state.settings.data!.activity.enabled.server);
     const billable = server?.billingProductId;
     const status = ServerContext.useStoreState(state => state.status.value);
 
     const categories = ['data', 'configuration'] as const;
+    const collapsedLogo =
+        theme.colors[`logo_panel_${currentMode}`] ||
+        theme.colors['logo_panel'] ||
+        theme.colors[`logo_login_${currentMode}`] ||
+        theme.colors['logo_login'] ||
+        DEFAULT_PANEL_LOGO;
 
     useEffect(() => {
         clearServerState();
@@ -80,14 +86,7 @@ function ServerRouter() {
     }, [params.id]);
 
     if (billable && server.renewalDate && server.renewalDate.getTime() < new Date().getTime())
-        return (
-            <Suspended
-                id={server.billingProductId}
-                date={server.renewalDate}
-                serverId={server.internalId}
-                serverUuid={server.uuid}
-            />
-        );
+        return <Suspended id={server.billingProductId} date={server.renewalDate} />;
 
     return (
         <Fragment key={'server-router'}>
@@ -95,9 +94,7 @@ function ServerRouter() {
                 <MobileSidebar>
                     <MobileSidebar.Home />
                     {routes.server
-                        .filter(
-                            route => route.name && (!route.condition || route.condition({ billable, activityEnabled })),
-                        )
+                        .filter(route => route.name && (!route.condition || route.condition({ billable })))
                         .map(route => (
                             <MobileSidebar.Link
                                 key={route.route}
@@ -119,13 +116,14 @@ function ServerRouter() {
                         onClick={() => setCollapsed(!collapsed)}
                     >
                         {!collapsed ? (
-                            <h1 className={'text-2xl whitespace-nowrap font-medium'} style={{ color: 'var(--theme-text-primary, #111827)' }}>{name}</h1>
+                            <h1
+                                className={'text-2xl whitespace-nowrap font-medium'}
+                                style={{ color: 'var(--theme-text-primary, #111827)' }}
+                            >
+                                {name}
+                            </h1>
                         ) : (
-                            <img
-                                src={logo?.toString() || 'https://avatars.githubusercontent.com/u/91636558'}
-                                className={'mt-4 w-12'}
-                                alt={'Logo'}
-                            />
+                            <img src={collapsedLogo} className={'mt-4 w-12'} alt={'Logo'} />
                         )}
                     </div>
                     <Sidebar.Wrapper theme={theme} className={'mb-auto'}>
@@ -139,7 +137,7 @@ function ServerRouter() {
                                 route =>
                                     !route.category &&
                                     route.name &&
-                                    (!route.condition || route.condition({ billable, activityEnabled })),
+                                    (!route.condition || route.condition({ billable })),
                             )
                             .map(route => (
                                 <NavLink to={route.path} key={route.path} end={route.end}>

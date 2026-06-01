@@ -1,8 +1,8 @@
 import tw from 'twin.macro';
 import { Link, NavLink } from 'react-router-dom';
-import AdminContentBlock from '@/elements/AdminContentBlock';
-import { Button } from '@/elements/button';
-import { RealFilters, useGetUsers, Context as UsersContext } from '@/api/routes/admin/users';
+import AdminContentBlock from '@elements/AdminContentBlock';
+import { Button } from '@elements/button';
+import { RealFilters, useGetUsers, Context as UsersContext } from '@/api/admin/users';
 import {
     faIdBadge,
     faLock,
@@ -25,11 +25,9 @@ import AdminTable, {
     TableHeader,
     TableRow,
     useTableHooks,
-} from '@/elements/AdminTable';
+} from '@/components/elements/AdminTable';
 import { useStoreState } from '@/state/hooks';
-import Pill from '@/elements/Pill';
-import { SubNavigation, SubNavigationLink } from '../../SubNavigation';
-import { UsersIcon, UserAddIcon } from '@heroicons/react/outline';
+import Pill from '@/components/elements/Pill';
 
 function UsersContainer() {
     const { data: users, error, isValidating } = useGetUsers();
@@ -72,14 +70,6 @@ function UsersContainer() {
                     </Link>
                 </div>
             </div>
-            <SubNavigation>
-                <SubNavigationLink to={`/admin/users`} name={'Users'} base>
-                    <UsersIcon />
-                </SubNavigationLink>
-                <SubNavigationLink to={`/admin/users/roles`} name={'Administrator Roles'}>
-                    <UserAddIcon />
-                </SubNavigationLink>
-            </SubNavigation>
             <AdminTable>
                 <ContentWrapper onSearch={onSearch}>
                     <Pagination data={users} onPageSelect={setPage}>
@@ -125,7 +115,9 @@ function UsersContainer() {
                                         length > 0 &&
                                         users.items.map(user => (
                                             <TableRow key={user.id}>
-                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
+                                                <td
+                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                >
                                                     <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>
                                                         {user.id}
                                                     </code>
@@ -136,10 +128,14 @@ function UsersContainer() {
                                                 >
                                                     <NavLink to={`/admin/users/${user.id}`}>{user.username}</NavLink>
                                                 </td>
-                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
+                                                <td
+                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                >
                                                     {user.email}
                                                 </td>
-                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
+                                                <td
+                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                >
                                                     {user.isUsingTwoFactor ? (
                                                         <Pill type={'success'}>
                                                             <FontAwesomeIcon
@@ -160,7 +156,9 @@ function UsersContainer() {
                                                         </Pill>
                                                     )}
                                                 </td>
-                                                <td className={'px-6 py-4 whitespace-nowrap text-sm text-theme-primary'}>
+                                                <td
+                                                    className={'px-6 py-4 whitespace-nowrap text-sm text-theme-primary'}
+                                                >
                                                     {user.state === 'suspended' ? (
                                                         <Pill type={'warn'}>
                                                             <FontAwesomeIcon
@@ -181,7 +179,9 @@ function UsersContainer() {
                                                         </Pill>
                                                     )}
                                                 </td>
-                                                <td className={'px-6 py-4 whitespace-nowrap text-sm text-theme-primary'}>
+                                                <td
+                                                    className={'px-6 py-4 whitespace-nowrap text-sm text-theme-primary'}
+                                                >
                                                     {user.isRootAdmin || user.admin_role_id ? (
                                                         <>
                                                             <Pill type={'success'}>

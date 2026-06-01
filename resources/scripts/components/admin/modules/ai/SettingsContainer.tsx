@@ -1,12 +1,12 @@
-import Field from '@/elements/Field';
-import Label from '@/elements/Label';
+import Field from '@elements/Field';
+import Label from '@elements/Label';
 import { Form, Formik } from 'formik';
-import AdminBox from '@/elements/AdminBox';
+import AdminBox from '@elements/AdminBox';
 import { useStoreState } from '@/state/hooks';
 import { faKey, faUser } from '@fortawesome/free-solid-svg-icons';
-import { AISettings, updateSettings } from '@/api/routes/admin/ai/settings';
+import { AISettings, updateSettings } from '@/api/admin/ai/settings';
 import useFlash from '@/plugins/useFlash';
-import { Button } from '@/elements/button';
+import { Button } from '@elements/button';
 
 export default () => {
     const { clearFlashes, clearAndAddHttpError, addFlash } = useFlash();
@@ -52,8 +52,8 @@ export default () => {
                                 />
                             </div>
                             <p className={'text-theme-muted text-xs mt-1.5'}>
-                                If enabled, standard DarkOaktyl users will be able to interact with DarkOaktyl AI as well as
-                                administrators.
+                                If enabled, standard DarkOaktyl users will be able to interact with DarkOaktyl AI as
+                                well as administrators.
                             </p>
                         </div>
                     </AdminBox>
@@ -79,5 +79,3 @@ export default () => {
         </Formik>
     );
 };
-
-

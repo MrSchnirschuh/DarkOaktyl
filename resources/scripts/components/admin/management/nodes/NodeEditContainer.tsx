@@ -6,13 +6,13 @@ import { useNavigate } from 'react-router-dom';
 import tw from 'twin.macro';
 import { number, object, string } from 'yup';
 
-import updateNode from '@/api/routes/admin/nodes/updateNode';
+import updateNode from '@/api/admin/nodes/updateNode';
 import NodeDeleteButton from '@admin/management/nodes/NodeDeleteButton';
 import NodeLimitContainer from '@admin/management/nodes/NodeLimitContainer';
 import NodeListenContainer from '@admin/management/nodes/NodeListenContainer';
 import { Context } from '@admin/management/nodes/NodeRouter';
 import NodeSettingsContainer from '@admin/management/nodes/NodeSettingsContainer';
-import { Button } from '@/elements/button';
+import { Button } from '@elements/button';
 import type { ApplicationStore } from '@/state';
 import { useEffect } from 'react';
 import { useStoreState } from '@/state/hooks';
@@ -27,6 +27,7 @@ interface Values {
     public: string; // Yes, this is technically a boolean.
     deployable: string; // Yes, this is technically a boolean.
     deployableFree: string;
+    deployableMetered: string;
     daemonBase: string; // This value cannot be updated once a node has been created.
 
     memory: number;
@@ -68,6 +69,7 @@ export default () => {
             public: values.public === 'true',
             deployable: values.deployable === 'true',
             deployableFree: values.deployableFree === 'true',
+            deployableMetered: values.deployableMetered === 'true',
             databaseHostId: values.databaseHostId,
         };
 
@@ -92,6 +94,7 @@ export default () => {
                 public: node.public ? 'true' : 'false',
                 deployable: node.deployable ? 'true' : 'false',
                 deployableFree: node.deployableFree ? 'true' : 'false',
+                deployableMetered: node.deployableMetered ? 'true' : 'false',
                 daemonBase: node.daemonBase,
 
                 listenPortHTTP: node.listenPortHTTP,

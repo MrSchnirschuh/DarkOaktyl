@@ -17,7 +17,7 @@ return new class extends Migration
         Schema::table('orders', function (Blueprint $table) {
             // Add transaction_id for Jexactyl compatibility
             // Both fields coexist for smooth migration
-            $table->string('transaction_id')->nullable()->after('payment_intent_id');
+            $table->string('transaction_id')->nullable();
         });
     }
 

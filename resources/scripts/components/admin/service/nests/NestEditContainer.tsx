@@ -3,30 +3,28 @@ import { action, createContextStore, useStoreActions } from 'easy-peasy';
 import type { FormikHelpers } from 'formik';
 import { Form, Formik } from 'formik';
 import { useEffect, useState } from 'react';
-import { Link, NavLink, useNavigate, useParams } from 'react-router-dom';
+import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import tw from 'twin.macro';
 import { object, string } from 'yup';
 
 import ImportEggButton from '@admin/service/nests/ImportEggButton';
-import AdminContentBlock from '@/elements/AdminContentBlock';
-import Spinner from '@/elements/Spinner';
-import FlashMessageRender from '@/elements/FlashMessageRender';
-import type { Nest } from '@/api/routes/admin/nests/getNests';
-import getNest from '@/api/routes/admin/nests/getNest';
-import updateNest from '@/api/routes/admin/nests/updateNest';
-import { Button } from '@/elements/button';
-import { Size } from '@/elements/button/types';
-import Field from '@/elements/Field';
-import SpinnerOverlay from '@/elements/SpinnerOverlay';
-import AdminBox from '@/elements/AdminBox';
-import CopyOnClick from '@/elements/CopyOnClick';
-import Input from '@/elements/Input';
-import Label from '@/elements/Label';
+import AdminContentBlock from '@elements/AdminContentBlock';
+import Spinner from '@elements/Spinner';
+import FlashMessageRender from '@/components/FlashMessageRender';
+import type { Nest } from '@/api/admin/nests/getNests';
+import getNest from '@/api/admin/nests/getNest';
+import updateNest from '@/api/admin/nests/updateNest';
+import { Button } from '@elements/button';
+import { Size } from '@elements/button/types';
+import Field from '@elements/Field';
+import SpinnerOverlay from '@elements/SpinnerOverlay';
+import AdminBox from '@elements/AdminBox';
+import CopyOnClick from '@elements/CopyOnClick';
+import Input from '@elements/Input';
+import Label from '@elements/Label';
 import NestDeleteButton from '@admin/service/nests/NestDeleteButton';
 import NestEggTable from '@admin/service/nests/NestEggTable';
 import type { ApplicationStore } from '@/state';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 interface ctx {
     nest: Nest | undefined;
@@ -83,7 +81,7 @@ const EditInformationContainer = () => {
     const submit = ({ name, description }: Values, { setSubmitting }: FormikHelpers<Values>) => {
         clearFlashes('nest');
 
-        updateNest(nest.id, name, description, nest.author)
+        updateNest(nest.id, name, description)
             .then(() => setNest({ ...nest, name, description }))
             .catch(error => {
                 console.error(error);
@@ -224,11 +222,6 @@ const NestEditContainer = () => {
                 </div>
 
                 <div css={tw`flex flex-row ml-auto pl-4`}>
-                    <Link to={'/admin/nests'} className={'mr-4'}>
-                        <Button.Text>
-                            <FontAwesomeIcon icon={faArrowLeft} className={'mr-2'} /> Go Back
-                        </Button.Text>
-                    </Link>
                     <ImportEggButton css={tw`mr-4`} />
 
                     <NavLink to={`/admin/nests/${params.nestId}/new`}>

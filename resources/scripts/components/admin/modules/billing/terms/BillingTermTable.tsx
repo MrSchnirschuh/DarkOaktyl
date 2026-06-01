@@ -112,7 +112,9 @@ const BillingTermTable = () => {
                                         terms.items.length > 0 &&
                                         terms.items.map(term => (
                                             <TableRow key={term.uuid}>
-                                                <td css={tw`pl-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
+                                                <td
+                                                    css={tw`pl-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                >
                                                     <span
                                                         className={
                                                             'px-2 py-0.5 rounded bg-neutral-900 text-theme-secondary font-mono text-xs'
@@ -121,7 +123,9 @@ const BillingTermTable = () => {
                                                         {term.id}
                                                     </span>
                                                 </td>
-                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
+                                                <td
+                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                >
                                                     <NavLink
                                                         to={`/admin/billing/terms/${term.uuid}`}
                                                         style={{ color: theme.colors.primary }}
@@ -130,18 +134,26 @@ const BillingTermTable = () => {
                                                         {term.name}
                                                     </NavLink>
                                                 </td>
-                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
+                                                <td
+                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                >
                                                     <code className={'font-mono bg-neutral-900 rounded py-1 px-2'}>
                                                         {term.slug ?? 'auto'}
                                                     </code>
                                                 </td>
-                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
+                                                <td
+                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                >
                                                     {term.durationDays}
                                                 </td>
-                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
+                                                <td
+                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                >
                                                     {term.multiplier.toFixed(4)}x
                                                 </td>
-                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
+                                                <td
+                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                >
                                                     <span
                                                         className={`px-2 py-0.5 rounded-full text-xs font-medium ${
                                                             term.isActive
@@ -152,7 +164,9 @@ const BillingTermTable = () => {
                                                         {term.isActive ? 'Active' : 'Inactive'}
                                                     </span>
                                                 </td>
-                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
+                                                <td
+                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                >
                                                     <span
                                                         className={`px-2 py-0.5 rounded-full text-xs font-medium ${
                                                             term.isDefault
@@ -163,7 +177,9 @@ const BillingTermTable = () => {
                                                         {term.isDefault ? 'Default' : '—'}
                                                     </span>
                                                 </td>
-                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
+                                                <td
+                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                >
                                                     {term.updatedAt
                                                         ? Math.abs(differenceInHours(term.updatedAt, new Date())) > 48
                                                             ? format(term.updatedAt, 'MMM do, yyyy h:mma')

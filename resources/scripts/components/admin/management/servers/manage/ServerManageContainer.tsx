@@ -1,13 +1,12 @@
 import tw from 'twin.macro';
 import ReinstallServerBox from '@admin/management/servers/manage/ReinstallServerBox';
-import FlashMessageRender from '@/elements/FlashMessageRender';
+import FlashMessageRender from '@/components/FlashMessageRender';
 import { useEffect } from 'react';
 import useFlash from '@/plugins/useFlash';
 import ToggleInstallStatusBox from '@admin/management/servers/manage/ToggleInstallStatusBox';
-import { useServerFromRoute } from '@/api/routes/admin/server';
+import { useServerFromRoute } from '@/api/admin/server';
 import SuspendServerBox from './SuspendServerBox';
 import UnsuspendServerBox from './UnsuspendServerBox';
-import TransferServerBox from './TransferServerBox';
 
 export default () => {
     const { data: server } = useServerFromRoute();
@@ -25,7 +24,6 @@ export default () => {
             <ReinstallServerBox />
             <ToggleInstallStatusBox />
             {server.status === 'suspended' ? <UnsuspendServerBox /> : <SuspendServerBox />}
-            <TransferServerBox />
         </div>
     );
 };

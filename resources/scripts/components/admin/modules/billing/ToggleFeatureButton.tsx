@@ -1,6 +1,6 @@
-import { Button } from '@/elements/button';
+import { Button } from '@elements/button';
 import { useStoreState } from '@/state/hooks';
-import { updateSettings } from '@/api/routes/admin/billing';
+import { updateSettings } from '@/api/admin/billing';
 
 export default () => {
     const enabled = useStoreState(state => state.DarkOak.data!.billing.enabled);
@@ -18,4 +18,3 @@ export default () => {
         </div>
     );
 };
-

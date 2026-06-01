@@ -1,6 +1,6 @@
-import AdminContentBlock from '@/elements/AdminContentBlock';
+import AdminContentBlock from '@elements/AdminContentBlock';
 import OrdersTable from './OrdersTable';
-import TitledGreyBox from '@/elements/TitledGreyBox';
+import TitledGreyBox from '@elements/TitledGreyBox';
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 
 export default () => (
@@ -19,10 +19,9 @@ export default () => (
         </div>
         <TitledGreyBox icon={faExclamationTriangle} title={'Important Information'} className={'mb-8'}>
             Pending orders are automatically set to expired and deleted after 7 days, making them no longer visible in
-            the admin area. If you wish to remove billing orders from DarkOaktyl manually, you must make a database query
-            to do so. Removing orders manually is not recommended.
+            the admin area. If you wish to remove billing orders from DarkOaktyl manually, you must make a database
+            query to do so. Removing orders manually is not recommended.
         </TitledGreyBox>
         <OrdersTable />
     </AdminContentBlock>
 );
-

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('server_runtime_tracking', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('server_id');
+            $table->unsignedInteger('server_id');
             $table->enum('status', ['running', 'paused', 'stopped', 'offline'])->default('offline');
             $table->dateTime('started_at')->nullable();
             $table->dateTime('stopped_at')->nullable();

@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
-import type { Filters } from '@/api/routes/admin/servers/getServers';
-import getNodes, { Context as NodesContext } from '@/api/routes/admin/nodes/getNodes';
-import FlashMessageRender from '@/elements/FlashMessageRender';
+import type { Filters } from '@/api/admin/servers/getServers';
+import getNodes, { Context as NodesContext } from '@/api/admin/nodes/getNodes';
+import FlashMessageRender from '@/components/FlashMessageRender';
 import useFlash from '@/plugins/useFlash';
 import { NavLink } from 'react-router-dom';
 import tw from 'twin.macro';
-import AdminContentBlock from '@/elements/AdminContentBlock';
+import AdminContentBlock from '@elements/AdminContentBlock';
 import AdminTable, {
     TableBody,
     TableHead,
@@ -16,12 +16,12 @@ import AdminTable, {
     NoItems,
     ContentWrapper,
     useTableHooks,
-} from '@/elements/AdminTable';
-import { Button } from '@/elements/button';
-import CopyOnClick from '@/elements/CopyOnClick';
+} from '@elements/AdminTable';
+import { Button } from '@elements/button';
+import CopyOnClick from '@elements/CopyOnClick';
 import { bytesToString, mbToBytes } from '@/lib/formatters';
 import { useStoreState } from '@/state/hooks';
-import { Dialog } from '@/elements/dialog';
+import { Dialog } from '@/components/elements/dialog';
 import NewNodeContainer from './NewNodeContainer';
 
 const NodesContainer = () => {
@@ -118,7 +118,9 @@ const NodesContainer = () => {
                                         length > 0 &&
                                         nodes.items.map(node => (
                                             <TableRow key={node.id}>
-                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
+                                                <td
+                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                >
                                                     <CopyOnClick text={node.id.toString()}>
                                                         <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>
                                                             {node.id}
@@ -126,7 +128,9 @@ const NodesContainer = () => {
                                                     </CopyOnClick>
                                                 </td>
 
-                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
+                                                <td
+                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                >
                                                     <NavLink
                                                         to={`/admin/nodes/${node.id}`}
                                                         style={{ color: colors.primary }}
@@ -135,7 +139,9 @@ const NodesContainer = () => {
                                                         {node.name}
                                                     </NavLink>
                                                 </td>
-                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
+                                                <td
+                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                >
                                                     <CopyOnClick text={node.fqdn}>
                                                         <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>
                                                             {node.fqdn}
@@ -143,10 +149,14 @@ const NodesContainer = () => {
                                                     </CopyOnClick>
                                                 </td>
 
-                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
+                                                <td
+                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                >
                                                     {bytesToString(mbToBytes(node.memory))}
                                                 </td>
-                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
+                                                <td
+                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                >
                                                     {bytesToString(mbToBytes(node.disk))}
                                                 </td>
 

@@ -1,9 +1,9 @@
-import { updateSettings } from '@/api/routes/admin/ai/settings';
-import Input from '@/elements/Input';
-import SpinnerOverlay from '@/elements/SpinnerOverlay';
-import Tooltip from '@/elements/tooltip/Tooltip';
+import { updateSettings } from '@/api/admin/ai/settings';
+import Input from '@elements/Input';
+import SpinnerOverlay from '@elements/SpinnerOverlay';
+import Tooltip from '@elements/tooltip/Tooltip';
 import { useFlashKey } from '@/plugins/useFlash';
-import { Dialog } from '@/elements/dialog';
+import { Dialog } from '@elements/dialog';
 import { faCheckCircle, faExclamationTriangle, faExternalLink } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useStoreState } from 'easy-peasy';
@@ -38,8 +38,8 @@ export default () => {
         <Dialog open onClose={() => undefined} preventExternalClose hideCloseIcon title={'Configure DarkOaktyl AI'}>
             <SpinnerOverlay visible={loading} />
             <p className={'text-theme-muted'}>
-                In order to use <span style={{ color: theme.primary }}>DarkOaktyl AI</span>, you must get a Gemini API key
-                from Google.
+                In order to use <span style={{ color: theme.primary }}>DarkOaktyl AI</span>, you must get a Gemini API
+                key from Google.
             </p>
             <p className={'text-theme-muted my-2'}>
                 You can visit the{' '}
@@ -70,5 +70,3 @@ export default () => {
         </Dialog>
     );
 };
-
-

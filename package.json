@@ -49,6 +49,8 @@
         "@heroicons/react": "1.0.6",
         "@lezer/common": "1.0.2",
         "@lezer/highlight": "1.1.3",
+        "@stripe/react-stripe-js": "^6.5.0",
+        "@stripe/stripe-js": "^9.7.0",
         "@types/react-transition-group": "^4.4.12",
         "@types/use-persisted-state": "^0.3.4",
         "axios": "0.30.0",
@@ -129,14 +131,15 @@
         "prettier": "2.8.4",
         "prettier-plugin-tailwindcss": "0.2.3",
         "rimraf": "3.0.2",
+        "rollup-plugin-visualizer": "^5.12.0",
         "tailwindcss": "3.2.7",
+        "terser": "^5.48.0",
         "ts-essentials": "9.3.0",
         "twin.macro": "2.8.2",
         "typescript": "4.9.5",
         "vite": "4.5.14",
-        "vitest": "0.28.5",
-        "rollup-plugin-visualizer": "^5.12.0",
-        "vite-plugin-compression": "^0.5.1"
+        "vite-plugin-compression": "^0.5.1",
+        "vitest": "0.28.5"
     },
     "browserslist": [
         "> 0.5%",
@@ -156,4 +159,3 @@
         }
     }
 }
-

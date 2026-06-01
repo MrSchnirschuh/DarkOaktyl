@@ -1,24 +1,23 @@
 import { useEffect } from 'react';
-import { Link, Route, Routes, useParams } from 'react-router-dom';
+import { Route, Routes, useParams } from 'react-router-dom';
 import tw from 'twin.macro';
 
-import { useEggFromRoute } from '@/api/routes/admin/egg';
+import { useEggFromRoute } from '@/api/admin/egg';
 import EggInstallContainer from '@admin/service/nests/eggs/EggInstallContainer';
 import EggVariablesContainer from '@admin/service/nests/eggs/EggVariablesContainer';
 import useFlash from '@/plugins/useFlash';
-import AdminContentBlock from '@/elements/AdminContentBlock';
-import Spinner from '@/elements/Spinner';
-import FlashMessageRender from '@/elements/FlashMessageRender';
+import AdminContentBlock from '@elements/AdminContentBlock';
+import Spinner from '@elements/Spinner';
+import FlashMessageRender from '@/components/FlashMessageRender';
 import { SubNavigation, SubNavigationLink } from '@admin/SubNavigation';
 import EggSettingsContainer from '@admin/service/nests/eggs/EggSettingsContainer';
-import { Button } from '@/elements/button';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useStoreState } from '@/state/hooks';
 
 const EggRouter = () => {
     const { id, nestId } = useParams<'nestId' | 'id'>();
 
     const { clearFlashes, clearAndAddHttpError } = useFlash();
+    const theme = useStoreState(state => state.theme.data!);
     const { data: egg, error, isValidating, mutate } = useEggFromRoute();
 
     useEffect(() => {
@@ -49,18 +48,11 @@ const EggRouter = () => {
                         {egg.uuid}
                     </p>
                 </div>
-                <div css={tw`flex flex-row ml-auto pl-4`}>
-                    <Link to={`/admin/nests/${egg.nestId}`} className={'mr-4'}>
-                        <Button.Text>
-                            <FontAwesomeIcon icon={faArrowLeft} className={'mr-2'} /> Go Back
-                        </Button.Text>
-                    </Link>
-                </div>
             </div>
 
             <FlashMessageRender byKey={'egg'} css={tw`mb-4`} />
 
-            <SubNavigation>
+            <SubNavigation theme={theme}>
                 <SubNavigationLink to={`/admin/nests/${nestId ?? ''}/eggs/${id ?? ''}`} name={'About'} base>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                         <path

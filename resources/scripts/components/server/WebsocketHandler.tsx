@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import tw from 'twin.macro';
-import getWebsocketToken from '@/api/routes/server/websocket';
-import ContentContainer from '@/elements/ContentContainer';
-import Spinner from '@/elements/Spinner';
-import FadeTransition from '@/elements/transitions/FadeTransition';
+import getWebsocketToken from '@/api/server/websocket';
+import ContentContainer from '@elements/ContentContainer';
+import Spinner from '@elements/Spinner';
+import FadeTransition from '@elements/transitions/FadeTransition';
 import { Websocket } from '@/plugins/Websocket';
 import { ServerContext } from '@/state/server';
 
@@ -36,9 +36,6 @@ function WebsocketHandler() {
 
         socket.on('auth success', () => setConnectionState(true));
         socket.on('SOCKET_CLOSE', () => setConnectionState(false));
-        socket.on('SOCKET_CONNECT_ERROR', () => {
-            setError('Failed to connect to websocket instance after multiple attempts: try refreshing the page.');
-        });
         socket.on('SOCKET_ERROR', () => {
             setError('connecting');
             setConnectionState(false);

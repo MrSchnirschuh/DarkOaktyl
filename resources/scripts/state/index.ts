@@ -5,7 +5,7 @@ import flashes, { FlashStore } from '@/state/flashes';
 import DarkOak, { DarkOakStore } from '@/state/DarkOak';
 import settings, { SettingsStore } from '@/state/settings';
 import progress, { ProgressStore } from '@/state/progress';
-import permissions, { GloablPermissionsStore } from '@/state/server/permissions';
+import permissions, { GloablPermissionsStore } from '@/state/permissions';
 
 export interface ApplicationStore {
     permissions: GloablPermissionsStore;
@@ -28,4 +28,3 @@ const state: ApplicationStore = {
 };
 
 export const store = createStore(state);
-

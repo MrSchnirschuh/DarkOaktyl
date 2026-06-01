@@ -34,4 +34,3 @@ export default ({ setOpen }: { setOpen: Dispatch<SetStateAction<BillingSetupDial
         </Dialog>
     );
 };
-

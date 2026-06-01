@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('billing_records', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('server_id');
+            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('server_id');
             $table->dateTime('billing_period_start');
             $table->dateTime('billing_period_end');
             $table->decimal('hours_billed', 8, 2);

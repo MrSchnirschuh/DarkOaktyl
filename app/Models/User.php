@@ -161,7 +161,7 @@ class User extends Model implements
         'language' => 'en',
         'use_totp' => false,
         'totp_secret' => null,
-        'state' => null,
+        'state' => 'active',
         'appearance_mode' => 'system',
         'appearance_last_mode' => 'dark',
     ];

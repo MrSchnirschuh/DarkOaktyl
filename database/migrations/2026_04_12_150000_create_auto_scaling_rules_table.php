@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('auto_scaling_rules', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('server_id');
+            $table->unsignedInteger('server_id');
             
             // Thresholds
             $table->unsignedTinyInteger('cpu_threshold')->default(80)->comment('CPU threshold in percent');

@@ -6,21 +6,22 @@ import { useNavigate } from 'react-router-dom';
 import tw from 'twin.macro';
 import { number, object, string } from 'yup';
 
-import type { Values } from '@/api/routes/admin/nodes/createNode';
-import createNode from '@/api/routes/admin/nodes/createNode';
+import type { Values } from '@/api/admin/nodes/createNode';
+import createNode from '@/api/admin/nodes/createNode';
 import NodeLimitContainer from '@admin/management/nodes/NodeLimitContainer';
 import NodeListenContainer from '@admin/management/nodes/NodeListenContainer';
 import NodeSettingsContainer from '@admin/management/nodes/NodeSettingsContainer';
-import { Button } from '@/elements/button';
+import { Button } from '@elements/button';
 import type { ApplicationStore } from '@/state';
 import NodeBillingContainer from './NodeBillingContainer';
 import { PlusIcon } from '@heroicons/react/outline';
 
-type Values2 = Omit<Omit<Values, 'behindProxy'>, 'public' | 'deployable' | 'deployableFree'> & {
+type Values2 = Omit<Omit<Values, 'behindProxy'>, 'public' | 'deployable' | 'deployableFree' | 'deployableMetered'> & {
     behindProxy: string;
     public: string;
     deployable: string;
     deployableFree: string;
+    deployableMetered: string;
 };
 
 const initialValues: Values2 = {
@@ -34,6 +35,7 @@ const initialValues: Values2 = {
     daemonBase: '/var/lib/DarkOaktyl/volumes',
     deployable: 'false',
     deployableFree: 'false',
+    deployableMetered: 'false',
 
     listenPortHTTP: 8080,
     publicPortHTTP: 8080,
@@ -62,6 +64,7 @@ export default () => {
             public: values2.public === 'true',
             deployable: values2.deployable === 'true',
             deployableFree: values2.deployableFree === 'true',
+            deployableMetered: values2.deployableMetered === 'true',
         };
 
         createNode(values)
@@ -131,4 +134,3 @@ export default () => {
         </Formik>
     );
 };
-

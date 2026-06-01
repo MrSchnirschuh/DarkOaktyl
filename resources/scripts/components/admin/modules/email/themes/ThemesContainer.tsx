@@ -452,7 +452,9 @@ const ThemesContainer = () => {
                                 <span css={tw`text-xs text-theme-muted`}>UUID</span>
                                 <code css={tw`text-[10px] bg-neutral-800 px-2 py-1 rounded`}>{theme.uuid}</code>
                             </div>
-                            {theme.description && <p css={tw`text-sm text-theme-secondary mb-3`}>{theme.description}</p>}
+                            {theme.description && (
+                                <p css={tw`text-sm text-theme-secondary mb-3`}>{theme.description}</p>
+                            )}
                             <div css={tw`flex flex-wrap gap-2 mb-4`}>
                                 {theme.isDefault ? <Pill type={'success'}>Default</Pill> : null}
                                 <Pill type={theme.variantMode === 'dual' ? 'info' : 'warn'}>
@@ -621,7 +623,9 @@ const ThemesContainer = () => {
 
                             {values.variantMode === 'dual' ? (
                                 <>
-                                    <h3 css={tw`text-lg font-semibold text-theme-secondary mb-3`}>Light Mode Palette</h3>
+                                    <h3 css={tw`text-lg font-semibold text-theme-secondary mb-3`}>
+                                        Light Mode Palette
+                                    </h3>
                                     <div css={tw`grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6`}>
                                         {colorFields.map(({ key, label }) => (
                                             <Field
@@ -662,4 +666,3 @@ const ThemesContainer = () => {
 };
 
 export default ThemesContainer;
-

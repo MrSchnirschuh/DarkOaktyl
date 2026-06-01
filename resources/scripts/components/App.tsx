@@ -15,6 +15,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AuthenticatedRoute from '@elements/AuthenticatedRoute';
 import { NotFound } from '@elements/ScreenBlock';
 import { DarkOakSettings } from '@/state/DarkOak';
+import type { AuthLoginMethod } from '@definitions/user';
 import Onboarding from '@/components/Onboarding';
 import SpeedDial from '@elements/SpeedDial';
 import SetupContainer from './setup/SetupContainer';
@@ -45,6 +46,7 @@ interface ExtendedWindow extends Window {
         created_at: string;
         appearance_mode?: 'system' | 'light' | 'dark';
         appearance_last_mode?: 'light' | 'dark';
+        auth_login_method?: AuthLoginMethod;
     };
 }
 
@@ -67,6 +69,7 @@ function App() {
             updatedAt: new Date(DarkOaktylUser.updated_at),
             appearanceMode: DarkOaktylUser.appearance_mode ?? 'system',
             appearanceLastMode: DarkOaktylUser.appearance_last_mode ?? 'dark',
+            authLoginMethod: DarkOaktylUser.auth_login_method ?? 'password',
         });
     }
 
@@ -122,7 +125,7 @@ function App() {
                 ) : (
                     <>
                         {' '}
-                        {DarkOaktylUser?.username.startsWith('null_user_') &&
+                        {DarkOaktylUser?.username?.startsWith('null_user_') &&
                         DarkOakConfiguration?.auth.modules.onboarding.enabled ? (
                             <Onboarding />
                         ) : (
@@ -188,5 +191,3 @@ function App() {
 }
 
 export { App };
-
-

@@ -15,6 +15,8 @@ const WebhookRouter = lazy(() => import('@/components/admin/modules/webhooks/Web
 const ThemeContainer = lazy(() => import('@/components/admin/modules/theme/ThemeContainer'));
 const AlertRouter = lazy(() => import('@/components/admin/modules/alert/AlertRouter'));
 const EmailRouter = lazy(() => import('@/components/admin/modules/email/EmailRouter'));
+const PresetsContainer = lazy(() => import('@/components/admin/modules/presets/PresetsRouter'));
+const LegalContainer = lazy(() => import('@/components/admin/modules/legal/LegalContainer'));
 
 const NodeRouter = lazy(() => import('@/components/admin/management/nodes/NodeRouter'));
 const NodesContainer = lazy(() => import('@/components/admin/management/nodes/NodesContainer'));
@@ -25,6 +27,7 @@ const LinksContainer = lazy(() => import('@/components/admin/modules/links/Links
 const ServersContainer = lazy(() => import('@/components/admin/management/servers/ServersContainer'));
 const NewServerContainer = lazy(() => import('@/components/admin/management/servers/NewServerContainer'));
 const ServerRouter = lazy(() => import('@/components/admin/management/servers/ServerRouter'));
+const DomainRootsContainer = lazy(() => import('@/components/admin/management/domains/DomainRootsContainer'));
 const AdminUsersContainer = lazy(() => import('@/components/admin/management/users/UsersContainer'));
 const NewUserContainer = lazy(() => import('@/components/admin/management/users/NewUserContainer'));
 const UserRouter = lazy(() => import('@/components/admin/management/users/UserRouter'));
@@ -53,6 +56,13 @@ const admin: AdminRouteDefinition[] = [
     route('tickets/*', TicketRouter, { name: 'Tickets', icon: Icon.TicketIcon, category: 'modules', advanced: true }),
     route('ai/*', AIRouter, { name: 'AI', icon: Icon.SparklesIcon, category: 'modules', advanced: true }),
     route('emails/*', EmailRouter, { name: 'Emails', icon: Icon.MailIcon, category: 'modules', advanced: true }),
+    route('legal', LegalContainer, { name: 'Legal', icon: Icon.ScaleIcon, category: 'modules' }),
+    route('presets/*', PresetsContainer, {
+        name: 'Presets',
+        icon: Icon.CollectionIcon,
+        category: 'modules',
+        advanced: true,
+    }),
     route('webhooks/*', WebhookRouter, {
         name: 'Webhooks',
         icon: Icon.CursorClickIcon,
@@ -80,6 +90,7 @@ const admin: AdminRouteDefinition[] = [
     route('nodes/*', NodesContainer, { name: 'Nodes', icon: Icon.ServerIcon, category: 'management' }),
     route('nodes/new', NewNodeContainer),
     route('nodes/:id/*', NodeRouter),
+    route('domains', DomainRootsContainer, { name: 'Domains', icon: Icon.GlobeAltIcon, category: 'management' }),
     route('servers', ServersContainer, { name: 'Servers', icon: Icon.TerminalIcon, category: 'management' }),
     route('servers/new', NewServerContainer),
     route('servers/:id/*', ServerRouter),

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('credit_balances', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedInteger('user_id');
             $table->decimal('balance', 15, 4)->default(0.0000);
             $table->decimal('reserved_balance', 15, 4)->default(0.0000);
             $table->decimal('low_balance_threshold', 10, 4)->default(5.0000);

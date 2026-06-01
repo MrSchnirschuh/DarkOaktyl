@@ -1,14 +1,15 @@
-import Input from '@/elements/Input';
+import Input from '@elements/Input';
 import { useStoreState } from '@/state/hooks';
-import { Dialog } from '@/elements/dialog';
+import { Dialog } from '@elements/dialog';
 import { faExclamationTriangle, faCheckCircle, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Tooltip from '@/elements/tooltip/Tooltip';
+import Tooltip from '@elements/tooltip/Tooltip';
 import { useEffect, useState } from 'react';
-import { Button } from '@/elements/button';
-import { updateSettings } from '@/api/routes/admin/billing';
+import { Button } from '@elements/button';
+import { updateSettings } from '@/api/admin/billing';
 
 interface StripeKeys {
+    publishable?: string;
     secret?: string;
 }
 
@@ -18,15 +19,17 @@ export default ({ extOpen }: { extOpen?: boolean }) => {
     const existingKeys = useStoreState(s => s.DarkOak.data!.billing.keys);
 
     const submit = async () => {
-        if (!data || !data.secret) return;
+        if (!data || !data.secret || !data.publishable) return;
 
-        updateSettings('keys:secret', data.secret).then(() => {
-            window.location.reload();
+        updateSettings('keys:publishable', data.publishable).then(() => {
+            updateSettings('keys:secret', data.secret).then(() => {
+                window.location.reload();
+            });
         });
     };
 
     useEffect(() => {
-        if (existingKeys && !existingKeys.secret) {
+        if (existingKeys && !existingKeys.publishable) {
             setOpen(true);
         }
     }, [existingKeys]);
@@ -56,6 +59,22 @@ export default ({ extOpen }: { extOpen?: boolean }) => {
             to obtain your API key and secret key, then paste them here.
             <div className={'relative mt-4'}>
                 <Input
+                    placeholder={'Enter "publishable" key here...'}
+                    onChange={e => setData({ ...data, publishable: e.currentTarget.value })}
+                />
+                {!data?.publishable || data.publishable.length < 100 || data.publishable.length > 120 ? (
+                    <Tooltip placement={'right'} content={'You must enter a valid Stripe publisable key to continue.'}>
+                        <FontAwesomeIcon
+                            icon={faExclamationTriangle}
+                            className={'absolute top-1/3 right-4 text-yellow-500'}
+                        />
+                    </Tooltip>
+                ) : (
+                    <FontAwesomeIcon icon={faCheckCircle} className={'absolute top-1/3 right-4 text-green-500'} />
+                )}
+            </div>
+            <div className={'relative mt-4'}>
+                <Input
                     placeholder={'Enter "secret" key here...'}
                     onChange={e => setData({ ...data, secret: e.currentTarget.value })}
                 />
@@ -71,12 +90,10 @@ export default ({ extOpen }: { extOpen?: boolean }) => {
                 )}
             </div>
             <div className={'w-full text-right mt-4'}>
-                <Button onClick={submit} disabled={!data?.secret}>
+                <Button onClick={submit} disabled={!data?.secret || !data?.publishable}>
                     Submit
                 </Button>
             </div>
         </Dialog>
     );
 };
-
-

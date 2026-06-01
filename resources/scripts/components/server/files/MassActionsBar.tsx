@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 
-import { compressFiles, deleteFiles } from '@/api/routes/server/files';
-import { Button } from '@/elements/button';
-import { Dialog } from '@/elements/dialog';
-import Portal from '@/elements/Portal';
-import SpinnerOverlay from '@/elements/SpinnerOverlay';
-import RenameFileModal from '@server/files/RenameFileModal';
+import { compressFiles, deleteFiles } from '@/api/server/files';
+import { Button } from '@elements/button';
+import { Dialog } from '@elements/dialog';
+import Portal from '@elements/Portal';
+import SpinnerOverlay from '@elements/SpinnerOverlay';
+import RenameFileModal from '@/components/server/files/RenameFileModal';
 import useFileManagerSwr from '@/plugins/useFileManagerSwr';
 import useFlash from '@/plugins/useFlash';
 import { ServerContext } from '@/state/server';
-import FadeTransition from '@/elements/transitions/FadeTransition';
+import FadeTransition from '@elements/transitions/FadeTransition';
 
 const MassActionsBar = () => {
     const uuid = ServerContext.useStoreState(state => state.server.data!.uuid);
@@ -74,8 +74,8 @@ const MassActionsBar = () => {
                 >
                     <p className="mb-2">
                         Are you sure you want to delete&nbsp;
-                        <span className="font-semibold text-theme-primary">{selectedFiles.length} files</span>? This is a
-                        permanent action and the files cannot be recovered.
+                        <span className="font-semibold text-theme-primary">{selectedFiles.length} files</span>? This is
+                        a permanent action and the files cannot be recovered.
                     </p>
                     {selectedFiles.slice(0, 15).map(file => (
                         <li key={file}>{file}</li>

@@ -1,15 +1,15 @@
 import useFlash from '@/plugins/useFlash';
 import { PanelMode } from '@/state/settings';
-import { Button } from '@/elements/button';
-import FeatureContainer from '@/elements/FeatureContainer';
+import { Button } from '@elements/button';
+import { updateModeSettings } from '@/api/admin/settings';
+import FeatureContainer from '@elements/FeatureContainer';
 import { useStoreActions, useStoreState } from '@/state/hooks';
 import PersonalModeSvg from '@/assets/images/themed/PersonalModeSvg';
 import StandardModeSvg from '@/assets/images/themed/StandardMoveSvg';
 import { faDesktop, faMoon, faTerminal } from '@fortawesome/free-solid-svg-icons';
 import ServerSvg from '@/assets/images/themed/ServerSvg';
-import { Dialog } from '@/elements/dialog';
+import { Dialog } from '@elements/dialog';
 import { useState } from 'react';
-import { updateModeSettings } from '@/api/routes/admin/settings';
 
 export default () => {
     const [warning, setWarning] = useState<boolean>(false);
@@ -57,8 +57,8 @@ export default () => {
                 title={'Standard Mode'}
                 image={<StandardModeSvg color={primary} />}
             >
-                Standard mode enables all the typical features of DarkOaktyl, including our billing system, tickets, user
-                registration and so much more.
+                Standard mode enables all the typical features of DarkOaktyl, including our billing system, tickets,
+                user registration and so much more.
                 <p className={'text-right mt-2'}>
                     <Button disabled={settings.mode === 'standard'} onClick={() => updateMode('standard')}>
                         {settings.mode === 'standard' ? 'Currently Active' : 'Enable Now'}
@@ -94,4 +94,3 @@ export default () => {
         </>
     );
 };
-

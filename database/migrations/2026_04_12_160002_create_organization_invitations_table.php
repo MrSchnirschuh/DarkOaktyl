@@ -11,13 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (Schema::hasTable('organization_invitations')) {
+            return;
+        }
+
         Schema::create('organization_invitations', function (Blueprint $table) {
             $table->id()->primary();
-            $table->unsignedBigInteger('organization_id');
+            $table->unsignedInteger('organization_id');
             $table->string('email', 191);
             $table->string('token', 64)->unique();
             $table->enum('role', ['admin', 'member'])->default('member');
-            $table->unsignedBigInteger('invited_by_user_id')->nullable();
+            $table->unsignedInteger('invited_by_user_id')->nullable();
             $table->timestamp('expires_at');
             $table->timestamp('accepted_at')->nullable();
             $table->timestamp('declined_at')->nullable();

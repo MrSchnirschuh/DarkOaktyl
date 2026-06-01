@@ -13,13 +13,15 @@ return new class extends Migration
     {
         Schema::create('credit_transactions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedInteger('user_id');
             $table->enum('type', ['credit', 'debit', 'refund', 'adjustment']);
             $table->decimal('amount', 15, 4);
             $table->decimal('balance_before', 15, 4);
             $table->decimal('balance_after', 15, 4);
             $table->string('description')->nullable();
-            $table->morphs('transactionable');
+            $table->string('transactionable_type');
+            $table->unsignedBigInteger('transactionable_id');
+            $table->index(['transactionable_type', 'transactionable_id'], 'credittrx_morph_idx');
             $table->string('reference_id')->nullable();
             $table->json('metadata')->nullable();
             $table->timestamps();
@@ -29,7 +31,7 @@ return new class extends Migration
                 ->on('users')
                 ->onDelete('cascade');
 
-            $table->index(['user_id', 'created_at']);
+            $table->index(['transactionable_type', 'transactionable_id'], 'credittrx_ttype_tid_idx');
             $table->index('reference_id');
         });
     }

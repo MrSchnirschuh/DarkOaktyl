@@ -24,6 +24,9 @@
             ],
             "@admin/*": [
                 "./resources/scripts/components/admin/*"
+            ],
+            "@elements/*": [
+                "./resources/scripts/components/elements/*"
             ]
         },
         "plugins": [

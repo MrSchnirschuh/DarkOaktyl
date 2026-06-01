@@ -3,6 +3,17 @@ import { action, Action } from 'easy-peasy';
 export type AlertType = 'success' | 'warning' | 'danger' | 'info';
 export type AlertPosition = 'top-center' | 'bottom-right' | 'bottom-left' | 'center';
 
+export interface EmailEnvironmentSettings {
+    mailer: string;
+    host?: string | null;
+    port?: string | null;
+    username?: string | null;
+    password?: string | null;
+    encryption?: string | null;
+    fromAddress?: string | null;
+    fromName?: string | null;
+}
+
 export interface DarkOakSettings {
     auth: {
         registration: {
@@ -31,6 +42,10 @@ export interface DarkOakSettings {
                 enabled: boolean;
                 content?: string;
             };
+            passkeys: {
+                enabled: boolean;
+                max: number;
+            };
         };
     };
     tickets: {
@@ -39,22 +54,17 @@ export interface DarkOakSettings {
     };
     billing: {
         enabled: boolean;
+        paypal: boolean;
+        link: boolean;
         keys: {
+            publishable: boolean;
             secret: boolean;
         };
         currency: {
             symbol: string;
             code: string;
         };
-        links: {
-            terms: string;
-            privacy: string;
-        };
-        renewal: {
-            days: number;
-            threshold: number;
-        };
-        allow_upgrades: boolean;
+        storefrontMode: 'products' | 'builder' | 'hybrid';
     };
     emails: {
         enabled: boolean;
@@ -84,6 +94,7 @@ export interface DarkOakSettings {
                 button_text?: string;
             } | null;
         };
+        environment?: EmailEnvironmentSettings | null;
     };
     alert: {
         enabled: boolean;
@@ -123,4 +134,3 @@ const DarkOak: DarkOakStore = {
 };
 
 export default DarkOak;
-

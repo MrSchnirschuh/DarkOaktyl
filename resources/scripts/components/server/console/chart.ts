@@ -154,7 +154,7 @@ function useChartTickLabel(label: string, max: number, tickLabel: string, roundT
                     suggestedMax: max,
                     ticks: {
                         callback(value) {
-                            return `${Number(value).toFixed(roundTo ?? 0)}${tickLabel}`;
+                            return `${roundTo ? Number(value).toFixed(roundTo) : value}${tickLabel}`;
                         },
                     },
                 },

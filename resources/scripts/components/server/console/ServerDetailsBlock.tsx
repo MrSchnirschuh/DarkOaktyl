@@ -2,9 +2,9 @@ import { faClock, faHdd, faMemory, faMicrochip, faWifi } from '@fortawesome/free
 import classNames from 'classnames';
 import type { ReactNode } from 'react';
 import { useEffect, useMemo, useState } from 'react';
-import { SocketEvent, SocketRequest } from '@server/events';
-import UptimeDuration from '@server/UptimeDuration';
-import StatBlock from '@server/console/StatBlock';
+import { SocketEvent, SocketRequest } from '@/components/server/events';
+import UptimeDuration from '@/components/server/UptimeDuration';
+import StatBlock from '@/components/server/console/StatBlock';
 import { bytesToString, ip, mbToBytes } from '@/lib/formatters';
 import { capitalize } from '@/lib/strings';
 import { ServerContext } from '@/state/server';
@@ -17,9 +17,9 @@ function getBackgroundColor(value: number, max: number | null): string | undefin
 
     if (delta > 0.8) {
         if (delta > 0.9) {
-            return '#ef4444';
+            return 'var(--theme-danger, #dc2626)';
         }
-        return '#f59e0b';
+        return 'var(--theme-warning, #f97316)';
     }
 
     return undefined;

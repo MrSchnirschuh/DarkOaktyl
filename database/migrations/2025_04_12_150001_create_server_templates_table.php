@@ -8,16 +8,20 @@ return new class extends Migration
 {
     public function up(): void
     {
+        if (Schema::hasTable('server_templates')) {
+            return;
+        }
+
         Schema::create('server_templates', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->uuid('uuid')->unique();
             $table->foreignId('category_id')->constrained('server_template_categories')->cascadeOnDelete();
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('type'); // minecraft, valheim, cs2, etc.
             $table->string('image')->nullable(); // URL or path to template image
-            $table->foreignId('egg_id')->constrained('eggs');
-            $table->foreignId('nest_id')->constrained('nests');
+            $table->unsignedInteger('egg_id');
+            $table->unsignedInteger('nest_id');
             $table->text('startup_command')->nullable(); // Custom startup command
             $table->string('docker_image')->nullable(); // Optional custom Docker image
             $table->unsignedBigInteger('default_memory')->default(1024); // MB
@@ -34,6 +38,9 @@ return new class extends Migration
             $table->longText('pre_install_script')->nullable(); // Script to run before install
             $table->longText('post_install_script')->nullable(); // Script to run after install
             $table->timestamps();
+
+            $table->foreign('egg_id')->references('id')->on('eggs');
+            $table->foreign('nest_id')->references('id')->on('nests');
 
             $table->index('category_id');
             $table->index('egg_id');

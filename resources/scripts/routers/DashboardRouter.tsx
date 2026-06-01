@@ -1,27 +1,35 @@
 import { Suspense, useEffect, useState } from 'react';
 import { NavLink, Route, Routes } from 'react-router-dom';
-import { NotFound } from '@/elements/ScreenBlock';
-import Spinner from '@/elements/Spinner';
+import DashboardContainer from '@/components/dashboard/DashboardContainer';
+import { NotFound } from '@elements/ScreenBlock';
+import Spinner from '@elements/Spinner';
 import routes from '@/routers/routes';
 import { useStoreState } from '@/state/hooks';
 import { usePersistedState } from '@/plugins/usePersistedState';
-import Sidebar from '@/elements/Sidebar';
+import Sidebar from '@elements/Sidebar';
 import { CogIcon, DesktopComputerIcon, ExternalLinkIcon, LogoutIcon, PuzzleIcon } from '@heroicons/react/outline';
-import Avatar from '@/elements/Avatar';
-import MobileSidebar from '@/elements/MobileSidebar';
-import { CustomLink } from '@/api/routes/admin/links';
+import Avatar from '@/components/Avatar';
+import MobileSidebar from '@elements/MobileSidebar';
+import { CustomLink } from '@/api/admin/links';
 import { getLinks } from '@/api/getLinks';
 import http from '@/api/http';
-import NavigationBar from '@/elements/NavigationBar';
-import DashboardContainer from '@account/DashboardContainer';
+import NavigationBar from '@/components/NavigationBar';
+import { DEFAULT_PANEL_LOGO } from '@/constants/branding';
 
 function DashboardRouter() {
     const user = useStoreState(s => s.user.data!);
-    const { name, logo } = useStoreState(s => s.settings.data!);
+    const { name } = useStoreState(s => s.settings.data!);
     const theme = useStoreState(state => state.theme.data!);
+    const currentMode = useStoreState(s => s.theme.mode ?? 'dark');
     const [links, setLinks] = useState<CustomLink[] | null>();
     const flags = useStoreState(state => state.DarkOak.data!);
     const [collapsed, setCollapsed] = usePersistedState<boolean>(`sidebar_user_${user.uuid}`, false);
+    const collapsedLogo =
+        theme.colors[`logo_panel_${currentMode}`] ||
+        theme.colors['logo_panel'] ||
+        theme.colors[`logo_login_${currentMode}`] ||
+        theme.colors['logo_login'] ||
+        DEFAULT_PANEL_LOGO;
 
     useEffect(() => {
         getLinks().then(setLinks).catch();
@@ -62,13 +70,14 @@ function DashboardRouter() {
                     onClick={() => setCollapsed(!collapsed)}
                 >
                     {!collapsed ? (
-                        <h1 className={'text-2xl whitespace-nowrap font-medium'} style={{ color: 'var(--theme-text-primary, #111827)' }}>{name}</h1>
+                        <h1
+                            className={'text-2xl whitespace-nowrap font-medium'}
+                            style={{ color: 'var(--theme-text-primary, #111827)' }}
+                        >
+                            {name}
+                        </h1>
                     ) : (
-                        <img
-                            src={logo?.toString() || 'https://avatars.githubusercontent.com/u/91636558'}
-                            className={'mt-4 w-12'}
-                            alt={'Logo'}
-                        />
+                        <img src={collapsedLogo} className={'mt-4 w-12'} alt={'Logo'} />
                     )}
                 </div>
                 <Sidebar.Wrapper theme={theme}>
@@ -146,4 +155,3 @@ function DashboardRouter() {
 }
 
 export default DashboardRouter;
-
