@@ -8,17 +8,24 @@ class RenameColumns extends Migration
 {
     /**
      * Run the migrations.
+     * JexPanel DBs may already have renamed columns.
      */
     public function up(): void
     {
         Schema::table('allocations', function (Blueprint $table) {
-            $table->dropForeign(['node']);
-            $table->dropForeign(['assigned_to']);
+            $hasNode = Schema::hasColumn('allocations', 'node');
+            $hasAssigned = Schema::hasColumn('allocations', 'assigned_to');
 
-            $table->renameColumn('node', 'node_id');
-            $table->renameColumn('assigned_to', 'server_id');
-            $table->foreign('node_id')->references('id')->on('nodes');
-            $table->foreign('server_id')->references('id')->on('servers');
+            if ($hasNode) {
+                $table->dropForeign(['node']);
+                $table->renameColumn('node', 'node_id');
+                $table->foreign('node_id')->references('id')->on('nodes');
+            }
+            if ($hasAssigned) {
+                $table->dropForeign(['assigned_to']);
+                $table->renameColumn('assigned_to', 'server_id');
+                $table->foreign('server_id')->references('id')->on('servers');
+            }
         });
     }
 
@@ -28,15 +35,21 @@ class RenameColumns extends Migration
     public function down(): void
     {
         Schema::table('allocations', function (Blueprint $table) {
-            $table->dropForeign(['node_id']);
-            $table->dropForeign(['server_id']);
-            $table->dropIndex(['node_id']);
-            $table->dropIndex(['server_id']);
+            $hasNodeId = Schema::hasColumn('allocations', 'node_id');
+            $hasServerId = Schema::hasColumn('allocations', 'server_id');
 
-            $table->renameColumn('node_id', 'node');
-            $table->renameColumn('server_id', 'assigned_to');
-            $table->foreign('node')->references('id')->on('nodes');
-            $table->foreign('assigned_to')->references('id')->on('servers');
+            if ($hasNodeId) {
+                $table->dropForeign(['node_id']);
+                $table->dropIndex(['node_id']);
+                $table->renameColumn('node_id', 'node');
+                $table->foreign('node')->references('id')->on('nodes');
+            }
+            if ($hasServerId) {
+                $table->dropForeign(['server_id']);
+                $table->dropIndex(['server_id']);
+                $table->renameColumn('server_id', 'assigned_to');
+                $table->foreign('assigned_to')->references('id')->on('servers');
+            }
         });
     }
 }
