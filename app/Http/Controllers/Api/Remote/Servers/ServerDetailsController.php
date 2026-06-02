@@ -48,8 +48,14 @@ class ServerDetailsController extends Controller
      */
     public function list(Request $request): ServerConfigurationCollection
     {
-        /** @var \DarkOak\Models\Node $node */
+        /** @var \DarkOak\Models\Node|null $node */
         $node = $request->attributes->get('node');
+
+        // Guard: if the node wasn't authenticated by the middleware, return empty collection
+        // instead of crashing with "Attempt to read property 'id' on null".
+        if (is_null($node)) {
+            return new ServerConfigurationCollection(collect([]));
+        }
 
         // Avoid run-away N+1 SQL queries by preloading the relationships that are used
         // within each of the services called below.
