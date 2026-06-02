@@ -8,7 +8,7 @@ class AddForeignServiceVariables extends Migration
 {
     public function up(): void
     {
-        if (!Schema::hasTable('service_options')) {
+        if (!Schema::hasTable('service_options') || !Schema::hasTable('service_variables')) {
             return;
         }
 
@@ -20,6 +20,10 @@ class AddForeignServiceVariables extends Migration
 
     public function down(): void
     {
+        if (!Schema::hasTable('service_variables')) {
+            return;
+        }
+
         Schema::table('service_variables', function (Blueprint $table) {
             $table->dropForeign(['option_id']);
             $table->dropIndex(['option_id']);
