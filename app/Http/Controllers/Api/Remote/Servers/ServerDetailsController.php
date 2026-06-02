@@ -115,10 +115,11 @@ class ServerDetailsController extends Controller
                 }
             }
 
-            // Update any server marked as installing or restoring as being in a normal state
-            // at this point in the process.
+            // Update any server marked as restoring from backup as being in a normal state
+            // at this point in the process. Do NOT reset installing servers — those are
+            // actively being installed and should continue.
             Server::query()->where('node_id', $node->id)
-                ->whereIn('status', [Server::STATUS_INSTALLING, Server::STATUS_RESTORING_BACKUP])
+                ->whereIn('status', [Server::STATUS_RESTORING_BACKUP])
                 ->update(['status' => null]);
         });
 
