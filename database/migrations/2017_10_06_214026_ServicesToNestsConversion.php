@@ -8,26 +8,29 @@ class ServicesToNestsConversion extends Migration
 {
     /**
      * Run the migrations.
+     * Jexpanel DBs have already done this conversion — 'services' won't exist.
      */
     public function up(): void
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::rename('services', 'nests');
+        if (Schema::hasTable('services')) {
+            Schema::rename('services', 'nests');
 
-        Schema::table('servers', function (Blueprint $table) {
-            $table->dropForeign(['service_id']);
-            $table->renameColumn('service_id', 'nest_id');
+            Schema::table('servers', function (Blueprint $table) {
+                $table->dropForeign(['service_id']);
+                $table->renameColumn('service_id', 'nest_id');
+                $table->foreign('nest_id')->references('id')->on('nests');
+            });
 
-            $table->foreign('nest_id')->references('id')->on('nests');
-        });
-
-        Schema::table('service_options', function (Blueprint $table) {
-            $table->dropForeign(['service_id']);
-            $table->renameColumn('service_id', 'nest_id');
-
-            $table->foreign('nest_id')->references('id')->on('nests')->onDelete('CASCADE');
-        });
+            if (Schema::hasTable('service_options')) {
+                Schema::table('service_options', function (Blueprint $table) {
+                    $table->dropForeign(['service_id']);
+                    $table->renameColumn('service_id', 'nest_id');
+                    $table->foreign('nest_id')->references('id')->on('nests')->onDelete('CASCADE');
+                });
+            }
+        }
 
         Schema::enableForeignKeyConstraints();
     }
@@ -39,21 +42,23 @@ class ServicesToNestsConversion extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::rename('nests', 'services');
+        if (Schema::hasTable('nests')) {
+            Schema::rename('nests', 'services');
 
-        Schema::table('servers', function (Blueprint $table) {
-            $table->dropForeign(['nest_id']);
-            $table->renameColumn('nest_id', 'service_id');
+            Schema::table('servers', function (Blueprint $table) {
+                $table->dropForeign(['nest_id']);
+                $table->renameColumn('nest_id', 'service_id');
+                $table->foreign('service_id')->references('id')->on('services');
+            });
 
-            $table->foreign('service_id')->references('id')->on('services');
-        });
-
-        Schema::table('service_options', function (Blueprint $table) {
-            $table->dropForeign(['nest_id']);
-            $table->renameColumn('nest_id', 'service_id');
-
-            $table->foreign('service_id')->references('id')->on('services')->onDelete('CASCADE');
-        });
+            if (Schema::hasTable('service_options')) {
+                Schema::table('service_options', function (Blueprint $table) {
+                    $table->dropForeign(['nest_id']);
+                    $table->renameColumn('nest_id', 'service_id');
+                    $table->foreign('service_id')->references('id')->on('services')->onDelete('CASCADE');
+                });
+            }
+        }
 
         Schema::enableForeignKeyConstraints();
     }

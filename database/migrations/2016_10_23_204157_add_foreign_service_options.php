@@ -6,27 +6,32 @@ use Illuminate\Database\Migrations\Migration;
 
 class AddForeignServiceOptions extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
+        if (!Schema::hasTable('service_options')) {
+            return;
+        }
+
         Schema::table('service_options', function (Blueprint $table) {
-            $table->integer('parent_service', false, true)->change();
-            $table->foreign('parent_service')->references('id')->on('services');
+            if (Schema::hasColumn('service_options', 'parent_service')) {
+                $table->integer('parent_service', false, true)->change();
+                $table->foreign('parent_service')->references('id')->on('services');
+            }
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::table('service_options', function (Blueprint $table) {
-            $table->dropForeign(['parent_service']);
-            $table->dropIndex(['parent_service']);
+        if (!Schema::hasTable('service_options')) {
+            return;
+        }
 
-            $table->mediumInteger('parent_service', false, true)->change();
+        Schema::table('service_options', function (Blueprint $table) {
+            if (Schema::hasColumn('service_options', 'parent_service')) {
+                $table->dropForeign(['parent_service']);
+                $table->dropIndex(['parent_service']);
+                $table->mediumInteger('parent_service', false, true)->change();
+            }
         });
     }
 }

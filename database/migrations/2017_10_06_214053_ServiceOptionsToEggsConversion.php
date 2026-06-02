@@ -8,9 +8,14 @@ class ServiceOptionsToEggsConversion extends Migration
 {
     /**
      * Run the migrations.
+     * Jexpanel DBs have already done this conversion.
      */
     public function up(): void
     {
+        if (!Schema::hasTable('service_options')) {
+            return;
+        }
+
         Schema::disableForeignKeyConstraints();
 
         Schema::table('service_options', function (Blueprint $table) {
@@ -20,31 +25,34 @@ class ServiceOptionsToEggsConversion extends Migration
 
         Schema::rename('service_options', 'eggs');
 
-        Schema::table('packs', function (Blueprint $table) {
-            $table->dropForeign(['option_id']);
-            $table->renameColumn('option_id', 'egg_id');
+        if (Schema::hasTable('packs')) {
+            Schema::table('packs', function (Blueprint $table) {
+                $table->dropForeign(['option_id']);
+                $table->renameColumn('option_id', 'egg_id');
+                $table->foreign('egg_id')->references('id')->on('eggs')->onDelete('CASCADE');
+            });
+        }
 
-            $table->foreign('egg_id')->references('id')->on('eggs')->onDelete('CASCADE');
-        });
-
-        Schema::table('servers', function (Blueprint $table) {
-            $table->dropForeign(['option_id']);
-            $table->renameColumn('option_id', 'egg_id');
-
-            $table->foreign('egg_id')->references('id')->on('eggs');
-        });
+        if (Schema::hasColumn('servers', 'option_id')) {
+            Schema::table('servers', function (Blueprint $table) {
+                $table->dropForeign(['option_id']);
+                $table->renameColumn('option_id', 'egg_id');
+                $table->foreign('egg_id')->references('id')->on('eggs');
+            });
+        }
 
         Schema::table('eggs', function (Blueprint $table) {
             $table->foreign('config_from')->references('id')->on('eggs')->onDelete('SET NULL');
             $table->foreign('copy_script_from')->references('id')->on('eggs')->onDelete('SET NULL');
         });
 
-        Schema::table('service_variables', function (Blueprint $table) {
-            $table->dropForeign(['option_id']);
-            $table->renameColumn('option_id', 'egg_id');
-
-            $table->foreign('egg_id')->references('id')->on('eggs')->onDelete('CASCADE');
-        });
+        if (Schema::hasColumn('service_variables', 'option_id')) {
+            Schema::table('service_variables', function (Blueprint $table) {
+                $table->dropForeign(['option_id']);
+                $table->renameColumn('option_id', 'egg_id');
+                $table->foreign('egg_id')->references('id')->on('eggs')->onDelete('CASCADE');
+            });
+        }
 
         Schema::enableForeignKeyConstraints();
     }
@@ -54,6 +62,10 @@ class ServiceOptionsToEggsConversion extends Migration
      */
     public function down(): void
     {
+        if (!Schema::hasTable('eggs')) {
+            return;
+        }
+
         Schema::disableForeignKeyConstraints();
 
         Schema::table('eggs', function (Blueprint $table) {
@@ -63,31 +75,34 @@ class ServiceOptionsToEggsConversion extends Migration
 
         Schema::rename('eggs', 'service_options');
 
-        Schema::table('packs', function (Blueprint $table) {
-            $table->dropForeign(['egg_id']);
-            $table->renameColumn('egg_id', 'option_id');
+        if (Schema::hasTable('packs')) {
+            Schema::table('packs', function (Blueprint $table) {
+                $table->dropForeign(['egg_id']);
+                $table->renameColumn('egg_id', 'option_id');
+                $table->foreign('option_id')->references('id')->on('service_options')->onDelete('CASCADE');
+            });
+        }
 
-            $table->foreign('option_id')->references('id')->on('service_options')->onDelete('CASCADE');
-        });
-
-        Schema::table('servers', function (Blueprint $table) {
-            $table->dropForeign(['egg_id']);
-            $table->renameColumn('egg_id', 'option_id');
-
-            $table->foreign('option_id')->references('id')->on('service_options');
-        });
+        if (Schema::hasColumn('servers', 'egg_id')) {
+            Schema::table('servers', function (Blueprint $table) {
+                $table->dropForeign(['egg_id']);
+                $table->renameColumn('egg_id', 'option_id');
+                $table->foreign('option_id')->references('id')->on('service_options');
+            });
+        }
 
         Schema::table('service_options', function (Blueprint $table) {
             $table->foreign('config_from')->references('id')->on('service_options')->onDelete('SET NULL');
             $table->foreign('copy_script_from')->references('id')->on('service_options')->onDelete('SET NULL');
         });
 
-        Schema::table('service_variables', function (Blueprint $table) {
-            $table->dropForeign(['egg_id']);
-            $table->renameColumn('egg_id', 'option_id');
-
-            $table->foreign('option_id')->references('id')->on('options')->onDelete('CASCADE');
-        });
+        if (Schema::hasColumn('service_variables', 'egg_id')) {
+            Schema::table('service_variables', function (Blueprint $table) {
+                $table->dropForeign(['egg_id']);
+                $table->renameColumn('egg_id', 'option_id');
+                $table->foreign('option_id')->references('id')->on('options')->onDelete('CASCADE');
+            });
+        }
 
         Schema::enableForeignKeyConstraints();
     }
