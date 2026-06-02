@@ -30,7 +30,7 @@
 
             .email-wrapper {
                 background-color: {{ $theme->background_color ?? '#0f172a' }};
-                padding: 32px 0;
+                padding: 24px 16px;
             }
 
             .email-card {
@@ -45,6 +45,19 @@
             .email-button {
                 background-color: {{ $theme->button_color ?? '#2563eb' }};
                 color: {{ $theme->button_text_color ?? '#ffffff' }};
+            }
+
+            @media screen and (max-width: 480px) {
+                .email-header,
+                .email-body,
+                .email-footer {
+                    padding-left: 16px !important;
+                    padding-right: 16px !important;
+                }
+                .email-wrapper {
+                    padding: 16px 8px !important;
+                }
+                h1 { font-size: 18px !important; }
             }
 
             @media (prefers-color-scheme: light) {
@@ -113,7 +126,7 @@
             <tr>
                 <td align="center">
                     <table
-                        width="640"
+                        width="100%"
                         cellpadding="0"
                         cellspacing="0"
                         class="email-card"
@@ -121,23 +134,23 @@
                         style="max-width:640px;width:100%;border-radius:12px;overflow:hidden;box-shadow:0 8px 32px rgba(15,23,42,0.25);"
                     >
                         <tr>
-                            <td class="email-header" style="padding:32px 40px 24px;background:linear-gradient(135deg, {{ $theme->primary_color ?? '#2563eb' }}, {{ $theme->secondary_color ?? '#1e40af' }});color:#ffffff;">
+                            <td class="email-header" style="padding:24px 24px 20px;background:linear-gradient(135deg, {{ $theme->primary_color ?? '#2563eb' }}, {{ $theme->secondary_color ?? '#1e40af' }});color:#ffffff;">
                                 <div style="text-align:left;">
                                     @if(!empty($theme->logo_url))
-                                        <img src="{{ $theme->logo_url }}" alt="{{ config('app.name') }}" style="max-height:48px;display:block;margin-bottom:16px;" />
+                                        <img src="{{ $theme->logo_url }}" alt="{{ config('app.name') }}" style="max-height:40px;display:block;margin-bottom:12px;" />
                                     @endif
-                                    <h1 style="margin:0;font-size:24px;line-height:1.4;font-weight:600;">{{ config('app.name', 'DarkOaktyl') }}</h1>
+                                    <h1 style="margin:0;font-size:20px;line-height:1.4;font-weight:600;">{{ config('app.name', 'DarkOaktyl') }}</h1>
                                 </div>
                             </td>
                         </tr>
                         <tr>
-                            <td class="email-body" style="padding:32px 40px;color:{{ $theme->text_color ?? '#0f172a' }};font-size:16px;line-height:1.6;">
+                            <td class="email-body" style="padding:24px 24px;color:{{ $theme->text_color ?? '#0f172a' }};font-size:15px;line-height:1.6;">
                                 {!! $content !!}
                             </td>
                         </tr>
                         @if(!empty($theme->footer_text))
                             <tr>
-                                <td class="email-footer" style="padding:24px 40px;background-color:{{ $theme->body_color ?? '#ffffff' }};border-top:1px solid rgba(15,23,42,0.08);font-size:13px;text-align:center;">
+                                <td class="email-footer" style="padding:20px 24px;background-color:{{ $theme->body_color ?? '#ffffff' }};border-top:1px solid rgba(15,23,42,0.08);font-size:12px;text-align:center;">
                                     {!! nl2br(e($theme->footer_text)) !!}
                                 </td>
                             </tr>

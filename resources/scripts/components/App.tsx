@@ -3,6 +3,7 @@ import '@/assets/tailwind.css';
 import { store } from '@/state';
 import { SiteTheme, resolveThemeMode } from '@/state/theme';
 import { StoreProvider } from 'easy-peasy';
+import { SWRConfig } from 'swr';
 import { AdminContext } from '@/state/admin';
 import { ServerContext } from '@/state/server';
 import { SiteSettings } from '@/state/settings';
@@ -26,6 +27,7 @@ const AdminRouter = lazy(() => import('@/routers/AdminRouter'));
 const AuthenticationRouter = lazy(() => import('@/routers/AuthenticationRouter'));
 const DashboardRouter = lazy(() => import('@/routers/DashboardRouter'));
 const ServerRouter = lazy(() => import('@/routers/ServerRouter'));
+const LegalPage = lazy(() => import('@/components/legal/LegalPage'));
 
 interface ExtendedWindow extends Window {
     SiteConfiguration?: SiteSettings;
@@ -116,6 +118,12 @@ function App() {
     return (
         <>
             <GlobalStylesheet />
+            <SWRConfig value={{
+                errorRetryCount: 1,
+                shouldRetryOnError: false,
+                revalidateOnFocus: false,
+                dedupingInterval: 5000,
+            }}>
             <StoreProvider store={store}>
                 <ThemeVars />
                 <AppearanceSync />
@@ -167,6 +175,15 @@ function App() {
                                         />
 
                                         <Route
+                                            path="/legal/:slug"
+                                            element={
+                                                <Spinner.Suspense>
+                                                    <LegalPage />
+                                                </Spinner.Suspense>
+                                            }
+                                        />
+
+                                        <Route
                                             path="/*"
                                             element={
                                                 <AuthenticatedRoute>
@@ -186,6 +203,7 @@ function App() {
                     </>
                 )}
             </StoreProvider>
+            </SWRConfig>
         </>
     );
 }

@@ -467,32 +467,13 @@ const TemplatesContainer = () => {
                         <h2 css={tw`text-2xl font-semibold text-theme-primary`}>{previewSubject}</h2>
                         <p css={tw`text-sm text-theme-muted`}>Preview renders with the current template metadata.</p>
                     </div>
-                    <div css={tw`rounded bg-neutral-900/70 border border-neutral-700 p-4 overflow-y-auto max-h-[60vh]`}>
+                    <div css={tw`rounded border border-neutral-700 overflow-hidden max-h-[70vh] overflow-y-auto`}>
                         {previewHtml ? (
-                            <div
-                                css={[
-                                    tw`text-sm leading-relaxed text-theme-primary space-y-3`,
-                                    {
-                                        '& h1': tw`text-3xl font-semibold text-theme-primary`.style,
-                                        '& h2': tw`text-2xl font-semibold text-theme-primary`.style,
-                                        '& h3': tw`text-xl font-semibold text-theme-primary`.style,
-                                        '& h4': tw`text-lg font-semibold text-theme-primary`.style,
-                                        '& p': tw`mb-3 text-theme-secondary`.style,
-                                        '& a': tw`text-primary-300 underline`.style,
-                                        '& ul': tw`list-disc list-inside mb-3 text-theme-secondary`.style,
-                                        '& ol': tw`list-decimal list-inside mb-3 text-theme-secondary`.style,
-                                        '& code': tw`font-mono bg-neutral-800 px-1 py-0.5 rounded text-xs`.style,
-                                        '& pre': tw`
-                                            bg-neutral-900
-                                            border border-neutral-700
-                                            rounded
-                                            p-3
-                                            overflow-auto
-                                            text-xs
-                                        `.style,
-                                    },
-                                ]}
-                                dangerouslySetInnerHTML={{ __html: previewHtml }}
+                            <iframe
+                                srcDoc={previewHtml}
+                                title={'Email Preview'}
+                                css={tw`w-full border-0`}
+                                style={{ height: '60vh', minHeight: 400 }}
                             />
                         ) : (
                             <Spinner />

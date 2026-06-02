@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Client\Billing;
+namespace DarkOak\Http\Controllers\Api\Client\Billing;
 
-use Everest\Exceptions\DisplayException;
-use Everest\Models\Billing\DiscountCode;
-use Everest\Http\Controllers\Api\Client\ClientApiController;
-use Everest\Transformers\Api\Client\DiscountCodeTransformer;
-use Everest\Http\Requests\Api\Client\Billing\ValidateDiscountCodeRequest;
+use DarkOak\Exceptions\DisplayException;
+use DarkOak\Models\Billing\DiscountCode;
+use DarkOak\Http\Controllers\Api\Client\ClientApiController;
+use DarkOak\Transformers\Api\Client\DiscountCodeTransformer;
+use DarkOak\Http\Requests\Api\Client\Billing\ValidateDiscountCodeRequest;
 
 class DiscountCodeController extends ClientApiController
 {

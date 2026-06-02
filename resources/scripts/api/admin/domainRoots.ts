@@ -65,6 +65,11 @@ export const getDomainRoots = () => {
             items: (data.data || []).map(rawDataToDomainRoot),
             pagination: getPaginationSet(data.meta.pagination),
         };
+    }, {
+        errorRetryCount: 0,
+        shouldRetryOnError: false,
+        revalidateOnFocus: false,
+        dedupingInterval: 5000,
     });
 };
 

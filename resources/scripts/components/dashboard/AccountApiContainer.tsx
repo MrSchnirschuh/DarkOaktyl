@@ -46,7 +46,7 @@ export default () => {
         return () => {
             isMounted = false;
         };
-    }, [clearAndAddHttpError]);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const doDeletion = async (identifier: string) => {
         setLoading(true);

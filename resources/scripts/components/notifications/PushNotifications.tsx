@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Button } from '@elements/button';
-import { Switch } from '@elements/switch';
+import { Switch } from '@elements/Switch';
 import { useStoreState } from '@/state/hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell, faServer, faCreditCard, faExclamationTriangle, faCheckCircle, faDesktop, faMobileAlt } from '@fortawesome/free-solid-svg-icons';

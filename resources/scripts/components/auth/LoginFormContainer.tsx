@@ -15,19 +15,11 @@ const Container = styled.div<{ isVisible: boolean }>`
     transition: opacity 0.5s ease-in;
 
     ${breakpoint('sm')`
-        ${tw`w-4/5 mx-auto`}
+        ${tw`w-full max-w-md mx-auto`}
     `};
 
     ${breakpoint('md')`
-        ${tw`p-10`}
-    `};
-
-    ${breakpoint('lg')`
-        ${tw`w-3/5`}
-    `};
-
-    ${breakpoint('xl')`
-        ${tw`w-full my-auto`}
+        ${tw`w-full max-w-lg mx-auto`}
     `};
 `;
 
@@ -58,20 +50,16 @@ export default forwardRef<HTMLFormElement, Props>(({ title, ...props }, ref) => 
 
     return (
         <Container isVisible={visible}>
-            <div className={'w-full grid lg:grid-cols-2'}>
-                <div className={'lg:w-1/2 lg:mx-auto'}>
+            <div className={'w-full'}>
+                <div className={'w-full'}>
                     {title && (
                         <>
                             {/* If a login logo is configured in the theme, show it above the title */}
-                            {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-                            {/* @ts-ignore */}
-                            {typeof window !== 'undefined' && (
-                                // read theme from global store via DOM if available — fallback handled in LoginContainer
+                            {loginLogo && (
                                 <img
                                     src={loginLogo}
                                     alt={title}
-                                    className={'mx-auto mb-2 max-h-24'}
-                                    style={{ display: loginLogo ? 'block' : 'none' }}
+                                    className={'mx-auto mb-4 max-h-24'}
                                 />
                             )}
                             <h2 css={tw`text-3xl text-center text-theme-primary font-medium py-4`}>{title}</h2>
@@ -79,7 +67,7 @@ export default forwardRef<HTMLFormElement, Props>(({ title, ...props }, ref) => 
                     )}
                     <FlashMessageRender css={tw`mb-2 px-1`} />
                     <Form {...props} ref={ref}>
-                        <div css={tw`w-full bg-zinc-800/50 shadow-lg rounded-lg p-6 mx-1`}>
+                        <div css={tw`w-full bg-theme-surface shadow-lg rounded-lg p-8`}>
                             <div css={tw`flex-1`}>{props.children}</div>
                         </div>
                     </Form>

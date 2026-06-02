@@ -2,7 +2,7 @@
 
 namespace DarkOak\Models;
 
-use Everest\Contracts\Repository\SettingsRepositoryInterface;
+use DarkOak\Contracts\Repository\SettingsRepositoryInterface;
 
 /**
  * DarkOak\Models\Setting.

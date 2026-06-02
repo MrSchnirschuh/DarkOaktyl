@@ -122,7 +122,7 @@ const NavigationBar = () => {
     };
 
     return (
-        <div className="w-full overflow-x-auto shadow-md mb-8" style={{ backgroundColor: theme.colors.sidebar }}>
+        <div className="w-full overflow-x-auto shadow-md mb-4" style={{ backgroundColor: theme.colors.sidebar }}>
             <div className="px-8 flex h-[3.5rem] w-full items-center">
                 {renderBreadcrumbs()}
                 <RightNavigation className="flex h-full items-center justify-center ml-auto" theme={theme}>

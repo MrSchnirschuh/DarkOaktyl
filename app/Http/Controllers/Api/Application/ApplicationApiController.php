@@ -63,6 +63,29 @@ abstract class ApplicationApiController extends Controller
     }
 
     /**
+     * Transform an item or collection using Fractal.
+     */
+    protected function transform(mixed $data, string $transformer): array
+    {
+        if ($data instanceof \Illuminate\Pagination\LengthAwarePaginator) {
+            return $this->fractal->collection($data->items())
+                ->transformWith($transformer)
+                ->paginateWith(new \League\Fractal\Pagination\IlluminatePaginatorAdapter($data))
+                ->toArray();
+        }
+
+        if ($data instanceof \Illuminate\Support\Collection || is_array($data)) {
+            return $this->fractal->collection($data)
+                ->transformWith($transformer)
+                ->toArray();
+        }
+
+        return $this->fractal->item($data)
+            ->transformWith($transformer)
+            ->toArray();
+    }
+
+    /**
      * Return an HTTP/204 response for the API.
      */
     protected function adminPermissions(Request $request): array

@@ -14,7 +14,7 @@ interface Props {
 }
 
 export default ({ discountCode, setDiscountCode }: Props) => {
-    const currencySymbol = useStoreState(state => state.everest.data!.billing.currency.symbol);
+    const currencySymbol = useStoreState(state => state.DarkOak.data!.billing.currency.symbol);
 
     const [open, setOpen] = useState<boolean>(false);
     const [input, setInput] = useState<string>('');

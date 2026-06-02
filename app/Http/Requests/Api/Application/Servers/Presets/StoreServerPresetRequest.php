@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Servers\Presets;
+namespace DarkOak\Http\Requests\Api\Application\Servers\Presets;
 
-use Everest\Models\AdminRole;
-use Everest\Models\ServerPreset;
-use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
+use DarkOak\Models\AdminRole;
+use DarkOak\Models\ServerPreset;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class StoreServerPresetRequest extends ApplicationApiRequest
 {

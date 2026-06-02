@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Links;
+namespace DarkOak\Http\Requests\Api\Application\Links;
 
-use Everest\Models\AdminRole;
-use Everest\Models\CustomLink;
-use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
+use DarkOak\Models\AdminRole;
+use DarkOak\Models\CustomLink;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class UpdateLinkRequest extends ApplicationApiRequest
 {

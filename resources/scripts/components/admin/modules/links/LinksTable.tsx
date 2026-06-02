@@ -18,6 +18,7 @@ import Pill from '@/components/elements/Pill';
 import { Button } from '@/components/elements/button';
 import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { getIconByName } from './IconPicker';
 
 interface Props {
     setOpen: Dispatch<SetStateAction<VisibleDialog>>;
@@ -37,9 +38,7 @@ const LinksTable = ({ setOpen, setLink }: Props) => {
                 setFilters(null);
             } else {
                 setPage(1);
-                setFilters({
-                    name: query,
-                });
+                setFilters({ name: query });
             }
             return resolve();
         });
@@ -58,6 +57,9 @@ const LinksTable = ({ setOpen, setLink }: Props) => {
                                     onClick={() => setSort('id')}
                                 />
                                 <TableHeader
+                                    name={'Icon'}
+                                />
+                                <TableHeader
                                     name={'Name'}
                                     direction={sort === 'name' ? (sortDirection ? 1 : 2) : null}
                                     onClick={() => setSort('name')}
@@ -69,7 +71,7 @@ const LinksTable = ({ setOpen, setLink }: Props) => {
                                 />
                                 <TableHeader
                                     name={'Is Visible'}
-                                    direction={sort === 'visibe' ? (sortDirection ? 1 : 2) : null}
+                                    direction={sort === 'visible' ? (sortDirection ? 1 : 2) : null}
                                     onClick={() => setSort('visible')}
                                 />
                                 <TableHeader name={'Actions'} />
@@ -80,57 +82,61 @@ const LinksTable = ({ setOpen, setLink }: Props) => {
                                     !error &&
                                     !isValidating &&
                                     length > 0 &&
-                                    links.items.map(link => (
-                                        <TableRow key={link.id}>
-                                            <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
-                                                <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>
-                                                    {link.id}
-                                                </code>
-                                            </td>
-                                            <td
-                                                css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap font-bold hover:brightness-125`}
-                                                style={{ color: colors.primary }}
-                                            >
-                                                {link.name}
-                                            </td>
-                                            <td
-                                                css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap font-bold hover:brightness-125`}
-                                            >
-                                                {link.url}
-                                            </td>
-                                            <td
-                                                css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap font-bold hover:brightness-125`}
-                                            >
-                                                {link.visible ? (
-                                                    <Pill type={'success'}>Visible</Pill>
-                                                ) : (
-                                                    <Pill type={'danger'}>Hidden</Pill>
-                                                )}
-                                            </td>
-                                            <td className={'px-6 py-4 space-x-3'}>
-                                                <Button
-                                                    onClick={() => {
-                                                        setLink(link);
-                                                        setOpen('update');
-                                                    }}
-                                                >
-                                                    <FontAwesomeIcon icon={faPencil} className={'text-white'} />
-                                                </Button>
-                                                <Button.Danger
-                                                    onClick={() => {
-                                                        setLink(link);
-                                                        setOpen('delete');
-                                                    }}
-                                                >
-                                                    <FontAwesomeIcon icon={faTrash} />
-                                                </Button.Danger>
-                                            </td>
-                                        </TableRow>
-                                    ))}
+                                    links.items.map(link => {
+                                        const icon = getIconByName(link.icon);
+                                        return (
+                                            <TableRow key={link.id}>
+                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
+                                                    <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>{link.id}</code>
+                                                </td>
+                                                <td css={tw`px-6 text-sm text-center whitespace-nowrap`}>
+                                                    {link.icon && icon ? (
+                                                        <FontAwesomeIcon icon={icon} css={tw`text-lg`}
+                                                            style={{ color: colors.primary }} />
+                                                    ) : (
+                                                        <span css={tw`text-xs text-theme-muted`}>—</span>
+                                                    )}
+                                                </td>
+                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap font-bold hover:brightness-125`}
+                                                    style={{ color: colors.primary }}>
+                                                    {link.name}
+                                                </td>
+                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap font-bold hover:brightness-125`}>
+                                                    {link.url}
+                                                </td>
+                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap font-bold hover:brightness-125`}>
+                                                    {link.visible ? (
+                                                        <Pill type={'success'}>Visible</Pill>
+                                                    ) : (
+                                                        <Pill type={'danger'}>Hidden</Pill>
+                                                    )}
+                                                </td>
+                                                <td className={'px-6 py-4 space-x-3'}>
+                                                    <Button
+                                                        onClick={() => {
+                                                            setLink(link);
+                                                            setOpen('update');
+                                                        }}
+                                                    >
+                                                        <FontAwesomeIcon icon={faPencil} className={'text-white'} />
+                                                    </Button>
+                                                    <Button.Danger
+                                                        onClick={() => {
+                                                            setLink(link);
+                                                            setOpen('delete');
+                                                        }}
+                                                    >
+                                                        <FontAwesomeIcon icon={faTrash} />
+                                                    </Button.Danger>
+                                                </td>
+                                            </TableRow>
+                                        );
+                                    })}
                             </TableBody>
                         </table>
-
-                        {links === undefined || (error && isValidating) ? <Loading /> : length < 1 ? <NoItems /> : null}
+                        {links === undefined && isValidating ? <Loading /> : null}
+                        {links === undefined && !isValidating && error ? <NoItems /> : null}
+                        {links !== undefined && length < 1 ? <NoItems /> : null}
                     </div>
                 </Pagination>
             </ContentWrapper>

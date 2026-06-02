@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@elements/button';
-import { Switch } from '@elements/switch';
+import { Switch } from '@elements/Switch';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExpand, faCompress, faHistory, faChartLine, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import Loader from '@elements/Loader';

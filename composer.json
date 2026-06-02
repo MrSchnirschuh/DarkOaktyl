@@ -40,6 +40,7 @@
         "symfony/mailgun-mailer": "^6.4",
         "symfony/postmark-mailer": "^6.4",
         "symfony/yaml": "^6.4",
+        "web-auth/webauthn-lib": "^5.3",
         "webmozart/assert": "~1.11.0"
     },
     "require-dev": {

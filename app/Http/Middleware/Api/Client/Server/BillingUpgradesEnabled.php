@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Http\Middleware\Api\Client\Server;
+namespace DarkOak\Http\Middleware\Api\Client\Server;
 
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;

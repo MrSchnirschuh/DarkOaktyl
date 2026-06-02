@@ -13,7 +13,7 @@ import { faCreditCard } from '@fortawesome/free-solid-svg-icons';
 export default ({ product }: { product: Product }) => {
     const { clearFlashes, clearAndAddHttpError } = useFlash();
 
-    const settings = useStoreState(s => s.everest.data!.billing);
+    const settings = useStoreState(s => s.DarkOak.data!.billing);
     const server = ServerContext.useStoreState(state => state.server.data!);
     const [loading, setLoading] = useState<boolean>(false);
 

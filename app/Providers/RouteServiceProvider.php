@@ -6,10 +6,12 @@ use DarkOak\Models\Database;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use DarkOak\Http\Middleware\TrimStrings;
+use DarkOak\Http\Middleware\EnsureStatefulRequests;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Support\Facades\RateLimiter;
 use DarkOak\Http\Middleware\AdminAuthenticate;
 use DarkOak\Http\Middleware\RequireTwoFactorAuthentication;
+use DarkOak\Http\Controllers\Base\IndexController;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
 class RouteServiceProvider extends ServiceProvider
@@ -50,6 +52,11 @@ class RouteServiceProvider extends ServiceProvider
                         ->group(base_path('routes/admin.php'));
 
                     Route::middleware('guest')->prefix('/auth')->group(base_path('routes/auth.php'));
+
+                    // Public SPA routes (no auth required — legal pages, etc.)
+                    Route::prefix('/legal')->withoutMiddleware(['auth.session', RequireTwoFactorAuthentication::class])->group(function () {
+                        Route::get('/{path?}', [IndexController::class, 'index'])->where('path', '.*');
+                    });
                 });
 
                 Route::middleware(['api', RequireTwoFactorAuthentication::class])->group(function () {
@@ -63,6 +70,11 @@ class RouteServiceProvider extends ServiceProvider
                         ->scopeBindings()
                         ->group(base_path('routes/api-client.php'));
                 });
+
+                // Public legal API — no auth required
+                Route::prefix('/api/legal')
+                    ->middleware(['throttle:api.client', EnsureStatefulRequests::class])
+                    ->group(base_path('routes/api-legal.php'));
 
                 Route::middleware('daemon')
                     ->prefix('/api/remote')

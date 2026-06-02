@@ -55,6 +55,7 @@ class LinkController extends ApplicationApiController
         $link = CustomLink::create([
             'url' => $request['url'],
             'name' => $request['name'],
+            'icon' => $request['icon'] ?? null,
             'visible' => (bool) $request['visible'],
         ]);
 
@@ -85,6 +86,7 @@ class LinkController extends ApplicationApiController
         $link->update([
             'url' => $request['url'],
             'name' => $request['name'],
+            'icon' => $request['icon'] ?? null,
             'visible' => (bool) $request['visible'],
         ]);
 

@@ -15,6 +15,9 @@ import { getLinks } from '@/api/getLinks';
 import http from '@/api/http';
 import NavigationBar from '@/components/NavigationBar';
 import { DEFAULT_PANEL_LOGO } from '@/constants/branding';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { getIconByName } from '@/components/admin/modules/links/IconPicker';
+import tw from 'twin.macro';
 
 function DashboardRouter() {
     const user = useStoreState(s => s.user.data!);
@@ -81,7 +84,7 @@ function DashboardRouter() {
                     )}
                 </div>
                 <Sidebar.Wrapper theme={theme}>
-                    <NavLink to={'/'} end className={'mb-[18px]'}>
+                    <NavLink to={'/'} end>
                         <DesktopComputerIcon />
                         <span>Dashboard</span>
                     </NavLink>
@@ -97,12 +100,19 @@ function DashboardRouter() {
                 <span className={'mt-auto mb-3 mr-auto'}>
                     {!collapsed && (
                         <>
-                            {links?.map(link => (
-                                <a key={link.id} href={link.url} target={'_blank'} rel={'noreferrer'}>
-                                    <ExternalLinkIcon />
-                                    <span>{link.name}</span>
-                                </a>
-                            ))}
+                            {links?.map(link => {
+                                const linkIcon = getIconByName(link.icon);
+                                return (
+                                    <a key={link.id} href={link.url} target={'_blank'} rel={'noreferrer'}>
+                                        {linkIcon ? (
+                                            <FontAwesomeIcon icon={linkIcon} css={tw`h-6 w-6 flex-shrink-0`} />
+                                        ) : (
+                                            <ExternalLinkIcon />
+                                        )}
+                                        <span>{link.name}</span>
+                                    </a>
+                                );
+                            })}
                         </>
                     )}
                     {(user.rootAdmin || user.admin_role_id) && (

@@ -1,17 +1,17 @@
 <?php
 
-namespace Everest\Services\Servers;
+namespace DarkOak\Services\Servers;
 
-use Everest\Models\Node;
-use Everest\Models\Server;
+use DarkOak\Models\Node;
+use DarkOak\Models\Server;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Arr;
-use Everest\Models\Allocation;
-use Everest\Models\ServerTransfer;
-use Everest\Exceptions\DisplayException;
-use Everest\Services\Nodes\NodeJWTService;
+use DarkOak\Models\Allocation;
+use DarkOak\Models\ServerTransfer;
+use DarkOak\Exceptions\DisplayException;
+use DarkOak\Services\Nodes\NodeJWTService;
 use Illuminate\Database\ConnectionInterface;
-use Everest\Repositories\Wings\DaemonTransferRepository;
+use DarkOak\Repositories\Wings\DaemonTransferRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ServerTransferService

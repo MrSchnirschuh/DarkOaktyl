@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Services\Billing\DiscountCodes;
+namespace DarkOak\Services\Billing\DiscountCodes;
 
-use Everest\Models\Billing\DiscountCode;
+use DarkOak\Models\Billing\DiscountCode;
 
 class DiscountCodeCreationService
 {

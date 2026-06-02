@@ -49,12 +49,17 @@ class EmailTemplateRenderer
         ]);
 
         $subject = trim(preg_replace('/\s+/', ' ', Blade::render($template->subject, $viewData)));
-
         $rendered = Blade::render($template->content, $viewData);
-        $htmlBody = Str::markdown($rendered, [
-            'html_input' => 'allow',
-            'allow_unsafe_links' => false,
-        ]);
+
+        // If the template already contains valid HTML, skip markdown to avoid
+        // double-wrapping with <p> tags. Only parse as markdown for plain-text templates.
+        $htmlBody = trim($rendered);
+        if (!str_starts_with($htmlBody, '<')) {
+            $htmlBody = Str::markdown($rendered, [
+                'html_input' => 'allow',
+                'allow_unsafe_links' => false,
+            ]);
+        }
 
         $html = view('emails.layout', [
             'theme' => $themeForMode,

@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Services\Billing;
+namespace DarkOak\Services\Billing;
 
-use Everest\Models\Server;
-use Everest\Services\Servers\SuspensionService;
+use DarkOak\Models\Server;
+use DarkOak\Services\Servers\SuspensionService;
 
 class ServerRenewalService
 {

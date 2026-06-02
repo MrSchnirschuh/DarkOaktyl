@@ -25,7 +25,7 @@ function DiscountCodesTable() {
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const { setSort, sort, setPage, sortDirection, setFilters } = useContext(DiscountCodeContext);
 
-    const currency = useStoreState(state => state.everest.data!.billing.currency.symbol);
+    const currency = useStoreState(state => state.DarkOak.data!.billing.currency.symbol);
 
     const onSearch = (query: string): Promise<void> => {
         return new Promise(resolve => {

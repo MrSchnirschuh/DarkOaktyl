@@ -9,7 +9,9 @@ function hexToRgba(hex: string, alpha = 1): string {
     }
 
     // noinspection RegExpSimplifiable
-    const [r, g, b] = hex.match(/[a-fA-F0-9]{2}/g)!.map(v => parseInt(v, 16));
+    const match = hex.match(/[a-fA-F0-9]{2}/g);
+    if (!match) return hex;
+    const [r, g, b] = match.map(v => parseInt(v, 16));
 
     return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }

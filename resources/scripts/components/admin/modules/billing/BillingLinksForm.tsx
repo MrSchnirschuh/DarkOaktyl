@@ -15,7 +15,7 @@ interface Values {
 
 const LinksForm = () => {
     const { isSubmitting } = useFormikContext<Values>();
-    const settings = useStoreState(s => s.everest.data!.billing);
+    const settings = useStoreState(s => s.DarkOak.data!.billing);
 
     return (
         <>
@@ -45,8 +45,8 @@ const LinksForm = () => {
 
 export default () => {
     const { clearFlashes } = useFlash();
-    const settings = useStoreState(s => s.everest.data!.billing);
-    const updateEverest = useStoreActions(s => s.everest.updateEverest);
+    const settings = useStoreState(s => s.DarkOak.data!.billing);
+    const updateEverest = useStoreActions(s => s.DarkOak.updateEverest);
 
     const submit = async (key: string, value: boolean | string) => {
         await updateSettings(key, value)

@@ -36,7 +36,7 @@ const LimitBox = ({ icon, limit }: LimitProps) => (
 );
 
 export default () => {
-    const settings = useStoreState(state => state.everest.data!.billing);
+    const settings = useStoreState(state => state.DarkOak.data!.billing);
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const { colors } = useStoreState(state => state.theme.data!);
     const server = ServerContext.useStoreState(state => state.server.data!);

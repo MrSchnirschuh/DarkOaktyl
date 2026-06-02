@@ -9,6 +9,8 @@ import Switch from '@elements/Switch';
 import { Button } from '@elements/button';
 import useFlash from '@/plugins/useFlash';
 import { getLegalDocuments, updateLegalDocument, type LegalDocument } from '@/api/admin/legal/documents';
+import { CheckCircleIcon, SaveIcon, DocumentTextIcon, EyeIcon } from '@heroicons/react/outline';
+import { Link } from 'react-router-dom';
 
 const LegalContainer = () => {
     const [documents, setDocuments] = useState<LegalDocument[]>([]);
@@ -58,19 +60,45 @@ const LegalContainer = () => {
 
     if (loading) {
         return (
-            <div css={tw`flex items-center justify-center py-12`}>
+            <div css={tw`flex items-center justify-center py-24`}>
                 <Spinner />
             </div>
         );
     }
 
     return (
-        <div css={tw`space-y-6`}>
+        <div css={tw`space-y-8`}>
             <FlashMessageRender byKey={'admin:legal'} className={'mb-2'} />
-            <div css={tw`grid gap-6 xl:grid-cols-2`}>
+            <div css={tw`grid gap-8 xl:grid-cols-2`}>
                 {documents.map(document => (
                     <AdminBox key={document.slug} title={document.title}>
-                        <div css={tw`space-y-4`}>
+                        <div css={tw`space-y-6`}>
+                            {/* Header with status and preview link */}
+                            <div css={tw`flex items-center justify-between`}>
+                                <div css={tw`flex items-center gap-2`}>
+                                    <DocumentTextIcon css={tw`w-5 h-5`}
+                                        style={{ color: 'var(--theme-accent, #22c55e)' }} />
+                                    <span css={tw`text-sm font-medium`}
+                                        style={{ color: 'var(--theme-text-primary, #f1f5f9)' }}>
+                                        {document.title}
+                                    </span>
+                                </div>
+                                {document.slug && (
+                                    <Link
+                                        to={`/legal/${document.slug}`}
+                                        target={'_blank'}
+                                        css={tw`inline-flex items-center gap-1 text-xs px-2 py-1 rounded transition-colors`}
+                                        style={{
+                                            color: 'var(--theme-text-muted, #64748b)',
+                                            backgroundColor: 'var(--theme-surface-card, #1e293b)',
+                                        }}
+                                    >
+                                        <EyeIcon css={tw`w-3 h-3`} />
+                                        Preview
+                                    </Link>
+                                )}
+                            </div>
+
                             <div>
                                 <Label>Title</Label>
                                 <Input
@@ -85,32 +113,48 @@ const LegalContainer = () => {
                                 <Label>Content</Label>
                                 <Textarea
                                     value={document.content}
-                                    rows={10}
+                                    rows={14}
                                     onChange={event =>
                                         updateLocalDocument(document.slug, { content: event.target.value })
                                     }
                                     placeholder={'Paste the legal text here...'}
+                                    css={tw`font-mono text-sm leading-relaxed`}
                                 />
-                                <p css={tw`text-xs text-theme-muted mt-1`}>
-                                    Basic formatting such as line breaks is applied automatically.
+                                <p css={tw`text-xs mt-2`}
+                                    style={{ color: 'var(--theme-text-muted, #64748b)' }}>
+                                    Line breaks are automatically preserved. Format with numbered sections.
                                 </p>
                             </div>
-                            <Switch
-                                name={`publish-${document.slug}`}
-                                label={'Publish page'}
-                                description={'Only published pages are visible to visitors.'}
-                                defaultChecked={document.isPublished}
-                                onChange={() =>
-                                    updateLocalDocument(document.slug, { isPublished: !document.isPublished })
-                                }
-                            />
-                            {document.updatedAt && (
-                                <p css={tw`text-xs text-theme-muted`}>
-                                    Last updated: {new Date(document.updatedAt).toLocaleString('en-GB')}
-                                </p>
-                            )}
+
+                            {/* Publish toggle + last updated */}
+                            <div css={tw`flex items-center justify-between pt-2 border-t`}
+                                style={{ borderColor: 'var(--theme-surface-card, #334155)' }}>
+                                <Switch
+                                    name={`publish-${document.slug}`}
+                                    label={'Publish page'}
+                                    description={'Only published pages are visible to visitors.'}
+                                    defaultChecked={document.isPublished}
+                                    onChange={() =>
+                                        updateLocalDocument(document.slug, { isPublished: !document.isPublished })
+                                    }
+                                />
+                                {document.updatedAt && (
+                                    <span css={tw`text-xs`}
+                                        style={{ color: 'var(--theme-text-muted, #64748b)' }}>
+                                        Updated: {new Date(document.updatedAt).toLocaleDateString('en-GB', {
+                                            day: 'numeric', month: 'short', year: 'numeric',
+                                        })}
+                                    </span>
+                                )}
+                            </div>
+
+                            {/* Save button */}
                             <div css={tw`text-right`}>
-                                <Button onClick={() => handleSave(document)} disabled={saving === document.slug}>
+                                <Button
+                                    onClick={() => handleSave(document)}
+                                    disabled={saving === document.slug}
+                                >
+                                    <SaveIcon css={tw`w-4 h-4 mr-1.5`} />
                                     {saving === document.slug ? 'Saving...' : 'Save changes'}
                                 </Button>
                             </div>

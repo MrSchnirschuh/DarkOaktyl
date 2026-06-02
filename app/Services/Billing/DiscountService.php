@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Services\Billing;
+namespace DarkOak\Services\Billing;
 
-use Everest\Models\Billing\Product;
-use Everest\Exceptions\DisplayException;
-use Everest\Models\Billing\DiscountCode;
+use DarkOak\Models\Billing\Product;
+use DarkOak\Exceptions\DisplayException;
+use DarkOak\Models\Billing\DiscountCode;
 
 class DiscountService
 {

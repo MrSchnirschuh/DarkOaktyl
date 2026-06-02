@@ -47,7 +47,7 @@ export default () => {
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const navigate = useNavigate();
 
-    const billing = useStoreState(state => state.everest.data!.billing);
+    const billing = useStoreState(state => state.DarkOak.data!.billing);
 
     const [nodes, setNodes] = useState<Node[] | undefined>();
     const [selectedNode, setSelectedNode] = useState<number>(0);

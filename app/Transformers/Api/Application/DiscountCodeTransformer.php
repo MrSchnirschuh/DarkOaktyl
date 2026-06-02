@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Transformers\Api\Application;
+namespace DarkOak\Transformers\Api\Application;
 
-use Everest\Models\Billing\DiscountCode;
-use Everest\Transformers\Api\Transformer;
+use DarkOak\Models\Billing\DiscountCode;
+use DarkOak\Transformers\Api\Transformer;
 
 class DiscountCodeTransformer extends Transformer
 {

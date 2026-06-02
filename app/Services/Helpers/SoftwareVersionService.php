@@ -62,7 +62,7 @@ class SoftwareVersionService
      */
     public function getDonations(): string
     {
-        return Arr::get(self::$result, 'donations') ?? 'https://github.com/sponsors/matthewpi';
+        return Arr::get(self::$result, 'donations') ?? 'https://donate.stripe.com/9B614p5zv7qD66H6YWeME00';
     }
 
     /**
@@ -157,10 +157,21 @@ class SoftwareVersionService
                 return [];
             }
             try {
-                $response = Http::get($url);
+                $response = Http::withHeaders(['Accept' => 'application/vnd.github+json'])->get($url);
 
                 if ($response->status() === 200) {
-                    return json_decode($response->body(), true);
+                    $body = json_decode($response->body(), true);
+                    // GitHub API response — extract tag_name
+                    if (isset($body['tag_name'])) {
+                        return [
+                            'panel' => $body['tag_name'],
+                            'wings' => $body['tag_name'],
+                            'discord' => 'https://darkoak.eu/discord',
+                            'donations' => 'https://donate.stripe.com/9B614p5zv7qD66H6YWeME00',
+                        ];
+                    }
+                    // Legacy CDN format
+                    return $body;
                 }
 
                 throw new CdnVersionFetchingException();

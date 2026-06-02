@@ -9,10 +9,10 @@
     };
     $themeColors = $themeConfiguration['colors'] ?? [];
     $initialBackground = $initialMode === 'light'
-    ? ($themeColors['background_light'] ?? $themeColors['background'] ?? '#f4f4f5')
+    ? ($themeColors['background_light'] ?? $themeColors['background'] ?? '#F8F6F3')
     : ($themeColors['background'] ?? '#141414');
     $initialText = $initialMode === 'light'
-        ? ($themeColors['text_primary_light'] ?? '#0f172a')
+        ? ($themeColors['text_primary_light'] ?? '#1C1917')
         : ($themeColors['text_primary'] ?? '#f5f5f5');
 @endphp
 <!DOCTYPE html>

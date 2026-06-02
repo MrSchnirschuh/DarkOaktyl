@@ -75,6 +75,19 @@ class AccountController extends ClientApiController
         return new JsonResponse([], Response::HTTP_NO_CONTENT);
     }
 
+    /**
+     * Return the authenticated user's appearance preferences.
+     */
+    public function appearance(Request $request): JsonResponse
+    {
+        $user = $request->user();
+
+        return new JsonResponse([
+            'appearance_mode' => $user->appearance_mode ?? 'system',
+            'appearance_last_mode' => $user->appearance_last_mode ?? 'dark',
+        ]);
+    }
+
     public function updateAppearance(UpdateAppearanceRequest $request): JsonResponse
     {
         $this->updateService->handle($request->user(), [
@@ -96,6 +109,38 @@ class AccountController extends ClientApiController
     public function setup(SetupUserRequest $request): JsonResponse
     {
         $user = $this->updateService->handle($request->user(), $request->validated());
+
+        return new JsonResponse([], Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * Return the current auth login method for the authenticated user.
+     */
+    public function authLoginMethod(Request $request): JsonResponse
+    {
+        $user = $request->user();
+
+        return new JsonResponse([
+            'auth_login_method' => $user->auth_login_method ?? 'password',
+        ]);
+    }
+
+    /**
+     * Update the auth login method for the authenticated user.
+     */
+    public function updateAuthLoginMethod(Request $request): JsonResponse
+    {
+        $this->validate($request, [
+            'method' => ['required', 'string', 'in:password,passkey'],
+        ]);
+
+        $user = $request->user();
+        $user->auth_login_method = $request->input('method');
+        $user->save();
+
+        Activity::event('user:account.login-method-changed')
+            ->property(['old' => $user->getOriginal('auth_login_method'), 'new' => $request->input('method')])
+            ->log();
 
         return new JsonResponse([], Response::HTTP_NO_CONTENT);
     }

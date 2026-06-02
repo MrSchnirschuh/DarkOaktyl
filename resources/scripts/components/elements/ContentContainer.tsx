@@ -5,9 +5,13 @@ import tw from 'twin.macro';
 const ContentContainer = styled.div`
     ${tw`mx-4`};
 
+    ${breakpoint('lg')`
+        ${tw`mx-8`};
+    `}
+
     ${breakpoint('xl')`
         ${tw`mx-12`};
-    `};
+    `}
 `;
 ContentContainer.displayName = 'ContentContainer';
 

@@ -92,7 +92,7 @@ return [
 
     'cdn' => [
         'cache_time' => 60,
-        'url' => 'https://cdn.DarkOaktyl.io/releases/latest.json',
+        'url' => 'https://api.github.com/repos/MrSchnirschuh/DarkOaktyl/releases/latest',
     ],
 
     /*

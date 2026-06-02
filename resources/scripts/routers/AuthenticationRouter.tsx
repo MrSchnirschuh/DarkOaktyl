@@ -9,27 +9,24 @@ import { useStoreState } from '@/state/hooks';
 import RegisterContainer from '@/components/auth/RegisterContainer';
 
 const Container = styled.div`
-    ${tw`h-screen bg-login bg-cover`};
-    background-repeat: no-repeat;
-    background-blend-mode: darken;
+    ${tw`h-screen flex items-center justify-center`};
+    background: linear-gradient(135deg, var(--theme-background, #0f172a) 0%, var(--theme-body, #111827) 100%);
 `;
 
 export default () => {
     const navigate = useNavigate();
-    const registration = useStoreState(state => state.DarkOak.data?.auth.registration.enabled ?? false);
+    const registration = useStoreState(state => state.DarkOak.data?.auth?.registration?.enabled ?? false);
 
     return (
         <Container>
-            <div className="pt-8 xl:pt-32">
-                <Routes>
-                    <Route path="login" element={<LoginContainer />} />
-                    <Route path="login/checkpoint/*" element={<LoginCheckpointContainer />} />
-                    {registration && <Route path={'register'} element={<RegisterContainer />} />}
-                    <Route path="password" element={<ForgotPasswordContainer />} />
-                    <Route path="password/reset/:token" element={<ResetPasswordContainer />} />
-                    <Route path="*" element={<NotFound onBack={() => navigate('/auth/login')} />} />
-                </Routes>
-            </div>
+            <Routes>
+                <Route path="login" element={<LoginContainer />} />
+                <Route path="login/checkpoint/*" element={<LoginCheckpointContainer />} />
+                {registration && <Route path={'register'} element={<RegisterContainer />} />}
+                <Route path="password" element={<ForgotPasswordContainer />} />
+                <Route path="password/reset/:token" element={<ResetPasswordContainer />} />
+                <Route path="*" element={<NotFound onBack={() => navigate('/auth/login')} />} />
+            </Routes>
         </Container>
     );
 };

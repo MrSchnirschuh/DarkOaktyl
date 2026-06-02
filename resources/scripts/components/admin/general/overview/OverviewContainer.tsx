@@ -125,11 +125,9 @@ export default () => {
                             </CopyOnClick>
                             .
                         </div>
-                        {versionData?.panel.current.startsWith('v4.0.0-') && (
-                            <Alert type={'danger'} className={'mt-4'}>
-                                You are running a beta release of DarkOaktyl v4, which may include several bugs or weird
-                                glitches. Do NOT use this software in production unless you don&apos;t care about losing
-                                data.
+                        {versionData?.panel.current.startsWith('v1.0.0') && (
+                            <Alert type={'info'} className={'mt-4'}>
+                                You&apos;re running the latest stable release of DarkOaktyl.
                             </Alert>
                         )}
                     </>
@@ -187,7 +185,7 @@ export default () => {
                     )}
                     <SuggestionCard
                         icon={faHeart}
-                        link={'https://donate.stripe.com/6oE02Zftd9cC34IbIS'}
+                        link={'https://donate.stripe.com/9B614p5zv7qD66H6YWeME00'}
                         title={'Donate to DarkOaktyl'}
                         action={'Donate'}
                         description={

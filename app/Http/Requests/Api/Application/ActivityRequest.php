@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application;
+namespace DarkOak\Http\Requests\Api\Application;
 
-use Everest\Models\AdminRole;
+use DarkOak\Models\AdminRole;
 
 class ActivityRequest extends ApplicationApiRequest
 {

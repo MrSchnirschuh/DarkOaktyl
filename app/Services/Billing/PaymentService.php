@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Services\Billing;
+namespace DarkOak\Services\Billing;
 
-use Everest\Models\User;
+use DarkOak\Models\User;
 use Stripe\StripeClient;
-use Everest\Models\Billing\Product;
+use DarkOak\Models\Billing\Product;
 
 class PaymentService
 {

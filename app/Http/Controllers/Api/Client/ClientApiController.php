@@ -10,8 +10,12 @@ abstract class ClientApiController extends ApplicationApiController
     /**
      * Returns only the includes which are valid for the given transformer.
      */
-    protected function getIncludesForTransformer(Transformer $transformer, array $merge = []): array
+    protected function getIncludesForTransformer(string|Transformer $transformer, array $merge = []): array
     {
+        if (is_string($transformer)) {
+            $transformer = new $transformer;
+        }
+
         $filtered = array_filter($this->parseIncludes(), function ($datum) use ($transformer) {
             return in_array($datum, $transformer->getAvailableIncludes());
         });

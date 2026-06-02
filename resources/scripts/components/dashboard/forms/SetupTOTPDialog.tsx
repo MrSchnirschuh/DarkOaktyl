@@ -71,7 +71,7 @@ const ConfigureTwoFactorForm = ({ onTokens }: Props) => {
             </div>
             <CopyOnClick text={token?.secret}>
                 <p className={'mt-2 text-center font-mono text-sm text-theme-primary'}>
-                    {token?.secret.match(/.{1,4}/g)!.join(' ') || 'Loading...'}
+                    {token?.secret?.match(/.{1,4}/g)?.join(' ') || 'Loading...'}
                 </p>
             </CopyOnClick>
             <p id={'totp-code-description'} className={'mt-6'}>

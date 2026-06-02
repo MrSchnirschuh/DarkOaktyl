@@ -1,20 +1,20 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Client\Billing;
+namespace DarkOak\Http\Controllers\Api\Client\Billing;
 
 use Stripe\StripeClient;
-use Everest\Models\Server;
-use Everest\Models\Billing\Order;
-use Everest\Models\Billing\Product;
-use Everest\Exceptions\DisplayException;
-use Everest\Services\Billing\PaymentService;
-use Everest\Services\Billing\UpgradeService;
-use Everest\Services\Billing\CreateOrderService;
-use Everest\Transformers\Api\Client\ProductTransformer;
-use Everest\Http\Controllers\Api\Client\ClientApiController;
-use Everest\Http\Requests\Api\Client\Billing\ProcessUpgradeRequest;
-use Everest\Http\Requests\Api\Client\Billing\GetUpgradeChargeRequest;
-use Everest\Http\Requests\Api\Client\Billing\GetUpgradeOptionsRequest;
+use DarkOak\Models\Server;
+use DarkOak\Models\Billing\Order;
+use DarkOak\Models\Billing\Product;
+use DarkOak\Exceptions\DisplayException;
+use DarkOak\Services\Billing\PaymentService;
+use DarkOak\Services\Billing\UpgradeService;
+use DarkOak\Services\Billing\CreateOrderService;
+use DarkOak\Transformers\Api\Client\ProductTransformer;
+use DarkOak\Http\Controllers\Api\Client\ClientApiController;
+use DarkOak\Http\Requests\Api\Client\Billing\ProcessUpgradeRequest;
+use DarkOak\Http\Requests\Api\Client\Billing\GetUpgradeChargeRequest;
+use DarkOak\Http\Requests\Api\Client\Billing\GetUpgradeOptionsRequest;
 
 class UpgradeController extends ClientApiController
 {

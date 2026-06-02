@@ -75,7 +75,16 @@ export const serializePublicKeyCredential = credential => ({
 	clientExtensionResults: credential.getClientExtensionResults(),
 });
 
-export const isWebAuthnSupported = () => typeof window !== 'undefined' && Boolean(window.PublicKeyCredential);
+export const isWebAuthnSupported = () => {
+    if (typeof window === 'undefined') return false;
+    if (!window.PublicKeyCredential) return false;
+    // WebAuthn requires a secure context (HTTPS or localhost).
+    // If accessed via LAN IP (192.168.x.x) over HTTP, it won't work.
+    if (window.isSecureContext === false) {
+        console.warn('WebAuthn requires a secure context (HTTPS or localhost). Panel is accessed via HTTP.');
+    }
+    return true;
+};
 
 export const createCredential = async options => {
 	if (!isWebAuthnSupported()) {

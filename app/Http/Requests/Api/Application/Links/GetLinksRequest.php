@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Links;
+namespace DarkOak\Http\Requests\Api\Application\Links;
 
-use Everest\Models\AdminRole;
-use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
+use DarkOak\Models\AdminRole;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class GetLinksRequest extends ApplicationApiRequest
 {

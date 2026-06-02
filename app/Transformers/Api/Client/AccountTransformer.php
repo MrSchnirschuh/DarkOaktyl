@@ -28,6 +28,7 @@ class AccountTransformer extends Transformer
             'language' => $model->language,
             'appearance_mode' => $model->appearance_mode ?? 'system',
             'appearance_last_mode' => $model->appearance_last_mode ?? 'dark',
+            'auth_login_method' => $model->auth_login_method ?? 'password',
         ];
     }
 }

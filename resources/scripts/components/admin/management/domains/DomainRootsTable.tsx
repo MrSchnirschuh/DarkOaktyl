@@ -132,7 +132,9 @@ const Table = ({ setOpen, setSelected }: Props) => {
                                     ))}
                             </TableBody>
                         </table>
-                        {data === undefined || (error && isValidating) ? <Loading /> : length < 1 ? <NoItems /> : null}
+                        {data === undefined && isValidating ? <Loading /> : null}
+                        {data === undefined && !isValidating && error ? <NoItems /> : null}
+                        {data !== undefined && length < 1 ? <NoItems /> : null}
                     </div>
                 </Pagination>
             </ContentWrapper>

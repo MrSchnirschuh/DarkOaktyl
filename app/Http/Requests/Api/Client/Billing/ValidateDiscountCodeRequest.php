@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Client\Billing;
+namespace DarkOak\Http\Requests\Api\Client\Billing;
 
-use Everest\Http\Requests\Api\Client\ClientApiRequest;
+use DarkOak\Http\Requests\Api\Client\ClientApiRequest;
 
 class ValidateDiscountCodeRequest extends ClientApiRequest
 {

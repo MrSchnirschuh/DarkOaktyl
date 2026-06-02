@@ -63,7 +63,7 @@ function AdminRouter() {
                     )}
                 </div>
                 <Sidebar.Wrapper theme={theme} $admin>
-                    <NavLink to="/" className={'mb-[18px]'}>
+                    <NavLink to="/">
                         <Sidebar.Icon icon={ReplyIcon} />
                         <span>Return</span>
                     </NavLink>
@@ -103,7 +103,7 @@ function AdminRouter() {
                     </div>
                 </Sidebar.User>
             </Sidebar>
-            <div className={'flex-1 overflow-x-hidden px-6 pt-6 lg:px-10 lg:pt-8 xl:px-16 xl:pt-12'}>
+            <div className={'flex-1 overflow-x-hidden'}>
                 <div className={'w-full flex flex-col mx-auto'} style={{ maxWidth: '86rem' }}>
                     <ErrorBoundary>
                         <Routes>

@@ -111,9 +111,9 @@ const Suspended = ({
 
     const navigate = useNavigate();
     const { clearFlashes, clearAndAddHttpError } = useFlash();
-    const currency = useStoreState(state => state.everest.data!.billing.currency.symbol);
+    const currency = useStoreState(state => state.DarkOak.data!.billing.currency.symbol);
     const { secondary } = useStoreState(state => state.theme.data!.colors);
-    const settings = useStoreState(state => state.everest.data!.billing);
+    const settings = useStoreState(state => state.DarkOak.data!.billing);
 
     useEffect(() => {
         if (id) {

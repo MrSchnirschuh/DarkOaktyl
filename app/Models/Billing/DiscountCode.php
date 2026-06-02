@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Models\Billing;
+namespace DarkOak\Models\Billing;
 
-use Everest\Models\Model;
+use DarkOak\Models\Model;
 
 /**
  * @property int $id

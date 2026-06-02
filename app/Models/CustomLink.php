@@ -44,6 +44,7 @@ class CustomLink extends Model
     protected $fillable = [
         'url',
         'name',
+        'icon',
         'visible',
     ];
 

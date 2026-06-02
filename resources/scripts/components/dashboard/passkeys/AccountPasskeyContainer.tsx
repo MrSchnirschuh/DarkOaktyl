@@ -24,7 +24,7 @@ interface Props {
 export default function AccountPasskeyContainer({ standalone = true }: Props) {
     const { data, error, mutate, isValidating } = usePasskeys({ revalidateOnFocus: false });
     const { clearAndAddHttpError } = useFlashKey('account:passkeys');
-    const passkeyLimit = useStoreState(state => state.DarkOak.data?.auth.modules.passkeys.max ?? 5);
+    const passkeyLimit = useStoreState(state => state.DarkOak.data?.auth?.modules?.passkeys?.max ?? 5);
     const passkeys = data ?? [];
 
     useEffect(() => {

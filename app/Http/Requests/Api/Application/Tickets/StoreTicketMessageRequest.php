@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Tickets;
+namespace DarkOak\Http\Requests\Api\Application\Tickets;
 
-use Everest\Models\AdminRole;
-use Everest\Models\TicketMessage;
-use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
+use DarkOak\Models\AdminRole;
+use DarkOak\Models\TicketMessage;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class StoreTicketMessageRequest extends ApplicationApiRequest
 {

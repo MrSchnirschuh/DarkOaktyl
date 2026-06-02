@@ -45,7 +45,6 @@ class ActivityLogController extends ClientApiController
                         'activity_logs.batch',
                         'activity_logs.event',
                         'activity_logs.ip',
-                        'activity_logs.is_api',
                         'activity_logs.description',
                         'activity_logs.properties',
                         'activity_logs.timestamp',

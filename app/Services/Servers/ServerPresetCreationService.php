@@ -1,14 +1,14 @@
 <?php
 
-namespace Everest\Services\Servers;
+namespace DarkOak\Services\Servers;
 
-use Everest\Models\Egg;
-use Everest\Models\User;
-use Everest\Models\Server;
-use Everest\Models\Allocation;
-use Everest\Models\EggVariable;
-use Everest\Models\ServerPreset;
-use Everest\Exceptions\DisplayException;
+use DarkOak\Models\Egg;
+use DarkOak\Models\User;
+use DarkOak\Models\Server;
+use DarkOak\Models\Allocation;
+use DarkOak\Models\EggVariable;
+use DarkOak\Models\ServerPreset;
+use DarkOak\Exceptions\DisplayException;
 
 class ServerPresetCreationService
 {

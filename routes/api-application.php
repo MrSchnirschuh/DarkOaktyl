@@ -4,6 +4,17 @@ use Illuminate\Support\Facades\Route;
 use DarkOak\Http\Controllers\Api\Application;
 use DarkOak\Http\Middleware\Activity\AdminSubject;
 
+/*
+|--------------------------------------------------------------------------
+| Public Legal Documents Routes
+|--------------------------------------------------------------------------
+|
+| Endpoint: /api/application/legal
+| These routes are public and do not require authentication.
+|
+*/
+Route::get('/legal/documents/published', [Application\Legal\LegalDocumentsController::class, 'published']);
+
 Route::middleware([AdminSubject::class])->group(function () {
     Route::get('/permissions', [Application\PermissionsController::class, 'index']);
 
@@ -273,6 +284,20 @@ Route::middleware([AdminSubject::class])->group(function () {
 
     /*
     |--------------------------------------------------------------------------
+    | Legal Documents Controller Routes
+    |--------------------------------------------------------------------------
+    |
+    | Endpoint: /api/application/legal
+    |
+    */
+    Route::group(['prefix' => '/legal'], function () {
+        Route::get('/documents', [Application\Legal\LegalDocumentsController::class, 'index']);
+        Route::put('/documents/{slug}', [Application\Legal\LegalDocumentsController::class, 'update']);
+        Route::get('/documents/published', [Application\Legal\LegalDocumentsController::class, 'published']);
+    });
+
+    /*
+    |--------------------------------------------------------------------------
     | Theme controller routes
     |--------------------------------------------------------------------------
     |
@@ -445,6 +470,23 @@ Route::middleware([AdminSubject::class])->group(function () {
 
     /*
     |--------------------------------------------------------------------------
+    | Preset Controller Routes
+    |--------------------------------------------------------------------------
+    |
+    | Endpoint: /api/application/presets
+    |
+    */
+    Route::group(['prefix' => '/presets'], function () {
+        Route::get('/', [Application\Servers\ServerPresetController::class, 'index']);
+        Route::post('/', [Application\Servers\ServerPresetController::class, 'store']);
+
+        Route::get('/{server_preset:id}', [Application\Servers\ServerPresetController::class, 'view']);
+        Route::patch('/{server_preset:id}', [Application\Servers\ServerPresetController::class, 'update']);
+        Route::delete('/{server_preset:id}', [Application\Servers\ServerPresetController::class, 'delete']);
+    });
+
+    /*
+    |--------------------------------------------------------------------------
     | User Controller Routes
     |--------------------------------------------------------------------------
     |
@@ -476,6 +518,44 @@ Route::middleware([AdminSubject::class])->group(function () {
         Route::patch('/{user:id}', [Application\Users\UserController::class, 'update']);
 
         Route::delete('/{user:id}', [Application\Users\UserController::class, 'delete']);
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | Roles Controller Routes
+    |--------------------------------------------------------------------------
+    |
+    | Direct route for /api/application/roles (frontend expects this)
+    |
+    */
+    Route::prefix('/roles')->group(function () {
+        Route::get('/', [Application\Roles\RoleController::class, 'index']);
+        Route::get('/permissions', [Application\Roles\RoleController::class, 'permissions']);
+        Route::get('/{role:id}', [Application\Roles\RoleController::class, 'view']);
+
+        Route::post('/', [Application\Roles\RoleController::class, 'store']);
+
+        Route::patch('/{role:id}', [Application\Roles\RoleController::class, 'update']);
+        Route::patch('/{role:id}/permissions', [Application\Roles\RoleController::class, 'updatePermissions']);
+
+        Route::delete('/{role:id}', [Application\Roles\RoleController::class, 'delete']);
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | Domain Roots Controller Routes
+    |--------------------------------------------------------------------------
+    |
+    | Endpoint: /api/application/domains
+    |
+    */
+    Route::prefix('/domains')->group(function () {
+        Route::get('/roots', [Application\Domains\DomainRootController::class, 'index']);
+        Route::get('/roots/{domainRoot}', [Application\Domains\DomainRootController::class, 'view']);
+        Route::post('/roots', [Application\Domains\DomainRootController::class, 'store']);
+        Route::patch('/roots/{domainRoot}', [Application\Domains\DomainRootController::class, 'update']);
+        Route::delete('/roots/{domainRoot}', [Application\Domains\DomainRootController::class, 'delete']);
+        Route::post('/roots/{domainRoot}/sync', [Application\Domains\DomainRootController::class, 'sync']);
     });
 });
 

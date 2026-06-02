@@ -1,13 +1,13 @@
 <?php
 
-namespace Everest\Services\Billing;
+namespace DarkOak\Services\Billing;
 
 use Carbon\Carbon;
-use Everest\Models\User;
-use Everest\Models\Server;
-use Everest\Models\Billing\Order;
-use Everest\Models\Billing\Product;
-use Everest\Exceptions\DisplayException;
+use DarkOak\Models\User;
+use DarkOak\Models\Server;
+use DarkOak\Models\Billing\Order;
+use DarkOak\Models\Billing\Product;
+use DarkOak\Exceptions\DisplayException;
 
 class UpgradeService
 {

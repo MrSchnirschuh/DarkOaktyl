@@ -13,8 +13,8 @@ export default () => {
     const [loading, setLoading] = useState(false);
     const { clearFlashes, addFlash } = useFlash();
 
-    const settings = useStoreState(s => s.everest.data!.billing);
-    const updateEverest = useStoreActions(s => s.everest.updateEverest);
+    const settings = useStoreState(s => s.DarkOak.data!.billing);
+    const updateEverest = useStoreActions(s => s.DarkOak.updateEverest);
 
     const [days, setDays] = useState<number>(settings.renewal.days);
     const [threshold, setThreshold] = useState<number>(settings.renewal.threshold);

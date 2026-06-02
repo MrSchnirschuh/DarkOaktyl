@@ -28,7 +28,7 @@ export default ({ discountCode }: { discountCode?: DiscountCode }) => {
     const [type, setType] = useState<DiscountCodeType>('percentage');
 
     const edit = !!discountCode;
-    const currency = useStoreState(s => s.everest.data!.billing.currency.symbol);
+    const currency = useStoreState(s => s.DarkOak.data!.billing.currency.symbol);
 
     const { form, update } = useTypedForm<DiscountCodeValues>({
         code: discountCode?.code ?? 'SAVE25',

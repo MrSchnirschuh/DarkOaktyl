@@ -37,6 +37,7 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
  * @property string|null $state
  * @property bool $use_totp
  * @property string|null $totp_secret
+ * @property string $auth_login_method
  * @property \Illuminate\Support\Carbon|null $totp_authenticated_at
  * @property bool $gravatar
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -56,6 +57,8 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
  * @property int|null $servers_count
  * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\UserSSHKey[] $sshKeys
  * @property int|null $ssh_keys_count
+ * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\UserPasskey[] $passkeys
+ * @property int|null $passkeys_count
  * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\ApiKey[] $tokens
  * @property int|null $tokens_count
  *
@@ -78,6 +81,7 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
  * @method static Builder|User whereTotpSecret($value)
  * @method static Builder|User whereUpdatedAt($value)
  * @method static Builder|User whereUseTotp($value)
+ * @method static Builder|User whereAuthLoginMethod($value)
  * @method static Builder|User whereUsername($value)
  * @method static Builder|User whereUuid($value)
  *
@@ -135,6 +139,7 @@ class User extends Model implements
         'recovery_code',
         'appearance_mode',
         'appearance_last_mode',
+        'auth_login_method',
     ];
 
     /**
@@ -145,6 +150,7 @@ class User extends Model implements
         'use_totp' => 'boolean',
         'gravatar' => 'boolean',
         'totp_authenticated_at' => 'datetime',
+        'auth_login_method' => 'string',
     ];
 
     /**
@@ -164,6 +170,7 @@ class User extends Model implements
         'state' => 'active',
         'appearance_mode' => 'system',
         'appearance_last_mode' => 'dark',
+        'auth_login_method' => 'password',
     ];
 
     /**
@@ -280,6 +287,11 @@ class User extends Model implements
     public function sshKeys(): HasMany
     {
         return $this->hasMany(UserSSHKey::class);
+    }
+
+    public function passkeys(): HasMany
+    {
+        return $this->hasMany(UserPasskey::class);
     }
 
     public function tickets(): HasMany

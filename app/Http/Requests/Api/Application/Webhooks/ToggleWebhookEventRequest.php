@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Webhooks;
+namespace DarkOak\Http\Requests\Api\Application\Webhooks;
 
-use Everest\Models\AdminRole;
-use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
+use DarkOak\Models\AdminRole;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class ToggleWebhookEventRequest extends ApplicationApiRequest
 {

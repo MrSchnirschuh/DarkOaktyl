@@ -1,17 +1,17 @@
 <?php
 
-namespace Everest\Services\Billing;
+namespace DarkOak\Services\Billing;
 
 use Carbon\Carbon;
-use Everest\Models\Egg;
-use Everest\Models\Node;
-use Everest\Models\User;
-use Everest\Models\Server;
-use Everest\Models\Billing\Order;
-use Everest\Models\Billing\Product;
-use Everest\Exceptions\DisplayException;
-use Everest\Models\Billing\BillingException;
-use Everest\Services\Servers\ServerCreationService;
+use DarkOak\Models\Egg;
+use DarkOak\Models\Node;
+use DarkOak\Models\User;
+use DarkOak\Models\Server;
+use DarkOak\Models\Billing\Order;
+use DarkOak\Models\Billing\Product;
+use DarkOak\Exceptions\DisplayException;
+use DarkOak\Models\Billing\BillingException;
+use DarkOak\Services\Servers\ServerCreationService;
 
 class FreeServerDeploymentService extends ServerDeploymentService
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Tickets;
+namespace DarkOak\Http\Requests\Api\Application\Tickets;
 
-use Everest\Models\AdminRole;
-use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
+use DarkOak\Models\AdminRole;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class DeleteTicketRequest extends ApplicationApiRequest
 {

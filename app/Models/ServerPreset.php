@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Models;
+namespace DarkOak\Models;
 
 use Illuminate\Support\Str;
 
 /**
- * \Everest\Models\ServerPreset.
+ * \DarkOak\Models\ServerPreset.
  *
  * @property int $id
  * @property string $uuid

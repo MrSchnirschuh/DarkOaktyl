@@ -7,6 +7,7 @@ export interface CustomLink {
     id: number;
     name: string;
     url: string;
+    icon: string | null;
     visible: boolean;
     createdAt: Date;
     updatedAt?: Date | null;
@@ -15,6 +16,7 @@ export interface CustomLink {
 export interface Values {
     url?: string;
     name?: string;
+    icon?: string | null;
     visible?: boolean;
 }
 
@@ -24,6 +26,7 @@ export const rawDataToLink = ({ attributes: data }: FractalResponseData): Custom
     id: data.id,
     name: data.name,
     url: data.url,
+    icon: data.icon ?? null,
     visible: data.visible,
     createdAt: new Date(data.created_at),
     updatedAt: data.updated_at ? new Date(data.updated_at) : null,

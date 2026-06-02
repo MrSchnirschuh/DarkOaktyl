@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Application\Billing\DiscountCodes;
+namespace DarkOak\Http\Requests\Api\Application\Billing\DiscountCodes;
 
-use Everest\Models\AdminRole;
-use Everest\Models\Billing\DiscountCode;
-use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
+use DarkOak\Models\AdminRole;
+use DarkOak\Models\Billing\DiscountCode;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class StoreDiscountCodeRequest extends ApplicationApiRequest
 {

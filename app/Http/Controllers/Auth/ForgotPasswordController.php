@@ -2,7 +2,7 @@
 
 namespace DarkOak\Http\Controllers\Auth;
 
-use Everest\Models\User;
+use DarkOak\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;

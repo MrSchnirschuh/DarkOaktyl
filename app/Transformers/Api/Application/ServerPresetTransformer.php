@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Transformers\Api\Application;
+namespace DarkOak\Transformers\Api\Application;
 
-use Everest\Models\ServerPreset;
-use Everest\Transformers\Api\Transformer;
+use DarkOak\Models\ServerPreset;
+use DarkOak\Transformers\Api\Transformer;
 
 class ServerPresetTransformer extends Transformer
 {
