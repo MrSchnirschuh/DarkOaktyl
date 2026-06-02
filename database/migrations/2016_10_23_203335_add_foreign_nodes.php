@@ -8,12 +8,15 @@ class AddForeignNodes extends Migration
 {
     /**
      * Run the migrations.
+     * Jexpanel DBs may have already renamed 'location' to 'location_id'.
      */
     public function up(): void
     {
         Schema::table('nodes', function (Blueprint $table) {
-            $table->integer('location', false, true)->nullable(false)->change();
-            $table->foreign('location')->references('id')->on('locations');
+            if (Schema::hasColumn('nodes', 'location')) {
+                $table->integer('location', false, true)->nullable(false)->change();
+                $table->foreign('location')->references('id')->on('locations');
+            }
         });
     }
 
@@ -23,10 +26,11 @@ class AddForeignNodes extends Migration
     public function down(): void
     {
         Schema::table('nodes', function (Blueprint $table) {
-            $table->dropForeign(['location']);
-            $table->dropIndex(['location']);
-
-            $table->mediumInteger('location', false, true)->nullable(false)->change();
+            if (Schema::hasColumn('nodes', 'location')) {
+                $table->dropForeign(['location']);
+                $table->dropIndex(['location']);
+                $table->mediumInteger('location', false, true)->nullable(false)->change();
+            }
         });
     }
 }
