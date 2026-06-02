@@ -44,3 +44,8 @@ Thumbs.db
 
 # Logs
 *.log
+# Dev/Proxy files
+ssl_proxy.py
+storage/ssl/
+routes/*.bak
+storage/logs/
