@@ -44,6 +44,7 @@ Thumbs.db
 
 # Database dumps
 *.sql
+backup_*.sql
 
 # Logs
 *.log
