@@ -42,6 +42,9 @@ bootstrap/cache/*
 .DS_Store
 Thumbs.db
 
+# Database dumps
+*.sql
+
 # Logs
 *.log
 # Dev/Proxy files
