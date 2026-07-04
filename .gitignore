@@ -52,3 +52,4 @@ ssl_proxy.py
 storage/ssl/
 routes/*.bak
 storage/logs/
+composer.phar
