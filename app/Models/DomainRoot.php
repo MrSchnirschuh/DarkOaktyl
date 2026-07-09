@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class DomainRoot extends Model
 {
+    public const RESOURCE_NAME = 'domain_root';
+
     protected $table = 'domain_roots';
 
     protected $fillable = [

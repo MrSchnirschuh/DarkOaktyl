@@ -1,14 +1,29 @@
 <?php
 
-namespace App\Models;
+namespace DarkOak\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @property int $id
+ * @property int $organization_id
+ * @property int $user_id
+ * @property string $role
+ * @property \Illuminate\Support\Carbon|null $joined_at
+ * @property float|null $monthly_share_amount
+ * @property string|null $payment_method
+ * @property string|null $billing_email
+ * @property \Illuminate\Support\Carbon|null $last_payment_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 class OrganizationMember extends Model
 {
     use HasFactory;
+
+    public const RESOURCE_NAME = 'organization_member';
 
     protected $table = 'organization_members';
 

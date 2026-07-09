@@ -1,14 +1,31 @@
 <?php
 
-namespace App\Models;
+namespace DarkOak\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @property int $id
+ * @property int $organization_id
+ * @property string $email
+ * @property string $token
+ * @property string $role
+ * @property string $status
+ * @property int|null $invited_by
+ * @property \Illuminate\Support\Carbon|null $expires_at
+ * @property \Illuminate\Support\Carbon|null $accepted_at
+ * @property \Illuminate\Support\Carbon|null $declined_at
+ * @property string|null $message
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 class OrganizationInvitation extends Model
 {
     use HasFactory;
+
+    public const RESOURCE_NAME = 'organization_invitation';
 
     protected $table = 'organization_invitations';
 

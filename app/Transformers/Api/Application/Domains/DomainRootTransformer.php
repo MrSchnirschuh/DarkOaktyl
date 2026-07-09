@@ -3,10 +3,15 @@
 namespace DarkOak\Transformers\Api\Application\Domains;
 
 use DarkOak\Models\DomainRoot;
-use DarkOak\Transformers\Api\Application\ApplicationApiTransformer;
+use DarkOak\Transformers\Api\Transformer;
 
-class DomainRootTransformer extends ApplicationApiTransformer
+class DomainRootTransformer extends Transformer
 {
+    public function getResourceName(): string
+    {
+        return DomainRoot::RESOURCE_NAME;
+    }
+
     public function transform(DomainRoot $model): array
     {
         return [
