@@ -45,6 +45,11 @@ use DarkOak\Exceptions\Http\Server\ServerStateConflictException;
  * @property int|null $database_limit
  * @property int $backup_limit
  * @property int $subuser_limit
+ * @property bool $suspended
+ * @property int|null $order_id
+ * @property bool $split_billing_enabled
+ * @property int|null $organization_id
+ * @property float|null $monthly_cost
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $installed_at

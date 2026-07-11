@@ -26,6 +26,16 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \DarkOak\Models\Server $server
  * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\AutoScalingHistory[] $histories
+ *
+ * @property int $cpu_threshold_up
+ * @property int $cpu_threshold_down
+ * @property int $ram_threshold_up
+ * @property int $ram_threshold_down
+ * @property int $disk_threshold_up
+ * @property int $disk_threshold_down
+ * @property int $scale_up_limit
+ * @property int $scale_down_limit
+ * @property int $cooldown_minutes
  */
 class AutoScalingRule extends Model
 {
@@ -175,5 +185,31 @@ class AutoScalingRule extends Model
     {
         $newMemory = $currentMemory - $this->scale_down_step;
         return max($newMemory, $this->min_memory);
+    }
+
+    public function isInCooldown(): bool
+    {
+        return !$this->canScaleUp() && !$this->canScaleDown();
+    }
+
+    public function getRemainingCooldownMinutes(): int
+    {
+        $lastAction = max($this->last_scale_up_at, $this->last_scale_down_at);
+        if ($lastAction === null) {
+            return 0;
+        }
+        return max(0, $this->scale_up_cooldown - $lastAction->diffInMinutes(now()));
+    }
+
+    public function markScaleUp(): void
+    {
+        $this->last_scale_up_at = now();
+        $this->save();
+    }
+
+    public function markScaleDown(): void
+    {
+        $this->last_scale_down_at = now();
+        $this->save();
     }
 }

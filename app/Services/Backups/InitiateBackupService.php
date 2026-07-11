@@ -103,7 +103,7 @@ class InitiateBackupService
                 throw new TooManyBackupsException($server->backup_limit);
             }
 
-            /* @var Backup $oldest */
+            /** @var Backup $oldest */
             $this->deleteBackupService->handle($oldest);
         }
 

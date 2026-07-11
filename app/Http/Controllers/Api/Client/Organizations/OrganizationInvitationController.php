@@ -118,7 +118,7 @@ class OrganizationInvitationController extends ClientApiController
     /**
      * Resend an invitation.
      */
-    public function resend(Request $request, string $slug, int $invitationId): array
+    public function resend(Request $request, string $slug, int $invitationId): array|JsonResponse
     {
         $organization = Organization::where('slug', $slug)->firstOrFail();
         $user = $request->user();

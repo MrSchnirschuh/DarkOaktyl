@@ -25,7 +25,7 @@ class CloudflareService
     /**
      * Create a DNS A/AAAA record in Cloudflare.
      */
-    public function createDnsRecord(string $subdomain, string $rootDomain, array $config): bool
+    public function createDnsRecord(string $subdomain, string $rootDomain, array $config): array
     {
         $type = strtoupper($config['record_type'] ?? 'A');
         $name = $subdomain ? "$subdomain.$rootDomain" : $rootDomain;

@@ -5,6 +5,7 @@ namespace DarkOak\Http\Controllers\Api\Application\Webhooks;
 use Illuminate\Http\Request;
 use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 use DarkOak\Models\Webhook;
 use DarkOak\Models\WebhookLog;
 use Illuminate\Support\Facades\Hash;
@@ -136,7 +137,7 @@ class WebhookController extends ApplicationApiController
     /**
      * Send a test event through the webhook.
      */
-    public function test(Request $request, Webhook $webhook): Response
+    public function test(Request $request, Webhook $webhook): JsonResponse|Response
     {
         $dispatcher = app(WebhookDispatcher::class);
         $success = $dispatcher->test($webhook);
@@ -178,7 +179,7 @@ class WebhookController extends ApplicationApiController
     /**
      * Retry a failed webhook delivery.
      */
-    public function retry(Request $request, WebhookLog $log): Response
+    public function retry(Request $request, WebhookLog $log): JsonResponse|Response
     {
         if ($log->success) {
             return response()->json([
@@ -201,7 +202,7 @@ class WebhookController extends ApplicationApiController
     /**
      * Return HTTP/201 with location header.
      */
-    protected function returnCreatedResponse(Webhook $webhook): Response
+    protected function returnCreatedResponse(Webhook $webhook): JsonResponse|Response
     {
         return response()
             ->json($this->fractal->item($webhook)

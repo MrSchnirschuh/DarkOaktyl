@@ -46,6 +46,8 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
  * @property string $recovery_code
  * @property string|null $admin_role_name
  * @property string $md5
+ * @property string|null $name
+ * @property string|null $notification_settings
  * @property \DarkOak\Models\AdminRole|null $adminRole
  * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\ApiKey[] $apiKeys
  * @property int|null $api_keys_count
@@ -85,8 +87,8 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
  * @method static Builder|User whereUsername($value)
  * @method static Builder|User whereUuid($value)
  *
- * @mixin \Barryvdh\LaravelIdeHelper\Eloquent
- * @mixin \Illuminate\Database\Query\Builder
+ * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\Billing\Order[] $orders
+ *
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
 class User extends Model implements
@@ -297,6 +299,11 @@ class User extends Model implements
     public function tickets(): HasMany
     {
         return $this->hasMany(Ticket::class);
+    }
+
+    public function orders(): HasMany
+    {
+        return $this->hasMany(\DarkOak\Models\Billing\Order::class);
     }
 
     /**

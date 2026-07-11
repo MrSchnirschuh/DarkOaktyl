@@ -8,9 +8,33 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+/**
+ * @property int $id
+ * @property string $name
+ * @property string|null $description
+ * @property string $slug
+ * @property string|null $avatar
+ * @property int $owner_id
+ * @property array|null $settings
+ * @property float|null $monthly_budget
+ * @property string|null $billing_address
+ * @property string|null $tax_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int|null $members_count
+ * @property int|null $servers_count
+ * @property \DarkOak\Models\User $owner
+ * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\OrganizationMember[] $members
+ * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\OrganizationInvitation[] $invitations
+ * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\Server[] $servers
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|Organization whereSlug($value)
+ */
 class Organization extends Model
 {
     use HasFactory;
+
+    public const RESOURCE_NAME = 'organization';
 
     protected $table = 'organizations';
 
@@ -145,6 +169,26 @@ class Organization extends Model
         $count = $this->getMemberCount();
 
         return $count > 0 ? $total / $count : 0;
+    }
+
+    public function calculateMonthlyCost(): float
+    {
+        return $this->getTotalMonthlyCost();
+    }
+
+    public function calculateSplitCostPerMember(): float
+    {
+        return $this->getCostPerMember();
+    }
+
+    public function activeMembers(): HasMany
+    {
+        return $this->hasMany(OrganizationMember::class)->where('is_active', true);
+    }
+
+    public function isSplitBillingEnabled(): bool
+    {
+        return $this->getSplitCostsEnabled();
     }
 
     protected static function boot(): void

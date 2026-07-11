@@ -39,7 +39,7 @@ class SetupController extends ApplicationApiController
      */
     public function finish(): Response
     {
-        $this->settings->set('settings::app:setup', true);
+        $this->settings->set('settings::app:setup', 'true');
 
         return $this->returnNoContent();
     }

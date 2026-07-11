@@ -66,7 +66,7 @@ class PasskeyController extends ClientApiController
                 'id' => request()->getHost(),
             ],
             'user' => [
-                'id' => bin2hex($user->id),
+                'id' => bin2hex((string) $user->id),
                 'name' => $user->email,
                 'displayName' => $user->name ?? $user->username,
             ],

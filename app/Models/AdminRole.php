@@ -94,6 +94,7 @@ class AdminRole extends Model
     public const BILLING_EXPORT = 'billing.export';
     public const BILLING_IMPORT = 'billing.import';
     public const BILLING_DELETE_KEYS = 'billing.delete-keys';
+    public const BILLING_DISCOUNT_CODES = 'billing.discount-codes';
 
     public const EMAILS_READ = 'emails.read';
     public const EMAILS_UPDATE = 'emails.update';
@@ -110,6 +111,7 @@ class AdminRole extends Model
 
     public const WEBHOOKS_READ = 'webhooks.read';
     public const WEBHOOKS_UPDATE = 'webhooks.update';
+    public const WEBHOOKS_CREATE = 'webhooks.create';
 
     public const ALERTS_READ = 'alerts.read';
     public const ALERTS_UPDATE = 'alerts.update';
@@ -136,6 +138,10 @@ class AdminRole extends Model
     public const SERVERS_CREATE = 'servers.create';
     public const SERVERS_UPDATE = 'servers.update';
     public const SERVERS_DELETE = 'servers.delete';
+    public const SERVER_PRESETS_READ = 'servers.presets-read';
+    public const SERVER_PRESETS_CREATE = 'servers.presets-create';
+    public const SERVER_PRESETS_UPDATE = 'servers.presets-update';
+    public const SERVER_PRESETS_DELETE = 'servers.presets-delete';
 
     public const USERS_READ = 'users.read';
     public const USERS_CREATE = 'users.create';

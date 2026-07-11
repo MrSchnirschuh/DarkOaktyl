@@ -136,7 +136,7 @@ class ServerGroupController extends ClientApiController
     {
         $group = ServerGroup::findOrFail($groupId);
 
-        if ($group->owner_id !== $userId) {
+        if ($group->user_id !== $userId) {
             throw new DisplayException('You do not have permission to access this group.');
         }
 

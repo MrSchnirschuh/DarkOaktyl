@@ -24,7 +24,7 @@ class SettingsRepository extends EloquentRepository implements SettingsRepositor
      *
      * @throws \DarkOak\Exceptions\Model\DataValidationException
      */
-    public function set(string $key, ?string $value = null)
+    public function set(string $key, mixed $value = null)
     {
         // Clear item from the cache.
         $this->clearCache($key);

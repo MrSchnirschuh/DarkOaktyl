@@ -40,6 +40,8 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
  * @property bool|null $deployable
  * @property bool|null $deployable_free
  * @property int $servers_count
+ * @property int $total_allocations
+ * @property int $used_allocations
  * @property int|null $region_id
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at

@@ -2,6 +2,7 @@
 
 namespace DarkOak\Services\Emails;
 
+use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Cron\CronExpression;
 use DarkOak\Models\EmailTrigger;
@@ -44,14 +45,14 @@ class EmailTriggerProcessor
 
         if ($trigger->schedule_type === EmailTrigger::SCHEDULE_RECURRING && !empty($trigger->cron_expression)) {
             $cron = new CronExpression($trigger->cron_expression);
-            $trigger->next_run_at = CarbonImmutable::instance($cron->getNextRunDate($now->toDateTime()))
+            $trigger->next_run_at = Carbon::instance($cron->getNextRunDate($now->toDateTime()))
                 ->shiftTimezone('UTC');
         } else {
             $trigger->next_run_at = null;
             $trigger->is_active = false;
         }
 
-        $trigger->last_run_at = $now->shiftTimezone('UTC');
+        $trigger->last_run_at = Carbon::instance($now->shiftTimezone('UTC'));
         $trigger->save();
     }
 

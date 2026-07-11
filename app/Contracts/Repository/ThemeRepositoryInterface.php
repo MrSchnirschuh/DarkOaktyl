@@ -10,12 +10,12 @@ interface ThemeRepositoryInterface extends RepositoryInterface
      * @throws \DarkOak\Exceptions\Model\DataValidationException
      * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
      */
-    public function set(string $key, ?string $value = null);
+    public function set(string $key, mixed $value = null);
 
     /**
      * Retrieve a persistent setting from the database.
      */
-    public function get(string $key, mixed $default): mixed;
+    public function get(string $key, mixed $default = null): mixed;
 
     /**
      * Remove a key from the database cache.

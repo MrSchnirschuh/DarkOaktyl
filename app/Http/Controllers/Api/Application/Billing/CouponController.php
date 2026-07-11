@@ -121,7 +121,7 @@ class CouponController extends ApplicationApiController
         return $this->returnNoContent();
     }
 
-    public function send(SendBillingCouponRequest $request, Coupon $coupon): Response
+    public function send(SendBillingCouponRequest $request, Coupon $coupon): JsonResponse|Response
     {
         $template = EmailTemplate::query()->where('uuid', $request->input('template_uuid'))->firstOrFail();
 

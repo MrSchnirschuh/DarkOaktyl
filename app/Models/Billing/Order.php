@@ -32,6 +32,8 @@ class Order extends Model
     public const TYPE_NEW = 'new';
     public const TYPE_UPG = 'upg';
     public const TYPE_REN = 'ren';
+    public const TYPE_RENEWAL = 'ren';
+    public const TYPE_UPGRADE = 'upg';
 
     /**
      * The resource name for this model when it is transformed into an

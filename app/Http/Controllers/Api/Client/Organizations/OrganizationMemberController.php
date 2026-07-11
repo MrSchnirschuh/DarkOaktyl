@@ -45,7 +45,7 @@ class OrganizationMemberController extends ClientApiController
     /**
      * Update a member's role.
      */
-    public function updateRole(Request $request, string $slug, int $memberId): array
+    public function updateRole(Request $request, string $slug, int $memberId): array|JsonResponse
     {
         $organization = Organization::where('slug', $slug)->firstOrFail();
         $user = $request->user();
@@ -231,7 +231,7 @@ class OrganizationMemberController extends ClientApiController
     /**
      * Set custom share amounts for members.
      */
-    public function setCustomShares(Request $request, string $slug): array
+    public function setCustomShares(Request $request, string $slug): array|JsonResponse
     {
         $organization = Organization::where('slug', $slug)->firstOrFail();
         $user = $request->user();

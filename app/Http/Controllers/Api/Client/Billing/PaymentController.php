@@ -127,9 +127,9 @@ class PaymentController extends ClientApiController
         ];
 
         $variables = $request->input('variables') ?? [];
-        $metadata['variables'] = !empty($variables) ? json_encode($variables) : '';
+        $metadata['variables'] = !empty($variables) ? (json_encode($variables) ?: '') : '';
 
-        $intent->metadata = $metadata;
+        $intent->metadata = new \Stripe\StripeObject($metadata);
         $intent->save();
 
         // Create the order

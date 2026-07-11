@@ -25,6 +25,8 @@ abstract class AbstractLoginController extends Controller
 
     protected AuthManager $auth;
 
+    protected UserCreationService $creation;
+
     /**
      * Lockout time for failed login requests.
      */
@@ -117,7 +119,7 @@ abstract class AbstractLoginController extends Controller
         if ($guard || $delay > 0) {
             DB::table('jguard_delay')->insert([
                 'user_id' => $user->id,
-                'expires_at' => Carbon::now()->add($delay, 'minute'),
+                'expires_at' => Carbon::now()->add('minute', (int) $delay),
             ]);
         }
 

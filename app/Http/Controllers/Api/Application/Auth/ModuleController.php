@@ -28,7 +28,7 @@ class ModuleController extends ApplicationApiController
      */
     public function enable(EnableAuthModuleRequest $request): Response
     {
-        $this->settings->set('settings::modules:auth:' . $request->all()[0] . ':enabled', true);
+        $this->settings->set('settings::modules:auth:' . $request->all()[0] . ':enabled', 'true');
 
         Activity::event('admin:auth:module:enable')
             ->property('module', $request->all()[0])
@@ -45,7 +45,7 @@ class ModuleController extends ApplicationApiController
      */
     public function disable(DisableAuthModuleRequest $request): Response
     {
-        $this->settings->set('settings::modules:auth:' . $request->all()[0] . ':enabled', false);
+        $this->settings->set('settings::modules:auth:' . $request->all()[0] . ':enabled', 'false');
 
         Activity::event('admin:auth:module:disable')
             ->property('module', $request->all()[0])

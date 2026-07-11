@@ -8,6 +8,7 @@ use DarkOak\Http\Controllers\Api\Client\ClientApiController;
 use DarkOak\Http\Requests\Api\Client\Organizations\CreateOrganizationRequest;
 use DarkOak\Http\Requests\Api\Client\Organizations\UpdateOrganizationRequest;
 use DarkOak\Models\Organization;
+use DarkOak\Models\User;
 use DarkOak\Services\Organizations\OrganizationService;
 use DarkOak\Transformers\Api\Client\OrganizationTransformer;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -178,7 +179,7 @@ class OrganizationController extends ClientApiController
     /**
      * Transfer ownership of an organization.
      */
-    public function transferOwnership(Request $request, string $slug): array
+    public function transferOwnership(Request $request, string $slug): array|JsonResponse
     {
         $organization = Organization::where('slug', $slug)->firstOrFail();
         $user = $request->user();

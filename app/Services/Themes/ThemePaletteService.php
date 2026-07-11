@@ -499,7 +499,7 @@ class ThemePaletteService
 
         if (preg_match('/^rgba?\(([^)]+)\)$/i', $value, $matches)) {
             $components = preg_split('/[,\s\/]+/', trim($matches[1]));
-            $components = array_values(array_filter($components, 'strlen'));
+            $components = array_values(array_filter($components, fn($v) => $v !== ''));
 
             if (count($components) >= 3) {
                 [$r, $g, $b] = array_map([$this, 'normalizeRgbComponent'], array_slice($components, 0, 3));
@@ -510,7 +510,7 @@ class ThemePaletteService
 
         if (preg_match('/^hsla?\(([^)]+)\)$/i', $value, $matches)) {
             $components = preg_split('/[,\s\/]+/', trim($matches[1]));
-            $components = array_values(array_filter($components, 'strlen'));
+            $components = array_values(array_filter($components, fn($v) => $v !== ''));
 
             if (count($components) >= 3) {
                 $h = fmod((float) $components[0], 360.0);
