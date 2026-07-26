@@ -34,7 +34,7 @@ jobs:
         run: composer install --no-interaction --no-progress --no-suggest --prefer-dist
 
       - name: PHP CS Fixer
-        run: vendor/bin/php-cs-fixer fix --dry-run --diff || true
+        run: vendor/bin/php-cs-fixer fix --dry-run --diff
 
   mysql:
     name: Tests
@@ -98,11 +98,11 @@ jobs:
         run: composer install --no-interaction --no-progress --no-suggest --prefer-dist
 
       - name: Unit tests
-        run: vendor/bin/phpunit --bootstrap vendor/autoload.php tests/Unit || true
+        run: vendor/bin/phpunit --bootstrap vendor/autoload.php tests/Unit
         env:
           DB_HOST: UNIT_NO_DB
 
       - name: Integration tests
-        run: vendor/bin/phpunit tests/Integration || true
+        run: vendor/bin/phpunit tests/Integration
         env:
           DB_PORT: ${{ job.services.database.ports[3306] }}

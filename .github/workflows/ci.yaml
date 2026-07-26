@@ -64,7 +64,6 @@ jobs:
 
       - name: Unit tests
         run: vendor/bin/phpunit --bootstrap vendor/autoload.php tests/Unit
-        if: ${{ always() }}
         env:
           DB_HOST: UNIT_NO_DB
 
