@@ -49,10 +49,13 @@ export interface Filters {
 }
 
 export default (id: string | number, filters: Filters = {}, include: string[] = []): Promise<Allocation[]> => {
-    const params = {};
+    const params: Record<string, string> = {};
     if (filters !== null) {
-        Object.keys(filters).forEach(key => {
-            params['filter[' + key + ']'] = filters[key as keyof Filters];
+        (Object.keys(filters) as (keyof Filters)[]).forEach(key => {
+            const val = filters[key];
+            if (val !== undefined) {
+                params['filter[' + key + ']'] = val;
+            }
         });
     }
 
