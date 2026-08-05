@@ -38,6 +38,11 @@ class ServerTransformer extends Transformer
         return [
             'server_owner' => $user->id === $server->owner_id,
             'identifier' => $server->uuidShort,
+            '__deprecated_uuid_short' => $server->uuidShort,
+            // In Pterodactyl 2.0 we'll be replacing `identifier` above with the actual
+            // "identifier" used internally. This is a completely different value compared
+            // to the current however, and would be quite a breaking change to URLs.
+            'server_identifier' => $server->uuidShort,
             'internal_id' => $server->id,
             'group_id' => $server->group_id,
             'uuid' => $server->uuid,
@@ -45,7 +50,7 @@ class ServerTransformer extends Transformer
             'node' => $server->node->name,
             'is_node_under_maintenance' => $server->node->isUnderMaintenance(),
             'sftp_details' => [
-                'ip' => $server->node->fqdn,
+                'ip' => $server->node->sftp_alias ?: $server->node->fqdn,
                 'port' => $server->node->public_port_sftp,
             ],
             'description' => $server->description,

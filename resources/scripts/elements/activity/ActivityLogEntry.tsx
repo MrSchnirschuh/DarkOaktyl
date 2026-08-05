@@ -18,7 +18,7 @@ interface Props {
     children?: React.ReactNode;
 }
 
-function wrapProperties(value: unknown): any {
+export function wrapProperties(value: unknown): any {
     if (value === null || typeof value === 'string' || typeof value === 'number') {
         return `<strong>${String(value)}</strong>`;
     }
@@ -47,7 +47,9 @@ export default ({ activity, children }: Props) => {
 
     return (
         <div
-            className={'group grid grid-cols-10 py-4 last:rounded-b last:border-0 border-b-2 border-black/50'}
+            className={
+                'group grid grid-cols-10 py-4 last:rounded-b-xl last:border-0 border-b border-black/40 transition-colors duration-200 hover:bg-white/[0.02]'
+            }
             style={{ backgroundColor: colors.secondary }}
         >
             <div className={'hidden select-none items-center justify-center 2xl:col-span-1 2xl:flex'}>
@@ -57,20 +59,20 @@ export default ({ activity, children }: Props) => {
             </div>
             <div className={'col-span-10 flex sm:col-span-9'}>
                 <div className={'flex-1 px-4 sm:px-0'}>
-                    <div className={'flex items-center text-theme-primary'}>
+                    <div className={'flex items-center text-slate-50'}>
                         <Tooltip placement={'top'} content={actor?.email || 'System User'}>
                             <span className={'font-bold'}>{actor?.username || 'System'}</span>
                         </Tooltip>
-                        <span className={'text-theme-muted mx-2'}>&bull;</span>
+                        <span className={'text-slate-400 mx-2'}>&bull;</span>
                         <Link
                             to={`#${pathTo({ event: activity.event })}`}
                             className={
-                                'text-theme-secondary transition-colors duration-75 hover:text-cyan-400 active:text-cyan-400'
+                                'text-gray-300 transition-colors duration-75 hover:text-cyan-400 active:text-cyan-400'
                             }
                         >
                             {activity.description ?? activity.event}
                         </Link>
-                        <div className={classNames(style.icons, 'group-hover:text-theme-secondary')}>
+                        <div className={classNames(style.icons, 'group-hover:text-slate-300')}>
                             {activity.isApi && (
                                 <Tooltip placement={'top'} content={'Using API Key'}>
                                     <TerminalIcon />
@@ -90,8 +92,13 @@ export default ({ activity, children }: Props) => {
                     <div className={'mt-1 flex items-center text-sm'}>
                         {activity.ip && (
                             <span>
-                                {activity.ip}
-                                <span className={'text-theme-muted'}>&nbsp;|&nbsp;</span>
+                                <Link
+                                    to={`#${pathTo({ ip: activity.ip })}`}
+                                    className={'transition-colors duration-75 hover:text-cyan-400'}
+                                >
+                                    {activity.ip}
+                                </Link>
+                                <span className={'text-slate-400'}>&nbsp;|&nbsp;</span>
                             </span>
                         )}
                         <Tooltip placement={'right'} content={format(activity.timestamp, 'MMM do, yyyy H:mm:ss')}>

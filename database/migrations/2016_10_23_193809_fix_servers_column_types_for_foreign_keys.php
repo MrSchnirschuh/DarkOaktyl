@@ -7,9 +7,11 @@ use Illuminate\Database\Migrations\Migration;
 return new class () extends Migration {
     /**
      * Run the migrations.
-     * Only alter columns that actually exist — the old column names
-     * (node, owner, allocation, service, option) may have already been
-     * renamed to node_id, owner_id, etc. by JexPanel migrations.
+     *
+     * These columns were renamed to their `_id` suffixed counterparts by the
+     * 2017_02_02_175548_UpdateColumnNames migration. On installs that already
+     * ran that migration the old column names no longer exist, so guard each
+     * statement rather than assuming a fresh, never-migrated schema.
      */
     public function up(): void
     {

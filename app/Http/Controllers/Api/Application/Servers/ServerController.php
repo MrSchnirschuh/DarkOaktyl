@@ -1,24 +1,25 @@
 <?php
 
-namespace DarkOak\Http\Controllers\Api\Application\Servers;
+namespace Everest\Http\Controllers\Api\Application\Servers;
 
-use DarkOak\Models\Server;
-use DarkOak\Facades\Activity;
+use Everest\Models\Server;
+use Everest\Facades\Activity;
 use Illuminate\Http\Response;
-use Illuminate\Http\JsonResponse;
 use Spatie\QueryBuilder\QueryBuilder;
-use DarkOak\Services\Servers\ServerCreationService;
-use DarkOak\Services\Servers\ServerDeletionService;
-use DarkOak\Services\Servers\BuildModificationService;
-use DarkOak\Services\Servers\DetailsModificationService;
-use DarkOak\Transformers\Api\Application\ServerTransformer;
-use DarkOak\Exceptions\Http\QueryValueOutOfRangeHttpException;
-use DarkOak\Http\Requests\Api\Application\Servers\GetServerRequest;
-use DarkOak\Http\Requests\Api\Application\Servers\GetServersRequest;
-use DarkOak\Http\Requests\Api\Application\Servers\StoreServerRequest;
-use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
-use DarkOak\Http\Requests\Api\Application\Servers\DeleteServerRequest;
-use DarkOak\Http\Requests\Api\Application\Servers\UpdateServerRequest;
+use Everest\Services\Servers\ServerCreationService;
+use Everest\Services\Servers\ServerDeletionService;
+use Everest\Services\Servers\BuildModificationService;
+use Everest\Services\Servers\DetailsModificationService;
+use Everest\Services\Servers\ServerPresetCreationService;
+use Everest\Transformers\Api\Application\ServerTransformer;
+use Everest\Exceptions\Http\QueryValueOutOfRangeHttpException;
+use Everest\Http\Requests\Api\Application\Servers\GetServerRequest;
+use Everest\Http\Requests\Api\Application\Servers\GetServersRequest;
+use Everest\Http\Requests\Api\Application\Servers\StoreServerRequest;
+use Everest\Http\Controllers\Api\Application\ApplicationApiController;
+use Everest\Http\Requests\Api\Application\Servers\DeleteServerRequest;
+use Everest\Http\Requests\Api\Application\Servers\UpdateServerRequest;
+use Everest\Http\Requests\Api\Application\Servers\StoreServerWithPresetRequest;
 
 class ServerController extends ApplicationApiController
 {
@@ -29,7 +30,8 @@ class ServerController extends ApplicationApiController
         private BuildModificationService $buildModificationService,
         private DetailsModificationService $detailsModificationService,
         private ServerCreationService $creationService,
-        private ServerDeletionService $deletionService
+        private ServerPresetCreationService $presetCreationService,
+        private ServerDeletionService $deletionService,
     ) {
         parent::__construct();
     }
@@ -45,13 +47,11 @@ class ServerController extends ApplicationApiController
         }
 
         $servers = QueryBuilder::for(Server::query())
-            ->allowedFilters(['id', 'uuid', 'uuidShort', 'name', 'owner_id', 'node_id', 'external_id'])
-            ->allowedSorts(['id', 'uuid', 'uuidShort', 'name', 'owner_id', 'node_id', 'status'])
+            ->allowedFilters(...['id', 'uuid', 'uuidShort', 'name', 'owner_id', 'node_id', 'external_id'])
+            ->allowedSorts(...['id', 'uuid', 'uuidShort', 'name', 'owner_id', 'node_id', 'status'])
             ->paginate($perPage);
 
-        return $this->fractal->collection($servers)
-            ->transformWith(ServerTransformer::class)
-            ->toArray();
+        return $this->transform($servers, ServerTransformer::class);
     }
 
     /**
@@ -59,23 +59,46 @@ class ServerController extends ApplicationApiController
      *
      * @throws \Throwable
      * @throws \Illuminate\Validation\ValidationException
-     * @throws \DarkOak\Exceptions\DisplayException
-     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
-     * @throws \DarkOak\Exceptions\Service\Deployment\NoViableAllocationException
-     * @throws \DarkOak\Exceptions\Service\Deployment\NoViableNodeException
+     * @throws \Everest\Exceptions\DisplayException
+     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
+     * @throws \Everest\Exceptions\Service\Deployment\NoViableAllocationException
+     * @throws \Everest\Exceptions\Service\Deployment\NoViableNodeException
      */
-    public function store(StoreServerRequest $request): JsonResponse
+    public function store(StoreServerRequest $request): array
     {
         $server = $this->creationService->handle($request->validated());
 
         Activity::event('admin:servers:create')
+            ->subject($server)
             ->property('server', $server)
             ->description('A server was created')
             ->log();
 
-        return $this->fractal->item($server)
-            ->transformWith(ServerTransformer::class)
-            ->respond(Response::HTTP_CREATED);
+        return $this->transform($server, ServerTransformer::class);
+    }
+
+    /**
+     * Create a new server via a server preseton the system.
+     *
+     * @throws \Throwable
+     * @throws \Illuminate\Validation\ValidationException
+     * @throws \Everest\Exceptions\DisplayException
+     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
+     * @throws \Everest\Exceptions\Service\Deployment\NoViableAllocationException
+     * @throws \Everest\Exceptions\Service\Deployment\NoViableNodeException
+     */
+    public function storeWithPreset(StoreServerWithPresetRequest $request): array
+    {
+        $server = $this->presetCreationService->handle($request->user(), $request->normalize());
+
+        Activity::event('admin:servers:create')
+            ->subject($server)
+            ->property('server', $server)
+            ->property('server_preset', $request['preset_id'])
+            ->description('A server was created via a server preset')
+            ->log();
+
+        return $this->transform($server, ServerTransformer::class);
     }
 
     /**
@@ -83,24 +106,21 @@ class ServerController extends ApplicationApiController
      */
     public function view(GetServerRequest $request, Server $server): array
     {
-        return $this->fractal->item($server)
-            ->transformWith(ServerTransformer::class)
-            ->toArray();
+        return $this->transform($server, ServerTransformer::class);
     }
 
     /**
      * Deletes a server.
      *
-     * @throws \DarkOak\Exceptions\DisplayException
+     * @throws \Everest\Exceptions\DisplayException
      * @throws \Throwable
      */
     public function delete(DeleteServerRequest $request, Server $server): Response
     {
-        $force = (bool) ($request->input('force') ?? false);
-
-        $this->deletionService->withForce($force)->handle($server);
+        $this->deletionService->withForce($request->boolean('force'))->handle($server);
 
         Activity::event('admin:servers:delete')
+            ->subject($server)
             ->property('server', $server)
             ->description('A server was deleted')
             ->log();
@@ -113,10 +133,10 @@ class ServerController extends ApplicationApiController
      *
      * @throws \Throwable
      * @throws \Illuminate\Validation\ValidationException
-     * @throws \DarkOak\Exceptions\DisplayException
-     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
-     * @throws \DarkOak\Exceptions\Service\Deployment\NoViableAllocationException
-     * @throws \DarkOak\Exceptions\Service\Deployment\NoViableNodeException
+     * @throws \Everest\Exceptions\DisplayException
+     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
+     * @throws \Everest\Exceptions\Service\Deployment\NoViableAllocationException
+     * @throws \Everest\Exceptions\Service\Deployment\NoViableNodeException
      */
     public function update(UpdateServerRequest $request, Server $server): array
     {
@@ -124,14 +144,12 @@ class ServerController extends ApplicationApiController
         $server = $this->detailsModificationService->returnUpdatedModel()->handle($server, $request->validated());
 
         Activity::event('admin:servers:update')
+            ->subject($server)
             ->property('server', $server)
             ->property('new_data', $request->all())
             ->description('A server was updated')
             ->log();
 
-        return $this->fractal->item($server)
-            ->transformWith(ServerTransformer::class)
-            ->toArray();
+        return $this->transform($server, ServerTransformer::class);
     }
 }
-

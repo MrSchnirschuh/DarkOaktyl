@@ -1,58 +1,53 @@
 {
-    "name": "darkoaktyl/darkoaktyl",
+    "name": "jexactyl/jexactyl",
     "license": "MIT",
     "require": {
-        "php": ">=8.3",
+        "php": "^8.4 || ^8.5",
         "ext-json": "*",
         "ext-mbstring": "*",
         "ext-pdo": "*",
-        "ext-pdo_mysql": "*",
         "ext-posix": "*",
-        "ext-zip": "*",
-        "aws/aws-sdk-php": "~3.260.1",
-        "doctrine/dbal": "~3.6.0",
+        "aws/aws-sdk-php": "^3.260",
+        "barryvdh/laravel-dompdf": "^3.1",
+        "doctrine/dbal": "^3.6 || ^4.0",
         "gemini-api-php/client": "v1.4.4",
-        "guzzlehttp/guzzle": "~7.5.0",
-        "hashids/hashids": "~5.0.0",
-        "laracasts/utilities": "~3.2.2",
-        "laravel/cashier": "^15.4",
-        "laravel/framework": "^10.0",
-        "laravel/helpers": "~1.6.0",
-        "laravel/sanctum": "~3.2.1",
+        "guzzlehttp/guzzle": "^7.8",
+        "hashids/hashids": "^5.0",
+        "laravel/framework": "^13.0",
+        "laravel/helpers": "^1.6",
+        "laravel/sanctum": "^4.2",
         "laravel/socialite": "^5.12",
-        "laravel/tinker": "~2.8.1",
-        "laravel/ui": "~4.2.1",
-        "lcobucci/jwt": "~4.3.0",
-        "league/flysystem-aws-s3-v3": "~3.12.2",
-        "league/flysystem-memory": "~3.10.3",
-        "matriphe/iso-639": "~1.2",
-        "minishlink/web-push": "^9.0",
-        "phpseclib/phpseclib": "~3.0.18",
-        "pragmarx/google2fa": "~8.0.0",
-        "predis/predis": "~2.1.1",
-        "prologue/alerts": "~1.1.0",
-        "psr/cache": "~3.0.0",
-        "s1lentium/iptools": "~1.2.0",
-        "spatie/laravel-fractal": "~6.0.3",
-        "spatie/laravel-query-builder": "~5.1.2",
-        "staudenmeir/belongs-to-through": "~2.13",
-        "symfony/http-client": "^6.4",
-        "symfony/mailgun-mailer": "^6.4",
-        "symfony/postmark-mailer": "^6.4",
-        "symfony/yaml": "^6.4",
-        "web-auth/webauthn-lib": "^5.3",
-        "webmozart/assert": "~1.11.0"
+        "laravel/tinker": "^3.0",
+        "laravel/ui": "^4.2",
+        "lcobucci/jwt": "^4.3",
+        "league/flysystem-aws-s3-v3": "^3.12",
+        "league/flysystem-memory": "^3.10",
+        "matriphe/iso-639": "^1.2",
+        "phpseclib/phpseclib": "^3.0",
+        "pragmarx/google2fa": "^8.0",
+        "predis/predis": "^2.1",
+        "psr/cache": "^3.0",
+        "s1lentium/iptools": "^1.2",
+        "spatie/laravel-fractal": "^6.4",
+        "spatie/laravel-query-builder": "^7.0",
+        "staudenmeir/belongs-to-through": "^2.18",
+        "stripe/stripe-php": "^17.3",
+        "symfony/http-client": "^7.4",
+        "symfony/mailgun-mailer": "^7.4",
+        "symfony/postmark-mailer": "^7.4",
+        "symfony/yaml": "^7.4",
+        "webmozart/assert": "^1.11"
     },
     "require-dev": {
-        "fakerphp/faker": "^1.24",
-        "friendsofphp/php-cs-fixer": "^3.80",
-        "itsgoingd/clockwork": "^5.3",
-        "laravel/sail": "^1.41",
-        "mockery/mockery": "^1.6",
-        "nunomaduro/collision": "^7.12",
-        "nunomaduro/larastan": "^2.9",
-        "phpstan/phpstan": "^1.12",
-        "phpunit/phpunit": "^10.5",
+        "fakerphp/faker": "^1.21",
+        "friendsofphp/php-cs-fixer": "^3.14",
+        "larastan/larastan": "^3.0",
+        "laravel/sail": "^1.21",
+        "mockery/mockery": "^1.5",
+        "nunomaduro/collision": "^8.0",
+        "phpstan/phpstan": "^2.2",
+        "phpstan/phpstan-webmozart-assert": "^2.0",
+        "phpunit/phpunit": "^11.5",
         "spatie/laravel-ignition": "^2.9"
     },
     "autoload": {
@@ -60,14 +55,14 @@
             "app/helpers.php"
         ],
         "psr-4": {
-            "DarkOak\\": "app/",
+            "Everest\\": "app/",
             "Database\\Factories\\": "database/Factories/",
             "Database\\Seeders\\": "database/Seeders/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "DarkOak\\Tests\\": "tests/"
+            "Everest\\Tests\\": "tests/"
         }
     },
     "scripts": {
@@ -91,16 +86,8 @@
         "platform": {
             "php": "8.4.0"
         },
-        "platform-check": true,
         "allow-plugins": {
             "php-http/discovery": true
-        },
-        "audit": {
-            "ignore": [
-                "PKSA-4t1p-xpk2-nsss",
-                "PKSA-dxyf-6n16-t87m",
-                "PKSA-n3s6-289w-qtqb"
-            ]
         }
     },
     "minimum-stability": "stable",

@@ -7,44 +7,42 @@ import { withSubComponents } from '@/lib/helpers';
 
 const Icon: React.FC<{ icon: React.ElementType }> = ({ icon: Icon }) => {
     const theme = useStoreState(s => s.theme.data!);
-    const accent = theme.colors.accent_primary ?? theme.colors.primary;
 
-    const accentVar = `var(--theme-accent-contrast, ${accent})`;
-    return <Icon color={accent} style={{ color: accentVar, stroke: accentVar }} />;
+    return <Icon color={theme.colors.primary} />;
 };
 
 const Wrapper = styled.div<{ theme: SiteTheme; $admin?: boolean }>`
     ${tw`w-full flex flex-col px-4`};
 
     & > a {
-        ${tw`w-full flex flex-row items-center cursor-pointer select-none px-4`};
-        color: var(--theme-text-secondary);
+        ${tw`w-full flex flex-row items-center text-neutral-300 cursor-pointer select-none px-4 rounded-lg`};
+        ${tw`hover:text-neutral-50 hover:bg-white/5`};
         height: ${({ $admin }) => ($admin ? '2.5rem' : '4rem')};
-        ${tw`transition ease-in-out delay-200 duration-200`};
+        ${tw`transition-all duration-200`};
 
         & > svg {
-            ${tw`h-6 w-6 flex flex-shrink-0`};
+            ${tw`h-6 w-6 flex flex-shrink-0 transition-transform duration-200`};
         }
 
         & > span {
             ${tw`font-header font-medium text-lg whitespace-nowrap leading-none ml-3`};
         }
 
-        &:hover {
-            color: var(--theme-text-primary);
+        &:hover > svg {
+            ${tw`scale-110`};
         }
 
         &:active,
         &.active {
-            ${tw`bg-black/25 rounded-lg`};
-            color: var(--theme-accent-text, ${({ theme }) => theme.colors.accent_primary ?? theme.colors.primary});
+            ${tw`bg-black/30 shadow-inner ring-1 ring-white/5`};
+            color: ${({ theme }) => theme.colors.primary};
+            filter: brightness(150%);
         }
     }
 `;
 
 const Section = styled.div`
-    ${tw`h-[18px] font-header font-medium text-xs whitespace-nowrap uppercase ml-4 mb-1 select-none`};
-    color: var(--theme-text-secondary);
+    ${tw`h-[18px] font-header font-medium text-xs text-neutral-300 whitespace-nowrap uppercase ml-4 mb-1 select-none`};
 
     &:not(:first-of-type) {
         ${tw`mt-4`};
@@ -52,20 +50,20 @@ const Section = styled.div`
 `;
 
 const User = styled.div`
-    ${tw`h-16 w-full flex items-center bg-black/25 justify-center`};
+    ${tw`h-16 w-full flex items-center bg-black/25 justify-center border-b border-white/5`};
 `;
 
 const Sidebar = styled.div<{ $collapsed?: boolean; theme: SiteTheme }>`
     ${tw`hidden md:flex h-screen flex-col items-center flex-shrink-0 overflow-x-hidden ease-linear`};
-    ${tw`transition-all duration-500`};
+    ${tw`transition-all duration-500 border-r border-white/5 shadow-xl`};
     ${tw`w-[15rem]`};
 
     background-color: ${({ theme }) => theme.colors.sidebar};
 
     & > a,
     & > span > a {
-        ${tw`h-10 w-full flex flex-row items-center cursor-pointer select-none px-8`};
-        color: var(--theme-text-secondary);
+        ${tw`h-10 w-full flex flex-row items-center text-neutral-300 cursor-pointer select-none px-8`};
+        ${tw`hover:text-neutral-50`};
 
         & > svg {
             ${tw`transition-none h-6 w-6 flex flex-shrink-0`};
@@ -73,15 +71,6 @@ const Sidebar = styled.div<{ $collapsed?: boolean; theme: SiteTheme }>`
 
         & > span {
             ${tw`font-header font-medium text-lg whitespace-nowrap leading-none ml-3`};
-        }
-
-        &:hover {
-            color: var(--theme-text-primary);
-        }
-
-        &.active {
-            ${tw`bg-black/25 rounded-lg`};
-            color: var(--theme-accent-text, ${({ theme }) => theme.colors.accent_primary ?? theme.colors.primary});
         }
     }
 
@@ -115,11 +104,4 @@ const Sidebar = styled.div<{ $collapsed?: boolean; theme: SiteTheme }>`
         `};
 `;
 
-const SidebarWithComponents: typeof Sidebar & {
-    Section: typeof Section;
-    Wrapper: typeof Wrapper;
-    User: typeof User;
-    Icon: typeof Icon;
-} = withSubComponents(Sidebar, { Section, Wrapper, User, Icon });
-
-export default SidebarWithComponents;
+export default withSubComponents(Sidebar, { Section, Wrapper, User, Icon });

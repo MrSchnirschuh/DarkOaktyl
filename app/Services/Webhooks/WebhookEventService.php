@@ -1,25 +1,14 @@
 <?php
 
-namespace DarkOak\Services\Webhooks;
+namespace Everest\Services\Webhooks;
 
-use DarkOak\Models\User;
-use DarkOak\Models\WebhookEvent;
+use Everest\Models\User;
+use Everest\Models\WebhookEvent;
 use Illuminate\Support\Facades\Http;
-use DarkOak\Exceptions\DisplayException;
-use DarkOak\Contracts\Repository\ThemeRepositoryInterface;
-use DarkOak\Contracts\Repository\SettingsRepositoryInterface;
+use Everest\Exceptions\DisplayException;
 
 class WebhookEventService
 {
-    /**
-     * WebhookEventService constructor.
-     */
-    public function __construct(
-        private SettingsRepositoryInterface $settings,
-        private ThemeRepositoryInterface $theme,
-    ) {
-    }
-
     /**
      * Send a webhook through the defined URL.
      *
@@ -27,8 +16,7 @@ class WebhookEventService
      */
     public function send(User $user, WebhookEvent $event): void
     {
-        $color = $this->theme->get('theme::colors:primary');
-        $url = $this->settings->get('settings::modules:webhooks:url');
+        $url = config('modules.webhooks.url');
 
         if (!$url) {
             throw new DisplayException('No Webhook URL has been defined.');
@@ -39,16 +27,15 @@ class WebhookEventService
                 'embeds' => [[
                     'title' => $event->key,
                     'description' => $event->description,
-                    'url' => env('APP_URL') . '/admin',
-                    'color' => $color,
+                    'url' => config('app.url') . '/admin',
                     'timestamp' => now()->toIso8601String(),
                     'footer' => [
-                        'text' => 'DarkOaktyl v4',
-                        'icon_url' => 'https://avatars.githubusercontent.com/u/91636558?s=200&v=4',
+                        'text' => 'Provided by Jexpanel v4',
+                        'icon_url' => 'https://avatars.githubusercontent.com/u/91636558',
                     ],
                     'author' => [
                         'name' => $user->email,
-                        'url' => env('APP_URL') . '/admin/users/' . $user->id,
+                        'url' => config('app.url') . '/admin/users/' . $user->id,
                     ],
                 ]],
             ]);
@@ -57,5 +44,3 @@ class WebhookEventService
         }
     }
 }
-
-

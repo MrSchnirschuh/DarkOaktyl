@@ -1,40 +1,38 @@
 <?php
 
-namespace DarkOak\Http;
+namespace Everest\Http;
 
-use DarkOak\Http\Middleware\TrimStrings;
+use Everest\Http\Middleware\TrimStrings;
 use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Http\Middleware\HandleCors;
-use DarkOak\Http\Middleware\EncryptCookies;
-use DarkOak\Http\Middleware\Api\IsValidJson;
-use DarkOak\Http\Middleware\VerifyCsrfToken;
-use DarkOak\Http\Middleware\VerifyReCaptcha;
+use Everest\Http\Middleware\EncryptCookies;
+use Everest\Http\Middleware\Api\IsValidJson;
+use Everest\Http\Middleware\VerifyCsrfToken;
+use Everest\Http\Middleware\VerifyReCaptcha;
 use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Http\Middleware\TrustProxies;
-use DarkOak\Http\Middleware\LanguageMiddleware;
-use DarkOak\Http\Middleware\JGuardMiddleware;
+use Everest\Http\Middleware\LanguageMiddleware;
+use Everest\Http\Middleware\SetSecurityHeaders;
 use Illuminate\Session\Middleware\StartSession;
-use DarkOak\Http\Middleware\Activity\TrackAPIKey;
-use DarkOak\Http\Middleware\MaintenanceMiddleware;
-use DarkOak\Http\Middleware\EnsureStatefulRequests;
+use Everest\Http\Middleware\Activity\TrackAPIKey;
+use Everest\Http\Middleware\MaintenanceMiddleware;
+use Everest\Http\Middleware\EnsureStatefulRequests;
 use Illuminate\Routing\Middleware\ThrottleRequests;
-use DarkOak\Http\Middleware\RedirectIfAuthenticated;
+use Everest\Http\Middleware\RedirectIfAuthenticated;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
-use DarkOak\Http\Middleware\Api\AuthenticateIPAccess;
+use Everest\Http\Middleware\Api\AuthenticateIPAccess;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
-use DarkOak\Http\Middleware\Api\Daemon\DaemonAuthenticate;
-use DarkOak\Http\Middleware\Api\Client\RequireClientApiKey;
-use DarkOak\Http\Middleware\ApiRateLimit;
-use DarkOak\Http\Middleware\SecurityHeaders;
-use DarkOak\Http\Middleware\RequireTwoFactorAuthentication;
+use Everest\Http\Middleware\Api\Daemon\DaemonAuthenticate;
+use Everest\Http\Middleware\Api\Client\RequireClientApiKey;
+use Everest\Http\Middleware\RequireTwoFactorAuthentication;
 use Illuminate\Foundation\Http\Middleware\ValidatePostSize;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
-use DarkOak\Http\Middleware\Api\Client\SubstituteClientBindings;
+use Everest\Http\Middleware\Api\Client\SubstituteClientBindings;
 use Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull;
-use DarkOak\Http\Middleware\Api\Application\AuthenticateApplicationUser;
+use Everest\Http\Middleware\Api\Application\AuthenticateApplicationUser;
 use Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance;
 
 class Kernel extends HttpKernel
@@ -49,7 +47,11 @@ class Kernel extends HttpKernel
         ValidatePostSize::class,
         TrimStrings::class,
         ConvertEmptyStringsToNull::class,
-        SecurityHeaders::class,
+        SetSecurityHeaders::class,
+    ];
+
+    protected $middlewarePriority = [
+        SubstituteClientBindings::class,
     ];
 
     /**
@@ -64,7 +66,6 @@ class Kernel extends HttpKernel
             VerifyCsrfToken::class,
             SubstituteBindings::class,
             LanguageMiddleware::class,
-            JGuardMiddleware::class,
         ],
         'api' => [
             EnsureStatefulRequests::class,
@@ -102,8 +103,5 @@ class Kernel extends HttpKernel
         'bindings' => SubstituteBindings::class,
         'recaptcha' => VerifyReCaptcha::class,
         'node.maintenance' => MaintenanceMiddleware::class,
-        'api.ratelimit' => ApiRateLimit::class,
-        'security.headers' => SecurityHeaders::class,
     ];
 }
-

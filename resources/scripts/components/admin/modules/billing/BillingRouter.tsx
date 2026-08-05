@@ -10,6 +10,7 @@ import { SubNavigation, SubNavigationLink } from '@admin/SubNavigation';
 import OverviewContainer from '@/components/admin/modules/billing/overview/OverviewContainer';
 import CategoryTable from '@admin/modules/billing/products/CategoryTable';
 import OrdersContainer from '@admin/modules/billing/orders/OrdersContainer';
+import InvoicesContainer from '@admin/modules/billing/invoices/InvoicesContainer';
 import ProductContainer from '@admin/modules/billing/products/ProductContainer';
 import CategoryContainer from '@admin/modules/billing/products/CategoryContainer';
 import {
@@ -17,6 +18,7 @@ import {
     CalendarIcon,
     CogIcon,
     DesktopComputerIcon,
+    DocumentTextIcon,
     ShoppingCartIcon,
     TicketIcon,
     ViewGridIcon,
@@ -75,6 +77,9 @@ export default () => {
                 <SubNavigationLink to={'/admin/billing/orders'} name={'Orders'}>
                     <ShoppingCartIcon />
                 </SubNavigationLink>
+                <SubNavigationLink to={'/admin/billing/invoices'} name={'Invoices'}>
+                    <DocumentTextIcon />
+                </SubNavigationLink>
                 <SubNavigationLink to={'/admin/billing/exceptions'} name={'Exceptions'}>
                     <XCircleIcon />
                 </SubNavigationLink>
@@ -105,6 +110,8 @@ export default () => {
                 <Route path={'/categories/:id/products/:productId'} element={<ProductContainer />} />
 
                 <Route path={'/orders'} element={<OrdersContainer />} />
+
+                <Route path={'/invoices'} element={<InvoicesContainer />} />
 
                 <Route path={'/exceptions'} element={<BillingExceptionsContainer />} />
 

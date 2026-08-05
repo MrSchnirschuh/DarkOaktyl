@@ -1,10 +1,11 @@
 <?php
 
-namespace DarkOak\Models\Billing;
+namespace Everest\Models\Billing;
 
-use DarkOak\Models\Model;
-use DarkOak\Models\User;
-use DarkOak\Models\Server;
+use Everest\Models\User;
+use Everest\Models\Model;
+use Everest\Models\Server;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
@@ -18,9 +19,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int|null $server_id
  * @property string $type
  * @property int $threat_index
- * @property string $payment_intent_id
+ * @property string|null $transaction_id
+ * @property array|null $metadata
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
+ * @property User $user
+ * @property Server|null $server
+ * @property Product $product
+ * @property Invoice|null $invoice
  */
 class Order extends Model
 {
@@ -30,10 +36,8 @@ class Order extends Model
     public const STATUS_PROCESSED = 'processed';
 
     public const TYPE_NEW = 'new';
-    public const TYPE_UPG = 'upg';
-    public const TYPE_REN = 'ren';
-    public const TYPE_RENEWAL = 'ren';
-    public const TYPE_UPGRADE = 'upg';
+    public const TYPE_UPGRADE = 'upgrade';
+    public const TYPE_RENEWAL = 'renewal';
 
     /**
      * The resource name for this model when it is transformed into an
@@ -50,8 +54,8 @@ class Order extends Model
      * Fields that are mass assignable.
      */
     protected $fillable = [
-        'name', 'user_id', 'description', 'payment_intent_id',
-        'total', 'status', 'product_id', 'type', 'threat_index', 'server_id',
+        'name', 'user_id', 'description', 'transaction_id',
+        'total', 'status', 'product_id', 'type', 'threat_index', 'metadata',
     ];
 
     /**
@@ -62,7 +66,7 @@ class Order extends Model
         'total' => 'float',
         'product_id' => 'int',
         'threat_index' => 'int',
-        'server_id' => 'int',
+        'metadata' => 'array',
     ];
 
     public static array $validationRules = [
@@ -72,10 +76,10 @@ class Order extends Model
         'total' => 'required|min:0',
         'status' => 'required|in:expired,pending,failed,processed',
         'product_id' => 'exists:products,id',
-        'type' => 'required|in:new,upg,ren',
+        'type' => 'required|in:new,upgrade,renewal',
         'threat_index' => 'nullable|int|min:-1|max:100',
-        'payment_intent_id' => 'required|string|unique:orders,payment_intent_id',
-        'server_id' => 'nullable|exists:servers,id',
+        'transaction_id' => 'nullable|string',
+        'metadata' => 'nullable|array',
     ];
 
     /**
@@ -103,11 +107,24 @@ class Order extends Model
     }
 
     /**
+     * Gets the invoice generated for this order, if any.
+     */
+    public function invoice(): HasOne
+    {
+        return $this->hasOne(Invoice::class, 'order_id');
+    }
+
+    /**
      * Return whether a payment must be collected for this order.
      */
     public function requiresPayment(): bool
     {
-        return $this->total > 0.0;
+        if ($this->total > 0.0) {
+            return true;
+        }
+
+        return false;
+
     }
 
     /**
@@ -115,15 +132,25 @@ class Order extends Model
      */
     public function isProcessed(): bool
     {
-        return $this->status === self::STATUS_PROCESSED;
+        if ($this->status === Order::STATUS_PROCESSED) {
+            return true;
+        }
+
+        return false;
+
     }
 
     /**
-     * Return whether this order is a renewal.
+     * Return whether this order is a renewal or new server.
      */
     public function isRenewal(): bool
     {
-        return $this->type === self::TYPE_REN;
+        if ($this->type === Order::TYPE_RENEWAL) {
+            return true;
+        }
+
+        return false;
+
     }
 
     /**
@@ -132,15 +159,17 @@ class Order extends Model
     public function assignServer(Server $server): void
     {
         $this->server()->associate($server);
+
         $this->save();
     }
 
     /**
-     * A helper function to set the order status.
+     * A helper function to set the order type.
      */
     public function setStatus(string $status): void
     {
         $this->status = $status;
+
         $this->save();
     }
 }

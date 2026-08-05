@@ -40,11 +40,10 @@ class EggController extends ApplicationApiController
             throw new QueryValueOutOfRangeHttpException('per_page', 1, 100);
         }
 
-        // @phpstan-ignore-next-line
         $eggs = QueryBuilder::for(Egg::query())
             ->where('nest_id', '=', $nest->id)
-            ->allowedFilters(['id', 'name', 'author'])
-            ->allowedSorts(['id', 'name', 'author']);
+            ->allowedFilters(...['id', 'name', 'author'])
+            ->allowedSorts(...['id', 'name', 'author']);
         if ($perPage > 0) {
             $eggs = $eggs->paginate($perPage);
         }
@@ -79,6 +78,7 @@ class EggController extends ApplicationApiController
         $egg = Egg::query()->create($merged);
 
         Activity::event('admin:eggs:create')
+            ->subject($egg)
             ->property('egg', $egg)
             ->description('An egg was created')
             ->log();
@@ -96,6 +96,7 @@ class EggController extends ApplicationApiController
         $egg->update($request->validated());
 
         Activity::event('admin:eggs:update')
+            ->subject($egg)
             ->property('egg', $egg)
             ->property('new_data', $request->all())
             ->description('An egg was updated')
@@ -116,6 +117,7 @@ class EggController extends ApplicationApiController
         $egg->delete();
 
         Activity::event('admin:eggs:delete')
+            ->subject($egg)
             ->property('egg', $egg)
             ->description('An egg was deleted')
             ->log();
@@ -131,6 +133,7 @@ class EggController extends ApplicationApiController
     public function export(ExportEggRequest $request, int $eggId): JsonResponse
     {
         Activity::event('admin:eggs:export')
+            ->subject(Egg::find($eggId))
             ->property('egg', $eggId)
             ->description('An egg was exported')
             ->log();

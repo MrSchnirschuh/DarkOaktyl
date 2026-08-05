@@ -1,20 +1,22 @@
 <?php
 
-namespace DarkOak\Http\Controllers\Api\Remote\Servers;
+namespace Everest\Http\Controllers\Api\Remote\Servers;
 
-use DarkOak\Models\Backup;
-use DarkOak\Models\Server;
+use Everest\Models\Backup;
+use Everest\Models\Server;
 use Illuminate\Http\Request;
-use DarkOak\Facades\Activity;
+use Everest\Facades\Activity;
+use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
-use DarkOak\Http\Controllers\Controller;
 use Illuminate\Database\ConnectionInterface;
-use DarkOak\Services\Eggs\EggConfigurationService;
-use DarkOak\Repositories\Eloquent\ServerRepository;
-use DarkOak\Http\Resources\Wings\ServerConfigurationCollection;
-use DarkOak\Services\Servers\ServerConfigurationStructureService;
+use Everest\Services\Eggs\EggConfigurationService;
+use Everest\Repositories\Eloquent\ServerRepository;
+use Everest\Http\Resources\Wings\ServerConfigurationCollection;
+use Everest\Services\Servers\ServerConfigurationStructureService;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Everest\Http\Controllers\Api\Application\ApplicationApiController;
 
-class ServerDetailsController extends Controller
+class ServerDetailsController extends ApplicationApiController
 {
     /**
      * ServerConfigurationController constructor.
@@ -23,7 +25,7 @@ class ServerDetailsController extends Controller
         protected ConnectionInterface $connection,
         private ServerRepository $repository,
         private ServerConfigurationStructureService $configurationStructureService,
-        private EggConfigurationService $eggConfigurationService
+        private EggConfigurationService $eggConfigurationService,
     ) {
     }
 
@@ -31,11 +33,18 @@ class ServerDetailsController extends Controller
      * Returns details about the server that allows Wings to self-recover and ensure
      * that the state of the server matches the Panel at all times.
      *
-     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
+     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
      */
     public function __invoke(Request $request, string $uuid): JsonResponse
     {
+        /** @var \Everest\Models\Node $node */
+        $node = $request->attributes->get('node');
+
         $server = $this->repository->getByUuid($uuid);
+        if ($server->node_id !== $node->id) {
+            // Don't reveal that a server with this UUID exists on a different node.
+            throw new NotFoundHttpException();
+        }
 
         return new JsonResponse([
             'settings' => $this->configurationStructureService->handle($server),
@@ -48,14 +57,8 @@ class ServerDetailsController extends Controller
      */
     public function list(Request $request): ServerConfigurationCollection
     {
-        /** @var \DarkOak\Models\Node|null $node */
+        /** @var \Everest\Models\Node $node */
         $node = $request->attributes->get('node');
-
-        // Guard: if the node wasn't authenticated by the middleware, return empty collection
-        // instead of crashing with "Attempt to read property 'id' on null".
-        if (is_null($node)) {
-            return new ServerConfigurationCollection(collect([]));
-        }
 
         // Avoid run-away N+1 SQL queries by preloading the relationships that are used
         // within each of the services called below.
@@ -76,7 +79,7 @@ class ServerDetailsController extends Controller
      *
      * @throws \Throwable
      */
-    public function resetState(Request $request): JsonResponse
+    public function resetState(Request $request): Response
     {
         $node = $request->attributes->get('node');
 
@@ -97,9 +100,9 @@ class ServerDetailsController extends Controller
             ->get();
 
         $this->connection->transaction(function () use ($node, $servers) {
-            /** @var \DarkOak\Models\Server $server */
+            /** @var Server $server */
             foreach ($servers as $server) {
-                /** @var \DarkOak\Models\ActivityLog|null $activity */
+                /** @var \Everest\Models\ActivityLog|null $activity */
                 $activity = $server->activity->first();
                 if (!is_null($activity)) {
                     if ($subject = $activity->subjects->where('subject_type', 'backup')->first()) {
@@ -115,15 +118,13 @@ class ServerDetailsController extends Controller
                 }
             }
 
-            // Update any server marked as restoring from backup as being in a normal state
-            // at this point in the process. Do NOT reset installing servers — those are
-            // actively being installed and should continue.
+            // Update any server marked as installing or restoring as being in a normal state
+            // at this point in the process.
             Server::query()->where('node_id', $node->id)
-                ->whereIn('status', [Server::STATUS_RESTORING_BACKUP])
+                ->whereIn('status', [Server::STATUS_INSTALLING, Server::STATUS_RESTORING_BACKUP])
                 ->update(['status' => null]);
         });
 
-        return new JsonResponse([], JsonResponse::HTTP_NO_CONTENT);
+        return $this->returnNoContent();
     }
 }
-

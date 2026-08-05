@@ -1,18 +1,17 @@
 <?php
 
-namespace DarkOak\Http\Controllers\Api\Client\Servers;
+namespace Everest\Http\Controllers\Api\Client\Servers;
 
-use DarkOak\Models\Server;
-use DarkOak\Facades\Activity;
+use Everest\Models\Server;
+use Everest\Facades\Activity;
 use Illuminate\Http\Response;
-use Illuminate\Http\JsonResponse;
-use DarkOak\Repositories\Eloquent\ServerRepository;
-use DarkOak\Services\Servers\ReinstallServerService;
-use DarkOak\Http\Controllers\Api\Client\ClientApiController;
+use Everest\Repositories\Eloquent\ServerRepository;
+use Everest\Services\Servers\ReinstallServerService;
+use Everest\Http\Controllers\Api\Client\ClientApiController;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use DarkOak\Http\Requests\Api\Client\Servers\Settings\RenameServerRequest;
-use DarkOak\Http\Requests\Api\Client\Servers\Settings\SetDockerImageRequest;
-use DarkOak\Http\Requests\Api\Client\Servers\Settings\ReinstallServerRequest;
+use Everest\Http\Requests\Api\Client\Servers\Settings\RenameServerRequest;
+use Everest\Http\Requests\Api\Client\Servers\Settings\SetDockerImageRequest;
+use Everest\Http\Requests\Api\Client\Servers\Settings\ReinstallServerRequest;
 
 class SettingsController extends ClientApiController
 {
@@ -21,7 +20,7 @@ class SettingsController extends ClientApiController
      */
     public function __construct(
         private ServerRepository $repository,
-        private ReinstallServerService $reinstallServerService
+        private ReinstallServerService $reinstallServerService,
     ) {
         parent::__construct();
     }
@@ -29,10 +28,10 @@ class SettingsController extends ClientApiController
     /**
      * Renames a server.
      *
-     * @throws \DarkOak\Exceptions\Model\DataValidationException
-     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
+     * @throws \Everest\Exceptions\Model\DataValidationException
+     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
      */
-    public function rename(RenameServerRequest $request, Server $server): JsonResponse
+    public function rename(RenameServerRequest $request, Server $server): Response
     {
         $name = $request->input('name');
         $description = $request->has('description') ? (string) $request->input('description') : $server->description;
@@ -53,7 +52,7 @@ class SettingsController extends ClientApiController
                 ->log();
         }
 
-        return new JsonResponse([], Response::HTTP_NO_CONTENT);
+        return $this->returnNoContent();
     }
 
     /**
@@ -61,13 +60,13 @@ class SettingsController extends ClientApiController
      *
      * @throws \Throwable
      */
-    public function reinstall(ReinstallServerRequest $request, Server $server): JsonResponse
+    public function reinstall(ReinstallServerRequest $request, Server $server): Response
     {
         $this->reinstallServerService->handle($server);
 
         Activity::event('server:reinstall')->log();
 
-        return new JsonResponse([], Response::HTTP_ACCEPTED);
+        return $this->returnAccepted();
     }
 
     /**
@@ -75,7 +74,7 @@ class SettingsController extends ClientApiController
      *
      * @throws \Throwable
      */
-    public function dockerImage(SetDockerImageRequest $request, Server $server): JsonResponse
+    public function dockerImage(SetDockerImageRequest $request, Server $server): Response
     {
         if (!in_array($server->image, array_values($server->egg->docker_images))) {
             throw new BadRequestHttpException('This server\'s Docker image has been manually set by an administrator and cannot be updated.');
@@ -90,7 +89,6 @@ class SettingsController extends ClientApiController
                 ->log();
         }
 
-        return new JsonResponse([], Response::HTTP_NO_CONTENT);
+        return $this->returnNoContent();
     }
 }
-

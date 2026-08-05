@@ -1,18 +1,20 @@
 <?php
 
-namespace DarkOak\Http\Controllers\Api\Application\Setup;
+namespace Everest\Http\Controllers\Api\Application\Setup;
 
+use Everest\Models\Setting;
+use Everest\Facades\Activity;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
-use DarkOak\Contracts\Repository\SettingsRepositoryInterface;
-use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
+use Everest\Http\Requests\Api\Application\OverviewRequest;
+use Everest\Http\Controllers\Api\Application\ApplicationApiController;
 
 class SetupController extends ApplicationApiController
 {
     /**
      * SetupController constructor.
      */
-    public function __construct(private SettingsRepositoryInterface $settings)
+    public function __construct()
     {
         parent::__construct();
     }
@@ -22,13 +24,13 @@ class SetupController extends ApplicationApiController
      *
      * @throws \Throwable
      */
-    public function data(): JsonResponse
+    public function data(OverviewRequest $request): JsonResponse
     {
         return response()->json([
-            'nodes' => \DarkOak\Models\Node::query()->count(),
-            'servers' => \DarkOak\Models\Server::query()->count(),
-            'users' => \DarkOak\Models\User::query()->count(),
-            'eggs' => \DarkOak\Models\Egg::query()->count(),
+            'nodes' => \Everest\Models\Node::query()->count(),
+            'servers' => \Everest\Models\Server::query()->count(),
+            'users' => \Everest\Models\User::query()->count(),
+            'eggs' => \Everest\Models\Egg::query()->count(),
         ]);
     }
 
@@ -37,11 +39,14 @@ class SetupController extends ApplicationApiController
      *
      * @throws \Throwable
      */
-    public function finish(): Response
+    public function finish(OverviewRequest $request): Response
     {
-        $this->settings->set('settings::app:setup', 'true');
+        Setting::set('settings::app:setup', true);
+
+        Activity::event('admin:setup:finish')
+            ->description('The panel setup wizard was completed')
+            ->log();
 
         return $this->returnNoContent();
     }
 }
-

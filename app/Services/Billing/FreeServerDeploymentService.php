@@ -1,17 +1,16 @@
 <?php
 
-namespace DarkOak\Services\Billing;
+namespace Everest\Services\Billing;
 
 use Carbon\Carbon;
-use DarkOak\Models\Egg;
-use DarkOak\Models\Node;
-use DarkOak\Models\User;
-use DarkOak\Models\Server;
-use DarkOak\Models\Billing\Order;
-use DarkOak\Models\Billing\Product;
-use DarkOak\Exceptions\DisplayException;
-use DarkOak\Models\Billing\BillingException;
-use DarkOak\Services\Servers\ServerCreationService;
+use Everest\Models\Node;
+use Everest\Models\User;
+use Everest\Models\Server;
+use Everest\Models\Billing\Order;
+use Everest\Models\Billing\Product;
+use Everest\Exceptions\DisplayException;
+use Everest\Models\Billing\BillingException;
+use Everest\Services\Servers\ServerCreationService;
 
 class FreeServerDeploymentService extends ServerDeploymentService
 {
@@ -24,10 +23,10 @@ class FreeServerDeploymentService extends ServerDeploymentService
     /**
      * Process the creation of a free server.
      */
-    public function handleFree(User $user, Product $product, Node $node, Order $order, array $variables): Server
+    public function handleFree(User $user, Product $product, Node $node, Order $order, array $variables, ?int $eggId = null): Server
     {
         $renewalDays = config('modules.billing.renewal.free_renewal_days', 30);
-        $egg = Egg::findOrFail($product->category->egg_id);
+        $egg = $this->resolveEgg($product, $eggId);
         $allocation = $this->getAllocation($node->id, $order->id);
         $environment = $this->getEnvironment($egg->id, $variables);
 
@@ -80,6 +79,10 @@ class FreeServerDeploymentService extends ServerDeploymentService
 
             if (!$node->deployable_free) {
                 throw new DisplayException('Free servers cannot be deployed to this node.');
+            }
+
+            if ($node->deployment_fee > 0) {
+                throw new DisplayException('This node has a deployment fee and cannot be used for free servers.');
             }
 
             if ($user->servers()->where('billing_product_id', $product->id)->count() > 0) {

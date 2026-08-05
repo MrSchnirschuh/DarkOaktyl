@@ -1,18 +1,18 @@
 <?php
 
-namespace DarkOak\Models;
+namespace Everest\Models;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
 /**
- * \DarkOak\Models\ActivityLogSubject.
+ * \Everest\Models\ActivityLogSubject.
  *
  * @property int $id
  * @property int $activity_log_id
  * @property int $subject_id
  * @property string $subject_type
- * @property \DarkOak\Models\ActivityLog|null $activityLog
- * @property \Illuminate\Database\Eloquent\Model|\Eloquent $subject
+ * @property ActivityLog|null $activityLog
+ * @property \Illuminate\Database\Eloquent\Model|\Eloquent|null $subject
  *
  * @method static \Illuminate\Database\Eloquent\Builder|ActivityLogSubject newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ActivityLogSubject newQuery()
@@ -36,12 +36,6 @@ class ActivityLogSubject extends Pivot
 
     public function subject()
     {
-        $morph = $this->morphTo();
-        if (method_exists($morph, 'withTrashed')) {
-            return $morph->withTrashed();
-        }
-
-        return $morph;
+        return $this->morphTo()->withTrashed();
     }
 }
-

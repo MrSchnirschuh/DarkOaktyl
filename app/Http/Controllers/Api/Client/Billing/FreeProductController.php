@@ -1,23 +1,25 @@
 <?php
 
-namespace DarkOak\Http\Controllers\Api\Client\Billing;
+namespace Everest\Http\Controllers\Api\Client\Billing;
 
-use DarkOak\Models\Node;
-use DarkOak\Models\Server;
-use Illuminate\Http\Request;
-use DarkOak\Models\Billing\Order;
-use DarkOak\Models\Billing\Product;
-use DarkOak\Exceptions\DisplayException;
-use DarkOak\Services\Billing\CreateOrderService;
-use DarkOak\Services\Billing\CreateServerService;
-use DarkOak\Transformers\Api\Client\ServerTransformer;
-use DarkOak\Http\Controllers\Api\Client\ClientApiController;
+use Everest\Models\Egg;
+use Everest\Models\Node;
+use Everest\Models\Billing\Order;
+use Everest\Models\Billing\Product;
+use Everest\Exceptions\DisplayException;
+use Everest\Services\Billing\CreateOrderService;
+use Everest\Services\Billing\ServerRenewalService;
+use Everest\Transformers\Api\Client\ServerTransformer;
+use Everest\Services\Billing\FreeServerDeploymentService;
+use Everest\Http\Controllers\Api\Client\ClientApiController;
+use Everest\Http\Requests\Api\Client\Billing\ProcessFreeServerRequest;
 
 class FreeProductController extends ClientApiController
 {
     public function __construct(
-        private CreateServerService $serverCreation,
-        private CreateOrderService $orderService
+        private CreateOrderService $orderService,
+        private ServerRenewalService $renewalService,
+        private FreeServerDeploymentService $freeDeploymentService,
     ) {
         parent::__construct();
     }
@@ -26,69 +28,77 @@ class FreeProductController extends ClientApiController
      * Process and validate the creation of a server
      * based off of a free product in the billing portal.
      */
-    public function process(Request $request): array
+    public function process(ProcessFreeServerRequest $request): array
     {
         $user = $request->user();
-        $product = Product::findOrFail($request->input('product'));
+        $is_new_order = !$request->filled('server_id');
+        $node = Node::find($request->input('node_id'));
+        $product = Product::findOrFail($request->input('product_id'));
 
-        if (config('modules.billing.enabled') !== '1') {
-            throw new DisplayException('The billing module is not enabled.');
-        }
+        $this->freeDeploymentService->validate($product, $user, $node, $is_new_order);
 
-        if ((float) $product->price !== 0.0) {
-            throw new DisplayException('This product holds a value greater than zero.');
-        }
+        $egg_id = $is_new_order ? $this->resolveEggSelection($product, $request->input('egg_id')) : null;
 
-        if ($user->servers()->where('billing_product_id', $request->input('product'))->count() > 0) {
-            throw new DisplayException('You already own one of this free product. Nice try!');
-        }
+        $order = $this->orderService->create(
+            null,
+            $user,
+            $product,
+            Order::STATUS_PENDING,
+            $is_new_order ? Order::TYPE_NEW : Order::TYPE_RENEWAL,
+        );
 
-        if (!Node::findOrFail($request->input('node'))->deployable_free) {
-            throw new DisplayException('Free servers cannot be deployed to this node.');
-        }
-
-        $order = $this->orderService->create(null, $user, $product, Order::STATUS_PENDING, $this->getOrderType($request));
-
-        if ($order->type === Order::TYPE_REN && $request->has('server_id')) {
-            $server = Server::findOrFail((int) $request->input('server_id'));
-
-            $server->update([
-                'renewal_date' => $server->renewal_date->addDays(30),
-                'status' => $server->isSuspended() ? null : $server->status,
-            ]);
-        } else {
-            $server = $this->serverCreation->processFree(
-                $request,
+        if ($is_new_order && $node) {
+            $server = $this->freeDeploymentService->handleFree(
+                $user,
                 $product,
-                $request->input('node'),
-                $order
+                $node,
+                $order,
+                $request->input('variables', []),
+                $egg_id,
             );
+
+            $order->assignServer($server);
+        } else {
+            $server = $user->servers()
+                ->where('id', $request->input('server_id'))
+                ->firstOrFail();
+            $order->assignServer($server);
+
+            if ($server->renewal_date->diffInDays(now()) <= 7) {
+                $order->delete();
+
+                throw new DisplayException('You cannot renew a free server more than 7 days in advance.');
+            }
+
+            $this->renewalService->handle($server);
         }
 
-        $order->update([
-            'status' => Order::STATUS_PROCESSED,
-            'name' => $order->name . substr($server->uuid, 0, 8),
-        ]);
+        $order->update(['status' => Order::STATUS_PROCESSED]);
 
-        return $this->fractal->item($server)
-            ->transformWith(ServerTransformer::class)
-            ->toArray();
+        return $this->transform($server, ServerTransformer::class);
     }
 
     /**
-     * Determine whether an order is a NEW, UPGRADE or RENEWAL.
+     * Validate the egg a customer selected for a product whose category doesn't pin one.
+     * Categories with a fixed egg ignore any submitted selection. Returns the egg id to
+     * carry through deployment, or null when the category already has a fixed egg.
      */
-    private function getOrderType(Request $request): mixed
+    private function resolveEggSelection(Product $product, mixed $submittedEggId): ?int
     {
-        $type = null;
-
-        if ($request->has('renewal') && $request->boolean('renewal')) {
-            $type = Order::TYPE_REN;
-        } else {
-            $type = Order::TYPE_NEW;
+        if ($product->category->egg_id) {
+            return null;
         }
 
-        return $type;
+        if (!$submittedEggId) {
+            throw new DisplayException('An egg must be selected to deploy this product.');
+        }
+
+        $egg = Egg::findOrFail($submittedEggId);
+
+        if ((int) $egg->nest_id !== (int) $product->category->nest_id) {
+            throw new DisplayException('The selected egg does not belong to this product\'s nest.');
+        }
+
+        return $egg->id;
     }
 }
-

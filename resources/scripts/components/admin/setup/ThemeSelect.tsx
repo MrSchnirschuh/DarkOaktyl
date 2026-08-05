@@ -1,4 +1,4 @@
-import updateColors from '@/api/routes/admin/theme/updateColors';
+import { updateColors } from '@/api/routes/admin/theme';
 import useStatus from '@/plugins/useStatus';
 import { useStoreActions, useStoreState } from '@/state/hooks';
 import AdminBox from '@/elements/AdminBox';
@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { CheckCircleIcon } from '@heroicons/react/outline';
 
 const colorOptions = [
-    { hex: '#008000', name: 'DarkOaktyl Green' },
+    { hex: '#16a34a', name: 'JexpanelGreen' },
     { hex: '#12aaaa', name: 'Microsoft Teal' },
     { hex: '#ff0000', name: 'Brick Red' },
     { hex: '#9D00FF', name: 'Iris Purple' },
@@ -41,10 +41,10 @@ export default ({ defaultColor }: { defaultColor: string }) => {
         <div>
             <div className={'w-full flex flex-row items-center mb-8'}>
                 <div className={'flex flex-col flex-shrink'} style={{ minWidth: '0' }}>
-                    <h2 className={'text-2xl text-theme-primary font-header font-medium'}>Theme Preferences</h2>
+                    <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>Theme Preferences</h2>
                     <p
                         className={
-                            'hidden lg:block text-base text-theme-secondary whitespace-nowrap overflow-ellipsis overflow-hidden'
+                            'hidden lg:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden'
                         }
                     >
                         Select a preferred primary color for your Panel UI.
@@ -70,13 +70,12 @@ export default ({ defaultColor }: { defaultColor: string }) => {
                                     <CheckCircleIcon className={'w-7'} />
                                 </div>
                             )}
-                            <p className={'italic text-xs mt-1 text-theme-secondary'}>{option.name}</p>
+                            <p className={'italic text-xs mt-1 text-gray-400'}>{option.name}</p>
                         </div>
                     ))}
                 </div>
             </AdminBox>
-            <p className={'text-theme-secondary mt-2 text-right'}>Select a color from the options to apply it.</p>
+            <p className={'text-gray-400 mt-2 text-right'}>Select a color from the options to apply it.</p>
         </div>
     );
 };
-

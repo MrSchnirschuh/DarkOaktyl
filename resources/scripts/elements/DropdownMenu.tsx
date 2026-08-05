@@ -1,6 +1,5 @@
 import type { MouseEvent as ReactMouseEvent, ReactNode } from 'react';
 import { createRef, PureComponent } from 'react';
-import styled from 'styled-components';
 import tw from 'twin.macro';
 
 import FadeTransition from '@/elements/transitions/FadeTransition';
@@ -9,15 +8,6 @@ interface Props {
     children: ReactNode;
     renderToggle: (onClick: (e: ReactMouseEvent<unknown>) => void) => any;
 }
-
-export const DropdownButtonRow = styled.button<{ danger?: boolean }>`
-    ${tw`p-2 flex items-center rounded w-full text-theme-muted`};
-    transition: 150ms all ease;
-
-    &:hover {
-        ${props => (props.danger ? tw`text-red-700 bg-red-100` : tw`text-theme-secondary bg-theme-surface`)};
-    }
-`;
 
 interface State {
     posX: number;
@@ -100,7 +90,7 @@ class DropdownMenu extends PureComponent<Props, State> {
                             this.setState({ visible: false });
                         }}
                         style={{ width: '12rem' }}
-                        css={tw`absolute bg-theme-surface p-2 rounded border border-theme-muted shadow-lg text-theme-muted z-50`}
+                        css={tw`absolute bg-white/95 backdrop-blur-md p-2 rounded-xl border border-neutral-700/50 shadow-xl text-neutral-500 z-50`}
                     >
                         {this.props.children}
                     </div>

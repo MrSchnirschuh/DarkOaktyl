@@ -1,22 +1,22 @@
 <?php
 
-namespace DarkOak\Http\Controllers\Api\Client;
+namespace Everest\Http\Controllers\Api\Client;
 
-use DarkOak\Models\Ticket;
+use Everest\Models\Ticket;
 use Illuminate\Http\Request;
-use DarkOak\Facades\Activity;
-use DarkOak\Models\TicketMessage;
-use Illuminate\Http\JsonResponse;
-use DarkOak\Exceptions\DisplayException;
-use DarkOak\Http\Requests\Api\Client\ClientApiRequest;
-use DarkOak\Transformers\Api\Client\TicketTransformer;
-use DarkOak\Contracts\Repository\SettingsRepositoryInterface;
+use Everest\Facades\Activity;
+use Illuminate\Http\Response;
+use Everest\Models\TicketMessage;
+use Everest\Exceptions\DisplayException;
+use Everest\Http\Requests\Api\Client\ClientApiRequest;
+use Everest\Transformers\Api\Client\TicketTransformer;
+use Everest\Http\Requests\Api\Client\Account\StoreTicketRequest;
+use Everest\Http\Requests\Api\Client\Account\AddTicketMessageRequest;
 
 class TicketController extends ClientApiController
 {
-    public function __construct(
-        private SettingsRepositoryInterface $settings,
-    ) {
+    public function __construct()
+    {
         parent::__construct();
     }
 
@@ -26,18 +26,16 @@ class TicketController extends ClientApiController
      */
     public function index(ClientApiRequest $request): array
     {
-        return $this->fractal->collection($request->user()->tickets)
-            ->transformWith(TicketTransformer::class)
-            ->toArray();
+        return $this->transform($request->user()->tickets, TicketTransformer::class);
     }
 
     /**
      * Stores a new Ticket for the authenticated user's account.
      */
-    public function store(Request $request): array
+    public function store(StoreTicketRequest $request): array
     {
-        $enabled = $this->settings->get('settings::modules:tickets:enabled');
-        $max_count = $this->settings->get('settings::modules:tickets:max_count');
+        $enabled = config('modules.tickets.enabled');
+        $max_count = (int) config('modules.tickets.max_count');
 
         if (!boolval($enabled)) {
             throw new DisplayException('You cannot create a ticket as the module is disabled.');
@@ -61,9 +59,7 @@ class TicketController extends ClientApiController
             ->subject($ticket)
             ->log();
 
-        return $this->fractal->item($ticket)
-            ->transformWith(TicketTransformer::class)
-            ->toArray();
+        return $this->transform($ticket, TicketTransformer::class);
     }
 
     /**
@@ -75,15 +71,13 @@ class TicketController extends ClientApiController
             throw new DisplayException('You do not own this ticket.');
         }
 
-        return $this->fractal->item($ticket)
-            ->transformWith(TicketTransformer::class)
-            ->toArray();
+        return $this->transform($ticket, TicketTransformer::class);
     }
 
     /**
      * Add a message to a ticket.
      */
-    public function message(Ticket $ticket, Request $request): array
+    public function message(Ticket $ticket, AddTicketMessageRequest $request): array
     {
         if ($request->user()->id !== $ticket->user_id) {
             throw new DisplayException('You do not own this ticket.');
@@ -95,31 +89,25 @@ class TicketController extends ClientApiController
             'message' => $request->input('message'),
         ]);
 
-        return $this->fractal->item($ticket)
-            ->transformWith(TicketTransformer::class)
-            ->toArray();
+        return $this->transform($ticket, TicketTransformer::class);
     }
 
     /**
      * Deletes an Ticket from the user's account.
      */
-    public function delete(Ticket $ticket, ClientApiRequest $request): JsonResponse
+    public function delete(Ticket $ticket, ClientApiRequest $request): Response
     {
         if ($request->user()->id !== $ticket->user_id) {
             throw new DisplayException('You do not own this ticket.');
         }
 
-        if (!is_null($ticket)) {
-            $ticket->delete();
-
-            TicketMessage::where('ticket_id', $ticket->id)->delete();
-        }
+        $ticket->delete();
+        TicketMessage::where('ticket_id', $ticket->id)->delete();
 
         Activity::event('user:ticket.delete')
             ->property('identifier', $ticket->id)
             ->log();
 
-        return new JsonResponse([], JsonResponse::HTTP_NO_CONTENT);
+        return $this->returnNoContent();
     }
 }
-

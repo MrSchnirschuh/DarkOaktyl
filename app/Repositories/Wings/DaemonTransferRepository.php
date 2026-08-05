@@ -7,6 +7,10 @@ use Lcobucci\JWT\Token\Plain;
 use GuzzleHttp\Exception\GuzzleException;
 use DarkOak\Exceptions\Http\Connection\DaemonConnectionException;
 
+/**
+ * @method \Everest\Repositories\Wings\DaemonTransferRepository setNode(\Everest\Models\Node $node)
+ * @method \Everest\Repositories\Wings\DaemonTransferRepository setServer(\Everest\Models\Server $server)
+ */
 class DaemonTransferRepository extends DaemonRepository
 {
     /**

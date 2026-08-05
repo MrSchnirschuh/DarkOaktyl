@@ -1,13 +1,13 @@
 <?php
 
-namespace DarkOak\Http\Requests\Api\Client\Servers\Settings;
+namespace Everest\Http\Requests\Api\Client\Servers\Settings;
 
-use DarkOak\Models\Server;
+use Everest\Models\Server;
 use Webmozart\Assert\Assert;
-use DarkOak\Models\Permission;
+use Everest\Models\Permission;
 use Illuminate\Validation\Rule;
-use DarkOak\Contracts\Http\ClientPermissionsRequest;
-use DarkOak\Http\Requests\Api\Client\ClientApiRequest;
+use Everest\Contracts\Http\ClientPermissionsRequest;
+use Everest\Http\Requests\Api\Client\ClientApiRequest;
 
 class SetDockerImageRequest extends ClientApiRequest implements ClientPermissionsRequest
 {
@@ -18,7 +18,6 @@ class SetDockerImageRequest extends ClientApiRequest implements ClientPermission
 
     public function rules(): array
     {
-        /** @var \DarkOak\Models\Server $server */
         $server = $this->route()->parameter('server');
 
         Assert::isInstanceOf($server, Server::class);
@@ -28,4 +27,3 @@ class SetDockerImageRequest extends ClientApiRequest implements ClientPermission
         ];
     }
 }
-

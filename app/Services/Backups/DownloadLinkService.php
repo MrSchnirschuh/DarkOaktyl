@@ -1,12 +1,13 @@
 <?php
 
-namespace DarkOak\Services\Backups;
+namespace Everest\Services\Backups;
 
-use DarkOak\Models\User;
-use DarkOak\Models\Backup;
+use Everest\Models\User;
+use Everest\Enum\JwtScope;
+use Everest\Models\Backup;
 use Carbon\CarbonImmutable;
-use DarkOak\Services\Nodes\NodeJWTService;
-use DarkOak\Extensions\Backups\BackupManager;
+use Everest\Services\Nodes\NodeJWTService;
+use Everest\Extensions\Backups\BackupManager;
 
 class DownloadLinkService
 {
@@ -34,6 +35,7 @@ class DownloadLinkService
                 'backup_uuid' => $backup->uuid,
                 'server_uuid' => $backup->server->uuid,
             ])
+            ->setScopes(JwtScope::BackupDownload)
             ->handle($backup->server->node, $user->id . $backup->server->uuid);
 
         return sprintf('%s/download/backup?token=%s', $backup->server->node->getConnectionAddress(), $token->toString());
@@ -45,7 +47,7 @@ class DownloadLinkService
      */
     protected function getS3BackupUrl(Backup $backup): string
     {
-        /** @var \DarkOak\Extensions\Filesystem\S3Filesystem $adapter */
+        /** @var \Everest\Extensions\Filesystem\S3Filesystem $adapter */
         $adapter = $this->backupManager->adapter(Backup::ADAPTER_AWS_S3);
 
         $request = $adapter->getClient()->createPresignedRequest(
@@ -60,4 +62,3 @@ class DownloadLinkService
         return $request->getUri()->__toString();
     }
 }
-

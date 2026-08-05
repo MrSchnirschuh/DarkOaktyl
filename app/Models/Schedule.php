@@ -134,6 +134,8 @@ class Schedule extends Model
 
     /**
      * Return tasks belonging to a schedule.
+     *
+     * @return HasMany<Task, $this>
      */
     public function tasks(): HasMany
     {

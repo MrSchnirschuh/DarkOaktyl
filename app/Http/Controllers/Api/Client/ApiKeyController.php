@@ -1,15 +1,15 @@
 <?php
 
-namespace DarkOak\Http\Controllers\Api\Client;
+namespace Everest\Http\Controllers\Api\Client;
 
-use DarkOak\Models\ApiKey;
-use DarkOak\Facades\Activity;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Cache;
-use DarkOak\Exceptions\DisplayException;
-use DarkOak\Http\Requests\Api\Client\ClientApiRequest;
-use DarkOak\Transformers\Api\Client\ApiKeyTransformer;
-use DarkOak\Http\Requests\Api\Client\Account\StoreApiKeyRequest;
+use Everest\Models\ApiKey;
+use Everest\Facades\Activity;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
+use Everest\Exceptions\DisplayException;
+use Everest\Http\Requests\Api\Client\ClientApiRequest;
+use Everest\Transformers\Api\Client\ApiKeyTransformer;
+use Everest\Http\Requests\Api\Client\Account\StoreApiKeyRequest;
 
 class ApiKeyController extends ClientApiController
 {
@@ -18,46 +18,26 @@ class ApiKeyController extends ClientApiController
      */
     public function index(ClientApiRequest $request): array
     {
-        $user = $request->user();
-
-        $keys = Cache::remember(
-            "client.account.api-keys.{$user->id}",
-            now()->addSeconds(30),
-            static fn () => $user->apiKeys()
-                ->where('key_type', ApiKey::TYPE_ACCOUNT)
-                ->orderByDesc('created_at')
-                ->get([
-                    'id',
-                    'identifier',
-                    'memo',
-                    'allowed_ips',
-                    'created_at',
-                    'last_used_at',
-                ]),
-        );
-
-        return $this->fractal->collection($keys)
-            ->transformWith(ApiKeyTransformer::class)
-            ->toArray();
+        return $this->transform($request->user()->apiKeys, ApiKeyTransformer::class);
     }
 
     /**
      * Store a new API key for a user's account.
      *
-     * @throws \DarkOak\Exceptions\DisplayException
+     * @throws DisplayException
      */
     public function store(StoreApiKeyRequest $request): array
     {
-        if ($request->user()->apiKeys->count() >= 25) {
-            throw new DisplayException('You have reached the account limit for number of API keys.');
-        }
+        $token = DB::transaction(function () use ($request) {
+            if ($request->user()->apiKeys()->lockForUpdate()->count() >= 25) {
+                throw new DisplayException('You have reached the account limit for number of API keys.');
+            }
 
-        $token = $request->user()->createToken(
-            $request->input('description'),
-            $request->input('allowed_ips')
-        );
-
-        Cache::forget("client.account.api-keys.{$request->user()->id}");
+            return $request->user()->createToken(
+                $request->input('description'),
+                $request->input('allowed_ips')
+            );
+        });
 
         Activity::event('user:api-key.create')
             ->subject($token->accessToken)
@@ -73,9 +53,9 @@ class ApiKeyController extends ClientApiController
     /**
      * Deletes a given API key.
      */
-    public function delete(ClientApiRequest $request, string $identifier): JsonResponse
+    public function delete(ClientApiRequest $request, string $identifier): Response
     {
-        /** @var \DarkOak\Models\ApiKey $key */
+        /** @var ApiKey $key */
         $key = $request->user()->apiKeys()
             ->where('key_type', ApiKey::TYPE_ACCOUNT)
             ->where('identifier', $identifier)
@@ -87,9 +67,6 @@ class ApiKeyController extends ClientApiController
 
         $key->delete();
 
-        Cache::forget("client.account.api-keys.{$request->user()->id}");
-
-        return new JsonResponse([], JsonResponse::HTTP_NO_CONTENT);
+        return $this->returnNoContent();
     }
 }
-

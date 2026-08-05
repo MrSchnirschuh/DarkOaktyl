@@ -1,21 +1,15 @@
 <?php
 
-namespace DarkOak\Http\Controllers\Api\Application\Webhooks;
+namespace Everest\Http\Controllers\Api\Application\Webhooks;
 
-use Illuminate\Http\Request;
-use DarkOak\Facades\Activity;
+use Everest\Models\Setting;
+use Everest\Facades\Activity;
 use Illuminate\Http\Response;
-use Illuminate\Http\JsonResponse;
-use DarkOak\Models\Webhook;
-use DarkOak\Models\WebhookLog;
-use Illuminate\Support\Facades\Hash;
+use Everest\Models\WebhookEvent;
 use Spatie\QueryBuilder\QueryBuilder;
-use DarkOak\Services\Webhooks\WebhookDispatcher;
-use DarkOak\Http\Requests\Api\Application\Webhooks\StoreWebhookRequest;
-use DarkOak\Http\Requests\Api\Application\Webhooks\UpdateWebhookRequest;
-use DarkOak\Transformers\Api\Application\WebhookTransformer;
-use DarkOak\Transformers\Api\Application\WebhookLogTransformer;
-use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
+use Everest\Http\Requests\Api\Application\Webhooks;
+use Everest\Transformers\Api\Application\WebhookEventTransformer;
+use Everest\Http\Controllers\Api\Application\ApplicationApiController;
 
 class WebhookController extends ApplicationApiController
 {
@@ -28,186 +22,69 @@ class WebhookController extends ApplicationApiController
     }
 
     /**
-     * Get all configured webhooks.
+     * Get all available webhook events on the Panel.
      */
-    public function index(Request $request): array
+    public function index(Webhooks\GetWebhookEventsRequest $request): array
     {
-        $webhooks = QueryBuilder::for(Webhook::query())
-            ->allowedFilters(['name', 'url', 'enabled'])
-            ->allowedSorts(['created_at', 'updated_at', 'last_sent_at'])
-            ->withCount(['logs as successful_count' => function ($query) {
-                $query->where('success', true);
-            }])
-            ->withCount(['logs as failed_count' => function ($query) {
-                $query->where('success', false);
-            }])
-            ->paginate($request->input('per_page', 50));
+        $events = QueryBuilder::for(WebhookEvent::query())
+            ->allowedFilters(...['key'])
+            ->get();
 
-        return $this->fractal->collection($webhooks)
-            ->transformWith(WebhookTransformer::class)
-            ->toArray();
+        return $this->transform($events, WebhookEventTransformer::class);
     }
 
     /**
-     * Get a single webhook by ID.
+     * Toggle whether a WebhookEvent is enabled.
      */
-    public function view(Request $request, Webhook $webhook): array
+    public function toggle(Webhooks\ToggleWebhookEventRequest $request): Response
     {
-        $webhook->loadCount([
-            'logs as successful_count' => function ($query) {
-                $query->where('success', true);
-            },
-            'logs as failed_count' => function ($query) {
-                $query->where('success', false);
-            },
-        ]);
+        if ($request->input('id')) {
+            $event = WebhookEvent::findOrFail($request->input('id'));
 
-        return $this->fractal->item($webhook)
-            ->transformWith(WebhookTransformer::class)
-            ->toArray();
-    }
+            $event->update(['enabled' => $request->input('enabled')]);
+        } else {
+            $events = WebhookEvent::all();
 
-    /**
-     * Create a new webhook.
-     */
-    public function store(StoreWebhookRequest $request): Response
-    {
-        $webhook = Webhook::create($request->validated());
+            foreach ($events as $event) {
+                $event->update(['enabled' => $request->input('enabled')]);
+            }
+        }
 
-        Activity::event('admin:webhooks:create')
-            ->subject($webhook)
-            ->property('name', $webhook->name)
-            ->description('Created a new webhook: ' . $webhook->name)
+        Activity::event('admin:webhooks:toggle')
+            ->property('id', $request->input('id'))
+            ->property('enabled', $request->input('enabled'))
+            ->description('Webhook event(s) were toggled')
             ->log();
 
-        return $this->returnCreatedResponse($webhook);
+        return $this->returnNoContent();
     }
 
     /**
-     * Update a webhook.
+     * Send a basic test message through the webhook URL.
      */
-    public function update(UpdateWebhookRequest $request, Webhook $webhook): Response
+    public function test(Webhooks\TestWebhookURIRequest $request): Response
     {
-        $original = $webhook->toArray();
+        Activity::event('admin:webhooks:test')
+            ->description('The webhook integration was tested')
+            ->log();
 
-        $webhook->update($request->validated());
+        return $this->returnNoContent();
+    }
+
+    /**
+     * Update the webhook settings for the Panel.
+     *
+     * @throws \Throwable
+     */
+    public function settings(Webhooks\UpdateWebhookSettingsRequest $request): Response
+    {
+        Setting::set('settings::modules:webhooks:' . $request->input('key'), $request->input('value'));
 
         Activity::event('admin:webhooks:update')
-            ->subject($webhook)
-            ->property('name', $webhook->name)
-            ->property('old', $original)
-            ->property('new', $webhook->toArray())
-            ->description('Updated webhook configuration: ' . $webhook->name)
+            ->property('settings', $request->all())
+            ->description('Jexpanelwebhook settings were updated')
             ->log();
 
         return $this->returnNoContent();
-    }
-
-    /**
-     * Delete a webhook.
-     */
-    public function delete(Request $request, Webhook $webhook): Response
-    {
-        Activity::event('admin:webhooks:delete')
-            ->subject($webhook)
-            ->property('name', $webhook->name)
-            ->description('Deleted webhook: ' . $webhook->name)
-            ->log();
-
-        $webhook->delete();
-
-        return $this->returnNoContent();
-    }
-
-    /**
-     * Get logs for a webhook.
-     */
-    public function logs(Request $request, Webhook $webhook): array
-    {
-        $logs = QueryBuilder::for($webhook->logs())
-            ->allowedFilters(['event', 'success'])
-            ->allowedSorts(['created_at', 'attempt'])
-            ->paginate($request->input('per_page', 25));
-
-        return $this->fractal->collection($logs)
-            ->transformWith(WebhookLogTransformer::class)
-            ->toArray();
-    }
-
-    /**
-     * Send a test event through the webhook.
-     */
-    public function test(Request $request, Webhook $webhook): JsonResponse|Response
-    {
-        $dispatcher = app(WebhookDispatcher::class);
-        $success = $dispatcher->test($webhook);
-
-        if ($success) {
-            Activity::event('admin:webhooks:test')
-                ->subject($webhook)
-                ->property('name', $webhook->name)
-                ->description('Test webhook sent successfully: ' . $webhook->name)
-                ->log();
-
-            return $this->returnNoContent();
-        }
-
-        return response()->json([
-            'error' => 'Failed to send test webhook. Check logs for details.',
-        ], 422);
-    }
-
-    /**
-     * Regenerate webhook secret.
-     */
-    public function regenerateSecret(Request $request, Webhook $webhook): array
-    {
-        $secret = 'whsec_' . bin2hex(random_bytes(32));
-        $webhook->update(['secret' => $secret]);
-
-        Activity::event('admin:webhooks:regenerate')
-            ->subject($webhook)
-            ->property('name', $webhook->name)
-            ->description('Regenerated webhook secret: ' . $webhook->name)
-            ->log();
-
-        return $this->fractal->item($webhook)
-            ->transformWith(WebhookTransformer::class)
-            ->toArray();
-    }
-
-    /**
-     * Retry a failed webhook delivery.
-     */
-    public function retry(Request $request, WebhookLog $log): JsonResponse|Response
-    {
-        if ($log->success) {
-            return response()->json([
-                'error' => 'Cannot retry a successful delivery.',
-            ], 422);
-        }
-
-        $dispatcher = app(WebhookDispatcher::class);
-        $success = $dispatcher->resend($log);
-
-        if ($success) {
-            return $this->returnNoContent();
-        }
-
-        return response()->json([
-            'error' => 'Failed to resend webhook. Check logs for details.',
-        ], 422);
-    }
-
-    /**
-     * Return HTTP/201 with location header.
-     */
-    protected function returnCreatedResponse(Webhook $webhook): JsonResponse|Response
-    {
-        return response()
-            ->json($this->fractal->item($webhook)
-            ->transformWith(WebhookTransformer::class)
-            ->toArray(), 201)
-            ->header('Location', route('application.webhooks.view', ['webhook' => $webhook->uuid]));
     }
 }

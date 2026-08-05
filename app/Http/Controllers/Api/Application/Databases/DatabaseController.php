@@ -1,22 +1,21 @@
 <?php
 
-namespace DarkOak\Http\Controllers\Api\Application\Databases;
+namespace Everest\Http\Controllers\Api\Application\Databases;
 
-use DarkOak\Facades\Activity;
+use Everest\Facades\Activity;
 use Illuminate\Http\Response;
-use DarkOak\Models\DatabaseHost;
-use Illuminate\Http\JsonResponse;
+use Everest\Models\DatabaseHost;
 use Spatie\QueryBuilder\QueryBuilder;
-use DarkOak\Services\Databases\Hosts\HostUpdateService;
-use DarkOak\Services\Databases\Hosts\HostCreationService;
-use DarkOak\Exceptions\Http\QueryValueOutOfRangeHttpException;
-use DarkOak\Transformers\Api\Application\DatabaseHostTransformer;
-use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
-use DarkOak\Http\Requests\Api\Application\Databases\GetDatabaseRequest;
-use DarkOak\Http\Requests\Api\Application\Databases\GetDatabasesRequest;
-use DarkOak\Http\Requests\Api\Application\Databases\StoreDatabaseRequest;
-use DarkOak\Http\Requests\Api\Application\Databases\DeleteDatabaseRequest;
-use DarkOak\Http\Requests\Api\Application\Databases\UpdateDatabaseRequest;
+use Everest\Services\Databases\Hosts\HostUpdateService;
+use Everest\Services\Databases\Hosts\HostCreationService;
+use Everest\Exceptions\Http\QueryValueOutOfRangeHttpException;
+use Everest\Transformers\Api\Application\DatabaseHostTransformer;
+use Everest\Http\Controllers\Api\Application\ApplicationApiController;
+use Everest\Http\Requests\Api\Application\Databases\GetDatabaseRequest;
+use Everest\Http\Requests\Api\Application\Databases\GetDatabasesRequest;
+use Everest\Http\Requests\Api\Application\Databases\StoreDatabaseRequest;
+use Everest\Http\Requests\Api\Application\Databases\DeleteDatabaseRequest;
+use Everest\Http\Requests\Api\Application\Databases\UpdateDatabaseRequest;
 
 class DatabaseController extends ApplicationApiController
 {
@@ -39,23 +38,19 @@ class DatabaseController extends ApplicationApiController
         }
 
         $databases = QueryBuilder::for(DatabaseHost::query())
-            ->allowedFilters(['name', 'host'])
-            ->allowedSorts(['id', 'name', 'host'])
+            ->allowedFilters(...['name', 'host'])
+            ->allowedSorts(...['id', 'name', 'host'])
             ->paginate($perPage);
 
-        return $this->fractal->collection($databases)
-            ->transformWith(DatabaseHostTransformer::class)
-            ->toArray();
+        return $this->transform($databases, DatabaseHostTransformer::class);
     }
 
     /**
      * Returns a single database host.
      */
-    public function view(GetDatabaseRequest $request, DatabaseHost $databaseHost): array
+    public function view(GetDatabaseRequest $request, DatabaseHost $database): array
     {
-        return $this->fractal->item($databaseHost)
-            ->transformWith(DatabaseHostTransformer::class)
-            ->toArray();
+        return $this->transform($database, DatabaseHostTransformer::class);
     }
 
     /**
@@ -63,18 +58,17 @@ class DatabaseController extends ApplicationApiController
      *
      * @throws \Throwable
      */
-    public function store(StoreDatabaseRequest $request): JsonResponse
+    public function store(StoreDatabaseRequest $request): array
     {
-        $databaseHost = $this->creationService->handle($request->validated());
+        $database = $this->creationService->handle($request->validated());
 
         Activity::event('admin:database-hosts:create')
-            ->property('database-host', $databaseHost)
+            ->subject($database)
+            ->property('database-host', $database)
             ->description('A new database host was created')
             ->log();
 
-        return $this->fractal->item($databaseHost)
-            ->transformWith(DatabaseHostTransformer::class)
-            ->respond(JsonResponse::HTTP_CREATED);
+        return $this->transform($database, DatabaseHostTransformer::class);
     }
 
     /**
@@ -82,19 +76,18 @@ class DatabaseController extends ApplicationApiController
      *
      * @throws \Throwable
      */
-    public function update(UpdateDatabaseRequest $request, DatabaseHost $databaseHost): array
+    public function update(UpdateDatabaseRequest $request, DatabaseHost $database): array
     {
-        $databaseHost = $this->updateService->handle($databaseHost->id, $request->validated());
+        $database = $this->updateService->handle($database->id, $request->validated());
 
         Activity::event('admin:database-hosts:update')
-            ->property('database-host', $databaseHost)
+            ->subject($database)
+            ->property('database-host', $database)
             ->property('new_data', $request->all())
             ->description('A database host was updated')
             ->log();
 
-        return $this->fractal->item($databaseHost)
-            ->transformWith(DatabaseHostTransformer::class)
-            ->toArray();
+        return $this->transform($database, DatabaseHostTransformer::class);
     }
 
     /**
@@ -102,16 +95,16 @@ class DatabaseController extends ApplicationApiController
      *
      * @throws \Exception
      */
-    public function delete(DeleteDatabaseRequest $request, DatabaseHost $databaseHost): Response
+    public function delete(DeleteDatabaseRequest $request, DatabaseHost $database): Response
     {
-        $databaseHost->delete();
+        $database->delete();
 
         Activity::event('admin:database-hosts:delete')
-            ->property('database-host', $databaseHost)
+            ->subject($database)
+            ->property('database-host', $database)
             ->description('A database host was deleted')
             ->log();
 
         return $this->returnNoContent();
     }
 }
-

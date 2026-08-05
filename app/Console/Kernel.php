@@ -1,19 +1,21 @@
 <?php
 
-namespace DarkOak\Console;
+namespace Everest\Console;
 
-use DarkOak\Models\ActivityLog;
+use Everest\Models\ActivityLog;
+use Everest\Models\JGuardDelay;
+use Everest\Models\JGuardAttempt;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Database\Console\PruneCommand;
-use DarkOak\Console\Commands\AutoUpdateCommand;
-use DarkOak\Console\Commands\Billing\CleanupOrdersCommand;
+use Everest\Console\Commands\AutoUpdateCommand;
+use Everest\Console\Commands\Billing\CleanupOrdersCommand;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use DarkOak\Console\Commands\Schedule\ProcessRunnableCommand;
-use DarkOak\Console\Commands\Billing\SuspendBillableServersCommand;
-use DarkOak\Console\Commands\Maintenance\PruneOrphanedBackupsCommand;
-use DarkOak\Console\Commands\Billing\CalculateOrderThreatIndexCommand;
-use DarkOak\Console\Commands\Maintenance\CleanServiceBackupFilesCommand;
-use DarkOak\Console\Commands\Emails\DispatchEmailTriggersCommand;
+use Everest\Console\Commands\Billing\GenerateInvoicesCommand;
+use Everest\Console\Commands\Schedule\ProcessRunnableCommand;
+use Everest\Console\Commands\Billing\SuspendBillableServersCommand;
+use Everest\Console\Commands\Maintenance\PruneOrphanedBackupsCommand;
+use Everest\Console\Commands\Billing\CalculateOrderThreatIndexCommand;
+use Everest\Console\Commands\Maintenance\CleanServiceBackupFilesCommand;
 
 class Kernel extends ConsoleKernel
 {
@@ -46,6 +48,11 @@ class Kernel extends ConsoleKernel
             $schedule->command(PruneCommand::class, ['--model' => [ActivityLog::class]])->daily();
         }
 
+        // jGuard only needs to retain IP-linked attempt/delay records long enough to
+        // evaluate its own sensitivity window; prune anything older than that daily so
+        // we don't hold on to identifying customer data (IP addresses) longer than needed.
+        $schedule->command(PruneCommand::class, ['--model' => [JGuardAttempt::class, JGuardDelay::class]])->daily();
+
         if (config('app.auto_update')) {
             $schedule->command(AutoUpdateCommand::class)->daily();
         }
@@ -54,11 +61,7 @@ class Kernel extends ConsoleKernel
             $schedule->command(CleanupOrdersCommand::class)->daily();
             $schedule->command(SuspendBillableServersCommand::class)->daily();
             $schedule->command(CalculateOrderThreatIndexCommand::class)->everyFiveMinutes();
-        }
-
-        if (config('modules.email.enabled')) {
-            $schedule->command(DispatchEmailTriggersCommand::class)->everyMinute()->withoutOverlapping();
+            $schedule->command(GenerateInvoicesCommand::class)->everyFiveMinutes();
         }
     }
 }
-

@@ -15,7 +15,7 @@ class AssetComposer
             'name' => config('app.name') ?? 'DarkOak',
             'mode' => config('app.mode') ?? 'standard',
             'setup' => config('app.setup') ?? false,
-            'debug' => env('APP_DEBUG') ?? false,
+            'debug' => config('app.debug') ?? false,
             'locale' => config('app.locale') ?? 'en',
             'auto_update' => boolval(config('app.auto_update', false)),
             'speed_dial' => boolval(config('app.speed_dial', false)),

@@ -7,7 +7,11 @@ use Illuminate\Database\Migrations\Migration;
 return new class () extends Migration {
     /**
      * Run the migrations.
-     * Jexpanel DBs may have already renamed 'location' to 'location_id'.
+     *
+     * This column was renamed to location_id by 2017_02_03_140948_UpdateNodesTable,
+     * and later dropped entirely (along with the whole locations feature) by
+     * 2025_04_23_163956_drop_location_id_field_from_nodes_table. Guard against
+     * installs that are past either of those points.
      */
     public function up(): void
     {

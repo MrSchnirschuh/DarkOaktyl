@@ -1,15 +1,13 @@
 import { useEffect, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faHeart, faIdBadge } from '@fortawesome/free-solid-svg-icons';
-import { useStoreState, useStoreActions } from '@/state/hooks';
-import SearchContainer from '@/components/dashboard/search/SearchContainer';
+import { useStoreState } from 'easy-peasy';
+import SearchContainer from '@account/search/SearchContainer';
 import tw from 'twin.macro';
 import styled from 'styled-components';
-import { SiteTheme, resolveThemeMode } from '@/state/theme';
+import { SiteTheme } from '@/state/theme';
 import { Link, useLocation } from 'react-router-dom';
-import { ChevronRightIcon, HomeIcon, SunIcon, MoonIcon, DesktopComputerIcon } from '@heroicons/react/outline';
-import { useActivityLogs } from '@/api/account/activity';
-import Spinner from './elements/Spinner';
+import { ChevronRightIcon, EyeIcon, HeartIcon, HomeIcon, IdentificationIcon } from '@heroicons/react/outline';
+import { useActivityLogs } from '@/api/routes/account/activity';
+import Spinner from '@/elements/Spinner';
 import { formatDistanceToNow } from 'date-fns';
 
 const RightNavigation = styled.div<{ theme: SiteTheme }>`
@@ -17,9 +15,8 @@ const RightNavigation = styled.div<{ theme: SiteTheme }>`
     & > button,
     & > div,
     & > .navigation-link {
-        ${tw`flex items-center h-full no-underline text-theme-secondary px-6 cursor-pointer transition-all duration-300 gap-x-2`};
-        ${tw`font-medium`};
-        color: var(--theme-text-secondary);
+        ${tw`flex items-center h-full no-underline text-neutral-300 px-6 cursor-pointer transition-all duration-300 gap-x-2`};
+        ${tw`text-gray-400 font-medium`};
 
         &:active,
         &:hover,
@@ -35,17 +32,13 @@ const NavigationBar = () => {
 
     const location = useLocation();
     const theme = useStoreState(state => state.theme.data!);
-    const currentMode = useStoreState(s => s.theme.mode ?? 'dark');
-    const currentPreference = useStoreState(s => s.theme.preference ?? 'system');
-    const setMode = useStoreActions(a => a.theme.setMode);
-    const setPreference = useStoreActions(a => a.theme.setPreference);
     const user = useStoreState(state => state.user.data!);
+    const activityEnabled = useStoreState(state => state.settings.data!.activity.enabled.account);
     const { data } = useActivityLogs({ page: 1 }, { revalidateOnMount: true, revalidateOnFocus: false });
 
     const pathnames = location.pathname.split('/').filter(Boolean);
 
     useEffect(() => {
-        // Use a less aggressive interval to reduce re-renders (was 75ms, which can be expensive).
         const interval = setInterval(() => {
             setWidth(prev => {
                 if (prev >= 80) {
@@ -54,12 +47,12 @@ const NavigationBar = () => {
                 }
                 return prev + 1;
             });
-        }, 300);
+        }, 75);
         return () => clearInterval(interval);
     }, []);
 
     const renderBreadcrumbs = () => (
-        <ol className="w-1/3 text-[var(--theme-text-secondary)] text-sm inline-flex space-x-2">
+        <ol className="w-1/3 text-gray-400 text-sm inline-flex space-x-2">
             <Link to={'/'}>
                 <HomeIcon className="w-4 h-4 my-auto brightness-150" />
             </Link>
@@ -85,9 +78,9 @@ const NavigationBar = () => {
         switch (currentPage) {
             case 0:
                 return (
-                    <>
-                        <FontAwesomeIcon icon={faEye} />
-                        {!data ? (
+                    <span className={'inline-flex items-center gap-x-2'}>
+                        <EyeIcon className={'w-4 h-4 flex-shrink-0'} />
+                        {!data || !activityEnabled ? (
                             <Spinner size="small" centered />
                         ) : (
                             <>
@@ -100,21 +93,23 @@ const NavigationBar = () => {
                                 </span>
                             </>
                         )}
-                    </>
+                    </span>
                 );
             case 1:
                 return (
-                    <>
-                        <FontAwesomeIcon icon={faHeart} className={user.useTotp ? 'text-green-400' : 'text-red-400'} />
+                    <span className={'inline-flex items-center gap-x-2'}>
+                        <HeartIcon
+                            className={`w-4 h-4 flex-shrink-0 ${user.useTotp ? 'text-green-400' : 'text-red-400'}`}
+                        />
                         2FA is {user.useTotp ? 'Enabled' : 'Disabled'}
-                    </>
+                    </span>
                 );
             case 2:
                 return (
-                    <>
-                        <FontAwesomeIcon icon={faIdBadge} />
+                    <span className={'inline-flex items-center gap-x-2'}>
+                        <IdentificationIcon className={'w-4 h-4 flex-shrink-0'} />
                         User ID: {user.uuid.slice(0, 8)}
-                    </>
+                    </span>
                 );
             default:
                 return null;
@@ -122,45 +117,13 @@ const NavigationBar = () => {
     };
 
     return (
-        <div className="w-full overflow-x-auto shadow-md mb-8" style={{ backgroundColor: theme.colors.sidebar }}>
+        <div
+            className="w-full overflow-x-auto shadow-md mb-8 backdrop-blur-md border-b border-white/5"
+            style={{ backgroundColor: theme.colors.sidebar }}
+        >
             <div className="px-8 flex h-[3.5rem] w-full items-center">
                 {renderBreadcrumbs()}
                 <RightNavigation className="flex h-full items-center justify-center ml-auto" theme={theme}>
-                    <div className="mr-4 flex items-center">
-                        <button
-                            type="button"
-                            onClick={() => {
-                                const order: Array<'dark' | 'light' | 'system'> = ['dark', 'light', 'system'];
-                                const index = order.indexOf(currentPreference);
-                                const nextPreference = order[(index + 1 + order.length) % order.length] ?? 'dark';
-                                const castPreference = nextPreference as 'dark' | 'light' | 'system';
-                                const fallback = user.appearanceLastMode ?? currentMode;
-                                const resolved = resolveThemeMode(castPreference, fallback);
-
-                                setPreference(castPreference);
-                                setMode(resolved);
-                            }}
-                            className={'p-0 rounded hover:bg-neutral-700/20'}
-                            aria-label={(() => {
-                                const nextMap: Record<'dark' | 'light' | 'system', 'light' | 'dark' | 'system'> = {
-                                    dark: 'light',
-                                    light: 'system',
-                                    system: 'dark',
-                                };
-                                const next = nextMap[currentPreference] ?? 'light';
-                                if (next === 'system') return 'Follow system theme';
-                                return `Switch to ${next} mode`;
-                            })()}
-                        >
-                            {currentPreference === 'dark' ? (
-                                <MoonIcon className="w-5 h-5 text-theme-secondary" />
-                            ) : currentPreference === 'light' ? (
-                                <SunIcon className="w-5 h-5" style={{ color: 'var(--theme-text-primary, #111827)' }} />
-                            ) : (
-                                <DesktopComputerIcon className="w-5 h-5 text-theme-secondary" />
-                            )}
-                        </button>
-                    </div>
                     <div className="relative">
                         <div
                             className="absolute top-0 h-px transition-all duration-[250ms] ease-in-out"
@@ -169,7 +132,7 @@ const NavigationBar = () => {
                                 backgroundColor: theme.colors.primary,
                             }}
                         />
-                        {renderPageContent()}
+                        <div className={'hidden lg:block'}>{renderPageContent()}</div>
                     </div>
                     <SearchContainer />
                 </RightNavigation>

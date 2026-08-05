@@ -1,47 +1,56 @@
 <?php
 
-namespace DarkOak\Console\Commands;
+namespace Everest\Console\Commands;
 
-use DarkOak\Console\Kernel;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Cache;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Console\Helper\ProgressBar;
+use Symfony\Component\Process\PhpExecutableFinder;
+use Everest\Services\Helpers\SoftwareVersionService;
 
 class AutoUpdateCommand extends Command
 {
-    protected const DEFAULT_URL = 'https://github.com/DarkOaktyl/DarkOaktyl/releases/%s/panel.tar.gz';
+    protected const DEFAULT_URL = 'https://github.com/jexactyl/jexactyl/releases/%s/panel.tar.gz';
 
     protected $signature = 'p:auto-update
         {--user= : The user that PHP runs under. All files will be owned by this user.}
         {--group= : The group that PHP runs under. All files will be owned by this group.}
         {--url= : The specific archive to download.}
-        {--release= : A specific DarkOaktyl version to download from GitHub. Leave blank to use latest.}';
+        {--release= : A specific Jexpanel version to download from GitHub. Leave blank to use latest.}
+        {--force : Perform the upgrade even if the current version is already the latest.}';
 
-    protected $description = 'Downloads a new archive for DarkOaktyl from GitHub and then executes the normal upgrade commands.';
+    protected $description = 'Downloads a new archive for Jexpanel from GitHub and then executes the normal upgrade commands.';
 
     /**
      * Executes an upgrade command which will run through all of our standard
-     * commands for DarkOaktyl and enable users to basically just download
+     * commands for Jexpanel and enable users to basically just download
      * the archive and execute this and be done.
      *
      * @throws \Exception
      */
     public function handle()
     {
-        if (version_compare(PHP_VERSION, '8.1.0') < 0) {
-            $this->error('Cannot execute automatic update process. The minimum required PHP version required is 8.1.0, you have [' . PHP_VERSION . '].');
+        Cache::forget(SoftwareVersionService::VERSION_CACHE_KEY);
+        $versionService = $this->getLaravel()->make(SoftwareVersionService::class);
+
+        if (!$this->option('force') && !$this->option('url') && !$this->option('release') && $versionService->isLatestPanel()) {
+            $this->info("You are already running the latest version of Jexpanel ({$versionService->getCurrentVersion()}). Pass --force to update anyway.");
+
+            return self::SUCCESS;
         }
 
-        $user = 'www-data';
-        $group = 'www-data';
+        $user = $this->option('user') ?? 'www-data';
+        $group = $this->option('group') ?? 'www-data';
 
         ini_set('output_buffering', '0');
-        $bar = $this->output->createProgressBar(10);
+        $bar = $this->output->createProgressBar(9);
         $bar->start();
 
         $this->withProgress($bar, function () {
-            $this->line("\$upgrader> curl -Lo \"{$this->getUrl()}\" | tar -xzv");
-            $process = Process::fromShellCommandline("curl -Lo ./panel.tar.gz {$this->getUrl()} | tar -xzf");
+            $this->line("\$upgrader> curl -L \"{$this->getUrl()}\" | tar -xzf -");
+
+            $process = Process::fromShellCommandline("curl -L {$this->getUrl()} | tar -xzf -");
             $process->run(function ($type, $buffer) {
                 $this->{$type === Process::ERR ? 'error' : 'line'}($buffer);
             });
@@ -75,26 +84,35 @@ class AutoUpdateCommand extends Command
             });
         });
 
-        /** @var \Illuminate\Foundation\Application $app */
-        $app = require __DIR__ . '/../../../bootstrap/app.php';
-        /** @var \DarkOak\Console\Kernel $kernel */
-        $kernel = $app->make(Kernel::class);
-        $kernel->bootstrap();
-        $this->setLaravel($app);
+        // From here on, every remaining step must run as its own fresh PHP process rather
+        // than in-process via $this->call(). Composer's autoloader (vendor/autoload.php)
+        // was already loaded once when this command started, before "composer install"
+        // above could have added or updated any packages; PHP never reloads an already
+        // required file, so this process's autoloader permanently has no knowledge of
+        // anything composer just changed on disk. Re-requiring bootstrap/app.php does not
+        // fix this — it re-registers providers using the same stale autoloader, which then
+        // throws "Class ... not found" for any newly added package. A fresh `php artisan`
+        // invocation always builds its autoloader from the current state of vendor/, so it
+        // doesn't have this problem.
+        $phpBinary = (new PhpExecutableFinder())->find(false) ?: 'php';
+        $artisan = $this->getLaravel()->basePath('artisan');
 
-        $this->withProgress($bar, function () {
-            $this->line('$upgrader> php artisan view:clear');
-            $this->call('view:clear');
+        $runArtisan = function (array $arguments) use ($phpBinary, $artisan) {
+            $process = new Process([$phpBinary, $artisan, ...$arguments]);
+            $process->setTimeout(5 * 60);
+            $process->run(function ($type, $buffer) {
+                $this->{$type === Process::ERR ? 'error' : 'line'}($buffer);
+            });
+        };
+
+        $this->withProgress($bar, function () use ($runArtisan) {
+            $this->line('$upgrader> php artisan optimize:clear');
+            $runArtisan(['optimize:clear']);
         });
 
-        $this->withProgress($bar, function () {
-            $this->line('$upgrader> php artisan config:clear');
-            $this->call('config:clear');
-        });
-
-        $this->withProgress($bar, function () {
+        $this->withProgress($bar, function () use ($runArtisan) {
             $this->line('$upgrader> php artisan migrate --force --seed');
-            $this->call('migrate', ['--force' => true, '--seed' => true]);
+            $runArtisan(['migrate', '--force', '--seed']);
         });
 
         $this->withProgress($bar, function () use ($user, $group) {
@@ -106,14 +124,14 @@ class AutoUpdateCommand extends Command
             });
         });
 
-        $this->withProgress($bar, function () {
+        $this->withProgress($bar, function () use ($runArtisan) {
             $this->line('$upgrader> php artisan queue:restart');
-            $this->call('queue:restart');
+            $runArtisan(['queue:restart']);
         });
 
-        $this->withProgress($bar, function () {
+        $this->withProgress($bar, function () use ($runArtisan) {
             $this->line('$upgrader> php artisan up');
-            $this->call('up');
+            $runArtisan(['up']);
         });
 
         $this->newLine(2);
@@ -137,5 +155,3 @@ class AutoUpdateCommand extends Command
         return sprintf(self::DEFAULT_URL, $this->option('release') ? 'download/v' . $this->option('release') : 'latest/download');
     }
 }
-
-

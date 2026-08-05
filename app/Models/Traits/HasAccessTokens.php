@@ -14,6 +14,7 @@ use DarkOak\Extensions\Laravel\Sanctum\NewAccessToken;
  */
 trait HasAccessTokens
 {
+    /** @use HasApiTokens<ApiKey> */
     use HasApiTokens {
         tokens as private _tokens;
         createToken as private _createToken;

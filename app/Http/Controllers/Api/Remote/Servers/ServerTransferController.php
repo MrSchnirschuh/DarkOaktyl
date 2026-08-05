@@ -1,20 +1,21 @@
 <?php
 
-namespace DarkOak\Http\Controllers\Api\Remote\Servers;
+namespace Everest\Http\Controllers\Api\Remote\Servers;
 
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use DarkOak\Models\Allocation;
-use Illuminate\Http\JsonResponse;
-use DarkOak\Models\ServerTransfer;
+use Everest\Models\Allocation;
+use Everest\Models\ServerTransfer;
 use Illuminate\Support\Facades\Log;
-use DarkOak\Http\Controllers\Controller;
 use Illuminate\Database\ConnectionInterface;
-use DarkOak\Repositories\Eloquent\ServerRepository;
-use DarkOak\Repositories\Wings\DaemonServerRepository;
-use DarkOak\Exceptions\Http\Connection\DaemonConnectionException;
+use Everest\Repositories\Eloquent\ServerRepository;
+use Everest\Repositories\Wings\DaemonServerRepository;
+use Everest\Exceptions\Http\Connection\DaemonConnectionException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Everest\Http\Controllers\Api\Application\ApplicationApiController;
 
-class ServerTransferController extends Controller
+class ServerTransferController extends ApplicationApiController
 {
     /**
      * ServerTransferController constructor.
@@ -22,7 +23,7 @@ class ServerTransferController extends Controller
     public function __construct(
         private ConnectionInterface $connection,
         private ServerRepository $repository,
-        private DaemonServerRepository $daemonServerRepository
+        private DaemonServerRepository $daemonServerRepository,
     ) {
     }
 
@@ -31,12 +32,19 @@ class ServerTransferController extends Controller
      *
      * @throws \Throwable
      */
-    public function failure(string $uuid): JsonResponse
+    public function failure(Request $request, string $uuid): Response
     {
+        /** @var \Everest\Models\Node $node */
+        $node = $request->attributes->get('node');
+
         $server = $this->repository->getByUuid($uuid);
         $transfer = $server->transfer;
         if (is_null($transfer)) {
             throw new ConflictHttpException('Server is not being transferred.');
+        }
+
+        if ($transfer->new_node !== $node->id) {
+            throw new NotFoundHttpException();
         }
 
         return $this->processFailedTransfer($transfer);
@@ -47,21 +55,33 @@ class ServerTransferController extends Controller
      *
      * @throws \Throwable
      */
-    public function success(string $uuid): JsonResponse
+    public function success(Request $request, string $uuid): Response
     {
+        /** @var \Everest\Models\Node $node */
+        $node = $request->attributes->get('node');
+
         $server = $this->repository->getByUuid($uuid);
         $transfer = $server->transfer;
         if (is_null($transfer)) {
             throw new ConflictHttpException('Server is not being transferred.');
         }
 
-        /** @var \DarkOak\Models\Server $server */
+        if ($transfer->new_node !== $node->id) {
+            throw new NotFoundHttpException();
+        }
+
+        /** @var \Everest\Models\Server $server */
         $server = $this->connection->transaction(function () use ($server, $transfer) {
             $allocations = array_merge([$transfer->old_allocation], $transfer->old_additional_allocations);
 
             // Remove the old allocations for the server and re-assign the server to the new
             // primary allocation and node.
             Allocation::query()->whereIn('id', $allocations)->update(['server_id' => null]);
+
+            // Assign the new allocations to the server
+            $newAllocations = array_merge([$transfer->new_allocation], $transfer->new_additional_allocations);
+            Allocation::query()->whereIn('id', $newAllocations)->update(['server_id' => $server->id]);
+
             $server->update([
                 'allocation_id' => $transfer->new_allocation,
                 'node_id' => $transfer->new_node,
@@ -84,7 +104,7 @@ class ServerTransferController extends Controller
             Log::warning($exception, ['transfer_id' => $server->transfer->id]);
         }
 
-        return new JsonResponse([], Response::HTTP_NO_CONTENT);
+        return $this->returnNoContent();
     }
 
     /**
@@ -93,7 +113,7 @@ class ServerTransferController extends Controller
      *
      * @throws \Throwable
      */
-    protected function processFailedTransfer(ServerTransfer $transfer): JsonResponse
+    protected function processFailedTransfer(ServerTransfer $transfer): Response
     {
         $this->connection->transaction(function () use (&$transfer) {
             $transfer->forceFill(['successful' => false])->saveOrFail();
@@ -102,7 +122,6 @@ class ServerTransferController extends Controller
             Allocation::query()->whereIn('id', $allocations)->update(['server_id' => null]);
         });
 
-        return new JsonResponse([], Response::HTTP_NO_CONTENT);
+        return $this->returnNoContent();
     }
 }
-

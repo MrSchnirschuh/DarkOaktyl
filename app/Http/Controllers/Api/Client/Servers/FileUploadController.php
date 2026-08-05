@@ -1,14 +1,15 @@
 <?php
 
-namespace DarkOak\Http\Controllers\Api\Client\Servers;
+namespace Everest\Http\Controllers\Api\Client\Servers;
 
-use DarkOak\Models\User;
-use DarkOak\Models\Server;
+use Everest\Models\User;
+use Everest\Enum\JwtScope;
+use Everest\Models\Server;
 use Carbon\CarbonImmutable;
 use Illuminate\Http\JsonResponse;
-use DarkOak\Services\Nodes\NodeJWTService;
-use DarkOak\Http\Controllers\Api\Client\ClientApiController;
-use DarkOak\Http\Requests\Api\Client\Servers\Files\UploadFileRequest;
+use Everest\Services\Nodes\NodeJWTService;
+use Everest\Http\Controllers\Api\Client\ClientApiController;
+use Everest\Http\Requests\Api\Client\Servers\Files\UploadFileRequest;
 
 class FileUploadController extends ClientApiController
 {
@@ -43,6 +44,7 @@ class FileUploadController extends ClientApiController
             ->setExpiresAt(CarbonImmutable::now()->addMinutes(15))
             ->setUser($user)
             ->setClaims(['server_uuid' => $server->uuid])
+            ->setScopes(JwtScope::FileUpload)
             ->handle($server->node, $user->id . $server->uuid);
 
         return sprintf(
@@ -52,4 +54,3 @@ class FileUploadController extends ClientApiController
         );
     }
 }
-

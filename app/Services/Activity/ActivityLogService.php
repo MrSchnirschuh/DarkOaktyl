@@ -171,7 +171,7 @@ class ActivityLogService
 
         try {
             return $this->save();
-        } catch (\Throwable|\Exception $exception) {
+        } catch (\Throwable $exception) {
             if (config('app.env') !== 'production') {
                 /* @noinspection PhpUnhandledExceptionInspection */
                 throw $exception;
@@ -246,9 +246,7 @@ class ActivityLogService
         if ($actor = $this->targetable->actor()) {
             $this->actor($actor);
         } elseif ($user = $this->manager->guard()->user()) {
-            if ($user instanceof Model) {
-                $this->actor($user);
-            }
+            $this->actor($user);
         }
 
         return $this->activity;

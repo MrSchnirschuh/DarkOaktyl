@@ -1,34 +1,41 @@
 <?php
 
-namespace DarkOak\Http\Controllers\Api\Remote\Servers;
+namespace Everest\Http\Controllers\Api\Remote\Servers;
 
-use DarkOak\Models\Server;
+use Everest\Models\Server;
 use Carbon\CarbonImmutable;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
-use DarkOak\Http\Controllers\Controller;
-use DarkOak\Repositories\Eloquent\ServerRepository;
-use DarkOak\Http\Requests\Api\Remote\InstallationDataRequest;
-use Illuminate\Contracts\Events\Dispatcher as EventDispatcher;
+use Everest\Repositories\Eloquent\ServerRepository;
+use Everest\Http\Requests\Api\Remote\InstallationDataRequest;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Everest\Http\Controllers\Api\Application\ApplicationApiController;
 
-class ServerInstallController extends Controller
+class ServerInstallController extends ApplicationApiController
 {
     /**
      * ServerInstallController constructor.
      */
-    public function __construct(private ServerRepository $repository, private EventDispatcher $eventDispatcher)
+    public function __construct(private ServerRepository $repository)
     {
     }
 
     /**
      * Returns installation information for a server.
      *
-     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
+     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
      */
     public function index(Request $request, string $uuid): JsonResponse
     {
+        /** @var \Everest\Models\Node $node */
+        $node = $request->attributes->get('node');
+
         $server = $this->repository->getByUuid($uuid);
+        if ($server->node_id !== $node->id) {
+            throw new NotFoundHttpException();
+        }
+
         $egg = $server->egg;
 
         return new JsonResponse([
@@ -41,12 +48,19 @@ class ServerInstallController extends Controller
     /**
      * Updates the installation state of a server.
      *
-     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
-     * @throws \DarkOak\Exceptions\Model\DataValidationException
+     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
+     * @throws \Everest\Exceptions\Model\DataValidationException
      */
-    public function store(InstallationDataRequest $request, string $uuid): JsonResponse
+    public function store(InstallationDataRequest $request, string $uuid): Response
     {
+        /** @var \Everest\Models\Node $node */
+        $node = $request->attributes->get('node');
+
         $server = $this->repository->getByUuid($uuid);
+        if ($server->node_id !== $node->id) {
+            throw new NotFoundHttpException();
+        }
+
         $status = null;
 
         // Make sure the type of failure is accurate
@@ -65,7 +79,6 @@ class ServerInstallController extends Controller
 
         $this->repository->update($server->id, ['status' => $status, 'installed_at' => CarbonImmutable::now()], true, true);
 
-        return new JsonResponse([], Response::HTTP_NO_CONTENT);
+        return $this->returnNoContent();
     }
 }
-

@@ -1,19 +1,19 @@
 <?php
 
-namespace DarkOak\Http\Controllers\Api\Client;
+namespace Everest\Http\Controllers\Api\Client;
 
-use DarkOak\Transformers\Api\Transformer;
-use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
+use Everest\Transformers\Api\Transformer;
+use Everest\Http\Controllers\Api\Application\ApplicationApiController;
 
 abstract class ClientApiController extends ApplicationApiController
 {
     /**
      * Returns only the includes which are valid for the given transformer.
      */
-    protected function getIncludesForTransformer(string|Transformer $transformer, array $merge = []): array
+    protected function getIncludesForTransformer(Transformer|string $transformer, array $merge = []): array
     {
         if (is_string($transformer)) {
-            $transformer = new $transformer;
+            $transformer = new $transformer();
         }
 
         $filtered = array_filter($this->parseIncludes(), function ($datum) use ($transformer) {
@@ -39,4 +39,3 @@ abstract class ClientApiController extends ApplicationApiController
         }, explode(',', $includes));
     }
 }
-

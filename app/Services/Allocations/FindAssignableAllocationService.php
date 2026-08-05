@@ -39,6 +39,7 @@ class FindAssignableAllocationService
         // server.
         /** @var \DarkOak\Models\Allocation|null $allocation */
         $allocation = $server->node->allocations()
+            ->lockForUpdate()
             ->where('ip', $server->allocation->ip)
             ->whereNull('server_id')
             ->inRandomOrder()
@@ -102,6 +103,7 @@ class FindAssignableAllocationService
 
         /** @var \DarkOak\Models\Allocation $allocation */
         $allocation = $server->node->allocations()
+            ->lockForUpdate()
             ->where('ip', $server->allocation->ip)
             ->where('port', $port)
             ->firstOrFail();

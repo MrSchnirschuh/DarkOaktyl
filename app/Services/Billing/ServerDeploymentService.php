@@ -1,20 +1,19 @@
 <?php
 
-namespace DarkOak\Services\Billing;
+namespace Everest\Services\Billing;
 
 use Carbon\Carbon;
-use DarkOak\Models\Egg;
-use DarkOak\Models\User;
-use Stripe\StripeObject;
-use DarkOak\Models\Server;
-use DarkOak\Models\Allocation;
-use DarkOak\Models\EggVariable;
-use DarkOak\Models\Billing\Order;
-use DarkOak\Models\Billing\Product;
-use DarkOak\Exceptions\DisplayException;
-use DarkOak\Models\Billing\BillingException;
-use DarkOak\Services\Servers\ServerCreationService;
-use DarkOak\Exceptions\Service\Deployment\NoViableAllocationException;
+use Everest\Models\Egg;
+use Everest\Models\User;
+use Everest\Models\Server;
+use Everest\Models\Allocation;
+use Everest\Models\EggVariable;
+use Everest\Models\Billing\Order;
+use Everest\Models\Billing\Product;
+use Everest\Exceptions\DisplayException;
+use Everest\Models\Billing\BillingException;
+use Everest\Services\Servers\ServerCreationService;
+use Everest\Exceptions\Service\Deployment\NoViableAllocationException;
 
 class ServerDeploymentService
 {
@@ -31,16 +30,17 @@ class ServerDeploymentService
      *
      * @throws NoViableAllocationException
      */
-    public function handle(User $user, Product $product, StripeObject $metadata, Order $order): Server
+    public function handle(User $user, Product $product, array $metadata, Order $order): Server
     {
         $renewalDays = config('modules.billing.renewal.days', 30);
-        $egg = Egg::findOrFail($product->category->egg_id);
-        $allocation = $this->getAllocation($metadata->node_id, $order->id);
-        $environment = $this->getEnvironment($egg->id, json_decode($metadata->variables));
+        $metadataEggId = $metadata['egg_id'] ?? '';
+        $egg = $this->resolveEgg($product, $metadataEggId !== '' ? (int) $metadataEggId : null);
+        $allocation = $this->getAllocation($metadata['node_id'], $order->id);
+        $environment = $this->getEnvironment($egg->id, json_decode($metadata['variables']));
 
         try {
             $server = $this->creation->handle([
-                'node_id' => $metadata->node_id,
+                'node_id' => $metadata['node_id'],
                 'allocation_id' => $allocation,
                 'egg_id' => $egg->id,
                 'nest_id' => $product->category->nest_id,
@@ -73,6 +73,30 @@ class ServerDeploymentService
         }
 
         return $server;
+    }
+
+    /**
+     * Resolve the egg to deploy for a product. Categories with a fixed egg always use it;
+     * otherwise the customer's chosen egg is used, provided it belongs to the category's nest
+     * (this is the boundary that stops a tampered request from deploying an unrelated egg).
+     *
+     * @throws DisplayException
+     */
+    protected function resolveEgg(Product $product, ?int $chosenEggId): Egg
+    {
+        $eggId = $product->category->egg_id ?: $chosenEggId;
+
+        if (!$eggId) {
+            throw new DisplayException('An egg must be selected to deploy this product.');
+        }
+
+        $egg = Egg::findOrFail($eggId);
+
+        if ((int) $egg->nest_id !== (int) $product->category->nest_id) {
+            throw new DisplayException('The selected egg does not belong to this product\'s nest.');
+        }
+
+        return $egg;
     }
 
     /**

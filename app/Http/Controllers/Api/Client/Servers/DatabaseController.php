@@ -1,20 +1,21 @@
 <?php
 
-namespace DarkOak\Http\Controllers\Api\Client\Servers;
+namespace Everest\Http\Controllers\Api\Client\Servers;
 
-use DarkOak\Models\Server;
-use DarkOak\Models\Database;
-use DarkOak\Facades\Activity;
+use Everest\Models\Server;
+use Everest\Models\Database;
+use Everest\Facades\Activity;
 use Illuminate\Http\Response;
-use DarkOak\Services\Databases\DatabasePasswordService;
-use DarkOak\Transformers\Api\Client\DatabaseTransformer;
-use DarkOak\Services\Databases\DatabaseManagementService;
-use DarkOak\Services\Databases\DeployServerDatabaseService;
-use DarkOak\Http\Controllers\Api\Client\ClientApiController;
-use DarkOak\Http\Requests\Api\Client\Servers\Databases\GetDatabasesRequest;
-use DarkOak\Http\Requests\Api\Client\Servers\Databases\StoreDatabaseRequest;
-use DarkOak\Http\Requests\Api\Client\Servers\Databases\DeleteDatabaseRequest;
-use DarkOak\Http\Requests\Api\Client\Servers\Databases\RotatePasswordRequest;
+use Everest\Exceptions\DisplayException;
+use Everest\Services\Databases\DatabasePasswordService;
+use Everest\Transformers\Api\Client\DatabaseTransformer;
+use Everest\Services\Databases\DatabaseManagementService;
+use Everest\Services\Databases\DeployServerDatabaseService;
+use Everest\Http\Controllers\Api\Client\ClientApiController;
+use Everest\Http\Requests\Api\Client\Servers\Databases\GetDatabasesRequest;
+use Everest\Http\Requests\Api\Client\Servers\Databases\StoreDatabaseRequest;
+use Everest\Http\Requests\Api\Client\Servers\Databases\DeleteDatabaseRequest;
+use Everest\Http\Requests\Api\Client\Servers\Databases\RotatePasswordRequest;
 
 class DatabaseController extends ClientApiController
 {
@@ -41,17 +42,22 @@ class DatabaseController extends ClientApiController
      * Create a new database for the given server and return it.
      *
      * @throws \Throwable
-     * @throws \DarkOak\Exceptions\Service\Database\TooManyDatabasesException
-     * @throws \DarkOak\Exceptions\Service\Database\DatabaseClientFeatureNotEnabledException
+     * @throws \Everest\Exceptions\Service\Database\TooManyDatabasesException
+     * @throws \Everest\Exceptions\Service\Database\DatabaseClientFeatureNotEnabledException
      */
     public function store(StoreDatabaseRequest $request, Server $server): array
     {
-        $database = $this->deployDatabaseService->handle($server, $request->validated());
+        $database = Activity::event('server:database.create')->transaction(function ($log) use ($request, $server) {
+            if ($server->databases()->lockForUpdate()->count() >= $server->database_limit) {
+                throw new DisplayException('Cannot create additional databases on this server: limit has been reached.');
+            }
 
-        Activity::event('server:database.create')
-            ->subject($database)
-            ->property('name', $database->database)
-            ->log();
+            $database = $this->deployDatabaseService->handle($server, $request->validated());
+
+            $log->subject($database)->property('name', $database->database);
+
+            return $database;
+        });
 
         return $this->fractal->item($database)
             ->parseIncludes(['password'])
@@ -67,15 +73,12 @@ class DatabaseController extends ClientApiController
      */
     public function rotatePassword(RotatePasswordRequest $request, Server $server, Database $database): array
     {
-        $this->passwordService->handle($database);
-        $database->refresh();
-
         Activity::event('server:database.rotate-password')
             ->subject($database)
             ->property('name', $database->database)
-            ->log();
+            ->transaction(fn () => $this->passwordService->handle($database));
 
-        return $this->fractal->item($database)
+        return $this->fractal->item($database->refresh())
             ->parseIncludes(['password'])
             ->transformWith(DatabaseTransformer::class)
             ->toArray();
@@ -84,7 +87,7 @@ class DatabaseController extends ClientApiController
     /**
      * Removes a database from the server.
      *
-     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
+     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
      */
     public function delete(DeleteDatabaseRequest $request, Server $server, Database $database): Response
     {
@@ -98,4 +101,3 @@ class DatabaseController extends ClientApiController
         return $this->returnNoContent();
     }
 }
-

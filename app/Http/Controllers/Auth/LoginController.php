@@ -1,29 +1,25 @@
 <?php
 
-namespace DarkOak\Http\Controllers\Auth;
+namespace Everest\Http\Controllers\Auth;
 
-use DarkOak\Models\User;
+use Everest\Models\User;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use DarkOak\Facades\Activity;
+use Everest\Facades\Activity;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\View\View;
-use DarkOak\Exceptions\DisplayException;
-use DarkOak\Services\Users\UserCreationService;
+use Everest\Exceptions\DisplayException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use DarkOak\Contracts\Repository\SettingsRepositoryInterface;
 
 class LoginController extends AbstractLoginController
 {
     /**
      * LoginController constructor.
      */
-    public function __construct(
-        private UserCreationService $creationService,
-        private SettingsRepositoryInterface $settings,
-    ) {
+    public function __construct()
+    {
         parent::__construct();
     }
 
@@ -40,7 +36,7 @@ class LoginController extends AbstractLoginController
     /**
      * Handle a login request to the application.
      *
-     * @throws \DarkOak\Exceptions\DisplayException
+     * @throws DisplayException
      * @throws \Illuminate\Validation\ValidationException
      */
     public function login(Request $request): JsonResponse
@@ -53,7 +49,7 @@ class LoginController extends AbstractLoginController
         try {
             $username = $request->input('user');
 
-            /** @var \DarkOak\Models\User $user */
+            /** @var User $user */
             $user = User::query()->where($this->getField($username), $username)->firstOrFail();
         } catch (ModelNotFoundException) {
             $this->sendFailedLoginResponse($request);
@@ -90,7 +86,7 @@ class LoginController extends AbstractLoginController
     /**
      * Handle a user registration request.
      */
-    public function register(Request $request): JsonResponse
+    public function register(Request $request): Response
     {
         if ($this->hasTooManyLoginAttempts($request)) {
             $this->fireLockoutEvent($request);
@@ -110,9 +106,8 @@ class LoginController extends AbstractLoginController
             throw new DisplayException('The passwords entered do not match.');
         }
 
-        $this->createAccount($this->settings, ['email' => $email, 'username' => $username, 'password' => $password]);
+        $this->createAccount(['email' => $email, 'username' => $username, 'password' => $password], $request);
 
-        return new JsonResponse([], Response::HTTP_NO_CONTENT);
+        return $this->returnNoContent();
     }
 }
-

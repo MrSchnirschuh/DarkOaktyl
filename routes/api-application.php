@@ -39,6 +39,12 @@ Route::middleware([AdminSubject::class])->group(function () {
     Route::group(['prefix' => '/settings'], function () {
         Route::patch('/', [Application\Settings\GeneralController::class, 'update']);
         Route::patch('/mode', [Application\Settings\ModeController::class, 'update']);
+
+        Route::group(['prefix' => '/debug'], function () {
+            Route::get('/', [Application\Settings\DebugController::class, 'index']);
+            Route::get('/archive', [Application\Settings\DebugController::class, 'archive']);
+            Route::get('/{file}', [Application\Settings\DebugController::class, 'download']);
+        });
     });
 
     /*
@@ -127,6 +133,11 @@ Route::middleware([AdminSubject::class])->group(function () {
 
         Route::group(['prefix' => '/orders'], function () {
             Route::get('/', [Application\Billing\OrderController::class, 'index']);
+        });
+
+        Route::group(['prefix' => '/invoices'], function () {
+            Route::get('/', [Application\Billing\InvoiceController::class, 'index']);
+            Route::get('/{invoice:id}/download', [Application\Billing\InvoiceController::class, 'download']);
         });
 
         Route::group(['prefix' => '/discount-codes'], function () {
@@ -409,7 +420,7 @@ Route::middleware([AdminSubject::class])->group(function () {
 
         Route::post('/', [Application\Nodes\NodeController::class, 'store']);
 
-        Route::patch('/{node:id}', [Application\Nodes\NodeController::class, 'update']);
+        Route::patch('/{node:id}', [Application\Nodes\NodeController::class, 'update'])->name('api.application.nodes.update');
 
         Route::delete('/{node:id}', [Application\Nodes\NodeController::class, 'delete']);
 
@@ -442,6 +453,7 @@ Route::middleware([AdminSubject::class])->group(function () {
         });
 
         Route::get('/{server:id}', [Application\Servers\ServerController::class, 'view']);
+        Route::get('/{server:id}/activity', Application\Servers\ActivityLogController::class);
         Route::get('/external/{external_id}', [Application\Servers\ExternalServerController::class, 'index']);
 
         Route::patch('/{server:id}', [Application\Servers\ServerController::class, 'update']);
@@ -449,6 +461,7 @@ Route::middleware([AdminSubject::class])->group(function () {
 
         Route::post('/', [Application\Servers\ServerController::class, 'store']);
         Route::post('/preset', [Application\Servers\ServerController::class, 'storeWithPreset']);
+        Route::post('/bulk/power', [Application\Servers\ServerManagementController::class, 'bulkPower']);
         Route::post('/{server:id}/toggle', [Application\Servers\ServerManagementController::class, 'toggle']);
         Route::post('/{server:id}/suspend', [Application\Servers\ServerManagementController::class, 'suspend']);
         Route::post('/{server:id}/unsuspend', [Application\Servers\ServerManagementController::class, 'unsuspend']);
@@ -510,6 +523,7 @@ Route::middleware([AdminSubject::class])->group(function () {
         });
 
         Route::get('/{user:id}', [Application\Users\UserController::class, 'view']);
+        Route::get('/{user:id}/activity', Application\Users\ActivityLogController::class);
         Route::get('/external/{external_id}', [Application\Users\ExternalUserController::class, 'index']);
 
         Route::post('/', [Application\Users\UserController::class, 'store']);

@@ -7,8 +7,10 @@ use Illuminate\Database\Migrations\Migration;
 return new class () extends Migration {
     /**
      * Run the migrations.
-     * Guard against missing columns — JexPanel DBs may have already
-     * renamed 'node' to 'node_id'.
+     *
+     * These columns were renamed to server_id/node_id by the
+     * 2017_02_03_155554_RenameColumns migration. Guard against installs
+     * that already ran that rename and no longer have the old names.
      */
     public function up(): void
     {

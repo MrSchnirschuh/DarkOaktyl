@@ -11,11 +11,14 @@ import Spinner from '@/elements/Spinner';
 import classNames from 'classnames';
 import { useStoreState } from '@/state/hooks';
 
-export function useTableHooks<T>(initialState?: T | (() => T)): TableHooks<T> {
+export function useTableHooks<T>(
+    initialState?: T | (() => T),
+    initialSort?: { column: string; direction?: boolean },
+): TableHooks<T> {
     const [page, setPage] = useState<number>(1);
     const [filters, setFilters] = useState<T | null>(initialState || null);
-    const [sort, setSortState] = useState<string | null>(null);
-    const [sortDirection, setSortDirection] = useState<boolean>(false);
+    const [sort, setSortState] = useState<string | null>(initialSort?.column ?? null);
+    const [sortDirection, setSortDirection] = useState<boolean>(initialSort?.direction ?? false);
 
     const setSort = (newSort: string | null) => {
         if (sort === newSort) {
@@ -46,20 +49,14 @@ export const TableHeader = ({
         <th css={tw`px-6 py-2`} onClick={onClick}>
             <span css={tw`flex flex-row items-center cursor-pointer`}>
                 <span
-                    css={tw`text-xs font-medium tracking-wider uppercase whitespace-nowrap select-none`}
-                    style={{ color: 'var(--theme-text-secondary)' }}
+                    css={tw`text-xs font-medium tracking-wider uppercase text-neutral-300 whitespace-nowrap select-none`}
                 >
                     {name}
                 </span>
 
                 {direction !== undefined ? (
                     <div css={tw`ml-1`}>
-                        <svg
-                            fill="none"
-                            viewBox="0 0 20 20"
-                            css={tw`w-4 h-4`}
-                            style={{ color: 'var(--theme-text-secondary)' }}
-                        >
+                        <svg fill="none" viewBox="0 0 20 20" css={tw`w-4 h-4 text-neutral-400`}>
                             {direction === null || direction === 1 ? (
                                 <path
                                     stroke="currentColor"
@@ -90,13 +87,7 @@ export const TableHead = ({ children }: { children: ReactNode }) => {
     const { colors } = useStoreState(state => state.theme.data!);
 
     return (
-        <thead
-            css={tw`border-t border-b`}
-            style={{
-                backgroundColor: colors.headers,
-                borderColor: colors.sidebar,
-            }}
-        >
+        <thead css={tw`border-t border-b border-gray-800 backdrop-blur-sm`} style={{ backgroundColor: colors.headers }}>
             <tr>{children}</tr>
         </thead>
     );
@@ -106,22 +97,8 @@ export const TableBody = ({ children }: { children: ReactNode }) => {
     return <tbody>{children}</tbody>;
 };
 
-const ThemedRow = styled.tr<{ hoverColor: string }>`
-    ${tw`h-12 transition-colors duration-150`};
-
-    &:hover {
-        background-color: ${({ hoverColor }) => hoverColor};
-    }
-`;
-
 export const TableRow = ({ children }: { children: ReactNode }) => {
-    const { colors } = useStoreState(state => state.theme.data!);
-
-    return (
-        <ThemedRow hoverColor={colors.surface_body ?? colors.secondary} style={{ color: colors.text_primary }}>
-            {children}
-        </ThemedRow>
-    );
+    return <tr css={tw`h-12 transition-colors duration-150 hover:bg-neutral-600/60`}>{children}</tr>;
 };
 
 interface Props<T> {
@@ -132,31 +109,23 @@ interface Props<T> {
 }
 
 const PaginationButton = styled.button<{ active?: boolean }>`
-    ${tw`relative items-center px-3 py-1 -ml-px text-sm font-normal leading-5 transition duration-150 ease-in-out border focus:z-10 focus:outline-none inline-flex`};
+    ${tw`relative items-center px-3 py-1 -ml-px text-sm font-normal leading-5 transition-all duration-150 ease-in-out border border-neutral-500 focus:z-10 focus:outline-none focus:border-primary-300 inline-flex`};
 
-    border-color: var(--theme-sidebar);
-    background-color: ${({ active }) => (active ? 'var(--theme-accent)' : 'var(--theme-surface-card)')};
-    color: ${({ active }) => (active ? 'var(--theme-on-accent)' : 'var(--theme-text-secondary)')};
-
-    &:hover {
-        color: ${({ active }) => (active ? 'var(--theme-on-accent)' : 'var(--theme-text-primary)')};
-    }
+    ${props =>
+        props.active
+            ? tw`bg-neutral-500 text-neutral-50 shadow-inner`
+            : tw`bg-neutral-600/80 text-neutral-200 hover:text-neutral-50 hover:bg-neutral-500/80`};
 `;
 
 const PaginationArrow = styled.button`
-    ${tw`relative inline-flex items-center px-1 py-1 text-sm font-medium leading-5 transition duration-150 ease-in-out border focus:z-10 focus:outline-none`};
-
-    border-color: var(--theme-sidebar);
-    background-color: var(--theme-surface-card);
-    color: var(--theme-text-secondary);
-
-    &:hover:not(:disabled) {
-        color: var(--theme-text-primary);
-    }
+    ${tw`relative inline-flex items-center px-1 py-1 text-sm font-medium leading-5 transition-all duration-150 ease-in-out border border-neutral-500 bg-neutral-600/80 text-neutral-400 hover:text-neutral-50 hover:bg-neutral-500/80 focus:z-10 focus:outline-none focus:border-primary-300`};
 
     &:disabled {
-        opacity: 0.6;
-        cursor: default;
+        ${tw`bg-neutral-700`}
+    }
+
+    &:hover:disabled {
+        ${tw`text-neutral-400 cursor-default bg-neutral-700`};
     }
 `;
 
@@ -173,8 +142,6 @@ export function Pagination<T>({ data, onPageSelect, children }: Props<T>) {
     } else {
         pagination = data.pagination;
     }
-
-    const { colors } = useStoreState(state => state.theme.data!);
 
     const setPage = (page: number) => {
         if (page < 1 || page > pagination.totalPages) {
@@ -215,20 +182,17 @@ export function Pagination<T>({ data, onPageSelect, children }: Props<T>) {
         <>
             {children}
 
-            <div
-                css={tw`h-12 flex flex-row items-center w-full px-6 py-3 border-t`}
-                style={{ borderColor: colors.sidebar }}
-            >
-                <p css={tw`text-sm leading-5`} style={{ color: colors.text_secondary }}>
+            <div css={tw`h-12 flex flex-row items-center w-full px-6 py-3 border-t border-neutral-500`}>
+                <p css={tw`text-sm leading-5 text-neutral-400`}>
                     Showing{' '}
-                    <span style={{ color: colors.text_primary }}>
+                    <span css={tw`text-neutral-300`}>
                         {(pagination.currentPage - 1) * pagination.perPage + (pagination.total > 0 ? 1 : 0)}
                     </span>{' '}
                     to{' '}
-                    <span style={{ color: colors.text_primary }}>
+                    <span css={tw`text-neutral-300`}>
                         {(pagination.currentPage - 1) * pagination.perPage + pagination.count}
                     </span>{' '}
-                    of <span style={{ color: colors.text_primary }}>{pagination.total}</span> results
+                    of <span css={tw`text-neutral-300`}>{pagination.total}</span> results
                 </p>
 
                 {isFirstPage && isLastPage ? null : (
@@ -315,7 +279,7 @@ export const NoItems = ({ className }: { className?: string }) => {
                 <img src={'/assets/svgs/not_found.svg'} alt={'No Items'} css={tw`h-full select-none`} />
             </div>
 
-            <p css={tw`text-lg text-center font-normal sm:mt-8`} style={{ color: colors.text_secondary }}>
+            <p css={tw`text-lg text-neutral-300 text-center font-normal sm:mt-8`}>
                 No items could be found, it&apos;s almost like they are hiding.
             </p>
         </div>
@@ -373,8 +337,8 @@ export default ({ className, children }: { className?: string; children: ReactNo
     return (
         <div css={tw`flex flex-col w-full`}>
             <div
-                className={classNames(className, 'rounded-lg shadow-md')}
-                style={{ backgroundColor: colors.secondary, color: colors.text_primary }}
+                className={classNames(className, 'rounded-xl shadow-lg ring-1 ring-white/5')}
+                style={{ backgroundColor: colors.secondary }}
             >
                 {children}
             </div>

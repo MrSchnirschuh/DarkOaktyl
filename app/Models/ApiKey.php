@@ -1,14 +1,15 @@
 <?php
 
-namespace DarkOak\Models;
+namespace Everest\Models;
 
 use Illuminate\Support\Str;
 use Webmozart\Assert\Assert;
-use DarkOak\Services\Acl\Api\AdminAcl;
+use Everest\Services\Acl\Api\AdminAcl;
+use Laravel\Sanctum\Contracts\HasAbilities;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * DarkOak\Models\ApiKey.
+ * Everest\Models\ApiKey.
  *
  * @property int $id
  * @property int $user_id
@@ -30,8 +31,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $r_eggs
  * @property int $r_database_hosts
  * @property int $r_server_databases
- * @property \DarkOak\Models\User $tokenable
- * @property \DarkOak\Models\User $user
+ * @property User $tokenable
+ * @property User $user
  *
  * @method static \Database\Factories\ApiKeyFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|ApiKey newModelQuery()
@@ -59,7 +60,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * @mixin \Eloquent
  */
-class ApiKey extends Model
+class ApiKey extends Model implements HasAbilities
 {
     /**
      * The resource name for this model when it is transformed into an
@@ -97,7 +98,6 @@ class ApiKey extends Model
      */
     protected $casts = [
         'allowed_ips' => 'array',
-        'scopes' => 'array',
         'user_id' => 'int',
         'last_used_at' => 'datetime',
         'expires_at' => 'datetime',
@@ -180,39 +180,10 @@ class ApiKey extends Model
     public static function findToken(string $token): ?self
     {
         $identifier = substr($token, 0, self::IDENTIFIER_LENGTH);
-        $tokenSecret = substr($token, strlen($identifier));
 
         $model = static::where('identifier', $identifier)->first();
-        if (is_null($model)) {
-            return null;
-        }
-
-        try {
-            $decryptedToken = decrypt($model->token);
-            if (hash_equals($decryptedToken, $tokenSecret)) {
-                return $model;
-            }
-        } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
-            // Token might be stored unencrypted (legacy) or corrupted
-            // Log this for security monitoring
-            \Log::warning('Failed to decrypt API token', [
-                'identifier' => $identifier,
-                'error' => $e->getMessage(),
-            ]);
-
-            // Attempt legacy comparison (plaintext) for backward compatibility
-            // This should be removed after migration
-            if (hash_equals($model->token, $tokenSecret)) {
-                // Auto-migrate to encrypted storage
-                $model->token = encrypt($tokenSecret);
-                $model->save();
-                
-                \Log::info('Auto-migrated plaintext API token to encrypted storage', [
-                    'identifier' => $identifier,
-                ]);
-                
-                return $model;
-            }
+        if (!is_null($model) && decrypt($model->token) === substr($token, strlen($identifier))) {
+            return $model;
         }
 
         return null;
@@ -237,5 +208,18 @@ class ApiKey extends Model
 
         return $prefix . Str::random(self::IDENTIFIER_LENGTH - strlen($prefix));
     }
-}
 
+    /**
+     * API keys are not scoped by ability tokens — access is controlled entirely
+     * through the `r_*` resource permission columns — so any ability is allowed.
+     */
+    public function can($ability): bool
+    {
+        return true;
+    }
+
+    public function cant($ability): bool
+    {
+        return !$this->can($ability);
+    }
+}

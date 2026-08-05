@@ -42,8 +42,8 @@ class NodeController extends ApplicationApiController
         }
 
         $nodes = QueryBuilder::for(Node::query())
-            ->allowedFilters(['id', 'uuid', 'name', 'fqdn', 'daemon_token_id'])
-            ->allowedSorts(['id', 'uuid', 'name', 'fqdn', 'memory', 'disk'])
+            ->allowedFilters(...['id', 'uuid', 'name', 'fqdn', 'daemon_token_id'])
+            ->allowedSorts(...['id', 'uuid', 'name', 'fqdn', 'memory', 'disk'])
             ->paginate($perPage);
 
         return $this->transform($nodes, NodeTransformer::class);
@@ -71,6 +71,7 @@ class NodeController extends ApplicationApiController
         $node = $this->creationService->handle($request->validated());
 
         Activity::event('admin:nodes:create')
+            ->subject($node)
             ->property('node', $node)
             ->description('A node was created')
             ->log();
@@ -91,6 +92,7 @@ class NodeController extends ApplicationApiController
         );
 
         Activity::event('admin:nodes:update')
+            ->subject($node)
             ->property('node', $node)
             ->property('new_data', $request->all())
             ->description('A node was updated')
@@ -110,6 +112,7 @@ class NodeController extends ApplicationApiController
         $this->deletionService->handle($node);
 
         Activity::event('admin:nodes:delete')
+            ->subject($node)
             ->property('node', $node)
             ->description('A node was deleted')
             ->log();

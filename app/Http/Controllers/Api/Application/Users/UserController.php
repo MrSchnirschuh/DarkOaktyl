@@ -1,27 +1,28 @@
 <?php
 
-namespace DarkOak\Http\Controllers\Api\Application\Users;
+namespace Everest\Http\Controllers\Api\Application\Users;
 
-use DarkOak\Models\User;
+use Everest\Models\User;
 use Illuminate\Support\Arr;
-use DarkOak\Facades\Activity;
+use Everest\Facades\Activity;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
-use DarkOak\Exceptions\DisplayException;
+use Everest\Exceptions\DisplayException;
 use Illuminate\Database\Eloquent\Builder;
-use DarkOak\Services\Users\UserUpdateService;
-use DarkOak\Services\Users\UserCreationService;
-use DarkOak\Services\Users\UserDeletionService;
-use DarkOak\Transformers\Api\Application\UserTransformer;
-use DarkOak\Exceptions\Http\QueryValueOutOfRangeHttpException;
-use DarkOak\Http\Requests\Api\Application\Users\GetUserRequest;
-use DarkOak\Http\Requests\Api\Application\Users\GetUsersRequest;
-use DarkOak\Http\Requests\Api\Application\Users\StoreUserRequest;
-use DarkOak\Http\Requests\Api\Application\Users\DeleteUserRequest;
-use DarkOak\Http\Requests\Api\Application\Users\UpdateUserRequest;
-use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
+use Everest\Services\Users\UserUpdateService;
+use Everest\Services\Users\UserCreationService;
+use Everest\Services\Users\UserDeletionService;
+use Everest\Transformers\Api\Application\UserTransformer;
+use Everest\Exceptions\Http\QueryValueOutOfRangeHttpException;
+use Everest\Http\Requests\Api\Application\Users\GetUserRequest;
+use Everest\Http\Requests\Api\Application\Users\GetUsersRequest;
+use Everest\Http\Requests\Api\Application\Users\StoreUserRequest;
+use Everest\Http\Requests\Api\Application\Users\DeleteUserRequest;
+use Everest\Http\Requests\Api\Application\Users\UpdateUserRequest;
+use Everest\Http\Requests\Api\Application\Users\SuspendUserRequest;
+use Everest\Http\Controllers\Api\Application\ApplicationApiController;
 
 class UserController extends ApplicationApiController
 {
@@ -31,7 +32,7 @@ class UserController extends ApplicationApiController
     public function __construct(
         private UserCreationService $creationService,
         private UserDeletionService $deletionService,
-        private UserUpdateService $updateService
+        private UserUpdateService $updateService,
     ) {
         parent::__construct();
     }
@@ -49,7 +50,7 @@ class UserController extends ApplicationApiController
         }
 
         $users = QueryBuilder::for(User::query())
-            ->allowedFilters([
+            ->allowedFilters(...[
                 'username',
                 'email',
                 AllowedFilter::exact('id'),
@@ -67,12 +68,11 @@ class UserController extends ApplicationApiController
                     }
                 }),
             ])
-            ->allowedSorts(['id', 'uuid', 'username', 'email', 'admin_role_id', 'use_totp', 'root_admin', 'state', 'created_at'])
+            ->defaultSort('-root_admin')
+            ->allowedSorts(...['id', 'uuid', 'username', 'email', 'admin_role_id', 'use_totp', 'root_admin', 'state', 'created_at'])
             ->paginate($perPage);
 
-        return $this->fractal->collection($users)
-            ->transformWith(UserTransformer::class)
-            ->toArray();
+        return $this->transform($users, UserTransformer::class);
     }
 
     /**
@@ -83,9 +83,7 @@ class UserController extends ApplicationApiController
      */
     public function view(GetUserRequest $request, User $user): array
     {
-        return $this->fractal->item($user)
-            ->transformWith(UserTransformer::class)
-            ->toArray();
+        return $this->transform($user, UserTransformer::class);
     }
 
     /**
@@ -101,27 +99,30 @@ class UserController extends ApplicationApiController
     public function update(UpdateUserRequest $request, User $user): array
     {
         if (
-            !$request->user()->root_admin &&
-            (
-                $request->input('root_admin') ||
-                $request->input('admin_role_id') !== $user->admin_role_id
+            !$request->user()->root_admin
+            && (
+                $request->input('root_admin')
+                || $request->input('admin_role_id') !== $user->admin_role_id
             )
         ) {
             throw new DisplayException('You must be a root administrator to grant another user permissions.');
+        }
+
+        if (!$request->user()->root_admin && ($user->root_admin && !$request->input('root_admin'))) {
+            throw new DisplayException('You cannot remove rootAdmin without the same level of permission.');
         }
 
         $this->updateService->setUserLevel(User::USER_LEVEL_ADMIN);
         $user = $this->updateService->handle($user, $request->validated());
 
         Activity::event('admin:users:update')
+            ->subject($user)
             ->property('user', $user)
             ->property('new_data', $request->all())
             ->description('A user was updated')
             ->log();
 
-        return $this->fractal->item($user)
-            ->transformWith(UserTransformer::class)
-            ->toArray();
+        return $this->transform($user, UserTransformer::class);
     }
 
     /**
@@ -129,20 +130,22 @@ class UserController extends ApplicationApiController
      * header on successful creation.
      *
      * @throws \Exception
-     * @throws \DarkOak\Exceptions\Model\DataValidationException
+     * @throws \Everest\Exceptions\Model\DataValidationException
      */
     public function store(StoreUserRequest $request): JsonResponse
     {
         $user = $this->creationService->handle($request->validated());
 
         Activity::event('admin:users:create')
+            ->subject($user)
             ->property('user', $user)
             ->description('A user was created')
             ->log();
 
-        return $this->fractal->item($user)
-            ->transformWith(UserTransformer::class)
-            ->respond(201);
+        return response()->json(
+            $this->transform($user, UserTransformer::class),
+            Response::HTTP_CREATED,
+        );
     }
 
     /**
@@ -150,15 +153,16 @@ class UserController extends ApplicationApiController
      *
      * @throws \Throwable
      */
-    public function suspend(User $user): Response
+    public function suspend(SuspendUserRequest $request, User $user): Response
     {
         if ($user->root_admin) {
             throw new \Exception('You cannot suspend an administrator.');
         }
 
-        $user->update(['state' => $user->isSuspended() ? '' : 'suspended']);
+        $user->update(['state' => $user->isSuspended() ? 'active' : 'suspended']);
 
         Activity::event('admin:users:suspend')
+            ->subject($user)
             ->property('user', $user)
             ->description('A user was suspended')
             ->log();
@@ -170,13 +174,14 @@ class UserController extends ApplicationApiController
      * Handle a request to delete a user from the Panel. Returns a HTTP/204 response
      * on successful deletion.
      *
-     * @throws \DarkOak\Exceptions\DisplayException
+     * @throws DisplayException
      */
     public function delete(DeleteUserRequest $request, User $user): Response
     {
         $this->deletionService->handle($user);
 
         Activity::event('admin:users:delete')
+            ->subject($user)
             ->property('user', $user)
             ->description('A user was deleted')
             ->log();
@@ -184,4 +189,3 @@ class UserController extends ApplicationApiController
         return $this->returnNoContent();
     }
 }
-

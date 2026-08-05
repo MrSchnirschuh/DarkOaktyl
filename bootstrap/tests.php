@@ -7,9 +7,12 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 
 require __DIR__ . '/../vendor/autoload.php';
 
+$envFile = file_exists(__DIR__ . '/../.env.ci') ? '.env.ci' : '.env';
+Dotenv\Dotenv::createImmutable(__DIR__ . '/../', $envFile)->safeLoad();
+
 $app = require __DIR__ . '/app.php';
 
-/** @var \DarkOak\Console\Kernel $kernel */
+/** @var Everest\Console\Kernel $kernel */
 $kernel = $app->make(Kernel::class);
 
 /*
@@ -46,3 +49,11 @@ if (!env('SKIP_MIGRATIONS')) {
     $output->writeln(PHP_EOL . '<comment>Skipping database migrations...</comment>' . PHP_EOL);
 }
 
+// The kernel bootstrap above (and the artisan commands run against it) registers
+// global error/exception handlers via Illuminate's HandleExceptions bootstrapper
+// and Collision's provider. Laravel's own test lifecycle unconditionally drains
+// the *entire* handler stack after every test (see HandleExceptions::flushState),
+// so any handlers left over from this one-time setup would make every single
+// test appear to have "removed error handlers other than its own". Flush now so
+// PHPUnit's per-test snapshot starts from a clean baseline.
+Illuminate\Foundation\Bootstrap\HandleExceptions::flushState();

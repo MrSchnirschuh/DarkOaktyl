@@ -1,15 +1,13 @@
 <?php
 
-namespace DarkOak\Http\Controllers\Api\Application\Theme;
+namespace Everest\Http\Controllers\Api\Application\Theme;
 
-use DarkOak\Models\Theme;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use Everest\Models\Theme;
+use Everest\Facades\Activity;
 use Illuminate\Http\Response;
-use DarkOak\Contracts\Repository\ThemeRepositoryInterface;
-use DarkOak\Services\Themes\ThemePaletteService;
-use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
-use DarkOak\Http\Requests\Application\Theme\UpdatePaletteRequest;
+use Everest\Contracts\Repository\ThemeRepositoryInterface;
+use Everest\Http\Requests\Api\Application\Theme\UpdateThemeRequest;
+use Everest\Http\Controllers\Api\Application\ApplicationApiController;
 
 class ThemeController extends ApplicationApiController
 {
@@ -17,24 +15,9 @@ class ThemeController extends ApplicationApiController
      * ThemeController constructor.
      */
     public function __construct(
-        private ThemeRepositoryInterface $settings,
-        private ThemePaletteService $paletteService
+        private ThemeRepositoryInterface $theme,
     ) {
         parent::__construct();
-    }
-
-    public function palette(): JsonResponse
-    {
-        return response()->json($this->paletteService->getUnifiedPalettePayload());
-    }
-
-    public function updatePalette(UpdatePaletteRequest $request): JsonResponse
-    {
-        $payload = $request->validated();
-
-        return response()->json(
-            $this->paletteService->persistUnifiedPalette($payload['modes'] ?? [])
-        );
     }
 
     /**
@@ -42,10 +25,15 @@ class ThemeController extends ApplicationApiController
      *
      * @throws \Throwable
      */
-    public function colors(Request $request): Response
+    public function colors(UpdateThemeRequest $request): Response
     {
-        $this->settings->set('theme::colors:' . $request->input('key'), $request->input('value'));
-        $this->paletteService->syncDefaultEmailTheme();
+        $this->theme->set('theme::colors:' . $request->input('key'), $request->input('value'));
+
+        Activity::event('admin:theme:update')
+            ->property('key', $request->input('key'))
+            ->property('value', $request->input('value'))
+            ->description('A panel theme color was updated')
+            ->log();
 
         return $this->returnNoContent();
     }
@@ -53,32 +41,16 @@ class ThemeController extends ApplicationApiController
     /**
      * Reset all of the theme keys to factory defaults.
      */
-    public function reset(): Response
+    public function reset(UpdateThemeRequest $request): Response
     {
-        foreach ($this->settings->all() as $setting) {
+        foreach ($this->theme->all() as $setting) {
             $setting->delete();
         }
 
-        $this->paletteService->syncDefaultEmailTheme();
-
-        return $this->returnNoContent();
-    }
-
-    /**
-     * Delete a single theme color key (used for removing presets cleanly).
-     */
-    public function deleteColor(Request $request): Response
-    {
-        $key = $request->input('key');
-        if (! $key) {
-            return $this->returnNoContent();
-        }
-
-        $this->settings->forget('theme::colors:' . $key);
-
-        $this->paletteService->syncDefaultEmailTheme();
+        Activity::event('admin:theme:reset')
+            ->description('The panel theme was reset to factory defaults')
+            ->log();
 
         return $this->returnNoContent();
     }
 }
-

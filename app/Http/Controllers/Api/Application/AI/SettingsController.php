@@ -1,25 +1,22 @@
 <?php
 
-namespace DarkOak\Http\Controllers\Api\Application\AI;
+namespace Everest\Http\Controllers\Api\Application;
 
 use GeminiAPI\Client;
-use DarkOak\Facades\Activity;
+use Everest\Models\Setting;
+use Everest\Facades\Activity;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use GeminiAPI\Resources\Parts\TextPart;
-use DarkOak\Http\Requests\Api\Application\AI\AIQueryRequest;
-use DarkOak\Contracts\Repository\SettingsRepositoryInterface;
-use DarkOak\Http\Requests\Api\Application\AI\AISettingsRequest;
-use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
+use Everest\Http\Requests\Api\Application\Intelligence;
 
-class SettingsController extends ApplicationApiController
+class IntelligenceController extends ApplicationApiController
 {
     /**
-     * SettingsController constructor.
+     * IntelligenceController constructor.
      */
-    public function __construct(
-        private SettingsRepositoryInterface $settings
-    ) {
+    public function __construct()
+    {
         parent::__construct();
     }
 
@@ -28,33 +25,33 @@ class SettingsController extends ApplicationApiController
      *
      * @throws \Throwable
      */
-    public function update(AISettingsRequest $request): Response
+    public function update(Intelligence\UpdateIntelligenceSettingsRequest $request): Response
     {
         foreach ($request->normalize() as $key => $value) {
             if ($key == 'key' && is_bool($value)) {
                 continue;
             }
 
-            $this->settings->set('settings::modules:ai:' . $key, $value);
+            Setting::set('settings::modules:ai:' . $key, $value);
         }
 
         Activity::event('admin:ai:update')
             ->property('settings', $request->all())
-            ->description('DarkOaktyl AI settings were updated')
+            ->description('JexpanelAI settings were updated')
             ->log();
 
         return $this->returnNoContent();
     }
 
     /**
-     * Send a query to DarkOaktyl AI through Gemini.
+     * Send a query to JexpanelAI through Gemini.
      *
      * @throws \Throwable
      */
-    public function query(AIQueryRequest $request): JsonResponse
+    public function query(Intelligence\QueryRequest $request): JsonResponse
     {
         if (!config('modules.ai.enabled')) {
-            throw new \Exception('The DarkOaktyl AI module is not enabled.');
+            throw new \Exception('The JexpanelAI module is not enabled.');
         }
 
         $client = new Client(config('modules.ai.key'));
@@ -66,5 +63,3 @@ class SettingsController extends ApplicationApiController
         return response()->json($response->text());
     }
 }
-
-

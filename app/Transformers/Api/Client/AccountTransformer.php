@@ -1,9 +1,9 @@
 <?php
 
-namespace DarkOak\Transformers\Api\Client;
+namespace Everest\Transformers\Api\Client;
 
-use DarkOak\Models\User;
-use DarkOak\Transformers\Api\Transformer;
+use Everest\Models\User;
+use Everest\Transformers\Api\Transformer;
 
 class AccountTransformer extends Transformer
 {
@@ -26,10 +26,7 @@ class AccountTransformer extends Transformer
             'username' => $model->username,
             'email' => $model->email,
             'language' => $model->language,
-            'appearance_mode' => $model->appearance_mode ?? 'system',
-            'appearance_last_mode' => $model->appearance_last_mode ?? 'dark',
-            'auth_login_method' => $model->auth_login_method ?? 'password',
+            'avatar_url' => $model->avatar_url,
         ];
     }
 }
-

@@ -19,11 +19,13 @@ class StoreNodeRequest extends ApplicationApiRequest
             'description',
             'database_host_id',
             'fqdn',
+            'sftp_alias',
             'scheme',
             'behind_proxy',
             'public',
             'deployable',
             'deployable_free',
+            'deployment_fee',
 
             'listen_port_http',
             'public_port_http',

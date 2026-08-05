@@ -1,13 +1,17 @@
 <?php
 
-namespace DarkOak\Http\Controllers\Api\Client\Billing;
+namespace Everest\Http\Controllers\Api\Client\Billing;
 
 use Illuminate\Http\Request;
-use DarkOak\Models\Billing\Order;
+use Everest\Facades\Activity;
+use Everest\Models\Billing\Order;
 use Spatie\QueryBuilder\QueryBuilder;
-use DarkOak\Transformers\Api\Client\OrderTransformer;
-use DarkOak\Http\Controllers\Api\Client\ClientApiController;
-use DarkOak\Exceptions\Http\QueryValueOutOfRangeHttpException;
+use Illuminate\Support\Facades\Storage;
+use Everest\Exceptions\DisplayException;
+use Everest\Transformers\Api\Client\OrderTransformer;
+use Symfony\Component\HttpFoundation\StreamedResponse;
+use Everest\Http\Controllers\Api\Client\ClientApiController;
+use Everest\Exceptions\Http\QueryValueOutOfRangeHttpException;
 
 class OrderController extends ClientApiController
 {
@@ -27,11 +31,11 @@ class OrderController extends ClientApiController
         }
 
         $orders = QueryBuilder::for(Order::query())
-            ->with('server')
-            ->allowedIncludes(['server'])
+            ->with(['server', 'invoice'])
+            ->allowedIncludes(...['server', 'invoice'])
             ->where('user_id', $request->user()->id)
-            ->allowedFilters(['id', 'name', 'server_id'])
-            ->allowedSorts(['id', 'name', 'total', 'is_renewal', 'created_at', 'threat_index'])
+            ->allowedFilters(...['id', 'name', 'server_id'])
+            ->allowedSorts(...['id', 'name', 'total', 'type', 'created_at', 'threat_index'])
             ->orderBy('created_at', 'desc')
             ->paginate($perPage);
 
@@ -41,13 +45,34 @@ class OrderController extends ClientApiController
     /**
      * Return the data regarding a specific order.
      */
-    public function view(Request $request, int $id): array
+    public function view(Request $request, Order $order): array
     {
-        $order = Order::where('user_id', $request->user()->id)
-            ->where('id', $id)
-            ->first();
+        if ($order->user_id !== $request->user()->id) {
+            throw new DisplayException('You are not authorised to access this resource.');
+        }
 
         return $this->transform($order, OrderTransformer::class);
     }
-}
 
+    /**
+     * Download the generated PDF invoice for this order.
+     */
+    public function invoice(Request $request, Order $order): StreamedResponse
+    {
+        if ($order->user_id !== $request->user()->id) {
+            throw new DisplayException('You are not authorised to access this resource.');
+        }
+
+        $invoice = $order->invoice;
+        if (!$invoice) {
+            throw new DisplayException('This order does not have an invoice yet — it may still be generating.');
+        }
+
+        Activity::event('user:billing:order.invoice-download')
+            ->subject($order)
+            ->property('order', $order->id)
+            ->log();
+
+        return Storage::disk($invoice->disk)->download($invoice->path, "{$invoice->number}.pdf");
+    }
+}

@@ -1,16 +1,19 @@
 <?php
 
-namespace DarkOak\Models;
+namespace Everest\Models;
 
-use DarkOak\Rules\Username;
-use DarkOak\Facades\Activity;
+use Everest\Rules\Username;
+use Illuminate\Support\Str;
+use Everest\Facades\Activity;
+use Everest\Models\Billing\Order;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\Rules\In;
 use Illuminate\Auth\Authenticatable;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Builder;
-use DarkOak\Models\Traits\HasAccessTokens;
-use DarkOak\Traits\Helpers\AvailableLanguages;
+use Everest\Models\Traits\HasAccessTokens;
+use Everest\Traits\Helpers\AvailableLanguages;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -22,7 +25,7 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 /**
- * DarkOak\Models\User.
+ * Everest\Models\User.
  *
  * @property int $id
  * @property string|null $external_id
@@ -37,32 +40,33 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
  * @property string|null $state
  * @property bool $use_totp
  * @property string|null $totp_secret
- * @property string $auth_login_method
  * @property \Illuminate\Support\Carbon|null $totp_authenticated_at
  * @property bool $gravatar
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property string $avatar_url
+ * @property string|null $avatar_url
  * @property string $recovery_code
  * @property string|null $admin_role_name
  * @property string $md5
- * @property string|null $name
- * @property string|null $notification_settings
- * @property \DarkOak\Models\AdminRole|null $adminRole
- * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\ApiKey[] $apiKeys
+ * @property AdminRole|null $adminRole
+ * @property \Illuminate\Database\Eloquent\Collection|ApiKey[] $apiKeys
  * @property int|null $api_keys_count
  * @property \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property int|null $notifications_count
- * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\RecoveryToken[] $recoveryTokens
+ * @property \Illuminate\Database\Eloquent\Collection|RecoveryToken[] $recoveryTokens
  * @property int|null $recovery_tokens_count
- * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\Server[] $servers
+ * @property \Illuminate\Database\Eloquent\Collection|Server[] $servers
  * @property int|null $servers_count
- * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\UserSSHKey[] $sshKeys
+ * @property \Illuminate\Database\Eloquent\Collection|UserSSHKey[] $sshKeys
  * @property int|null $ssh_keys_count
- * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\UserPasskey[] $passkeys
- * @property int|null $passkeys_count
- * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\ApiKey[] $tokens
+ * @property \Illuminate\Database\Eloquent\Collection|ApiKey[] $tokens
  * @property int|null $tokens_count
+ * @property \Illuminate\Database\Eloquent\Collection|ServerGroup[] $serverGroups
+ * @property int|null $server_groups_count
+ * @property \Illuminate\Database\Eloquent\Collection|Ticket[] $tickets
+ * @property int|null $tickets_count
+ * @property \Illuminate\Database\Eloquent\Collection|Order[] $orders
+ * @property int|null $orders_count
  *
  * @method static \Database\Factories\UserFactory factory(...$parameters)
  * @method static Builder|User newModelQuery()
@@ -83,12 +87,10 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
  * @method static Builder|User whereTotpSecret($value)
  * @method static Builder|User whereUpdatedAt($value)
  * @method static Builder|User whereUseTotp($value)
- * @method static Builder|User whereAuthLoginMethod($value)
  * @method static Builder|User whereUsername($value)
  * @method static Builder|User whereUuid($value)
  *
- * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\Billing\Order[] $orders
- *
+ * @mixin \Illuminate\Database\Query\Builder
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
 class User extends Model implements
@@ -139,9 +141,7 @@ class User extends Model implements
         'state',
         'root_admin',
         'recovery_code',
-        'appearance_mode',
-        'appearance_last_mode',
-        'auth_login_method',
+        'avatar_url',
     ];
 
     /**
@@ -152,7 +152,6 @@ class User extends Model implements
         'use_totp' => 'boolean',
         'gravatar' => 'boolean',
         'totp_authenticated_at' => 'datetime',
-        'auth_login_method' => 'string',
     ];
 
     /**
@@ -170,9 +169,6 @@ class User extends Model implements
         'use_totp' => false,
         'totp_secret' => null,
         'state' => 'active',
-        'appearance_mode' => 'system',
-        'appearance_last_mode' => 'dark',
-        'auth_login_method' => 'password',
     ];
 
     /**
@@ -186,11 +182,12 @@ class User extends Model implements
         'password' => 'sometimes|nullable|string',
         'root_admin' => 'boolean',
         'language' => 'string',
-        'state' => 'sometimes|nullable|string',
+        'state' => 'sometimes|string|in:active,suspended',
         'use_totp' => 'boolean',
         'admin_role_id' => 'nullable|exists:admin_roles,id',
         'totp_secret' => 'nullable|string',
         'recovery_code' => 'nullable|string',
+        'avatar_url' => 'sometimes|nullable|string|max:500',
     ];
 
     /**
@@ -212,9 +209,29 @@ class User extends Model implements
      */
     public function toReactObject(): array
     {
-        return Collection::make($this->append(['avatar_url', 'admin_role_name'])->toArray())
+        return Collection::make($this->append(['avatar_url', 'admin_role_name', 'admin_permissions'])->toArray())
             ->except(['id', 'external_id', 'admin_role'])
             ->toArray();
+    }
+
+    /**
+     * Accessor for state attribute.
+     */
+    public function getStateAttribute($value)
+    {
+        return $value;
+    }
+
+    /**
+     * Mutator for state attribute: coerce any unexpected value to 'active'.
+     */
+    public function setStateAttribute($value)
+    {
+        if (!in_array($value, ['active', 'suspended'], true)) {
+            $value = 'active';
+        }
+
+        $this->attributes['state'] = $value;
     }
 
     /**
@@ -225,10 +242,25 @@ class User extends Model implements
         $this->attributes['username'] = mb_strtolower($value);
     }
 
+    /**
+     * Returns the user's custom avatar, either a manually specified URL or an
+     * uploaded file resolved against the public storage disk. Returns null when
+     * the user has not configured a custom avatar, in which case the frontend
+     * falls back to a generated avatar.
+     */
     public function avatarUrl(): Attribute
     {
         return Attribute::make(
-            get: fn () => 'https://www.gravatar.com/avatar/' . $this->md5 . '.jpg',
+            get: function () {
+                $value = $this->attributes['avatar_url'] ?? null;
+                if (empty($value)) {
+                    return null;
+                }
+
+                return Str::startsWith($value, ['http://', 'https://'])
+                    ? $value
+                    : Storage::disk('public')->url($value);
+            },
         );
     }
 
@@ -236,6 +268,13 @@ class User extends Model implements
     {
         return Attribute::make(
             get: fn () => is_null($this->adminRole) ? ($this->root_admin ? 'None' : null) : $this->adminRole->name,
+        );
+    }
+
+    public function adminPermissions(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->root_admin ? ['*'] : ($this->adminRole->permissions ?? []),
         );
     }
 
@@ -260,50 +299,69 @@ class User extends Model implements
         return $this->morphToMany(ActivityLog::class, 'subject', 'activity_log_subjects');
     }
 
+    /**
+     * @return HasOne<AdminRole, $this>
+     */
     public function adminRole(): HasOne
     {
         return $this->hasOne(AdminRole::class, 'id', 'admin_role_id');
     }
 
+    /**
+     * @return HasMany<ApiKey, $this>
+     */
     public function apiKeys(): HasMany
     {
         return $this->hasMany(ApiKey::class)
             ->where('key_type', ApiKey::TYPE_ACCOUNT);
     }
 
+    /**
+     * @return HasMany<ServerGroup, $this>
+     */
     public function serverGroups(): HasMany
     {
         return $this->hasMany(ServerGroup::class);
     }
 
+    /**
+     * @return HasMany<RecoveryToken, $this>
+     */
     public function recoveryTokens(): HasMany
     {
         return $this->hasMany(RecoveryToken::class);
     }
 
+    /**
+     * @return HasMany<Server, $this>
+     */
     public function servers(): HasMany
     {
         return $this->hasMany(Server::class, 'owner_id');
     }
 
+    /**
+     * @return HasMany<UserSSHKey, $this>
+     */
     public function sshKeys(): HasMany
     {
         return $this->hasMany(UserSSHKey::class);
     }
 
-    public function passkeys(): HasMany
-    {
-        return $this->hasMany(UserPasskey::class);
-    }
-
+    /**
+     * @return HasMany<Ticket, $this>
+     */
     public function tickets(): HasMany
     {
         return $this->hasMany(Ticket::class);
     }
 
+    /**
+     * @return HasMany<Order, $this>
+     */
     public function orders(): HasMany
     {
-        return $this->hasMany(\DarkOak\Models\Billing\Order::class);
+        return $this->hasMany(Order::class);
     }
 
     /**
@@ -321,4 +379,3 @@ class User extends Model implements
             ->groupBy('servers.id');
     }
 }
-

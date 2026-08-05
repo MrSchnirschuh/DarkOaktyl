@@ -1,13 +1,13 @@
 <?php
 
-namespace DarkOak\Http\Controllers\Api\Client\Servers;
+namespace Everest\Http\Controllers\Api\Client\Servers;
 
 use GeminiAPI\Client;
-use DarkOak\Models\Server;
-use Illuminate\Http\Request;
+use Everest\Models\Server;
 use Illuminate\Http\JsonResponse;
 use GeminiAPI\Resources\Parts\TextPart;
-use DarkOak\Http\Controllers\Api\Client\ClientApiController;
+use Everest\Http\Controllers\Api\Client\ClientApiController;
+use Everest\Http\Requests\Api\Client\Servers\QueryAIRequest;
 
 class AIController extends ClientApiController
 {
@@ -22,10 +22,10 @@ class AIController extends ClientApiController
     /**
      * Send an AI generated response to debug a server error.
      */
-    public function index(Request $request, Server $server): JsonResponse
+    public function index(QueryAIRequest $request, Server $server): JsonResponse
     {
         if (!config('modules.ai.enabled')) {
-            throw new \Exception('The DarkOaktyl AI module is not enabled.');
+            throw new \Exception('The JexpanelAI module is not enabled.');
         }
 
         $client = new Client(config('modules.ai.key'));
@@ -37,5 +37,3 @@ class AIController extends ClientApiController
         return response()->json($response->text());
     }
 }
-
-

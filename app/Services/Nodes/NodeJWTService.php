@@ -1,24 +1,27 @@
 <?php
 
-namespace DarkOak\Services\Nodes;
+namespace Everest\Services\Nodes;
 
-use DarkOak\Models\Node;
-use DarkOak\Models\User;
+use Everest\Models\Node;
+use Everest\Models\User;
+use Everest\Enum\JwtScope;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Str;
 use Lcobucci\JWT\Token\Plain;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
 use Lcobucci\JWT\Signer\Key\InMemory;
-use DarkOak\Extensions\Lcobucci\JWT\Encoding\TimestampDates;
+use Everest\Extensions\Lcobucci\JWT\Encoding\TimestampDates;
 
 class NodeJWTService
 {
     private array $claims = [];
 
+    private array $scopes = [];
+
     private ?User $user = null;
 
-    private ?\DateTimeImmutable $expiresAt;
+    private ?\DateTimeImmutable $expiresAt = null;
 
     private ?string $subject = null;
 
@@ -28,6 +31,18 @@ class NodeJWTService
     public function setClaims(array $claims): self
     {
         $this->claims = $claims;
+
+        return $this;
+    }
+
+    /**
+     * Set the scopes that this JWT is valid for. Wings (1.12.0+) requires a matching
+     * "scope" claim on every JWT it receives, so this must be set for the daemon to
+     * accept the token (e.g. when authenticating a websocket connection).
+     */
+    public function setScopes(JwtScope ...$scopes): self
+    {
+        $this->scopes = $scopes;
 
         return $this;
     }
@@ -85,6 +100,13 @@ class NodeJWTService
             $builder = $builder->withClaim($key, $value);
         }
 
+        // Wings validates a space-delimited "scope" claim on every JWT it receives.
+        // Without it, requests such as websocket authentication are rejected with
+        // "There was an error validating the credentials provided for the websocket."
+        if (!empty($this->scopes)) {
+            $builder = $builder->withClaim('scope', implode(' ', array_map(fn (JwtScope $scope) => $scope->value, $this->scopes)));
+        }
+
         if (!is_null($this->user)) {
             $builder = $builder
                 ->withClaim('user_uuid', $this->user->uuid)
@@ -101,4 +123,3 @@ class NodeJWTService
             ->getToken($config->signer(), $config->signingKey());
     }
 }
-

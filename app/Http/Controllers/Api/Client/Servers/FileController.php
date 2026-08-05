@@ -1,27 +1,27 @@
 <?php
 
-namespace DarkOak\Http\Controllers\Api\Client\Servers;
+namespace Everest\Http\Controllers\Api\Client\Servers;
 
-use DarkOak\Models\Server;
+use Everest\Enum\JwtScope;
+use Everest\Models\Server;
 use Carbon\CarbonImmutable;
-use DarkOak\Facades\Activity;
+use Everest\Facades\Activity;
 use Illuminate\Http\Response;
-use Illuminate\Http\JsonResponse;
-use DarkOak\Services\Nodes\NodeJWTService;
-use DarkOak\Repositories\Wings\DaemonFileRepository;
-use DarkOak\Transformers\Api\Client\FileObjectTransformer;
-use DarkOak\Http\Controllers\Api\Client\ClientApiController;
-use DarkOak\Http\Requests\Api\Client\Servers\Files\CopyFileRequest;
-use DarkOak\Http\Requests\Api\Client\Servers\Files\PullFileRequest;
-use DarkOak\Http\Requests\Api\Client\Servers\Files\ListFilesRequest;
-use DarkOak\Http\Requests\Api\Client\Servers\Files\ChmodFilesRequest;
-use DarkOak\Http\Requests\Api\Client\Servers\Files\DeleteFileRequest;
-use DarkOak\Http\Requests\Api\Client\Servers\Files\RenameFileRequest;
-use DarkOak\Http\Requests\Api\Client\Servers\Files\CreateFolderRequest;
-use DarkOak\Http\Requests\Api\Client\Servers\Files\CompressFilesRequest;
-use DarkOak\Http\Requests\Api\Client\Servers\Files\DecompressFilesRequest;
-use DarkOak\Http\Requests\Api\Client\Servers\Files\GetFileContentsRequest;
-use DarkOak\Http\Requests\Api\Client\Servers\Files\WriteFileContentRequest;
+use Everest\Services\Nodes\NodeJWTService;
+use Everest\Repositories\Wings\DaemonFileRepository;
+use Everest\Transformers\Api\Client\FileObjectTransformer;
+use Everest\Http\Controllers\Api\Client\ClientApiController;
+use Everest\Http\Requests\Api\Client\Servers\Files\CopyFileRequest;
+use Everest\Http\Requests\Api\Client\Servers\Files\PullFileRequest;
+use Everest\Http\Requests\Api\Client\Servers\Files\ListFilesRequest;
+use Everest\Http\Requests\Api\Client\Servers\Files\ChmodFilesRequest;
+use Everest\Http\Requests\Api\Client\Servers\Files\DeleteFileRequest;
+use Everest\Http\Requests\Api\Client\Servers\Files\RenameFileRequest;
+use Everest\Http\Requests\Api\Client\Servers\Files\CreateFolderRequest;
+use Everest\Http\Requests\Api\Client\Servers\Files\CompressFilesRequest;
+use Everest\Http\Requests\Api\Client\Servers\Files\DecompressFilesRequest;
+use Everest\Http\Requests\Api\Client\Servers\Files\GetFileContentsRequest;
+use Everest\Http\Requests\Api\Client\Servers\Files\WriteFileContentRequest;
 
 class FileController extends ClientApiController
 {
@@ -30,7 +30,7 @@ class FileController extends ClientApiController
      */
     public function __construct(
         private NodeJWTService $jwtService,
-        private DaemonFileRepository $fileRepository
+        private DaemonFileRepository $fileRepository,
     ) {
         parent::__construct();
     }
@@ -38,7 +38,7 @@ class FileController extends ClientApiController
     /**
      * Returns a listing of files in a given directory.
      *
-     * @throws \DarkOak\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws \Everest\Exceptions\Http\Connection\DaemonConnectionException
      */
     public function directory(ListFilesRequest $request, Server $server): array
     {
@@ -46,9 +46,7 @@ class FileController extends ClientApiController
             ->setServer($server)
             ->getDirectory($request->get('directory') ?? '/');
 
-        return $this->fractal->collection($contents)
-            ->transformWith(FileObjectTransformer::class)
-            ->toArray();
+        return $this->transform($contents, FileObjectTransformer::class);
     }
 
     /**
@@ -60,7 +58,7 @@ class FileController extends ClientApiController
     {
         $response = $this->fileRepository->setServer($server)->getContent(
             $request->get('file'),
-            config('DarkOak.files.max_edit_size')
+            config('everest.files.max_edit_size')
         );
 
         Activity::event('server:file.read')->property('file', $request->get('file'))->log();
@@ -83,6 +81,7 @@ class FileController extends ClientApiController
                 'file_path' => rawurldecode($request->get('file')),
                 'server_uuid' => $server->uuid,
             ])
+            ->setScopes(JwtScope::FileDownload)
             ->handle($server->node, $request->user()->id . $server->uuid);
 
         Activity::event('server:file.download')->property('file', $request->get('file'))->log();
@@ -102,15 +101,15 @@ class FileController extends ClientApiController
     /**
      * Writes the contents of the specified file to the server.
      *
-     * @throws \DarkOak\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws \Everest\Exceptions\Http\Connection\DaemonConnectionException
      */
-    public function write(WriteFileContentRequest $request, Server $server): JsonResponse
+    public function write(WriteFileContentRequest $request, Server $server): Response
     {
         $this->fileRepository->setServer($server)->putContent($request->get('file'), $request->getContent());
 
         Activity::event('server:file.write')->property('file', $request->get('file'))->log();
 
-        return new JsonResponse([], Response::HTTP_NO_CONTENT);
+        return $this->returnNoContent();
     }
 
     /**
@@ -118,7 +117,7 @@ class FileController extends ClientApiController
      *
      * @throws \Throwable
      */
-    public function create(CreateFolderRequest $request, Server $server): JsonResponse
+    public function create(CreateFolderRequest $request, Server $server): Response
     {
         $this->fileRepository
             ->setServer($server)
@@ -129,7 +128,7 @@ class FileController extends ClientApiController
             ->property('directory', $request->input('root'))
             ->log();
 
-        return new JsonResponse([], Response::HTTP_NO_CONTENT);
+        return $this->returnNoContent();
     }
 
     /**
@@ -137,7 +136,7 @@ class FileController extends ClientApiController
      *
      * @throws \Throwable
      */
-    public function rename(RenameFileRequest $request, Server $server): JsonResponse
+    public function rename(RenameFileRequest $request, Server $server): Response
     {
         $this->fileRepository
             ->setServer($server)
@@ -148,15 +147,15 @@ class FileController extends ClientApiController
             ->property('files', $request->input('files'))
             ->log();
 
-        return new JsonResponse([], Response::HTTP_NO_CONTENT);
+        return $this->returnNoContent();
     }
 
     /**
      * Copies a file on the server.
      *
-     * @throws \DarkOak\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws \Everest\Exceptions\Http\Connection\DaemonConnectionException
      */
-    public function copy(CopyFileRequest $request, Server $server): JsonResponse
+    public function copy(CopyFileRequest $request, Server $server): Response
     {
         $this->fileRepository
             ->setServer($server)
@@ -164,11 +163,11 @@ class FileController extends ClientApiController
 
         Activity::event('server:file.copy')->property('file', $request->input('location'))->log();
 
-        return new JsonResponse([], Response::HTTP_NO_CONTENT);
+        return $this->returnNoContent();
     }
 
     /**
-     * @throws \DarkOak\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws \Everest\Exceptions\Http\Connection\DaemonConnectionException
      */
     public function compress(CompressFilesRequest $request, Server $server): array
     {
@@ -182,15 +181,13 @@ class FileController extends ClientApiController
             ->property('files', $request->input('files'))
             ->log();
 
-        return $this->fractal->item($file)
-            ->transformWith(FileObjectTransformer::class)
-            ->toArray();
+        return $this->transform($file, FileObjectTransformer::class, false);
     }
 
     /**
-     * @throws \DarkOak\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws \Everest\Exceptions\Http\Connection\DaemonConnectionException
      */
-    public function decompress(DecompressFilesRequest $request, Server $server): JsonResponse
+    public function decompress(DecompressFilesRequest $request, Server $server): Response
     {
         set_time_limit(300);
 
@@ -204,15 +201,15 @@ class FileController extends ClientApiController
             ->property('files', $request->input('file'))
             ->log();
 
-        return new JsonResponse([], JsonResponse::HTTP_NO_CONTENT);
+        return $this->returnNoContent();
     }
 
     /**
      * Deletes files or folders for the server in the given root directory.
      *
-     * @throws \DarkOak\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws \Everest\Exceptions\Http\Connection\DaemonConnectionException
      */
-    public function delete(DeleteFileRequest $request, Server $server): JsonResponse
+    public function delete(DeleteFileRequest $request, Server $server): Response
     {
         $this->fileRepository->setServer($server)->deleteFiles(
             $request->input('root'),
@@ -224,22 +221,22 @@ class FileController extends ClientApiController
             ->property('files', $request->input('files'))
             ->log();
 
-        return new JsonResponse([], Response::HTTP_NO_CONTENT);
+        return $this->returnNoContent();
     }
 
     /**
      * Updates file permissions for file(s) in the given root directory.
      *
-     * @throws \DarkOak\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws \Everest\Exceptions\Http\Connection\DaemonConnectionException
      */
-    public function chmod(ChmodFilesRequest $request, Server $server): JsonResponse
+    public function chmod(ChmodFilesRequest $request, Server $server): Response
     {
         $this->fileRepository->setServer($server)->chmodFiles(
             $request->input('root'),
             $request->input('files')
         );
 
-        return new JsonResponse([], Response::HTTP_NO_CONTENT);
+        return $this->returnNoContent();
     }
 
     /**
@@ -247,7 +244,7 @@ class FileController extends ClientApiController
      *
      * @throws \Throwable
      */
-    public function pull(PullFileRequest $request, Server $server): JsonResponse
+    public function pull(PullFileRequest $request, Server $server): Response
     {
         $this->fileRepository->setServer($server)->pull(
             $request->input('url'),
@@ -260,7 +257,6 @@ class FileController extends ClientApiController
             ->property('url', $request->input('url'))
             ->log();
 
-        return new JsonResponse([], Response::HTTP_NO_CONTENT);
+        return $this->returnNoContent();
     }
 }
-

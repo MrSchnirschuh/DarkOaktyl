@@ -1,54 +1,37 @@
 <?php
 
-namespace DarkOak\Console\Commands\Billing;
+namespace Everest\Console\Commands\Billing;
 
-use DarkOak\Models\Server;
+use Everest\Models\Server;
 use Illuminate\Console\Command;
-use DarkOak\Services\Servers\SuspensionService;
 
 class SuspendBillableServersCommand extends Command
 {
-    protected $description = 'An automated task to suspend and delete billable servers.';
+    protected $description = 'An automated task to suspend billable servers with past renewal dates.';
 
     protected $signature = 'p:billing:suspend-billable-servers';
-
-    /**
-     * SuspendBillableServersCommand constructor.
-     */
-    public function __construct(private SuspensionService $suspend)
-    {
-        parent::__construct();
-    }
 
     /**
      * Handle command execution.
      */
     public function handle()
     {
-        $now = now();
+        $suspension = $this->getLaravel()->make(\Everest\Services\Servers\SuspensionService::class);
+        $deletion = $this->getLaravel()->make(\Everest\Services\Servers\ServerDeletionService::class);
 
-        foreach (Server::whereNotNull('product_id')->get() as $server) {
-            $renewalDate = $server->renewal_date;
+        foreach (Server::whereNotNull('renewal_date')->get() as $server) {
+            $daysOverdue = $server->renewal_date->diffInDays(now());
+            $threshold = config('modules.billing.renewal.threshold');
 
-            if ($renewalDate === null) {
-                continue;
-            }
-
-            if ($renewalDate->isPast()) {
-                $daysOverdue = $renewalDate->diffInDays($now);
-
-                if ($daysOverdue > 7) {
-                    $this->info("deleting server {$server->id}, overdue by {$daysOverdue} day(s)");
-                    $server->delete();
-                    continue;
-                }
-
-                if (!$server->suspended) {
-                    $this->info("suspending server {$server->id}, overdue by {$daysOverdue} day(s)");
-                    $this->suspend->toggle($server, 'suspend');
+            if ($server->renewal_date->isPast()) {
+                if (!$server->isSuspended()) {
+                    $this->info("suspending server {$server->id}, overdue by {$daysOverdue} days");
+                    $suspension->toggle($server, 'suspend');
+                } elseif ($daysOverdue > $threshold) {
+                    $this->info("deleting server {$server->id}, overdue by {$daysOverdue} days");
+                    $deletion->withForce(true)->handle($server);
                 }
             }
         }
     }
 }
-

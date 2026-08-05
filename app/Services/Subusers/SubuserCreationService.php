@@ -5,6 +5,7 @@ namespace DarkOak\Services\Subusers;
 use DarkOak\Models\Server;
 use DarkOak\Models\Subuser;
 use Illuminate\Support\Str;
+use Webmozart\Assert\Assert;
 use Illuminate\Database\ConnectionInterface;
 use DarkOak\Services\Users\UserCreationService;
 use DarkOak\Repositories\Eloquent\SubuserRepository;
@@ -62,11 +63,15 @@ class SubuserCreationService
                 ]);
             }
 
-            return $this->subuserRepository->create([
+            $subuser = $this->subuserRepository->create([
                 'user_id' => $user->id,
                 'server_id' => $server->id,
                 'permissions' => array_unique($permissions),
             ]);
+
+            Assert::isInstanceOf($subuser, Subuser::class);
+
+            return $subuser;
         });
     }
 }

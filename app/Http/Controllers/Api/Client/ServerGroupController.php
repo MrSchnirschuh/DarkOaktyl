@@ -1,160 +1,113 @@
 <?php
 
-namespace DarkOak\Http\Controllers\Api\Client;
+namespace Everest\Http\Controllers\Api\Client;
 
-use DarkOak\Models\Server;
-use DarkOak\Models\ServerGroup;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Cache;
-use DarkOak\Exceptions\DisplayException;
-use DarkOak\Http\Requests\Api\Client\ClientApiRequest;
-use DarkOak\Http\Requests\Api\Client\ServerGroups\StoreServerGroupRequest;
-use DarkOak\Http\Requests\Api\Client\ServerGroups\UpdateServerGroupRequest;
-use DarkOak\Http\Requests\Api\Client\ServerGroups\ServerGroupActionRequest;
-use DarkOak\Transformers\Api\Client\ServerGroupTransformer;
+use Everest\Models\Server;
+use Illuminate\Http\Response;
+use Everest\Models\ServerGroup;
+use Everest\Exceptions\DisplayException;
+use Everest\Http\Requests\Api\Client\ClientApiRequest;
+use Everest\Transformers\Api\Client\ServerGroupTransformer;
 
 class ServerGroupController extends ClientApiController
 {
     /**
-     * List all server groups for the authenticated user.
+     * Returns all the API keys that exist for the given client.
      */
     public function index(ClientApiRequest $request): array
     {
-        $groups = Cache::remember(
-            "client.server-groups.{$request->user()->id}",
-            now()->addMinutes(5),
-            fn() => $request->user()->serverGroups()->with('servers')->get()
-        );
-
-        return $this->fractal->collection($groups)
-            ->transformWith(ServerGroupTransformer::class)
-            ->toArray();
+        return $this->transform($request->user()->serverGroups, ServerGroupTransformer::class);
     }
 
     /**
-     * Create a new server group.
+     * Create a new server group and store in the database.
      */
-    public function store(StoreServerGroupRequest $request): array
+    public function store(ClientApiRequest $request): array
     {
-        $this->checkGroupLimit($request->user()->id);
-
         $group = ServerGroup::create([
-            'owner_id' => $request->user()->id,
+            'user_id' => $request->user()->id,
             'name' => $request->input('name'),
-            'description' => $request->input('description'),
-            'color' => $request->input('color'),
-            'icon' => $request->input('icon'),
+            'color' => $request->input('color') ?? null,
         ]);
 
-        Cache::forget("client.server-groups.{$request->user()->id}");
-
-        return $this->fractal->item($group)
-            ->transformWith(ServerGroupTransformer::class)
-            ->toArray();
+        return $this->transform($group, ServerGroupTransformer::class);
     }
 
     /**
-     * Update a server group.
+     * Add a server to the selected group.
      */
-    public function update(UpdateServerGroupRequest $request, int $id): array
+    public function add(ClientApiRequest $request, int $id): Response
     {
-        $group = $this->authorizeGroup($id, $request->user()->id);
+        $group = ServerGroup::where('id', $id)->where('user_id', $request->user()->id)->first();
 
-        $group->update($request->only(['name', 'description', 'color', 'icon']));
+        if (!$group) {
+            throw new DisplayException('No group with that ID exists on your account.');
+        }
 
-        Cache::forget("client.server-groups.{$request->user()->id}");
-
-        return $this->fractal->item($group->fresh())
-            ->transformWith(ServerGroupTransformer::class)
-            ->toArray();
-    }
-
-    /**
-     * Delete a server group.
-     */
-    public function delete(ClientApiRequest $request, int $id): JsonResponse
-    {
-        $group = $this->authorizeGroup($id, $request->user()->id);
-
-        // Remove group association from all servers in this group
-        Server::where('group_id', $group->id)->update(['group_id' => null]);
-
-        $group->delete();
-
-        Cache::forget("client.server-groups.{$request->user()->id}");
-
-        return new JsonResponse([], JsonResponse::HTTP_NO_CONTENT);
-    }
-
-    /**
-     * Add a server to a group.
-     */
-    public function add(ServerGroupActionRequest $request, int $id): JsonResponse
-    {
-        $group = $this->authorizeGroup($id, $request->user()->id);
-
-        $server = Server::where('uuid', $request->input('server_uuid'))
+        $server = Server::where('uuid', $request->input('server'))
             ->where('owner_id', $request->user()->id)
-            ->firstOrFail();
+            ->first();
 
-        if ($server->group_id !== null && $server->group_id !== $group->id) {
-            throw new DisplayException('Server is already in another group.');
+        if (!$server) {
+            throw new DisplayException('No server with that UUID exists on your account.');
         }
 
         $server->update(['group_id' => $group->id]);
 
-        Cache::forget("client.server-groups.{$request->user()->id}");
-
-        return new JsonResponse([], JsonResponse::HTTP_NO_CONTENT);
+        return $this->returnNoContent();
     }
 
     /**
-     * Remove a server from a group.
+     * Remove a server from the selected group.
      */
-    public function remove(ServerGroupActionRequest $request, int $id): JsonResponse
+    public function remove(ClientApiRequest $request, int $id): Response
     {
-        $group = $this->authorizeGroup($id, $request->user()->id);
-
-        $server = Server::where('uuid', $request->input('server_uuid'))
+        $server = Server::where('uuid', $request->input('server'))
             ->where('owner_id', $request->user()->id)
-            ->where('group_id', $group->id)
-            ->firstOrFail();
+            ->where('group_id', $id)
+            ->first();
+
+        if (!$server) {
+            throw new DisplayException('No server with that UUID exists in that group on your account.');
+        }
 
         $server->update(['group_id' => null]);
 
-        Cache::forget("client.server-groups.{$request->user()->id}");
-
-        return new JsonResponse([], JsonResponse::HTTP_NO_CONTENT);
+        return $this->returnNoContent();
     }
 
     /**
-     * Authorize that the group belongs to the user.
-     *
-     * @throws DisplayException
+     * Update a selected server group.
      */
-    private function authorizeGroup(int $groupId, int $userId): ServerGroup
+    public function update(ClientApiRequest $request, int $id): Response
     {
-        $group = ServerGroup::findOrFail($groupId);
+        $group = ServerGroup::findOrFail($id);
 
-        if ($group->user_id !== $userId) {
-            throw new DisplayException('You do not have permission to access this group.');
+        if ($group->user_id !== $request->user()->id) {
+            throw new DisplayException('You do not have permission to edit this server group.');
         }
 
-        return $group;
+        $group->update([
+            'name' => $request['name'] ?? $group->name,
+            'color' => $request['color'] ?? $group->color,
+        ]);
+
+        return $this->returnNoContent();
     }
 
     /**
-     * Check that the user hasn't exceeded their group limit.
-     *
-     * @throws DisplayException
+     * Delete a selected server group.
      */
-    private function checkGroupLimit(int $userId): void
+    public function delete(ClientApiRequest $request, int $id): Response
     {
-        $limit = config('modules.server_groups.max_groups_per_user', 10);
-        $current = ServerGroup::where('owner_id', $userId)->count();
+        $group = ServerGroup::findOrFail($id);
 
-        if ($current >= $limit) {
-            throw new DisplayException("You have reached the maximum number of server groups ({$limit}).");
+        if ($group->user_id !== $request->user()->id) {
+            throw new DisplayException('You do not have permission to edit this server group.');
         }
+
+        $group->delete();
+
+        return $this->returnNoContent();
     }
 }

@@ -1,12 +1,13 @@
 <?php
 
-namespace DarkOak\Transformers\Api\Application;
+namespace Everest\Transformers\Api\Application;
 
-use DarkOak\Models\User;
+use Everest\Models\User;
 use Illuminate\Support\Str;
-use DarkOak\Models\ActivityLog;
+use Everest\Models\ActivityLog;
 use League\Fractal\Resource\Item;
-use DarkOak\Transformers\Api\Transformer;
+use Illuminate\Database\Eloquent\Model;
+use Everest\Transformers\Api\Transformer;
 use League\Fractal\Resource\NullResource;
 
 class ActivityLogTransformer extends Transformer
@@ -24,7 +25,8 @@ class ActivityLogTransformer extends Transformer
             // This is not for security, it is only to provide a unique identifier to
             // the front-end for each entry to improve rendering performance since there
             // is nothing else sufficiently unique to key off at this point.
-            'id' => sha1((string) $model->id),
+            'id' => sha1($model->id),
+            'log_id' => $model->id,
             'batch' => $model->batch,
             'event' => $model->event,
             'is_api' => !is_null($model->api_key_id),
@@ -32,8 +34,52 @@ class ActivityLogTransformer extends Transformer
             'description' => $model->description,
             'properties' => $this->properties($model),
             'has_additional_metadata' => $this->hasAdditionalMetadata($model),
+            'subjects' => $this->subjects($model),
             'timestamp' => $model->timestamp->toIso8601String(),
         ];
+    }
+
+    /**
+     * Returns a lightweight summary of the resources that this activity log entry
+     * affected, so the front-end can render a paper-trail of what was touched by
+     * a given action without needing to eager-load and transform every possible
+     * subject type.
+     *
+     * The "admin" middleware defaults every request's subject to the acting admin
+     * themselves unless a controller explicitly overrides it with the real target
+     * (e.g. the user being suspended). That default is meaningless to display next
+     * to the actor, so we filter out any subject that is actually just the actor.
+     */
+    protected function subjects(ActivityLog $model): array
+    {
+        return $model->subjects
+            ->reject(function ($subject) use ($model) {
+                return $subject->subject_type === $model->actor_type && $subject->subject_id === $model->actor_id;
+            })
+            ->map(function ($subject) {
+                return [
+                    'type' => $subject->subject_type,
+                    'id' => $subject->subject_id,
+                    'identifier' => $subject->subject ? $this->identifierFor($subject->subject) : null,
+                ];
+            })
+            ->values()
+            ->toArray();
+    }
+
+    /**
+     * Picks the first human-readable attribute available on a subject model so we
+     * can display something more useful than a bare ID in the activity log.
+     */
+    protected function identifierFor(Model $model): string
+    {
+        foreach (['name', 'username', 'identifier', 'uuid', 'title', 'code'] as $attribute) {
+            if (!empty($model->{$attribute})) {
+                return (string) $model->{$attribute};
+            }
+        }
+
+        return '#' . $model->getKey();
     }
 
     public function includeActor(ActivityLog $model): Item|NullResource
@@ -109,4 +155,3 @@ class ActivityLogTransformer extends Transformer
         return false;
     }
 }
-

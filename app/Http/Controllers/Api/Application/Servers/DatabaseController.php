@@ -1,19 +1,19 @@
 <?php
 
-namespace DarkOak\Http\Controllers\Api\Application\Servers;
+namespace Everest\Http\Controllers\Api\Application\Servers;
 
-use DarkOak\Models\Server;
-use DarkOak\Models\Database;
+use Everest\Models\Server;
+use Everest\Models\Database;
+use Everest\Facades\Activity;
 use Illuminate\Http\Response;
-use Illuminate\Http\JsonResponse;
-use DarkOak\Services\Databases\DatabasePasswordService;
-use DarkOak\Services\Databases\DatabaseManagementService;
-use DarkOak\Transformers\Api\Application\ServerDatabaseTransformer;
-use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
-use DarkOak\Http\Requests\Api\Application\Servers\Databases\GetServerDatabaseRequest;
-use DarkOak\Http\Requests\Api\Application\Servers\Databases\GetServerDatabasesRequest;
-use DarkOak\Http\Requests\Api\Application\Servers\Databases\ServerDatabaseWriteRequest;
-use DarkOak\Http\Requests\Api\Application\Servers\Databases\StoreServerDatabaseRequest;
+use Everest\Services\Databases\DatabasePasswordService;
+use Everest\Services\Databases\DatabaseManagementService;
+use Everest\Transformers\Api\Application\ServerDatabaseTransformer;
+use Everest\Http\Controllers\Api\Application\ApplicationApiController;
+use Everest\Http\Requests\Api\Application\Servers\Databases\GetServerDatabaseRequest;
+use Everest\Http\Requests\Api\Application\Servers\Databases\GetServerDatabasesRequest;
+use Everest\Http\Requests\Api\Application\Servers\Databases\ServerDatabaseWriteRequest;
+use Everest\Http\Requests\Api\Application\Servers\Databases\StoreServerDatabaseRequest;
 
 class DatabaseController extends ApplicationApiController
 {
@@ -22,7 +22,7 @@ class DatabaseController extends ApplicationApiController
      */
     public function __construct(
         private DatabaseManagementService $databaseManagementService,
-        private DatabasePasswordService $databasePasswordService
+        private DatabasePasswordService $databasePasswordService,
     ) {
         parent::__construct();
     }
@@ -33,9 +33,7 @@ class DatabaseController extends ApplicationApiController
      */
     public function index(GetServerDatabasesRequest $request, Server $server): array
     {
-        return $this->fractal->collection($server->databases)
-            ->transformWith(ServerDatabaseTransformer::class)
-            ->toArray();
+        return $this->transform($server->databases, ServerDatabaseTransformer::class);
     }
 
     /**
@@ -43,9 +41,7 @@ class DatabaseController extends ApplicationApiController
      */
     public function view(GetServerDatabaseRequest $request, Server $server, Database $database): array
     {
-        return $this->fractal->item($database)
-            ->transformWith(ServerDatabaseTransformer::class)
-            ->toArray();
+        return $this->transform($database, ServerDatabaseTransformer::class);
     }
 
     /**
@@ -57,6 +53,13 @@ class DatabaseController extends ApplicationApiController
     {
         $this->databasePasswordService->handle($database);
 
+        Activity::event('admin:servers:databases:reset-password')
+            ->subject($server, $database)
+            ->property('server', $server)
+            ->property('database', $database)
+            ->description('A server database password was reset')
+            ->log();
+
         return $this->returnNoContent();
     }
 
@@ -65,15 +68,20 @@ class DatabaseController extends ApplicationApiController
      *
      * @throws \Throwable
      */
-    public function store(StoreServerDatabaseRequest $request, Server $server): JsonResponse
+    public function store(StoreServerDatabaseRequest $request, Server $server): array
     {
         $database = $this->databaseManagementService->create($server, array_merge($request->validated(), [
             'database' => $request->databaseName(),
         ]));
 
-        return $this->fractal->item($database)
-            ->transformWith(ServerDatabaseTransformer::class)
-            ->respond(Response::HTTP_CREATED);
+        Activity::event('admin:servers:databases:create')
+            ->subject($server, $database)
+            ->property('server', $server)
+            ->property('database', $database)
+            ->description('A database was created for a server')
+            ->log();
+
+        return $this->transform($database, ServerDatabaseTransformer::class);
     }
 
     /**
@@ -83,9 +91,17 @@ class DatabaseController extends ApplicationApiController
      */
     public function delete(ServerDatabaseWriteRequest $request, Database $database): Response
     {
+        $server = $database->server;
+
         $this->databaseManagementService->delete($database);
+
+        Activity::event('admin:servers:databases:delete')
+            ->subject($server, $database)
+            ->property('server', $server)
+            ->property('database', $database)
+            ->description('A server database was deleted')
+            ->log();
 
         return $this->returnNoContent();
     }
 }
-

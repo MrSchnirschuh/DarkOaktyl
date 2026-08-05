@@ -33,13 +33,13 @@ class LinkController extends ApplicationApiController
         }
 
         $links = QueryBuilder::for(CustomLink::query())
-            ->allowedFilters([
+            ->allowedFilters(...[
                 AllowedFilter::exact('id'),
                 'name',
                 'url',
                 'visible',
             ])
-            ->allowedSorts(['id', 'visible', 'name'])
+            ->allowedSorts(...['id', 'visible', 'name'])
             ->paginate($perPage);
 
         return $this->fractal->collection($links)
@@ -60,6 +60,7 @@ class LinkController extends ApplicationApiController
         ]);
 
         Activity::event('admin:link:create')
+            ->subject($link)
             ->property('name', $link->name)
             ->property('url', $link->url)
             ->description('New custom link for client UI was made')
@@ -78,6 +79,7 @@ class LinkController extends ApplicationApiController
         $link = CustomLink::findOrFail($id);
 
         Activity::event('admin:link:update')
+            ->subject($link)
             ->property('name', $link->name . ' => ' . $request['name'])
             ->property('url', $link->url . ' => ' . $request['url'])
             ->description('An existing custom link was updated')
@@ -103,6 +105,7 @@ class LinkController extends ApplicationApiController
         $link->delete();
 
         Activity::event('admin:link:delete')
+            ->subject($link)
             ->property('name', $link->name)
             ->property('url', $link->url)
             ->description('An existing custom link was deleted')

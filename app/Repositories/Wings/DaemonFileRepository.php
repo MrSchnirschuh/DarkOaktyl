@@ -11,6 +11,10 @@ use GuzzleHttp\Exception\TransferException;
 use DarkOak\Exceptions\Http\Server\FileSizeTooLargeException;
 use DarkOak\Exceptions\Http\Connection\DaemonConnectionException;
 
+/**
+ * @method \Everest\Repositories\Wings\DaemonFileRepository setNode(\Everest\Models\Node $node)
+ * @method \Everest\Repositories\Wings\DaemonFileRepository setServer(\Everest\Models\Server $server)
+ */
 class DaemonFileRepository extends DaemonRepository
 {
     /**

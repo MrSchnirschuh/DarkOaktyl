@@ -37,8 +37,8 @@ class ApiController extends ApplicationApiController
 
         $apiKeys = QueryBuilder::for(ApiKey::query())
             ->where('key_type', 2)
-            ->allowedFilters(['id', 'identifier', 'last_used_at'])
-            ->allowedSorts(['id', 'identifier', 'last_used_at'])
+            ->allowedFilters(...['id', 'identifier', 'last_used_at'])
+            ->allowedSorts(...['id', 'identifier', 'last_used_at'])
             ->paginate($perPage);
 
         return $this->fractal->collection($apiKeys)
@@ -57,6 +57,7 @@ class ApiController extends ApplicationApiController
         ], $request->getKeyPermissions());
 
         Activity::event('admin:api-keys:create')
+            ->subject($apiKey)
             ->property('api-key', $apiKey)
             ->description('A new Application API key was created')
             ->log();
@@ -74,6 +75,7 @@ class ApiController extends ApplicationApiController
         $key = ApiKey::where('id', $key->id)->delete();
 
         Activity::event('admin:api-keys:delete')
+            ->subject($key)
             ->property('api-key', $key)
             ->description('An Application API key was deleted')
             ->log();

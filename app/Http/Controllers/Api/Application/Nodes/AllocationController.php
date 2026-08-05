@@ -1,22 +1,22 @@
 <?php
 
-namespace DarkOak\Http\Controllers\Api\Application\Nodes;
+namespace Everest\Http\Controllers\Api\Application\Nodes;
 
-use DarkOak\Models\Node;
-use Illuminate\Http\Request;
+use Everest\Models\Node;
+use Everest\Facades\Activity;
 use Illuminate\Http\Response;
-use DarkOak\Models\Allocation;
+use Everest\Models\Allocation;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
 use Illuminate\Database\Eloquent\Builder;
-use DarkOak\Services\Allocations\AssignmentService;
-use DarkOak\Services\Allocations\AllocationDeletionService;
-use DarkOak\Exceptions\Http\QueryValueOutOfRangeHttpException;
-use DarkOak\Transformers\Api\Application\AllocationTransformer;
-use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
-use DarkOak\Http\Requests\Api\Application\Allocations\GetAllocationsRequest;
-use DarkOak\Http\Requests\Api\Application\Allocations\StoreAllocationRequest;
-use DarkOak\Http\Requests\Api\Application\Allocations\DeleteAllocationRequest;
+use Everest\Services\Allocations\AssignmentService;
+use Everest\Services\Allocations\AllocationDeletionService;
+use Everest\Exceptions\Http\QueryValueOutOfRangeHttpException;
+use Everest\Transformers\Api\Application\AllocationTransformer;
+use Everest\Http\Controllers\Api\Application\ApplicationApiController;
+use Everest\Http\Requests\Api\Application\Allocations\GetAllocationsRequest;
+use Everest\Http\Requests\Api\Application\Allocations\StoreAllocationRequest;
+use Everest\Http\Requests\Api\Application\Allocations\DeleteAllocationRequest;
 
 class AllocationController extends ApplicationApiController
 {
@@ -25,7 +25,7 @@ class AllocationController extends ApplicationApiController
      */
     public function __construct(
         private AssignmentService $assignmentService,
-        private AllocationDeletionService $deletionService
+        private AllocationDeletionService $deletionService,
     ) {
         parent::__construct();
     }
@@ -41,7 +41,7 @@ class AllocationController extends ApplicationApiController
         }
 
         $allocations = QueryBuilder::for(Allocation::query()->where('node_id', '=', $node->id))
-            ->allowedFilters([
+            ->allowedFilters(...[
                 'id', 'ip', 'port', 'alias',
                 AllowedFilter::callback('server_id', function (Builder $query, $value) {
                     if ($value === '0') {
@@ -58,22 +58,20 @@ class AllocationController extends ApplicationApiController
                     });
                 }),
             ])
-            ->allowedSorts(['id', 'ip', 'port', 'server_id'])
+            ->allowedSorts(...['id', 'ip', 'port', 'server_id'])
             ->paginate($perPage);
 
-        return $this->fractal->collection($allocations)
-            ->transformWith(AllocationTransformer::class)
-            ->toArray();
+        return $this->transform($allocations, AllocationTransformer::class);
     }
 
     /**
      * Store new allocations for a given node.
      *
-     * @throws \DarkOak\Exceptions\DisplayException
-     * @throws \DarkOak\Exceptions\Service\Allocation\CidrOutOfRangeException
-     * @throws \DarkOak\Exceptions\Service\Allocation\InvalidPortMappingException
-     * @throws \DarkOak\Exceptions\Service\Allocation\PortOutOfRangeException
-     * @throws \DarkOak\Exceptions\Service\Allocation\TooManyPortsInRangeException
+     * @throws \Everest\Exceptions\DisplayException
+     * @throws \Everest\Exceptions\Service\Allocation\CidrOutOfRangeException
+     * @throws \Everest\Exceptions\Service\Allocation\InvalidPortMappingException
+     * @throws \Everest\Exceptions\Service\Allocation\PortOutOfRangeException
+     * @throws \Everest\Exceptions\Service\Allocation\TooManyPortsInRangeException
      */
     public function store(StoreAllocationRequest $request, Node $node): Response
     {
@@ -82,17 +80,30 @@ class AllocationController extends ApplicationApiController
 
         $this->assignmentService->handle($node, $request->all());
 
+        Activity::event('admin:nodes:allocations:create')
+            ->subject($node)
+            ->property('node', $node)
+            ->description('Allocations were added to a node')
+            ->log();
+
         return $this->returnNoContent();
     }
 
     /**
      * Delete a specific allocation from the Panel.
      *
-     * @throws \DarkOak\Exceptions\Service\Allocation\ServerUsingAllocationException
+     * @throws \Everest\Exceptions\Service\Allocation\ServerUsingAllocationException
      */
     public function delete(DeleteAllocationRequest $request, Node $node, Allocation $allocation): Response
     {
         $this->deletionService->handle($allocation);
+
+        Activity::event('admin:nodes:allocations:delete')
+            ->subject($node)
+            ->property('node', $node)
+            ->property('allocation', $allocation)
+            ->description('An allocation was removed from a node')
+            ->log();
 
         return $this->returnNoContent();
     }
@@ -100,13 +111,18 @@ class AllocationController extends ApplicationApiController
     /**
      * Delete all unused allocations on a node.
      */
-    public function deleteAll(Request $request, Node $node): Response
+    public function deleteAll(DeleteAllocationRequest $request, Node $node): Response
     {
         $allocations = Allocation::where('server_id', null)->get();
 
         $allocations->map->delete();
 
+        Activity::event('admin:nodes:allocations:delete-all')
+            ->subject($node)
+            ->property('node', $node)
+            ->description('All unused allocations were removed from a node')
+            ->log();
+
         return $this->returnNoContent();
     }
 }
-

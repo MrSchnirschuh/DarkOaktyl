@@ -1,19 +1,18 @@
 <?php
 
-namespace DarkOak\Services\Helpers;
+namespace Everest\Services\Helpers;
 
-use Exception;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Contracts\Cache\Repository as CacheRepository;
-use DarkOak\Exceptions\Service\Helper\CdnVersionFetchingException;
+use Everest\Exceptions\Service\Helper\CdnVersionFetchingException;
 
 class SoftwareVersionService
 {
-    public const VERSION_CACHE_KEY = 'DarkOaktyl:versioning_data';
-    public const GIT_VERSION_CACHE_KEY = 'DarkOaktyl:git_data';
+    public const VERSION_CACHE_KEY = 'pterodactyl:versioning_data';
+    public const GIT_VERSION_CACHE_KEY = 'pterodactyl:git_data';
 
     private static array $result;
 
@@ -47,22 +46,6 @@ class SoftwareVersionService
     public function getLatestWings(): string
     {
         return Arr::get(self::$result, 'wings') ?? 'error';
-    }
-
-    /**
-     * Returns the URL to the discord server.
-     */
-    public function getDiscord(): string
-    {
-        return Arr::get(self::$result, 'discord') ?? 'https://DarkOaktyl.io/discord';
-    }
-
-    /**
-     * Returns the URL for donations.
-     */
-    public function getDonations(): string
-    {
-        return Arr::get(self::$result, 'donations') ?? 'https://donate.stripe.com/9B614p5zv7qD66H6YWeME00';
     }
 
     /**
@@ -147,39 +130,27 @@ class SoftwareVersionService
     }
 
     /**
-     * Keeps the versioning cache up-to-date with the latest results from the CDN.
+     * Keeps the versioning cache up-to-date with the latest release tags
+     * pulled directly from GitHub.
      */
     protected function cacheVersionData(): array
     {
-        return $this->cache->remember(self::VERSION_CACHE_KEY, CarbonImmutable::now()->addMinutes(config('darkoak.cdn.cache_time', 60)), function () {
-            $url = config('darkoak.cdn.url');
-            if (!$url) {
-                return [];
-            }
+        return $this->cache->remember(self::VERSION_CACHE_KEY, CarbonImmutable::now()->addMinutes(config('everest.cdn.cache_time', 60)), function () {
             try {
-                $response = Http::withHeaders(['Accept' => 'application/vnd.github+json'])->get($url);
+                $panel = Http::get(config('everest.cdn.panel_url'));
+                $wings = Http::get(config('everest.cdn.wings_url'));
 
-                if ($response->status() === 200) {
-                    $body = json_decode($response->body(), true);
-                    // GitHub API response — extract tag_name
-                    if (isset($body['tag_name'])) {
-                        return [
-                            'panel' => $body['tag_name'],
-                            'wings' => $body['tag_name'],
-                            'discord' => 'https://darkoak.eu/discord',
-                            'donations' => 'https://donate.stripe.com/9B614p5zv7qD66H6YWeME00',
-                        ];
-                    }
-                    // Legacy CDN format
-                    return $body;
+                if ($panel->status() !== 200 || $wings->status() !== 200) {
+                    throw new CdnVersionFetchingException();
                 }
 
-                throw new CdnVersionFetchingException();
-            } catch (Exception) {
+                return [
+                    'panel' => ltrim(Arr::get($panel->json(), 'tag_name', ''), 'v'),
+                    'wings' => ltrim(Arr::get($wings->json(), 'tag_name', ''), 'v'),
+                ];
+            } catch (\Exception) {
                 return [];
             }
         });
     }
 }
-
-

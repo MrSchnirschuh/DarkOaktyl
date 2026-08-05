@@ -1,20 +1,20 @@
 <?php
 
-namespace DarkOak\Http\Controllers\Api\Application\Settings;
+namespace Everest\Http\Controllers\Api\Application\Settings;
 
+use Everest\Models\Setting;
+use Everest\Facades\Activity;
 use Illuminate\Http\Response;
-use DarkOak\Contracts\Repository\SettingsRepositoryInterface;
-use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
-use DarkOak\Http\Requests\Api\Application\Settings\GeneralSettingsRequest;
+use Everest\Http\Controllers\Api\Application\ApplicationApiController;
+use Everest\Http\Requests\Api\Application\Settings\UpdateApplicationSettingsRequest;
 
 class GeneralController extends ApplicationApiController
 {
     /**
      * GeneralController constructor.
      */
-    public function __construct(
-        private SettingsRepositoryInterface $settings
-    ) {
+    public function __construct()
+    {
         parent::__construct();
     }
 
@@ -23,13 +23,17 @@ class GeneralController extends ApplicationApiController
      *
      * @throws \Throwable
      */
-    public function update(GeneralSettingsRequest $request): Response
+    public function update(UpdateApplicationSettingsRequest $request): Response
     {
         foreach ($request->normalize() as $key => $value) {
-            $this->settings->set('settings::app:' . $key, $value);
+            Setting::set('settings::' . $key, $value);
         }
+
+        Activity::event('admin:settings:update')
+            ->property('settings', $request->normalize())
+            ->description('The general panel settings were updated')
+            ->log();
 
         return $this->returnNoContent();
     }
 }
-

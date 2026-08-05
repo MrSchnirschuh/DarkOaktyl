@@ -1,14 +1,14 @@
 <?php
 
-namespace DarkOak\Services\Users;
+namespace Everest\Services\Users;
 
 use Ramsey\Uuid\Uuid;
-use DarkOak\Models\User;
-use Illuminate\Support\Facades\Crypt;
+use Everest\Models\User;
+use Everest\Facades\Activity;
 use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Contracts\Auth\PasswordBroker;
-use DarkOak\Contracts\Repository\UserRepositoryInterface;
+use Everest\Contracts\Repository\UserRepositoryInterface;
 
 class UserCreationService
 {
@@ -19,7 +19,7 @@ class UserCreationService
         private ConnectionInterface $connection,
         private Hasher $hasher,
         private PasswordBroker $passwordBroker,
-        private UserRepositoryInterface $repository
+        private UserRepositoryInterface $repository,
     ) {
     }
 
@@ -27,7 +27,7 @@ class UserCreationService
      * Create a new user on the system.
      *
      * @throws \Exception
-     * @throws \DarkOak\Exceptions\Model\DataValidationException
+     * @throws \Everest\Exceptions\Model\DataValidationException
      */
     public function handle(array $data): User
     {
@@ -41,9 +41,11 @@ class UserCreationService
             $data['password'] = $this->hasher->make(str_random(30));
         }
 
-        $data['recovery_code'] = Crypt::encryptString(str_random(32));
+        // Stored hashed (not merely encrypted) since it is verified with password_verify()
+        // in ForgotPasswordController — an encrypted value can never match a bcrypt check.
+        $data['recovery_code'] = $this->hasher->make(str_random(32));
 
-        /** @var \DarkOak\Models\User $user */
+        /** @var User $user */
         $user = $this->repository->create(array_merge($data, [
             'uuid' => Uuid::uuid4()->toString(),
         ]), true, true);
@@ -54,11 +56,15 @@ class UserCreationService
 
         $this->connection->commit();
 
-        if (config('modules.billing.stripe.keys.secret')) {
-            $user->createAsStripeCustomer();
-        }
+        Activity::event('user:user.create')
+            ->subject($user)
+            ->property([
+                'email' => $user->email,
+                'username' => $user->username,
+                'admin' => $user->root_admin,
+            ])
+            ->log();
 
         return $user;
     }
 }
-

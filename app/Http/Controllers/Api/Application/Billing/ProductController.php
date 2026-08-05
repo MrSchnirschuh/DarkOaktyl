@@ -43,8 +43,8 @@ class ProductController extends ApplicationApiController
 
         $products = QueryBuilder::for(Product::query())
             ->where('category_uuid', $category->uuid)
-            ->allowedFilters(['id', 'name'])
-            ->allowedSorts(['id', 'name', 'price'])
+            ->allowedFilters(...['id', 'name'])
+            ->allowedSorts(...['id', 'name', 'price'])
             ->paginate($perPage);
 
         return $this->fractal->collection($products)
@@ -60,6 +60,7 @@ class ProductController extends ApplicationApiController
         $product = $this->createOrUpdateProduct($request, $category);
 
         Activity::event('admin:billing:products:create')
+            ->subject($product, $category)
             ->property('product', $product)
             ->description('A new billing product was created')
             ->log();
@@ -81,6 +82,7 @@ class ProductController extends ApplicationApiController
         $this->createOrUpdateProduct($request, $category, $product);
 
         Activity::event('admin:billing:products:update')
+            ->subject($product, $category)
             ->property('product', $product)
             ->property('new_data', $request->all())
             ->description('A billing product has been updated')
@@ -148,6 +150,7 @@ class ProductController extends ApplicationApiController
         $product->delete();
 
         Activity::event('admin:billing:products:delete')
+            ->subject($product, $category)
             ->property('product', $product)
             ->description('A billing product has been deleted')
             ->log();

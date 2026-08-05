@@ -1,26 +1,25 @@
 <?php
 
-namespace DarkOak\Http\Controllers\Api\Client\Servers;
+namespace Everest\Http\Controllers\Api\Client\Servers;
 
 use Carbon\Carbon;
-use DarkOak\Models\Server;
-use DarkOak\Models\Schedule;
+use Everest\Models\Server;
+use Everest\Models\Schedule;
 use Illuminate\Http\Request;
-use DarkOak\Facades\Activity;
+use Everest\Facades\Activity;
 use Illuminate\Http\Response;
-use DarkOak\Helpers\Utilities;
-use Illuminate\Http\JsonResponse;
-use DarkOak\Exceptions\DisplayException;
-use DarkOak\Repositories\Eloquent\ScheduleRepository;
-use DarkOak\Services\Schedules\ProcessScheduleService;
-use DarkOak\Transformers\Api\Client\ScheduleTransformer;
-use DarkOak\Http\Controllers\Api\Client\ClientApiController;
+use Everest\Helpers\Utilities;
+use Everest\Exceptions\DisplayException;
+use Everest\Repositories\Eloquent\ScheduleRepository;
+use Everest\Services\Schedules\ProcessScheduleService;
+use Everest\Transformers\Api\Client\ScheduleTransformer;
+use Everest\Http\Controllers\Api\Client\ClientApiController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use DarkOak\Http\Requests\Api\Client\Servers\Schedules\ViewScheduleRequest;
-use DarkOak\Http\Requests\Api\Client\Servers\Schedules\StoreScheduleRequest;
-use DarkOak\Http\Requests\Api\Client\Servers\Schedules\DeleteScheduleRequest;
-use DarkOak\Http\Requests\Api\Client\Servers\Schedules\UpdateScheduleRequest;
-use DarkOak\Http\Requests\Api\Client\Servers\Schedules\TriggerScheduleRequest;
+use Everest\Http\Requests\Api\Client\Servers\Schedules\ViewScheduleRequest;
+use Everest\Http\Requests\Api\Client\Servers\Schedules\StoreScheduleRequest;
+use Everest\Http\Requests\Api\Client\Servers\Schedules\DeleteScheduleRequest;
+use Everest\Http\Requests\Api\Client\Servers\Schedules\UpdateScheduleRequest;
+use Everest\Http\Requests\Api\Client\Servers\Schedules\TriggerScheduleRequest;
 
 class ScheduleController extends ClientApiController
 {
@@ -37,23 +36,19 @@ class ScheduleController extends ClientApiController
      */
     public function index(ViewScheduleRequest $request, Server $server): array
     {
-        $schedules = $server->schedules->loadMissing('tasks');
-
-        return $this->fractal->collection($schedules)
-            ->transformWith(ScheduleTransformer::class)
-            ->toArray();
+        return $this->transform($server->schedules->loadMissing('tasks'), ScheduleTransformer::class);
     }
 
     /**
      * Store a new schedule for a server.
      *
-     * @throws \DarkOak\Exceptions\DisplayException
-     * @throws \DarkOak\Exceptions\Model\DataValidationException
+     * @throws DisplayException
+     * @throws \Everest\Exceptions\Model\DataValidationException
      */
     public function store(StoreScheduleRequest $request, Server $server): array
     {
-        /** @var \DarkOak\Models\Schedule $model */
-        $model = $this->repository->create([
+        /** @var Schedule $schedule */
+        $schedule = $this->repository->create([
             'server_id' => $server->id,
             'name' => $request->input('name'),
             'cron_day_of_week' => $request->input('day_of_week'),
@@ -67,13 +62,12 @@ class ScheduleController extends ClientApiController
         ]);
 
         Activity::event('server:schedule.create')
-            ->subject($model)
-            ->property('name', $model->name)
+            ->subject($schedule)
+            ->property('name', $schedule->name)
             ->log();
 
-        return $this->fractal->item($model)
-            ->transformWith(ScheduleTransformer::class)
-            ->toArray();
+        return $this->transform($schedule, ScheduleTransformer::class);
+
     }
 
     /**
@@ -87,17 +81,15 @@ class ScheduleController extends ClientApiController
 
         $schedule->loadMissing('tasks');
 
-        return $this->fractal->item($schedule)
-            ->transformWith(ScheduleTransformer::class)
-            ->toArray();
+        return $this->transform($schedule, ScheduleTransformer::class);
     }
 
     /**
      * Updates a given schedule with the new data provided.
      *
-     * @throws \DarkOak\Exceptions\DisplayException
-     * @throws \DarkOak\Exceptions\Model\DataValidationException
-     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
+     * @throws DisplayException
+     * @throws \Everest\Exceptions\Model\DataValidationException
+     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
      */
     public function update(UpdateScheduleRequest $request, Server $server, Schedule $schedule): array
     {
@@ -118,7 +110,7 @@ class ScheduleController extends ClientApiController
         // Toggle the processing state of the scheduled task when it is enabled or disabled so that an
         // invalid state can be reset without manual database intervention.
         //
-        // @see https://github.com/DarkOaktyl/panel/issues/2425
+        // @see https://github.com/pterodactyl/panel/issues/2425
         if ($schedule->is_active !== $active) {
             $data['is_processing'] = false;
         }
@@ -130,9 +122,7 @@ class ScheduleController extends ClientApiController
             ->property(['name' => $schedule->name, 'active' => $active])
             ->log();
 
-        return $this->fractal->item($schedule->refresh())
-            ->transformWith(ScheduleTransformer::class)
-            ->toArray();
+        return $this->transform($schedule->refresh(), ScheduleTransformer::class);
     }
 
     /**
@@ -141,31 +131,31 @@ class ScheduleController extends ClientApiController
      *
      * @throws \Throwable
      */
-    public function execute(TriggerScheduleRequest $request, Server $server, Schedule $schedule): JsonResponse
+    public function execute(TriggerScheduleRequest $request, Server $server, Schedule $schedule): Response
     {
         $this->service->handle($schedule, true);
 
         Activity::event('server:schedule.execute')->subject($schedule)->property('name', $schedule->name)->log();
 
-        return new JsonResponse([], JsonResponse::HTTP_ACCEPTED);
+        return $this->returnAccepted();
     }
 
     /**
      * Deletes a schedule and it's associated tasks.
      */
-    public function delete(DeleteScheduleRequest $request, Server $server, Schedule $schedule): JsonResponse
+    public function delete(DeleteScheduleRequest $request, Server $server, Schedule $schedule): Response
     {
         $this->repository->delete($schedule->id);
 
         Activity::event('server:schedule.delete')->subject($schedule)->property('name', $schedule->name)->log();
 
-        return new JsonResponse([], Response::HTTP_NO_CONTENT);
+        return $this->returnNoContent();
     }
 
     /**
      * Get the next run timestamp based on the cron data provided.
      *
-     * @throws \DarkOak\Exceptions\DisplayException
+     * @throws DisplayException
      */
     protected function getNextRunAt(Request $request): Carbon
     {
@@ -182,5 +172,3 @@ class ScheduleController extends ClientApiController
         }
     }
 }
-
-
