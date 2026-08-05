@@ -31,12 +31,13 @@ export const rawDataToAllocation = ({ attributes }: FractalResponseData): Alloca
                 : undefined,
     },
 
-    // TODO: If IP is an IPv6, wrap IP in [].
+    // ponytail: IPv6 addresses wrapped in [] per RFC 3986
     getDisplayText(): string {
+        const ip = attributes.ip.includes(':') ? `[${attributes.ip}]` : attributes.ip;
         if (attributes.alias !== null) {
-            return `${attributes.ip}:${attributes.port} (${attributes.alias})`;
+            return `${ip}:${attributes.port} (${attributes.alias})`;
         }
-        return `${attributes.ip}:${attributes.port}`;
+        return `${ip}:${attributes.port}`;
     },
 });
 
@@ -51,8 +52,7 @@ export default (id: string | number, filters: Filters = {}, include: string[] = 
     const params = {};
     if (filters !== null) {
         Object.keys(filters).forEach(key => {
-            // @ts-expect-error todo
-            params['filter[' + key + ']'] = filters[key];
+            params['filter[' + key + ']'] = filters[key as keyof Filters];
         });
     }
 

@@ -57,25 +57,7 @@ class ProductController extends ApplicationApiController
      */
     public function store(StoreBillingProductRequest $request, Category $category): JsonResponse
     {
-        // TODO(jex): clean this up, make a service or somethin'
-        try {
-            $product = Product::create([
-                'uuid' => Uuid::uuid4()->toString(),
-                'category_uuid' => $category->uuid,
-                'name' => $request->input('name'),
-                'icon' => $request->input('icon'),
-                'price' => (float) $request->input('price'),
-                'description' => $request->input('description'),
-                'cpu_limit' => $request['limits']['cpu'],
-                'memory_limit' => $request['limits']['memory'],
-                'disk_limit' => $request['limits']['disk'],
-                'backup_limit' => $request['limits']['backup'],
-                'database_limit' => $request['limits']['database'],
-                'allocation_limit' => $request['limits']['allocation'],
-            ]);
-        } catch (\Exception $ex) {
-            throw new \Exception('Failed to create a new product: ' . $ex->getMessage());
-        }
+        $product = $this->createOrUpdateProduct($request, $category);
 
         Activity::event('admin:billing:products:create')
             ->property('product', $product)
@@ -96,23 +78,7 @@ class ProductController extends ApplicationApiController
     public function update(UpdateBillingProductRequest $request, Category $category, int $productId): Response
     {
         $product = Product::findOrFail($productId);
-
-        try {
-            $product->update([
-                'name' => $request->input('name'),
-                'icon' => $request->input('icon'),
-                'price' => (float) $request->input('price'),
-                'description' => $request->input('description'),
-                'cpu_limit' => $request['limits']['cpu'],
-                'memory_limit' => $request['limits']['memory'],
-                'disk_limit' => $request['limits']['disk'],
-                'backup_limit' => $request['limits']['backup'],
-                'database_limit' => $request['limits']['database'],
-                'allocation_limit' => $request['limits']['allocation'],
-            ]);
-        } catch (\Exception $ex) {
-            throw new \Exception('Failed to update a product: ' . $ex->getMessage());
-        }
+        $this->createOrUpdateProduct($request, $category, $product);
 
         Activity::event('admin:billing:products:update')
             ->property('product', $product)
@@ -124,6 +90,40 @@ class ProductController extends ApplicationApiController
         Cache::forget('application.billing.analytics');
 
         return $this->returnNoContent();
+    }
+
+    /**
+     * Create or update a product from request data.
+     * ponytail: shared helper instead of a service class — only two callers.
+     */
+    private function createOrUpdateProduct(StoreBillingProductRequest|UpdateBillingProductRequest $request, Category $category, ?Product $product = null): Product
+    {
+        $data = [
+            'name' => $request->input('name'),
+            'icon' => $request->input('icon'),
+            'price' => (float) $request->input('price'),
+            'description' => $request->input('description'),
+            'cpu_limit' => $request['limits']['cpu'],
+            'memory_limit' => $request['limits']['memory'],
+            'disk_limit' => $request['limits']['disk'],
+            'backup_limit' => $request['limits']['backup'],
+            'database_limit' => $request['limits']['database'],
+            'allocation_limit' => $request['limits']['allocation'],
+        ];
+
+        if ($product) {
+            $product->update($data);
+            return $product;
+        }
+
+        $data['uuid'] = Uuid::uuid4()->toString();
+        $data['category_uuid'] = $category->uuid;
+
+        try {
+            return Product::create($data);
+        } catch (\Exception $ex) {
+            throw new \Exception('Failed to create a new product: ' . $ex->getMessage());
+        }
     }
 
     /**
