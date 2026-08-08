@@ -57,3 +57,6 @@ composer.phar
 
 # graphify persistent knowledge graph output
 /graphify-out/
+
+# phpunit cache
+.phpunit.result.cache
