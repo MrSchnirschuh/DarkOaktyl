@@ -54,3 +54,6 @@ storage/ssl/
 routes/*.bak
 storage/logs/
 composer.phar
+
+# graphify persistent knowledge graph output
+/graphify-out/
