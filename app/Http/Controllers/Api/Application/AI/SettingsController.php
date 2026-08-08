@@ -1,6 +1,6 @@
 <?php
 
-namespace DarkOak\Http\Controllers\Api\Application;
+namespace DarkOak\Http\Controllers\Api\Application\AI;
 
 use GeminiAPI\Client;
 use DarkOak\Models\Setting;
@@ -8,12 +8,13 @@ use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use GeminiAPI\Resources\Parts\TextPart;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
 use DarkOak\Http\Requests\Api\Application\Intelligence;
 
-class IntelligenceController extends ApplicationApiController
+class SettingsController extends ApplicationApiController
 {
     /**
-     * IntelligenceController constructor.
+     * SettingsController constructor.
      */
     public function __construct()
     {
