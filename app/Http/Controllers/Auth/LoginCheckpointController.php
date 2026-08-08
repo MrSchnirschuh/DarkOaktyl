@@ -72,7 +72,15 @@ class LoginCheckpointController extends AbstractLoginController
         } else {
             $decrypted = $this->encrypter->decrypt($user->totp_secret);
 
-            if ($this->google2FA->verifyKey($decrypted, $request->input('authentication_code') ?? '', config('DarkOak.auth.2fa.window'))) {
+            // Reject reuse of a previously-used TOTP token (GHSA-rgmp-4873-r683).
+            // verifyKeyNewer returns false if the supplied key's timestamp is not
+            // strictly newer than the last verified timestamp.
+            $oldTimestamp = $user->totp_authenticated_at
+                ? (int) floor($user->totp_authenticated_at->getTimestamp() / $this->google2FA->getKeyRegeneration())
+                : null;
+
+            if ($this->google2FA->verifyKeyNewer($decrypted, $request->input('authentication_code') ?? '', $oldTimestamp, config('DarkOak.auth.2fa.window'))) {
+                $user->update(['totp_authenticated_at' => CarbonImmutable::now()]);
                 Event::dispatch(new ProvidedAuthenticationToken($user));
 
                 return $this->sendLoginResponse($user, $request);
@@ -106,8 +114,12 @@ class LoginCheckpointController extends AbstractLoginController
      * will return false if the data is invalid, or if more time has passed than
      * was configured when the session was written.
      */
-    protected function hasValidSessionData(array $data): bool
+    protected function hasValidSessionData(?array $data): bool
     {
+        if (is_null($data)) {
+            return false;
+        }
+
         $validator = $this->validation->make($data, [
             'user_id' => 'required|integer|min:1',
             'token_value' => 'required|string',
