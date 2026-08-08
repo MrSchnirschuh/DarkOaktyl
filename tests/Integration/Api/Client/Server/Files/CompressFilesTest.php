@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Tests\Integration\Api\Client\Server\Files;
+namespace DarkOak\Tests\Integration\Api\Client\Server\Files;
 
 use Mockery\MockInterface;
-use Everest\Models\Permission;
-use Everest\Repositories\Wings\DaemonFileRepository;
-use Everest\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
+use DarkOak\Models\Permission;
+use DarkOak\Repositories\Wings\DaemonFileRepository;
+use DarkOak\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 
 class CompressFilesTest extends ClientApiIntegrationTestCase
 {

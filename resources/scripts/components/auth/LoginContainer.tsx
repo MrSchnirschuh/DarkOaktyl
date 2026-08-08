@@ -27,11 +27,15 @@ function LoginContainer() {
     const token = useRef('');
 
     const appName = useStoreState(state => state.settings.data?.name ?? 'DarkOak');
-    const modules = useStoreState(state => state.DarkOak.data?.auth?.modules ?? { discord: { enabled: false }, google: { enabled: false } });
+    const modules = useStoreState(
+        state => state.DarkOak.data?.auth?.modules ?? { discord: { enabled: false }, google: { enabled: false } },
+    );
     const registration = useStoreState(state => state.DarkOak.data?.auth?.registration?.enabled ?? false);
 
     const { clearFlashes, clearAndAddHttpError } = useFlash();
-    const { enabled: recaptchaEnabled, siteKey } = useStoreState(state => state.settings.data?.recaptcha ?? { enabled: false, siteKey: '' });
+    const { enabled: recaptchaEnabled, siteKey } = useStoreState(
+        state => state.settings.data?.recaptcha ?? { enabled: false, siteKey: '' },
+    );
 
     const navigate = useNavigate();
     const location = useLocation();

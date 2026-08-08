@@ -75,7 +75,11 @@ const searchUserAccounts = async (params: QueryBuilderParams<'username' | 'email
     return data.data.map(Transformers.toUser);
 };
 
-const createUser = (values: UpdateUserValues, include: string[] = [], flashMessage?: (msg: string) => void): Promise<User> => {
+const createUser = (
+    values: UpdateUserValues,
+    include: string[] = [],
+    flashMessage?: (msg: string) => void,
+): Promise<User> => {
     const data = {};
     Object.keys(values).forEach(k => {
         // @ts-expect-error todo
@@ -92,7 +96,12 @@ const createUser = (values: UpdateUserValues, include: string[] = [], flashMessa
     });
 };
 
-const updateUser = (id: number, values: Partial<UpdateUserValues>, include: string[] = [], flashMessage?: (msg: string) => void): Promise<User> => {
+const updateUser = (
+    id: number,
+    values: Partial<UpdateUserValues>,
+    include: string[] = [],
+    flashMessage?: (msg: string) => void,
+): Promise<User> => {
     const data = {};
     Object.keys(values).forEach(k => {
         // Don't set password if it is empty.

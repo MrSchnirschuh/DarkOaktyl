@@ -63,14 +63,16 @@ export default function CreditBalance() {
 
     return (
         <div className="space-y-4">
-            <div className={`p-6 rounded-lg border ${
-                balance.is_low_balance ? 'bg-orange-50 border-orange-200' : 'bg-green-50 border-green-200'
-            }`}>
+            <div
+                className={`p-6 rounded-lg border ${
+                    balance.is_low_balance ? 'bg-orange-50 border-orange-200' : 'bg-green-50 border-green-200'
+                }`}
+            >
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                        <div className={`p-3 rounded-full ${
-                            balance.is_low_balance ? 'bg-orange-100' : 'bg-green-100'
-                        }`}>
+                        <div
+                            className={`p-3 rounded-full ${balance.is_low_balance ? 'bg-orange-100' : 'bg-green-100'}`}
+                        >
                             <FontAwesomeIcon
                                 icon={balance.is_low_balance ? faExclamationTriangle : faCoins}
                                 className={`text-2xl ${balance.is_low_balance ? 'text-orange-600' : 'text-green-600'}`}
@@ -78,20 +80,22 @@ export default function CreditBalance() {
                         </div>
                         <div>
                             <p className="text-sm text-gray-600">Credit Balance</p>
-                            <h3 className={`text-3xl font-bold ${
-                                balance.is_low_balance ? 'text-orange-600' : 'text-green-600'
-                            }`}>
+                            <h3
+                                className={`text-3xl font-bold ${
+                                    balance.is_low_balance ? 'text-orange-600' : 'text-green-600'
+                                }`}
+                            >
                                 €{balance.balance.toFixed(2)}
                             </h3>
                             {balance.reserved_balance > 0 && (
                                 <p className="text-xs text-gray-500">
-                                    Reserved: €{balance.reserved_balance.toFixed(2)} | 
-                                    Available: €{balance.available_balance.toFixed(2)}
+                                    Reserved: €{balance.reserved_balance.toFixed(2)} | Available: €
+                                    {balance.available_balance.toFixed(2)}
                                 </p>
                             )}
                         </div>
                     </div>
-                    
+
                     <div className="flex gap-2">
                         <Button variant="secondary" onClick={() => setShowAddModal(true)}>
                             <FontAwesomeIcon icon={faPlus} className="mr-2" />
@@ -120,7 +124,7 @@ export default function CreditBalance() {
                                     min="1"
                                     max="1000"
                                     value={addAmount}
-                                    onChange={(e) => setAddAmount(parseInt(e.target.value) || 0)}
+                                    onChange={e => setAddAmount(parseInt(e.target.value) || 0)}
                                     className="mt-1 w-full px-3 py-2 border rounded"
                                 />
                             </label>

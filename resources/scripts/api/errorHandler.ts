@@ -25,10 +25,7 @@ export const handleApiError = (error: any, flashMessage?: (msg: string) => void)
  * @returns Result of the promise
  * @throws The original error after handling
  */
-export const withErrorHandling = async <T>(
-    promise: Promise<T>,
-    flashMessage?: (msg: string) => void
-): Promise<T> => {
+export const withErrorHandling = async <T>(promise: Promise<T>, flashMessage?: (msg: string) => void): Promise<T> => {
     try {
         return await promise;
     } catch (error) {
@@ -42,7 +39,7 @@ export const withErrorHandling = async <T>(
  * This reduces the boilerplate of `.then().catch()` patterns.
  */
 export const createApiPromise = <T, Args extends any[]>(
-    fn: (...args: Args) => Promise<T>
+    fn: (...args: Args) => Promise<T>,
 ): ((...args: Args) => Promise<T>) => {
     return (...args) =>
         new Promise((resolve, reject) => {

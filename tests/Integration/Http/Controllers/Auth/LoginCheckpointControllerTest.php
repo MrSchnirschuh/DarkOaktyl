@@ -1,17 +1,17 @@
 <?php
 
-namespace Everest\Tests\Integration\Http\Controllers\Auth;
+namespace DarkOak\Tests\Integration\Http\Controllers\Auth;
 
 use Carbon\Carbon;
-use Everest\Models\User;
+use DarkOak\Models\User;
 use PragmaRX\Google2FA\Google2FA;
 use Illuminate\Auth\Events\Failed;
-use Everest\Events\Auth\DirectLogin;
+use DarkOak\Events\Auth\DirectLogin;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Session;
 use PHPUnit\Framework\Attributes\TestWith;
-use Everest\Tests\Integration\Http\HttpTestCase;
-use Everest\Events\Auth\ProvidedAuthenticationToken;
+use DarkOak\Tests\Integration\Http\HttpTestCase;
+use DarkOak\Events\Auth\ProvidedAuthenticationToken;
 
 class LoginCheckpointControllerTest extends HttpTestCase
 {

@@ -62,7 +62,7 @@ class RequireTwoFactorAuthentication
     {
         $user = $request->user();
         $uri = rtrim($request->getRequestUri(), '/') . '/';
-        $current = $request->route()->getName();
+        $current = $request->route()?->getName();
 
         // Must be logged in
         if (!$user instanceof User) {
@@ -70,7 +70,7 @@ class RequireTwoFactorAuthentication
         }
 
         // Allow access to auth and account routes regardless of 2FA status
-        if (Str::startsWith($uri, ['/auth/']) || Str::startsWith($current, ['auth.', 'account.'])) {
+        if (Str::startsWith($uri, ['/auth/']) || ($current !== null && Str::startsWith($current, ['auth.', 'account.']))) {
             return $next($request);
         }
 

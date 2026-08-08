@@ -21,13 +21,13 @@ export default () => {
         <div>
             <div className={'w-full flex flex-row items-center mb-8'}>
                 <div className={'flex flex-col flex-shrink'} style={{ minWidth: '0' }}>
-                    <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>Mode Selection</h2>
+                    <h2 className={'text-2xl text-theme-primary font-header font-medium'}>Mode Selection</h2>
                     <p
                         className={
-                            'hidden lg:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden'
+                            'hidden lg:block text-base text-theme-muted whitespace-nowrap overflow-ellipsis overflow-hidden'
                         }
                     >
-                        Select how you want to run Jexactyl.
+                        Select how you want to run DarkOaktyl.
                     </p>
                 </div>
             </div>
@@ -35,8 +35,8 @@ export default () => {
                 <div className={'bg-black/25 rounded-xl w-full p-8 relative'}>
                     <PersonalModeSvg color={primary} />
                     <p className={'text-2xl lg:text-4xl font-bold mb-2'}>Personal Mode</p>
-                    <p className={'text-gray-400'}>
-                        Personal Mode allows you to run Jexpanelin standard settings, with basic features enable by
+                    <p className={'text-[var(--theme-text-secondary)]'}>
+                        Personal Mode allows you to run DarkOaktyl in standard settings, with basic features enable by
                         default. It gives you all the great typical features of a game hosting panel without any
                         business-oriented features making it a cluttered experience.
                     </p>
@@ -49,9 +49,10 @@ export default () => {
                 <div className={'bg-black/25 rounded-xl w-full p-8 relative'}>
                     <StandardMoveSvg color={primary} />
                     <p className={'text-2xl lg:text-4xl font-bold mb-2'}>Standard Mode</p>
-                    <p className={'text-gray-400'}>
-                        Standard Mode allows all of the Jexpanelfeatures by default, such as billing, tickets, webhooks
-                        and more. It&apos;s ideal for businesses or large groups who need more control over their users.
+                    <p className={'text-[var(--theme-text-secondary)]'}>
+                        Standard Mode allows all of the DarkOaktyl features by default, such as billing, tickets,
+                        webhooks and more. It&apos;s ideal for businesses or large groups who need more control over
+                        their users.
                     </p>
                     <div className={'absolute top-0 right-0 p-3'}>
                         <Button.Text disabled={mode === 'standard'} onClick={() => updateMode('standard')}>

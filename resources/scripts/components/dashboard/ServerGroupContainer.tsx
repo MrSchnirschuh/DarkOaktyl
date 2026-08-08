@@ -13,7 +13,14 @@ import {
 import { Button } from '@/elements/button';
 import { Dialog } from '@/elements/dialog';
 import { Field } from '@/elements/field';
-import { getServerGroups, createServerGroup, updateServerGroup, deleteServerGroup, addServerToGroup, removeServerFromGroup } from '@/api/routes/server/groups';
+import {
+    getServerGroups,
+    createServerGroup,
+    updateServerGroup,
+    deleteServerGroup,
+    addServerToGroup,
+    removeServerFromGroup,
+} from '@/api/routes/server/groups';
 import { getServers } from '@/api/getServers';
 import { ServerGroup, Server } from '@definitions/server';
 import ServerRow from './ServerRow';
@@ -58,10 +65,7 @@ export default function ServerGroupContainer() {
         clearFlashes();
 
         try {
-            const [groupsData, serversData] = await Promise.all([
-                getServerGroups(),
-                getServers(),
-            ]);
+            const [groupsData, serversData] = await Promise.all([getServerGroups(), getServers()]);
 
             const servers = Array.isArray(serversData) ? serversData : (serversData as any).data || [];
 
@@ -193,10 +197,7 @@ export default function ServerGroupContainer() {
                         {/* Group Header */}
                         <div className="flex items-center justify-between mb-3">
                             <div className="flex items-center gap-2">
-                                <FontAwesomeIcon
-                                    icon={faFolder}
-                                    style={{ color: group.color || '#3B82F6' }}
-                                />
+                                <FontAwesomeIcon icon={faFolder} style={{ color: group.color || '#3B82F6' }} />
                                 <span className="font-semibold text-theme-primary">{group.name}</span>
                                 <span className="text-xs text-theme-secondary bg-theme-secondary/20 px-2 py-0.5 rounded-full">
                                     {group.servers.length} server{group.servers.length !== 1 ? 's' : ''}
@@ -281,11 +282,7 @@ export default function ServerGroupContainer() {
                                     key={server.uuid}
                                     className="flex items-center justify-between bg-theme-background rounded p-3"
                                 >
-                                    <ServerRow
-                                        server={server}
-                                        group={undefined}
-                                        setOpen={setServerGroupsDialog}
-                                    />
+                                    <ServerRow server={server} group={undefined} setOpen={setServerGroupsDialog} />
                                 </div>
                             ))}
                         </div>
@@ -338,9 +335,7 @@ export default function ServerGroupContainer() {
 
                     {/* Icon Selection */}
                     <div>
-                        <label className="block text-sm font-medium text-theme-secondary mb-2">
-                            Icon
-                        </label>
+                        <label className="block text-sm font-medium text-theme-secondary mb-2">Icon</label>
                         <div className="flex gap-2">
                             {['folder', 'server', 'database', 'cloud', 'star'].map(icon => (
                                 <button

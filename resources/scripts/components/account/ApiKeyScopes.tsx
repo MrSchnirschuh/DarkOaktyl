@@ -64,11 +64,7 @@ const ApiKeyScopes = ({ apiKeyId, currentScopes, onSuccess }: Props) => {
     }
 
     if (!scopeGroups) {
-        return (
-            <div css={tw`text-center py-4 text-theme-secondary`}>
-                Fehler beim Laden der Scopes.
-            </div>
-        );
+        return <div css={tw`text-center py-4 text-theme-secondary`}>Fehler beim Laden der Scopes.</div>;
     }
 
     return (
@@ -79,7 +75,8 @@ const ApiKeyScopes = ({ apiKeyId, currentScopes, onSuccess }: Props) => {
 
                     <h3 css={tw`text-xl font-medium mb-4`}>API Key Berechtigungen</h3>
                     <p css={tw`text-sm text-theme-secondary mb-4`}>
-                        Wähle die Scopes aus, die dieser API-Key haben soll. Wenn keine Scopes ausgewählt sind, hat der Key volle Berechtigungen (legacy-Verhalten).
+                        Wähle die Scopes aus, die dieser API-Key haben soll. Wenn keine Scopes ausgewählt sind, hat der
+                        Key volle Berechtigungen (legacy-Verhalten).
                     </p>
 
                     <FieldArray name="scopes">
@@ -108,7 +105,9 @@ const ApiKeyScopes = ({ apiKeyId, currentScopes, onSuccess }: Props) => {
                                                             }}
                                                         />
                                                         <span css={tw`text-sm`}>
-                                                            <code css={tw`text-xs text-theme-secondary mr-1`}>{scopeKey}</code>
+                                                            <code css={tw`text-xs text-theme-secondary mr-1`}>
+                                                                {scopeKey}
+                                                            </code>
                                                             {scopeLabel}
                                                         </span>
                                                     </label>

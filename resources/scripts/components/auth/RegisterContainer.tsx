@@ -27,7 +27,9 @@ function RegisterContainer() {
     const token = useRef('');
 
     const { clearFlashes, clearAndAddHttpError } = useFlash();
-    const { enabled: recaptchaEnabled, siteKey } = useStoreState(state => state.settings.data?.recaptcha ?? { enabled: false, siteKey: '' });
+    const { enabled: recaptchaEnabled, siteKey } = useStoreState(
+        state => state.settings.data?.recaptcha ?? { enabled: false, siteKey: '' },
+    );
 
     useEffect(() => {
         clearFlashes();

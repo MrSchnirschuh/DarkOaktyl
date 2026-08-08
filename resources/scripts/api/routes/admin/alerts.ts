@@ -15,4 +15,3 @@ export const updateAlertSettings = async (settings: Partial<AlertSettings>): Pro
             .catch(reject);
     });
 };
-

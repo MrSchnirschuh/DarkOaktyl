@@ -58,19 +58,23 @@ export const getDomainRoots = () => {
 
     params.page = page;
 
-    return useSWR<PaginatedResult<DomainRoot>>(['domain-roots', page, filters, sort, sortDirection], async () => {
-        const { data } = await http.get('/api/application/domains/roots', { params });
+    return useSWR<PaginatedResult<DomainRoot>>(
+        ['domain-roots', page, filters, sort, sortDirection],
+        async () => {
+            const { data } = await http.get('/api/application/domains/roots', { params });
 
-        return {
-            items: (data.data || []).map(rawDataToDomainRoot),
-            pagination: getPaginationSet(data.meta.pagination),
-        };
-    }, {
-        errorRetryCount: 0,
-        shouldRetryOnError: false,
-        revalidateOnFocus: false,
-        dedupingInterval: 5000,
-    });
+            return {
+                items: (data.data || []).map(rawDataToDomainRoot),
+                pagination: getPaginationSet(data.meta.pagination),
+            };
+        },
+        {
+            errorRetryCount: 0,
+            shouldRetryOnError: false,
+            revalidateOnFocus: false,
+            dedupingInterval: 5000,
+        },
+    );
 };
 
 export const createDomainRoot = (values: DomainRootValues): Promise<DomainRoot> => {

@@ -56,9 +56,7 @@ const LinksTable = ({ setOpen, setLink }: Props) => {
                                     direction={sort === 'id' ? (sortDirection ? 1 : 2) : null}
                                     onClick={() => setSort('id')}
                                 />
-                                <TableHeader
-                                    name={'Icon'}
-                                />
+                                <TableHeader name={'Icon'} />
                                 <TableHeader
                                     name={'Name'}
                                     direction={sort === 'name' ? (sortDirection ? 1 : 2) : null}
@@ -86,25 +84,38 @@ const LinksTable = ({ setOpen, setLink }: Props) => {
                                         const icon = getIconByName(link.icon);
                                         return (
                                             <TableRow key={link.id}>
-                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}>
-                                                    <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>{link.id}</code>
+                                                <td
+                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap`}
+                                                >
+                                                    <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>
+                                                        {link.id}
+                                                    </code>
                                                 </td>
                                                 <td css={tw`px-6 text-sm text-center whitespace-nowrap`}>
                                                     {link.icon && icon ? (
-                                                        <FontAwesomeIcon icon={icon} css={tw`text-lg`}
-                                                            style={{ color: colors.primary }} />
+                                                        <FontAwesomeIcon
+                                                            icon={icon}
+                                                            css={tw`text-lg`}
+                                                            style={{ color: colors.primary }}
+                                                        />
                                                     ) : (
                                                         <span css={tw`text-xs text-theme-muted`}>—</span>
                                                     )}
                                                 </td>
-                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap font-bold hover:brightness-125`}
-                                                    style={{ color: colors.primary }}>
+                                                <td
+                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap font-bold hover:brightness-125`}
+                                                    style={{ color: colors.primary }}
+                                                >
                                                     {link.name}
                                                 </td>
-                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap font-bold hover:brightness-125`}>
+                                                <td
+                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap font-bold hover:brightness-125`}
+                                                >
                                                     {link.url}
                                                 </td>
-                                                <td css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap font-bold hover:brightness-125`}>
+                                                <td
+                                                    css={tw`px-6 text-sm text-theme-secondary text-left whitespace-nowrap font-bold hover:brightness-125`}
+                                                >
                                                     {link.visible ? (
                                                         <Pill type={'success'}>Visible</Pill>
                                                     ) : (

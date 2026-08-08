@@ -35,7 +35,7 @@ const OrganizationList: React.FC = () => {
 
     const handleCreate = async () => {
         if (!newOrgName.trim()) return;
-        
+
         setCreating(true);
         try {
             await createOrganization({
@@ -48,9 +48,9 @@ const OrganizationList: React.FC = () => {
             setNewOrgDescription('');
             fetchOrganizations();
         } catch (error: any) {
-            addToast({ 
-                type: 'error', 
-                message: error.response?.data?.error || 'Failed to create organization' 
+            addToast({
+                type: 'error',
+                message: error.response?.data?.error || 'Failed to create organization',
             });
         } finally {
             setCreating(false);
@@ -78,42 +78,26 @@ const OrganizationList: React.FC = () => {
             {organizations.length === 0 ? (
                 <Card className="p-12 text-center">
                     <Users className="w-16 h-16 mx-auto text-gray-500 mb-4" />
-                    <h3 className="text-xl font-semibold text-gray-300 mb-2">
-                        No Organizations Yet
-                    </h3>
+                    <h3 className="text-xl font-semibold text-gray-300 mb-2">No Organizations Yet</h3>
                     <p className="text-gray-500 mb-6">
                         Create an organization to collaborate with others and share server costs.
                     </p>
-                    <Button onClick={() => setCreateModalOpen(true)}>
-                        Create Your First Organization
-                    </Button>
+                    <Button onClick={() => setCreateModalOpen(true)}>Create Your First Organization</Button>
                 </Card>
             ) : (
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                    {organizations.map((org) => (
-                        <Link
-                            key={org.id}
-                            to={`/organizations/${org.slug}`}
-                            className="block"
-                        >
+                    {organizations.map(org => (
+                        <Link key={org.id} to={`/organizations/${org.slug}`} className="block">
                             <Card className="p-6 hover:bg-gray-800/50 transition-colors">
                                 <div className="flex items-start justify-between mb-4">
                                     <div>
-                                        <h3 className="text-xl font-semibold text-gray-100 mb-1">
-                                            {org.name}
-                                        </h3>
+                                        <h3 className="text-xl font-semibold text-gray-100 mb-1">{org.name}</h3>
                                         {org.description && (
-                                            <p className="text-sm text-gray-400 line-clamp-2">
-                                                {org.description}
-                                            </p>
+                                            <p className="text-sm text-gray-400 line-clamp-2">{org.description}</p>
                                         )}
                                     </div>
                                     {org.avatar ? (
-                                        <img
-                                            src={org.avatar}
-                                            alt={org.name}
-                                            className="w-12 h-12 rounded-lg"
-                                        />
+                                        <img src={org.avatar} alt={org.name} className="w-12 h-12 rounded-lg" />
                                     ) : (
                                         <div className="w-12 h-12 rounded-lg bg-gray-700 flex items-center justify-center">
                                             <Users className="w-6 h-6 text-gray-400" />
@@ -136,43 +120,25 @@ const OrganizationList: React.FC = () => {
                 </div>
             )}
 
-            <Dialog
-                open={createModalOpen}
-                onClose={() => setCreateModalOpen(false)}
-                title="Create Organization"
-            >
+            <Dialog open={createModalOpen} onClose={() => setCreateModalOpen(false)} title="Create Organization">
                 <div className="space-y-4">
                     <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-1">
-                            Organization Name
-                        </label>
-                        <Input
-                            value={newOrgName}
-                            onChange={(e) => setNewOrgName(e.target.value)}
-                            placeholder="My Team"
-                        />
+                        <label className="block text-sm font-medium text-gray-300 mb-1">Organization Name</label>
+                        <Input value={newOrgName} onChange={e => setNewOrgName(e.target.value)} placeholder="My Team" />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-1">
-                            Description (Optional)
-                        </label>
+                        <label className="block text-sm font-medium text-gray-300 mb-1">Description (Optional)</label>
                         <Input
                             value={newOrgDescription}
-                            onChange={(e) => setNewOrgDescription(e.target.value)}
+                            onChange={e => setNewOrgDescription(e.target.value)}
                             placeholder="A brief description of your organization"
                         />
                     </div>
                     <div className="flex justify-end gap-3 pt-4">
-                        <Button
-                            variant="secondary"
-                            onClick={() => setCreateModalOpen(false)}
-                        >
+                        <Button variant="secondary" onClick={() => setCreateModalOpen(false)}>
                             Cancel
                         </Button>
-                        <Button
-                            onClick={handleCreate}
-                            disabled={!newOrgName.trim() || creating}
-                        >
+                        <Button onClick={handleCreate} disabled={!newOrgName.trim() || creating}>
                             {creating ? <Spinner size="small" /> : 'Create'}
                         </Button>
                     </div>

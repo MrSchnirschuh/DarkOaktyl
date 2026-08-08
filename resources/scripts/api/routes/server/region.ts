@@ -46,11 +46,7 @@ export const getTransferStatus = (serverId: string): Promise<TransferStatus> => 
 /**
  * Transfer server to a different region.
  */
-export const transferServer = (
-    serverId: string,
-    regionId: number,
-    nodeId?: number
-): Promise<any> => {
+export const transferServer = (serverId: string, regionId: number, nodeId?: number): Promise<any> => {
     return new Promise((resolve, reject) => {
         http.post(`/api/client/servers/${serverId}/transfer`, {
             region_id: regionId,

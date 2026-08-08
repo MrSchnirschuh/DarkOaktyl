@@ -45,7 +45,7 @@ const formatLatency = (latency: number | null | undefined): string => {
 
 /**
  * Region Selector Component
- * 
+ *
  * Displays available regions with latency information for server creation.
  */
 export default function RegionSelector({
@@ -86,15 +86,17 @@ export default function RegionSelector({
             try {
                 setMeasuringLatency(true);
                 const endpoints = await getLatencyEndpoints();
-                
+
                 if (endpoints.length === 0) return;
 
                 const latencies = await measureAllLatencies(endpoints);
-                
-                setRegions(prev => prev.map(region => ({
-                    ...region,
-                    latency: latencies.get(region.code) ?? null,
-                })));
+
+                setRegions(prev =>
+                    prev.map(region => ({
+                        ...region,
+                        latency: latencies.get(region.code) ?? null,
+                    })),
+                );
             } catch (err) {
                 console.error('Error measuring latency:', err);
             } finally {
@@ -146,7 +148,7 @@ export default function RegionSelector({
     const sortedRegions = [...regions].sort((a, b) => {
         if (a.is_default && !b.is_default) return -1;
         if (!a.is_default && b.is_default) return 1;
-        
+
         // Sort by latency if available
         if (a.latency !== undefined && b.latency !== undefined) {
             if (a.latency === null && b.latency !== null) return 1;
@@ -155,7 +157,7 @@ export default function RegionSelector({
                 return a.latency - b.latency;
             }
         }
-        
+
         return a.display_name.localeCompare(b.display_name);
     });
 
@@ -167,9 +169,9 @@ export default function RegionSelector({
                     Measuring latency...
                 </div>
             )}
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                {sortedRegions.map((region) => {
+                {sortedRegions.map(region => {
                     const isSelected = selectedRegionId === region.id;
                     const latencyInfo = getLatencyIndicator(region.latency);
                     const hasNodes = region.relationships?.nodes?.some(n => n.public && !n.maintenance_mode);
@@ -181,11 +183,16 @@ export default function RegionSelector({
                             disabled={disabled || !hasNodes}
                             className={`
                                 relative p-4 rounded-lg border-2 text-left transition-all duration-200
-                                ${isSelected 
-                                    ? 'border-blue-500 bg-blue-500/10' 
-                                    : 'border-gray-700 hover:border-gray-600 bg-gray-800/50'
+                                ${
+                                    isSelected
+                                        ? 'border-blue-500 bg-blue-500/10'
+                                        : 'border-gray-700 hover:border-gray-600 bg-gray-800/50'
                                 }
-                                ${disabled || !hasNodes ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-gray-800'}
+                                ${
+                                    disabled || !hasNodes
+                                        ? 'opacity-50 cursor-not-allowed'
+                                        : 'cursor-pointer hover:bg-gray-800'
+                                }
                             `}
                         >
                             {/* Default Badge */}
@@ -204,17 +211,15 @@ export default function RegionSelector({
 
                             <div className="flex items-start gap-3">
                                 <div className="mt-1">
-                                    <FontAwesomeIcon 
-                                        icon={faGlobe} 
+                                    <FontAwesomeIcon
+                                        icon={faGlobe}
                                         className={`text-xl ${isSelected ? 'text-blue-400' : 'text-gray-400'}`}
                                     />
                                 </div>
-                                
+
                                 <div className="flex-1 min-w-0">
-                                    <div className="font-semibold text-gray-200 truncate">
-                                        {region.display_name}
-                                    </div>
-                                    
+                                    <div className="font-semibold text-gray-200 truncate">{region.display_name}</div>
+
                                     {region.description && (
                                         <div className="text-xs text-gray-500 mt-1 line-clamp-2">
                                             {region.description}
@@ -224,7 +229,7 @@ export default function RegionSelector({
                                     {/* Latency Display */}
                                     {showLatency && (
                                         <div className="flex items-center gap-2 mt-2">
-                                            <FontAwesomeIcon 
+                                            <FontAwesomeIcon
                                                 icon={latencyInfo.icon}
                                                 className={`${latencyInfo.color}`}
                                             />
@@ -232,9 +237,7 @@ export default function RegionSelector({
                                                 {formatLatency(region.latency)}
                                             </span>
                                             {region.latency !== undefined && region.latency !== null && (
-                                                <span className="text-xs text-gray-500">
-                                                    ({latencyInfo.label})
-                                                </span>
+                                                <span className="text-xs text-gray-500">({latencyInfo.label})</span>
                                             )}
                                         </div>
                                     )}
@@ -251,7 +254,11 @@ export default function RegionSelector({
                                 <div className="absolute bottom-2 right-2">
                                     <div className="w-4 h-4 rounded-full bg-blue-500 flex items-center justify-center">
                                         <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                            <path
+                                                fillRule="evenodd"
+                                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                                clipRule="evenodd"
+                                            />
                                         </svg>
                                     </div>
                                 </div>

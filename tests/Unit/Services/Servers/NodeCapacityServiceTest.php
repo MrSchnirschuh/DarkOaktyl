@@ -10,7 +10,6 @@ use DarkOak\Repositories\Wings\DaemonConfigurationRepository;
 use DarkOak\Exceptions\Service\Deployment\NoViableNodeException;
 use DarkOak\Exceptions\Http\Connection\DaemonConnectionException;
 use DarkOak\Tests\TestCase;
-use GuzzleHttp\Exception\GuzzleException;
 
 class NodeCapacityServiceTest extends TestCase
 {
@@ -95,7 +94,9 @@ class NodeCapacityServiceTest extends TestCase
         $this->configurationRepository->shouldReceive('setNode')->with($node)->once()->andReturnSelf();
         $this->configurationRepository->shouldReceive('getSystemInformation')
             ->once()
-            ->andThrow(new DaemonConnectionException(\Mockery::mock(GuzzleException::class)));
+            ->andThrow(new DaemonConnectionException(
+                new \GuzzleHttp\Exception\ConnectException('test', new \GuzzleHttp\Psr7\Request('GET', 'http://localhost'))
+            ));
 
         $this->service->assertCanAllocate($node, 256, 256);
 

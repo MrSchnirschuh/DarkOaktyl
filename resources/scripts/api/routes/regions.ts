@@ -86,17 +86,19 @@ export const rawDataToRegion = (data: any): Region => ({
     ping_endpoint: data.ping_endpoint,
     created_at: data.created_at,
     updated_at: data.updated_at,
-    relationships: data.relationships ? {
-        nodes: data.relationships.nodes?.data?.map((n: any) => ({
-            id: n.id,
-            uuid: n.uuid,
-            name: n.name,
-            description: n.description,
-            fqdn: n.fqdn,
-            public: n.public,
-            maintenance_mode: n.maintenance_mode,
-        })),
-    } : undefined,
+    relationships: data.relationships
+        ? {
+              nodes: data.relationships.nodes?.data?.map((n: any) => ({
+                  id: n.id,
+                  uuid: n.uuid,
+                  name: n.name,
+                  description: n.description,
+                  fqdn: n.fqdn,
+                  public: n.public,
+                  maintenance_mode: n.maintenance_mode,
+              })),
+          }
+        : undefined,
 });
 
 /**
@@ -104,7 +106,7 @@ export const rawDataToRegion = (data: any): Region => ({
  * Returns latency in milliseconds or null if failed.
  */
 export const measureLatency = async (endpoint: string, timeout = 5000): Promise<number | null> => {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
         const startTime = performance.now();
         const img = new Image();
         let resolved = false;
@@ -142,11 +144,9 @@ export const measureLatency = async (endpoint: string, timeout = 5000): Promise<
 /**
  * Measure latencies to all regions.
  */
-export const measureAllLatencies = async (
-    regions: LatencyInfo[]
-): Promise<Map<string, number | null>> => {
+export const measureAllLatencies = async (regions: LatencyInfo[]): Promise<Map<string, number | null>> => {
     const results = new Map<string, number | null>();
-    
+
     // Test sequentially to avoid overwhelming the browser
     for (const region of regions) {
         if (region.ping_endpoint) {
@@ -156,6 +156,6 @@ export const measureAllLatencies = async (
             results.set(region.code, null);
         }
     }
-    
+
     return results;
 };
