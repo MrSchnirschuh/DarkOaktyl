@@ -76,9 +76,8 @@ class RouteServiceProvider extends ServiceProvider
                     ->middleware(['throttle:api.client', EnsureStatefulRequests::class])
                     ->group(base_path('routes/api-legal.php'));
 
-                Route::middleware('daemon')
+                Route::middleware(['daemon', 'throttle:api.daemon'])
                     ->prefix('/api/remote')
-                    ->middleware(['throttle:api.daemon'])
                     ->scopeBindings()
                     ->group(base_path('routes/api-remote.php'));
             };
