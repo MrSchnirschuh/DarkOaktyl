@@ -216,7 +216,7 @@ export default function PushNotifications() {
     // Helper function to convert base64 to Uint8Array
     function urlBase64ToUint8Array(base64String: string): Uint8Array {
         const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
-        const base64 = (base64String + padding).replace(/\-/g, '+').replace(/_/g, '/');
+        const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
         const rawData = window.atob(base64);
         const outputArray = new Uint8Array(rawData.length);
         for (let i = 0; i < rawData.length; ++i) {
@@ -245,7 +245,7 @@ export default function PushNotifications() {
                         Push Notifications
                     </h2>
                     <p className="text-gray-500 text-sm mt-1">
-                        Get notified about important events even when you're not on the site.
+                        Get notified about important events even when you&apos;re not on the site.
                     </p>
                 </div>
                 <div className="flex items-center gap-4">

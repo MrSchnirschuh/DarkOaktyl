@@ -68,6 +68,7 @@ jobs:
       SESSION_DRIVER: array
       QUEUE_CONNECTION: sync
       HASHIDS_SALT: test123
+      EMAILS_ENABLED: "false"
       DB_CONNECTION: mysql
       DB_HOST: 127.0.0.1
       DB_DATABASE: testing
