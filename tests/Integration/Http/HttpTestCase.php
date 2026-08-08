@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Tests\Integration\Http;
+namespace DarkOak\Tests\Integration\Http;
 
-use Everest\Tests\Integration\IntegrationTestCase;
+use DarkOak\Tests\Integration\IntegrationTestCase;
 
 abstract class HttpTestCase extends IntegrationTestCase
 {
