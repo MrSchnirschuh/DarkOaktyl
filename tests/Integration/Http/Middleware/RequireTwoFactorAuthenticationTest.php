@@ -107,10 +107,11 @@ class RequireTwoFactorAuthenticationTest extends \DarkOak\Tests\TestCase
         Config::set('modules.auth.security.2fa.enforcement', 'ADMIN');
 
         /** @var User $user */
+        $role = \DarkOak\Models\AdminRole::factory()->create();
         $user = User::factory()->create([
             'use_totp' => false,
             'root_admin' => false,
-            'admin_role_id' => 1,
+            'admin_role_id' => $role->id,
         ]);
 
         $request = Request::create('/dashboard');

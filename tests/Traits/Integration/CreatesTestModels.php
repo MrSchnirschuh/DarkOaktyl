@@ -123,7 +123,9 @@ trait CreatesTestModels
     private function getBungeecordEgg(): Egg
     {
         /** @var \DarkOak\Models\Egg $egg */
-        $egg = Egg::query()->where('author', 'support@DarkOaktyl.io')->where('name', 'Bungeecord')->firstOrFail();
+        // ponytail: match by unique name — seeded egg files carry varying author
+        // emails (upstream pterodactyl vs DarkOaktyl); tests only care about the egg itself
+        $egg = Egg::query()->where('name', 'Bungeecord')->firstOrFail();
 
         return $egg;
     }

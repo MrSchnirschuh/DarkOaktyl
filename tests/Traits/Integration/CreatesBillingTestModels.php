@@ -1,15 +1,15 @@
 <?php
 
-namespace Everest\Tests\Traits\Integration;
+namespace DarkOak\Tests\Traits\Integration;
 
 use Ramsey\Uuid\Uuid;
-use Everest\Models\User;
-use Everest\Models\Billing\Order;
-use Everest\Models\Billing\Invoice;
-use Everest\Models\Billing\Product;
-use Everest\Models\Billing\Category;
-use Everest\Models\Billing\DiscountCode;
-use Everest\Models\Billing\BillingException;
+use DarkOak\Models\User;
+use DarkOak\Models\Billing\Order;
+use DarkOak\Models\Billing\Invoice;
+use DarkOak\Models\Billing\Product;
+use DarkOak\Models\Billing\Category;
+use DarkOak\Models\Billing\DiscountCode;
+use DarkOak\Models\Billing\BillingException;
 
 trait CreatesBillingTestModels
 {

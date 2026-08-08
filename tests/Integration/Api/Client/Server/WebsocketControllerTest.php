@@ -2,7 +2,7 @@
 
 namespace DarkOak\Tests\Integration\Api\Client\Server;
 
-use Everest\Enum\JwtScope;
+use DarkOak\Enum\JwtScope;
 use Carbon\CarbonImmutable;
 use Illuminate\Http\Response;
 use DarkOak\Models\Permission;

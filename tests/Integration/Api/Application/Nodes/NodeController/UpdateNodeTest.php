@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Tests\Integration\Api\Application\Nodes\NodeController;
+namespace DarkOak\Tests\Integration\Api\Application\Nodes\NodeController;
 
-use Everest\Models\Node;
+use DarkOak\Models\Node;
 use Mockery\MockInterface;
 use GuzzleHttp\Psr7\Response;
-use Everest\Repositories\Wings\DaemonConfigurationRepository;
-use Everest\Tests\Integration\Api\Application\ApplicationApiIntegrationTestCase;
+use DarkOak\Repositories\Wings\DaemonConfigurationRepository;
+use DarkOak\Tests\Integration\Api\Application\ApplicationApiIntegrationTestCase;
 
 class UpdateNodeTest extends ApplicationApiIntegrationTestCase
 {

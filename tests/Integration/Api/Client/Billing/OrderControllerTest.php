@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Tests\Integration\Api\Client\Billing;
+namespace DarkOak\Tests\Integration\Api\Client\Billing;
 
-use Everest\Models\User;
+use DarkOak\Models\User;
 use Illuminate\Support\Facades\Storage;
-use Everest\Services\Billing\InvoiceGenerationService;
-use Everest\Tests\Traits\Integration\CreatesBillingTestModels;
-use Everest\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
+use DarkOak\Services\Billing\InvoiceGenerationService;
+use DarkOak\Tests\Traits\Integration\CreatesBillingTestModels;
+use DarkOak\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 
 class OrderControllerTest extends ClientApiIntegrationTestCase
 {

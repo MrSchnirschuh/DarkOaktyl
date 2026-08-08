@@ -1,13 +1,13 @@
 <?php
 
-namespace Everest\Tests\Integration\Services\Databases;
+namespace DarkOak\Tests\Integration\Services\Databases;
 
 use Mockery\MockInterface;
-use Everest\Models\Database;
-use Everest\Models\DatabaseHost;
-use Everest\Tests\Integration\IntegrationTestCase;
-use Everest\Repositories\Eloquent\DatabaseRepository;
-use Everest\Services\Databases\DatabasePasswordService;
+use DarkOak\Models\Database;
+use DarkOak\Models\DatabaseHost;
+use DarkOak\Tests\Integration\IntegrationTestCase;
+use DarkOak\Repositories\Eloquent\DatabaseRepository;
+use DarkOak\Services\Databases\DatabasePasswordService;
 
 class DatabasePasswordServiceTest extends IntegrationTestCase
 {

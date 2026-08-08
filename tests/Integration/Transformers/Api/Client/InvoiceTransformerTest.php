@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Tests\Integration\Transformers\Api\Client;
+namespace DarkOak\Tests\Integration\Transformers\Api\Client;
 
 use Carbon\Carbon;
-use Everest\Tests\TestCase;
-use Everest\Models\Billing\Invoice;
-use Everest\Transformers\Api\Client\InvoiceTransformer;
+use DarkOak\Tests\TestCase;
+use DarkOak\Models\Billing\Invoice;
+use DarkOak\Transformers\Api\Client\InvoiceTransformer;
 
 /**
  * Lives under Integration (not Unit) despite not touching the database: this

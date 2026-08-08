@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Tests\Integration\Console\Commands\Billing;
+namespace DarkOak\Tests\Integration\Console\Commands\Billing;
 
-use Everest\Models\Billing\Order;
+use DarkOak\Models\Billing\Order;
 use Illuminate\Support\Facades\Queue;
-use Everest\Jobs\Billing\GenerateInvoiceJob;
-use Everest\Tests\Traits\Integration\CreatesBillingTestModels;
-use Everest\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
+use DarkOak\Jobs\Billing\GenerateInvoiceJob;
+use DarkOak\Tests\Traits\Integration\CreatesBillingTestModels;
+use DarkOak\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 
 class GenerateInvoicesCommandTest extends ClientApiIntegrationTestCase
 {

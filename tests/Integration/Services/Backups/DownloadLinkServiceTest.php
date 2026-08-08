@@ -1,15 +1,15 @@
 <?php
 
-namespace Everest\Tests\Integration\Services\Backups;
+namespace DarkOak\Tests\Integration\Services\Backups;
 
-use Everest\Enum\JwtScope;
-use Everest\Models\Backup;
+use DarkOak\Enum\JwtScope;
+use DarkOak\Models\Backup;
 use Carbon\CarbonImmutable;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
 use Lcobucci\JWT\Signer\Key\InMemory;
-use Everest\Services\Backups\DownloadLinkService;
-use Everest\Tests\Integration\IntegrationTestCase;
+use DarkOak\Services\Backups\DownloadLinkService;
+use DarkOak\Tests\Integration\IntegrationTestCase;
 use Lcobucci\JWT\Validation\Constraint\SignedWith;
 
 class DownloadLinkServiceTest extends IntegrationTestCase

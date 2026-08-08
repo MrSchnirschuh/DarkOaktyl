@@ -66,13 +66,13 @@ class EmailTemplateRendererTest extends TestCase
 
         $template = new EmailTemplate([
             'name' => 'Onboarding',
-            'subject' => 'Welcome, {{ user.username }}',
+            'subject' => 'Welcome, {{ $user->username }}',
             'content' => <<<'MD'
-Hi **{{ user.username }}**,
+Hi **{{ $user->username }}**,
 
 ![Logo](/assets/email/logo.png)
 
-Your email is {{ user.email }}.
+Your email is {{ $user->email }}.
 MD,
             'locale' => 'en',
             'metadata' => [],
@@ -145,9 +145,9 @@ MD,
 
         $template = new EmailTemplate([
             'name' => 'Coupon Drop',
-            'subject' => 'Coupon {{ data["coupon/code"] ?? "" }} ready',
+            'subject' => 'Coupon {{ $data["coupon/code"] ?? "" }} ready',
             'content' => <<<'MD'
-Redeem code **{{ data['coupon/code'] ?? '' }}** at checkout.
+Redeem code **{{ $data['coupon/code'] ?? '' }}** at checkout.
 MD,
             'locale' => 'en',
             'metadata' => [],

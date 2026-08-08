@@ -1,13 +1,13 @@
 <?php
 
-namespace Everest\Tests\Integration\Jobs\Billing;
+namespace DarkOak\Tests\Integration\Jobs\Billing;
 
 use Illuminate\Support\Facades\Storage;
-use Everest\Jobs\Billing\GenerateInvoiceJob;
-use Everest\Models\Billing\BillingException;
-use Everest\Services\Billing\InvoiceGenerationService;
-use Everest\Tests\Traits\Integration\CreatesBillingTestModels;
-use Everest\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
+use DarkOak\Jobs\Billing\GenerateInvoiceJob;
+use DarkOak\Models\Billing\BillingException;
+use DarkOak\Services\Billing\InvoiceGenerationService;
+use DarkOak\Tests\Traits\Integration\CreatesBillingTestModels;
+use DarkOak\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 
 class GenerateInvoiceJobTest extends ClientApiIntegrationTestCase
 {

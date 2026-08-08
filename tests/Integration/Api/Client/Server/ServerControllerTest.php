@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Tests\Integration\Api\Client\Server;
+namespace DarkOak\Tests\Integration\Api\Client\Server;
 
-use Everest\Models\Node;
+use DarkOak\Models\Node;
 use Illuminate\Http\Response;
-use Everest\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
+use DarkOak\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 
 class ServerControllerTest extends ClientApiIntegrationTestCase
 {

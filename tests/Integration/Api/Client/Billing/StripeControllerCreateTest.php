@@ -1,14 +1,14 @@
 <?php
 
-namespace Everest\Tests\Integration\Api\Client\Billing;
+namespace DarkOak\Tests\Integration\Api\Client\Billing;
 
-use Everest\Models\Node;
-use Everest\Models\User;
+use DarkOak\Models\Node;
+use DarkOak\Models\User;
 use Stripe\StripeClient;
-use Everest\Models\Billing\Order;
-use Everest\Models\Billing\DiscountCode;
-use Everest\Tests\Traits\Integration\CreatesBillingTestModels;
-use Everest\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
+use DarkOak\Models\Billing\Order;
+use DarkOak\Models\Billing\DiscountCode;
+use DarkOak\Tests\Traits\Integration\CreatesBillingTestModels;
+use DarkOak\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 
 class StripeControllerCreateTest extends ClientApiIntegrationTestCase
 {

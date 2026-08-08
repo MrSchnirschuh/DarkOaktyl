@@ -1,15 +1,15 @@
 <?php
 
-namespace Everest\Tests\Integration\Jobs;
+namespace DarkOak\Tests\Integration\Jobs;
 
-use Everest\Models\Node;
-use Everest\Models\Server;
-use Everest\Jobs\RevokeSftpAccessJob;
+use DarkOak\Models\Node;
+use DarkOak\Models\Server;
+use DarkOak\Jobs\RevokeSftpAccessJob;
 use PHPUnit\Framework\Attributes\TestWith;
 use GuzzleHttp\Exception\TransferException;
-use Everest\Tests\Integration\IntegrationTestCase;
-use Everest\Repositories\Wings\DaemonRevocationRepository;
-use Everest\Exceptions\Http\Connection\DaemonConnectionException;
+use DarkOak\Tests\Integration\IntegrationTestCase;
+use DarkOak\Repositories\Wings\DaemonRevocationRepository;
+use DarkOak\Exceptions\Http\Connection\DaemonConnectionException;
 
 class RevokeSftpAccessJobTest extends IntegrationTestCase
 {

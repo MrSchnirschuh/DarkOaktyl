@@ -1,14 +1,14 @@
 <?php
 
-namespace Everest\Tests\Integration\Services\Users;
+namespace DarkOak\Tests\Integration\Services\Users;
 
-use Everest\Models\User;
-use Everest\Models\Subuser;
+use DarkOak\Models\User;
+use DarkOak\Models\Subuser;
 use Illuminate\Support\Facades\Bus;
-use Everest\Jobs\RevokeSftpAccessJob;
-use Everest\Exceptions\DisplayException;
-use Everest\Services\Users\UserDeletionService;
-use Everest\Tests\Integration\IntegrationTestCase;
+use DarkOak\Jobs\RevokeSftpAccessJob;
+use DarkOak\Exceptions\DisplayException;
+use DarkOak\Services\Users\UserDeletionService;
+use DarkOak\Tests\Integration\IntegrationTestCase;
 
 class UserDeletionServiceTest extends IntegrationTestCase
 {

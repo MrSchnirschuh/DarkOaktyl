@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Tests\Integration\Http\Controllers\Auth;
+namespace DarkOak\Tests\Integration\Http\Controllers\Auth;
 
-use Everest\Models\User;
+use DarkOak\Models\User;
 use Illuminate\Support\Facades\Http;
-use Everest\Tests\Integration\Http\HttpTestCase;
+use DarkOak\Tests\Integration\Http\HttpTestCase;
 
 class JGuardTest extends HttpTestCase
 {

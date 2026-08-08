@@ -1,13 +1,13 @@
 <?php
 
-namespace Everest\Tests\Integration\Api\Client\Billing;
+namespace DarkOak\Tests\Integration\Api\Client\Billing;
 
 use Ramsey\Uuid\Uuid;
 use Stripe\StripeClient;
-use Everest\Models\Billing\Order;
-use Everest\Models\Billing\Product;
-use Everest\Models\Billing\Category;
-use Everest\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
+use DarkOak\Models\Billing\Order;
+use DarkOak\Models\Billing\Product;
+use DarkOak\Models\Billing\Category;
+use DarkOak\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 
 class StripeControllerTest extends ClientApiIntegrationTestCase
 {
@@ -97,7 +97,7 @@ class StripeControllerTest extends ClientApiIntegrationTestCase
     public function testMismatchedCurrencyPaymentIsRejected(): void
     {
         $this->enableBilling();
-        $user = \Everest\Models\User::factory()->create();
+        $user = \DarkOak\Models\User::factory()->create();
         $server = $this->createServerModel(['user_id' => $user->id, 'renewal_date' => now()->subDays(30)]);
         $product = $this->makeProduct();
         $server->update(['billing_product_id' => $product->id]);
@@ -135,7 +135,7 @@ class StripeControllerTest extends ClientApiIntegrationTestCase
     public function testMatchingPaymentIsAccepted(): void
     {
         $this->enableBilling();
-        $user = \Everest\Models\User::factory()->create();
+        $user = \DarkOak\Models\User::factory()->create();
         $server = $this->createServerModel(['user_id' => $user->id, 'renewal_date' => now()->subDays(30)]);
         $product = $this->makeProduct();
         $server->update(['billing_product_id' => $product->id]);
