@@ -8,7 +8,7 @@ WORKDIR     /var/www/DarkOaktyl
 
 COPY        --chown=1001:0 public ./public
 COPY        --chown=1001:0 resources/scripts ./resources/scripts
-COPY        --chown=1001:0 .eslintignore .eslintrc.js .npmrc .prettierrc.json package.json pnpm-lock.yaml tailwind.config.js tsconfig.json vite.config.ts .
+COPY        --chown=1001:0 .eslintignore .eslintrc.js .prettierrc.json package.json pnpm-lock.yaml tailwind.config.js tsconfig.json vite.config.ts .
 
 RUN         /opt/app-root/src/.npm-global/bin/pnpm install \
                 && /opt/app-root/src/.npm-global/bin/pnpm build \
@@ -24,7 +24,7 @@ COPY        --chown=1001:0 resources/lang ./resources/lang
 COPY        --chown=1001:0 resources/views ./resources/views
 COPY        --chown=1001:0 routes ./routes
 COPY        --chown=1001:0 .env.example ./.env
-COPY        --chown=1001:0 artisan CHANGELOG.md composer.json composer.lock LICENSE.md README.md SECURITY.md .
+COPY        --chown=1001:0 artisan composer.json composer.lock LICENSE.md README.md .
 
 # Stage 2 - Final
 FROM        --platform=$TARGETOS/$TARGETARCH registry.access.redhat.com/ubi9/ubi-minimal
