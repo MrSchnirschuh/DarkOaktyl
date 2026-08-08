@@ -76,10 +76,14 @@ const LegalContainer = () => {
                             {/* Header with status and preview link */}
                             <div css={tw`flex items-center justify-between`}>
                                 <div css={tw`flex items-center gap-2`}>
-                                    <DocumentTextIcon css={tw`w-5 h-5`}
-                                        style={{ color: 'var(--theme-accent, #22c55e)' }} />
-                                    <span css={tw`text-sm font-medium`}
-                                        style={{ color: 'var(--theme-text-primary, #f1f5f9)' }}>
+                                    <DocumentTextIcon
+                                        css={tw`w-5 h-5`}
+                                        style={{ color: 'var(--theme-accent, #22c55e)' }}
+                                    />
+                                    <span
+                                        css={tw`text-sm font-medium`}
+                                        style={{ color: 'var(--theme-text-primary, #f1f5f9)' }}
+                                    >
                                         {document.title}
                                     </span>
                                 </div>
@@ -120,15 +124,16 @@ const LegalContainer = () => {
                                     placeholder={'Paste the legal text here...'}
                                     css={tw`font-mono text-sm leading-relaxed`}
                                 />
-                                <p css={tw`text-xs mt-2`}
-                                    style={{ color: 'var(--theme-text-muted, #64748b)' }}>
+                                <p css={tw`text-xs mt-2`} style={{ color: 'var(--theme-text-muted, #64748b)' }}>
                                     Line breaks are automatically preserved. Format with numbered sections.
                                 </p>
                             </div>
 
                             {/* Publish toggle + last updated */}
-                            <div css={tw`flex items-center justify-between pt-2 border-t`}
-                                style={{ borderColor: 'var(--theme-surface-card, #334155)' }}>
+                            <div
+                                css={tw`flex items-center justify-between pt-2 border-t`}
+                                style={{ borderColor: 'var(--theme-surface-card, #334155)' }}
+                            >
                                 <Switch
                                     name={`publish-${document.slug}`}
                                     label={'Publish page'}
@@ -139,10 +144,12 @@ const LegalContainer = () => {
                                     }
                                 />
                                 {document.updatedAt && (
-                                    <span css={tw`text-xs`}
-                                        style={{ color: 'var(--theme-text-muted, #64748b)' }}>
-                                        Updated: {new Date(document.updatedAt).toLocaleDateString('en-GB', {
-                                            day: 'numeric', month: 'short', year: 'numeric',
+                                    <span css={tw`text-xs`} style={{ color: 'var(--theme-text-muted, #64748b)' }}>
+                                        Updated:{' '}
+                                        {new Date(document.updatedAt).toLocaleDateString('en-GB', {
+                                            day: 'numeric',
+                                            month: 'short',
+                                            year: 'numeric',
                                         })}
                                     </span>
                                 )}
@@ -150,10 +157,7 @@ const LegalContainer = () => {
 
                             {/* Save button */}
                             <div css={tw`text-right`}>
-                                <Button
-                                    onClick={() => handleSave(document)}
-                                    disabled={saving === document.slug}
-                                >
+                                <Button onClick={() => handleSave(document)} disabled={saving === document.slug}>
                                     <SaveIcon css={tw`w-4 h-4 mr-1.5`} />
                                     {saving === document.slug ? 'Saving...' : 'Save changes'}
                                 </Button>

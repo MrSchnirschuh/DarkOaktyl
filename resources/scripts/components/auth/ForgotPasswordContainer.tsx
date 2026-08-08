@@ -25,7 +25,9 @@ function ForgotPasswordContainer() {
     const [token, setToken] = useState('');
 
     const { clearFlashes, addFlash } = useFlash();
-    const { enabled: recaptchaEnabled, siteKey } = useStoreState(state => state.settings.data?.recaptcha ?? { enabled: false, siteKey: '' });
+    const { enabled: recaptchaEnabled, siteKey } = useStoreState(
+        state => state.settings.data?.recaptcha ?? { enabled: false, siteKey: '' },
+    );
 
     useEffect(() => {
         clearFlashes();

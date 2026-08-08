@@ -20,7 +20,12 @@ export default () => {
             <FlashMessageRender byKey={'admin:webhooks'} className={'mb-4'} />
             <div className={'w-full flex flex-row items-center mb-8'}>
                 <div className={'flex flex-col flex-shrink'} style={{ minWidth: '0' }}>
-                    <h2 className={'text-2xl font-header font-medium'} style={{ color: 'var(--theme-text-primary, #111827)' }}>Webhook Logging</h2>
+                    <h2
+                        className={'text-2xl font-header font-medium'}
+                        style={{ color: 'var(--theme-text-primary, #111827)' }}
+                    >
+                        Webhook Logging
+                    </h2>
                     <p
                         className={
                             'hidden lg:block text-base text-theme-muted whitespace-nowrap overflow-ellipsis overflow-hidden'
@@ -47,4 +52,3 @@ export default () => {
         </AdminContentBlock>
     );
 };
-

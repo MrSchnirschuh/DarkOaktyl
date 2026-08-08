@@ -11,7 +11,12 @@ import { ServerError } from '@/elements/ScreenBlock';
 import { httpErrorToHuman } from '@/api/http';
 import { ServerContext } from '@/state/server';
 import useFlash from '@/plugins/useFlash';
-import { getAutoScalingConfig, updateAutoScalingConfig, getAutoScalingHistory, triggerManualScaling } from '@/api/routes/server/autoscaling';
+import {
+    getAutoScalingConfig,
+    updateAutoScalingConfig,
+    getAutoScalingHistory,
+    triggerManualScaling,
+} from '@/api/routes/server/autoscaling';
 
 interface AutoScalingData {
     id: number;
@@ -69,10 +74,7 @@ const AutoScalingSettings = () => {
 
     const fetchData = useCallback(async () => {
         try {
-            const [config, historyData] = await Promise.all([
-                getAutoScalingConfig(uuid),
-                getAutoScalingHistory(uuid),
-            ]);
+            const [config, historyData] = await Promise.all([getAutoScalingConfig(uuid), getAutoScalingHistory(uuid)]);
             setData(config);
             setHistory(historyData.data);
             setError(null);
@@ -179,10 +181,7 @@ const AutoScalingSettings = () => {
                             Automatically scale server resources based on usage thresholds.
                         </p>
                     </div>
-                    <Toggle
-                        checked={data.enabled}
-                        onChange={() => setData({ ...data, enabled: !data.enabled })}
-                    />
+                    <Toggle checked={data.enabled} onChange={() => setData({ ...data, enabled: !data.enabled })} />
                 </div>
                 {data.enabled && (
                     <>
@@ -293,7 +292,9 @@ const AutoScalingSettings = () => {
                                 type="number"
                                 min={0}
                                 value={data.limits.scale_up}
-                                onChange={e => setData({ ...data, limits: { ...data.limits, scale_up: parseInt(e.target.value) } })}
+                                onChange={e =>
+                                    setData({ ...data, limits: { ...data.limits, scale_up: parseInt(e.target.value) } })
+                                }
                             />
                         </div>
                         <div>
@@ -302,7 +303,12 @@ const AutoScalingSettings = () => {
                                 type="number"
                                 min={0}
                                 value={data.limits.scale_down}
-                                onChange={e => setData({ ...data, limits: { ...data.limits, scale_down: parseInt(e.target.value) } })}
+                                onChange={e =>
+                                    setData({
+                                        ...data,
+                                        limits: { ...data.limits, scale_down: parseInt(e.target.value) },
+                                    })
+                                }
                             />
                         </div>
                     </div>
@@ -316,7 +322,9 @@ const AutoScalingSettings = () => {
                                 type="number"
                                 min={1}
                                 value={data.steps.up}
-                                onChange={e => setData({ ...data, steps: { ...data.steps, up: parseInt(e.target.value) } })}
+                                onChange={e =>
+                                    setData({ ...data, steps: { ...data.steps, up: parseInt(e.target.value) } })
+                                }
                             />
                         </div>
                         <div>
@@ -325,7 +333,9 @@ const AutoScalingSettings = () => {
                                 type="number"
                                 min={1}
                                 value={data.steps.down}
-                                onChange={e => setData({ ...data, steps: { ...data.steps, down: parseInt(e.target.value) } })}
+                                onChange={e =>
+                                    setData({ ...data, steps: { ...data.steps, down: parseInt(e.target.value) } })
+                                }
                             />
                         </div>
                         <div>
@@ -358,9 +368,7 @@ const AutoScalingSettings = () => {
             <h3 css={tw`text-xl font-semibold mb-4`}>Scaling History</h3>
             <TitledGreyBox title="Recent Actions">
                 {history.length === 0 ? (
-                    <div css={tw`px-4 py-8 text-center text-gray-400`}>
-                        No scaling history available.
-                    </div>
+                    <div css={tw`px-4 py-8 text-center text-gray-400`}>No scaling history available.</div>
                 ) : (
                     <div css={tw`divide-y divide-gray-700`}>
                         {history.slice(0, 10).map(entry => (
@@ -372,11 +380,15 @@ const AutoScalingSettings = () => {
                                     </span>
                                 </div>
                                 <div css={tw`text-sm text-gray-400 mb-1`}>
-                                    <span css={tw`inline-block px-2 py-0.5 rounded text-xs mr-2 ${
-                                        entry.status === 'success' ? 'bg-green-900 text-green-200' :
-                                        entry.status === 'failed' ? 'bg-red-900 text-red-200' :
-                                        'bg-yellow-900 text-yellow-200'
-                                    }`}>
+                                    <span
+                                        css={tw`inline-block px-2 py-0.5 rounded text-xs mr-2 ${
+                                            entry.status === 'success'
+                                                ? 'bg-green-900 text-green-200'
+                                                : entry.status === 'failed'
+                                                ? 'bg-red-900 text-red-200'
+                                                : 'bg-yellow-900 text-yellow-200'
+                                        }`}
+                                    >
                                         {entry.status_label}
                                     </span>
                                     {entry.trigger_label && <span>Triggered by: {entry.trigger_label}</span>}

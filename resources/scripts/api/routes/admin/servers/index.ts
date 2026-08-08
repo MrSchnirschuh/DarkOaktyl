@@ -14,14 +14,17 @@ coreApi = createCrudApi<Server>(BASE_PATH);
 // Extended API mit spezifischen Server-Operationen und Error Handling
 export const serversApi = {
     // Liste alle Server mit Pagination und Filtern
-    getAll: async (params?: {
-        page?: number;
-        filters?: Filters;
-        include?: string[];
-    }, flashMessage?: (msg: string) => void): Promise<PaginatedResult<Server>> => {
+    getAll: async (
+        params?: {
+            page?: number;
+            filters?: Filters;
+            include?: string[];
+        },
+        flashMessage?: (msg: string) => void,
+    ): Promise<PaginatedResult<Server>> => {
         try {
             const queryParams: Record<string, any> = {};
-            
+
             if (params?.include?.length) {
                 queryParams.include = params.include.join(',');
             }
@@ -60,10 +63,9 @@ export const serversApi = {
     // Einzelnen Server abrufen
     getById: async (id: number, include: string[] = [], flashMessage?: (msg: string) => void): Promise<Server> => {
         try {
-            const { data } = await http.get<{ data: FractalResponseData }>(
-                `${BASE_PATH}/${id}`,
-                { params: { include: include.join(',') } }
-            );
+            const { data } = await http.get<{ data: FractalResponseData }>(`${BASE_PATH}/${id}`, {
+                params: { include: include.join(',') },
+            });
             return rawDataToServer(data);
         } catch (error) {
             handleApiError(error, flashMessage);
@@ -72,7 +74,11 @@ export const serversApi = {
     },
 
     // Neuen Server erstellen
-    create: async (request: CreateServerRequest, include: string[] = [], flashMessage?: (msg: string) => void): Promise<Server> => {
+    create: async (
+        request: CreateServerRequest,
+        include: string[] = [],
+        flashMessage?: (msg: string) => void,
+    ): Promise<Server> => {
         try {
             const { data } = await http.post(
                 BASE_PATH,
@@ -108,7 +114,7 @@ export const serversApi = {
                     skip_scripts: request.skipScripts,
                     start_on_completion: request.startOnCompletion,
                 },
-                { params: { include: include.join(',') } }
+                { params: { include: include.join(',') } },
             );
             return rawDataToServer(data);
         } catch (error) {
@@ -118,7 +124,12 @@ export const serversApi = {
     },
 
     // Server aktualisieren
-    update: async (id: number, server: Partial<UpdateServerValues>, include: string[] = [], flashMessage?: (msg: string) => void): Promise<Server> => {
+    update: async (
+        id: number,
+        server: Partial<UpdateServerValues>,
+        include: string[] = [],
+        flashMessage?: (msg: string) => void,
+    ): Promise<Server> => {
         try {
             const { data } = await http.patch(
                 `${BASE_PATH}/${id}`,
@@ -147,7 +158,7 @@ export const serversApi = {
                     add_allocations: server.addAllocations,
                     remove_allocations: server.removeAllocations,
                 },
-                { params: { include: include.join(',') } }
+                { params: { include: include.join(',') } },
             );
             return rawDataToServer(data);
         } catch (error) {
@@ -167,7 +178,13 @@ export const serversApi = {
     },
 
     // Server Startup aktualisieren
-    updateStartup: async (id: number, startup: string, environment: Record<string, string>, image: string, flashMessage?: (msg: string) => void): Promise<void> => {
+    updateStartup: async (
+        id: number,
+        startup: string,
+        environment: Record<string, string>,
+        image: string,
+        flashMessage?: (msg: string) => void,
+    ): Promise<void> => {
         try {
             await http.put(`${BASE_PATH}/${id}/startup`, {
                 startup,

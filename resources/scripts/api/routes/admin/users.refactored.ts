@@ -54,7 +54,11 @@ export const userApi = {
     /**
      * Create user with proper key transformation.
      */
-    create: async (values: UpdateUserValues, include: string[] = [], flashMessage?: (msg: string) => void): Promise<User> => {
+    create: async (
+        values: UpdateUserValues,
+        include: string[] = [],
+        flashMessage?: (msg: string) => void,
+    ): Promise<User> => {
         try {
             const { data } = await http.post('/api/application/users', transformKeys(values), {
                 params: { include: include.join(',') },

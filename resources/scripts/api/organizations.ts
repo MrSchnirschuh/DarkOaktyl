@@ -89,10 +89,13 @@ export const createOrganization = (data: {
     return http.post('/api/client/organizations', data);
 };
 
-export const updateOrganization = (slug: string, data: {
-    name?: string;
-    description?: string;
-}): Promise<{ data: Organization }> => {
+export const updateOrganization = (
+    slug: string,
+    data: {
+        name?: string;
+        description?: string;
+    },
+): Promise<{ data: Organization }> => {
     return http.patch(`/api/client/organizations/${slug}`, data);
 };
 
@@ -109,11 +112,14 @@ export const getOrganizationSettings = (slug: string): Promise<{ data: any }> =>
     return http.get(`/api/client/organizations/${slug}/settings`);
 };
 
-export const updateOrganizationSettings = (slug: string, data: {
-    split_costs?: boolean;
-    auto_approve_members?: boolean;
-    default_member_role?: string;
-}): Promise<{ data: any }> => {
+export const updateOrganizationSettings = (
+    slug: string,
+    data: {
+        split_costs?: boolean;
+        auto_approve_members?: boolean;
+        default_member_role?: string;
+    },
+): Promise<{ data: any }> => {
     return http.patch(`/api/client/organizations/${slug}/settings`, data);
 };
 
@@ -122,7 +128,11 @@ export const getOrganizationMembers = (slug: string): Promise<{ data: Organizati
     return http.get(`/api/client/organizations/${slug}/members`);
 };
 
-export const updateMemberRole = (slug: string, memberId: number, role: string): Promise<{ data: OrganizationMember }> => {
+export const updateMemberRole = (
+    slug: string,
+    memberId: number,
+    role: string,
+): Promise<{ data: OrganizationMember }> => {
     return http.patch(`/api/client/organizations/${slug}/members/${memberId}`, { role });
 };
 
@@ -130,11 +140,15 @@ export const removeMember = (slug: string, memberId: number): Promise<void> => {
     return http.delete(`/api/client/organizations/${slug}/members/${memberId}`);
 };
 
-export const updateMemberBilling = (slug: string, memberId: number, data: {
-    monthly_share_amount?: number;
-    payment_method?: string;
-    billing_email?: string;
-}): Promise<{ data: OrganizationMember }> => {
+export const updateMemberBilling = (
+    slug: string,
+    memberId: number,
+    data: {
+        monthly_share_amount?: number;
+        payment_method?: string;
+        billing_email?: string;
+    },
+): Promise<{ data: OrganizationMember }> => {
     return http.patch(`/api/client/organizations/${slug}/members/${memberId}/billing`, data);
 };
 
@@ -147,7 +161,10 @@ export const getSplitBilling = (slug: string): Promise<{ data: SplitBilling }> =
     return http.get(`/api/client/organizations/${slug}/split-billing`);
 };
 
-export const setCustomShares = (slug: string, shares: Array<{ user_id: number; amount: number }>): Promise<{ data: SplitBilling }> => {
+export const setCustomShares = (
+    slug: string,
+    shares: Array<{ user_id: number; amount: number }>,
+): Promise<{ data: SplitBilling }> => {
     return http.post(`/api/client/organizations/${slug}/split-billing/shares`, { shares });
 };
 
@@ -160,11 +177,14 @@ export const getOrganizationInvitations = (slug: string): Promise<{ data: Organi
     return http.get(`/api/client/organizations/${slug}/invitations`);
 };
 
-export const inviteMember = (slug: string, data: {
-    email: string;
-    role?: string;
-    message?: string;
-}): Promise<{ data: OrganizationInvitation }> => {
+export const inviteMember = (
+    slug: string,
+    data: {
+        email: string;
+        role?: string;
+        message?: string;
+    },
+): Promise<{ data: OrganizationInvitation }> => {
     return http.post(`/api/client/organizations/${slug}/invitations`, data);
 };
 

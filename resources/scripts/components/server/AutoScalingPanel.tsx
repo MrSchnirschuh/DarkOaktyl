@@ -77,7 +77,7 @@ export default function AutoScalingPanel({ serverId }: Props) {
 
     const handleSave = async () => {
         if (!rule) return;
-        
+
         setIsSaving(true);
         setError(null);
         setSuccess(null);
@@ -111,7 +111,7 @@ export default function AutoScalingPanel({ serverId }: Props) {
             const response = await fetch(`/api/client/servers/${serverId}/autoscale/evaluate`, {
                 method: 'POST',
             });
-            
+
             if (response.ok) {
                 const data = await response.json();
                 if (data.data) {
@@ -143,9 +143,7 @@ export default function AutoScalingPanel({ serverId }: Props) {
                         <FontAwesomeIcon icon={faChartLine} className="text-blue-500" />
                         Auto-Scaling
                     </h3>
-                    <p className="text-sm text-gray-500">
-                        Automatically adjust server resources based on usage
-                    </p>
+                    <p className="text-sm text-gray-500">Automatically adjust server resources based on usage</p>
                 </div>
                 <div className="flex items-center gap-3">
                     <Button variant="secondary" onClick={handleToggleHistory}>
@@ -154,7 +152,7 @@ export default function AutoScalingPanel({ serverId }: Props) {
                     </Button>
                     <Switch
                         checked={rule?.enabled || false}
-                        onChange={(enabled) => setRule(prev => prev ? { ...prev, enabled } : null)}
+                        onChange={enabled => setRule(prev => (prev ? { ...prev, enabled } : null))}
                     />
                 </div>
             </div>
@@ -167,9 +165,7 @@ export default function AutoScalingPanel({ serverId }: Props) {
             )}
 
             {success && (
-                <div className="p-3 bg-green-50 border border-green-200 rounded text-green-600 text-sm">
-                    {success}
-                </div>
+                <div className="p-3 bg-green-50 border border-green-200 rounded text-green-600 text-sm">{success}</div>
             )}
 
             {rule?.enabled && (
@@ -182,7 +178,11 @@ export default function AutoScalingPanel({ serverId }: Props) {
                                 min="1"
                                 max="100"
                                 value={rule.cpu_threshold}
-                                onChange={(e) => setRule(prev => prev ? { ...prev, cpu_threshold: parseInt(e.target.value) } : null)}
+                                onChange={e =>
+                                    setRule(prev =>
+                                        prev ? { ...prev, cpu_threshold: parseInt(e.target.value) } : null,
+                                    )
+                                }
                                 className="w-full px-3 py-2 border rounded"
                             />
                             <p className="text-xs text-gray-500">Scale up when CPU exceeds this %</p>
@@ -195,7 +195,11 @@ export default function AutoScalingPanel({ serverId }: Props) {
                                 min="1"
                                 max="100"
                                 value={rule.memory_threshold}
-                                onChange={(e) => setRule(prev => prev ? { ...prev, memory_threshold: parseInt(e.target.value) } : null)}
+                                onChange={e =>
+                                    setRule(prev =>
+                                        prev ? { ...prev, memory_threshold: parseInt(e.target.value) } : null,
+                                    )
+                                }
                                 className="w-full px-3 py-2 border rounded"
                             />
                             <p className="text-xs text-gray-500">Scale up when memory exceeds this %</p>
@@ -208,7 +212,11 @@ export default function AutoScalingPanel({ serverId }: Props) {
                                 min="64"
                                 step="64"
                                 value={rule.scale_up_step}
-                                onChange={(e) => setRule(prev => prev ? { ...prev, scale_up_step: parseInt(e.target.value) } : null)}
+                                onChange={e =>
+                                    setRule(prev =>
+                                        prev ? { ...prev, scale_up_step: parseInt(e.target.value) } : null,
+                                    )
+                                }
                                 className="w-full px-3 py-2 border rounded"
                             />
                             <p className="text-xs text-gray-500">Memory to add when scaling up</p>
@@ -221,7 +229,11 @@ export default function AutoScalingPanel({ serverId }: Props) {
                                 min="64"
                                 step="64"
                                 value={rule.scale_down_step}
-                                onChange={(e) => setRule(prev => prev ? { ...prev, scale_down_step: parseInt(e.target.value) } : null)}
+                                onChange={e =>
+                                    setRule(prev =>
+                                        prev ? { ...prev, scale_down_step: parseInt(e.target.value) } : null,
+                                    )
+                                }
                                 className="w-full px-3 py-2 border rounded"
                             />
                             <p className="text-xs text-gray-500">Memory to remove when scaling down</p>
@@ -233,7 +245,9 @@ export default function AutoScalingPanel({ serverId }: Props) {
                                 type="number"
                                 min="128"
                                 value={rule.min_memory}
-                                onChange={(e) => setRule(prev => prev ? { ...prev, min_memory: parseInt(e.target.value) } : null)}
+                                onChange={e =>
+                                    setRule(prev => (prev ? { ...prev, min_memory: parseInt(e.target.value) } : null))
+                                }
                                 className="w-full px-3 py-2 border rounded"
                             />
                         </div>
@@ -244,7 +258,9 @@ export default function AutoScalingPanel({ serverId }: Props) {
                                 type="number"
                                 min="256"
                                 value={rule.max_memory}
-                                onChange={(e) => setRule(prev => prev ? { ...prev, max_memory: parseInt(e.target.value) } : null)}
+                                onChange={e =>
+                                    setRule(prev => (prev ? { ...prev, max_memory: parseInt(e.target.value) } : null))
+                                }
                                 className="w-full px-3 py-2 border rounded"
                             />
                         </div>
@@ -255,7 +271,11 @@ export default function AutoScalingPanel({ serverId }: Props) {
                                 type="number"
                                 min="1"
                                 value={rule.scale_up_cooldown}
-                                onChange={(e) => setRule(prev => prev ? { ...prev, scale_up_cooldown: parseInt(e.target.value) } : null)}
+                                onChange={e =>
+                                    setRule(prev =>
+                                        prev ? { ...prev, scale_up_cooldown: parseInt(e.target.value) } : null,
+                                    )
+                                }
                                 className="w-full px-3 py-2 border rounded"
                             />
                         </div>
@@ -266,7 +286,11 @@ export default function AutoScalingPanel({ serverId }: Props) {
                                 type="number"
                                 min="1"
                                 value={rule.scale_down_cooldown}
-                                onChange={(e) => setRule(prev => prev ? { ...prev, scale_down_cooldown: parseInt(e.target.value) } : null)}
+                                onChange={e =>
+                                    setRule(prev =>
+                                        prev ? { ...prev, scale_down_cooldown: parseInt(e.target.value) } : null,
+                                    )
+                                }
                                 className="w-full px-3 py-2 border rounded"
                             />
                         </div>
@@ -290,8 +314,11 @@ export default function AutoScalingPanel({ serverId }: Props) {
                         <p className="text-gray-500 text-sm">No scaling events yet</p>
                     ) : (
                         <div className="space-y-2">
-                            {history.slice(0, 10).map((event) => (
-                                <div key={event.id} className="flex items-center justify-between p-3 bg-gray-50 rounded">
+                            {history.slice(0, 10).map(event => (
+                                <div
+                                    key={event.id}
+                                    className="flex items-center justify-between p-3 bg-gray-50 rounded"
+                                >
                                     <div className="flex items-center gap-3">
                                         <FontAwesomeIcon
                                             icon={event.action === 'up' ? faExpand : faCompress}

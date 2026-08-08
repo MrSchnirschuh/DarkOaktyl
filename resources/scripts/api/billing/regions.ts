@@ -31,15 +31,16 @@ export const getRegionsWithNodes = (): Promise<RegionWithNodes[]> => {
                     const region = rawDataToRegion(regionData);
                     return {
                         ...region,
-                        nodes: regionData.relationships?.nodes?.data?.map((n: any) => ({
-                            id: n.id,
-                            uuid: n.uuid,
-                            name: n.name,
-                            description: n.description,
-                            fqdn: n.fqdn,
-                            public: n.public,
-                            maintenance_mode: n.maintenance_mode,
-                        })) || [],
+                        nodes:
+                            regionData.relationships?.nodes?.data?.map((n: any) => ({
+                                id: n.id,
+                                uuid: n.uuid,
+                                name: n.name,
+                                description: n.description,
+                                fqdn: n.fqdn,
+                                public: n.public,
+                                maintenance_mode: n.maintenance_mode,
+                            })) || [],
                     };
                 });
                 resolve(regions);
@@ -57,15 +58,16 @@ export const getRegionsForProduct = (productId: number): Promise<RegionWithNodes
             .then(({ data }) => {
                 const regions = (data.data || []).map((regionData: any) => ({
                     ...rawDataToRegion(regionData),
-                    nodes: regionData.relationships?.nodes?.data?.map((n: any) => ({
-                        id: n.id,
-                        uuid: n.uuid,
-                        name: n.name,
-                        description: n.description,
-                        fqdn: n.fqdn,
-                        public: n.public,
-                        maintenance_mode: n.maintenance_mode,
-                    })) || [],
+                    nodes:
+                        regionData.relationships?.nodes?.data?.map((n: any) => ({
+                            id: n.id,
+                            uuid: n.uuid,
+                            name: n.name,
+                            description: n.description,
+                            fqdn: n.fqdn,
+                            public: n.public,
+                            maintenance_mode: n.maintenance_mode,
+                        })) || [],
                 }));
                 resolve(regions);
             })
@@ -87,15 +89,16 @@ export const getDefaultRegionWithNodes = (): Promise<RegionWithNodes | null> => 
                 const region = rawDataToRegion(data.data);
                 resolve({
                     ...region,
-                    nodes: data.data.relationships?.nodes?.data?.map((n: any) => ({
-                        id: n.id,
-                        uuid: n.uuid,
-                        name: n.name,
-                        description: n.description,
-                        fqdn: n.fqdn,
-                        public: n.public,
-                        maintenance_mode: n.maintenance_mode,
-                    })) || [],
+                    nodes:
+                        data.data.relationships?.nodes?.data?.map((n: any) => ({
+                            id: n.id,
+                            uuid: n.uuid,
+                            name: n.name,
+                            description: n.description,
+                            fqdn: n.fqdn,
+                            public: n.public,
+                            maintenance_mode: n.maintenance_mode,
+                        })) || [],
                 });
             })
             .catch(reject);

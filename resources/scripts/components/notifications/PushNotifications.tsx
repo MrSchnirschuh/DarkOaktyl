@@ -3,7 +3,15 @@ import { Button } from '@elements/button';
 import { Switch } from '@elements/Switch';
 import { useStoreState } from '@/state/hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBell, faServer, faCreditCard, faExclamationTriangle, faCheckCircle, faDesktop, faMobileAlt } from '@fortawesome/free-solid-svg-icons';
+import {
+    faBell,
+    faServer,
+    faCreditCard,
+    faExclamationTriangle,
+    faCheckCircle,
+    faDesktop,
+    faMobileAlt,
+} from '@fortawesome/free-solid-svg-icons';
 import { ApplicationStore } from '@/state';
 
 interface NotificationEvent {
@@ -109,7 +117,7 @@ export default function PushNotifications() {
 
         try {
             const registration = await navigator.serviceWorker.ready;
-            
+
             const subscription = await registration.pushManager.subscribe({
                 userVisibleOnly: true,
                 applicationServerKey: urlBase64ToUint8Array(vapidKey),
@@ -122,10 +130,12 @@ export default function PushNotifications() {
                 body: JSON.stringify({
                     endpoint: subscription.endpoint,
                     keys: {
-                        p256dh: btoa(String.fromCharCode.apply(null, 
-                            new Uint8Array(subscription.getKey('p256dh')!) as any)),
-                        auth: btoa(String.fromCharCode.apply(null, 
-                            new Uint8Array(subscription.getKey('auth')!) as any)),
+                        p256dh: btoa(
+                            String.fromCharCode.apply(null, new Uint8Array(subscription.getKey('p256dh')!) as any),
+                        ),
+                        auth: btoa(
+                            String.fromCharCode.apply(null, new Uint8Array(subscription.getKey('auth')!) as any),
+                        ),
                     },
                 }),
             });
@@ -193,7 +203,7 @@ export default function PushNotifications() {
     const toggleCategory = (category: string) => {
         const categoryEvents = EVENTS.filter(e => e.category === category).map(e => e.key);
         const allEnabled = categoryEvents.every(e => preferences.includes(e));
-        
+
         if (allEnabled) {
             // Disable all in category
             updatePreferences(preferences.filter(p => !categoryEvents.includes(p)));
@@ -205,7 +215,7 @@ export default function PushNotifications() {
 
     // Helper function to convert base64 to Uint8Array
     function urlBase64ToUint8Array(base64String: string): Uint8Array {
-        const padding = '='.repeat((4 - base64String.length % 4) % 4);
+        const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
         const base64 = (base64String + padding).replace(/\-/g, '+').replace(/_/g, '/');
         const rawData = window.atob(base64);
         const outputArray = new Uint8Array(rawData.length);
@@ -243,20 +253,12 @@ export default function PushNotifications() {
                         {isSubscribed ? 'Subscribed' : 'Not Subscribed'}
                     </span>
                     {isSubscribed ? (
-                        <Button
-                            variant="danger"
-                            onClick={unsubscribe}
-                            loading={isLoading}
-                        >
+                        <Button variant="danger" onClick={unsubscribe} loading={isLoading}>
                             <FontAwesomeIcon icon={faBell} className="mr-2" />
                             Disable
                         </Button>
                     ) : (
-                        <Button
-                            variant="primary"
-                            onClick={subscribe}
-                            loading={isLoading}
-                        >
+                        <Button variant="primary" onClick={subscribe} loading={isLoading}>
                             <FontAwesomeIcon icon={faBell} className="mr-2" />
                             Enable
                         </Button>
@@ -285,7 +287,7 @@ export default function PushNotifications() {
             {isSubscribed && (
                 <div className="space-y-4">
                     <h3 className="font-medium text-lg">Notification Preferences</h3>
-                    
+
                     {(['server', 'backup', 'billing', 'alert'] as const).map(category => {
                         const categoryEvents = EVENTS.filter(e => e.category === category);
                         const allEnabled = categoryEvents.every(e => preferences.includes(e.key));
@@ -295,23 +297,15 @@ export default function PushNotifications() {
                             <div key={category} className="border rounded-lg p-4">
                                 <div className="flex items-center justify-between mb-3">
                                     <div className="flex items-center gap-2">
-                                        <FontAwesomeIcon 
-                                            icon={CATEGORY_ICONS[category]} 
-                                            className="text-gray-500" 
-                                        />
-                                        <h4 className="font-medium">
-                                            {CATEGORY_LABELS[category]}
-                                        </h4>
+                                        <FontAwesomeIcon icon={CATEGORY_ICONS[category]} className="text-gray-500" />
+                                        <h4 className="font-medium">{CATEGORY_LABELS[category]}</h4>
                                     </div>
-                                    <Switch
-                                        checked={allEnabled}
-                                        onChange={() => toggleCategory(category)}
-                                    />
+                                    <Switch checked={allEnabled} onChange={() => toggleCategory(category)} />
                                 </div>
-                                
+
                                 <div className="grid grid-cols-2 gap-2 pl-6">
                                     {categoryEvents.map(event => (
-                                        <label 
+                                        <label
                                             key={event.key}
                                             className="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded"
                                         >
@@ -337,8 +331,8 @@ export default function PushNotifications() {
                     Desktop and mobile browsers supported
                 </p>
                 <p className="mt-2">
-                    Push notifications are delivered even when the browser is closed. 
-                    You can manage your preferences anytime.
+                    Push notifications are delivered even when the browser is closed. You can manage your preferences
+                    anytime.
                 </p>
             </div>
         </div>

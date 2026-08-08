@@ -43,7 +43,7 @@ const categoryLabels: Record<string, string> = {
 export default () => {
     const { addFlash, clearFlashes } = useStoreActions((actions: Actions<ApplicationStore>) => actions.flashes);
     const user = useStoreState((state: State<ApplicationStore>) => state.user.data);
-    
+
     const [isLoading, setIsLoading] = useState(true);
     const [isSubscribing, setIsSubscribing] = useState(false);
     const [eventConfig, setEventConfig] = useState<EventConfig | null>(null);
@@ -279,9 +279,7 @@ export default () => {
                 {!isPushSupported ? (
                     <div css={tw`text-center py-8`}>
                         <FontAwesomeIcon icon={faBell} css={tw`text-4xl text-gray-400 mb-4`} />
-                        <p css={tw`text-gray-500`}>
-                            Push notifications are not supported in your browser.
-                        </p>
+                        <p css={tw`text-gray-500`}>Push notifications are not supported in your browser.</p>
                         <p css={tw`text-sm text-gray-400 mt-2`}>
                             Please use a modern browser like Chrome, Firefox, or Safari.
                         </p>
@@ -299,7 +297,9 @@ export default () => {
                 ) : (
                     <div css={tw`space-y-6`}>
                         {/* Status */}
-                        <div css={tw`flex items-center justify-between p-4 bg-green-500/10 rounded border border-green-500/20`}>
+                        <div
+                            css={tw`flex items-center justify-between p-4 bg-green-500/10 rounded border border-green-500/20`}
+                        >
                             <div>
                                 <p css={tw`font-medium text-green-400`}>
                                     <FontAwesomeIcon icon={faBell} css={tw`mr-2`} />
@@ -323,29 +323,27 @@ export default () => {
                         {eventConfig && (
                             <div css={tw`space-y-4`}>
                                 <h3 css={tw`text-lg font-medium`}>Notification Preferences</h3>
-                                
+
                                 {Object.entries(eventConfig.categories).map(([category, events]) => (
                                     <div key={category} css={tw`border rounded p-4`}>
                                         <div css={tw`flex items-center justify-between mb-3`}>
                                             <div css={tw`flex items-center gap-2`}>
-                                                <FontAwesomeIcon 
-                                                    icon={categoryIcons[category] || faBell} 
+                                                <FontAwesomeIcon
+                                                    icon={categoryIcons[category] || faBell}
                                                     css={tw`text-gray-400`}
                                                 />
-                                                <h4 css={tw`font-medium`}>
-                                                    {categoryLabels[category] || category}
-                                                </h4>
+                                                <h4 css={tw`font-medium`}>{categoryLabels[category] || category}</h4>
                                             </div>
                                             <div css={tw`flex gap-2`}>
-                                                <Button 
-                                                    size="xsmall" 
+                                                <Button
+                                                    size="xsmall"
                                                     variant="secondary"
                                                     onClick={() => toggleCategory(events, true)}
                                                 >
                                                     Enable All
                                                 </Button>
-                                                <Button 
-                                                    size="xsmall" 
+                                                <Button
+                                                    size="xsmall"
                                                     variant="secondary"
                                                     onClick={() => toggleCategory(events, false)}
                                                 >

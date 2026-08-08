@@ -32,7 +32,12 @@ export interface Values {
     removeAllocations: number[];
 }
 
-export default (id: number, server: Partial<Values>, include: string[] = [], flashMessage?: (msg: string) => void): Promise<Server> => {
+export default (
+    id: number,
+    server: Partial<Values>,
+    include: string[] = [],
+    flashMessage?: (msg: string) => void,
+): Promise<Server> => {
     return new Promise((resolve, reject) => {
         http.patch(
             `/api/application/servers/${id}`,

@@ -118,91 +118,93 @@ function App() {
     return (
         <>
             <GlobalStylesheet />
-            <SWRConfig value={{
-                errorRetryCount: 1,
-                shouldRetryOnError: false,
-                revalidateOnFocus: false,
-                dedupingInterval: 5000,
-            }}>
-            <StoreProvider store={store}>
-                <ThemeVars />
-                <AppearanceSync />
-                <ProgressBar />
-                {DarkOaktylUser?.root_admin && !SiteConfiguration?.setup ? (
-                    <SetupContainer />
-                ) : (
-                    <>
-                        {' '}
-                        {DarkOaktylUser?.username?.startsWith('null_user_') &&
-                        DarkOakConfiguration?.auth.modules.onboarding.enabled ? (
-                            <Onboarding />
-                        ) : (
-                            <div className="mx-auto w-auto">
-                                <BrowserRouter>
-                                    <Routes>
-                                        <Route
-                                            path="/auth/*"
-                                            element={
-                                                <Spinner.Suspense>
-                                                    <AuthenticationRouter />
-                                                </Spinner.Suspense>
-                                            }
-                                        />
-
-                                        <Route
-                                            path="/server/:id/*"
-                                            element={
-                                                <AuthenticatedRoute>
+            <SWRConfig
+                value={{
+                    errorRetryCount: 1,
+                    shouldRetryOnError: false,
+                    revalidateOnFocus: false,
+                    dedupingInterval: 5000,
+                }}
+            >
+                <StoreProvider store={store}>
+                    <ThemeVars />
+                    <AppearanceSync />
+                    <ProgressBar />
+                    {DarkOaktylUser?.root_admin && !SiteConfiguration?.setup ? (
+                        <SetupContainer />
+                    ) : (
+                        <>
+                            {' '}
+                            {DarkOaktylUser?.username?.startsWith('null_user_') &&
+                            DarkOakConfiguration?.auth.modules.onboarding.enabled ? (
+                                <Onboarding />
+                            ) : (
+                                <div className="mx-auto w-auto">
+                                    <BrowserRouter>
+                                        <Routes>
+                                            <Route
+                                                path="/auth/*"
+                                                element={
                                                     <Spinner.Suspense>
-                                                        <ServerContext.Provider>
+                                                        <AuthenticationRouter />
+                                                    </Spinner.Suspense>
+                                                }
+                                            />
+
+                                            <Route
+                                                path="/server/:id/*"
+                                                element={
+                                                    <AuthenticatedRoute>
+                                                        <Spinner.Suspense>
+                                                            <ServerContext.Provider>
+                                                                {hasAdminRole && <SpeedDial />}
+                                                                <ServerRouter />
+                                                            </ServerContext.Provider>
+                                                        </Spinner.Suspense>
+                                                    </AuthenticatedRoute>
+                                                }
+                                            />
+
+                                            <Route
+                                                path="/admin/*"
+                                                element={
+                                                    <Spinner.Suspense>
+                                                        <AdminContext.Provider>
+                                                            <AdminRouter />
+                                                        </AdminContext.Provider>
+                                                    </Spinner.Suspense>
+                                                }
+                                            />
+
+                                            <Route
+                                                path="/legal/:slug"
+                                                element={
+                                                    <Spinner.Suspense>
+                                                        <LegalPage />
+                                                    </Spinner.Suspense>
+                                                }
+                                            />
+
+                                            <Route
+                                                path="/*"
+                                                element={
+                                                    <AuthenticatedRoute>
+                                                        <Spinner.Suspense>
                                                             {hasAdminRole && <SpeedDial />}
-                                                            <ServerRouter />
-                                                        </ServerContext.Provider>
-                                                    </Spinner.Suspense>
-                                                </AuthenticatedRoute>
-                                            }
-                                        />
+                                                            <DashboardRouter />
+                                                        </Spinner.Suspense>
+                                                    </AuthenticatedRoute>
+                                                }
+                                            />
 
-                                        <Route
-                                            path="/admin/*"
-                                            element={
-                                                <Spinner.Suspense>
-                                                    <AdminContext.Provider>
-                                                        <AdminRouter />
-                                                    </AdminContext.Provider>
-                                                </Spinner.Suspense>
-                                            }
-                                        />
-
-                                        <Route
-                                            path="/legal/:slug"
-                                            element={
-                                                <Spinner.Suspense>
-                                                    <LegalPage />
-                                                </Spinner.Suspense>
-                                            }
-                                        />
-
-                                        <Route
-                                            path="/*"
-                                            element={
-                                                <AuthenticatedRoute>
-                                                    <Spinner.Suspense>
-                                                        {hasAdminRole && <SpeedDial />}
-                                                        <DashboardRouter />
-                                                    </Spinner.Suspense>
-                                                </AuthenticatedRoute>
-                                            }
-                                        />
-
-                                        <Route path="*" element={<NotFound />} />
-                                    </Routes>
-                                </BrowserRouter>
-                            </div>
-                        )}
-                    </>
-                )}
-            </StoreProvider>
+                                            <Route path="*" element={<NotFound />} />
+                                        </Routes>
+                                    </BrowserRouter>
+                                </div>
+                            )}
+                        </>
+                    )}
+                </StoreProvider>
             </SWRConfig>
         </>
     );

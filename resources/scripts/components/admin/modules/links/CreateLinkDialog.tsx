@@ -48,7 +48,9 @@ export default ({ link, setOpen }: { link?: CustomLink; setOpen: Dispatch<SetSta
                 <div>
                     <Label>Link Name</Label>
                     <InputField defaultValue={values.name} name={'name'} onChange={updateValues}></InputField>
-                    <p className={'text-theme-muted text-sm mt-1'}>Give the link a friendly name which clients can read.</p>
+                    <p className={'text-theme-muted text-sm mt-1'}>
+                        Give the link a friendly name which clients can read.
+                    </p>
                 </div>
                 <div>
                     <Label>Link URL</Label>

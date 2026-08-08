@@ -39,7 +39,11 @@ export interface CreateServerRequest {
     startOnCompletion: boolean;
 }
 
-export default (r: CreateServerRequest, include: string[] = [], flashMessage?: (msg: string) => void): Promise<Server> => {
+export default (
+    r: CreateServerRequest,
+    include: string[] = [],
+    flashMessage?: (msg: string) => void,
+): Promise<Server> => {
     return new Promise((resolve, reject) => {
         http.post(
             '/api/application/servers',

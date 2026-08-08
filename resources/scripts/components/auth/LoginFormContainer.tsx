@@ -55,13 +55,7 @@ export default forwardRef<HTMLFormElement, Props>(({ title, ...props }, ref) => 
                     {title && (
                         <>
                             {/* If a login logo is configured in the theme, show it above the title */}
-                            {loginLogo && (
-                                <img
-                                    src={loginLogo}
-                                    alt={title}
-                                    className={'mx-auto mb-4 max-h-24'}
-                                />
-                            )}
+                            {loginLogo && <img src={loginLogo} alt={title} className={'mx-auto mb-4 max-h-24'} />}
                             <h2 css={tw`text-3xl text-center text-theme-primary font-medium py-4`}>{title}</h2>
                         </>
                     )}
