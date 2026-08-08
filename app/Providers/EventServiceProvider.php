@@ -1,18 +1,18 @@
 <?php
 
-namespace Everest\Providers;
+namespace DarkOak\Providers;
 
-use Everest\Models\User;
-use Everest\Models\Server;
-use Everest\Models\Subuser;
-use Everest\Models\EggVariable;
-use Everest\Observers\UserObserver;
-use Everest\Observers\ServerObserver;
-use Everest\Observers\SubuserObserver;
-use Everest\Listeners\TwoFactorListener;
-use Everest\Listeners\RevocationListener;
-use Everest\Observers\EggVariableObserver;
-use Everest\Listeners\AuthenticationListener;
+use DarkOak\Models\User;
+use DarkOak\Models\Server;
+use DarkOak\Models\Subuser;
+use DarkOak\Models\EggVariable;
+use DarkOak\Observers\UserObserver;
+use DarkOak\Observers\ServerObserver;
+use DarkOak\Observers\SubuserObserver;
+use DarkOak\Listeners\TwoFactorListener;
+use DarkOak\Listeners\RevocationListener;
+use DarkOak\Observers\EggVariableObserver;
+use DarkOak\Listeners\AuthenticationListener;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider

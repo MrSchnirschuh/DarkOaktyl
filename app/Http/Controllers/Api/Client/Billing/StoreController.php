@@ -1,20 +1,20 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Client\Billing;
+namespace DarkOak\Http\Controllers\Api\Client\Billing;
 
-use Everest\Models\Egg;
+use DarkOak\Models\Egg;
 use Illuminate\Http\Request;
-use Everest\Models\EggVariable;
-use Everest\Models\Billing\Product;
-use Everest\Models\Billing\Category;
-use Everest\Models\Billing\BillingException;
-use Everest\Services\Billing\NodeCollectionService;
-use Everest\Transformers\Api\Client\EggTransformer;
-use Everest\Transformers\Api\Client\NodeTransformer;
-use Everest\Transformers\Api\Client\ProductTransformer;
-use Everest\Transformers\Api\Client\CategoryTransformer;
-use Everest\Transformers\Api\Client\EggVariableTransformer;
-use Everest\Http\Controllers\Api\Client\ClientApiController;
+use DarkOak\Models\EggVariable;
+use DarkOak\Models\Billing\Product;
+use DarkOak\Models\Billing\Category;
+use DarkOak\Models\Billing\BillingException;
+use DarkOak\Services\Billing\NodeCollectionService;
+use DarkOak\Transformers\Api\Client\EggTransformer;
+use DarkOak\Transformers\Api\Client\NodeTransformer;
+use DarkOak\Transformers\Api\Client\ProductTransformer;
+use DarkOak\Transformers\Api\Client\CategoryTransformer;
+use DarkOak\Transformers\Api\Client\EggVariableTransformer;
+use DarkOak\Http\Controllers\Api\Client\ClientApiController;
 
 class StoreController extends ClientApiController
 {

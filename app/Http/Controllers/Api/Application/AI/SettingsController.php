@@ -1,14 +1,14 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application;
+namespace DarkOak\Http\Controllers\Api\Application;
 
 use GeminiAPI\Client;
-use Everest\Models\Setting;
-use Everest\Facades\Activity;
+use DarkOak\Models\Setting;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use GeminiAPI\Resources\Parts\TextPart;
-use Everest\Http\Requests\Api\Application\Intelligence;
+use DarkOak\Http\Requests\Api\Application\Intelligence;
 
 class IntelligenceController extends ApplicationApiController
 {

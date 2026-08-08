@@ -8,8 +8,8 @@ use GuzzleHttp\Exception\GuzzleException;
 use DarkOak\Exceptions\Http\Connection\DaemonConnectionException;
 
 /**
- * @method \Everest\Repositories\Wings\DaemonTransferRepository setNode(\Everest\Models\Node $node)
- * @method \Everest\Repositories\Wings\DaemonTransferRepository setServer(\Everest\Models\Server $server)
+ * @method \DarkOak\Repositories\Wings\DaemonTransferRepository setNode(\DarkOak\Models\Node $node)
+ * @method \DarkOak\Repositories\Wings\DaemonTransferRepository setServer(\DarkOak\Models\Server $server)
  */
 class DaemonTransferRepository extends DaemonRepository
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Services\Auth;
+namespace DarkOak\Services\Auth;
 
 use Carbon\Carbon;
-use Everest\Models\JGuardDelay;
-use Everest\Models\JGuardAttempt;
+use DarkOak\Models\JGuardDelay;
+use DarkOak\Models\JGuardAttempt;
 
 class JGuardService
 {

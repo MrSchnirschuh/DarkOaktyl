@@ -1,13 +1,13 @@
 <?php
 
-namespace Everest\Models\Traits;
+namespace DarkOak\Models\Traits;
 
 use Ramsey\Uuid\Uuid;
 use Illuminate\Support\Str;
 use Webmozart\Assert\Assert;
 use ParagonIE\ConstantTime\Base32;
 use Illuminate\Database\Eloquent\Builder;
-use Everest\Models\Attributes\Identifiable;
+use DarkOak\Models\Attributes\Identifiable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 
 /**

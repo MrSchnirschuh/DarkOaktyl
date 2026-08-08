@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Extensions\Laravel\Sanctum;
+namespace DarkOak\Extensions\Laravel\Sanctum;
 
-use Everest\Models\ApiKey;
+use DarkOak\Models\ApiKey;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Arrayable;
 

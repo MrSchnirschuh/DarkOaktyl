@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Enum;
+namespace DarkOak\Enum;
 
 enum JwtScope: string
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Contracts\Models;
+namespace DarkOak\Contracts\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 

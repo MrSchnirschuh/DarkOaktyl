@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use Everest\Models\ServerTransfer;
+use DarkOak\Models\ServerTransfer;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ServerTransferFactory extends Factory

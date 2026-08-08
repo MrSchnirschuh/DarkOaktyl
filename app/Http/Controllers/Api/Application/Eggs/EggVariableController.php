@@ -1,19 +1,19 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Eggs;
+namespace DarkOak\Http\Controllers\Api\Application\Eggs;
 
-use Everest\Models\Egg;
-use Everest\Facades\Activity;
+use DarkOak\Models\Egg;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
-use Everest\Models\EggVariable;
+use DarkOak\Models\EggVariable;
 use Illuminate\Database\ConnectionInterface;
-use Everest\Services\Eggs\Variables\VariableUpdateService;
-use Everest\Services\Eggs\Variables\VariableCreationService;
-use Everest\Transformers\Api\Application\EggVariableTransformer;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
-use Everest\Http\Requests\Api\Application\Eggs\Variables\StoreEggVariableRequest;
-use Everest\Http\Requests\Api\Application\Eggs\Variables\DeleteEggVariableRequest;
-use Everest\Http\Requests\Api\Application\Eggs\Variables\UpdateEggVariablesRequest;
+use DarkOak\Services\Eggs\Variables\VariableUpdateService;
+use DarkOak\Services\Eggs\Variables\VariableCreationService;
+use DarkOak\Transformers\Api\Application\EggVariableTransformer;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Http\Requests\Api\Application\Eggs\Variables\StoreEggVariableRequest;
+use DarkOak\Http\Requests\Api\Application\Eggs\Variables\DeleteEggVariableRequest;
+use DarkOak\Http\Requests\Api\Application\Eggs\Variables\UpdateEggVariablesRequest;
 
 class EggVariableController extends ApplicationApiController
 {
@@ -28,9 +28,9 @@ class EggVariableController extends ApplicationApiController
     /**
      * Creates a new egg variable.
      *
-     * @throws \Everest\Exceptions\Model\DataValidationException
-     * @throws \Everest\Exceptions\Service\Egg\Variable\BadValidationRuleException
-     * @throws \Everest\Exceptions\Service\Egg\Variable\ReservedVariableNameException
+     * @throws \DarkOak\Exceptions\Model\DataValidationException
+     * @throws \DarkOak\Exceptions\Service\Egg\Variable\BadValidationRuleException
+     * @throws \DarkOak\Exceptions\Service\Egg\Variable\ReservedVariableNameException
      */
     public function store(StoreEggVariableRequest $request, Egg $egg): array
     {

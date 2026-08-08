@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Models\Attributes;
+namespace DarkOak\Models\Attributes;
 
 #[\Attribute(\Attribute::TARGET_CLASS)]
 readonly class Identifiable

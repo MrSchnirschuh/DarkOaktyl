@@ -2,7 +2,7 @@
 
 namespace DarkOak\Http\Controllers\Api\Application\Billing;
 
-use Everest\Facades\Activity;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
 use Spatie\QueryBuilder\QueryBuilder;
 use DarkOak\Models\Billing\DiscountCode;

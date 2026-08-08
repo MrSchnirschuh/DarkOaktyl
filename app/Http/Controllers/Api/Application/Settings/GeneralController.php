@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Settings;
+namespace DarkOak\Http\Controllers\Api\Application\Settings;
 
-use Everest\Models\Setting;
-use Everest\Facades\Activity;
+use DarkOak\Models\Setting;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
-use Everest\Http\Requests\Api\Application\Settings\UpdateApplicationSettingsRequest;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Http\Requests\Api\Application\Settings\UpdateApplicationSettingsRequest;
 
 class GeneralController extends ApplicationApiController
 {

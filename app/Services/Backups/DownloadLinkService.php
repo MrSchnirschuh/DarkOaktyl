@@ -1,13 +1,13 @@
 <?php
 
-namespace Everest\Services\Backups;
+namespace DarkOak\Services\Backups;
 
-use Everest\Models\User;
-use Everest\Enum\JwtScope;
-use Everest\Models\Backup;
+use DarkOak\Models\User;
+use DarkOak\Enum\JwtScope;
+use DarkOak\Models\Backup;
 use Carbon\CarbonImmutable;
-use Everest\Services\Nodes\NodeJWTService;
-use Everest\Extensions\Backups\BackupManager;
+use DarkOak\Services\Nodes\NodeJWTService;
+use DarkOak\Extensions\Backups\BackupManager;
 
 class DownloadLinkService
 {
@@ -47,7 +47,7 @@ class DownloadLinkService
      */
     protected function getS3BackupUrl(Backup $backup): string
     {
-        /** @var \Everest\Extensions\Filesystem\S3Filesystem $adapter */
+        /** @var \DarkOak\Extensions\Filesystem\S3Filesystem $adapter */
         $adapter = $this->backupManager->adapter(Backup::ADAPTER_AWS_S3);
 
         $request = $adapter->getClient()->createPresignedRequest(

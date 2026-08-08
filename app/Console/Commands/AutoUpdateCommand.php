@@ -1,13 +1,13 @@
 <?php
 
-namespace Everest\Console\Commands;
+namespace DarkOak\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Cache;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Process\PhpExecutableFinder;
-use Everest\Services\Helpers\SoftwareVersionService;
+use DarkOak\Services\Helpers\SoftwareVersionService;
 
 class AutoUpdateCommand extends Command
 {

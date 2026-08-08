@@ -1,19 +1,19 @@
 <?php
 
-namespace Everest\Models;
+namespace DarkOak\Models;
 
-use Everest\Rules\Username;
+use DarkOak\Rules\Username;
 use Illuminate\Support\Str;
-use Everest\Facades\Activity;
-use Everest\Models\Billing\Order;
+use DarkOak\Facades\Activity;
+use DarkOak\Models\Billing\Order;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\Rules\In;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Builder;
-use Everest\Models\Traits\HasAccessTokens;
-use Everest\Traits\Helpers\AvailableLanguages;
+use DarkOak\Models\Traits\HasAccessTokens;
+use DarkOak\Traits\Helpers\AvailableLanguages;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -25,7 +25,7 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 /**
- * Everest\Models\User.
+ * DarkOak\Models\User.
  *
  * @property int $id
  * @property string|null $external_id

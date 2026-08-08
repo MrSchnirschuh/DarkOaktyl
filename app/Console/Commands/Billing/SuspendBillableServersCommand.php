@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Console\Commands\Billing;
+namespace DarkOak\Console\Commands\Billing;
 
-use Everest\Models\Server;
+use DarkOak\Models\Server;
 use Illuminate\Console\Command;
 
 class SuspendBillableServersCommand extends Command
@@ -16,8 +16,8 @@ class SuspendBillableServersCommand extends Command
      */
     public function handle()
     {
-        $suspension = $this->getLaravel()->make(\Everest\Services\Servers\SuspensionService::class);
-        $deletion = $this->getLaravel()->make(\Everest\Services\Servers\ServerDeletionService::class);
+        $suspension = $this->getLaravel()->make(\DarkOak\Services\Servers\SuspensionService::class);
+        $deletion = $this->getLaravel()->make(\DarkOak\Services\Servers\ServerDeletionService::class);
 
         foreach (Server::whereNotNull('renewal_date')->get() as $server) {
             $daysOverdue = $server->renewal_date->diffInDays(now());

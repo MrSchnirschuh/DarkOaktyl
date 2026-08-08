@@ -1,14 +1,14 @@
 <?php
 
-namespace Everest\Listeners;
+namespace DarkOak\Listeners;
 
-use Everest\Models\Node;
-use Everest\Events\User\Deleting;
-use Everest\Jobs\RevokeSftpAccessJob;
-use Everest\Events\User\PasswordChanged;
+use DarkOak\Models\Node;
+use DarkOak\Events\User\Deleting;
+use DarkOak\Jobs\RevokeSftpAccessJob;
+use DarkOak\Events\User\PasswordChanged;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Collection;
-use Everest\Extensions\Illuminate\Events\Contracts\SubscribesToEvents;
+use DarkOak\Extensions\Illuminate\Events\Contracts\SubscribesToEvents;
 
 class RevocationListener implements SubscribesToEvents
 {

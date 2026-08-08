@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Transformers\Api\Client;
+namespace DarkOak\Transformers\Api\Client;
 
-use Everest\Models\Server;
-use Everest\Models\Billing\Order;
+use DarkOak\Models\Server;
+use DarkOak\Models\Billing\Order;
 use League\Fractal\Resource\Item;
-use Everest\Models\Billing\Invoice;
-use Everest\Transformers\Api\Transformer;
+use DarkOak\Models\Billing\Invoice;
+use DarkOak\Transformers\Api\Transformer;
 use League\Fractal\Resource\NullResource;
 
 class OrderTransformer extends Transformer

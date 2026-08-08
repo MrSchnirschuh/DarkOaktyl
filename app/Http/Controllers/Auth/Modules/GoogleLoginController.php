@@ -1,14 +1,14 @@
 <?php
 
-namespace Everest\Http\Controllers\Auth\Modules;
+namespace DarkOak\Http\Controllers\Auth\Modules;
 
-use Everest\Models\User;
+use DarkOak\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
-use Everest\Exceptions\DisplayException;
+use DarkOak\Exceptions\DisplayException;
 use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Two\GoogleProvider;
-use Everest\Http\Controllers\Auth\AbstractLoginController;
+use DarkOak\Http\Controllers\Auth\AbstractLoginController;
 
 class GoogleLoginController extends AbstractLoginController
 {

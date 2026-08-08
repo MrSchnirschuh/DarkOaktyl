@@ -1,27 +1,27 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Client\Servers;
+namespace DarkOak\Http\Controllers\Api\Client\Servers;
 
-use Everest\Enum\JwtScope;
-use Everest\Models\Server;
+use DarkOak\Enum\JwtScope;
+use DarkOak\Models\Server;
 use Carbon\CarbonImmutable;
-use Everest\Facades\Activity;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
-use Everest\Services\Nodes\NodeJWTService;
-use Everest\Repositories\Wings\DaemonFileRepository;
-use Everest\Transformers\Api\Client\FileObjectTransformer;
-use Everest\Http\Controllers\Api\Client\ClientApiController;
-use Everest\Http\Requests\Api\Client\Servers\Files\CopyFileRequest;
-use Everest\Http\Requests\Api\Client\Servers\Files\PullFileRequest;
-use Everest\Http\Requests\Api\Client\Servers\Files\ListFilesRequest;
-use Everest\Http\Requests\Api\Client\Servers\Files\ChmodFilesRequest;
-use Everest\Http\Requests\Api\Client\Servers\Files\DeleteFileRequest;
-use Everest\Http\Requests\Api\Client\Servers\Files\RenameFileRequest;
-use Everest\Http\Requests\Api\Client\Servers\Files\CreateFolderRequest;
-use Everest\Http\Requests\Api\Client\Servers\Files\CompressFilesRequest;
-use Everest\Http\Requests\Api\Client\Servers\Files\DecompressFilesRequest;
-use Everest\Http\Requests\Api\Client\Servers\Files\GetFileContentsRequest;
-use Everest\Http\Requests\Api\Client\Servers\Files\WriteFileContentRequest;
+use DarkOak\Services\Nodes\NodeJWTService;
+use DarkOak\Repositories\Wings\DaemonFileRepository;
+use DarkOak\Transformers\Api\Client\FileObjectTransformer;
+use DarkOak\Http\Controllers\Api\Client\ClientApiController;
+use DarkOak\Http\Requests\Api\Client\Servers\Files\CopyFileRequest;
+use DarkOak\Http\Requests\Api\Client\Servers\Files\PullFileRequest;
+use DarkOak\Http\Requests\Api\Client\Servers\Files\ListFilesRequest;
+use DarkOak\Http\Requests\Api\Client\Servers\Files\ChmodFilesRequest;
+use DarkOak\Http\Requests\Api\Client\Servers\Files\DeleteFileRequest;
+use DarkOak\Http\Requests\Api\Client\Servers\Files\RenameFileRequest;
+use DarkOak\Http\Requests\Api\Client\Servers\Files\CreateFolderRequest;
+use DarkOak\Http\Requests\Api\Client\Servers\Files\CompressFilesRequest;
+use DarkOak\Http\Requests\Api\Client\Servers\Files\DecompressFilesRequest;
+use DarkOak\Http\Requests\Api\Client\Servers\Files\GetFileContentsRequest;
+use DarkOak\Http\Requests\Api\Client\Servers\Files\WriteFileContentRequest;
 
 class FileController extends ClientApiController
 {
@@ -38,7 +38,7 @@ class FileController extends ClientApiController
     /**
      * Returns a listing of files in a given directory.
      *
-     * @throws \Everest\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws \DarkOak\Exceptions\Http\Connection\DaemonConnectionException
      */
     public function directory(ListFilesRequest $request, Server $server): array
     {
@@ -58,7 +58,7 @@ class FileController extends ClientApiController
     {
         $response = $this->fileRepository->setServer($server)->getContent(
             $request->get('file'),
-            config('everest.files.max_edit_size')
+            config('darkoak.files.max_edit_size')
         );
 
         Activity::event('server:file.read')->property('file', $request->get('file'))->log();
@@ -101,7 +101,7 @@ class FileController extends ClientApiController
     /**
      * Writes the contents of the specified file to the server.
      *
-     * @throws \Everest\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws \DarkOak\Exceptions\Http\Connection\DaemonConnectionException
      */
     public function write(WriteFileContentRequest $request, Server $server): Response
     {
@@ -153,7 +153,7 @@ class FileController extends ClientApiController
     /**
      * Copies a file on the server.
      *
-     * @throws \Everest\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws \DarkOak\Exceptions\Http\Connection\DaemonConnectionException
      */
     public function copy(CopyFileRequest $request, Server $server): Response
     {
@@ -167,7 +167,7 @@ class FileController extends ClientApiController
     }
 
     /**
-     * @throws \Everest\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws \DarkOak\Exceptions\Http\Connection\DaemonConnectionException
      */
     public function compress(CompressFilesRequest $request, Server $server): array
     {
@@ -185,7 +185,7 @@ class FileController extends ClientApiController
     }
 
     /**
-     * @throws \Everest\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws \DarkOak\Exceptions\Http\Connection\DaemonConnectionException
      */
     public function decompress(DecompressFilesRequest $request, Server $server): Response
     {
@@ -207,7 +207,7 @@ class FileController extends ClientApiController
     /**
      * Deletes files or folders for the server in the given root directory.
      *
-     * @throws \Everest\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws \DarkOak\Exceptions\Http\Connection\DaemonConnectionException
      */
     public function delete(DeleteFileRequest $request, Server $server): Response
     {
@@ -227,7 +227,7 @@ class FileController extends ClientApiController
     /**
      * Updates file permissions for file(s) in the given root directory.
      *
-     * @throws \Everest\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws \DarkOak\Exceptions\Http\Connection\DaemonConnectionException
      */
     public function chmod(ChmodFilesRequest $request, Server $server): Response
     {

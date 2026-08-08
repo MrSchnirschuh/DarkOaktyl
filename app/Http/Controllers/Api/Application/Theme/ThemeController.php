@@ -1,13 +1,13 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Theme;
+namespace DarkOak\Http\Controllers\Api\Application\Theme;
 
-use Everest\Models\Theme;
-use Everest\Facades\Activity;
+use DarkOak\Models\Theme;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
-use Everest\Contracts\Repository\ThemeRepositoryInterface;
-use Everest\Http\Requests\Api\Application\Theme\UpdateThemeRequest;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Contracts\Repository\ThemeRepositoryInterface;
+use DarkOak\Http\Requests\Api\Application\Theme\UpdateThemeRequest;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
 
 class ThemeController extends ApplicationApiController
 {

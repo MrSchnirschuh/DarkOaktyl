@@ -1,14 +1,14 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Servers;
+namespace DarkOak\Http\Controllers\Api\Application\Servers;
 
-use Everest\Models\Server;
-use Everest\Models\ActivityLog;
+use DarkOak\Models\Server;
+use DarkOak\Models\ActivityLog;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
-use Everest\Transformers\Api\Application\ActivityLogTransformer;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
-use Everest\Http\Requests\Api\Application\Servers\GetServerActivityRequest;
+use DarkOak\Transformers\Api\Application\ActivityLogTransformer;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Http\Requests\Api\Application\Servers\GetServerActivityRequest;
 
 class ActivityLogController extends ApplicationApiController
 {

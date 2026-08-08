@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Models;
+namespace DarkOak\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\MassPrunable;
 
 /**
- * Everest\Models\JGuardAttempt.
+ * DarkOak\Models\JGuardAttempt.
  *
  * @property int $id
  * @property string $ip

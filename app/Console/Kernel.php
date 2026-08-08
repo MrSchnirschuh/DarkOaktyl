@@ -1,21 +1,21 @@
 <?php
 
-namespace Everest\Console;
+namespace DarkOak\Console;
 
-use Everest\Models\ActivityLog;
-use Everest\Models\JGuardDelay;
-use Everest\Models\JGuardAttempt;
+use DarkOak\Models\ActivityLog;
+use DarkOak\Models\JGuardDelay;
+use DarkOak\Models\JGuardAttempt;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Database\Console\PruneCommand;
-use Everest\Console\Commands\AutoUpdateCommand;
-use Everest\Console\Commands\Billing\CleanupOrdersCommand;
+use DarkOak\Console\Commands\AutoUpdateCommand;
+use DarkOak\Console\Commands\Billing\CleanupOrdersCommand;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use Everest\Console\Commands\Billing\GenerateInvoicesCommand;
-use Everest\Console\Commands\Schedule\ProcessRunnableCommand;
-use Everest\Console\Commands\Billing\SuspendBillableServersCommand;
-use Everest\Console\Commands\Maintenance\PruneOrphanedBackupsCommand;
-use Everest\Console\Commands\Billing\CalculateOrderThreatIndexCommand;
-use Everest\Console\Commands\Maintenance\CleanServiceBackupFilesCommand;
+use DarkOak\Console\Commands\Billing\GenerateInvoicesCommand;
+use DarkOak\Console\Commands\Schedule\ProcessRunnableCommand;
+use DarkOak\Console\Commands\Billing\SuspendBillableServersCommand;
+use DarkOak\Console\Commands\Maintenance\PruneOrphanedBackupsCommand;
+use DarkOak\Console\Commands\Billing\CalculateOrderThreatIndexCommand;
+use DarkOak\Console\Commands\Maintenance\CleanServiceBackupFilesCommand;
 
 class Kernel extends ConsoleKernel
 {

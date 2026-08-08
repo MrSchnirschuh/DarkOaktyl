@@ -224,6 +224,7 @@ return [
         Illuminate\Filesystem\FilesystemServiceProvider::class,
         Illuminate\Foundation\Providers\FoundationServiceProvider::class,
         Illuminate\Hashing\HashServiceProvider::class,
+        Illuminate\Mail\MailServiceProvider::class,
         Illuminate\Notifications\NotificationServiceProvider::class,
         Illuminate\Pagination\PaginationServiceProvider::class,
         Illuminate\Pipeline\PipelineServiceProvider::class,
@@ -238,16 +239,16 @@ return [
         /*
          * Application Service Providers...
          */
-        Everest\Providers\ActivityLogServiceProvider::class,
-        Everest\Providers\AppServiceProvider::class,
-        Everest\Providers\AuthServiceProvider::class,
-        Everest\Providers\BackupsServiceProvider::class,
-        Everest\Providers\BladeServiceProvider::class,
-        Everest\Providers\EventServiceProvider::class,
-        Everest\Providers\HashidsServiceProvider::class,
-        Everest\Providers\RouteServiceProvider::class,
-        Everest\Providers\RepositoryServiceProvider::class,
-        Everest\Providers\ViewComposerServiceProvider::class,
+        DarkOak\Providers\ActivityLogServiceProvider::class,
+        DarkOak\Providers\AppServiceProvider::class,
+        DarkOak\Providers\AuthServiceProvider::class,
+        DarkOak\Providers\BackupsServiceProvider::class,
+        DarkOak\Providers\BladeServiceProvider::class,
+        DarkOak\Providers\EventServiceProvider::class,
+        DarkOak\Providers\HashidsServiceProvider::class,
+        DarkOak\Providers\RouteServiceProvider::class,
+        DarkOak\Providers\RepositoryServiceProvider::class,
+        DarkOak\Providers\ViewComposerServiceProvider::class,
     ],
 
     /*
@@ -266,8 +267,8 @@ return [
         'JavaScript' => Laracasts\Utilities\JavaScript\JavaScriptFacade::class,
 
         // Custom Facades
-        'Activity' => Everest\Facades\Activity::class,
-        'LogBatch' => Everest\Facades\LogBatch::class,
-        'LogTarget' => Everest\Facades\LogTarget::class,
+        'Activity' => DarkOak\Facades\Activity::class,
+        'LogBatch' => DarkOak\Facades\LogBatch::class,
+        'LogTarget' => DarkOak\Facades\LogTarget::class,
     ])->toArray(),
 ];

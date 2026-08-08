@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Models;
+namespace DarkOak\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\MassPrunable;
 
 /**
- * Everest\Models\JGuardDelay.
+ * DarkOak\Models\JGuardDelay.
  *
  * @property int $id
  * @property int $user_id

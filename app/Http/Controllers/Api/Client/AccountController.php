@@ -1,20 +1,20 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Client;
+namespace DarkOak\Http\Controllers\Api\Client;
 
-use Everest\Models\User;
+use DarkOak\Models\User;
 use Illuminate\Http\Request;
-use Everest\Facades\Activity;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\RateLimiter;
-use Everest\Services\Users\UserUpdateService;
-use Everest\Transformers\Api\Client\AccountTransformer;
-use Everest\Http\Requests\Api\Client\Account\SetupUserRequest;
-use Everest\Http\Requests\Api\Client\Account\UpdateEmailRequest;
-use Everest\Http\Requests\Api\Client\Account\UpdateAvatarRequest;
-use Everest\Http\Requests\Api\Client\Account\UpdatePasswordRequest;
+use DarkOak\Services\Users\UserUpdateService;
+use DarkOak\Transformers\Api\Client\AccountTransformer;
+use DarkOak\Http\Requests\Api\Client\Account\SetupUserRequest;
+use DarkOak\Http\Requests\Api\Client\Account\UpdateEmailRequest;
+use DarkOak\Http\Requests\Api\Client\Account\UpdateAvatarRequest;
+use DarkOak\Http\Requests\Api\Client\Account\UpdatePasswordRequest;
 use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
 
 class AccountController extends ClientApiController

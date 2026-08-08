@@ -2,7 +2,7 @@
 
 namespace DarkOak\Services\Billing;
 
-use Everest\Models\Egg;
+use DarkOak\Models\Egg;
 use Illuminate\Support\Str;
 use DarkOak\Models\Billing\Product;
 use DarkOak\Models\Billing\Category;

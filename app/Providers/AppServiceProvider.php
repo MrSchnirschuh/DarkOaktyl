@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Providers;
+namespace DarkOak\Providers;
 
 use Carbon\Carbon;
-use Everest\Models;
-use Everest\Models\User;
+use DarkOak\Models;
+use DarkOak\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Pagination\Paginator;
@@ -69,7 +69,7 @@ class AppServiceProvider extends ServiceProvider
     {
         // Only load the settings / theme service provider if the environment
         // is configured to allow it.
-        if (!config('everest.load_environment_only', false) && $this->app->environment() !== 'testing') {
+        if (!config('darkoak.load_environment_only', false) && $this->app->environment() !== 'testing') {
             $this->app->register(SettingsServiceProvider::class);
             $this->app->register(ThemeServiceProvider::class);
         }

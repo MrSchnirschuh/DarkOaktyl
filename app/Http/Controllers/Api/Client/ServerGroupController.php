@@ -1,13 +1,13 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Client;
+namespace DarkOak\Http\Controllers\Api\Client;
 
-use Everest\Models\Server;
+use DarkOak\Models\Server;
 use Illuminate\Http\Response;
-use Everest\Models\ServerGroup;
-use Everest\Exceptions\DisplayException;
-use Everest\Http\Requests\Api\Client\ClientApiRequest;
-use Everest\Transformers\Api\Client\ServerGroupTransformer;
+use DarkOak\Models\ServerGroup;
+use DarkOak\Exceptions\DisplayException;
+use DarkOak\Http\Requests\Api\Client\ClientApiRequest;
+use DarkOak\Transformers\Api\Client\ServerGroupTransformer;
 
 class ServerGroupController extends ClientApiController
 {

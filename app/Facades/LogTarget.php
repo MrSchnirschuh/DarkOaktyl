@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Facade;
 use DarkOak\Services\Activity\ActivityLogTargetableService;
 
 /**
- * @mixin \Everest\Services\Activity\ActivityLogTargetableService
+ * @mixin \DarkOak\Services\Activity\ActivityLogTargetableService
  */
 class LogTarget extends Facade
 {

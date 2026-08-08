@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Jobs;
+namespace DarkOak\Jobs;
 
-use Everest\Models\Node;
-use Everest\Models\Server;
+use DarkOak\Models\Node;
+use DarkOak\Models\Server;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -12,8 +12,8 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Queue\Attributes\WithoutRelations;
 use Illuminate\Queue\Attributes\DeleteWhenMissingModels;
-use Everest\Repositories\Wings\DaemonRevocationRepository;
-use Everest\Exceptions\Http\Connection\DaemonConnectionException;
+use DarkOak\Repositories\Wings\DaemonRevocationRepository;
+use DarkOak\Exceptions\Http\Connection\DaemonConnectionException;
 
 /**
  * Revokes all SFTP access for a user on a given node or for a specific server.

@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Services\Billing;
+namespace DarkOak\Services\Billing;
 
 use Illuminate\Support\Str;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Everest\Models\Billing\Order;
-use Everest\Models\Billing\Invoice;
+use DarkOak\Models\Billing\Order;
+use DarkOak\Models\Billing\Invoice;
 use Illuminate\Support\Facades\Storage;
 
 class InvoiceGenerationService

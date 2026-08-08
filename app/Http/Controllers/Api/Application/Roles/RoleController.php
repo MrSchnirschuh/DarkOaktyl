@@ -1,21 +1,21 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Roles;
+namespace DarkOak\Http\Controllers\Api\Application\Roles;
 
-use Everest\Models\User;
-use Everest\Facades\Activity;
-use Everest\Models\AdminRole;
+use DarkOak\Models\User;
+use DarkOak\Facades\Activity;
+use DarkOak\Models\AdminRole;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Spatie\QueryBuilder\QueryBuilder;
-use Everest\Exceptions\Http\QueryValueOutOfRangeHttpException;
-use Everest\Transformers\Api\Application\AdminRoleTransformer;
-use Everest\Http\Requests\Api\Application\Roles\GetRoleRequest;
-use Everest\Http\Requests\Api\Application\Roles\GetRolesRequest;
-use Everest\Http\Requests\Api\Application\Roles\StoreRoleRequest;
-use Everest\Http\Requests\Api\Application\Roles\DeleteRoleRequest;
-use Everest\Http\Requests\Api\Application\Roles\UpdateRoleRequest;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Exceptions\Http\QueryValueOutOfRangeHttpException;
+use DarkOak\Transformers\Api\Application\AdminRoleTransformer;
+use DarkOak\Http\Requests\Api\Application\Roles\GetRoleRequest;
+use DarkOak\Http\Requests\Api\Application\Roles\GetRolesRequest;
+use DarkOak\Http\Requests\Api\Application\Roles\StoreRoleRequest;
+use DarkOak\Http\Requests\Api\Application\Roles\DeleteRoleRequest;
+use DarkOak\Http\Requests\Api\Application\Roles\UpdateRoleRequest;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
 
 class RoleController extends ApplicationApiController
 {

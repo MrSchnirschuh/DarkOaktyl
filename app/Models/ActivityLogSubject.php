@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Models;
+namespace DarkOak\Models;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
 /**
- * \Everest\Models\ActivityLogSubject.
+ * \DarkOak\Models\ActivityLogSubject.
  *
  * @property int $id
  * @property int $activity_log_id

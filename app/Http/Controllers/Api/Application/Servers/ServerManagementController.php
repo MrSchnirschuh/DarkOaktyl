@@ -1,21 +1,21 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Servers;
+namespace DarkOak\Http\Controllers\Api\Application\Servers;
 
-use Everest\Models\Server;
-use Everest\Facades\Activity;
+use DarkOak\Models\Server;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
-use Everest\Services\Servers\SuspensionService;
-use Everest\Services\Servers\ServerTransferService;
-use Everest\Services\Servers\ReinstallServerService;
-use Everest\Repositories\Wings\DaemonPowerRepository;
-use Everest\Exceptions\Http\Connection\DaemonConnectionException;
-use Everest\Http\Requests\Api\Application\Servers\ServerWriteRequest;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
-use Everest\Http\Requests\Api\Application\Servers\ServerToggleRequest;
-use Everest\Http\Requests\Api\Application\Servers\TransferServerRequest;
-use Everest\Http\Requests\Api\Application\Servers\BulkPowerActionRequest;
+use DarkOak\Services\Servers\SuspensionService;
+use DarkOak\Services\Servers\ServerTransferService;
+use DarkOak\Services\Servers\ReinstallServerService;
+use DarkOak\Repositories\Wings\DaemonPowerRepository;
+use DarkOak\Exceptions\Http\Connection\DaemonConnectionException;
+use DarkOak\Http\Requests\Api\Application\Servers\ServerWriteRequest;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Http\Requests\Api\Application\Servers\ServerToggleRequest;
+use DarkOak\Http\Requests\Api\Application\Servers\TransferServerRequest;
+use DarkOak\Http\Requests\Api\Application\Servers\BulkPowerActionRequest;
 
 class ServerManagementController extends ApplicationApiController
 {

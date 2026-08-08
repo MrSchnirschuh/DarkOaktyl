@@ -1,13 +1,13 @@
 <?php
 
-namespace Everest\Http\Requests\Api\Client\Servers\Settings;
+namespace DarkOak\Http\Requests\Api\Client\Servers\Settings;
 
-use Everest\Models\Server;
+use DarkOak\Models\Server;
 use Webmozart\Assert\Assert;
-use Everest\Models\Permission;
+use DarkOak\Models\Permission;
 use Illuminate\Validation\Rule;
-use Everest\Contracts\Http\ClientPermissionsRequest;
-use Everest\Http\Requests\Api\Client\ClientApiRequest;
+use DarkOak\Contracts\Http\ClientPermissionsRequest;
+use DarkOak\Http\Requests\Api\Client\ClientApiRequest;
 
 class SetDockerImageRequest extends ClientApiRequest implements ClientPermissionsRequest
 {

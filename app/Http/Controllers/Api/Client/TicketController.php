@@ -1,17 +1,17 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Client;
+namespace DarkOak\Http\Controllers\Api\Client;
 
-use Everest\Models\Ticket;
+use DarkOak\Models\Ticket;
 use Illuminate\Http\Request;
-use Everest\Facades\Activity;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
-use Everest\Models\TicketMessage;
-use Everest\Exceptions\DisplayException;
-use Everest\Http\Requests\Api\Client\ClientApiRequest;
-use Everest\Transformers\Api\Client\TicketTransformer;
-use Everest\Http\Requests\Api\Client\Account\StoreTicketRequest;
-use Everest\Http\Requests\Api\Client\Account\AddTicketMessageRequest;
+use DarkOak\Models\TicketMessage;
+use DarkOak\Exceptions\DisplayException;
+use DarkOak\Http\Requests\Api\Client\ClientApiRequest;
+use DarkOak\Transformers\Api\Client\TicketTransformer;
+use DarkOak\Http\Requests\Api\Client\Account\StoreTicketRequest;
+use DarkOak\Http\Requests\Api\Client\Account\AddTicketMessageRequest;
 
 class TicketController extends ClientApiController
 {

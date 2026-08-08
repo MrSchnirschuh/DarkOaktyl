@@ -55,14 +55,14 @@
             "app/helpers.php"
         ],
         "psr-4": {
-            "Everest\\": "app/",
+            "DarkOak\\": "app/",
             "Database\\Factories\\": "database/Factories/",
             "Database\\Seeders\\": "database/Seeders/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Everest\\Tests\\": "tests/"
+            "DarkOak\\Tests\\": "tests/"
         }
     },
     "scripts": {

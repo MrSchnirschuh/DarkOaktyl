@@ -1,14 +1,14 @@
 <?php
 
-namespace Everest\Http\Controllers\Auth\Modules;
+namespace DarkOak\Http\Controllers\Auth\Modules;
 
-use Everest\Models\User;
+use DarkOak\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\RedirectResponse;
-use Everest\Exceptions\DisplayException;
-use Everest\Http\Controllers\Auth\AbstractLoginController;
+use DarkOak\Exceptions\DisplayException;
+use DarkOak\Http\Controllers\Auth\AbstractLoginController;
 
 class DiscordLoginController extends AbstractLoginController
 {

@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Listeners;
+namespace DarkOak\Listeners;
 
-use Everest\Facades\Activity;
+use DarkOak\Facades\Activity;
 use Illuminate\Auth\Events\Failed;
-use Everest\Events\Auth\DirectLogin;
+use DarkOak\Events\Auth\DirectLogin;
 use Illuminate\Contracts\Events\Dispatcher;
-use Everest\Extensions\Illuminate\Events\Contracts\SubscribesToEvents;
+use DarkOak\Extensions\Illuminate\Events\Contracts\SubscribesToEvents;
 
 class AuthenticationListener implements SubscribesToEvents
 {

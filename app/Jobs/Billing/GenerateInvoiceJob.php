@@ -1,16 +1,16 @@
 <?php
 
-namespace Everest\Jobs\Billing;
+namespace DarkOak\Jobs\Billing;
 
-use Everest\Jobs\Job;
-use Everest\Models\Billing\Order;
+use DarkOak\Jobs\Job;
+use DarkOak\Models\Billing\Order;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Everest\Models\Billing\BillingException;
+use DarkOak\Models\Billing\BillingException;
 use Illuminate\Queue\Attributes\WithoutRelations;
-use Everest\Services\Billing\InvoiceGenerationService;
+use DarkOak\Services\Billing\InvoiceGenerationService;
 
 class GenerateInvoiceJob extends Job implements ShouldQueue
 {

@@ -1,19 +1,19 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Remote\Servers;
+namespace DarkOak\Http\Controllers\Api\Remote\Servers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Everest\Models\Allocation;
-use Everest\Models\ServerTransfer;
+use DarkOak\Models\Allocation;
+use DarkOak\Models\ServerTransfer;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Database\ConnectionInterface;
-use Everest\Repositories\Eloquent\ServerRepository;
-use Everest\Repositories\Wings\DaemonServerRepository;
-use Everest\Exceptions\Http\Connection\DaemonConnectionException;
+use DarkOak\Repositories\Eloquent\ServerRepository;
+use DarkOak\Repositories\Wings\DaemonServerRepository;
+use DarkOak\Exceptions\Http\Connection\DaemonConnectionException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
 
 class ServerTransferController extends ApplicationApiController
 {
@@ -34,7 +34,7 @@ class ServerTransferController extends ApplicationApiController
      */
     public function failure(Request $request, string $uuid): Response
     {
-        /** @var \Everest\Models\Node $node */
+        /** @var \DarkOak\Models\Node $node */
         $node = $request->attributes->get('node');
 
         $server = $this->repository->getByUuid($uuid);
@@ -57,7 +57,7 @@ class ServerTransferController extends ApplicationApiController
      */
     public function success(Request $request, string $uuid): Response
     {
-        /** @var \Everest\Models\Node $node */
+        /** @var \DarkOak\Models\Node $node */
         $node = $request->attributes->get('node');
 
         $server = $this->repository->getByUuid($uuid);
@@ -70,7 +70,7 @@ class ServerTransferController extends ApplicationApiController
             throw new NotFoundHttpException();
         }
 
-        /** @var \Everest\Models\Server $server */
+        /** @var \DarkOak\Models\Server $server */
         $server = $this->connection->transaction(function () use ($server, $transfer) {
             $allocations = array_merge([$transfer->old_allocation], $transfer->old_additional_allocations);
 

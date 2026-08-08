@@ -1,13 +1,13 @@
 <?php
 
-namespace Everest\Services\Helpers;
+namespace DarkOak\Services\Helpers;
 
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Contracts\Cache\Repository as CacheRepository;
-use Everest\Exceptions\Service\Helper\CdnVersionFetchingException;
+use DarkOak\Exceptions\Service\Helper\CdnVersionFetchingException;
 
 class SoftwareVersionService
 {
@@ -135,10 +135,10 @@ class SoftwareVersionService
      */
     protected function cacheVersionData(): array
     {
-        return $this->cache->remember(self::VERSION_CACHE_KEY, CarbonImmutable::now()->addMinutes(config('everest.cdn.cache_time', 60)), function () {
+        return $this->cache->remember(self::VERSION_CACHE_KEY, CarbonImmutable::now()->addMinutes(config('darkoak.cdn.cache_time', 60)), function () {
             try {
-                $panel = Http::get(config('everest.cdn.panel_url'));
-                $wings = Http::get(config('everest.cdn.wings_url'));
+                $panel = Http::get(config('darkoak.cdn.panel_url'));
+                $wings = Http::get(config('darkoak.cdn.wings_url'));
 
                 if ($panel->status() !== 200 || $wings->status() !== 200) {
                     throw new CdnVersionFetchingException();

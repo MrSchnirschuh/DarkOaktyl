@@ -1,15 +1,15 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Client;
+namespace DarkOak\Http\Controllers\Api\Client;
 
-use Everest\Models\ApiKey;
-use Everest\Facades\Activity;
+use DarkOak\Models\ApiKey;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
-use Everest\Exceptions\DisplayException;
-use Everest\Http\Requests\Api\Client\ClientApiRequest;
-use Everest\Transformers\Api\Client\ApiKeyTransformer;
-use Everest\Http\Requests\Api\Client\Account\StoreApiKeyRequest;
+use DarkOak\Exceptions\DisplayException;
+use DarkOak\Http\Requests\Api\Client\ClientApiRequest;
+use DarkOak\Transformers\Api\Client\ApiKeyTransformer;
+use DarkOak\Http\Requests\Api\Client\Account\StoreApiKeyRequest;
 
 class ApiKeyController extends ClientApiController
 {

@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Listeners;
+namespace DarkOak\Listeners;
 
-use Everest\Facades\Activity;
+use DarkOak\Facades\Activity;
 use Illuminate\Contracts\Events\Dispatcher;
-use Everest\Events\Auth\ProvidedAuthenticationToken;
-use Everest\Extensions\Illuminate\Events\Contracts\SubscribesToEvents;
+use DarkOak\Events\Auth\ProvidedAuthenticationToken;
+use DarkOak\Extensions\Illuminate\Events\Contracts\SubscribesToEvents;
 
 class TwoFactorListener implements SubscribesToEvents
 {

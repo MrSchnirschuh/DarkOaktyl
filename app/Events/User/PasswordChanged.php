@@ -1,8 +1,8 @@
 <?php
 
-namespace Everest\Events\User;
+namespace DarkOak\Events\User;
 
-use Everest\Models\User;
+use DarkOak\Models\User;
 use Illuminate\Foundation\Events\Dispatchable;
 
 final class PasswordChanged

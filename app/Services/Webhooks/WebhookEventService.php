@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Services\Webhooks;
+namespace DarkOak\Services\Webhooks;
 
-use Everest\Models\User;
-use Everest\Models\WebhookEvent;
+use DarkOak\Models\User;
+use DarkOak\Models\WebhookEvent;
 use Illuminate\Support\Facades\Http;
-use Everest\Exceptions\DisplayException;
+use DarkOak\Exceptions\DisplayException;
 
 class WebhookEventService
 {

@@ -12,7 +12,7 @@ Dotenv\Dotenv::createImmutable(__DIR__ . '/../', $envFile)->safeLoad();
 
 $app = require __DIR__ . '/app.php';
 
-/** @var Everest\Console\Kernel $kernel */
+/** @var DarkOak\Console\Kernel $kernel */
 $kernel = $app->make(Kernel::class);
 
 /*

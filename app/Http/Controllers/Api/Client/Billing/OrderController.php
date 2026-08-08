@@ -1,17 +1,17 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Client\Billing;
+namespace DarkOak\Http\Controllers\Api\Client\Billing;
 
 use Illuminate\Http\Request;
-use Everest\Facades\Activity;
-use Everest\Models\Billing\Order;
+use DarkOak\Facades\Activity;
+use DarkOak\Models\Billing\Order;
 use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\Storage;
-use Everest\Exceptions\DisplayException;
-use Everest\Transformers\Api\Client\OrderTransformer;
+use DarkOak\Exceptions\DisplayException;
+use DarkOak\Transformers\Api\Client\OrderTransformer;
 use Symfony\Component\HttpFoundation\StreamedResponse;
-use Everest\Http\Controllers\Api\Client\ClientApiController;
-use Everest\Exceptions\Http\QueryValueOutOfRangeHttpException;
+use DarkOak\Http\Controllers\Api\Client\ClientApiController;
+use DarkOak\Exceptions\Http\QueryValueOutOfRangeHttpException;
 
 class OrderController extends ClientApiController
 {

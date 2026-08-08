@@ -1,27 +1,27 @@
 <?php
 
-namespace Everest\Http\Controllers\Auth;
+namespace DarkOak\Http\Controllers\Auth;
 
 use Carbon\Carbon;
-use Everest\Models\User;
+use DarkOak\Models\User;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Everest\Facades\Activity;
+use DarkOak\Facades\Activity;
 use Illuminate\Auth\AuthManager;
-use Everest\Models\JGuardAttempt;
+use DarkOak\Models\JGuardAttempt;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Auth\Events\Failed;
 use Illuminate\Container\Container;
-use Everest\Events\Auth\DirectLogin;
+use DarkOak\Events\Auth\DirectLogin;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Event;
-use Everest\Exceptions\DisplayException;
-use Everest\Services\Auth\JGuardService;
+use DarkOak\Exceptions\DisplayException;
+use DarkOak\Services\Auth\JGuardService;
 use Illuminate\Contracts\Auth\Authenticatable;
-use Everest\Services\Users\UserCreationService;
+use DarkOak\Services\Users\UserCreationService;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
 
 abstract class AbstractLoginController extends ApplicationApiController
 {

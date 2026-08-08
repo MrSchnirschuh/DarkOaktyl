@@ -1,18 +1,18 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Client\Billing;
+namespace DarkOak\Http\Controllers\Api\Client\Billing;
 
-use Everest\Models\Egg;
-use Everest\Models\Node;
-use Everest\Models\Billing\Order;
-use Everest\Models\Billing\Product;
-use Everest\Exceptions\DisplayException;
-use Everest\Services\Billing\CreateOrderService;
-use Everest\Services\Billing\ServerRenewalService;
-use Everest\Transformers\Api\Client\ServerTransformer;
-use Everest\Services\Billing\FreeServerDeploymentService;
-use Everest\Http\Controllers\Api\Client\ClientApiController;
-use Everest\Http\Requests\Api\Client\Billing\ProcessFreeServerRequest;
+use DarkOak\Models\Egg;
+use DarkOak\Models\Node;
+use DarkOak\Models\Billing\Order;
+use DarkOak\Models\Billing\Product;
+use DarkOak\Exceptions\DisplayException;
+use DarkOak\Services\Billing\CreateOrderService;
+use DarkOak\Services\Billing\ServerRenewalService;
+use DarkOak\Transformers\Api\Client\ServerTransformer;
+use DarkOak\Services\Billing\FreeServerDeploymentService;
+use DarkOak\Http\Controllers\Api\Client\ClientApiController;
+use DarkOak\Http\Requests\Api\Client\Billing\ProcessFreeServerRequest;
 
 class FreeProductController extends ClientApiController
 {

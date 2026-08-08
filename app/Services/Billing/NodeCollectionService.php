@@ -1,11 +1,11 @@
 <?php
 
-namespace Everest\Services\Billing;
+namespace DarkOak\Services\Billing;
 
-use Everest\Models\Node;
-use Everest\Models\Billing\Product;
-use Everest\Models\Billing\BillingException;
-use Everest\Repositories\Wings\DaemonConfigurationRepository;
+use DarkOak\Models\Node;
+use DarkOak\Models\Billing\Product;
+use DarkOak\Models\Billing\BillingException;
+use DarkOak\Repositories\Wings\DaemonConfigurationRepository;
 
 class NodeCollectionService
 {

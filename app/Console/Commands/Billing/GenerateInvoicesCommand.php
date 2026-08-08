@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Console\Commands\Billing;
+namespace DarkOak\Console\Commands\Billing;
 
 use Illuminate\Console\Command;
-use Everest\Models\Billing\Order;
-use Everest\Jobs\Billing\GenerateInvoiceJob;
+use DarkOak\Models\Billing\Order;
+use DarkOak\Jobs\Billing\GenerateInvoiceJob;
 
 class GenerateInvoicesCommand extends Command
 {

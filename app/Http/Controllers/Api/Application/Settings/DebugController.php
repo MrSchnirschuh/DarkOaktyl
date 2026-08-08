@@ -1,13 +1,13 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Settings;
+namespace DarkOak\Http\Controllers\Api\Application\Settings;
 
 use Carbon\Carbon;
-use Everest\Facades\Activity;
+use DarkOak\Facades\Activity;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
 
 class DebugController extends ApplicationApiController
 {

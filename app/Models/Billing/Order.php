@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Models\Billing;
+namespace DarkOak\Models\Billing;
 
-use Everest\Models\User;
-use Everest\Models\Model;
-use Everest\Models\Server;
+use DarkOak\Models\User;
+use DarkOak\Models\Model;
+use DarkOak\Models\Server;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 

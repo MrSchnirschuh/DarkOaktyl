@@ -3,8 +3,8 @@
 namespace DarkOak\Models;
 
 use Illuminate\Validation\Rules\NotIn;
-use Everest\Contracts\Models\Identifiable;
-use Everest\Models\Traits\HasRealtimeIdentifier;
+use DarkOak\Contracts\Models\Identifiable;
+use DarkOak\Models\Traits\HasRealtimeIdentifier;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**

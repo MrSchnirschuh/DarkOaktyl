@@ -1,15 +1,15 @@
 <?php
 
-namespace Everest\Models;
+namespace DarkOak\Models;
 
 use Illuminate\Support\Str;
 use Webmozart\Assert\Assert;
-use Everest\Services\Acl\Api\AdminAcl;
+use DarkOak\Services\Acl\Api\AdminAcl;
 use Laravel\Sanctum\Contracts\HasAbilities;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * Everest\Models\ApiKey.
+ * DarkOak\Models\ApiKey.
  *
  * @property int $id
  * @property int $user_id

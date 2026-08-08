@@ -1,30 +1,30 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Client\Billing;
+namespace DarkOak\Http\Controllers\Api\Client\Billing;
 
-use Everest\Models\Egg;
-use Everest\Models\Node;
-use Everest\Models\User;
+use DarkOak\Models\Egg;
+use DarkOak\Models\Node;
+use DarkOak\Models\User;
 use Stripe\StripeClient;
-use Everest\Models\Server;
-use Everest\Models\Billing\Order;
-use Everest\Models\Billing\Product;
-use Everest\Exceptions\DisplayException;
-use Everest\Models\Billing\DiscountCode;
-use Everest\Models\Billing\BillingException;
-use Everest\Services\Billing\PaymentService;
-use Everest\Services\Billing\UpgradeService;
-use Everest\Services\Billing\DiscountService;
-use Everest\Services\Billing\CreateOrderService;
-use Everest\Services\Billing\ServerRenewalService;
-use Everest\Services\Billing\ServerDeploymentService;
-use Everest\Transformers\Api\Client\ServerTransformer;
+use DarkOak\Models\Server;
+use DarkOak\Models\Billing\Order;
+use DarkOak\Models\Billing\Product;
+use DarkOak\Exceptions\DisplayException;
+use DarkOak\Models\Billing\DiscountCode;
+use DarkOak\Models\Billing\BillingException;
+use DarkOak\Services\Billing\PaymentService;
+use DarkOak\Services\Billing\UpgradeService;
+use DarkOak\Services\Billing\DiscountService;
+use DarkOak\Services\Billing\CreateOrderService;
+use DarkOak\Services\Billing\ServerRenewalService;
+use DarkOak\Services\Billing\ServerDeploymentService;
+use DarkOak\Transformers\Api\Client\ServerTransformer;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Everest\Http\Controllers\Api\Client\ClientApiController;
-use Everest\Transformers\Api\Client\DiscountCodeTransformer;
-use Everest\Http\Requests\Api\Client\Billing\CreateStripePaymentRequest;
-use Everest\Http\Requests\Api\Client\Billing\ProcessStripePaymentRequest;
-use Everest\Http\Requests\Api\Client\Billing\ValidateDiscountCodeRequest;
+use DarkOak\Http\Controllers\Api\Client\ClientApiController;
+use DarkOak\Transformers\Api\Client\DiscountCodeTransformer;
+use DarkOak\Http\Requests\Api\Client\Billing\CreateStripePaymentRequest;
+use DarkOak\Http\Requests\Api\Client\Billing\ProcessStripePaymentRequest;
+use DarkOak\Http\Requests\Api\Client\Billing\ValidateDiscountCodeRequest;
 
 class StripeController extends ClientApiController
 {

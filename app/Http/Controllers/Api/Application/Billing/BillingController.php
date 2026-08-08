@@ -1,17 +1,17 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Application\Billing;
+namespace DarkOak\Http\Controllers\Api\Application\Billing;
 
-use Everest\Models\Setting;
-use Everest\Facades\Activity;
+use DarkOak\Models\Setting;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
-use Everest\Models\Billing\Order;
-use Everest\Models\Billing\Product;
-use Everest\Models\Billing\Category;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
-use Everest\Http\Requests\Api\Application\Billing\DeleteStripeKeysRequest;
-use Everest\Http\Requests\Api\Application\Billing\GetBillingAnalyticsRequest;
-use Everest\Http\Requests\Api\Application\Billing\UpdateBillingSettingsRequest;
+use DarkOak\Models\Billing\Order;
+use DarkOak\Models\Billing\Product;
+use DarkOak\Models\Billing\Category;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Http\Requests\Api\Application\Billing\DeleteStripeKeysRequest;
+use DarkOak\Http\Requests\Api\Application\Billing\GetBillingAnalyticsRequest;
+use DarkOak\Http\Requests\Api\Application\Billing\UpdateBillingSettingsRequest;
 
 class BillingController extends ApplicationApiController
 {

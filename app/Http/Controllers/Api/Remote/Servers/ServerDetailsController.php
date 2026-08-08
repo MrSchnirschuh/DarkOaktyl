@@ -1,20 +1,20 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Remote\Servers;
+namespace DarkOak\Http\Controllers\Api\Remote\Servers;
 
-use Everest\Models\Backup;
-use Everest\Models\Server;
+use DarkOak\Models\Backup;
+use DarkOak\Models\Server;
 use Illuminate\Http\Request;
-use Everest\Facades\Activity;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Database\ConnectionInterface;
-use Everest\Services\Eggs\EggConfigurationService;
-use Everest\Repositories\Eloquent\ServerRepository;
-use Everest\Http\Resources\Wings\ServerConfigurationCollection;
-use Everest\Services\Servers\ServerConfigurationStructureService;
+use DarkOak\Services\Eggs\EggConfigurationService;
+use DarkOak\Repositories\Eloquent\ServerRepository;
+use DarkOak\Http\Resources\Wings\ServerConfigurationCollection;
+use DarkOak\Services\Servers\ServerConfigurationStructureService;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
 
 class ServerDetailsController extends ApplicationApiController
 {
@@ -33,11 +33,11 @@ class ServerDetailsController extends ApplicationApiController
      * Returns details about the server that allows Wings to self-recover and ensure
      * that the state of the server matches the Panel at all times.
      *
-     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
+     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
      */
     public function __invoke(Request $request, string $uuid): JsonResponse
     {
-        /** @var \Everest\Models\Node $node */
+        /** @var \DarkOak\Models\Node $node */
         $node = $request->attributes->get('node');
 
         $server = $this->repository->getByUuid($uuid);
@@ -57,7 +57,7 @@ class ServerDetailsController extends ApplicationApiController
      */
     public function list(Request $request): ServerConfigurationCollection
     {
-        /** @var \Everest\Models\Node $node */
+        /** @var \DarkOak\Models\Node $node */
         $node = $request->attributes->get('node');
 
         // Avoid run-away N+1 SQL queries by preloading the relationships that are used
@@ -102,7 +102,7 @@ class ServerDetailsController extends ApplicationApiController
         $this->connection->transaction(function () use ($node, $servers) {
             /** @var Server $server */
             foreach ($servers as $server) {
-                /** @var \Everest\Models\ActivityLog|null $activity */
+                /** @var \DarkOak\Models\ActivityLog|null $activity */
                 $activity = $server->activity->first();
                 if (!is_null($activity)) {
                     if ($subject = $activity->subjects->where('subject_type', 'backup')->first()) {
