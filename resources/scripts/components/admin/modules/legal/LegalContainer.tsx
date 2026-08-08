@@ -91,6 +91,7 @@ const LegalContainer = () => {
                                     <Link
                                         to={`/legal/${document.slug}`}
                                         target={'_blank'}
+                                        rel={'noreferrer'}
                                         css={tw`inline-flex items-center gap-1 text-xs px-2 py-1 rounded transition-colors`}
                                         style={{
                                             color: 'var(--theme-text-muted, #64748b)',

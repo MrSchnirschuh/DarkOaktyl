@@ -133,7 +133,7 @@ const LegalPage = () => {
                             }
 
                             const isHeading = /^\d+\.\s/.test(line) && line.length < 80;
-                            const isTitle = !isHeading && /^[A-Z][A-Za-z\s\-]{2,}$/.test(line) && line.length < 60;
+                            const isTitle = !isHeading && /^[A-Z][A-Za-z\s-]{2,}$/.test(line) && line.length < 60;
 
                             if (isHeading) {
                                 return (
