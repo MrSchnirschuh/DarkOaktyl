@@ -57,6 +57,8 @@ Route::prefix('/')->middleware([SuspendedAccount::class])->group(function () {
 
         Route::put('/email', [Client\AccountController::class, 'updateEmail'])->name('api:client.account.update-email');
         Route::put('/password', [Client\AccountController::class, 'updatePassword'])->name('api:client.account.update-password');
+        Route::post('/avatar', [Client\AccountController::class, 'updateAvatar'])->name('api:client.account.update-avatar');
+        Route::delete('/avatar', [Client\AccountController::class, 'removeAvatar'])->name('api:client.account.remove-avatar');
 
         Route::get('/activity', Client\ActivityLogController::class)->name('api:client.account.activity');
 
@@ -190,7 +192,8 @@ Route::prefix('/')->middleware([SuspendedAccount::class])->group(function () {
         Route::get('/products/{id}', [Client\Billing\ProductController::class, 'view']);
         Route::get('/products/{id}/variables', [Client\Billing\EggController::class, 'index']);
         Route::get('/orders', [Client\Billing\OrderController::class, 'index']);
-        Route::get('/orders/{id}', [Client\Billing\OrderController::class, 'view']);
+        Route::get('/orders/{order}', [Client\Billing\OrderController::class, 'view']);
+        Route::get('/orders/{order}/invoice', [Client\Billing\OrderController::class, 'invoice']);
         Route::post('/stripe/create', [Client\Billing\StripeController::class, 'create']);
         Route::post('/stripe/process', [Client\Billing\StripeController::class, 'process']);
         Route::post('/free/process', [Client\Billing\FreeProductController::class, 'process']);

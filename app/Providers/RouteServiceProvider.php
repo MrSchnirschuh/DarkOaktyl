@@ -37,10 +37,6 @@ class RouteServiceProvider extends ServiceProvider
         Route::model('database', Database::class);
 
         $this->routes(function () {
-            // Determine if we're using subdomain routing
-            $panelSubdomain = env('PANEL_SUBDOMAIN', 'panel');
-            $rootDomain = env('APP_ROOT_DOMAIN', null);
-            
             // Panel routes closure
             $panelRoutes = function () {
                 Route::middleware('web')->group(function () {
@@ -81,20 +77,9 @@ class RouteServiceProvider extends ServiceProvider
                     ->scopeBindings()
                     ->group(base_path('routes/api-remote.php'));
             };
-            
-            if ($rootDomain) {
-                // Domain separation enabled
-                // Public website routes on root domain
-                Route::domain($rootDomain)
-                    ->middleware('web')
-                    ->group(base_path('routes/public.php'));
-                
-                // Panel routes on subdomain
-                Route::domain($panelSubdomain . '.' . $rootDomain)->group($panelRoutes);
-            } else {
-                // No domain separation, load all panel routes normally
-                $panelRoutes();
-            }
+
+            // Load all panel routes
+            $panelRoutes();
         });
     }
 

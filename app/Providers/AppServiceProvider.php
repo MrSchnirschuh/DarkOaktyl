@@ -67,6 +67,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        // config/darkoak.php auto-registers under the lowercase 'darkoak' key, but
+        // the codebase reads config('DarkOak.xxx'). Alias it so all reads resolve.
+        $this->app->config->set('DarkOak', $this->app->config->get('darkoak', []));
+
         // Only load the settings / theme service provider if the environment
         // is configured to allow it.
         if (!config('darkoak.load_environment_only', false) && $this->app->environment() !== 'testing') {

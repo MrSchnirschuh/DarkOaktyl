@@ -51,6 +51,14 @@ class Order extends Model
     protected $table = 'orders';
 
     /**
+     * Orders bind by their integer id — the orders table has no uuid column.
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'id';
+    }
+
+    /**
      * Fields that are mass assignable.
      */
     protected $fillable = [

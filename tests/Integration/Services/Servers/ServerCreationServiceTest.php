@@ -212,6 +212,8 @@ class ServerCreationServiceTest extends IntegrationTestCase
     {
         Carbon::setTestNow(Carbon::parse('2025-01-05 12:00:00'));
 
+        config(['modules.billing.enabled' => true]);
+
         $user = User::factory()->create();
         $node = Node::factory()->create();
         $allocation = Allocation::factory()->create(['node_id' => $node->id]);

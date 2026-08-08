@@ -70,7 +70,7 @@ class RequireTwoFactorAuthentication
         }
 
         // Allow access to auth and account routes regardless of 2FA status
-        if (Str::startsWith($uri, ['/auth/']) || ($current !== null && Str::startsWith($current, ['auth.', 'account.']))) {
+        if (Str::startsWith($uri, ['/auth/', '/account/']) || ($current !== null && Str::startsWith($current, ['auth.', 'account.']))) {
             return $next($request);
         }
 
@@ -98,7 +98,7 @@ class RequireTwoFactorAuthentication
             throw new TwoFactorAuthRequiredException();
         }
 
-        return redirect()->to($this->redirectRoute);
+        return new \Illuminate\Http\RedirectResponse($this->redirectRoute);
     }
 }
 
