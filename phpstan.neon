@@ -22,8 +22,6 @@ parameters:
         - '#Access to an undefined property Stripe\\StripeObject::#'
 
         # Missing services (external/not yet implemented)
-        - '#has unknown class DarkOak\\Services\\Servers\\ServerConfigurationService#'
-        - '#Instantiated class DarkOak\\Services\\Servers\\ServerConfigurationService not found#'
         - '#Call to an undefined method DarkOak\\Models\\Node::guzzleClient\(\)#'
         - '#Class DarkOak\\Services\\Servers\\ServerCreationService constructor#'
         - '#has invalid type DarkOak\\Services\\Servers\\ServerUpdateService#'
@@ -50,9 +48,6 @@ parameters:
 
         # ThemePaletteService uses dynamic object properties
         - '#Access to an undefined property object::\$value#'
-
-        # Call to method handleUpdates on unknown class
-        - '#Call to method handleUpdates\(\) on an unknown class#'
 
         # Unused properties (constructor property promotion, DI only)
         - '#Property.*is never read, only written#'

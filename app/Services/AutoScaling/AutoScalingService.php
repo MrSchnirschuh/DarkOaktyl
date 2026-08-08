@@ -5,18 +5,20 @@ namespace DarkOak\Services\AutoScaling;
 use DarkOak\Models\AutoScalingRule;
 use DarkOak\Models\AutoScalingHistory;
 use DarkOak\Models\Server;
-use DarkOak\Services\Servers\ServerConfigurationService;
+use DarkOak\Repositories\Wings\DaemonServerRepository;
 use DarkOak\Services\PushNotifications\PushNotificationService;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\App;
 
 class AutoScalingService
 {
-    private ServerConfigurationService $configService;
+    private DaemonServerRepository $daemonServerRepository;
     private PushNotificationService $pushService;
 
     public function __construct()
     {
-        $this->configService = new ServerConfigurationService();
+        // Resolve via container (DaemonServerRepository needs Application in its ctor).
+        $this->daemonServerRepository = App::make(DaemonServerRepository::class);
         $this->pushService = new PushNotificationService();
     }
 
@@ -142,7 +144,12 @@ class AutoScalingService
             $server->update(['memory' => $newMemory]);
 
             // Sync with Wings
-            $this->configService->handleUpdates($server);
+            try {
+                $this->daemonServerRepository->setServer($server)->sync();
+            } catch (\DarkOak\Exceptions\Http\Connection\DaemonConnectionException $exception) {
+                // Wings re-fetches config on boot; a failed sync is non-fatal, just log it.
+                Log::warning($exception, ['server_id' => $server->id]);
+            }
 
             // Update rule timestamps
             if ($action === 'up') {
