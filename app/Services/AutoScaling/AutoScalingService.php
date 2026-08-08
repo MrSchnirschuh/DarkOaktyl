@@ -60,18 +60,16 @@ class AutoScalingService
     private function fetchServerStats(Server $server): ?array
     {
         try {
-            $response = $server->node->guzzleClient()->get(
-                sprintf('/api/servers/%s/resources', $server->uuid)
-            );
+            $data = $this->daemonServerRepository->setServer($server)->getDetails();
 
-            $data = json_decode($response->getBody()->getContents(), true);
+            $resources = $data['resources'] ?? [];
 
             return [
-                'cpu' => $data['resources']['cpu_absolute'] ?? 0,
-                'memory' => $data['resources']['memory_bytes'] ?? 0,
-                'memory_limit' => $data['resources']['memory_limit'] ?? ($server->memory * 1024 * 1024),
-                'disk' => $data['resources']['disk_bytes'] ?? 0,
-                'disk_limit' => $data['resources']['disk_limit'] ?? ($server->disk * 1024 * 1024),
+                'cpu' => $resources['cpu_absolute'] ?? 0,
+                'memory' => $resources['memory_bytes'] ?? 0,
+                'memory_limit' => $resources['memory_limit'] ?? ($server->memory * 1024 * 1024),
+                'disk' => $resources['disk_bytes'] ?? 0,
+                'disk_limit' => $resources['disk_limit'] ?? ($server->disk * 1024 * 1024),
             ];
         } catch (\Exception $e) {
             Log::error('Failed to fetch server stats', [
@@ -127,17 +125,21 @@ class AutoScalingService
             : $rule->calculateScaleDown($currentMemory);
 
         // Create history entry
-        $history = AutoScalingHistory::create([
-            'auto_scaling_rule_id' => $rule->id,
-            'action' => $action,
-            'old_memory' => $currentMemory,
-            'new_memory' => $newMemory,
-            'cpu_usage' => $stats['cpu'],
-            'memory_usage' => $stats['memory'],
-            'memory_usage_percent' => ($stats['memory'] / $stats['memory_limit']) * 100,
-            'disk_usage' => $stats['disk'],
-            'reason' => "Auto-scaled $action: CPU at {$stats['cpu']}%, Memory at " . round(($stats['memory'] / $stats['memory_limit']) * 100, 1) . '%',
-        ]);
+        $history = AutoScalingHistory::log(
+            $server,
+            $rule,
+            $action === 'up' ? AutoScalingHistory::ACTION_SCALE_UP : AutoScalingHistory::ACTION_SCALE_DOWN,
+            $currentMemory,
+            $newMemory,
+            [
+                'cpu' => $stats['cpu'],
+                'memory' => ($stats['memory'] / $stats['memory_limit']) * 100,
+                'disk' => ($stats['disk'] / max($stats['disk_limit'], 1)) * 100,
+            ],
+            "Auto-scaled $action: CPU at {$stats['cpu']}%, Memory at " . round(($stats['memory'] / $stats['memory_limit']) * 100, 1) . '%',
+            null,
+            AutoScalingHistory::STATUS_COMPLETED
+        );
 
         try {
             // Update server memory

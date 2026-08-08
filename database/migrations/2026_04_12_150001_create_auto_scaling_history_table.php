@@ -10,43 +10,29 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('auto_scaling_history', function (Blueprint $table) {
+        Schema::create('auto_scaling_histories', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('server_id');
             $table->unsignedBigInteger('auto_scaling_rule_id');
 
-            // Action type
-            $table->enum('action', ['scale_up', 'scale_down', 'no_action'])->default('no_action');
+            // Action type (scale_up | scale_down | skipped | no_action)
+            $table->enum('action', ['scale_up', 'scale_down', 'skipped', 'no_action'])->default('no_action');
 
-            // Resource type that triggered scaling
-            $table->enum('triggered_by', ['cpu', 'ram', 'disk', 'manual'])->nullable();
+            // Metrics at decision time
+            $table->float('cpu_percent')->nullable();
+            $table->float('memory_percent')->nullable();
+            $table->float('disk_percent')->nullable();
 
-            // Metrics before scaling
-            $table->unsignedTinyInteger('cpu_usage_before')->nullable();
-            $table->unsignedInteger('ram_usage_mb_before')->nullable();
-            $table->unsignedInteger('disk_usage_mb_before')->nullable();
+            // Memory change
+            $table->unsignedInteger('old_memory')->nullable();
+            $table->unsignedInteger('new_memory')->nullable();
 
-            // Metrics after scaling
-            $table->unsignedTinyInteger('cpu_usage_after')->nullable();
-            $table->unsignedInteger('ram_usage_mb_after')->nullable();
-            $table->unsignedInteger('disk_usage_after')->nullable();
-
-            // Resource limits before/after
-            $table->unsignedInteger('memory_limit_before')->nullable();
-            $table->unsignedInteger('memory_limit_after')->nullable();
-            $table->unsignedInteger('cpu_limit_before')->nullable();
-            $table->unsignedInteger('cpu_limit_after')->nullable();
-            $table->unsignedInteger('disk_limit_before')->nullable();
-            $table->unsignedInteger('disk_limit_after')->nullable();
-
-            // Reason for action or failure
+            // Context
+            $table->string('triggered_by')->nullable();
             $table->text('reason')->nullable();
-
-            // Status
-            $table->enum('status', ['success', 'failed', 'skipped'])->default('success');
-
-            // Error message if failed
+            $table->enum('status', ['completed', 'failed', 'pending', 'success'])->default('completed');
             $table->text('error_message')->nullable();
+            $table->json('metadata')->nullable();
 
             $table->timestamps();
 
@@ -75,6 +61,6 @@ return new class () extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('auto_scaling_history');
+        Schema::dropIfExists('auto_scaling_histories');
     }
 };

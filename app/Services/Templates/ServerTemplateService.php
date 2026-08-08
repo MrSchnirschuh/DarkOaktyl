@@ -196,14 +196,9 @@ class ServerTemplateService
         try {
             // Queue script execution
             dispatch(function () use ($server, $script, $phase) {
-                $server->node->guzzleClient()->post(
-                    sprintf('/api/servers/%s/command', $server->uuid),
-                    [
-                        'json' => [
-                            'command' => $script,
-                        ],
-                    ]
-                );
+                app(\DarkOak\Repositories\Wings\DaemonCommandRepository::class)
+                    ->setServer($server)
+                    ->send($script);
 
                 Log::info("Template {$phase} script executed", [
                     'server_id' => $server->id,
