@@ -12,16 +12,15 @@ return [
     'domain' => env('RECAPTCHA_DOMAIN', 'https://www.google.com/recaptcha/api/siteverify'),
 
     /*
-     * Use a custom secret key, we use our public one by default
+     * Use a custom secret key. There is no default; set it via RECAPTCHA_SECRET_KEY
+     * in the environment, otherwise reCAPTCHA verification will fail closed.
      */
-    'secret_key' => env('RECAPTCHA_SECRET_KEY', '6LcJcjwUAAAAALOcDJqAEYKTDhwELCkzUkNDQ0J5'),
-    '_shipped_secret_key' => '6LcJcjwUAAAAALOcDJqAEYKTDhwELCkzUkNDQ0J5',
+    'secret_key' => env('RECAPTCHA_SECRET_KEY'),
 
     /*
-     * Use a custom website key, we use our public one by default
+     * Use a custom website key. There is no default; set it via RECAPTCHA_WEBSITE_KEY.
      */
-    'website_key' => env('RECAPTCHA_WEBSITE_KEY', '6LcJcjwUAAAAAO_Xqjrtj9wWufUpYRnK6BW8lnfn'),
-    '_shipped_website_key' => '6LcJcjwUAAAAAO_Xqjrtj9wWufUpYRnK6BW8lnfn',
+    'website_key' => env('RECAPTCHA_WEBSITE_KEY'),
 
     /*
      * Domain verification is enabled by default and compares the domain used when solving the captcha

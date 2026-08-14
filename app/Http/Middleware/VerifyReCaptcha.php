@@ -28,6 +28,11 @@ class VerifyReCaptcha
             return $next($request);
         }
 
+        $secretKey = $this->config->get('recaptcha.secret_key');
+        if (empty($secretKey)) {
+            throw new HttpException(Response::HTTP_INTERNAL_SERVER_ERROR, 'ReCaptcha is not configured.');
+        }
+
         $recaptchaResponse = $request->input('g-recaptcha-response');
         $recaptchaState = $request->input('state');
 
