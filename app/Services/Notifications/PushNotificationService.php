@@ -258,7 +258,7 @@ class PushNotificationService
      */
     public function updateUserPreferences(User $user, array $preferences): bool
     {
-        $user->notification_settings = json_encode($preferences);
+        $user->notification_settings = $preferences;
         $user->save();
 
         // Update all user's subscriptions

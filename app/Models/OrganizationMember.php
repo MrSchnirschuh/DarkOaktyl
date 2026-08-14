@@ -18,6 +18,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Illuminate\Support\Carbon|null $last_payment_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \DarkOak\Models\User $user
+ * @property-read \DarkOak\Models\Organization $organization
+ * @method bool isOwner()
+ * @method bool isAdmin()
+ * @method int getRoleLevel()
+ * @method bool canManageRole(string $role)
+ * @method void updateMonthlyShare(float $amount)
+ * @method void recordPayment()
+ * @method float getCurrentShare()
+ * @method bool isPaymentOverdue()
  */
 class OrganizationMember extends Model
 {

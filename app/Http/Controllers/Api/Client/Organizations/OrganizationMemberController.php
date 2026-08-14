@@ -74,7 +74,7 @@ class OrganizationMemberController extends ClientApiController
             ->where('user_id', $user->id)
             ->first();
 
-        if (!$currentMember || !$currentMember->canManageRole($validated['role'])) {
+        if (!$currentMember instanceof OrganizationMember || !$currentMember->canManageRole($validated['role'])) {
             throw new AccessDeniedHttpException('You cannot assign this role.');
         }
 
@@ -124,7 +124,7 @@ class OrganizationMemberController extends ClientApiController
             ->where('user_id', $user->id)
             ->first();
 
-        if (!$currentMember || $currentMember->getRoleLevel() <= $member->getRoleLevel()) {
+        if (!$currentMember instanceof OrganizationMember || $currentMember->getRoleLevel() <= $member->getRoleLevel()) {
             throw new AccessDeniedHttpException('You cannot remove this member.');
         }
 
@@ -202,7 +202,7 @@ class OrganizationMemberController extends ClientApiController
         $members = $organization->members()
             ->with('user:id,name,email')
             ->get()
-            ->map(function ($member) use ($equalShare) {
+            ->map(function (OrganizationMember $member) use ($equalShare) {
                 return [
                     'user_id' => $member->user_id,
                     'name' => $member->user->name,
@@ -267,7 +267,7 @@ class OrganizationMemberController extends ClientApiController
                 ->where('user_id', $share['user_id'])
                 ->first();
 
-            if ($member) {
+            if ($member instanceof OrganizationMember) {
                 $member->updateMonthlyShare($share['amount']);
             }
         }

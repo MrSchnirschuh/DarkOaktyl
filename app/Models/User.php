@@ -31,9 +31,13 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
  * @property string|null $external_id
  * @property string $uuid
  * @property string $username
+ * @property string $name
  * @property string $email
+ * @property string|null $avatar
+ * @property array|null $notification_settings
  * @property string $password
  * @property string|null $remember_token
+ * @property \Illuminate\Support\Carbon|null $created_at
  * @property string $language
  * @property int|null $admin_role_id
  * @property bool $root_admin

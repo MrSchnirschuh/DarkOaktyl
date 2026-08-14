@@ -2,6 +2,7 @@
 
 namespace DarkOak\Http\Controllers\Api\Client\Servers;
 
+use DarkOak\Models\Allocation;
 use DarkOak\Models\Node;
 use DarkOak\Models\Region;
 use DarkOak\Models\Server;
@@ -137,10 +138,13 @@ class ServerRegionController extends ClientApiController
             throw new DisplayException('No available allocations on target node.');
         }
 
+        assert($allocation instanceof Allocation);
+
         // Create server transfer
         $transfer = new \DarkOak\Models\ServerTransfer();
         $transfer->server_id = $server->id;
         $transfer->old_node = $server->node_id;
+        assert($node instanceof Node);
         $transfer->new_node = $node->id;
         $transfer->old_allocation = $server->allocation_id;
         $transfer->new_allocation = $allocation->id;

@@ -259,9 +259,12 @@ class Server extends Model
     /**
      * Gets information for the product associated with this server.
      */
-    public function product(): HasOne
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<\DarkOak\Models\Billing\Product, $this>
+     */
+    public function product(): BelongsTo
     {
-        return $this->hasOne(Product::class, 'id', 'billing_product_id');
+        return $this->belongsTo(Product::class, 'billing_product_id');
     }
 
     /**

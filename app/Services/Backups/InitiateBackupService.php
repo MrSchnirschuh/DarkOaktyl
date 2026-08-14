@@ -52,7 +52,7 @@ class InitiateBackupService
     {
         if (is_array($ignored)) {
             foreach ($ignored as $value) {
-                Assert::string($value); // @phpstan-ignore staticMethod.alreadyNarrowedType
+                Assert::string($value);
             }
         }
 

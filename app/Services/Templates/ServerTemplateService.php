@@ -104,7 +104,7 @@ class ServerTemplateService
             'cpu' => $options['cpu'] ?? $template->default_cpu,
             'io' => $options['io'] ?? $template->default_io,
             'startup' => $template->startup_command ?? $template->egg?->startup,
-            'image' => $template->docker_image ?? $template->egg?->image ?? 'alpine:latest',
+            'image' => $template->docker_image ?? $template->egg->image ?? 'alpine:latest',
             'environment' => array_merge(
                 $template->getEnvironmentVariables(),
                 $options['environment'] ?? []

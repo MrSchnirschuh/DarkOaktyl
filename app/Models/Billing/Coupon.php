@@ -24,6 +24,12 @@ use Illuminate\Support\Str;
  * @property bool $is_active
  * @property \Carbon\Carbon|null $starts_at
  * @property \Carbon\Carbon|null $expires_at
+ * @property int|null $parent_coupon_id
+ * @property int|null $personalized_for_id
+ * @property \DarkOak\Models\Billing\BillingTerm|null $term
+ * @property \DarkOak\Models\User|null $personalizedFor
+ * @property \DarkOak\Models\Billing\Coupon|null $parent
+ * @property \Illuminate\Database\Eloquent\Collection<int, \DarkOak\Models\Billing\CouponRedemption> $redemptions
  */
 class Coupon extends Model
 {

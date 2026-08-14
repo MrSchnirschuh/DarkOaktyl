@@ -24,9 +24,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property int|null $members_count
  * @property int|null $servers_count
  * @property \DarkOak\Models\User $owner
- * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\OrganizationMember[] $members
+ * @property \Illuminate\Database\Eloquent\Collection<int, \DarkOak\Models\OrganizationMember> $members
  * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\OrganizationInvitation[] $invitations
- * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\Server[] $servers
+ * @property \Illuminate\Database\Eloquent\Collection<int, \DarkOak\Models\Server> $servers
  *
  * @method static \Illuminate\Database\Eloquent\Builder|Organization whereSlug($value)
  */
@@ -125,7 +125,7 @@ class Organization extends Model
             ->where('user_id', $user->id)
             ->first();
 
-        return $member?->role;
+        return $member instanceof OrganizationMember ? $member->role : null;
     }
 
     public function getSetting(string $key, mixed $default = null): mixed

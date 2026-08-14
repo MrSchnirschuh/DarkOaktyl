@@ -37,7 +37,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * @mixin \Eloquent
  *
- * @method static \Database\Factories\UserPasskeyFactory factory(...$parameters)
  */
 class UserPasskey extends Model
 {

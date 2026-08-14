@@ -5,8 +5,8 @@ namespace DarkOak\Services\Emails;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Cron\CronExpression;
-use DarkOak\Models\EmailTrigger;
-use DarkOak\Models\User;
+use DarkOak\Models\EmailTemplate;
+use DarkOak\Models\EmailTrigger;use DarkOak\Models\User;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
@@ -19,7 +19,7 @@ class EmailTriggerProcessor
     public function process(EmailTrigger $trigger, array $context = []): void
     {
         $template = $trigger->template()->first();
-        if (!$template || !$template->is_enabled) {
+        if (!$template instanceof EmailTemplate || !$template->is_enabled) {
             return;
         }
 

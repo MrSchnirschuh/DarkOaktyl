@@ -3,6 +3,7 @@
 namespace DarkOak\Services\PushNotifications;
 
 use DarkOak\Models\PushSubscription;
+use DarkOak\Models\OrganizationMember;
 use DarkOak\Models\User;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
@@ -96,6 +97,7 @@ class PushNotificationService
         }
 
         foreach ($members->get() as $member) {
+            assert($member instanceof OrganizationMember);
             $this->notifyUser($member->user, $event, array_merge($payload, [
                 'organization_id' => $organizationId,
                 'organization_name' => $organization->name,

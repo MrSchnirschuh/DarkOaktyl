@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use DarkOak\Http\Controllers\ApplicationApiController;
 use DarkOak\Models\Billing\BillingRecord;
 use DarkOak\Models\Billing\CreditBalance;
+use DarkOak\Models\Billing\CreditTransaction;
 use DarkOak\Models\Server;
 use DarkOak\Services\Billing\UsageBillingService;
 use Illuminate\Http\Request;
@@ -166,7 +167,7 @@ class BillingController extends ApplicationApiController
 
         return response()->json([
             'object' => 'list',
-            'data' => $transactions->map(fn ($t) => [
+            'data' => $transactions->map(fn (CreditTransaction $t) => [
                 'id' => $t->id,
                 'type' => $t->type,
                 'amount' => $t->amount,

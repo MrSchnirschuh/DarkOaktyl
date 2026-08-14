@@ -4,6 +4,7 @@ namespace DarkOak\Http\Controllers\Api\Client\Billing;
 
 use DarkOak\Models\User;
 use DarkOak\Models\Organization;
+use DarkOak\Models\Server;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use DarkOak\Services\Organizations\OrganizationCreationService;
@@ -186,12 +187,12 @@ class OrganizationController extends ClientApiController
             ->get();
 
         return [
-            'data' => $servers->map(fn ($server) => [
+            'data' => $servers->map(fn (Server $server) => [
                 'id' => $server->uuid,
                 'name' => $server->name,
                 'description' => $server->description,
                 'status' => $server->status,
-                'price' => $server->product?->price ?? 0,
+                'price' => $server->product ? $server->product->price : 0,
                 'split_billing_enabled' => $server->split_billing_enabled,
             ]),
         ];

@@ -23,6 +23,8 @@ class EmailTemplateRenderer
 
         $theme = $template->theme ?: $this->resolveDefaultTheme();
 
+        assert($theme instanceof EmailTheme);
+
         if ($theme->is_default) {
             $theme = $this->syncDefaultThemeWithPanel($theme);
         }

@@ -158,6 +158,7 @@ class OrganizationInvitationService
             ->first();
 
         if ($existing) {
+            assert($existing instanceof OrganizationInvitation);
             return $existing;
         }
 

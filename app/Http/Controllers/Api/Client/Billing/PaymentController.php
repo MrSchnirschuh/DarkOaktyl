@@ -180,7 +180,7 @@ class PaymentController extends ClientApiController
         }
 
         // Process the renewal or product purchase
-        if ($order->type === Order::TYPE_REN && ((int) $intent->metadata->server_id != 0)) {
+        if ($order->type === Order::TYPE_RENEWAL && ((int) $intent->metadata->server_id != 0)) {
             $server = Server::findOrFail((int) $intent->metadata->server_id);
 
             $server->update([
@@ -233,7 +233,7 @@ class PaymentController extends ClientApiController
         $type = null;
 
         if ($request->has('renewal') && $request->boolean('renewal')) {
-            $type = Order::TYPE_REN;
+            $type = Order::TYPE_RENEWAL;
         } else {
             $type = Order::TYPE_NEW;
         }

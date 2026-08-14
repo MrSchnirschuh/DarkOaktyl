@@ -5,6 +5,29 @@ namespace DarkOak\Models;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @property int $id
+ * @property string $uuid
+ * @property int $category_id
+ * @property int $egg_id
+ * @property int $nest_id
+ * @property string $name
+ * @property string|null $description
+ * @property string $type
+ * @property string|null $image
+ * @property string|null $startup_command
+ * @property string|null $docker_image
+ * @property int $default_memory
+ * @property int $default_swap
+ * @property int $default_disk
+ * @property int $default_cpu
+ * @property int $default_io
+ * @property bool $is_active
+ * @property bool $is_featured
+ * @property \DarkOak\Models\ServerTemplateCategory|null $category
+ * @property \DarkOak\Models\Egg|null $egg
+ * @property \DarkOak\Models\Nest|null $nest
+ */
 class ServerTemplate extends Model
 {
     /**
