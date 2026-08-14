@@ -1,6 +1,6 @@
 <?php
 
-namespace DarkOak\Tests\Unit\Services\Servers;
+namespace DarkOak\Tests\Integration\Services\Servers;
 
 use DarkOak\Models\Node;
 use Mockery\MockInterface;

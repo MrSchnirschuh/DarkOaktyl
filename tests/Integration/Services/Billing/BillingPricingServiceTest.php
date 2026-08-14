@@ -1,6 +1,6 @@
 <?php
 
-namespace DarkOak\Tests\Unit\Services\Billing;
+namespace DarkOak\Tests\Integration\Services\Billing;
 
 use DarkOak\Models\Billing\BillingTerm;
 use DarkOak\Models\Billing\ResourcePrice;
