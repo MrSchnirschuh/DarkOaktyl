@@ -8,11 +8,21 @@ use DarkOak\Models\EmailTemplate;
 use DarkOak\Models\EmailTheme;
 use DarkOak\Models\User;
 use DarkOak\Tests\Integration\Api\Application\ApplicationApiIntegrationTestCase;
+use DarkOak\Tests\Traits\Integration\CreatesBillingTestModels;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 
 class CouponSendControllerTest extends ApplicationApiIntegrationTestCase
 {
+    use CreatesBillingTestModels;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->enableBilling();
+    }
+
     public function testPersonalizedCouponsAreGeneratedAndDelivered(): void
     {
         Mail::fake();

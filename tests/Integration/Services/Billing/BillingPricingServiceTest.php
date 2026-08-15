@@ -7,15 +7,14 @@ use DarkOak\Models\Billing\ResourcePrice;
 use DarkOak\Models\Node;
 use DarkOak\Services\Billing\BillingPricingService;
 use DarkOak\Services\Servers\NodeCapacityService;
-use DarkOak\Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use DarkOak\Tests\Integration\IntegrationTestCase;
 use Illuminate\Support\Str;
 use Mockery;
 use Mockery\MockInterface;
 
-class BillingPricingServiceTest extends TestCase
+class BillingPricingServiceTest extends IntegrationTestCase
 {
-    use RefreshDatabase;
+    use \Illuminate\Foundation\Testing\DatabaseTransactions;
 
     private BillingPricingService $service;
 

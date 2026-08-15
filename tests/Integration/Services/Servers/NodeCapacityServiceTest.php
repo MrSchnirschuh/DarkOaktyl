@@ -4,16 +4,15 @@ namespace DarkOak\Tests\Integration\Services\Servers;
 
 use DarkOak\Models\Node;
 use Mockery\MockInterface;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use DarkOak\Services\Servers\NodeCapacityService;
 use DarkOak\Repositories\Wings\DaemonConfigurationRepository;
 use DarkOak\Exceptions\Service\Deployment\NoViableNodeException;
 use DarkOak\Exceptions\Http\Connection\DaemonConnectionException;
-use DarkOak\Tests\TestCase;
+use DarkOak\Tests\Integration\IntegrationTestCase;
 
-class NodeCapacityServiceTest extends TestCase
+class NodeCapacityServiceTest extends IntegrationTestCase
 {
-    use RefreshDatabase;
+    use \Illuminate\Foundation\Testing\DatabaseTransactions;
 
     private NodeCapacityService $service;
 
