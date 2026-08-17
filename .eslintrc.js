@@ -44,7 +44,7 @@ module.exports = {
         // used before it is defined.
         //
         // @see https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-use-before-define.md#how-to-use
-        'no-use-before-define': 0,
+        // ponytail: keep as warning; hoisted function order is a style issue, not a bug
         '@typescript-eslint/no-use-before-define': 'warn',
         '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
         '@typescript-eslint/ban-ts-comment': ['error', { 'ts-expect-error': 'allow-with-description' }],
