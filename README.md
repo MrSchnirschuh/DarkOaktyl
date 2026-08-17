@@ -41,6 +41,17 @@ After the containers are up, create the first admin user:
 docker compose exec panel php artisan p:user:make
 ```
 
+## Development
+
+Use the `Makefile` for local tasks:
+
+```bash
+make test-unit        # Unit-Tests mit SQLite (kein MySQL nötig)
+make test-integration # Integration-Tests mit MySQL
+make phpstan          # Statische Analyse
+make cs               # Coding-Style-Check
+```
+
 ## Contribution
 
 Contributions are welcome! Please see `CONTRIBUTING.md` and join discussions via Discord or GitHub issues.
