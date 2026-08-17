@@ -1,5 +1,4 @@
 import http from '@/api/http';
-import { Region } from '@/api/routes/regions';
 
 export interface TransferableRegion {
     id: number;

@@ -63,6 +63,88 @@ const TYPE_COLORS: Record<string, string> = {
     other: 'bg-gray-500/10 text-gray-600 border-gray-500/20',
 };
 
+interface TemplateCardProps {
+    template: Template;
+    onDeploy: (template: Template) => void;
+    formatMemory: (mb: number) => string;
+    formatDisk: (mb: number) => string;
+    featured?: boolean;
+}
+
+function TemplateCard({ template, onDeploy, formatMemory, formatDisk, featured }: TemplateCardProps) {
+    return (
+        <Card
+            className={`group overflow-hidden transition-all hover:shadow-lg ${featured ? 'border-yellow-500/30' : ''}`}
+        >
+            <CardContent className="p-0">
+                {/* Image or Icon Header */}
+                <div
+                    className={`h-24 flex items-center justify-center relative ${
+                        TYPE_COLORS[template.type] || TYPE_COLORS.other
+                    }`}
+                >
+                    {featured && (
+                        <div className="absolute top-2 right-2">
+                            <Star className="h-5 w-5 text-yellow-500 fill-yellow-500" />
+                        </div>
+                    )}
+                    <span className="text-5xl">{GAME_ICONS[template.type] || '🎯'}</span>
+                </div>
+
+                {/* Content */}
+                <div className="p-4 space-y-3">
+                    <div className="flex items-start justify-between gap-2">
+                        <div>
+                            <h3 className="font-semibold text-lg">{template.name}</h3>
+                            <Badge variant="outline" className="mt-1 text-xs">
+                                {template.type_label}
+                            </Badge>
+                        </div>
+                    </div>
+
+                    {template.description && (
+                        <p className="text-sm text-muted-foreground line-clamp-2">{template.description}</p>
+                    )}
+
+                    {/* Resource Summary */}
+                    <div className="flex flex-wrap gap-3 text-xs text-muted-foreground pt-2">
+                        <div className="flex items-center gap-1">
+                            <MemoryStick className="h-3 w-3" />
+                            {formatMemory(template.default_resources.memory)}
+                        </div>
+                        <div className="flex items-center gap-1">
+                            <HardDrive className="h-3 w-3" />
+                            {formatDisk(template.default_resources.disk)}
+                        </div>
+                        <div className="flex items-center gap-1">
+                            <Cpu className="h-3 w-3" />
+                            {template.default_resources.cpu}%
+                        </div>
+                    </div>
+
+                    {/* Deploy Button */}
+                    <Button className="w-full mt-2 group-hover:bg-primary/90" onClick={() => onDeploy(template)}>
+                        Deploy Now
+                        <ChevronRight className="ml-1 h-4 w-4" />
+                    </Button>
+                </div>
+            </CardContent>
+        </Card>
+    );
+}
+
+function EmptyState() {
+    return (
+        <Card>
+            <CardContent className="flex flex-col items-center justify-center py-12">
+                <Gamepad2 className="h-12 w-12 text-muted-foreground mb-4" />
+                <p className="text-muted-foreground text-lg">No templates found</p>
+                <p className="text-muted-foreground text-sm">Try adjusting your search or filters</p>
+            </CardContent>
+        </Card>
+    );
+}
+
 export function TemplateStore() {
     const [categories, setCategories] = useState<Category[]>([]);
     const [featured, setFeatured] = useState<Template[]>([]);
@@ -71,10 +153,6 @@ export function TemplateStore() {
     const [selectedType, setSelectedType] = useState<string | null>(null);
     const [selectedTemplate, setSelectedTemplate] = useState<Template | null>(null);
     const [isDeployModalOpen, setIsDeployModalOpen] = useState(false);
-
-    useEffect(() => {
-        fetchTemplates();
-    }, []);
 
     const fetchTemplates = async () => {
         try {
@@ -88,6 +166,10 @@ export function TemplateStore() {
             setLoading(false);
         }
     };
+
+    useEffect(() => {
+        fetchTemplates();
+    }, []);
 
     const handleDeploy = (template: Template) => {
         setSelectedTemplate(template);
@@ -276,87 +358,5 @@ export function TemplateStore() {
                 />
             )}
         </div>
-    );
-}
-
-interface TemplateCardProps {
-    template: Template;
-    onDeploy: (template: Template) => void;
-    formatMemory: (mb: number) => string;
-    formatDisk: (mb: number) => string;
-    featured?: boolean;
-}
-
-function TemplateCard({ template, onDeploy, formatMemory, formatDisk, featured }: TemplateCardProps) {
-    return (
-        <Card
-            className={`group overflow-hidden transition-all hover:shadow-lg ${featured ? 'border-yellow-500/30' : ''}`}
-        >
-            <CardContent className="p-0">
-                {/* Image or Icon Header */}
-                <div
-                    className={`h-24 flex items-center justify-center relative ${
-                        TYPE_COLORS[template.type] || TYPE_COLORS.other
-                    }`}
-                >
-                    {featured && (
-                        <div className="absolute top-2 right-2">
-                            <Star className="h-5 w-5 text-yellow-500 fill-yellow-500" />
-                        </div>
-                    )}
-                    <span className="text-5xl">{GAME_ICONS[template.type] || '🎯'}</span>
-                </div>
-
-                {/* Content */}
-                <div className="p-4 space-y-3">
-                    <div className="flex items-start justify-between gap-2">
-                        <div>
-                            <h3 className="font-semibold text-lg">{template.name}</h3>
-                            <Badge variant="outline" className="mt-1 text-xs">
-                                {template.type_label}
-                            </Badge>
-                        </div>
-                    </div>
-
-                    {template.description && (
-                        <p className="text-sm text-muted-foreground line-clamp-2">{template.description}</p>
-                    )}
-
-                    {/* Resource Summary */}
-                    <div className="flex flex-wrap gap-3 text-xs text-muted-foreground pt-2">
-                        <div className="flex items-center gap-1">
-                            <MemoryStick className="h-3 w-3" />
-                            {formatMemory(template.default_resources.memory)}
-                        </div>
-                        <div className="flex items-center gap-1">
-                            <HardDrive className="h-3 w-3" />
-                            {formatDisk(template.default_resources.disk)}
-                        </div>
-                        <div className="flex items-center gap-1">
-                            <Cpu className="h-3 w-3" />
-                            {template.default_resources.cpu}%
-                        </div>
-                    </div>
-
-                    {/* Deploy Button */}
-                    <Button className="w-full mt-2 group-hover:bg-primary/90" onClick={() => onDeploy(template)}>
-                        Deploy Now
-                        <ChevronRight className="ml-1 h-4 w-4" />
-                    </Button>
-                </div>
-            </CardContent>
-        </Card>
-    );
-}
-
-function EmptyState() {
-    return (
-        <Card>
-            <CardContent className="flex flex-col items-center justify-center py-12">
-                <Gamepad2 className="h-12 w-12 text-muted-foreground mb-4" />
-                <p className="text-muted-foreground text-lg">No templates found</p>
-                <p className="text-muted-foreground text-sm">Try adjusting your search or filters</p>
-            </CardContent>
-        </Card>
     );
 }

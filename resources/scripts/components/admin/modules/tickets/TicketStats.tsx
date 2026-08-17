@@ -25,10 +25,6 @@ export function TicketStats() {
     const [stats, setStats] = useState<TicketStats | null>(null);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        fetchStats();
-    }, []);
-
     const fetchStats = async () => {
         try {
             const response = await api.get('/api/application/tickets/stats');
@@ -39,6 +35,10 @@ export function TicketStats() {
             setLoading(false);
         }
     };
+
+    useEffect(() => {
+        fetchStats();
+    }, []);
 
     if (loading || !stats) {
         return (

@@ -7,11 +7,8 @@
 // Version for cache busting
 const SW_VERSION = '1.0.0';
 
-// Cache name
-const CACHE_NAME = `darkoaktyl-push-v${SW_VERSION}`;
-
 // Installation event
-self.addEventListener('install', (event: ExtendableEvent) => {
+self.addEventListener('install', () => {
     // Skip waiting to activate immediately
     (self as any).skipWaiting();
 });
@@ -134,7 +131,6 @@ self.addEventListener('notificationclose', (event: NotificationEvent) => {
 // Push subscription change event
 self.addEventListener('pushsubscriptionchange', (event: any) => {
     const subscription = event.newSubscription;
-    const oldSubscription = event.oldSubscription;
 
     if (!subscription) {
         console.warn('[SW] Push subscription removed');
@@ -242,7 +238,7 @@ if ('periodicSync' in (self as any).registration) {
             tag: 'push-health-check',
             minInterval: 24 * 60 * 60 * 1000, // 24 hours
         })
-        .catch((error: any) => {
+        .catch(() => {
             // Periodic sync not supported in all browsers
         });
 }

@@ -1,6 +1,5 @@
-import { useState, useEffect, useCallback } from 'react';
-import { Actions, useStoreActions, useStoreState, State } from 'easy-peasy';
-import { ApplicationStore } from '@/state';
+import { useState, useEffect } from 'react';
+import { Actions, useStoreActions } from 'easy-peasy';
 import { Button } from '@/elements/button';
 import ContentBox from '@/elements/ContentBox';
 import SpinnerOverlay from '@/elements/SpinnerOverlay';
@@ -42,7 +41,6 @@ const categoryLabels: Record<string, string> = {
 
 export default () => {
     const { addFlash, clearFlashes } = useStoreActions((actions: Actions<ApplicationStore>) => actions.flashes);
-    const user = useStoreState((state: State<ApplicationStore>) => state.user.data);
 
     const [isLoading, setIsLoading] = useState(true);
     const [isSubscribing, setIsSubscribing] = useState(false);
@@ -50,11 +48,6 @@ export default () => {
     const [subscriptions, setSubscriptions] = useState<Subscription[]>([]);
     const [vapidPublicKey, setVapidPublicKey] = useState<string | null>(null);
     const [preferences, setPreferences] = useState<Record<string, boolean>>({});
-
-    // Load initial data
-    useEffect(() => {
-        loadData();
-    }, []);
 
     const loadData = async () => {
         try {
@@ -90,8 +83,21 @@ export default () => {
         }
     };
 
+    // Load initial data
+    useEffect(() => {
+        loadData();
+    }, []);
+
     // Check if push is supported
     const isPushSupported = typeof window !== 'undefined' && 'PushManager' in window && 'serviceWorker' in navigator;
+
+    // URL-safe base64 to Uint8Array
+    const urlBase64ToUint8Array = (base64String: string): Uint8Array => {
+        const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
+        const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+        const rawData = window.atob(base64);
+        return Uint8Array.from([...rawData].map(char => char.charCodeAt(0)));
+    };
 
     // Subscribe to push notifications
     const subscribe = async () => {
@@ -259,14 +265,6 @@ export default () => {
             updates[event] = enabled;
         });
         setPreferences(prev => ({ ...prev, ...updates }));
-    };
-
-    // URL-safe base64 to Uint8Array
-    const urlBase64ToUint8Array = (base64String: string): Uint8Array => {
-        const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
-        const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
-        const rawData = window.atob(base64);
-        return Uint8Array.from([...rawData].map(char => char.charCodeAt(0)));
     };
 
     const hasSubscription = subscriptions.length > 0;

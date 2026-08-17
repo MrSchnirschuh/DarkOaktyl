@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import tw from 'twin.macro';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {

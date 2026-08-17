@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@elements/button';
 import { Switch } from '@elements/Switch';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -45,10 +45,6 @@ export default function AutoScalingPanel({ serverId }: Props) {
     const [success, setSuccess] = useState<string | null>(null);
     const [showHistory, setShowHistory] = useState(false);
 
-    useEffect(() => {
-        fetchRule();
-    }, [serverId]);
-
     const fetchRule = async () => {
         try {
             const response = await fetch(`/api/client/servers/${serverId}/autoscale`);
@@ -62,6 +58,10 @@ export default function AutoScalingPanel({ serverId }: Props) {
             setIsLoading(false);
         }
     };
+
+    useEffect(() => {
+        fetchRule();
+    }, [serverId]);
 
     const fetchHistory = async () => {
         try {

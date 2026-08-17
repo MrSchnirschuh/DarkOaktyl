@@ -9,7 +9,7 @@ import Switch from '@elements/Switch';
 import { Button } from '@elements/button';
 import useFlash from '@/plugins/useFlash';
 import { getLegalDocuments, updateLegalDocument, type LegalDocument } from '@/api/admin/legal/documents';
-import { CheckCircleIcon, SaveIcon, DocumentTextIcon, EyeIcon } from '@heroicons/react/outline';
+import { SaveIcon, DocumentTextIcon, EyeIcon } from '@heroicons/react/outline';
 import { Link } from 'react-router-dom';
 
 const LegalContainer = () => {

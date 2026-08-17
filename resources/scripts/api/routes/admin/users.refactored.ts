@@ -1,8 +1,7 @@
 import { createPromiseCrudApi } from '@/api/createCrudApi';
 import { handleApiError } from '@/api/errorHandler';
-import http, { getPaginationSet, PaginatedResult, QueryBuilderParams, withQueryBuilderParams } from '@/api/http';
+import http, { QueryBuilderParams, withQueryBuilderParams } from '@/api/http';
 import { Transformers, User } from '@definitions/admin';
-import useSWR from 'swr';
 
 export interface UpdateUserValues {
     externalId: string;

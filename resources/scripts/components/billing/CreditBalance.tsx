@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@elements/button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCoins, faExclamationTriangle, faPlus, faHistory } from '@fortawesome/free-solid-svg-icons';
+import { faCoins, faExclamationTriangle, faPlus } from '@fortawesome/free-solid-svg-icons';
 import Loader from '@elements/Loader';
 
 interface BalanceData {
@@ -18,10 +18,6 @@ export default function CreditBalance() {
     const [showAddModal, setShowAddModal] = useState(false);
     const [addAmount, setAddAmount] = useState(10);
 
-    useEffect(() => {
-        fetchBalance();
-    }, []);
-
     const fetchBalance = async () => {
         try {
             const response = await fetch('/api/client/billing/balance');
@@ -35,6 +31,10 @@ export default function CreditBalance() {
             setIsLoading(false);
         }
     };
+
+    useEffect(() => {
+        fetchBalance();
+    }, []);
 
     const handleAddCredits = async () => {
         try {

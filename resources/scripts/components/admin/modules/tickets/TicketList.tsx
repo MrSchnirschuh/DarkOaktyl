@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { api } from '@/lib/api';
 import { formatDistanceToNow } from 'date-fns';
@@ -81,10 +80,6 @@ export function TicketList() {
         search: '',
     });
 
-    useEffect(() => {
-        fetchTickets();
-    }, [filters]);
-
     const fetchTickets = async () => {
         try {
             setLoading(true);
@@ -102,6 +97,10 @@ export function TicketList() {
             setLoading(false);
         }
     };
+
+    useEffect(() => {
+        fetchTickets();
+    }, [filters]);
 
     const getPriorityIcon = (priority: string) => {
         const Icon = PRIORITY_ICONS[priority] || Minus;

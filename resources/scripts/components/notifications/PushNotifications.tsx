@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@elements/button';
 import { Switch } from '@elements/Switch';
-import { useStoreState } from '@/state/hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faBell,
@@ -10,9 +9,7 @@ import {
     faExclamationTriangle,
     faCheckCircle,
     faDesktop,
-    faMobileAlt,
 } from '@fortawesome/free-solid-svg-icons';
-import { ApplicationStore } from '@/state';
 
 interface NotificationEvent {
     key: string;
@@ -60,18 +57,17 @@ export default function PushNotifications() {
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState<string | null>(null);
 
-    const user = useStoreState((state: ApplicationStore) => state.user.data);
-
-    // Check if push notifications are supported
-    useEffect(() => {
-        const supported = 'serviceWorker' in navigator && 'PushManager' in window;
-        setIsSupported(supported);
-
-        if (supported) {
-            checkSubscription();
-            fetchVapidKey();
+    // Helper function to convert base64 to Uint8Array
+    function urlBase64ToUint8Array(base64String: string): Uint8Array {
+        const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
+        const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+        const rawData = window.atob(base64);
+        const outputArray = new Uint8Array(rawData.length);
+        for (let i = 0; i < rawData.length; ++i) {
+            outputArray[i] = rawData.charCodeAt(i);
         }
-    }, []);
+        return outputArray;
+    }
 
     const checkSubscription = async () => {
         try {
@@ -105,6 +101,17 @@ export default function PushNotifications() {
             console.error('Error fetching VAPID key:', err);
         }
     };
+
+    // Check if push notifications are supported
+    useEffect(() => {
+        const supported = 'serviceWorker' in navigator && 'PushManager' in window;
+        setIsSupported(supported);
+
+        if (supported) {
+            checkSubscription();
+            fetchVapidKey();
+        }
+    }, []);
 
     const subscribe = async () => {
         if (!vapidKey) {
@@ -213,18 +220,6 @@ export default function PushNotifications() {
         }
     };
 
-    // Helper function to convert base64 to Uint8Array
-    function urlBase64ToUint8Array(base64String: string): Uint8Array {
-        const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
-        const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
-        const rawData = window.atob(base64);
-        const outputArray = new Uint8Array(rawData.length);
-        for (let i = 0; i < rawData.length; ++i) {
-            outputArray[i] = rawData.charCodeAt(i);
-        }
-        return outputArray;
-    }
-
     if (!isSupported) {
         return (
             <div className="p-6 bg-gray-100 dark:bg-gray-800 rounded-lg">
@@ -291,7 +286,6 @@ export default function PushNotifications() {
                     {(['server', 'backup', 'billing', 'alert'] as const).map(category => {
                         const categoryEvents = EVENTS.filter(e => e.category === category);
                         const allEnabled = categoryEvents.every(e => preferences.includes(e.key));
-                        const someEnabled = categoryEvents.some(e => preferences.includes(e.key));
 
                         return (
                             <div key={category} className="border rounded-lg p-4">

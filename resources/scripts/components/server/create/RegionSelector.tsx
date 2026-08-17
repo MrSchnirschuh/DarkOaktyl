@@ -1,5 +1,5 @@
-import { useEffect, useState, useCallback } from 'react';
-import { Region, getRegions, getLatencyEndpoints, measureAllLatencies, LatencyInfo } from '@/api/routes/regions';
+import { useEffect, useState } from 'react';
+import { Region, getRegions, getLatencyEndpoints, measureAllLatencies } from '@/api/routes/regions';
 import { Alert } from '@elements/alert';
 import Spinner from '@elements/Spinner';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

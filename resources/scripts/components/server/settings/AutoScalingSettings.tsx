@@ -1,5 +1,4 @@
 import { useState, useCallback, useEffect } from 'react';
-import * as React from 'react';
 import tw from 'twin.macro';
 import TitledGreyBox from '@/elements/TitledGreyBox';
 import Spinner from '@/elements/Spinner';

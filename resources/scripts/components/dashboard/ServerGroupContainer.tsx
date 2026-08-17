@@ -1,15 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faFolder,
-    faPlus,
-    faCog,
-    faTrash,
-    faEdit,
-    faServer,
-    faPalette,
-    faTimes,
-} from '@fortawesome/free-solid-svg-icons';
+import { faFolder, faPlus, faTrash, faEdit, faServer, faPalette, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Button } from '@/elements/button';
 import { Dialog } from '@/elements/dialog';
 import { Field } from '@/elements/field';
@@ -18,7 +9,6 @@ import {
     createServerGroup,
     updateServerGroup,
     deleteServerGroup,
-    addServerToGroup,
     removeServerFromGroup,
 } from '@/api/routes/server/groups';
 import { getServers } from '@/api/getServers';
@@ -53,12 +43,8 @@ export default function ServerGroupContainer() {
     const [groupDescription, setGroupDescription] = useState('');
     const [groupColor, setGroupColor] = useState('#3B82F6');
     const [groupIcon, setGroupIcon] = useState('folder');
-    const [serverGroupsDialog, setServerGroupsDialog] = useState<VisibleDialog>({ open: 'none' });
+    const setServerGroupsDialog = useState<VisibleDialog>({ open: 'none' })[1];
     const { clearAndAddHttpError, clearFlashes, addFlash } = useFlash();
-
-    useEffect(() => {
-        loadData();
-    }, []);
 
     const loadData = async () => {
         setLoading(true);
@@ -83,6 +69,10 @@ export default function ServerGroupContainer() {
             setLoading(false);
         }
     };
+
+    useEffect(() => {
+        loadData();
+    }, []);
 
     const openCreateDialog = () => {
         setEditingGroup(null);
@@ -136,16 +126,6 @@ export default function ServerGroupContainer() {
         try {
             await deleteServerGroup(groupId);
             addFlash({ type: 'success', key: 'dashboard:groups', message: 'Group deleted successfully.' });
-            await loadData();
-        } catch (error) {
-            clearAndAddHttpError({ key: 'dashboard:groups', error });
-        }
-    };
-
-    const handleAddServerToGroup = async (serverUuid: string, groupId: number) => {
-        try {
-            await addServerToGroup(groupId, serverUuid);
-            addFlash({ type: 'success', key: 'dashboard:groups', message: 'Server added to group.' });
             await loadData();
         } catch (error) {
             clearAndAddHttpError({ key: 'dashboard:groups', error });

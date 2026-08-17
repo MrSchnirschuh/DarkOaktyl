@@ -37,6 +37,38 @@ export interface LatencyInfo {
 }
 
 /**
+ * Transform raw API data to Region type.
+ */
+export const rawDataToRegion = (data: any): Region => ({
+    id: data.id,
+    uuid: data.uuid,
+    name: data.name,
+    code: data.code,
+    display_name: data.display_name,
+    description: data.description,
+    timezone: data.timezone,
+    coordinates: data.coordinates,
+    is_active: data.is_active,
+    is_default: data.is_default,
+    ping_endpoint: data.ping_endpoint,
+    created_at: data.created_at,
+    updated_at: data.updated_at,
+    relationships: data.relationships
+        ? {
+              nodes: data.relationships.nodes?.data?.map((n: any) => ({
+                  id: n.id,
+                  uuid: n.uuid,
+                  name: n.name,
+                  description: n.description,
+                  fqdn: n.fqdn,
+                  public: n.public,
+                  maintenance_mode: n.maintenance_mode,
+              })),
+          }
+        : undefined,
+});
+
+/**
  * Get all active regions.
  */
 export const getRegions = (): Promise<Region[]> => {
@@ -68,38 +100,6 @@ export const getLatencyEndpoints = (): Promise<LatencyInfo[]> => {
             .catch(reject);
     });
 };
-
-/**
- * Transform raw API data to Region type.
- */
-export const rawDataToRegion = (data: any): Region => ({
-    id: data.id,
-    uuid: data.uuid,
-    name: data.name,
-    code: data.code,
-    display_name: data.display_name,
-    description: data.description,
-    timezone: data.timezone,
-    coordinates: data.coordinates,
-    is_active: data.is_active,
-    is_default: data.is_default,
-    ping_endpoint: data.ping_endpoint,
-    created_at: data.created_at,
-    updated_at: data.updated_at,
-    relationships: data.relationships
-        ? {
-              nodes: data.relationships.nodes?.data?.map((n: any) => ({
-                  id: n.id,
-                  uuid: n.uuid,
-                  name: n.name,
-                  description: n.description,
-                  fqdn: n.fqdn,
-                  public: n.public,
-                  maintenance_mode: n.maintenance_mode,
-              })),
-          }
-        : undefined,
-});
 
 /**
  * Measure latency to a specific endpoint.

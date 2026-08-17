@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCube, faSearch, faStar, faFire, faGamepad } from '@fortawesome/free-solid-svg-icons';
+import { faCube, faSearch, faStar, faFire } from '@fortawesome/free-solid-svg-icons';
 import Loader from '@elements/Loader';
 import { Button } from '@elements/button';
 
@@ -28,16 +28,39 @@ interface Category {
     templates: Template[];
 }
 
-const TYPE_ICONS: Record<string, any> = {
-    minecraft: 'faCube',
-    valheim: 'faTree',
-    cs2: 'faCrosshairs',
-    gmod: 'faSmile',
-    rust: 'faSkull',
-    factorio: 'faIndustry',
-    terraria: 'faMountain',
-    other: 'faServer',
-};
+function TemplateCard({ template }: { template: Template }) {
+    return (
+        <Link
+            to={`/templates/${template.id}`}
+            className="group block p-6 bg-white dark:bg-gray-800 border rounded-lg hover:shadow-lg transition-all"
+        >
+            <div className="flex items-start gap-4">
+                {template.image ? (
+                    <img src={template.image} alt={template.name} className="w-16 h-16 rounded-lg object-cover" />
+                ) : (
+                    <div className="w-16 h-16 rounded-lg bg-blue-100 flex items-center justify-center">
+                        <FontAwesomeIcon icon={faCube} className="text-2xl text-blue-500" />
+                    </div>
+                )}
+
+                <div className="flex-1">
+                    <div className="flex items-center gap-2">
+                        <h3 className="font-semibold">{template.name}</h3>
+                        {template.is_featured && <FontAwesomeIcon icon={faStar} className="text-yellow-500 text-sm" />}
+                    </div>
+                    <p className="text-sm text-gray-500">{template.category}</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-2 line-clamp-2">{template.description}</p>
+
+                    <div className="mt-3 flex items-center gap-3 text-xs text-gray-500">
+                        <span>{template.default_resources.memory}MB RAM</span>
+                        <span>•</span>
+                        <span>{template.default_resources.disk / 1024}GB Disk</span>
+                    </div>
+                </div>
+            </div>
+        </Link>
+    );
+}
 
 export default function TemplateGallery() {
     const [categories, setCategories] = useState<Category[]>([]);
@@ -46,11 +69,6 @@ export default function TemplateGallery() {
     const [selectedType, setSelectedType] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-
-    useEffect(() => {
-        fetchTemplates();
-        fetchFeatured();
-    }, []);
 
     const fetchTemplates = async () => {
         try {
@@ -76,6 +94,11 @@ export default function TemplateGallery() {
             console.error('Failed to fetch featured:', err);
         }
     };
+
+    useEffect(() => {
+        fetchTemplates();
+        fetchFeatured();
+    }, []);
 
     const handleSearch = async () => {
         if (searchQuery.length < 2) return;
@@ -198,39 +221,5 @@ export default function TemplateGallery() {
                 </div>
             ))}
         </div>
-    );
-}
-
-function TemplateCard({ template }: { template: Template }) {
-    return (
-        <Link
-            to={`/templates/${template.id}`}
-            className="group block p-6 bg-white dark:bg-gray-800 border rounded-lg hover:shadow-lg transition-all"
-        >
-            <div className="flex items-start gap-4">
-                {template.image ? (
-                    <img src={template.image} alt={template.name} className="w-16 h-16 rounded-lg object-cover" />
-                ) : (
-                    <div className="w-16 h-16 rounded-lg bg-blue-100 flex items-center justify-center">
-                        <FontAwesomeIcon icon={faCube} className="text-2xl text-blue-500" />
-                    </div>
-                )}
-
-                <div className="flex-1">
-                    <div className="flex items-center gap-2">
-                        <h3 className="font-semibold">{template.name}</h3>
-                        {template.is_featured && <FontAwesomeIcon icon={faStar} className="text-yellow-500 text-sm" />}
-                    </div>
-                    <p className="text-sm text-gray-500">{template.category}</p>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-2 line-clamp-2">{template.description}</p>
-
-                    <div className="mt-3 flex items-center gap-3 text-xs text-gray-500">
-                        <span>{template.default_resources.memory}MB RAM</span>
-                        <span>•</span>
-                        <span>{template.default_resources.disk / 1024}GB Disk</span>
-                    </div>
-                </div>
-            </div>
-        </Link>
     );
 }
