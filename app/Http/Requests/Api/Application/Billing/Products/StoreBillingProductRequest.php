@@ -12,4 +12,3 @@ class StoreBillingProductRequest extends ApplicationApiRequest
         return AdminRole::BILLING_PRODUCTS_CREATE;
     }
 }
-

@@ -2,20 +2,18 @@
 
 namespace DarkOak\Services\Emails;
 
+use DarkOak\Models\User;
 use DarkOak\Mail\TemplatedMail;
 use DarkOak\Models\EmailTemplate;
-use DarkOak\Models\User;
-use DarkOak\Services\Emails\AnonymousRecipient;
-use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Support\Collection;
+use Illuminate\Contracts\Mail\Mailer;
 
 /** @phpstan-type RawContext array<string, mixed> */
-
 class EmailDispatchService
 {
     public function __construct(
         protected EmailTemplateRenderer $renderer,
-        protected Mailer $mailer
+        protected Mailer $mailer,
     ) {
     }
 
@@ -99,4 +97,3 @@ class EmailDispatchService
         return $value;
     }
 }
-

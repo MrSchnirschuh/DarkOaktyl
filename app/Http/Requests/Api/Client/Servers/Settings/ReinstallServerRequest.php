@@ -12,4 +12,3 @@ class ReinstallServerRequest extends ClientApiRequest
         return Permission::ACTION_SETTINGS_REINSTALL;
     }
 }
-

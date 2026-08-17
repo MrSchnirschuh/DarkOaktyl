@@ -12,4 +12,3 @@ class DeleteNestRequest extends ApplicationApiRequest
         return AdminRole::NESTS_DELETE;
     }
 }
-

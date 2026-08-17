@@ -12,4 +12,3 @@ class GetMountsRequest extends ApplicationApiRequest
         return AdminRole::MOUNTS_READ;
     }
 }
-

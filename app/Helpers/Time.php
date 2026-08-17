@@ -18,4 +18,3 @@ final class Time
         return CarbonImmutable::now($timezone)->getTimezone()->toOffsetName();
     }
 }
-

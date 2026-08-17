@@ -2,10 +2,10 @@
 
 namespace DarkOak\Services\Servers;
 
-use DarkOak\Exceptions\Service\Deployment\NoViableNodeException;
 use DarkOak\Models\Node;
-use DarkOak\Repositories\Wings\DaemonConfigurationRepository;
 use Illuminate\Support\Facades\Log;
+use DarkOak\Repositories\Wings\DaemonConfigurationRepository;
+use DarkOak\Exceptions\Service\Deployment\NoViableNodeException;
 use DarkOak\Exceptions\Http\Connection\DaemonConnectionException;
 
 class NodeCapacityService
@@ -84,4 +84,3 @@ class NodeCapacityService
         return (int) floor($bytes / 1024 / 1024);
     }
 }
-

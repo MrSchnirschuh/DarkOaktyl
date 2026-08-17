@@ -25,7 +25,7 @@ class CommandController extends ClientApiController
     /**
      * Send a command to a running server.
      *
-     * @throws \DarkOak\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws DaemonConnectionException
      */
     public function index(SendCommandRequest $request, Server $server): Response
     {
@@ -48,4 +48,3 @@ class CommandController extends ClientApiController
         return $this->returnNoContent();
     }
 }
-

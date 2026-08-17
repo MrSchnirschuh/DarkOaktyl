@@ -22,4 +22,3 @@ class BroadcastServiceProvider extends ServiceProvider
         });
     }
 }
-

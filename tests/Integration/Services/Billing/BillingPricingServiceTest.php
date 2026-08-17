@@ -2,15 +2,14 @@
 
 namespace DarkOak\Tests\Integration\Services\Billing;
 
+use DarkOak\Models\Node;
+use Mockery\MockInterface;
+use Illuminate\Support\Str;
 use DarkOak\Models\Billing\BillingTerm;
 use DarkOak\Models\Billing\ResourcePrice;
-use DarkOak\Models\Node;
-use DarkOak\Services\Billing\BillingPricingService;
 use DarkOak\Services\Servers\NodeCapacityService;
 use DarkOak\Tests\Integration\IntegrationTestCase;
-use Illuminate\Support\Str;
-use Mockery;
-use Mockery\MockInterface;
+use DarkOak\Services\Billing\BillingPricingService;
 
 class BillingPricingServiceTest extends IntegrationTestCase
 {
@@ -24,13 +23,13 @@ class BillingPricingServiceTest extends IntegrationTestCase
     {
         parent::setUp();
 
-        $this->capacityService = Mockery::mock(NodeCapacityService::class);
+        $this->capacityService = \Mockery::mock(NodeCapacityService::class);
         $this->service = new BillingPricingService($this->capacityService);
     }
 
     public function tearDown(): void
     {
-        Mockery::close();
+        \Mockery::close();
 
         parent::tearDown();
     }
@@ -173,4 +172,3 @@ class BillingPricingServiceTest extends IntegrationTestCase
         $this->assertFalse($quote['options']['validateCapacity']);
     }
 }
-

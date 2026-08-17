@@ -12,4 +12,3 @@ class ResolveBillingExceptionRequest extends ApplicationApiRequest
         return AdminRole::BILLING_EXCEPTIONS;
     }
 }
-

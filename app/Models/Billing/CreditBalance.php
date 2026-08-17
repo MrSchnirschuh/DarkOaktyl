@@ -3,10 +3,10 @@
 namespace DarkOak\Models\Billing;
 
 use Carbon\Carbon;
-use DarkOak\Models\Model;
 use DarkOak\Models\User;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use DarkOak\Models\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property int $id

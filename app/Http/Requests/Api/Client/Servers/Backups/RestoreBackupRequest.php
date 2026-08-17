@@ -17,4 +17,3 @@ class RestoreBackupRequest extends ClientApiRequest
         return ['truncate' => 'required|boolean'];
     }
 }
-

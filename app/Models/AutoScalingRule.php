@@ -2,8 +2,8 @@
 
 namespace DarkOak\Models;
 
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * \DarkOak\Models\AutoScalingRule.
@@ -24,9 +24,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property \Illuminate\Support\Carbon|null $last_scale_down_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property \DarkOak\Models\Server $server
- * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\AutoScalingHistory[] $histories
- *
+ * @property Server $server
+ * @property \Illuminate\Database\Eloquent\Collection|AutoScalingHistory[] $histories
  * @property int $cpu_threshold_up
  * @property int $cpu_threshold_down
  * @property int $ram_threshold_up
@@ -175,6 +174,7 @@ class AutoScalingRule extends Model
     public function calculateScaleUp(int $currentMemory): int
     {
         $newMemory = $currentMemory + $this->scale_up_step;
+
         return min($newMemory, $this->max_memory);
     }
 
@@ -184,6 +184,7 @@ class AutoScalingRule extends Model
     public function calculateScaleDown(int $currentMemory): int
     {
         $newMemory = $currentMemory - $this->scale_down_step;
+
         return max($newMemory, $this->min_memory);
     }
 
@@ -198,6 +199,7 @@ class AutoScalingRule extends Model
         if ($lastAction === null) {
             return 0;
         }
+
         return max(0, $this->scale_up_cooldown - $lastAction->diffInMinutes(now()));
     }
 

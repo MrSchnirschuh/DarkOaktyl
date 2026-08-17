@@ -7,5 +7,3 @@ use DarkOak\Exceptions\DarkOaktylException;
 class RequiredVariableMissingException extends DarkOaktylException
 {
 }
-
-

@@ -29,7 +29,7 @@ class MountRepository extends EloquentRepository
     /**
      * Return all the mounts and their respective relations.
      *
-     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
+     * @throws RecordNotFoundException
      */
     public function getWithRelations(string $id): Mount
     {
@@ -55,4 +55,3 @@ class MountRepository extends EloquentRepository
             ->get($this->getColumns());
     }
 }
-

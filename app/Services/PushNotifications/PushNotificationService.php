@@ -2,11 +2,11 @@
 
 namespace DarkOak\Services\PushNotifications;
 
+use GuzzleHttp\Client;
+use DarkOak\Models\User;
+use Illuminate\Support\Facades\Log;
 use DarkOak\Models\PushSubscription;
 use DarkOak\Models\OrganizationMember;
-use DarkOak\Models\User;
-use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Log;
 
 class PushNotificationService
 {
@@ -24,12 +24,13 @@ class PushNotificationService
     }
 
     /**
-     * Send push notification to a user for a specific event
+     * Send push notification to a user for a specific event.
      */
     public function notifyUser(User $user, string $event, array $payload): bool
     {
         if (!$this->isVapidConfigured()) {
             Log::warning('VAPID not configured, skipping push notification');
+
             return false;
         }
 
@@ -52,7 +53,7 @@ class PushNotificationService
     }
 
     /**
-     * Send notification to all users with a specific permission
+     * Send notification to all users with a specific permission.
      */
     public function notifyUsersWithPermission(string $permission, string $event, array $payload): void
     {
@@ -66,7 +67,7 @@ class PushNotificationService
     }
 
     /**
-     * Send notification to server owner
+     * Send notification to server owner.
      */
     public function notifyServerOwner(int $serverId, string $event, array $payload): void
     {
@@ -82,7 +83,7 @@ class PushNotificationService
     }
 
     /**
-     * Send notification to organization members
+     * Send notification to organization members.
      */
     public function notifyOrganization(int $organizationId, string $event, array $payload, ?int $excludeUserId = null): void
     {
@@ -106,7 +107,7 @@ class PushNotificationService
     }
 
     /**
-     * Send single push notification to subscription
+     * Send single push notification to subscription.
      */
     private function sendNotification(PushSubscription $subscription, array $payload): bool
     {
@@ -137,6 +138,7 @@ class PushNotificationService
 
             if ($response->getStatusCode() === 201 || $response->getStatusCode() === 200) {
                 $subscription->touchLastUsed();
+
                 return true;
             }
 
@@ -156,12 +158,13 @@ class PushNotificationService
                 'error' => $e->getMessage(),
                 'endpoint' => substr($subscription->endpoint, 0, 50) . '...',
             ]);
+
             return false;
         }
     }
 
     /**
-     * Generate VAPID authentication headers
+     * Generate VAPID authentication headers.
      */
     private function generateVapidHeaders(string $endpoint, int $contentLength): array
     {
@@ -191,52 +194,53 @@ class PushNotificationService
     }
 
     /**
-     * Sign VAPID JWT using ECDSA
+     * Sign VAPID JWT using ECDSA.
      */
     private function signVapid(string $data): string
     {
         $privateKey = $this->vapidConfig['private_key'];
-        
+
         // Use OpenSSL for ECDSA signing
         $signature = '';
         openssl_sign($data, $signature, $privateKey, OPENSSL_ALGO_SHA256);
-        
+
         return str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($signature));
     }
 
     /**
-     * Encrypt message for Web Push
+     * Encrypt message for Web Push.
      */
     private function encryptMessage(string $message, PushSubscription $subscription): string
     {
         // Simplified encryption - in production, use web-push-libs
         // This is a placeholder for the actual encryption logic
         // Real implementation would use proper ECE (Encrypted Content-Encoding)
-        
+
         return $message;
     }
 
     /**
-     * Check if VAPID is properly configured
+     * Check if VAPID is properly configured.
      */
     private function isVapidConfigured(): bool
     {
-        return !empty($this->vapidConfig['public_key']) 
+        return !empty($this->vapidConfig['public_key'])
             && !empty($this->vapidConfig['private_key']);
     }
 
     /**
-     * Clean up stale subscriptions
+     * Clean up stale subscriptions.
      */
     public function cleanupStaleSubscriptions(int $days = 30): int
     {
         $count = PushSubscription::stale($days)->delete();
         Log::info('Cleaned up stale push subscriptions', ['count' => $count]);
+
         return $count;
     }
 
     /**
-     * Get VAPID public key for frontend
+     * Get VAPID public key for frontend.
      */
     public function getVapidPublicKey(): ?string
     {

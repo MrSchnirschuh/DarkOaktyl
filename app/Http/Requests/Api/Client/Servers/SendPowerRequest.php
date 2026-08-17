@@ -35,4 +35,3 @@ class SendPowerRequest extends ClientApiRequest
         ];
     }
 }
-

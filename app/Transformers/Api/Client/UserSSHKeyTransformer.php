@@ -25,4 +25,3 @@ class UserSSHKeyTransformer extends Transformer
         ];
     }
 }
-

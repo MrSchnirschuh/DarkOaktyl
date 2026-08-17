@@ -3,8 +3,8 @@
 namespace DarkOak\Models\Billing;
 
 use Carbon\Carbon;
-use DarkOak\Models\Model;
 use DarkOak\Models\User;
+use DarkOak\Models\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
@@ -104,7 +104,7 @@ class CreditTransaction extends Model
         ?string $description = null,
         $transactionable = null,
         ?string $referenceId = null,
-        array $metadata = []
+        array $metadata = [],
     ): self {
         $data = [
             'user_id' => $userId,

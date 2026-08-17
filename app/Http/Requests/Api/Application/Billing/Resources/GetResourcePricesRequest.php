@@ -12,4 +12,3 @@ class GetResourcePricesRequest extends ApplicationApiRequest
         return AdminRole::BILLING_READ;
     }
 }
-

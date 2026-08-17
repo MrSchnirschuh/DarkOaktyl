@@ -3,7 +3,6 @@
 namespace DarkOak\Http\Requests\Api\Client\ServerGroups;
 
 use DarkOak\Http\Requests\Api\Client\ClientApiRequest;
-use DarkOak\Models\ServerGroup;
 
 class StoreServerGroupRequest extends ClientApiRequest
 {

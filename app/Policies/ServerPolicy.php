@@ -42,4 +42,3 @@ class ServerPolicy
         // do nothing
     }
 }
-

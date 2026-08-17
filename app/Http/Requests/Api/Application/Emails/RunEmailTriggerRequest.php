@@ -17,4 +17,3 @@ class RunEmailTriggerRequest extends ApplicationApiRequest
         return [];
     }
 }
-

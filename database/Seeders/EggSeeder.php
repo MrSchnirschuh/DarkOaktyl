@@ -81,5 +81,3 @@ class EggSeeder extends Seeder
         $this->command->line('');
     }
 }
-
-

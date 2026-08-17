@@ -27,4 +27,3 @@ class ServerSubject
         return $next($request);
     }
 }
-

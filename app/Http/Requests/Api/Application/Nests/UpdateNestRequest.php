@@ -17,4 +17,3 @@ class UpdateNestRequest extends StoreNestRequest
         return AdminRole::NESTS_UPDATE;
     }
 }
-

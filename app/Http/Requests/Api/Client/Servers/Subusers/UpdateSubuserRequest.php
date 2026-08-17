@@ -19,4 +19,3 @@ class UpdateSubuserRequest extends SubuserRequest
         ];
     }
 }
-

@@ -23,4 +23,3 @@ class CreateFolderRequest extends ClientApiRequest
         ];
     }
 }
-

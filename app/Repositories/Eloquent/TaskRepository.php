@@ -20,7 +20,7 @@ class TaskRepository extends EloquentRepository implements TaskRepositoryInterfa
     /**
      * Get a task and the server relationship for that task.
      *
-     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
+     * @throws RecordNotFoundException
      */
     public function getTaskForJobProcess(int $id): Task
     {
@@ -42,4 +42,3 @@ class TaskRepository extends EloquentRepository implements TaskRepositoryInterfa
             ->first($this->getColumns());
     }
 }
-

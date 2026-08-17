@@ -3,9 +3,9 @@
 namespace DarkOak\Models\Billing;
 
 use Carbon\Carbon;
+use DarkOak\Models\User;
 use DarkOak\Models\Model;
 use DarkOak\Models\Server;
-use DarkOak\Models\User;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**

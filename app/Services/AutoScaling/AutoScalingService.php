@@ -2,13 +2,13 @@
 
 namespace DarkOak\Services\AutoScaling;
 
-use DarkOak\Models\AutoScalingRule;
-use DarkOak\Models\AutoScalingHistory;
 use DarkOak\Models\Server;
+use DarkOak\Models\AutoScalingRule;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Log;
+use DarkOak\Models\AutoScalingHistory;
 use DarkOak\Repositories\Wings\DaemonServerRepository;
 use DarkOak\Services\PushNotifications\PushNotificationService;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\App;
 
 class AutoScalingService
 {
@@ -23,29 +23,30 @@ class AutoScalingService
     }
 
     /**
-     * Evaluate auto-scaling for a server
+     * Evaluate auto-scaling for a server.
      */
     public function evaluateScaling(Server $server): ?AutoScalingHistory
     {
         $rule = AutoScalingRule::where('server_id', $server->id)->first();
-        
+
         if (!$rule || !$rule->enabled) {
             return null;
         }
 
         // Get current server stats from Wings
         $stats = $this->fetchServerStats($server);
-        
+
         if (!$stats) {
             Log::warning('Could not fetch server stats for auto-scaling', [
                 'server_id' => $server->id,
             ]);
+
             return null;
         }
 
         // Determine scaling action
         $action = $this->determineScalingAction($rule, $stats);
-        
+
         if ($action === null) {
             return null;
         }
@@ -55,7 +56,7 @@ class AutoScalingService
     }
 
     /**
-     * Fetch current server stats from Wings
+     * Fetch current server stats from Wings.
      */
     private function fetchServerStats(Server $server): ?array
     {
@@ -76,12 +77,13 @@ class AutoScalingService
                 'server_id' => $server->id,
                 'error' => $e->getMessage(),
             ]);
+
             return null;
         }
     }
 
     /**
-     * Determine if scaling is needed
+     * Determine if scaling is needed.
      */
     private function determineScalingAction(AutoScalingRule $rule, array $stats): ?string
     {
@@ -90,10 +92,10 @@ class AutoScalingService
         $diskUsagePercent = ($stats['disk'] / max($stats['disk_limit'], 1)) * 100;
 
         // Check for scale up
-        if ($memoryUsagePercent >= $rule->memory_threshold 
+        if ($memoryUsagePercent >= $rule->memory_threshold
             || $cpuUsagePercent >= $rule->cpu_threshold
             || $diskUsagePercent >= $rule->disk_threshold) {
-            
+
             if ($rule->canScaleUp() && !$rule->isAtMaxMemory($rule->server->memory)) {
                 return 'up';
             }
@@ -115,12 +117,12 @@ class AutoScalingService
     }
 
     /**
-     * Execute scaling action
+     * Execute scaling action.
      */
     private function executeScaling(Server $server, AutoScalingRule $rule, string $action, array $stats): AutoScalingHistory
     {
         $currentMemory = $server->memory;
-        $newMemory = $action === 'up' 
+        $newMemory = $action === 'up'
             ? $rule->calculateScaleUp($currentMemory)
             : $rule->calculateScaleDown($currentMemory);
 
@@ -187,7 +189,7 @@ class AutoScalingService
     }
 
     /**
-     * Send notification to user
+     * Send notification to user.
      */
     private function notifyUser(Server $server, string $action, int $oldMemory, int $newMemory): void
     {
@@ -207,12 +209,12 @@ class AutoScalingService
     }
 
     /**
-     * Create or update auto-scaling rule for server
+     * Create or update auto-scaling rule for server.
      */
     public function createOrUpdateRule(int $serverId, array $data): AutoScalingRule
     {
         $rule = AutoScalingRule::firstOrNew(['server_id' => $serverId]);
-        
+
         $rule->fill([
             'cpu_threshold' => $data['cpu_threshold'] ?? 80,
             'memory_threshold' => $data['memory_threshold'] ?? 85,
@@ -232,7 +234,7 @@ class AutoScalingService
     }
 
     /**
-     * Get scaling history for a rule
+     * Get scaling history for a rule.
      */
     public function getHistory(int $ruleId, int $limit = 50): array
     {

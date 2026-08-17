@@ -45,4 +45,3 @@ class StoreApiKeyRequest extends ClientApiRequest
         });
     }
 }
-

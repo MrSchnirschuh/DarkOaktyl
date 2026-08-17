@@ -11,4 +11,3 @@ class PermissionsController extends ApplicationApiController
         return $this->adminPermissions($request);
     }
 }
-

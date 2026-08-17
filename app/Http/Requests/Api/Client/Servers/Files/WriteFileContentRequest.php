@@ -30,4 +30,3 @@ class WriteFileContentRequest extends ClientApiRequest implements ClientPermissi
         ];
     }
 }
-

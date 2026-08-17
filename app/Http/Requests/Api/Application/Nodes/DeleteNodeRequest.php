@@ -12,4 +12,3 @@ class DeleteNodeRequest extends ApplicationApiRequest
         return AdminRole::NODES_DELETE;
     }
 }
-

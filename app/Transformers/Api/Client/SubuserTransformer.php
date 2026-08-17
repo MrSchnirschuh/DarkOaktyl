@@ -26,4 +26,3 @@ class SubuserTransformer extends Transformer
         );
     }
 }
-

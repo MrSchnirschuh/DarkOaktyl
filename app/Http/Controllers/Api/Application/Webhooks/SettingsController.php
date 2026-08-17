@@ -14,7 +14,7 @@ class SettingsController extends ApplicationApiController
      * SettingsController constructor.
      */
     public function __construct(
-        private SettingsRepositoryInterface $settings
+        private SettingsRepositoryInterface $settings,
     ) {
         parent::__construct();
     }
@@ -36,5 +36,3 @@ class SettingsController extends ApplicationApiController
         return $this->returnNoContent();
     }
 }
-
-

@@ -2,13 +2,13 @@
 
 namespace DarkOak\Services\Organizations;
 
-use DarkOak\Models\Organization;
-use DarkOak\Models\OrganizationInvitation;
-use DarkOak\Models\OrganizationMember;
 use DarkOak\Models\User;
-use DarkOak\Notifications\OrganizationInvitationNotification;
+use DarkOak\Models\Organization;
 use Illuminate\Support\Facades\DB;
+use DarkOak\Models\OrganizationMember;
+use DarkOak\Models\OrganizationInvitation;
 use Illuminate\Support\Facades\Notification;
+use DarkOak\Notifications\OrganizationInvitationNotification;
 
 class OrganizationInvitationService
 {
@@ -112,6 +112,7 @@ class OrganizationInvitationService
 
         if ($invitation->isExpired()) {
             $invitation->markAsExpired();
+
             return null;
         }
 
@@ -159,6 +160,7 @@ class OrganizationInvitationService
 
         if ($existing) {
             assert($existing instanceof OrganizationInvitation);
+
             return $existing;
         }
 

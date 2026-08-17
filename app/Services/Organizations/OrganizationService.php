@@ -2,11 +2,11 @@
 
 namespace DarkOak\Services\Organizations;
 
-use DarkOak\Models\Organization;
-use DarkOak\Models\OrganizationMember;
 use DarkOak\Models\User;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use DarkOak\Models\Organization;
+use Illuminate\Support\Facades\DB;
+use DarkOak\Models\OrganizationMember;
 
 class OrganizationService
 {
@@ -135,6 +135,7 @@ class OrganizationService
                     ->update(['user_id' => $organization->owner_id]);
 
                 $member->delete();
+
                 return true;
             }
 
@@ -181,6 +182,7 @@ class OrganizationService
         }
 
         $member->role = $role;
+
         return $member->save();
     }
 

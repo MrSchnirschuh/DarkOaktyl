@@ -76,5 +76,3 @@ class DisplayException extends DarkOaktylException implements HttpExceptionInter
         return $logger->{$this->getErrorLevel()}($this->getPrevious());
     }
 }
-
-

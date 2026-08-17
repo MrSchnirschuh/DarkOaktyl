@@ -22,9 +22,9 @@ class DaemonFileRepository extends DaemonRepository
      *
      * @param int|null $notLargerThan the maximum content length in bytes
      *
-     * @throws \GuzzleHttp\Exception\TransferException
-     * @throws \DarkOak\Exceptions\Http\Server\FileSizeTooLargeException
-     * @throws \DarkOak\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws TransferException
+     * @throws FileSizeTooLargeException
+     * @throws DaemonConnectionException
      */
     public function getContent(string $path, ?int $notLargerThan = null): string
     {
@@ -53,7 +53,7 @@ class DaemonFileRepository extends DaemonRepository
      * Save new contents to a given file. This works for both creating and updating
      * a file.
      *
-     * @throws \DarkOak\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws DaemonConnectionException
      */
     public function putContent(string $path, string $content): ResponseInterface
     {
@@ -75,7 +75,7 @@ class DaemonFileRepository extends DaemonRepository
     /**
      * Return a directory listing for a given path.
      *
-     * @throws \DarkOak\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws DaemonConnectionException
      */
     public function getDirectory(string $path): array
     {
@@ -98,7 +98,7 @@ class DaemonFileRepository extends DaemonRepository
     /**
      * Creates a new directory for the server in the given $path.
      *
-     * @throws \DarkOak\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws DaemonConnectionException
      */
     public function createDirectory(string $name, string $path): ResponseInterface
     {
@@ -122,7 +122,7 @@ class DaemonFileRepository extends DaemonRepository
     /**
      * Renames or moves a file on the remote machine.
      *
-     * @throws \DarkOak\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws DaemonConnectionException
      */
     public function renameFiles(?string $root, array $files): ResponseInterface
     {
@@ -146,7 +146,7 @@ class DaemonFileRepository extends DaemonRepository
     /**
      * Copy a given file and give it a unique name.
      *
-     * @throws \DarkOak\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws DaemonConnectionException
      */
     public function copyFile(string $location): ResponseInterface
     {
@@ -169,7 +169,7 @@ class DaemonFileRepository extends DaemonRepository
     /**
      * Delete a file or folder for the server.
      *
-     * @throws \DarkOak\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws DaemonConnectionException
      */
     public function deleteFiles(?string $root, array $files): ResponseInterface
     {
@@ -193,7 +193,7 @@ class DaemonFileRepository extends DaemonRepository
     /**
      * Compress the given files or folders in the given root.
      *
-     * @throws \DarkOak\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws DaemonConnectionException
      */
     public function compressFiles(?string $root, array $files): array
     {
@@ -222,7 +222,7 @@ class DaemonFileRepository extends DaemonRepository
     /**
      * Decompresses a given archive file.
      *
-     * @throws \DarkOak\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws DaemonConnectionException
      */
     public function decompressFile(?string $root, string $file): ResponseInterface
     {
@@ -249,7 +249,7 @@ class DaemonFileRepository extends DaemonRepository
     /**
      * Chmods the given files.
      *
-     * @throws \DarkOak\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws DaemonConnectionException
      */
     public function chmodFiles(?string $root, array $files): ResponseInterface
     {
@@ -273,7 +273,7 @@ class DaemonFileRepository extends DaemonRepository
     /**
      * Pulls a file from the given URL and saves it to the disk.
      *
-     * @throws \DarkOak\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws DaemonConnectionException
      */
     public function pull(string $url, ?string $directory, array $params = []): ResponseInterface
     {

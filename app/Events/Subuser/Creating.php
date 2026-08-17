@@ -17,4 +17,3 @@ class Creating extends Event
     {
     }
 }
-

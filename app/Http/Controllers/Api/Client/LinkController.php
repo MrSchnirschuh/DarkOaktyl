@@ -18,4 +18,3 @@ class LinkController extends ClientApiController
         return $this->transform($links, LinkTransformer::class);
     }
 }
-

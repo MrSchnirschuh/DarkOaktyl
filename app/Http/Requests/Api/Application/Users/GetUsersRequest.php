@@ -12,4 +12,3 @@ class GetUsersRequest extends ApplicationApiRequest
         return AdminRole::USERS_READ;
     }
 }
-

@@ -3,7 +3,7 @@
 namespace DarkOak\Services\Billing\ValueObjects;
 
 /**
- * @internal Value object representing a calculated billing quote.
+ * @internal value object representing a calculated billing quote
  */
 final class QuoteResult
 {
@@ -109,4 +109,3 @@ final class QuoteResult
         return $data;
     }
 }
-

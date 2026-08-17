@@ -63,4 +63,3 @@ class MaintenanceMiddlewareTest extends MiddlewareTestCase
         return new MaintenanceMiddleware($this->response);
     }
 }
-

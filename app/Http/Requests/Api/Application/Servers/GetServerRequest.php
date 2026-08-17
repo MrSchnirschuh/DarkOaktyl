@@ -12,4 +12,3 @@ class GetServerRequest extends ApplicationApiRequest
         return AdminRole::SERVERS_READ;
     }
 }
-

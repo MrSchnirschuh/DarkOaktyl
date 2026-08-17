@@ -6,9 +6,9 @@ use Ramsey\Uuid\Uuid;
 use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Cache;
 use DarkOak\Models\Billing\Product;
 use DarkOak\Models\Billing\Category;
+use Illuminate\Support\Facades\Cache;
 use Spatie\QueryBuilder\QueryBuilder;
 use DarkOak\Transformers\Api\Application\ProductTransformer;
 use DarkOak\Exceptions\Http\QueryValueOutOfRangeHttpException;
@@ -115,6 +115,7 @@ class ProductController extends ApplicationApiController
 
         if ($product) {
             $product->update($data);
+
             return $product;
         }
 

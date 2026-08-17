@@ -15,4 +15,3 @@ class RotatePasswordRequest extends ClientApiRequest
         return Permission::ACTION_DATABASE_UPDATE;
     }
 }
-

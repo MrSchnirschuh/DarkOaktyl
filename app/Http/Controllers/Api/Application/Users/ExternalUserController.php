@@ -19,4 +19,3 @@ class ExternalUserController extends ApplicationApiController
         return $this->transform($user, UserTransformer::class);
     }
 }
-

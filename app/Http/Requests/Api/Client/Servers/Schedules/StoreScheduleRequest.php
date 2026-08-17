@@ -28,4 +28,3 @@ class StoreScheduleRequest extends ViewScheduleRequest
         ];
     }
 }
-

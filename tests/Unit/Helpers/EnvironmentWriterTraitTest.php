@@ -39,4 +39,3 @@ class FooClass
 {
     use EnvironmentWriterTrait;
 }
-

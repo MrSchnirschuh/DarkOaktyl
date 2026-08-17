@@ -28,7 +28,7 @@ class SubuserController extends ClientApiController
     public function __construct(
         private SubuserRepository $repository,
         private SubuserCreationService $creationService,
-        private DaemonServerRepository $serverRepository
+        private DaemonServerRepository $serverRepository,
     ) {
         parent::__construct();
     }
@@ -188,4 +188,3 @@ class SubuserController extends ClientApiController
         return array_unique(array_merge($cleaned, [Permission::ACTION_WEBSOCKET_CONNECT]));
     }
 }
-

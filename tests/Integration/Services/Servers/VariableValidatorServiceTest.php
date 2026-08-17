@@ -138,5 +138,3 @@ class VariableValidatorServiceTest extends IntegrationTestCase
         return $this->app->make(VariableValidatorService::class);
     }
 }
-
-

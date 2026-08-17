@@ -27,4 +27,3 @@ class UpdateEmailTemplateRequest extends ApplicationApiRequest
         ];
     }
 }
-

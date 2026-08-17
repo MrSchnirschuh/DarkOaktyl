@@ -36,4 +36,3 @@ abstract class IntegrationTestCase extends TestCase
             ->toAtomString();
     }
 }
-

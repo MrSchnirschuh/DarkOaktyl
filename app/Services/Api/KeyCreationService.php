@@ -50,4 +50,3 @@ class KeyCreationService
         return $this->repository->create($data, true, true);
     }
 }
-

@@ -31,4 +31,3 @@ interface NodeRepositoryInterface extends RepositoryInterface
      */
     public function getNodesForServerCreation(): Collection;
 }
-

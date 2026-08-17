@@ -35,4 +35,3 @@ class UpdateEmailThemeRequest extends StoreEmailThemeRequest
         return $rules;
     }
 }
-

@@ -20,4 +20,3 @@ class AdminSubject
         return $next($request);
     }
 }
-

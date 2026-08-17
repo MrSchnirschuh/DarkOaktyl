@@ -22,4 +22,3 @@ class DeleteFileRequest extends ClientApiRequest implements ClientPermissionsReq
         ];
     }
 }
-

@@ -21,4 +21,3 @@ class SuspendedAccount
         return $next($request);
     }
 }
-

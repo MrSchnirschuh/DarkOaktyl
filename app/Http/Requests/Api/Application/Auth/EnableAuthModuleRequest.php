@@ -12,4 +12,3 @@ class EnableAuthModuleRequest extends ApplicationApiRequest
         return AdminRole::AUTH_CREATE;
     }
 }
-

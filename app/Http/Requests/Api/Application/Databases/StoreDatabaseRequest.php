@@ -18,4 +18,3 @@ class StoreDatabaseRequest extends ApplicationApiRequest
         return AdminRole::DATABASES_CREATE;
     }
 }
-

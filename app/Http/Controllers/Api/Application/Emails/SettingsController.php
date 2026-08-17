@@ -3,22 +3,22 @@
 namespace DarkOak\Http\Controllers\Api\Application\Emails;
 
 use DarkOak\Facades\Activity;
-use DarkOak\Models\EmailTheme;
-use DarkOak\Models\EmailTemplate;
-use DarkOak\Models\EmailTrigger;
 use Illuminate\Http\Response;
+use DarkOak\Models\EmailTheme;
+use DarkOak\Models\EmailTrigger;
+use DarkOak\Models\EmailTemplate;
 use Illuminate\Support\Facades\DB;
-use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Services\Themes\ThemePaletteService;
 use DarkOak\Contracts\Repository\SettingsRepositoryInterface;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
 use DarkOak\Http\Requests\Api\Application\Emails\GetEmailSettingsRequest;
 use DarkOak\Http\Requests\Api\Application\Emails\UpdateEmailSettingsRequest;
-use DarkOak\Services\Themes\ThemePaletteService;
 
 class SettingsController extends ApplicationApiController
 {
     public function __construct(
         private SettingsRepositoryInterface $settings,
-        private ThemePaletteService $paletteService
+        private ThemePaletteService $paletteService,
     ) {
         parent::__construct();
     }
@@ -97,4 +97,3 @@ class SettingsController extends ApplicationApiController
         config(['modules.email.default_theme' => null]);
     }
 }
-

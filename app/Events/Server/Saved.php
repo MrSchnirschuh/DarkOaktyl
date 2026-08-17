@@ -17,4 +17,3 @@ class Saved extends Event
     {
     }
 }
-

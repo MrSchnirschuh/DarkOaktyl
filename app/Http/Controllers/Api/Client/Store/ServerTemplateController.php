@@ -2,13 +2,13 @@
 
 namespace DarkOak\Http\Controllers\Api\Client\Store;
 
+use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use DarkOak\Http\Controllers\Api\Client\ClientApiController;
 use DarkOak\Models\ServerTemplate;
+use Illuminate\Support\Facades\Validator;
 use DarkOak\Models\ServerTemplateCategory;
 use DarkOak\Services\Templates\TemplateDeployService;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use DarkOak\Http\Controllers\Api\Client\ClientApiController;
 
 class ServerTemplateController extends ClientApiController
 {
@@ -108,7 +108,7 @@ class ServerTemplateController extends ClientApiController
                 allocationId: $data['allocation_id'],
                 customResources: $data['custom_resources'] ?? [],
                 customEnvVars: collect($data['environment_variables'] ?? [])
-                    ->mapWithKeys(fn($item) => [$item['key'] => $item['value']])
+                    ->mapWithKeys(fn ($item) => [$item['key'] => $item['value']])
                     ->toArray()
             );
 

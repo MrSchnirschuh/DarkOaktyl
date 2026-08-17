@@ -50,4 +50,3 @@ class AuthenticateUserTest extends MiddlewareTestCase
         return new AuthenticateApplicationUser();
     }
 }
-

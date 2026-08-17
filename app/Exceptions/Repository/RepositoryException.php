@@ -7,5 +7,3 @@ use DarkOak\Exceptions\DarkOaktylException;
 class RepositoryException extends DarkOaktylException
 {
 }
-
-

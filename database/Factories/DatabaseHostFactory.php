@@ -29,4 +29,3 @@ class DatabaseHostFactory extends Factory
         ];
     }
 }
-

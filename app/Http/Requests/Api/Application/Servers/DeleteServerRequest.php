@@ -19,4 +19,3 @@ class DeleteServerRequest extends ApplicationApiRequest
         ];
     }
 }
-

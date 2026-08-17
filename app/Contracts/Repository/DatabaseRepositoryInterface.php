@@ -59,4 +59,3 @@ interface DatabaseRepositoryInterface extends RepositoryInterface
      */
     public function dropUser(string $username, string $remote): bool;
 }
-

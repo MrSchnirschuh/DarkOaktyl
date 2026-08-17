@@ -26,4 +26,3 @@ class TicketMessageTransformer extends Transformer
         ];
     }
 }
-

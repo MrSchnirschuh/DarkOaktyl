@@ -12,4 +12,3 @@ class GetWebhooksRequest extends ApplicationApiRequest
         return AdminRole::WEBHOOKS_READ;
     }
 }
-

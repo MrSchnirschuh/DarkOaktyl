@@ -38,4 +38,3 @@ class ProductTransformer extends Transformer
         ];
     }
 }
-

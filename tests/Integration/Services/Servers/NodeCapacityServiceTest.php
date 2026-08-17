@@ -5,10 +5,10 @@ namespace DarkOak\Tests\Integration\Services\Servers;
 use DarkOak\Models\Node;
 use Mockery\MockInterface;
 use DarkOak\Services\Servers\NodeCapacityService;
+use DarkOak\Tests\Integration\IntegrationTestCase;
 use DarkOak\Repositories\Wings\DaemonConfigurationRepository;
 use DarkOak\Exceptions\Service\Deployment\NoViableNodeException;
 use DarkOak\Exceptions\Http\Connection\DaemonConnectionException;
-use DarkOak\Tests\Integration\IntegrationTestCase;
 
 class NodeCapacityServiceTest extends IntegrationTestCase
 {
@@ -125,4 +125,3 @@ class NodeCapacityServiceTest extends IntegrationTestCase
         $this->assertTrue(true);
     }
 }
-

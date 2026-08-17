@@ -12,4 +12,3 @@ class GetBillingOrdersRequest extends ApplicationApiRequest
         return AdminRole::BILLING_ORDERS;
     }
 }
-

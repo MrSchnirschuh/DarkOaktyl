@@ -3,19 +3,19 @@
 namespace DarkOak\Http\Controllers\Api\Application\Emails;
 
 use DarkOak\Facades\Activity;
-use DarkOak\Models\EmailTheme;
 use Illuminate\Http\Response;
+use DarkOak\Models\EmailTheme;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Spatie\QueryBuilder\QueryBuilder;
-use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
 use DarkOak\Contracts\Repository\SettingsRepositoryInterface;
-use DarkOak\Http\Requests\Api\Application\Emails\DeleteEmailThemeRequest;
+use DarkOak\Exceptions\Http\QueryValueOutOfRangeHttpException;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Transformers\Api\Application\Emails\EmailThemeTransformer;
 use DarkOak\Http\Requests\Api\Application\Emails\GetEmailThemesRequest;
 use DarkOak\Http\Requests\Api\Application\Emails\StoreEmailThemeRequest;
+use DarkOak\Http\Requests\Api\Application\Emails\DeleteEmailThemeRequest;
 use DarkOak\Http\Requests\Api\Application\Emails\UpdateEmailThemeRequest;
-use DarkOak\Transformers\Api\Application\Emails\EmailThemeTransformer;
-use DarkOak\Exceptions\Http\QueryValueOutOfRangeHttpException;
 
 class ThemeController extends ApplicationApiController
 {
@@ -210,4 +210,3 @@ class ThemeController extends ApplicationApiController
         config(['modules.email.default_theme' => null]);
     }
 }
-

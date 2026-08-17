@@ -14,4 +14,3 @@ class FileSizeTooLargeException extends DisplayException
         parent::__construct('The file you are attempting to open is too large to view in the file editor.');
     }
 }
-

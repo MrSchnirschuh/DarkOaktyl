@@ -25,4 +25,3 @@ class ServerGroupTransformer extends Transformer
         ];
     }
 }
-

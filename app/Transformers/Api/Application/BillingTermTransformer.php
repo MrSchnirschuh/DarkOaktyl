@@ -30,4 +30,3 @@ class BillingTermTransformer extends Transformer
         ];
     }
 }
-

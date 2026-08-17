@@ -42,4 +42,3 @@ class IsDigitTest extends TestCase
         ];
     }
 }
-

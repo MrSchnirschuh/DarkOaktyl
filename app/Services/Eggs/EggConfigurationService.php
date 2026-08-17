@@ -237,5 +237,3 @@ class EggConfigurationService
         return $clone;
     }
 }
-
-

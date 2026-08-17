@@ -81,4 +81,3 @@ abstract class ApiRequest extends FormRequest
         return true;
     }
 }
-

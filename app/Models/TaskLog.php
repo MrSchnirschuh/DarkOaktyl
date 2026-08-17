@@ -28,4 +28,3 @@ class TaskLog extends Model
         'updated_at' => 'datetime',
     ];
 }
-

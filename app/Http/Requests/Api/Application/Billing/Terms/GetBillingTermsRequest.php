@@ -12,4 +12,3 @@ class GetBillingTermsRequest extends ApplicationApiRequest
         return AdminRole::BILLING_READ;
     }
 }
-

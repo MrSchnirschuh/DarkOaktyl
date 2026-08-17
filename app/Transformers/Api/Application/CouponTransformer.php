@@ -14,7 +14,7 @@ class CouponTransformer extends Transformer
 
     public function transform(Coupon $model): array
     {
-    $model->loadMissing(['term', 'redemptions', 'parent', 'personalizedFor']);
+        $model->loadMissing(['term', 'redemptions', 'parent', 'personalizedFor']);
 
         return [
             'id' => $model->id,
@@ -47,4 +47,3 @@ class CouponTransformer extends Transformer
         ];
     }
 }
-

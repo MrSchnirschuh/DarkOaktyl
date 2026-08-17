@@ -11,4 +11,3 @@ class ServerDatabaseWriteRequest extends GetServerDatabasesRequest
         return AdminRole::SERVERS_UPDATE;
     }
 }
-

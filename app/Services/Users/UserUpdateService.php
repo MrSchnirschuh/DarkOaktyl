@@ -35,4 +35,3 @@ class UserUpdateService
         return $user->refresh();
     }
 }
-

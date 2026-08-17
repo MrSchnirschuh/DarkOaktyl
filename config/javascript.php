@@ -28,4 +28,3 @@ return [
     */
     'js_namespace' => 'DarkOak',
 ];
-

@@ -16,25 +16,25 @@ return [
         'primary_dark' => env('THEME_COLORS_PRIMARY_DARK', '#16A34A'),
         'primary_light' => env('THEME_COLORS_PRIMARY_LIGHT', '#22C55E'),
 
-    'secondary' => env('THEME_COLORS_SECONDARY', '#27272a'),
-    'secondary_dark' => env('THEME_COLORS_SECONDARY_DARK', '#18181b'),
-    'secondary_light' => env('THEME_COLORS_SECONDARY_LIGHT', '#E6E2DC'),
+        'secondary' => env('THEME_COLORS_SECONDARY', '#27272a'),
+        'secondary_dark' => env('THEME_COLORS_SECONDARY_DARK', '#18181b'),
+        'secondary_light' => env('THEME_COLORS_SECONDARY_LIGHT', '#E6E2DC'),
 
-    'background' => env('THEME_COLORS_BACKGROUND', '#141414'),
-    'background_dark' => env('THEME_COLORS_BACKGROUND_DARK', '#0f0f0f'),
-    'background_light' => env('THEME_COLORS_BACKGROUND_LIGHT', '#F8F6F3'),
+        'background' => env('THEME_COLORS_BACKGROUND', '#141414'),
+        'background_dark' => env('THEME_COLORS_BACKGROUND_DARK', '#0f0f0f'),
+        'background_light' => env('THEME_COLORS_BACKGROUND_LIGHT', '#F8F6F3'),
 
-    'body' => env('THEME_COLORS_BODY', '#171717'),
-    'body_dark' => env('THEME_COLORS_BODY_DARK', '#111111'),
-    'body_light' => env('THEME_COLORS_BODY_LIGHT', '#FDFCFA'),
+        'body' => env('THEME_COLORS_BODY', '#171717'),
+        'body_dark' => env('THEME_COLORS_BODY_DARK', '#111111'),
+        'body_light' => env('THEME_COLORS_BODY_LIGHT', '#FDFCFA'),
 
-    'headers' => env('THEME_COLORS_HEADERS', '#171717'),
-    'headers_dark' => env('THEME_COLORS_HEADERS_DARK', '#111111'),
-    'headers_light' => env('THEME_COLORS_HEADERS_LIGHT', '#EFEDE9'),
+        'headers' => env('THEME_COLORS_HEADERS', '#171717'),
+        'headers_dark' => env('THEME_COLORS_HEADERS_DARK', '#111111'),
+        'headers_light' => env('THEME_COLORS_HEADERS_LIGHT', '#EFEDE9'),
 
-    'sidebar' => env('THEME_COLORS_SIDEBAR', '#18181b'),
-    'sidebar_dark' => env('THEME_COLORS_SIDEBAR_DARK', '#121212'),
-    'sidebar_light' => env('THEME_COLORS_SIDEBAR_LIGHT', '#F4F1EC'),
+        'sidebar' => env('THEME_COLORS_SIDEBAR', '#18181b'),
+        'sidebar_dark' => env('THEME_COLORS_SIDEBAR_DARK', '#121212'),
+        'sidebar_light' => env('THEME_COLORS_SIDEBAR_LIGHT', '#F4F1EC'),
 
         // Text colors for light / dark modes
         'text_dark' => env('THEME_COLORS_TEXT_DARK', '#F5F5F5'),

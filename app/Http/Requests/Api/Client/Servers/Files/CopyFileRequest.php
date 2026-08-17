@@ -20,4 +20,3 @@ class CopyFileRequest extends ClientApiRequest implements ClientPermissionsReque
         ];
     }
 }
-

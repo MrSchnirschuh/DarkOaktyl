@@ -31,4 +31,3 @@ class ClientApiRequest extends ApplicationApiRequest
         return true;
     }
 }
-

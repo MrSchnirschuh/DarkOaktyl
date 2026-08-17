@@ -17,4 +17,3 @@ interface ApiKeyRepositoryInterface extends RepositoryInterface
      */
     public function deleteAccountKey(User $user, string $identifier): int;
 }
-

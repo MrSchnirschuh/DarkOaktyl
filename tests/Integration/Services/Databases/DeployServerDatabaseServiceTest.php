@@ -156,4 +156,3 @@ class DeployServerDatabaseServiceTest extends IntegrationTestCase
         return $this->app->make(DeployServerDatabaseService::class);
     }
 }
-

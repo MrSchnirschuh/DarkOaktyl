@@ -49,4 +49,3 @@ class DatabaseHostTransformer extends Transformer
         return $this->collection($model->databases, new ServerDatabaseTransformer());
     }
 }
-

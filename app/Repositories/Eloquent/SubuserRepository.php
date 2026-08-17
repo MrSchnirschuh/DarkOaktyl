@@ -51,7 +51,7 @@ class SubuserRepository extends EloquentRepository implements SubuserRepositoryI
     /**
      * Return a subuser and associated permissions given a user_id and server_id.
      *
-     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
+     * @throws RecordNotFoundException
      */
     public function getWithPermissionsUsingUserAndServer(int $user, int $server): Subuser
     {
@@ -67,4 +67,3 @@ class SubuserRepository extends EloquentRepository implements SubuserRepositoryI
         return $instance;
     }
 }
-

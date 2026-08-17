@@ -78,4 +78,3 @@ class DatabaseHost extends Model
         return $this->belongsToMany(Node::class);
     }
 }
-

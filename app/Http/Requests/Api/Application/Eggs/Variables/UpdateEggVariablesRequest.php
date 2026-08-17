@@ -28,4 +28,3 @@ class UpdateEggVariablesRequest extends ApplicationApiRequest
         return AdminRole::EGGS_UPDATE;
     }
 }
-

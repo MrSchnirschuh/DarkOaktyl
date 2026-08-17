@@ -10,4 +10,3 @@ class EggMount extends Model
 
     public $incrementing = false;
 }
-

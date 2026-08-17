@@ -25,4 +25,3 @@ class SendCommandRequest extends ClientApiRequest
         ];
     }
 }
-

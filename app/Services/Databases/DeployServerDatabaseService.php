@@ -38,7 +38,7 @@ class DeployServerDatabaseService
                 throw new NoSuitableDatabaseHostException();
             }
 
-            /** @var \DarkOak\Models\DatabaseHost $databaseHost */
+            /** @var DatabaseHost $databaseHost */
             $databaseHost = $hosts->random();
             $databaseHostId = $databaseHost->id;
         }
@@ -50,4 +50,3 @@ class DeployServerDatabaseService
         ]);
     }
 }
-

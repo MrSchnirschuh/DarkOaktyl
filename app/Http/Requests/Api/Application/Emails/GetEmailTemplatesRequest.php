@@ -17,4 +17,3 @@ class GetEmailTemplatesRequest extends ApplicationApiRequest
         return [];
     }
 }
-

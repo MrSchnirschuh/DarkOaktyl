@@ -23,9 +23,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property array|null $metadata
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property \DarkOak\Models\Server $server
- * @property \DarkOak\Models\AutoScalingRule|null $autoScalingRule
- *
+ * @property Server $server
+ * @property AutoScalingRule|null $autoScalingRule
  * @property int|null $cpu_usage_before
  * @property int|null $ram_usage_mb_before
  * @property int|null $disk_usage_mb_before
@@ -217,7 +216,7 @@ class AutoScalingHistory extends Model
         ?string $triggeredBy = null,
         string $status = self::STATUS_COMPLETED,
         ?string $errorMessage = null,
-        ?array $metadata = null
+        ?array $metadata = null,
     ): self {
         return self::create([
             'server_id' => $server->id,

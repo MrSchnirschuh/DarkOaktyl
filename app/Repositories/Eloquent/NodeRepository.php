@@ -124,4 +124,3 @@ class NodeRepository extends EloquentRepository implements NodeRepositoryInterfa
         })->values();
     }
 }
-

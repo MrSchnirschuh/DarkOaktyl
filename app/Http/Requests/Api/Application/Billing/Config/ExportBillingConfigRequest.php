@@ -12,4 +12,3 @@ class ExportBillingConfigRequest extends ApplicationApiRequest
         return AdminRole::BILLING_EXPORT;
     }
 }
-

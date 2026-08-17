@@ -33,4 +33,3 @@ class AdminServerFilter implements Filter
             ->groupBy('servers.id');
     }
 }
-

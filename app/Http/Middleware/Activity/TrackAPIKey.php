@@ -25,4 +25,3 @@ class TrackAPIKey
         return $next($request);
     }
 }
-

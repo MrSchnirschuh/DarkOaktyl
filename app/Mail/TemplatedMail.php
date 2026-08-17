@@ -14,7 +14,7 @@ class TemplatedMail extends Mailable
     public function __construct(
         protected string $subjectLine,
         protected string $htmlBody,
-        protected ?string $plainBody = null
+        protected ?string $plainBody = null,
     ) {
         $this->subject($subjectLine);
     }
@@ -32,4 +32,3 @@ class TemplatedMail extends Mailable
         return $mail;
     }
 }
-

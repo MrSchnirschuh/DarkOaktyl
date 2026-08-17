@@ -23,4 +23,3 @@ class UpdateStartupVariableRequest extends ClientApiRequest
         ];
     }
 }
-

@@ -27,4 +27,3 @@ class AllocationTransformer extends Transformer
         ];
     }
 }
-

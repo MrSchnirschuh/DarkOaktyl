@@ -2,13 +2,12 @@
 
 namespace DarkOak\Services\Emails;
 
+use DarkOak\Models\User;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Blade;
 use DarkOak\Models\EmailTheme;
 use DarkOak\Models\EmailTemplate;
-use DarkOak\Models\User;
-use DarkOak\Services\Emails\AnonymousRecipient;
+use Illuminate\Support\Facades\Blade;
 use DarkOak\Services\Themes\ThemePaletteService;
 
 class EmailTemplateRenderer
@@ -224,4 +223,3 @@ class EmailTemplateRenderer
         ];
     }
 }
-

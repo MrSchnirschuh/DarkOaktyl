@@ -41,4 +41,3 @@ class TicketTransformer extends Transformer
         return $this->collection($ticket->messages, new TicketMessageTransformer());
     }
 }
-

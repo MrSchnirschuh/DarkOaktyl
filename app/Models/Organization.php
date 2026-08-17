@@ -2,10 +2,10 @@
 
 namespace DarkOak\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
@@ -23,10 +23,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int|null $members_count
  * @property int|null $servers_count
- * @property \DarkOak\Models\User $owner
- * @property \Illuminate\Database\Eloquent\Collection<int, \DarkOak\Models\OrganizationMember> $members
- * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\OrganizationInvitation[] $invitations
- * @property \Illuminate\Database\Eloquent\Collection<int, \DarkOak\Models\Server> $servers
+ * @property User $owner
+ * @property \Illuminate\Database\Eloquent\Collection<int, OrganizationMember> $members
+ * @property \Illuminate\Database\Eloquent\Collection|OrganizationInvitation[] $invitations
+ * @property \Illuminate\Database\Eloquent\Collection<int, Server> $servers
  *
  * @method static \Illuminate\Database\Eloquent\Builder|Organization whereSlug($value)
  */
@@ -52,14 +52,14 @@ class Organization extends Model
     ];
 
     // Constants for settings
-    const SETTING_SPLIT_COSTS = 'split_costs';
-    const SETTING_AUTO_APPROVE_MEMBERS = 'auto_approve_members';
-    const SETTING_DEFAULT_MEMBER_ROLE = 'default_member_role';
+    public const SETTING_SPLIT_COSTS = 'split_costs';
+    public const SETTING_AUTO_APPROVE_MEMBERS = 'auto_approve_members';
+    public const SETTING_DEFAULT_MEMBER_ROLE = 'default_member_role';
 
     // Roles
-    const ROLE_OWNER = 'owner';
-    const ROLE_ADMIN = 'admin';
-    const ROLE_MEMBER = 'member';
+    public const ROLE_OWNER = 'owner';
+    public const ROLE_ADMIN = 'admin';
+    public const ROLE_MEMBER = 'member';
 
     public function owner(): BelongsTo
     {

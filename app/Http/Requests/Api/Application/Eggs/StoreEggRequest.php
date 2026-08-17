@@ -34,4 +34,3 @@ class StoreEggRequest extends ApplicationApiRequest
         return AdminRole::EGGS_CREATE;
     }
 }
-

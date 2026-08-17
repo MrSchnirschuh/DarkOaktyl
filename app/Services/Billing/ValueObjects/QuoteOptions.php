@@ -95,4 +95,3 @@ final class QuoteOptions
         return $this->raw;
     }
 }
-

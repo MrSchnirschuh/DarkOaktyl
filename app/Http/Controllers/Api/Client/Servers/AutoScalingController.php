@@ -6,7 +6,6 @@ use DarkOak\Models\Server;
 use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\DB;
 use DarkOak\Models\AutoScalingRule;
 use DarkOak\Models\AutoScalingHistory;
 use DarkOak\Http\Controllers\Api\Client\ClientApiController;

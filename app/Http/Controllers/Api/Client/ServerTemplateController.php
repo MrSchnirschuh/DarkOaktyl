@@ -2,11 +2,11 @@
 
 namespace DarkOak\Http\Controllers\Api\Client;
 
-use DarkOak\Http\Controllers\ApplicationApiController;
-use DarkOak\Services\Templates\ServerTemplateService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Validator;
+use DarkOak\Services\Templates\ServerTemplateService;
+use DarkOak\Http\Controllers\ApplicationApiController;
 
 class ServerTemplateController extends ApplicationApiController
 {
@@ -18,7 +18,7 @@ class ServerTemplateController extends ApplicationApiController
     }
 
     /**
-     * Get templates grouped by category
+     * Get templates grouped by category.
      */
     public function index(Request $request): JsonResponse
     {
@@ -31,7 +31,7 @@ class ServerTemplateController extends ApplicationApiController
     }
 
     /**
-     * Get featured templates
+     * Get featured templates.
      */
     public function featured(Request $request): JsonResponse
     {
@@ -46,7 +46,7 @@ class ServerTemplateController extends ApplicationApiController
     }
 
     /**
-     * Get templates by type
+     * Get templates by type.
      */
     public function byType(Request $request, string $type): JsonResponse
     {
@@ -59,7 +59,7 @@ class ServerTemplateController extends ApplicationApiController
     }
 
     /**
-     * Get single template
+     * Get single template.
      */
     public function show(Request $request, string $uuid): JsonResponse
     {
@@ -77,7 +77,7 @@ class ServerTemplateController extends ApplicationApiController
     }
 
     /**
-     * Deploy server from template
+     * Deploy server from template.
      */
     public function deploy(Request $request, string $uuid): JsonResponse
     {
@@ -120,7 +120,7 @@ class ServerTemplateController extends ApplicationApiController
     }
 
     /**
-     * Search templates
+     * Search templates.
      */
     public function search(Request $request): JsonResponse
     {
@@ -141,7 +141,7 @@ class ServerTemplateController extends ApplicationApiController
     }
 
     /**
-     * Get available template types
+     * Get available template types.
      */
     public function types(): JsonResponse
     {

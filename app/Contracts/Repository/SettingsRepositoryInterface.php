@@ -22,4 +22,3 @@ interface SettingsRepositoryInterface extends RepositoryInterface
      */
     public function forget(string $key);
 }
-

@@ -11,4 +11,3 @@ class GetNodeRequest extends GetNodesRequest
         return AdminRole::NODES_READ;
     }
 }
-

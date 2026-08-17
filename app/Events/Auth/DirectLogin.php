@@ -11,4 +11,3 @@ class DirectLogin extends Event
     {
     }
 }
-

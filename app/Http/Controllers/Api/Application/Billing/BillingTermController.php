@@ -2,23 +2,23 @@
 
 namespace DarkOak\Http\Controllers\Api\Application\Billing;
 
+use Illuminate\Support\Str;
 use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
-use DarkOak\Models\Billing\BillingTerm;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Cache;
 use Spatie\QueryBuilder\QueryBuilder;
-use DarkOak\Transformers\Api\Application\BillingTermTransformer;
+use DarkOak\Models\Billing\BillingTerm;
 use DarkOak\Exceptions\Http\QueryValueOutOfRangeHttpException;
-use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
 use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
+use DarkOak\Transformers\Api\Application\BillingTermTransformer;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
 use DarkOak\Http\Requests\Api\Application\Billing\Terms\GetBillingTermRequest;
 use DarkOak\Http\Requests\Api\Application\Billing\Terms\GetBillingTermsRequest;
 use DarkOak\Http\Requests\Api\Application\Billing\Terms\StoreBillingTermRequest;
-use DarkOak\Http\Requests\Api\Application\Billing\Terms\UpdateBillingTermRequest;
 use DarkOak\Http\Requests\Api\Application\Billing\Terms\DeleteBillingTermRequest;
+use DarkOak\Http\Requests\Api\Application\Billing\Terms\UpdateBillingTermRequest;
 
 class BillingTermController extends ApplicationApiController
 {
@@ -195,4 +195,3 @@ class BillingTermController extends ApplicationApiController
         BillingTerm::query()->where('id', '!=', $termId)->where('is_default', true)->update(['is_default' => false]);
     }
 }
-

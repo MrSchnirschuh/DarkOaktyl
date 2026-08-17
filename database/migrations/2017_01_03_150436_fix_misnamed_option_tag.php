@@ -34,4 +34,3 @@ class FixMisnamedOptionTag extends Migration
         ]);
     }
 }
-

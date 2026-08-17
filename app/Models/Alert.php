@@ -2,11 +2,11 @@
 
 namespace DarkOak\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
- * DarkOak\Models\Alert
+ * DarkOak\Models\Alert.
  *
  * @property int $id
  * @property string $uuid

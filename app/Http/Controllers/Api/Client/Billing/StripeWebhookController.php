@@ -2,20 +2,19 @@
 
 namespace DarkOak\Http\Controllers\Api\Client\Billing;
 
-use Stripe\StripeClient;
 use Stripe\Webhook;
+use Stripe\StripeClient;
+use DarkOak\Models\Server;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Http\JsonResponse;
 use DarkOak\Models\Billing\Order;
-use DarkOak\Models\Server;
 use DarkOak\Exceptions\DisplayException;
 use DarkOak\Services\Billing\CreateServerService;
 use DarkOak\Http\Controllers\Api\Client\ClientApiController;
 use DarkOak\Contracts\Repository\SettingsRepositoryInterface;
 
 /**
- * Stripe Webhook Controller
+ * Stripe Webhook Controller.
  *
  * Handles incoming Stripe webhook events with signature verification.
  * CRITICAL: All webhook requests MUST be verified using the Stripe signature
@@ -47,6 +46,7 @@ class StripeWebhookController extends ClientApiController
      * Without signature verification, attackers could forge payment events.
      *
      * @param Request $request The incoming HTTP request
+     *
      * @return Response HTTP response (200 on success, 400/401 on verification failure)
      */
     public function handleWebhook(Request $request): Response
@@ -90,6 +90,7 @@ class StripeWebhookController extends ClientApiController
                     'error' => $e->getMessage(),
                     'ip' => $request->ip(),
                 ]);
+
                 return response('Invalid payload', 400);
             } catch (\Stripe\Exception\SignatureVerificationException $e) {
                 // Invalid signature - this could be an attack attempt
@@ -98,6 +99,7 @@ class StripeWebhookController extends ClientApiController
                     'ip' => $request->ip(),
                     'user_agent' => $request->userAgent(),
                 ]);
+
                 return response('Invalid signature', 401);
             }
         } else {
@@ -118,6 +120,7 @@ class StripeWebhookController extends ClientApiController
      * Process a verified Stripe event.
      *
      * @param object $event The Stripe event object
+     *
      * @return Response HTTP response
      */
     private function processStripeEvent(object $event): Response
@@ -152,6 +155,7 @@ class StripeWebhookController extends ClientApiController
                     'type' => $event->type,
                     'id' => $event->id ?? 'unknown',
                 ]);
+
                 return response('Event received', 200);
         }
     }
@@ -160,7 +164,6 @@ class StripeWebhookController extends ClientApiController
      * Handle successful payment intent.
      *
      * @param object $paymentIntent The payment intent object
-     * @return Response
      */
     private function handlePaymentIntentSucceeded(object $paymentIntent): Response
     {
@@ -170,6 +173,7 @@ class StripeWebhookController extends ClientApiController
             \Illuminate\Support\Facades\Log::warning('Stripe webhook: Order not found for payment intent', [
                 'payment_intent_id' => $paymentIntent->id,
             ]);
+
             return response('Order not found', 200); // Return 200 to prevent Stripe retries
         }
 
@@ -185,6 +189,7 @@ class StripeWebhookController extends ClientApiController
                         'payment_intent_id' => $paymentIntent->id,
                         'error' => $e->getMessage(),
                     ]);
+
                     return response('Capture failed', 500);
                 }
             }
@@ -204,7 +209,6 @@ class StripeWebhookController extends ClientApiController
      * Handle failed payment intent.
      *
      * @param object $paymentIntent The payment intent object
-     * @return Response
      */
     private function handlePaymentIntentFailed(object $paymentIntent): Response
     {
@@ -227,7 +231,6 @@ class StripeWebhookController extends ClientApiController
      * Handle canceled payment intent.
      *
      * @param object $paymentIntent The payment intent object
-     * @return Response
      */
     private function handlePaymentIntentCanceled(object $paymentIntent): Response
     {
@@ -249,7 +252,6 @@ class StripeWebhookController extends ClientApiController
      * Handle refunded charge.
      *
      * @param object $charge The charge object
-     * @return Response
      */
     private function handleChargeRefunded(object $charge): Response
     {
@@ -272,7 +274,6 @@ class StripeWebhookController extends ClientApiController
      * Handle paid invoice (subscription payments).
      *
      * @param object $invoice The invoice object
-     * @return Response
      */
     private function handleInvoicePaid(object $invoice): Response
     {
@@ -289,7 +290,6 @@ class StripeWebhookController extends ClientApiController
      * Handle subscription updates.
      *
      * @param object $subscription The subscription object
-     * @return Response
      */
     private function handleSubscriptionUpdated(object $subscription): Response
     {
@@ -305,7 +305,6 @@ class StripeWebhookController extends ClientApiController
      * Handle subscription deletion/cancellation.
      *
      * @param object $subscription The subscription object
-     * @return Response
      */
     private function handleSubscriptionDeleted(object $subscription): Response
     {
@@ -323,7 +322,6 @@ class StripeWebhookController extends ClientApiController
      * Get the Stripe client instance.
      *
      * @throws DisplayException
-     * @return StripeClient
      */
     private function stripe(): StripeClient
     {

@@ -17,4 +17,3 @@ class GetEmailSettingsRequest extends ApplicationApiRequest
         return [];
     }
 }
-

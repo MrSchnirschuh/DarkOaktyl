@@ -15,4 +15,3 @@ class Hashids extends VendorHashids implements HashidsInterface
         return Arr::first($result, null, $default);
     }
 }
-

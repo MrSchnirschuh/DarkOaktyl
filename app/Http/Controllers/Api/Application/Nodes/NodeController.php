@@ -120,4 +120,3 @@ class NodeController extends ApplicationApiController
         return $this->returnNoContent();
     }
 }
-

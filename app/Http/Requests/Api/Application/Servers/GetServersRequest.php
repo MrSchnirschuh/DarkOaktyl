@@ -18,4 +18,3 @@ class GetServersRequest extends GetServerRequest
         return AdminRole::SERVERS_READ;
     }
 }
-

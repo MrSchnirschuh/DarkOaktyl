@@ -12,4 +12,3 @@ class ExportEggRequest extends ApplicationApiRequest
         return AdminRole::EGGS_EXPORT;
     }
 }
-

@@ -2,9 +2,9 @@
 
 namespace DarkOak\Services\Themes;
 
-use DarkOak\Contracts\Repository\ThemeRepositoryInterface;
 use DarkOak\Models\EmailTheme;
 use Illuminate\Support\Facades\Log;
+use DarkOak\Contracts\Repository\ThemeRepositoryInterface;
 
 class ThemePaletteService
 {
@@ -107,10 +107,10 @@ class ThemePaletteService
 
         return [
             'colors' => $this->getRawColors(),
-            'palettes' => array_map(static fn(array $palette): array => $palette['tokens'], $canonical),
-            'textPalettes' => array_map(static fn(array $palette): array => $palette['text'], $canonical),
-            'surfacePalettes' => array_map(static fn(array $palette): array => $palette['surfaces'], $canonical),
-            'emailPalettes' => array_map(static fn(array $palette): array => $palette['email'], $canonical),
+            'palettes' => array_map(static fn (array $palette): array => $palette['tokens'], $canonical),
+            'textPalettes' => array_map(static fn (array $palette): array => $palette['text'], $canonical),
+            'surfacePalettes' => array_map(static fn (array $palette): array => $palette['surfaces'], $canonical),
+            'emailPalettes' => array_map(static fn (array $palette): array => $palette['email'], $canonical),
         ];
     }
 
@@ -499,7 +499,7 @@ class ThemePaletteService
 
         if (preg_match('/^rgba?\(([^)]+)\)$/i', $value, $matches)) {
             $components = preg_split('/[,\s\/]+/', trim($matches[1]));
-            $components = array_values(array_filter($components, fn($v) => $v !== ''));
+            $components = array_values(array_filter($components, fn ($v) => $v !== ''));
 
             if (count($components) >= 3) {
                 [$r, $g, $b] = array_map([$this, 'normalizeRgbComponent'], array_slice($components, 0, 3));
@@ -510,7 +510,7 @@ class ThemePaletteService
 
         if (preg_match('/^hsla?\(([^)]+)\)$/i', $value, $matches)) {
             $components = preg_split('/[,\s\/]+/', trim($matches[1]));
-            $components = array_values(array_filter($components, fn($v) => $v !== ''));
+            $components = array_values(array_filter($components, fn ($v) => $v !== ''));
 
             if (count($components) >= 3) {
                 $h = fmod((float) $components[0], 360.0);
@@ -576,6 +576,7 @@ class ThemePaletteService
 
         $transform = static function (int $channel): float {
             $c = $channel / 255;
+
             return $c <= 0.03928 ? $c / 12.92 : pow(($c + 0.055) / 1.055, 2.4);
         };
 
@@ -602,6 +603,7 @@ class ThemePaletteService
         $value = trim($value);
         if (str_ends_with($value, '%')) {
             $value = substr($value, 0, -1);
+
             return max(0.0, min(1.0, ((float) $value) / 100.0));
         }
 
@@ -617,6 +619,7 @@ class ThemePaletteService
     {
         if ($s == 0.0) {
             $v = (int) round($l * 255.0);
+
             return [$v, $v, $v];
         }
 
@@ -637,10 +640,10 @@ class ThemePaletteService
     private function hueToRgb(float $p, float $q, float $t): float
     {
         if ($t < 0) {
-            $t += 1;
+            ++$t;
         }
         if ($t > 1) {
-            $t -= 1;
+            --$t;
         }
         if ($t < 1 / 6) {
             return $p + ($q - $p) * 6 * $t;
@@ -738,4 +741,3 @@ class ThemePaletteService
         }
     }
 }
-

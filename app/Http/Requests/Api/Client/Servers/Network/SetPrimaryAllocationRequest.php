@@ -9,4 +9,3 @@ class SetPrimaryAllocationRequest extends UpdateAllocationRequest
         return [];
     }
 }
-

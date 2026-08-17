@@ -88,5 +88,3 @@ abstract class ApplicationApiIntegrationTestCase extends IntegrationTestCase
         ], $permissions));
     }
 }
-
-

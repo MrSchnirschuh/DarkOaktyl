@@ -12,4 +12,3 @@ interface DatabaseHostRepositoryInterface extends RepositoryInterface
      */
     public function getWithViewDetails(): Collection;
 }
-

@@ -57,4 +57,3 @@ class ActivityLogBatchService
         return $result;
     }
 }
-

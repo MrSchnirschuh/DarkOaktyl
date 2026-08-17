@@ -25,4 +25,3 @@ class DecompressFilesRequest extends ClientApiRequest
         ];
     }
 }
-

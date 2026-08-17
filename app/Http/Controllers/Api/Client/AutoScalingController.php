@@ -2,13 +2,13 @@
 
 namespace DarkOak\Http\Controllers\Api\Client;
 
-use DarkOak\Http\Controllers\ApplicationApiController;
-use DarkOak\Models\AutoScalingRule;
 use DarkOak\Models\Server;
-use DarkOak\Services\AutoScaling\AutoScalingService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use DarkOak\Models\AutoScalingRule;
 use Illuminate\Support\Facades\Validator;
+use DarkOak\Services\AutoScaling\AutoScalingService;
+use DarkOak\Http\Controllers\ApplicationApiController;
 
 class AutoScalingController extends ApplicationApiController
 {
@@ -20,12 +20,12 @@ class AutoScalingController extends ApplicationApiController
     }
 
     /**
-     * Get auto-scaling rule for a server
+     * Get auto-scaling rule for a server.
      */
     public function show(Request $request, string $serverId): JsonResponse
     {
         $server = $this->getServer($request, $serverId);
-        
+
         $rule = AutoScalingRule::where('server_id', $server->id)->first();
 
         if (!$rule) {
@@ -55,7 +55,7 @@ class AutoScalingController extends ApplicationApiController
     }
 
     /**
-     * Create or update auto-scaling rule
+     * Create or update auto-scaling rule.
      */
     public function update(Request $request, string $serverId): JsonResponse
     {
@@ -103,7 +103,7 @@ class AutoScalingController extends ApplicationApiController
     }
 
     /**
-     * Delete auto-scaling rule
+     * Delete auto-scaling rule.
      */
     public function destroy(Request $request, string $serverId): JsonResponse
     {
@@ -117,7 +117,7 @@ class AutoScalingController extends ApplicationApiController
     }
 
     /**
-     * Get auto-scaling history
+     * Get auto-scaling history.
      */
     public function history(Request $request, string $serverId): JsonResponse
     {
@@ -138,7 +138,7 @@ class AutoScalingController extends ApplicationApiController
     }
 
     /**
-     * Trigger manual scale evaluation
+     * Trigger manual scale evaluation.
      */
     public function evaluate(Request $request, string $serverId): JsonResponse
     {
@@ -166,7 +166,7 @@ class AutoScalingController extends ApplicationApiController
     }
 
     /**
-     * Get server with permission check
+     * Get server with permission check.
      */
     private function getServer(Request $request, string $serverId): Server
     {

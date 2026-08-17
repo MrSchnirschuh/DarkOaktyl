@@ -18,4 +18,3 @@ class ActivityLogServiceProvider extends ServiceProvider
         $this->app->scoped(ActivityLogTargetableService::class);
     }
 }
-

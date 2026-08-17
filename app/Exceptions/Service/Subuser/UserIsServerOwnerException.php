@@ -7,4 +7,3 @@ use DarkOak\Exceptions\DisplayException;
 class UserIsServerOwnerException extends DisplayException
 {
 }
-

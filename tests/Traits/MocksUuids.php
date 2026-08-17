@@ -34,4 +34,3 @@ trait MocksUuids
         return $this->knownUuid;
     }
 }
-

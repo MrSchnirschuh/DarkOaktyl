@@ -114,4 +114,3 @@ class Ticket extends Model
         return self::$validationRules;
     }
 }
-

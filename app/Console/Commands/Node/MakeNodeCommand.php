@@ -65,5 +65,3 @@ class MakeNodeCommand extends Command
         $this->line('Successfully created a new node with name ' . $data['name'] . '.');
     }
 }
-
-

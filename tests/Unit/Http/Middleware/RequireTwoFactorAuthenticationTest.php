@@ -31,6 +31,7 @@ class RequireTwoFactorAuthenticationTest extends MiddlewareTestCase
 
         $response = $this->getMiddleware()->handle($this->request, function ($req) {
             $this->assertSame($this->request, $req);
+
             return $req;
         });
 

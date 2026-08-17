@@ -21,4 +21,3 @@ class UpdateEmailTriggerRequest extends StoreEmailTriggerRequest
         ];
     }
 }
-

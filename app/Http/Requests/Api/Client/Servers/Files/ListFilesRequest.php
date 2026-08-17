@@ -23,4 +23,3 @@ class ListFilesRequest extends ClientApiRequest
         ];
     }
 }
-

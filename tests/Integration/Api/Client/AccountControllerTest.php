@@ -16,7 +16,7 @@ class AccountControllerTest extends ClientApiIntegrationTestCase
      */
     public function testAccountDetailsAreReturned()
     {
-        /** @var \DarkOak\Models\User $user */
+        /** @var User $user */
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->get('/api/client/account');
@@ -38,7 +38,7 @@ class AccountControllerTest extends ClientApiIntegrationTestCase
      */
     public function testEmailIsUpdated()
     {
-        /** @var \DarkOak\Models\User $user */
+        /** @var User $user */
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->putJson('/api/client/account/email', [
@@ -57,7 +57,7 @@ class AccountControllerTest extends ClientApiIntegrationTestCase
      */
     public function testEmailIsNotUpdatedWhenPasswordIsInvalid()
     {
-        /** @var \DarkOak\Models\User $user */
+        /** @var User $user */
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->putJson('/api/client/account/email', [
@@ -76,7 +76,7 @@ class AccountControllerTest extends ClientApiIntegrationTestCase
      */
     public function testEmailIsNotUpdatedWhenNotValid()
     {
-        /** @var \DarkOak\Models\User $user */
+        /** @var User $user */
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->putJson('/api/client/account/email', [
@@ -103,7 +103,7 @@ class AccountControllerTest extends ClientApiIntegrationTestCase
      */
     public function testPasswordIsUpdated()
     {
-        /** @var \DarkOak\Models\User $user */
+        /** @var User $user */
         $user = User::factory()->create();
 
         $initialHash = $user->password;
@@ -129,7 +129,7 @@ class AccountControllerTest extends ClientApiIntegrationTestCase
      */
     public function testPasswordIsNotUpdatedIfCurrentPasswordIsInvalid()
     {
-        /** @var \DarkOak\Models\User $user */
+        /** @var User $user */
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->putJson('/api/client/account/password', [
@@ -172,7 +172,7 @@ class AccountControllerTest extends ClientApiIntegrationTestCase
      */
     public function testErrorIsReturnedIfPasswordIsNotConfirmed()
     {
-        /** @var \DarkOak\Models\User $user */
+        /** @var User $user */
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->putJson('/api/client/account/password', [
@@ -250,4 +250,3 @@ class AccountControllerTest extends ClientApiIntegrationTestCase
         $this->assertDatabaseHas('users', ['id' => $user->id, 'avatar_url' => null]);
     }
 }
-

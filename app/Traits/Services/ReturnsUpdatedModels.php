@@ -23,4 +23,3 @@ trait ReturnsUpdatedModels
         return $this;
     }
 }
-

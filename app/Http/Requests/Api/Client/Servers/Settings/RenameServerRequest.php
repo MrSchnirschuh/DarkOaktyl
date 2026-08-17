@@ -30,4 +30,3 @@ class RenameServerRequest extends ClientApiRequest implements ClientPermissionsR
         ];
     }
 }
-

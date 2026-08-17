@@ -71,4 +71,3 @@ interface ServerRepositoryInterface extends RepositoryInterface
      */
     public function loadAllServersForNode(int $node, int $limit): LengthAwarePaginator;
 }
-

@@ -47,4 +47,3 @@ class PruneOrphanedBackupsCommand extends Command
         ]);
     }
 }
-

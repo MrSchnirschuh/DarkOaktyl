@@ -27,4 +27,3 @@ class StoreTaskRequest extends ViewScheduleRequest
         ];
     }
 }
-

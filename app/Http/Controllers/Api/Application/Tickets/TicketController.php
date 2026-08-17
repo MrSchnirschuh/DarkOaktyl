@@ -11,8 +11,8 @@ use Spatie\QueryBuilder\QueryBuilder;
 use DarkOak\Transformers\Api\Application\TicketTransformer;
 use DarkOak\Contracts\Repository\SettingsRepositoryInterface;
 use DarkOak\Exceptions\Http\QueryValueOutOfRangeHttpException;
-use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
 use DarkOak\Http\Requests\Api\Application\Tickets\StoreTicketRequest;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
 use DarkOak\Http\Requests\Api\Application\Tickets\UpdateTicketRequest;
 
 class TicketController extends ApplicationApiController
@@ -21,7 +21,7 @@ class TicketController extends ApplicationApiController
      * TicketController constructor.
      */
     public function __construct(
-        private SettingsRepositoryInterface $settings
+        private SettingsRepositoryInterface $settings,
     ) {
         parent::__construct();
     }
@@ -129,4 +129,3 @@ class TicketController extends ApplicationApiController
         return $this->returnNoContent();
     }
 }
-

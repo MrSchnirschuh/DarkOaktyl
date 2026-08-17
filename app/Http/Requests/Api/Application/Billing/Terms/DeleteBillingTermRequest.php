@@ -12,4 +12,3 @@ class DeleteBillingTermRequest extends ApplicationApiRequest
         return AdminRole::BILLING_TERMS_DELETE;
     }
 }
-

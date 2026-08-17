@@ -14,8 +14,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property array $permissions
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @property \DarkOak\Models\User $user
- * @property \DarkOak\Models\Server $server
+ * @property User $user
+ * @property Server $server
  */
 class Subuser extends Model
 {
@@ -93,4 +93,3 @@ class Subuser extends Model
         return $this->hasMany(Permission::class);
     }
 }
-

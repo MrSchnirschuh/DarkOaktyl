@@ -18,4 +18,3 @@ class AuthenticateWebsocketDetailsRequest extends FormRequest
         ];
     }
 }
-

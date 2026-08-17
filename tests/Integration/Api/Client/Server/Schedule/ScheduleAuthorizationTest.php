@@ -64,4 +64,3 @@ class ScheduleAuthorizationTest extends ClientApiIntegrationTestCase
         ];
     }
 }
-

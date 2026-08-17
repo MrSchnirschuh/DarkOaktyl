@@ -22,4 +22,3 @@ interface ThemeRepositoryInterface extends RepositoryInterface
      */
     public function forget(string $key);
 }
-

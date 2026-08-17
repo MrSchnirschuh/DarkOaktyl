@@ -25,4 +25,3 @@ class Theme extends Model
         'value' => 'string',
     ];
 }
-

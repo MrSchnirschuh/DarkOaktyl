@@ -12,4 +12,3 @@ class DeleteBillingCategoryRequest extends ApplicationApiRequest
         return AdminRole::BILLING_CATEGORIES_DELETE;
     }
 }
-

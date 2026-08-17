@@ -98,4 +98,3 @@ class StartupController extends ClientApiController
             ->toArray();
     }
 }
-

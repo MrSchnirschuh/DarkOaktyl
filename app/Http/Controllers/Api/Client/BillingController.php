@@ -3,15 +3,15 @@
 namespace DarkOak\Http\Controllers\Api\Client;
 
 use Carbon\Carbon;
-use DarkOak\Http\Controllers\ApplicationApiController;
-use DarkOak\Models\Billing\BillingRecord;
-use DarkOak\Models\Billing\CreditBalance;
-use DarkOak\Models\Billing\CreditTransaction;
 use DarkOak\Models\Server;
-use DarkOak\Services\Billing\UsageBillingService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use DarkOak\Models\Billing\BillingRecord;
+use DarkOak\Models\Billing\CreditBalance;
 use Illuminate\Support\Facades\Validator;
+use DarkOak\Models\Billing\CreditTransaction;
+use DarkOak\Services\Billing\UsageBillingService;
+use DarkOak\Http\Controllers\ApplicationApiController;
 
 class BillingController extends ApplicationApiController
 {
@@ -23,7 +23,7 @@ class BillingController extends ApplicationApiController
     }
 
     /**
-     * Get credit balance for authenticated user
+     * Get credit balance for authenticated user.
      */
     public function balance(Request $request): JsonResponse
     {
@@ -41,7 +41,7 @@ class BillingController extends ApplicationApiController
     }
 
     /**
-     * Get billing history
+     * Get billing history.
      */
     public function history(Request $request): JsonResponse
     {
@@ -52,7 +52,7 @@ class BillingController extends ApplicationApiController
             $server = Server::where('uuid', $request->input('server_id'))
                 ->orWhere('uuidShort', $request->input('server_id'))
                 ->first();
-            
+
             if ($server) {
                 $query->where('server_id', $server->id);
             }
@@ -101,16 +101,16 @@ class BillingController extends ApplicationApiController
     }
 
     /**
-     * Get usage summary
+     * Get usage summary.
      */
     public function summary(Request $request): JsonResponse
     {
-        $startDate = $request->has('start_date') 
-            ? Carbon::parse($request->input('start_date')) 
+        $startDate = $request->has('start_date')
+            ? Carbon::parse($request->input('start_date'))
             : Carbon::now()->startOfMonth();
-        
-        $endDate = $request->has('end_date') 
-            ? Carbon::parse($request->input('end_date')) 
+
+        $endDate = $request->has('end_date')
+            ? Carbon::parse($request->input('end_date'))
             : Carbon::now();
 
         $summary = $this->billingService->getUsageSummary(
@@ -129,7 +129,7 @@ class BillingController extends ApplicationApiController
     }
 
     /**
-     * Get cost estimate for a server
+     * Get cost estimate for a server.
      */
     public function estimate(Request $request, string $serverId): JsonResponse
     {
@@ -156,7 +156,7 @@ class BillingController extends ApplicationApiController
     }
 
     /**
-     * Get credit transactions
+     * Get credit transactions.
      */
     public function transactions(Request $request): JsonResponse
     {
@@ -186,7 +186,7 @@ class BillingController extends ApplicationApiController
     }
 
     /**
-     * Add credits (mock endpoint - real would use payment provider)
+     * Add credits (mock endpoint - real would use payment provider).
      */
     public function addCredits(Request $request): JsonResponse
     {
@@ -220,7 +220,7 @@ class BillingController extends ApplicationApiController
     }
 
     /**
-     * Update low balance threshold
+     * Update low balance threshold.
      */
     public function updateThreshold(Request $request): JsonResponse
     {

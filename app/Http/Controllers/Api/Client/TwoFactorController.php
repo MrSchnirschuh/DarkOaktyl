@@ -99,4 +99,3 @@ class TwoFactorController extends ClientApiController
         return $this->returnNoContent();
     }
 }
-

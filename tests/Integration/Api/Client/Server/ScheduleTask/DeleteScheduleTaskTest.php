@@ -82,4 +82,3 @@ class DeleteScheduleTaskTest extends ClientApiIntegrationTestCase
         $this->assertDatabaseMissing('tasks', ['id' => $tasks[1]->id]);
     }
 }
-

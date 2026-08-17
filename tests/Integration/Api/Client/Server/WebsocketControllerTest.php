@@ -126,4 +126,3 @@ class WebsocketControllerTest extends ClientApiIntegrationTestCase
         $this->assertEquals(JwtScope::Websocket->value, $token->claims()->get('scope'));
     }
 }
-

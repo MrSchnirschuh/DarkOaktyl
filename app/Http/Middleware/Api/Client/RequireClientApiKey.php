@@ -23,4 +23,3 @@ class RequireClientApiKey
         return $next($request);
     }
 }
-

@@ -173,6 +173,7 @@ class PushSubscription extends Model
     public function hasPreference(string $event): bool
     {
         $prefs = $this->preferences ?? [];
+
         return $prefs[$event] ?? true;
     }
 }

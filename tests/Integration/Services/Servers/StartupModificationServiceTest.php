@@ -169,4 +169,3 @@ class StartupModificationServiceTest extends IntegrationTestCase
         return $this->app->make(StartupModificationService::class);
     }
 }
-

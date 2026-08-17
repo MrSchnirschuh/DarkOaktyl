@@ -37,4 +37,3 @@ return [
     // Legacy support - will be mapped to 2fa.enforcement = ALL if true
     'force2fa' => env('FORCE_TWO_FACTOR', false),
 ];
-

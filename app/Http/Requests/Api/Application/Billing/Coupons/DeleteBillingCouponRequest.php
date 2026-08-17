@@ -12,4 +12,3 @@ class DeleteBillingCouponRequest extends ApplicationApiRequest
         return AdminRole::BILLING_COUPONS_DELETE;
     }
 }
-

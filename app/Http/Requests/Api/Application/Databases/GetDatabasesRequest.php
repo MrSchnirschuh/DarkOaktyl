@@ -12,4 +12,3 @@ class GetDatabasesRequest extends ApplicationApiRequest
         return AdminRole::DATABASES_READ;
     }
 }
-

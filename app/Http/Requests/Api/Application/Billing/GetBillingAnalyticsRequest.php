@@ -12,4 +12,3 @@ class GetBillingAnalyticsRequest extends ApplicationApiRequest
         return AdminRole::BILLING_READ;
     }
 }
-

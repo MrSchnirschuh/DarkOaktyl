@@ -15,4 +15,3 @@ class ServiceLimitExceededException extends DisplayException
         parent::__construct($message, $previous, self::LEVEL_WARNING);
     }
 }
-

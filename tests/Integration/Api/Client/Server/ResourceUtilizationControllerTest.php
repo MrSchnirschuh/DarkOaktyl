@@ -41,4 +41,3 @@ class ResourceUtilizationControllerTest extends ClientApiIntegrationTestCase
         ]);
     }
 }
-

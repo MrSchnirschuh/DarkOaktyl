@@ -53,4 +53,3 @@ class AllocationAuthorizationTest extends ClientApiIntegrationTestCase
         ];
     }
 }
-

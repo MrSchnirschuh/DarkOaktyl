@@ -12,4 +12,3 @@ class GetRolesRequest extends ApplicationApiRequest
         return AdminRole::ROLES_READ;
     }
 }
-

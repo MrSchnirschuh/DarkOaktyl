@@ -19,4 +19,3 @@ interface ScheduleRepositoryInterface extends RepositoryInterface
      */
     public function getScheduleWithTasks(int $schedule): Schedule;
 }
-

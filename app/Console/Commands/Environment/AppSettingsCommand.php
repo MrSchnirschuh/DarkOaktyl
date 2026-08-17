@@ -181,5 +181,3 @@ class AppSettingsCommand extends Command
         );
     }
 }
-
-

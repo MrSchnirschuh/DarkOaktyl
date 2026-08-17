@@ -142,4 +142,3 @@ class SSHKeyControllerTest extends ClientApiIntegrationTestCase
         $this->assertEquals(1, $user->sshKeys()->count());
     }
 }
-

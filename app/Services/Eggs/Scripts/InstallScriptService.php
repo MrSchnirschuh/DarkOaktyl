@@ -20,7 +20,7 @@ class InstallScriptService
      *
      * @throws \DarkOak\Exceptions\Model\DataValidationException
      * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
-     * @throws \DarkOak\Exceptions\Service\Egg\InvalidCopyFromException
+     * @throws InvalidCopyFromException
      */
     public function handle(Egg $egg, array $data): void
     {
@@ -39,4 +39,3 @@ class InstallScriptService
         ]);
     }
 }
-

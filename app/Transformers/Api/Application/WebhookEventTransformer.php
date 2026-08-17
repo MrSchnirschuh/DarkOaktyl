@@ -27,4 +27,3 @@ class WebhookEventTransformer extends Transformer
         ];
     }
 }
-

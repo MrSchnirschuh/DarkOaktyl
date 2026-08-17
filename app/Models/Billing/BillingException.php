@@ -63,4 +63,3 @@ class BillingException extends Model
         });
     }
 }
-

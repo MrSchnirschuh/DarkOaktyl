@@ -22,7 +22,7 @@ class ExecuteScheduleTest extends ClientApiIntegrationTestCase
 
         Bus::fake();
 
-        /** @var \DarkOak\Models\Schedule $schedule */
+        /** @var Schedule $schedule */
         $schedule = Schedule::factory()->create([
             'server_id' => $server->id,
         ]);
@@ -32,7 +32,7 @@ class ExecuteScheduleTest extends ClientApiIntegrationTestCase
         $response->assertJsonPath('errors.0.code', 'DisplayException');
         $response->assertJsonPath('errors.0.detail', 'Cannot process schedule for task execution: no tasks are registered.');
 
-        /** @var \DarkOak\Models\Task $task */
+        /** @var Task $task */
         $task = Task::factory()->create([
             'schedule_id' => $schedule->id,
             'sequence_id' => 1,
@@ -57,7 +57,7 @@ class ExecuteScheduleTest extends ClientApiIntegrationTestCase
     {
         [$user, $server] = $this->generateTestAccount([Permission::ACTION_SCHEDULE_CREATE]);
 
-        /** @var \DarkOak\Models\Schedule $schedule */
+        /** @var Schedule $schedule */
         $schedule = Schedule::factory()->create(['server_id' => $server->id]);
 
         $this->actingAs($user)->postJson($this->link($schedule, '/execute'))->assertForbidden();
@@ -68,4 +68,3 @@ class ExecuteScheduleTest extends ClientApiIntegrationTestCase
         return [[[]], [[Permission::ACTION_SCHEDULE_UPDATE]]];
     }
 }
-

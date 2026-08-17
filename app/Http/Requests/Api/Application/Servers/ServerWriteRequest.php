@@ -12,4 +12,3 @@ class ServerWriteRequest extends ApplicationApiRequest
         return AdminRole::SERVERS_DELETE;
     }
 }
-

@@ -125,4 +125,3 @@ class WebhookSeeder extends Seeder
         $this->command->info('Verified ' . $created + $updated . ' webhook events');
     }
 }
-

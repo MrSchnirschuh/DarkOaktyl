@@ -19,4 +19,3 @@ class ThemeComposer
         $view->with('themeConfiguration', $this->paletteService->getThemeConfiguration());
     }
 }
-

@@ -48,4 +48,3 @@ class CategoryTransformer extends Transformer
         return $this->collection($category->products, new ProductTransformer());
     }
 }
-

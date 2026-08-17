@@ -134,4 +134,3 @@ class DatabaseRepository extends EloquentRepository implements DatabaseRepositor
         return $this->database->connection($this->getConnection())->statement($statement);
     }
 }
-

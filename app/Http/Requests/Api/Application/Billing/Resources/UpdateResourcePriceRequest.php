@@ -3,9 +3,9 @@
 namespace DarkOak\Http\Requests\Api\Application\Billing\Resources;
 
 use DarkOak\Models\AdminRole;
-use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 use Illuminate\Validation\Rule;
 use DarkOak\Models\Billing\ResourcePrice;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class UpdateResourcePriceRequest extends ApplicationApiRequest
 {
@@ -55,4 +55,3 @@ class UpdateResourcePriceRequest extends ApplicationApiRequest
         parent::prepareForValidation();
     }
 }
-

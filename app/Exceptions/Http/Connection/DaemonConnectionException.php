@@ -88,4 +88,3 @@ class DaemonConnectionException extends DisplayException
         return $this->requestId;
     }
 }
-

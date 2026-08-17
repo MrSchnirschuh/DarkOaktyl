@@ -30,4 +30,3 @@ trait MiddlewareAttributeAssertionsTrait
         Assert::assertEquals($expected, $this->request->attributes->get($attribute));
     }
 }
-

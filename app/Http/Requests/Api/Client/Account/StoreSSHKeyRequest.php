@@ -76,4 +76,3 @@ class StoreSSHKeyRequest extends ClientApiRequest
         return $this->key->getFingerprint('sha256');
     }
 }
-

@@ -90,4 +90,3 @@ class CreateNewAllocationTest extends ClientApiIntegrationTestCase
         return [[[Permission::ACTION_ALLOCATION_CREATE]], [[]]];
     }
 }
-

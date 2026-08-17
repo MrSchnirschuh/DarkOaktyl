@@ -14,4 +14,3 @@ class NoSuitableDatabaseHostException extends DisplayException
         parent::__construct('No database host was found that meets the requirements for this server.');
     }
 }
-

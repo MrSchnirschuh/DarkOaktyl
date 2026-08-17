@@ -11,4 +11,3 @@ class RecoveryTokenRepository extends EloquentRepository
         return RecoveryToken::class;
     }
 }
-

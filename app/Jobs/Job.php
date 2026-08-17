@@ -12,4 +12,3 @@ abstract class Job
     use InteractsWithQueue;
     use SerializesModels;
 }
-

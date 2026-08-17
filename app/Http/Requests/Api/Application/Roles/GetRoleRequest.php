@@ -11,4 +11,3 @@ class GetRoleRequest extends GetRolesRequest
         return AdminRole::ROLES_READ;
     }
 }
-

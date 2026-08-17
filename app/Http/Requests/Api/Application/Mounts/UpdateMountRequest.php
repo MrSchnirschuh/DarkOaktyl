@@ -17,4 +17,3 @@ class UpdateMountRequest extends StoreMountRequest
         return AdminRole::MOUNTS_UPDATE;
     }
 }
-

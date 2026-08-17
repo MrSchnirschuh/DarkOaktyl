@@ -2,17 +2,16 @@
 
 namespace DarkOak\Http\Controllers\Api\Client\Organizations;
 
-use Illuminate\Http\JsonResponse;
+use DarkOak\Models\User;
 use Illuminate\Http\Request;
+use DarkOak\Models\Organization;
+use Illuminate\Http\JsonResponse;
+use DarkOak\Services\Organizations\OrganizationService;
 use DarkOak\Http\Controllers\Api\Client\ClientApiController;
+use DarkOak\Transformers\Api\Client\OrganizationTransformer;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use DarkOak\Http\Requests\Api\Client\Organizations\CreateOrganizationRequest;
 use DarkOak\Http\Requests\Api\Client\Organizations\UpdateOrganizationRequest;
-use DarkOak\Models\Organization;
-use DarkOak\Models\User;
-use DarkOak\Services\Organizations\OrganizationService;
-use DarkOak\Transformers\Api\Client\OrganizationTransformer;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class OrganizationController extends ClientApiController
 {

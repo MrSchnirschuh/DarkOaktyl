@@ -68,4 +68,3 @@ class NodeTransformer extends Transformer
         return $this->collection($node->servers, new ServerTransformer());
     }
 }
-

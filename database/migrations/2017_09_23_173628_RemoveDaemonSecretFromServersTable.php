@@ -50,4 +50,3 @@ class RemoveDaemonSecretFromServersTable extends Migration
         DB::table('daemon_keys')->truncate();
     }
 }
-

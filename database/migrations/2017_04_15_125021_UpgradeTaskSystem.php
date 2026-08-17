@@ -46,4 +46,3 @@ class UpgradeTaskSystem extends Migration
         });
     }
 }
-

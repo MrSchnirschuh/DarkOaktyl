@@ -62,4 +62,3 @@ class ServerGroup extends Model
         return $this->hasMany(Server::class, 'group_id');
     }
 }
-

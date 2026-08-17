@@ -21,7 +21,7 @@ class EggImporterService
 {
     public function __construct(
         private ConnectionInterface $connection,
-        private EggParserService $eggParserService
+        private EggParserService $eggParserService,
     ) {
     }
 
@@ -31,11 +31,11 @@ class EggImporterService
      * @deprecated use `handleFile` or `handleContent` instead
      *
      * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
-     * @throws \DarkOak\Exceptions\Service\Egg\BadJsonFormatException
-     * @throws \DarkOak\Exceptions\Service\InvalidFileUploadException
-     * @throws \DarkOak\Exceptions\Service\Egg\BadYamlFormatException
+     * @throws BadJsonFormatException
+     * @throws InvalidFileUploadException
+     * @throws BadYamlFormatException
      * @throws \DarkOak\Exceptions\Model\DataValidationException
-     * @throws \DarkOak\Exceptions\DisplayException
+     * @throws DisplayException
      */
     public function handle(UploadedFile $file, int $nestId): Egg
     {
@@ -46,11 +46,11 @@ class EggImporterService
      * ?
      *
      * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
-     * @throws \DarkOak\Exceptions\Service\Egg\BadJsonFormatException
-     * @throws \DarkOak\Exceptions\Service\InvalidFileUploadException
-     * @throws \DarkOak\Exceptions\Service\Egg\BadYamlFormatException
+     * @throws BadJsonFormatException
+     * @throws InvalidFileUploadException
+     * @throws BadYamlFormatException
      * @throws \DarkOak\Exceptions\Model\DataValidationException
-     * @throws \DarkOak\Exceptions\DisplayException
+     * @throws DisplayException
      */
     public function handleFile(int $nestId, UploadedFile $file): Egg
     {
@@ -65,10 +65,10 @@ class EggImporterService
      * ?
      *
      * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
-     * @throws \DarkOak\Exceptions\Service\InvalidFileUploadException
-     * @throws \DarkOak\Exceptions\Service\Egg\BadYamlFormatException
-     * @throws \DarkOak\Exceptions\Service\Egg\BadJsonFormatException
-     * @throws \DarkOak\Exceptions\DisplayException
+     * @throws InvalidFileUploadException
+     * @throws BadYamlFormatException
+     * @throws BadJsonFormatException
+     * @throws DisplayException
      * @throws \DarkOak\Exceptions\Model\DataValidationException
      */
     public function handleContent(int $nestId, string $content, string $contentType): Egg
@@ -99,13 +99,13 @@ class EggImporterService
      *
      * @throws \DarkOak\Exceptions\Model\DataValidationException
      * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
-     * @throws \DarkOak\Exceptions\Service\InvalidFileUploadException
+     * @throws InvalidFileUploadException
      */
     private function handleArray(int $nestId, array $parsed): Egg
     {
         $parsed = $this->eggParserService->handle($parsed);
 
-        /** @var \DarkOak\Models\Nest $nest */
+        /** @var Nest $nest */
         $nest = Nest::query()->with('eggs', 'eggs.variables')->findOrFail($nestId);
 
         return $this->connection->transaction(function () use ($nest, $parsed) {
@@ -127,4 +127,3 @@ class EggImporterService
         });
     }
 }
-

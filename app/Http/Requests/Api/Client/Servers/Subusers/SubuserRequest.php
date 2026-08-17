@@ -63,7 +63,7 @@ abstract class SubuserRequest extends ClientApiRequest
         // Otherwise, get the current subuser's permission set, and ensure that the
         // permissions they are trying to assign are not _more_ than the ones they
         // already have.
-        /** @var \DarkOak\Services\Servers\GetUserPermissionsService $service */
+        /** @var GetUserPermissionsService $service */
         $service = $this->container->make(GetUserPermissionsService::class);
 
         if (count(array_diff($permissions, $service->handle($server, $user))) > 0) {
@@ -71,4 +71,3 @@ abstract class SubuserRequest extends ClientApiRequest
         }
     }
 }
-

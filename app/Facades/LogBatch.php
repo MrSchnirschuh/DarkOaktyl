@@ -12,4 +12,3 @@ class LogBatch extends Facade
         return ActivityLogBatchService::class;
     }
 }
-

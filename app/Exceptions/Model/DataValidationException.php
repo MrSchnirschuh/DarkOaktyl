@@ -57,5 +57,3 @@ class DataValidationException extends DarkOaktylException implements HttpExcepti
         return $this->model;
     }
 }
-
-

@@ -67,4 +67,3 @@ class InfoCommand extends Command
         return sprintf('<%s>%s</>', $opts, $value);
     }
 }
-

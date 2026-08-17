@@ -29,4 +29,3 @@ class NodeTransformer extends Transformer
         return $response;
     }
 }
-

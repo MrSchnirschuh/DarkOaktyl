@@ -62,4 +62,3 @@ class ExternalUserControllerTest extends ApplicationApiIntegrationTestCase
         $this->markTestSkipped('todo: implement proper admin api key permissions system');
     }
 }
-

@@ -11,4 +11,3 @@ class DeleteScheduleRequest extends ViewScheduleRequest
         return Permission::ACTION_SCHEDULE_DELETE;
     }
 }
-

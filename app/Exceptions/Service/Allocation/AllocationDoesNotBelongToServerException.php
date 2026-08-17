@@ -7,5 +7,3 @@ use DarkOak\Exceptions\DarkOaktylException;
 class AllocationDoesNotBelongToServerException extends DarkOaktylException
 {
 }
-
-

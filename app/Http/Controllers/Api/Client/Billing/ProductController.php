@@ -2,9 +2,9 @@
 
 namespace DarkOak\Http\Controllers\Api\Client\Billing;
 
-use Illuminate\Support\Facades\Cache;
 use DarkOak\Models\Billing\Product;
 use DarkOak\Models\Billing\Category;
+use Illuminate\Support\Facades\Cache;
 use DarkOak\Models\Billing\BillingException;
 use DarkOak\Transformers\Api\Client\ProductTransformer;
 use DarkOak\Http\Controllers\Api\Client\ClientApiController;
@@ -62,4 +62,3 @@ class ProductController extends ClientApiController
         return $this->transform($product, ProductTransformer::class);
     }
 }
-

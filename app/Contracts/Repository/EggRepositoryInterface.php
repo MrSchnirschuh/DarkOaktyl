@@ -36,4 +36,3 @@ interface EggRepositoryInterface extends RepositoryInterface
      */
     public function isCopyableScript(int $copyFromId, int $service): bool;
 }
-

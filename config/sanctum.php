@@ -61,4 +61,3 @@ return [
         'encrypt_cookies' => DarkOak\Http\Middleware\EncryptCookies::class,
     ],
 ];
-

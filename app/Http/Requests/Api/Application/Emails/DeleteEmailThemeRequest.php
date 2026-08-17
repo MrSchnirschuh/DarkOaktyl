@@ -17,4 +17,3 @@ class DeleteEmailThemeRequest extends ApplicationApiRequest
         return [];
     }
 }
-

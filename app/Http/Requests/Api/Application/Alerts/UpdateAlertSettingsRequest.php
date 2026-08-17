@@ -22,4 +22,3 @@ class UpdateAlertSettingsRequest extends ApplicationApiRequest
         return AdminRole::ALERTS_UPDATE;
     }
 }
-

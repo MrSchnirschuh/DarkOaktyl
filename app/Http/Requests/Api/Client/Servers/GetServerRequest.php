@@ -16,4 +16,3 @@ class GetServerRequest extends ClientApiRequest
         return true;
     }
 }
-

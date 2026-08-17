@@ -17,4 +17,3 @@ class UpdateDatabaseRequest extends StoreDatabaseRequest
         return AdminRole::DATABASES_UPDATE;
     }
 }
-

@@ -3,7 +3,6 @@
 namespace DarkOak\Http\Middleware;
 
 use DarkOak\Models\ApiKey;
-use DarkOak\Models\ApiKeyScope;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
@@ -12,7 +11,7 @@ class CheckApiKeyScope
     /**
      * Handle an incoming request.
      *
-     * @throws \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
+     * @throws AccessDeniedHttpException
      */
     public function handle(Request $request, \Closure $next, string ...$requiredScopes): mixed
     {
@@ -26,10 +25,7 @@ class CheckApiKeyScope
 
         // Prüfe, ob der API-Key die erforderlichen Scopes hat
         if (!$this->hasRequiredScopes($apiKey, $requiredScopes)) {
-            throw new AccessDeniedHttpException(
-                'Insufficient permissions. This API key does not have the required scope(s): ' . 
-                implode(', ', $this->getMissingScopes($apiKey, $requiredScopes))
-            );
+            throw new AccessDeniedHttpException('Insufficient permissions. This API key does not have the required scope(s): ' . implode(', ', $this->getMissingScopes($apiKey, $requiredScopes)));
         }
 
         return $next($request);
@@ -88,6 +84,7 @@ class CheckApiKeyScope
      * Gibt die fehlenden Scopes zurück.
      *
      * @param array<string> $requiredScopes
+     *
      * @return array<string>
      */
     private function getMissingScopes(ApiKey $apiKey, array $requiredScopes): array
@@ -145,14 +142,14 @@ class CheckApiKeyScope
     public static function checkResourceAccess(Request $request, ApiKey $apiKey, string $resource): bool
     {
         $keyScopes = $apiKey->scopes ?? [];
-        
+
         // Rückwärtskompatibilität
         if (empty($keyScopes)) {
             return true;
         }
 
         $method = strtoupper($request->method());
-        
+
         // Read-Operationen: GET, HEAD, OPTIONS
         if (in_array($method, ['GET', 'HEAD', 'OPTIONS'], true)) {
             return in_array("{$resource}:read", $keyScopes, true);

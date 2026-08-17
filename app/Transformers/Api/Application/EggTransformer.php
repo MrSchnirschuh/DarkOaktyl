@@ -148,4 +148,3 @@ class EggTransformer extends Transformer
         return $this->collection($model->variables, new EggVariableTransformer());
     }
 }
-

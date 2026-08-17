@@ -3,27 +3,27 @@
 namespace DarkOak\Http\Controllers\Api\Application\Billing;
 
 use Carbon\Carbon;
+use DarkOak\Models\User;
+use Illuminate\Support\Str;
 use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
-use DarkOak\Models\Billing\Coupon;
 use DarkOak\Models\EmailTemplate;
-use DarkOak\Models\User;
-use DarkOak\Services\Emails\EmailDispatchService;
+use Illuminate\Http\JsonResponse;
+use DarkOak\Models\Billing\Coupon;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 use Spatie\QueryBuilder\QueryBuilder;
+use DarkOak\Services\Emails\EmailDispatchService;
 use DarkOak\Transformers\Api\Application\CouponTransformer;
 use DarkOak\Exceptions\Http\QueryValueOutOfRangeHttpException;
-use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
 use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
 use DarkOak\Http\Requests\Api\Application\Billing\Coupons\GetBillingCouponRequest;
 use DarkOak\Http\Requests\Api\Application\Billing\Coupons\GetBillingCouponsRequest;
-use DarkOak\Http\Requests\Api\Application\Billing\Coupons\StoreBillingCouponRequest;
-use DarkOak\Http\Requests\Api\Application\Billing\Coupons\UpdateBillingCouponRequest;
-use DarkOak\Http\Requests\Api\Application\Billing\Coupons\DeleteBillingCouponRequest;
 use DarkOak\Http\Requests\Api\Application\Billing\Coupons\SendBillingCouponRequest;
+use DarkOak\Http\Requests\Api\Application\Billing\Coupons\StoreBillingCouponRequest;
+use DarkOak\Http\Requests\Api\Application\Billing\Coupons\DeleteBillingCouponRequest;
+use DarkOak\Http\Requests\Api\Application\Billing\Coupons\UpdateBillingCouponRequest;
 
 class CouponController extends ApplicationApiController
 {
@@ -348,4 +348,3 @@ class CouponController extends ApplicationApiController
         return $code;
     }
 }
-

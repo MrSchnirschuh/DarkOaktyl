@@ -2,9 +2,9 @@
 
 namespace DarkOak\Services\Billing\ValueObjects;
 
+use Illuminate\Support\Arr;
 use DarkOak\Models\Billing\ResourcePrice;
 use DarkOak\Models\Billing\ResourceScalingRule;
-use Illuminate\Support\Arr;
 
 final class ResourceSelection
 {
@@ -165,6 +165,7 @@ final class ResourceSelection
 
     /**
      * @param array<string, mixed> $metadata
+     *
      * @return array<int, array<string, mixed>>
      */
     private function extractCapacityDefinitions(array $metadata): array
@@ -203,4 +204,3 @@ final class ResourceSelection
         };
     }
 }
-

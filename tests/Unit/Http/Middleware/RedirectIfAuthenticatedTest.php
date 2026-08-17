@@ -54,4 +54,3 @@ class RedirectIfAuthenticatedTest extends MiddlewareTestCase
         return new RedirectIfAuthenticated($this->authManager);
     }
 }
-

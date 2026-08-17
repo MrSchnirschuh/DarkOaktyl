@@ -11,4 +11,3 @@ class GetUserRequest extends GetUsersRequest
         return AdminRole::USERS_READ;
     }
 }
-

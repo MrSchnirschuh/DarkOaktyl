@@ -152,5 +152,3 @@ class UpdateStartupVariableTest extends ClientApiIntegrationTestCase
         return [[[]], [[Permission::ACTION_STARTUP_UPDATE]]];
     }
 }
-
-

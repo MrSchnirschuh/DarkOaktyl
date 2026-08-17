@@ -2,10 +2,9 @@
 
 namespace DarkOak\Http\Requests\Api\Application\Billing\Terms;
 
+use Illuminate\Support\Str;
 use DarkOak\Models\AdminRole;
 use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
-use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
 
 class StoreBillingTermRequest extends ApplicationApiRequest
 {
@@ -44,4 +43,3 @@ class StoreBillingTermRequest extends ApplicationApiRequest
         parent::prepareForValidation();
     }
 }
-

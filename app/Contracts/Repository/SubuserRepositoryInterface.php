@@ -23,4 +23,3 @@ interface SubuserRepositoryInterface extends RepositoryInterface
      */
     public function getWithPermissionsUsingUserAndServer(int $user, int $server): Subuser;
 }
-

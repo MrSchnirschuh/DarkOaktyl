@@ -2,13 +2,13 @@
 
 namespace DarkOak\Services\Templates;
 
-use DarkOak\Models\ServerTemplate;
-use DarkOak\Models\ServerTemplateCategory;
-use DarkOak\Models\Server;
 use DarkOak\Models\Node;
 use DarkOak\Models\User;
-use DarkOak\Services\Servers\ServerCreationService;
+use DarkOak\Models\Server;
+use DarkOak\Models\ServerTemplate;
 use Illuminate\Support\Facades\Log;
+use DarkOak\Models\ServerTemplateCategory;
+use DarkOak\Services\Servers\ServerCreationService;
 
 class ServerTemplateService
 {
@@ -20,7 +20,7 @@ class ServerTemplateService
     }
 
     /**
-     * Get all templates grouped by category
+     * Get all templates grouped by category.
      */
     public function getTemplatesByCategory(): array
     {
@@ -38,7 +38,7 @@ class ServerTemplateService
     }
 
     /**
-     * Get featured templates
+     * Get featured templates.
      */
     public function getFeaturedTemplates(int $limit = 6): array
     {
@@ -51,7 +51,7 @@ class ServerTemplateService
     }
 
     /**
-     * Get templates by type
+     * Get templates by type.
      */
     public function getTemplatesByType(string $type): array
     {
@@ -65,7 +65,7 @@ class ServerTemplateService
     }
 
     /**
-     * Get single template with full details
+     * Get single template with full details.
      */
     public function getTemplate(string $uuid): ?array
     {
@@ -81,12 +81,12 @@ class ServerTemplateService
     }
 
     /**
-     * Deploy a server from template
+     * Deploy a server from template.
      */
     public function deployTemplate(
         string $templateUuid,
         User $user,
-        array $options
+        array $options,
     ): Server {
         $template = ServerTemplate::where('uuid', $templateUuid)->firstOrFail();
 
@@ -142,7 +142,7 @@ class ServerTemplateService
     }
 
     /**
-     * Format template for API response
+     * Format template for API response.
      */
     private function formatTemplate(ServerTemplate $template): array
     {
@@ -166,7 +166,7 @@ class ServerTemplateService
     }
 
     /**
-     * Format template with full details
+     * Format template with full details.
      */
     private function formatTemplateDetail(ServerTemplate $template): array
     {
@@ -189,7 +189,7 @@ class ServerTemplateService
     }
 
     /**
-     * Execute deployment script
+     * Execute deployment script.
      */
     private function executeScript(Server $server, string $script, string $phase): void
     {
@@ -216,7 +216,7 @@ class ServerTemplateService
     }
 
     /**
-     * Search templates
+     * Search templates.
      */
     public function searchTemplates(string $query): array
     {

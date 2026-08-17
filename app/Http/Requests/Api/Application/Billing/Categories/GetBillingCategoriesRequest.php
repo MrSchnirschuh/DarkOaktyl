@@ -12,4 +12,3 @@ class GetBillingCategoriesRequest extends ApplicationApiRequest
         return AdminRole::BILLING_READ;
     }
 }
-

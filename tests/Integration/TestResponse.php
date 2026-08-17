@@ -42,4 +42,3 @@ class TestResponse extends IlluminateTestResponse
         return self::assertStatus(Response::HTTP_FORBIDDEN);
     }
 }
-

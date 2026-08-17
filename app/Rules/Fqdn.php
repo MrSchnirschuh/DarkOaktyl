@@ -77,4 +77,3 @@ final class Fqdn implements Rule, DataAwareRule
         });
     }
 }
-

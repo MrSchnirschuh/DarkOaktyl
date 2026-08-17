@@ -256,4 +256,3 @@ class UserControllerTest extends ApplicationApiIntegrationTestCase
         ];
     }
 }
-

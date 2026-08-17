@@ -17,4 +17,3 @@ class Deleted extends Event
     {
     }
 }
-

@@ -19,9 +19,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property bool $archived
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @property \DarkOak\Models\Server $server
- * @property \DarkOak\Models\Node $oldNode
- * @property \DarkOak\Models\Node $newNode
+ * @property Server $server
+ * @property Node $oldNode
+ * @property Node $newNode
  */
 class ServerTransfer extends Model
 {
@@ -102,4 +102,3 @@ class ServerTransfer extends Model
         return $this->hasOne(Node::class, 'id', 'new_node');
     }
 }
-

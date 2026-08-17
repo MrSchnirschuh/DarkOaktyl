@@ -30,7 +30,7 @@ class ServerTransformer extends Transformer
      */
     public function transform(Server $server): array
     {
-        /** @var \DarkOak\Services\Servers\StartupCommandService $service */
+        /** @var StartupCommandService $service */
         $service = Container::getInstance()->make(StartupCommandService::class);
 
         $user = $this->request->user();
@@ -133,4 +133,3 @@ class ServerTransformer extends Transformer
         return $this->collection($server->subusers, new SubuserTransformer());
     }
 }
-

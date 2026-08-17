@@ -140,4 +140,3 @@ class NestController extends ApplicationApiController
         return $this->returnNoContent();
     }
 }
-

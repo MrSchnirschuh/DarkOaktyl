@@ -19,4 +19,3 @@ class UpdateApplicationModeRequest extends ApplicationApiRequest
         return AdminRole::SETTINGS_UPDATE;
     }
 }
-

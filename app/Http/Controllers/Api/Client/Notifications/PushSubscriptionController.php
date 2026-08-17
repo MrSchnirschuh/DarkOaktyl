@@ -2,12 +2,11 @@
 
 namespace DarkOak\Http\Controllers\Api\Client\Notifications;
 
-use DarkOak\Http\Controllers\Api\Client\ClientApiController;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Cache;
 use DarkOak\Http\Requests\Api\Client\ClientApiRequest;
 use DarkOak\Services\Notifications\PushNotificationService;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
+use DarkOak\Http\Controllers\Api\Client\ClientApiController;
 
 class PushSubscriptionController extends ClientApiController
 {

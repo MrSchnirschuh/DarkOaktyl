@@ -36,7 +36,7 @@ class RunTaskJob extends Job implements ShouldQueue
     public function handle(
         DaemonCommandRepository $commandRepository,
         InitiateBackupService $backupService,
-        DaemonPowerRepository $powerRepository
+        DaemonPowerRepository $powerRepository,
     ) {
         // Do not process a task that is not set to active, unless it's been manually triggered.
         if (!$this->task->schedule->is_active && !$this->manualRun) {
@@ -98,7 +98,7 @@ class RunTaskJob extends Job implements ShouldQueue
      */
     private function queueNextTask()
     {
-        /** @var \DarkOak\Models\Task|null $nextTask */
+        /** @var Task|null $nextTask */
         $nextTask = Task::query()->where('schedule_id', $this->task->schedule_id)
             ->orderBy('sequence_id', 'asc')
             ->where('sequence_id', '>', $this->task->sequence_id)

@@ -58,4 +58,3 @@ class UserTransformer extends Transformer
         return $this->collection($user->servers, new ServerTransformer());
     }
 }
-

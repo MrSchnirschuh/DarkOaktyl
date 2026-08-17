@@ -12,4 +12,3 @@ class UpdateBillingCategoryRequest extends ApplicationApiRequest
         return AdminRole::BILLING_CATEGORIES_UPDATE;
     }
 }
-

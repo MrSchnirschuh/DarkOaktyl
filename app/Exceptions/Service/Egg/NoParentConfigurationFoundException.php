@@ -7,4 +7,3 @@ use DarkOak\Exceptions\DisplayException;
 class NoParentConfigurationFoundException extends DisplayException
 {
 }
-

@@ -2,8 +2,8 @@
 
 namespace DarkOak\Models\Billing;
 
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use DarkOak\Models\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property int $id
@@ -43,4 +43,3 @@ class ResourceScalingRule extends Model
         return $this->belongsTo(ResourcePrice::class, 'resource_price_id');
     }
 }
-

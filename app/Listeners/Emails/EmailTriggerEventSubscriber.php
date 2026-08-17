@@ -2,11 +2,11 @@
 
 namespace DarkOak\Listeners\Emails;
 
+use Illuminate\Support\Str;
 use DarkOak\Models\EmailTrigger;
-use DarkOak\Services\Emails\EmailTriggerProcessor;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Str;
+use DarkOak\Services\Emails\EmailTriggerProcessor;
 
 class EmailTriggerEventSubscriber
 {
@@ -104,4 +104,3 @@ class EmailTriggerEventSubscriber
         return self::$triggersTableExists;
     }
 }
-

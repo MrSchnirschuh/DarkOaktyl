@@ -18,14 +18,14 @@ class EggUpdateImporterService
      */
     public function __construct(
         private ConnectionInterface $connection,
-        private EggParserService $eggParserService
+        private EggParserService $eggParserService,
     ) {
     }
 
     /**
      * Update an existing Egg using an uploaded JSON file.
      *
-     * @throws \DarkOak\Exceptions\Service\InvalidFileUploadException|\Throwable
+     * @throws InvalidFileUploadException|\Throwable
      */
     public function handle(Egg $egg, UploadedFile $file): Egg
     {
@@ -60,4 +60,3 @@ class EggUpdateImporterService
         });
     }
 }
-

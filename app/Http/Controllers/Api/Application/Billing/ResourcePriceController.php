@@ -5,19 +5,19 @@ namespace DarkOak\Http\Controllers\Api\Application\Billing;
 use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
-use DarkOak\Models\Billing\ResourcePrice;
+use Illuminate\Support\Facades\Cache;
 use Spatie\QueryBuilder\QueryBuilder;
-use DarkOak\Transformers\Api\Application\ResourcePriceTransformer;
+use DarkOak\Models\Billing\ResourcePrice;
 use DarkOak\Exceptions\Http\QueryValueOutOfRangeHttpException;
-use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
 use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
+use DarkOak\Transformers\Api\Application\ResourcePriceTransformer;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
 use DarkOak\Http\Requests\Api\Application\Billing\Resources\GetResourcePriceRequest;
 use DarkOak\Http\Requests\Api\Application\Billing\Resources\GetResourcePricesRequest;
 use DarkOak\Http\Requests\Api\Application\Billing\Resources\StoreResourcePriceRequest;
-use DarkOak\Http\Requests\Api\Application\Billing\Resources\UpdateResourcePriceRequest;
 use DarkOak\Http\Requests\Api\Application\Billing\Resources\DeleteResourcePriceRequest;
+use DarkOak\Http\Requests\Api\Application\Billing\Resources\UpdateResourcePriceRequest;
 
 class ResourcePriceController extends ApplicationApiController
 {
@@ -214,4 +214,3 @@ class ResourcePriceController extends ApplicationApiController
         }
     }
 }
-

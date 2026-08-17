@@ -24,4 +24,3 @@ class ScheduleFactory extends Factory
         ];
     }
 }
-

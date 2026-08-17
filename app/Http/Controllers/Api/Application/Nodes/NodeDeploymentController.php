@@ -35,4 +35,3 @@ class NodeDeploymentController extends ApplicationApiController
         return $this->transform($nodes, NodeTransformer::class);
     }
 }
-

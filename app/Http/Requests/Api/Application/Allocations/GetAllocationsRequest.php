@@ -12,4 +12,3 @@ class GetAllocationsRequest extends ApplicationApiRequest
         return AdminRole::NODES_READ;
     }
 }
-

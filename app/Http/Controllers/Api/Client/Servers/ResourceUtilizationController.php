@@ -37,4 +37,3 @@ class ResourceUtilizationController extends ClientApiController
         return $this->fractal->item($stats)->transformWith(new StatsTransformer())->toArray();
     }
 }
-

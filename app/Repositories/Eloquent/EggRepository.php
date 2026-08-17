@@ -22,7 +22,7 @@ class EggRepository extends EloquentRepository implements EggRepositoryInterface
     /**
      * Return an egg with the variables relation attached.
      *
-     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
+     * @throws RecordNotFoundException
      */
     public function getWithVariables(int $id): Egg
     {
@@ -46,7 +46,7 @@ class EggRepository extends EloquentRepository implements EggRepositoryInterface
      *
      * @param int|string $value
      *
-     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
+     * @throws RecordNotFoundException
      */
     public function getWithCopyAttributes($value, string $column = 'id'): Egg
     {
@@ -62,7 +62,7 @@ class EggRepository extends EloquentRepository implements EggRepositoryInterface
     /**
      * Return all the data needed to export a service.
      *
-     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
+     * @throws RecordNotFoundException
      */
     public function getWithExportAttributes(int $id): Egg
     {
@@ -84,4 +84,3 @@ class EggRepository extends EloquentRepository implements EggRepositoryInterface
             ->exists();
     }
 }
-

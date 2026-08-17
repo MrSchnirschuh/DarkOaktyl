@@ -2,19 +2,18 @@
 
 namespace Tests\Integration\Services\Emails;
 
-use DarkOak\Models\EmailTemplate;
-use DarkOak\Models\EmailTheme;
 use DarkOak\Models\User;
-use DarkOak\Services\Emails\EmailTemplateRenderer;
-use DarkOak\Services\Themes\ThemePaletteService;
-use Mockery;
 use DarkOak\Tests\TestCase;
+use DarkOak\Models\EmailTheme;
+use DarkOak\Models\EmailTemplate;
+use DarkOak\Services\Themes\ThemePaletteService;
+use DarkOak\Services\Emails\EmailTemplateRenderer;
 
 class EmailTemplateRendererTest extends TestCase
 {
     protected function tearDown(): void
     {
-        Mockery::close();
+        \Mockery::close();
         parent::tearDown();
     }
 
@@ -45,7 +44,7 @@ class EmailTemplateRendererTest extends TestCase
             ],
         ];
 
-        $paletteService = Mockery::mock(ThemePaletteService::class);
+        $paletteService = \Mockery::mock(ThemePaletteService::class);
         $paletteService->shouldReceive('getEmailPalettes')->once()->andReturn($palettes);
 
         $renderer = new EmailTemplateRenderer($paletteService);
@@ -124,7 +123,7 @@ MD,
             ],
         ];
 
-        $paletteService = Mockery::mock(ThemePaletteService::class);
+        $paletteService = \Mockery::mock(ThemePaletteService::class);
         $paletteService->shouldReceive('getEmailPalettes')->once()->andReturn($palettes);
 
         $renderer = new EmailTemplateRenderer($paletteService);
@@ -168,4 +167,3 @@ MD,
         $this->assertStringContainsString('SAVE/2025', $rendered['text']);
     }
 }
-

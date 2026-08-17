@@ -72,7 +72,7 @@ class PaymentController extends ClientApiController
         }
 
         // Create payment intent with manual capture
-    $paymentIntent = $stripe->paymentIntents->create([
+        $paymentIntent = $stripe->paymentIntents->create([
             'amount' => $product->price * 100,
             'currency' => strtolower(config('modules.billing.currency.code')),
             'payment_method_types' => array_values($paymentMethodTypes),
@@ -250,5 +250,3 @@ class PaymentController extends ClientApiController
         return $this->stripe;
     }
 }
-
-

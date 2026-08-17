@@ -12,4 +12,3 @@ class DeleteResourcePriceRequest extends ApplicationApiRequest
         return AdminRole::BILLING_RESOURCES_DELETE;
     }
 }
-

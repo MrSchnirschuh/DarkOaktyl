@@ -66,4 +66,3 @@ class AuthenticateServerAccess
         return $next($request);
     }
 }
-

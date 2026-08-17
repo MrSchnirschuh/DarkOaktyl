@@ -48,4 +48,3 @@ class ForgotPasswordController extends AbstractLoginController
 
     }
 }
-

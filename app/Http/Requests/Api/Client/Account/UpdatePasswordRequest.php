@@ -10,7 +10,7 @@ use DarkOak\Exceptions\Http\Base\InvalidPasswordProvidedException;
 class UpdatePasswordRequest extends ClientApiRequest
 {
     /**
-     * @throws \DarkOak\Exceptions\Http\Base\InvalidPasswordProvidedException
+     * @throws InvalidPasswordProvidedException
      */
     public function authorize(): bool
     {
@@ -35,4 +35,3 @@ class UpdatePasswordRequest extends ClientApiRequest
         ];
     }
 }
-

@@ -2,8 +2,8 @@
 
 namespace DarkOak\Services\Domains;
 
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Http;
 
 class CloudflareService
 {
@@ -12,7 +12,8 @@ class CloudflareService
     public function __construct(
         private string $apiToken,
         private string $zoneId,
-    ) {}
+    ) {
+    }
 
     public static function fromConfig(array $config): self
     {
@@ -84,11 +85,13 @@ class CloudflareService
 
         try {
             $resp = $this->request('GET', "/zones/{$this->zoneId}");
+
             return ($resp['success'] ?? false) && ($resp['result']['id'] ?? null) === $this->zoneId;
         } catch (\Exception $e) {
             Log::warning('Cloudflare credential verification failed', [
                 'error' => $e->getMessage(),
             ]);
+
             return false;
         }
     }

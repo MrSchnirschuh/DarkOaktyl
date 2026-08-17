@@ -12,4 +12,3 @@ class Activity extends Facade
         return ActivityLogService::class;
     }
 }
-

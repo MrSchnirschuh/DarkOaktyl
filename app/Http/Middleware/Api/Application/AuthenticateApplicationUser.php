@@ -22,4 +22,3 @@ class AuthenticateApplicationUser
         return $next($request);
     }
 }
-

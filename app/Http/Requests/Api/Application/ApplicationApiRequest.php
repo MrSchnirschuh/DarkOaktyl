@@ -42,4 +42,3 @@ abstract class ApplicationApiRequest extends ApiRequest
         return $this->only($only ?? array_keys($this->rules()));
     }
 }
-

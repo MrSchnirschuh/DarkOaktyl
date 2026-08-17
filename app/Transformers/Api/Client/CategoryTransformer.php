@@ -25,4 +25,3 @@ class CategoryTransformer extends Transformer
         ];
     }
 }
-

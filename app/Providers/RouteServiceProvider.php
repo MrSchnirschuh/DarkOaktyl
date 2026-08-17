@@ -6,12 +6,12 @@ use DarkOak\Models\Database;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use DarkOak\Http\Middleware\TrimStrings;
-use DarkOak\Http\Middleware\EnsureStatefulRequests;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Support\Facades\RateLimiter;
 use DarkOak\Http\Middleware\AdminAuthenticate;
-use DarkOak\Http\Middleware\RequireTwoFactorAuthentication;
 use DarkOak\Http\Controllers\Base\IndexController;
+use DarkOak\Http\Middleware\EnsureStatefulRequests;
+use DarkOak\Http\Middleware\RequireTwoFactorAuthentication;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
 class RouteServiceProvider extends ServiceProvider
@@ -182,4 +182,3 @@ class RouteServiceProvider extends ServiceProvider
         });
     }
 }
-

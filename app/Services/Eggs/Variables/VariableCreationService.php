@@ -33,7 +33,7 @@ class VariableCreationService
      *
      * @throws \DarkOak\Exceptions\Model\DataValidationException
      * @throws \DarkOak\Exceptions\Service\Egg\Variable\BadValidationRuleException
-     * @throws \DarkOak\Exceptions\Service\Egg\Variable\ReservedVariableNameException
+     * @throws ReservedVariableNameException
      */
     public function handle(int $egg, array $data): EggVariable
     {
@@ -59,4 +59,3 @@ class VariableCreationService
         ]);
     }
 }
-

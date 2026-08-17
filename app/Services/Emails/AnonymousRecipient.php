@@ -8,7 +8,7 @@ class AnonymousRecipient
         public string $email,
         public string $username,
         public string $appearance_mode = 'system',
-        public ?string $appearance_last_mode = null
+        public ?string $appearance_last_mode = null,
     ) {
     }
 
@@ -20,4 +20,3 @@ class AnonymousRecipient
         return new self($email, $username);
     }
 }
-

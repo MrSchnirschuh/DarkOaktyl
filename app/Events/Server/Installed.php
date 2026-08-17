@@ -17,4 +17,3 @@ class Installed extends Event
     {
     }
 }
-

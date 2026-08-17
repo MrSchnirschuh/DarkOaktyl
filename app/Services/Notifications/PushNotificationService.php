@@ -2,10 +2,10 @@
 
 namespace DarkOak\Services\Notifications;
 
-use DarkOak\Models\PushSubscription;
 use DarkOak\Models\User;
-use Illuminate\Support\Facades\Log;
 use Minishlink\WebPush\WebPush;
+use Illuminate\Support\Facades\Log;
+use DarkOak\Models\PushSubscription;
 use Minishlink\WebPush\Subscription;
 
 class PushNotificationService
@@ -100,6 +100,7 @@ class PushNotificationService
     {
         if (!$this->hasVapidKeys()) {
             Log::warning('Push notifications skipped: VAPID keys not configured');
+
             return 0;
         }
 
@@ -142,7 +143,7 @@ class PushNotificationService
             );
 
             if ($report->isSuccess()) {
-                $successCount++;
+                ++$successCount;
                 $subscription->touchLastUsed();
             } else {
                 $reason = $report->getReason();
@@ -234,7 +235,7 @@ class PushNotificationService
                 );
 
                 if ($report->isSuccess()) {
-                    $successCount++;
+                    ++$successCount;
                     $subscription->touchLastUsed();
                 } else {
                     $reason = $report->getReason();

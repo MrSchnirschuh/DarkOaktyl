@@ -22,4 +22,3 @@ class GeneralSettingsRequest extends ApplicationApiRequest
         return AdminRole::SETTINGS_UPDATE;
     }
 }
-

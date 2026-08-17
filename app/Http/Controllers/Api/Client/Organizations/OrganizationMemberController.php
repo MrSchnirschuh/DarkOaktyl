@@ -2,13 +2,13 @@
 
 namespace DarkOak\Http\Controllers\Api\Client\Organizations;
 
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use DarkOak\Http\Controllers\Api\Client\ClientApiController;
-use DarkOak\Models\Organization;
-use DarkOak\Models\OrganizationMember;
 use DarkOak\Models\User;
+use Illuminate\Http\Request;
+use DarkOak\Models\Organization;
+use Illuminate\Http\JsonResponse;
+use DarkOak\Models\OrganizationMember;
 use DarkOak\Services\Organizations\OrganizationService;
+use DarkOak\Http\Controllers\Api\Client\ClientApiController;
 use DarkOak\Transformers\Api\Client\OrganizationMemberTransformer;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
@@ -104,6 +104,7 @@ class OrganizationMemberController extends ClientApiController
                 ], 422);
             }
             $this->organizationService->removeMember($organization, $user);
+
             return new JsonResponse([], 204);
         }
 

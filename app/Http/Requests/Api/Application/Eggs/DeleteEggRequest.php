@@ -20,4 +20,3 @@ class DeleteEggRequest extends ApplicationApiRequest
         return AdminRole::EGGS_DELETE;
     }
 }
-

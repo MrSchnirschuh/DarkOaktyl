@@ -24,4 +24,3 @@ class HashidsServiceProvider extends ServiceProvider
         $this->app->alias(HashidsInterface::class, 'hashids');
     }
 }
-

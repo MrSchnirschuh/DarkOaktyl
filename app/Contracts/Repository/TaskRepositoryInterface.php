@@ -18,4 +18,3 @@ interface TaskRepositoryInterface extends RepositoryInterface
      */
     public function getNextTask(int $schedule, int $index): ?Task;
 }
-

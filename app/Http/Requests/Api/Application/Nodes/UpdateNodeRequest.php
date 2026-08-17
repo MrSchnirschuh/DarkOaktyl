@@ -17,4 +17,3 @@ class UpdateNodeRequest extends StoreNodeRequest
         return AdminRole::NODES_UPDATE;
     }
 }
-

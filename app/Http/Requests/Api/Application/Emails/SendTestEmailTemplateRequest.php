@@ -21,4 +21,3 @@ class SendTestEmailTemplateRequest extends ApplicationApiRequest
         ];
     }
 }
-

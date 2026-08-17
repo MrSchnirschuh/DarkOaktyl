@@ -12,4 +12,3 @@ class DeleteDatabaseRequest extends ApplicationApiRequest
         return AdminRole::DATABASES_DELETE;
     }
 }
-

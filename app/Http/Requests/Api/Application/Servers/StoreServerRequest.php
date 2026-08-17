@@ -99,4 +99,3 @@ class StoreServerRequest extends ApplicationApiRequest
         return AdminRole::SERVERS_CREATE;
     }
 }
-

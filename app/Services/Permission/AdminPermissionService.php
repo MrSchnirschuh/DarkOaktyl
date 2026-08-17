@@ -24,4 +24,3 @@ class AdminPermissionService
         return $permissions;
     }
 }
-

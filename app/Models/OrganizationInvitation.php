@@ -2,9 +2,9 @@
 
 namespace DarkOak\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * @property int $id
@@ -20,8 +20,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string|null $message
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property \DarkOak\Models\Organization $organization
- * @property \DarkOak\Models\User|null $invitedBy
+ * @property Organization $organization
+ * @property User|null $invitedBy
  */
 class OrganizationInvitation extends Model
 {
@@ -51,10 +51,10 @@ class OrganizationInvitation extends Model
     ];
 
     // Status constants
-    const STATUS_PENDING = 'pending';
-    const STATUS_ACCEPTED = 'accepted';
-    const STATUS_DECLINED = 'declined';
-    const STATUS_EXPIRED = 'expired';
+    public const STATUS_PENDING = 'pending';
+    public const STATUS_ACCEPTED = 'accepted';
+    public const STATUS_DECLINED = 'declined';
+    public const STATUS_EXPIRED = 'expired';
 
     public function organization(): BelongsTo
     {
@@ -109,6 +109,7 @@ class OrganizationInvitation extends Model
     public function generateToken(): string
     {
         $this->token = hash('sha256', $this->organization_id . $this->email . now() . random_bytes(16));
+
         return $this->token;
     }
 

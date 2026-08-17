@@ -67,4 +67,3 @@ class MultiFieldServerFilter implements Filter
             });
     }
 }
-

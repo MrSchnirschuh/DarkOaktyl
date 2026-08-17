@@ -74,91 +74,91 @@ Route::middleware([AdminSubject::class])->group(function () {
     */
     if (config('modules.billing.enabled', false)) {
         Route::group(['prefix' => '/billing'], function () {
-        Route::get('/analytics', [Application\Billing\BillingController::class, 'analytics']);
-        Route::put('/settings', [Application\Billing\BillingController::class, 'settings']);
+            Route::get('/analytics', [Application\Billing\BillingController::class, 'analytics']);
+            Route::put('/settings', [Application\Billing\BillingController::class, 'settings']);
 
-        Route::delete('/keys', [Application\Billing\BillingController::class, 'resetKeys']);
+            Route::delete('/keys', [Application\Billing\BillingController::class, 'resetKeys']);
 
-        Route::get('/products/{product:id}', [Application\Billing\ProductController::class, 'view']);
+            Route::get('/products/{product:id}', [Application\Billing\ProductController::class, 'view']);
 
-        Route::group(['prefix' => '/categories'], function () {
-            Route::get('/', [Application\Billing\CategoryController::class, 'index']);
-            Route::post('/', [Application\Billing\CategoryController::class, 'store']);
+            Route::group(['prefix' => '/categories'], function () {
+                Route::get('/', [Application\Billing\CategoryController::class, 'index']);
+                Route::post('/', [Application\Billing\CategoryController::class, 'store']);
 
-            Route::get('/{category:id}', [Application\Billing\CategoryController::class, 'view']);
-            Route::patch('/{category:id}', [Application\Billing\CategoryController::class, 'update']);
-            Route::delete('/{category:id}', [Application\Billing\CategoryController::class, 'delete']);
+                Route::get('/{category:id}', [Application\Billing\CategoryController::class, 'view']);
+                Route::patch('/{category:id}', [Application\Billing\CategoryController::class, 'update']);
+                Route::delete('/{category:id}', [Application\Billing\CategoryController::class, 'delete']);
 
-            Route::group(['prefix' => '/{category:id}/products'], function () {
-                Route::get('/', [Application\Billing\ProductController::class, 'index']);
-                Route::post('/', [Application\Billing\ProductController::class, 'store']);
+                Route::group(['prefix' => '/{category:id}/products'], function () {
+                    Route::get('/', [Application\Billing\ProductController::class, 'index']);
+                    Route::post('/', [Application\Billing\ProductController::class, 'store']);
 
-                Route::get('/{product:id}', [Application\Billing\ProductController::class, 'view']);
-                Route::patch('/{product:id}', [Application\Billing\ProductController::class, 'update']);
-                Route::delete('/{product:id}', [Application\Billing\ProductController::class, 'delete']);
+                    Route::get('/{product:id}', [Application\Billing\ProductController::class, 'view']);
+                    Route::patch('/{product:id}', [Application\Billing\ProductController::class, 'update']);
+                    Route::delete('/{product:id}', [Application\Billing\ProductController::class, 'delete']);
+                });
+            });
+
+            Route::group(['prefix' => '/resources'], function () {
+                Route::get('/', [Application\Billing\ResourcePriceController::class, 'index']);
+                Route::post('/', [Application\Billing\ResourcePriceController::class, 'store']);
+
+                Route::get('/{resource:uuid}', [Application\Billing\ResourcePriceController::class, 'view']);
+                Route::patch('/{resource:uuid}', [Application\Billing\ResourcePriceController::class, 'update']);
+                Route::delete('/{resource:uuid}', [Application\Billing\ResourcePriceController::class, 'delete']);
+            });
+
+            Route::group(['prefix' => '/terms'], function () {
+                Route::get('/', [Application\Billing\BillingTermController::class, 'index']);
+                Route::post('/', [Application\Billing\BillingTermController::class, 'store']);
+
+                Route::get('/{term:uuid}', [Application\Billing\BillingTermController::class, 'view']);
+                Route::patch('/{term:uuid}', [Application\Billing\BillingTermController::class, 'update']);
+                Route::delete('/{term:uuid}', [Application\Billing\BillingTermController::class, 'delete']);
+            });
+
+            Route::group(['prefix' => '/coupons'], function () {
+                Route::get('/', [Application\Billing\CouponController::class, 'index']);
+                Route::post('/', [Application\Billing\CouponController::class, 'store']);
+
+                Route::get('/{coupon:uuid}', [Application\Billing\CouponController::class, 'view']);
+                Route::patch('/{coupon:uuid}', [Application\Billing\CouponController::class, 'update']);
+                Route::delete('/{coupon:uuid}', [Application\Billing\CouponController::class, 'delete']);
+                Route::post('/{coupon:uuid}/send', [Application\Billing\CouponController::class, 'send']);
+            });
+
+            Route::group(['prefix' => '/quotes'], function () {
+                Route::post('/calculate', [Application\Billing\QuoteController::class, 'calculate']);
+            });
+
+            Route::group(['prefix' => '/orders'], function () {
+                Route::get('/', [Application\Billing\OrderController::class, 'index']);
+            });
+
+            Route::group(['prefix' => '/invoices'], function () {
+                Route::get('/', [Application\Billing\InvoiceController::class, 'index']);
+                Route::get('/{invoice:id}/download', [Application\Billing\InvoiceController::class, 'download']);
+            });
+
+            Route::group(['prefix' => '/discount-codes'], function () {
+                Route::get('/', [Application\Billing\DiscountCodeController::class, 'index']);
+                Route::post('/', [Application\Billing\DiscountCodeController::class, 'store']);
+                Route::patch('/{discount_code:id}', [Application\Billing\DiscountCodeController::class, 'update']);
+                Route::delete('/{discount_code:id}', [Application\Billing\DiscountCodeController::class, 'delete']);
+            });
+
+            Route::group(['prefix' => '/exceptions'], function () {
+                Route::get('/', [Application\Billing\BillingExceptionController::class, 'index']);
+
+                Route::delete('/', [Application\Billing\BillingExceptionController::class, 'resolveAll']);
+                Route::delete('/{uuid}', [Application\Billing\BillingExceptionController::class, 'resolve']);
+            });
+
+            Route::prefix('/config')->group(function () {
+                Route::post('/import', [Application\Billing\ConfigController::class, 'import']);
+                Route::post('/export', [Application\Billing\ConfigController::class, 'export']);
             });
         });
-
-        Route::group(['prefix' => '/resources'], function () {
-            Route::get('/', [Application\Billing\ResourcePriceController::class, 'index']);
-            Route::post('/', [Application\Billing\ResourcePriceController::class, 'store']);
-
-            Route::get('/{resource:uuid}', [Application\Billing\ResourcePriceController::class, 'view']);
-            Route::patch('/{resource:uuid}', [Application\Billing\ResourcePriceController::class, 'update']);
-            Route::delete('/{resource:uuid}', [Application\Billing\ResourcePriceController::class, 'delete']);
-        });
-
-        Route::group(['prefix' => '/terms'], function () {
-            Route::get('/', [Application\Billing\BillingTermController::class, 'index']);
-            Route::post('/', [Application\Billing\BillingTermController::class, 'store']);
-
-            Route::get('/{term:uuid}', [Application\Billing\BillingTermController::class, 'view']);
-            Route::patch('/{term:uuid}', [Application\Billing\BillingTermController::class, 'update']);
-            Route::delete('/{term:uuid}', [Application\Billing\BillingTermController::class, 'delete']);
-        });
-
-        Route::group(['prefix' => '/coupons'], function () {
-            Route::get('/', [Application\Billing\CouponController::class, 'index']);
-            Route::post('/', [Application\Billing\CouponController::class, 'store']);
-
-            Route::get('/{coupon:uuid}', [Application\Billing\CouponController::class, 'view']);
-            Route::patch('/{coupon:uuid}', [Application\Billing\CouponController::class, 'update']);
-            Route::delete('/{coupon:uuid}', [Application\Billing\CouponController::class, 'delete']);
-            Route::post('/{coupon:uuid}/send', [Application\Billing\CouponController::class, 'send']);
-        });
-
-        Route::group(['prefix' => '/quotes'], function () {
-            Route::post('/calculate', [Application\Billing\QuoteController::class, 'calculate']);
-        });
-
-        Route::group(['prefix' => '/orders'], function () {
-            Route::get('/', [Application\Billing\OrderController::class, 'index']);
-        });
-
-        Route::group(['prefix' => '/invoices'], function () {
-            Route::get('/', [Application\Billing\InvoiceController::class, 'index']);
-            Route::get('/{invoice:id}/download', [Application\Billing\InvoiceController::class, 'download']);
-        });
-
-        Route::group(['prefix' => '/discount-codes'], function () {
-            Route::get('/', [Application\Billing\DiscountCodeController::class, 'index']);
-            Route::post('/', [Application\Billing\DiscountCodeController::class, 'store']);
-            Route::patch('/{discount_code:id}', [Application\Billing\DiscountCodeController::class, 'update']);
-            Route::delete('/{discount_code:id}', [Application\Billing\DiscountCodeController::class, 'delete']);
-        });
-
-        Route::group(['prefix' => '/exceptions'], function () {
-            Route::get('/', [Application\Billing\BillingExceptionController::class, 'index']);
-
-            Route::delete('/', [Application\Billing\BillingExceptionController::class, 'resolveAll']);
-            Route::delete('/{uuid}', [Application\Billing\BillingExceptionController::class, 'resolve']);
-        });
-
-        Route::prefix('/config')->group(function () {
-            Route::post('/import', [Application\Billing\ConfigController::class, 'import']);
-            Route::post('/export', [Application\Billing\ConfigController::class, 'export']);
-        });
-    });
     }
 
     /*
@@ -572,4 +572,3 @@ Route::middleware([AdminSubject::class])->group(function () {
         Route::post('/roots/{domainRoot}/sync', [Application\Domains\DomainRootController::class, 'sync']);
     });
 });
-

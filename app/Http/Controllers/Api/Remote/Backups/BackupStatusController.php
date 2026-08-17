@@ -30,7 +30,7 @@ class BackupStatusController extends Controller
      */
     public function index(ReportBackupCompleteRequest $request, string $backup): JsonResponse
     {
-        /** @var \DarkOak\Models\Backup $model */
+        /** @var Backup $model */
         $model = Backup::query()->where('uuid', $backup)->firstOrFail();
 
         if ($model->is_successful) {
@@ -77,7 +77,7 @@ class BackupStatusController extends Controller
      */
     public function restore(Request $request, string $backup): JsonResponse
     {
-        /** @var \DarkOak\Models\Backup $model */
+        /** @var Backup $model */
         $model = Backup::query()->where('uuid', $backup)->firstOrFail();
 
         $model->server->update(['status' => null]);
@@ -95,7 +95,7 @@ class BackupStatusController extends Controller
      * the given backup.
      *
      * @throws \Exception
-     * @throws \DarkOak\Exceptions\DisplayException
+     * @throws DisplayException
      */
     protected function completeMultipartUpload(Backup $backup, S3Filesystem $adapter, bool $successful, ?array $parts): void
     {
@@ -144,4 +144,3 @@ class BackupStatusController extends Controller
         $client->execute($client->getCommand('CompleteMultipartUpload', $params));
     }
 }
-

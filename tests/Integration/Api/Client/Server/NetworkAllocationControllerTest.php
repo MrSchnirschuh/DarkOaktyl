@@ -135,4 +135,3 @@ class NetworkAllocationControllerTest extends ClientApiIntegrationTestCase
         return [[[]], [[Permission::ACTION_ALLOCATION_UPDATE]]];
     }
 }
-

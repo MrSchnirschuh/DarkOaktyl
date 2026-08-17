@@ -31,11 +31,11 @@ class AssignmentService
     /**
      * Insert allocations into the database and link them to a specific node.
      *
-     * @throws \DarkOak\Exceptions\DisplayException
-     * @throws \DarkOak\Exceptions\Service\Allocation\CidrOutOfRangeException
-     * @throws \DarkOak\Exceptions\Service\Allocation\InvalidPortMappingException
-     * @throws \DarkOak\Exceptions\Service\Allocation\PortOutOfRangeException
-     * @throws \DarkOak\Exceptions\Service\Allocation\TooManyPortsInRangeException
+     * @throws DisplayException
+     * @throws CidrOutOfRangeException
+     * @throws InvalidPortMappingException
+     * @throws PortOutOfRangeException
+     * @throws TooManyPortsInRangeException
      */
     public function handle(Node $node, array $data): void
     {
@@ -108,4 +108,3 @@ class AssignmentService
         $this->connection->commit();
     }
 }
-

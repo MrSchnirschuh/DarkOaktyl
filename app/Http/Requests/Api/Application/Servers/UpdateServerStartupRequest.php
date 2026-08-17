@@ -26,4 +26,3 @@ class UpdateServerStartupRequest extends ApplicationApiRequest
         return AdminRole::SERVERS_UPDATE;
     }
 }
-

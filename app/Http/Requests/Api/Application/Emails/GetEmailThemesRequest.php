@@ -17,4 +17,3 @@ class GetEmailThemesRequest extends ApplicationApiRequest
         return [];
     }
 }
-

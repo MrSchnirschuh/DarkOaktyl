@@ -2,15 +2,15 @@
 
 namespace DarkOak\Tests\Integration\Api\Application\Billing;
 
-use DarkOak\Mail\TemplatedMail;
-use DarkOak\Models\Billing\Coupon;
-use DarkOak\Models\EmailTemplate;
-use DarkOak\Models\EmailTheme;
 use DarkOak\Models\User;
-use DarkOak\Tests\Integration\Api\Application\ApplicationApiIntegrationTestCase;
-use DarkOak\Tests\Traits\Integration\CreatesBillingTestModels;
 use Illuminate\Support\Str;
+use DarkOak\Models\EmailTheme;
+use DarkOak\Mail\TemplatedMail;
+use DarkOak\Models\EmailTemplate;
+use DarkOak\Models\Billing\Coupon;
 use Illuminate\Support\Facades\Mail;
+use DarkOak\Tests\Traits\Integration\CreatesBillingTestModels;
+use DarkOak\Tests\Integration\Api\Application\ApplicationApiIntegrationTestCase;
 
 class CouponSendControllerTest extends ApplicationApiIntegrationTestCase
 {
@@ -113,4 +113,3 @@ BLADE,
         });
     }
 }
-

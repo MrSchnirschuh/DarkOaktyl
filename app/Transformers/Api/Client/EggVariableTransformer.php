@@ -32,4 +32,3 @@ class EggVariableTransformer extends Transformer
         ];
     }
 }
-

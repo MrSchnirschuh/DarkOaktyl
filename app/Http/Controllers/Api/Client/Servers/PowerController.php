@@ -33,4 +33,3 @@ class PowerController extends ClientApiController
         return $this->returnNoContent();
     }
 }
-

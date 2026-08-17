@@ -27,7 +27,7 @@ trait EnvironmentWriterTrait
     /**
      * Update the .env file for the application using the passed in values.
      *
-     * @throws \DarkOak\Exceptions\DarkOaktylException
+     * @throws DarkOaktylException
      */
     public function writeToEnvironment(array $values = []): void
     {
@@ -51,5 +51,3 @@ trait EnvironmentWriterTrait
         file_put_contents($path, $saveContents);
     }
 }
-
-

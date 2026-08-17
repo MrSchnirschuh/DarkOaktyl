@@ -3,21 +3,18 @@
 namespace DarkOak\Http\Controllers\Api\Client\Billing;
 
 use DarkOak\Models\User;
-use DarkOak\Models\Organization;
 use DarkOak\Models\Server;
+use Illuminate\Support\Str;
+use DarkOak\Models\Organization;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
-use DarkOak\Services\Organizations\OrganizationCreationService;
-use DarkOak\Services\Organizations\OrganizationUpdateService;
-use DarkOak\Services\Organizations\OrganizationDeletionService;
 use DarkOak\Http\Controllers\Api\Client\ClientApiController;
-use DarkOak\Http\Requests\Api\Client\Billing\Organizations\GetOrganizationsRequest;
-use DarkOak\Http\Requests\Api\Client\Billing\Organizations\GetOrganizationRequest;
-use DarkOak\Http\Requests\Api\Client\Billing\Organizations\StoreOrganizationRequest;
-use DarkOak\Http\Requests\Api\Client\Billing\Organizations\UpdateOrganizationRequest;
-use DarkOak\Http\Requests\Api\Client\Billing\Organizations\DeleteOrganizationRequest;
 use DarkOak\Transformers\Api\Client\OrganizationTransformer;
-use Illuminate\Support\Str;
+use DarkOak\Http\Requests\Api\Client\Billing\Organizations\GetOrganizationRequest;
+use DarkOak\Http\Requests\Api\Client\Billing\Organizations\GetOrganizationsRequest;
+use DarkOak\Http\Requests\Api\Client\Billing\Organizations\StoreOrganizationRequest;
+use DarkOak\Http\Requests\Api\Client\Billing\Organizations\DeleteOrganizationRequest;
+use DarkOak\Http\Requests\Api\Client\Billing\Organizations\UpdateOrganizationRequest;
 
 class OrganizationController extends ClientApiController
 {

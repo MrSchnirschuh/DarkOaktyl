@@ -18,4 +18,3 @@ Route::get('/account/security/{path?}', [Base\IndexController::class, 'index'])
 
 Route::get('/{react}', [Base\IndexController::class, 'index'])
     ->where('react', '^(?!(\/)?(api|auth|admin|daemon)).+');
-

@@ -66,4 +66,3 @@ class NodeInformationController extends ApplicationApiController
         ]);
     }
 }
-

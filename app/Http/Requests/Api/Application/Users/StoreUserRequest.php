@@ -27,4 +27,3 @@ class StoreUserRequest extends ApplicationApiRequest
         return AdminRole::USERS_CREATE;
     }
 }
-

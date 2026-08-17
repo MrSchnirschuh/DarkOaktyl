@@ -76,4 +76,3 @@ class BillingExceptionController extends ApplicationApiController
         return $this->returnNoContent();
     }
 }
-

@@ -21,4 +21,3 @@ class AISettingsRequest extends ApplicationApiRequest
         return AdminRole::AI_UPDATE;
     }
 }
-

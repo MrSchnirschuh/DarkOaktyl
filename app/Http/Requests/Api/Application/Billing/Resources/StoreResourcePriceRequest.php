@@ -3,8 +3,8 @@
 namespace DarkOak\Http\Requests\Api\Application\Billing\Resources;
 
 use DarkOak\Models\AdminRole;
-use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 use Illuminate\Validation\Rule;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class StoreResourcePriceRequest extends ApplicationApiRequest
 {
@@ -49,4 +49,3 @@ class StoreResourcePriceRequest extends ApplicationApiRequest
         parent::prepareForValidation();
     }
 }
-

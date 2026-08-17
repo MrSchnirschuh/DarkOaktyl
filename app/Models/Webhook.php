@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property \Illuminate\Support\Carbon|null $last_sent_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\WebhookLog[] $logs
+ * @property \Illuminate\Database\Eloquent\Collection|WebhookLog[] $logs
  */
 class Webhook extends Model
 {

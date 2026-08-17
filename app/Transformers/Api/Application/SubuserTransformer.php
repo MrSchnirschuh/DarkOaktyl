@@ -62,4 +62,3 @@ class SubuserTransformer extends Transformer
         return $this->item($subuser->user, new UserTransformer());
     }
 }
-

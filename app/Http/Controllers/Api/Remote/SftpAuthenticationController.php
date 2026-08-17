@@ -163,4 +163,3 @@ class SftpAuthenticationController extends Controller
         return strtolower(strrev($username[0] ?? '') . '|' . $request->ip());
     }
 }
-

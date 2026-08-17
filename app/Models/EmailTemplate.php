@@ -3,8 +3,8 @@
 namespace DarkOak\Models;
 
 use Illuminate\Support\Str;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class EmailTemplate extends Model
 {
@@ -60,4 +60,3 @@ class EmailTemplate extends Model
         return $this->hasMany(EmailTrigger::class, 'template_id');
     }
 }
-

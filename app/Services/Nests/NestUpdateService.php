@@ -28,4 +28,3 @@ class NestUpdateService
         $this->repository->withoutFreshModel()->update($nest, $data);
     }
 }
-

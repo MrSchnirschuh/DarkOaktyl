@@ -64,4 +64,3 @@ class DatabaseAuthorizationTest extends ClientApiIntegrationTestCase
         ];
     }
 }
-

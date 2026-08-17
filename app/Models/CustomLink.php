@@ -65,4 +65,3 @@ class CustomLink extends Model
         return self::$validationRules;
     }
 }
-

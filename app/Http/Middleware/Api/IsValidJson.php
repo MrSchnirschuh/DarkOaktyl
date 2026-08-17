@@ -25,4 +25,3 @@ class IsValidJson
         return $next($request);
     }
 }
-

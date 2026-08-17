@@ -24,4 +24,3 @@ class EggTransformer extends Transformer
         ];
     }
 }
-

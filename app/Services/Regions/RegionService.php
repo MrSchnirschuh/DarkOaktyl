@@ -2,15 +2,15 @@
 
 namespace DarkOak\Services\Regions;
 
-use DarkOak\Models\Region;
 use DarkOak\Models\Node;
-use Illuminate\Support\Facades\Cache;
+use DarkOak\Models\Region;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Cache;
 
 class RegionService
 {
     /**
-     * Get all active regions
+     * Get all active regions.
      */
     public function getActiveRegions(): array
     {
@@ -26,7 +26,7 @@ class RegionService
     }
 
     /**
-     * Get default region
+     * Get default region.
      */
     public function getDefaultRegion(): ?Region
     {
@@ -34,7 +34,7 @@ class RegionService
     }
 
     /**
-     * Get region by code
+     * Get region by code.
      */
     public function getRegionByCode(string $code): ?Region
     {
@@ -42,7 +42,7 @@ class RegionService
     }
 
     /**
-     * Get nodes for a region
+     * Get nodes for a region.
      */
     public function getRegionNodes(int $regionId): array
     {
@@ -60,7 +60,7 @@ class RegionService
     }
 
     /**
-     * Get region statistics
+     * Get region statistics.
      */
     public function getRegionStats(int $regionId): array
     {
@@ -76,7 +76,7 @@ class RegionService
     }
 
     /**
-     * Select best region for deployment
+     * Select best region for deployment.
      */
     public function selectBestRegion(?string $preferredRegion = null): ?Region
     {
@@ -109,16 +109,17 @@ class RegionService
     }
 
     /**
-     * Check if region has available capacity
+     * Check if region has available capacity.
      */
     private function hasAvailableCapacity(Region $region): bool
     {
         $capacity = $this->calculateRegionCapacity($region);
+
         return $capacity > 0;
     }
 
     /**
-     * Calculate region capacity score
+     * Calculate region capacity score.
      */
     private function calculateRegionCapacity(Region $region): int
     {
@@ -129,7 +130,7 @@ class RegionService
     }
 
     /**
-     * Format region for API response
+     * Format region for API response.
      */
     private function formatRegion(Region $region): array
     {
@@ -149,7 +150,7 @@ class RegionService
     }
 
     /**
-     * Create new region
+     * Create new region.
      */
     public function createRegion(array $data): Region
     {
@@ -176,7 +177,7 @@ class RegionService
     }
 
     /**
-     * Update region
+     * Update region.
      */
     public function updateRegion(Region $region, array $data): Region
     {
@@ -196,7 +197,7 @@ class RegionService
     }
 
     /**
-     * Delete region
+     * Delete region.
      */
     public function deleteRegion(Region $region): bool
     {
@@ -217,7 +218,7 @@ class RegionService
     }
 
     /**
-     * Set region as default
+     * Set region as default.
      */
     public function setAsDefault(Region $region): void
     {
@@ -227,7 +228,7 @@ class RegionService
     }
 
     /**
-     * Clear region cache
+     * Clear region cache.
      */
     private function clearCache(): void
     {
@@ -235,23 +236,23 @@ class RegionService
     }
 
     /**
-     * Assign node to region
+     * Assign node to region.
      */
     public function assignNodeToRegion(int $nodeId, int $regionId): void
     {
         $node = Node::findOrFail($nodeId);
         $node->update(['region_id' => $regionId]);
-        
+
         $this->clearCache();
     }
 
     /**
-     * Get latency estimate for region
+     * Get latency estimate for region.
      */
     public function getLatencyEstimate(string $regionCode): ?int
     {
         $region = $this->getRegionByCode($regionCode);
-        
+
         if (!$region || !$region->ping_endpoint) {
             return null;
         }

@@ -72,4 +72,3 @@ class EmailTrigger extends Model
         return $this->belongsTo(EmailTemplate::class, 'template_id');
     }
 }
-

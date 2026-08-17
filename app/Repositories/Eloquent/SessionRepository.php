@@ -32,4 +32,3 @@ class SessionRepository extends EloquentRepository implements SessionRepositoryI
         return $this->getBuilder()->where('user_id', $user)->where('id', $session)->delete();
     }
 }
-

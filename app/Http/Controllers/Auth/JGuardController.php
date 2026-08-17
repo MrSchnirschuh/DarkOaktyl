@@ -3,19 +3,16 @@
 namespace DarkOak\Http\Controllers\Auth;
 
 use Carbon\Carbon;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Contracts\View\View;
-use DarkOak\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use DarkOak\Http\Controllers\Controller;
 
 class JGuardController extends Controller
 {
     /**
      * Display the jGuard wait page or redirect if delay has expired.
-     *
-     * @param Request $request
-     * @return View|RedirectResponse
      */
     public function __invoke(Request $request): View|RedirectResponse
     {
@@ -40,13 +37,13 @@ class JGuardController extends Controller
         }
 
         $expiresAt = Carbon::parse($jguardEntry->expires_at);
-        
+
         // If delay has expired, clean up and redirect to home
         if ($expiresAt->isPast()) {
             DB::table('jguard_delay')
                 ->where('user_id', $request->user()->id)
                 ->delete();
-            
+
             return redirect()->route('index')->with('success', 'Your account has been activated!');
         }
 

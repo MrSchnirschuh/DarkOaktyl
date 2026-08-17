@@ -67,4 +67,3 @@ class SetupPermissionsPivotTable extends Migration
         });
     }
 }
-

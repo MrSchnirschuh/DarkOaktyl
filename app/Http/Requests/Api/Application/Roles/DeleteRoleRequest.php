@@ -12,4 +12,3 @@ class DeleteRoleRequest extends ApplicationApiRequest
         return AdminRole::ROLES_DELETE;
     }
 }
-

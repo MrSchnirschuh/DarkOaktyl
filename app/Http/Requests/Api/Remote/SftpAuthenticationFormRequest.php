@@ -37,4 +37,3 @@ class SftpAuthenticationFormRequest extends FormRequest
         );
     }
 }
-

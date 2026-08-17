@@ -2,11 +2,11 @@
 
 namespace DarkOak\Http\Controllers\Api\Application\Legal;
 
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use DarkOak\Models\LegalDocument;
-use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
+use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
 
 class LegalDocumentsController extends ApplicationApiController
 {

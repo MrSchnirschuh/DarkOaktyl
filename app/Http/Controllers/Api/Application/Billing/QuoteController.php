@@ -2,9 +2,9 @@
 
 namespace DarkOak\Http\Controllers\Api\Application\Billing;
 
-use DarkOak\Models\Billing\BillingTerm;
-use DarkOak\Models\Billing\Coupon;
 use DarkOak\Models\Node;
+use DarkOak\Models\Billing\Coupon;
+use DarkOak\Models\Billing\BillingTerm;
 use DarkOak\Services\Billing\BillingPricingService;
 use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
 use DarkOak\Http\Requests\Api\Application\Billing\Quotes\CalculateBillingQuoteRequest;
@@ -92,4 +92,3 @@ class QuoteController extends ApplicationApiController
         return null;
     }
 }
-

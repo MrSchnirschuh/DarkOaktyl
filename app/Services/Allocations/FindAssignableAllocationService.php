@@ -37,7 +37,7 @@ class FindAssignableAllocationService
         // Attempt to find a given available allocation for a server. If one cannot be found
         // we will fall back to attempting to create a new allocation that can be used for the
         // server.
-        /** @var \DarkOak\Models\Allocation|null $allocation */
+        /** @var Allocation|null $allocation */
         $allocation = $server->node->allocations()
             ->lockForUpdate()
             ->where('ip', $server->allocation->ip)
@@ -101,7 +101,7 @@ class FindAssignableAllocationService
             'allocation_ports' => [$port],
         ]);
 
-        /** @var \DarkOak\Models\Allocation $allocation */
+        /** @var Allocation $allocation */
         $allocation = $server->node->allocations()
             ->lockForUpdate()
             ->where('ip', $server->allocation->ip)
@@ -111,4 +111,3 @@ class FindAssignableAllocationService
         return $allocation;
     }
 }
-

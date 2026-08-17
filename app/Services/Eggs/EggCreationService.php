@@ -22,7 +22,7 @@ class EggCreationService
      * Create a new service option and assign it to the given service.
      *
      * @throws \DarkOak\Exceptions\Model\DataValidationException
-     * @throws \DarkOak\Exceptions\Service\Egg\NoParentConfigurationFoundException
+     * @throws NoParentConfigurationFoundException
      */
     public function handle(array $data): Egg
     {
@@ -44,5 +44,3 @@ class EggCreationService
         ]), true, true);
     }
 }
-
-

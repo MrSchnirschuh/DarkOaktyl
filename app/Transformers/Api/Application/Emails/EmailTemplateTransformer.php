@@ -40,4 +40,3 @@ class EmailTemplateTransformer extends Transformer
         return $theme ? $this->item($theme, new EmailThemeTransformer(), 'email_theme') : null;
     }
 }
-

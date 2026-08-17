@@ -11,4 +11,3 @@ class GetMountRequest extends GetMountsRequest
         return AdminRole::MOUNTS_READ;
     }
 }
-

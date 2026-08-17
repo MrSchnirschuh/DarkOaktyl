@@ -2,30 +2,30 @@
 
 namespace DarkOak\Http\Controllers\Api\Application\Emails;
 
-use DarkOak\Facades\Activity;
-use DarkOak\Models\EmailTheme;
-use DarkOak\Models\EmailTemplate;
 use DarkOak\Models\User;
+use Illuminate\Support\Arr;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
+use DarkOak\Models\EmailTheme;
+use Illuminate\Support\Carbon;
+use DarkOak\Models\EmailTemplate;
 use Illuminate\Http\JsonResponse;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
-use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
-use DarkOak\Http\Requests\Api\Application\Emails\DeleteEmailTemplateRequest;
-use DarkOak\Http\Requests\Api\Application\Emails\GetEmailTemplatesRequest;
-use DarkOak\Http\Requests\Api\Application\Emails\PreviewEmailTemplateRequest;
-use DarkOak\Http\Requests\Api\Application\Emails\SendTestEmailTemplateRequest;
-use DarkOak\Http\Requests\Api\Application\Emails\StoreEmailTemplateRequest;
-use DarkOak\Http\Requests\Api\Application\Emails\UpdateEmailTemplateRequest;
-use DarkOak\Transformers\Api\Application\Emails\EmailThemeTransformer;
-use DarkOak\Transformers\Api\Application\Emails\EmailTemplateTransformer;
+use Illuminate\Validation\ValidationException;
 use DarkOak\Services\Emails\AnonymousRecipient;
 use DarkOak\Services\Emails\EmailDispatchService;
 use DarkOak\Services\Emails\EmailTemplateRenderer;
 use DarkOak\Exceptions\Http\QueryValueOutOfRangeHttpException;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Carbon;
-use Illuminate\Validation\ValidationException;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Transformers\Api\Application\Emails\EmailThemeTransformer;
+use DarkOak\Transformers\Api\Application\Emails\EmailTemplateTransformer;
+use DarkOak\Http\Requests\Api\Application\Emails\GetEmailTemplatesRequest;
+use DarkOak\Http\Requests\Api\Application\Emails\StoreEmailTemplateRequest;
+use DarkOak\Http\Requests\Api\Application\Emails\DeleteEmailTemplateRequest;
+use DarkOak\Http\Requests\Api\Application\Emails\UpdateEmailTemplateRequest;
+use DarkOak\Http\Requests\Api\Application\Emails\PreviewEmailTemplateRequest;
+use DarkOak\Http\Requests\Api\Application\Emails\SendTestEmailTemplateRequest;
 
 class TemplateController extends ApplicationApiController
 {
@@ -157,15 +157,13 @@ class TemplateController extends ApplicationApiController
         if ($themeUuid = $request->input('theme_uuid')) {
             $theme = EmailTheme::query()->where('uuid', $themeUuid)->first();
             if (!$theme) {
-                throw ValidationException::withMessages([
-                    'theme_uuid' => 'The selected theme could not be found.',
-                ]);
+                throw ValidationException::withMessages(['theme_uuid' => 'The selected theme could not be found.']);
             }
 
             $template->setRelation('theme', $theme);
         }
 
-    $rendered = $this->renderer->render($template, $this->preparePreviewContext($request->input('data', [])));
+        $rendered = $this->renderer->render($template, $this->preparePreviewContext($request->input('data', [])));
 
         $themeTransformer = new EmailThemeTransformer();
 
@@ -220,7 +218,7 @@ class TemplateController extends ApplicationApiController
             return $this->makeAnonymousRecipient(null, $value);
         }
 
-    $payload = (array) $value;
+        $payload = (array) $value;
 
         $email = Arr::get($payload, 'email', Arr::get($context, 'email'));
         $username = Arr::get($payload, 'username', Arr::get($payload, 'name'));
@@ -288,9 +286,7 @@ class TemplateController extends ApplicationApiController
             $metadata = $request->input('metadata', []);
 
             if (!is_array($metadata)) {
-                throw ValidationException::withMessages([
-                    'metadata' => 'Metadata must be an array.',
-                ]);
+                throw ValidationException::withMessages(['metadata' => 'Metadata must be an array.']);
             }
 
             $payload['metadata'] = $metadata ?: [];
@@ -305,4 +301,3 @@ class TemplateController extends ApplicationApiController
         return $payload;
     }
 }
-

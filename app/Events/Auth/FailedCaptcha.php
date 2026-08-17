@@ -16,4 +16,3 @@ class FailedCaptcha extends Event
     {
     }
 }
-

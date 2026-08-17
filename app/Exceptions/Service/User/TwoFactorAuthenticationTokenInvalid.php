@@ -14,4 +14,3 @@ class TwoFactorAuthenticationTokenInvalid extends DisplayException
         parent::__construct('The provided two-factor authentication token was not valid.');
     }
 }
-

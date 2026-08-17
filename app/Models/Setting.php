@@ -51,4 +51,3 @@ class Setting extends Model
         app(SettingsRepositoryInterface::class)->forget($key);
     }
 }
-

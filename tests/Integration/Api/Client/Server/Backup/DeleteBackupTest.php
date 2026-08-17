@@ -43,7 +43,7 @@ class DeleteBackupTest extends ClientApiIntegrationTestCase
 
         [$user, $server] = $this->generateTestAccount([Permission::ACTION_BACKUP_DELETE]);
 
-        /** @var \DarkOak\Models\Backup $backup */
+        /** @var Backup $backup */
         $backup = Backup::factory()->create(['server_id' => $server->id]);
 
         $this->repository->expects('setServer->delete')->with(
@@ -62,4 +62,3 @@ class DeleteBackupTest extends ClientApiIntegrationTestCase
         $this->actingAs($user)->deleteJson($this->link($backup))->assertStatus(Response::HTTP_NOT_FOUND);
     }
 }
-

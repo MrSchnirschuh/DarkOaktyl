@@ -62,4 +62,3 @@ class BillingTerm extends Model
         return 'uuid';
     }
 }
-

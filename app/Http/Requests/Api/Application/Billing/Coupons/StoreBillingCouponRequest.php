@@ -2,11 +2,11 @@
 
 namespace DarkOak\Http\Requests\Api\Application\Billing\Coupons;
 
-use DarkOak\Models\AdminRole;
-use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 use Illuminate\Support\Str;
+use DarkOak\Models\AdminRole;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Validator;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class StoreBillingCouponRequest extends ApplicationApiRequest
 {
@@ -43,6 +43,7 @@ class StoreBillingCouponRequest extends ApplicationApiRequest
 
             if (!in_array($type, ['amount', 'percentage', 'custom'], true)) {
                 $validator->errors()->add('type', 'Invalid coupon type provided.');
+
                 return;
             }
 
@@ -73,4 +74,3 @@ class StoreBillingCouponRequest extends ApplicationApiRequest
         parent::prepareForValidation();
     }
 }
-

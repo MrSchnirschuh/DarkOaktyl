@@ -17,7 +17,7 @@ class DaemonCommandRepository extends DaemonRepository
     /**
      * Sends a command or multiple commands to a running server instance.
      *
-     * @throws \DarkOak\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws DaemonConnectionException
      */
     public function send(array|string $command): ResponseInterface
     {
@@ -35,4 +35,3 @@ class DaemonCommandRepository extends DaemonRepository
         }
     }
 }
-

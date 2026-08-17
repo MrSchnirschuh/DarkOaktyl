@@ -50,4 +50,3 @@ class ScheduleTransformer extends Transformer
         return $this->collection($model->tasks, new TaskTransformer());
     }
 }
-

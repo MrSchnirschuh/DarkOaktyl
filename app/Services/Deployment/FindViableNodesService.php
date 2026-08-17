@@ -51,7 +51,7 @@ class FindViableNodesService
      *                       If "null" is provided as the value no pagination will
      *                       be used.
      *
-     * @throws \DarkOak\Exceptions\Service\Deployment\NoViableNodeException
+     * @throws NoViableNodeException
      */
     public function handle(?int $perPage = null, ?int $page = null): LengthAwarePaginator|Collection
     {

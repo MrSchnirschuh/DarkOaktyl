@@ -27,4 +27,3 @@ class AdminAuthenticate
         return $next($request);
     }
 }
-

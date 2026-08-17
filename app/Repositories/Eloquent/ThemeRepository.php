@@ -74,4 +74,3 @@ class ThemeRepository extends EloquentRepository implements ThemeRepositoryInter
         unset(self::$cache[$key], self::$databaseMiss[$key]);
     }
 }
-

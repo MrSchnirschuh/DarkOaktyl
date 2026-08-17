@@ -33,4 +33,3 @@ class UpdateEggRequest extends StoreEggRequest
         return AdminRole::EGGS_UPDATE;
     }
 }
-

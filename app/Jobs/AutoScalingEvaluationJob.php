@@ -2,18 +2,21 @@
 
 namespace DarkOak\Jobs;
 
-use DarkOak\Models\AutoScalingRule;
-use DarkOak\Services\AutoScaling\AutoScalingService;
 use Illuminate\Bus\Queueable;
+use DarkOak\Models\AutoScalingRule;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Log;
+use DarkOak\Services\AutoScaling\AutoScalingService;
 
 class AutoScalingEvaluationJob implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     private int $serverId;
 

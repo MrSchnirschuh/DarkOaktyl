@@ -54,4 +54,3 @@ class StoreEmailThemeRequest extends ApplicationApiRequest
         ];
     }
 }
-

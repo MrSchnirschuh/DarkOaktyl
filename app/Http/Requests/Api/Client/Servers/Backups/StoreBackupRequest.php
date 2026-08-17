@@ -21,4 +21,3 @@ class StoreBackupRequest extends ClientApiRequest
         ];
     }
 }
-

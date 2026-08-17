@@ -15,7 +15,7 @@ class AlertController extends ApplicationApiController
      * AlertController constructor.
      */
     public function __construct(
-        private SettingsRepositoryInterface $settings
+        private SettingsRepositoryInterface $settings,
     ) {
         parent::__construct();
     }
@@ -43,4 +43,3 @@ class AlertController extends ApplicationApiController
         return new JsonResponse($uuid);
     }
 }
-

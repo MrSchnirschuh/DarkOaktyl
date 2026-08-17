@@ -27,4 +27,3 @@ class SubuserFactory extends Factory
         ];
     }
 }
-

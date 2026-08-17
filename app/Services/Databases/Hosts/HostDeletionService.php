@@ -13,7 +13,7 @@ class HostDeletionService
      */
     public function __construct(
         private DatabaseRepositoryInterface $databaseRepository,
-        private DatabaseHostRepositoryInterface $repository
+        private DatabaseHostRepositoryInterface $repository,
     ) {
     }
 
@@ -21,7 +21,7 @@ class HostDeletionService
      * Delete a specified host from the Panel if no databases are
      * attached to it.
      *
-     * @throws \DarkOak\Exceptions\Service\HasActiveServersException
+     * @throws HasActiveServersException
      */
     public function handle(int $host): int
     {
@@ -33,4 +33,3 @@ class HostDeletionService
         return $this->repository->delete($host);
     }
 }
-

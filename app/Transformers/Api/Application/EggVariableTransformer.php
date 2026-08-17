@@ -24,4 +24,3 @@ class EggVariableTransformer extends Transformer
         return $model->toArray();
     }
 }
-

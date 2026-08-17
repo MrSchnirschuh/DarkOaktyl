@@ -281,5 +281,3 @@ final class Handler extends ExceptionHandler
         return (new self(app()))->convertExceptionToArray($e);
     }
 }
-
-

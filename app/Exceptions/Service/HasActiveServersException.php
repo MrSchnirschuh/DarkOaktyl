@@ -12,4 +12,3 @@ class HasActiveServersException extends DisplayException
         return Response::HTTP_BAD_REQUEST;
     }
 }
-

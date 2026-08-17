@@ -18,4 +18,3 @@ class StoreMountRequest extends ApplicationApiRequest
         return AdminRole::MOUNTS_CREATE;
     }
 }
-

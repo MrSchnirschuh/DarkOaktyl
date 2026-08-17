@@ -29,4 +29,3 @@ class WebhookLogTransformer extends Transformer
         ];
     }
 }
-

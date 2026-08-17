@@ -17,4 +17,3 @@ class DeleteEmailTriggerRequest extends ApplicationApiRequest
         return [];
     }
 }
-

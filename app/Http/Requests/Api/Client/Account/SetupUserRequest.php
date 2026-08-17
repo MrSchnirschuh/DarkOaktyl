@@ -26,4 +26,3 @@ class SetupUserRequest extends ClientApiRequest
         ];
     }
 }
-

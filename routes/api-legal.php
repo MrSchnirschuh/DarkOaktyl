@@ -17,5 +17,6 @@ use DarkOak\Http\Controllers\Api\Application\Legal\LegalDocumentsController;
 Route::get('/published', [LegalDocumentsController::class, 'published']);
 Route::get('/published/{slug}', function (string $slug) {
     $controller = app(LegalDocumentsController::class);
+
     return $controller->showPublished($slug);
 });

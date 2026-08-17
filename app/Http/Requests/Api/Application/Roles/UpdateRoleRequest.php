@@ -16,4 +16,3 @@ class UpdateRoleRequest extends StoreRoleRequest
         return AdminRole::ROLES_UPDATE;
     }
 }
-

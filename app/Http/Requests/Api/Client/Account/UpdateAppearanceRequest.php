@@ -14,4 +14,3 @@ class UpdateAppearanceRequest extends ClientApiRequest
         ];
     }
 }
-

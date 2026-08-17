@@ -13,8 +13,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string|null $description
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\Server[] $servers
- * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\Egg[] $eggs
+ * @property \Illuminate\Database\Eloquent\Collection|Server[] $servers
+ * @property \Illuminate\Database\Eloquent\Collection|Egg[] $eggs
  */
 class Nest extends Model
 {
@@ -66,4 +66,3 @@ class Nest extends Model
         return $this->hasMany(Server::class);
     }
 }
-

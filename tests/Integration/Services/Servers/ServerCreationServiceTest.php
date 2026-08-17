@@ -8,9 +8,9 @@ use DarkOak\Models\Node;
 use DarkOak\Models\User;
 use DarkOak\Models\Server;
 use Mockery\MockInterface;
+use Illuminate\Support\Str;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use Illuminate\Support\Str;
 use DarkOak\Models\Allocation;
 use DarkOak\Models\Billing\Product;
 use DarkOak\Models\Billing\Category;
@@ -19,11 +19,11 @@ use DarkOak\Models\Objects\DeploymentObject;
 use Illuminate\Foundation\Testing\WithFaker;
 use GuzzleHttp\Exception\BadResponseException;
 use Illuminate\Validation\ValidationException;
+use DarkOak\Services\Servers\NodeCapacityService;
 use DarkOak\Tests\Integration\IntegrationTestCase;
 use DarkOak\Services\Servers\ServerCreationService;
 use DarkOak\Repositories\Wings\DaemonServerRepository;
 use DarkOak\Exceptions\Http\Connection\DaemonConnectionException;
-use DarkOak\Services\Servers\NodeCapacityService;
 
 class ServerCreationServiceTest extends IntegrationTestCase
 {
@@ -64,13 +64,13 @@ class ServerCreationServiceTest extends IntegrationTestCase
      */
     public function testServerIsCreatedWithDeploymentObject()
     {
-        /** @var \DarkOak\Models\User $user */
+        /** @var User $user */
         $user = User::factory()->create();
 
-        /** @var \DarkOak\Models\Node $node */
+        /** @var Node $node */
         $node = Node::factory()->create();
 
-        /** @var \DarkOak\Models\Allocation[]|\Illuminate\Database\Eloquent\Collection $allocations */
+        /** @var Allocation[]|\Illuminate\Database\Eloquent\Collection $allocations */
         $allocations = Allocation::factory()->times(5)->create([
             'node_id' => $node->id,
         ]);
@@ -162,13 +162,13 @@ class ServerCreationServiceTest extends IntegrationTestCase
      */
     public function testErrorEncounteredByWingsCausesServerToBeDeleted()
     {
-        /** @var \DarkOak\Models\User $user */
+        /** @var User $user */
         $user = User::factory()->create();
 
-        /** @var \DarkOak\Models\Node $node */
+        /** @var Node $node */
         $node = Node::factory()->create();
 
-        /** @var \DarkOak\Models\Allocation $allocation */
+        /** @var Allocation $allocation */
         $allocation = Allocation::factory()->create([
             'node_id' => $node->id,
         ]);
@@ -288,5 +288,3 @@ class ServerCreationServiceTest extends IntegrationTestCase
         return $this->app->make(ServerCreationService::class);
     }
 }
-
-

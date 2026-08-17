@@ -17,7 +17,7 @@ class SubuserAuthorizationTest extends ClientApiIntegrationTestCase
     public function testUserCannotAccessResourceBelongingToOtherServers(string $method)
     {
         // Generic subuser, the specific resource we're trying to access.
-        /** @var \DarkOak\Models\User $internal */
+        /** @var User $internal */
         $internal = User::factory()->create();
 
         // The API $user is the owner of $server1.
@@ -54,4 +54,3 @@ class SubuserAuthorizationTest extends ClientApiIntegrationTestCase
         return [['GET'], ['POST'], ['DELETE']];
     }
 }
-

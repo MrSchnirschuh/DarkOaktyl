@@ -12,4 +12,3 @@ interface EggVariableRepositoryInterface extends RepositoryInterface
      */
     public function getEditableVariables(int $egg): Collection;
 }
-

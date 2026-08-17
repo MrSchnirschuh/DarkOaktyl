@@ -172,4 +172,3 @@ class FindAssignableAllocationServiceTest extends IntegrationTestCase
         return $this->app->make(FindAssignableAllocationService::class);
     }
 }
-

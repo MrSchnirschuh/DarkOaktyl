@@ -95,4 +95,3 @@ abstract class ClientApiIntegrationTestCase extends IntegrationTestCase
         );
     }
 }
-

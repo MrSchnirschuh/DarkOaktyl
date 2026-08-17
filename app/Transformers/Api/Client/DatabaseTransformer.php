@@ -64,4 +64,3 @@ class DatabaseTransformer extends Transformer
         });
     }
 }
-

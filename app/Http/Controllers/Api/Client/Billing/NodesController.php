@@ -64,4 +64,3 @@ class NodesController extends ClientApiController
         return $this->transform($availableNodes, NodeTransformer::class);
     }
 }
-

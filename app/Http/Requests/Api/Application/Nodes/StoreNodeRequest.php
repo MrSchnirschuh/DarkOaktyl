@@ -77,4 +77,3 @@ class StoreNodeRequest extends ApplicationApiRequest
         return AdminRole::NODES_CREATE;
     }
 }
-

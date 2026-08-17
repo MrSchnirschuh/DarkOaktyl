@@ -25,4 +25,3 @@ class EggController extends ClientApiController
         return $this->transform($variables, EggVariableTransformer::class);
     }
 }
-

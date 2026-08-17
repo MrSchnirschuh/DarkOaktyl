@@ -62,4 +62,3 @@ class GetStartupAndVariablesTest extends ClientApiIntegrationTestCase
         return [[[]], [[Permission::ACTION_STARTUP_READ]]];
     }
 }
-

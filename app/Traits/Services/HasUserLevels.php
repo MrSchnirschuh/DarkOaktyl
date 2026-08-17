@@ -34,4 +34,3 @@ trait HasUserLevels
         return $this->getUserLevel() === $level;
     }
 }
-

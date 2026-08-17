@@ -17,4 +17,3 @@ class DeleteEmailTemplateRequest extends ApplicationApiRequest
         return [];
     }
 }
-

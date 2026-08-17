@@ -19,4 +19,3 @@ class ViewComposerServiceProvider extends ServiceProvider
         $this->app->make('view')->composer('*', DarkOakComposer::class);
     }
 }
-

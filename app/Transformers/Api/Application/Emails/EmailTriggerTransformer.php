@@ -44,4 +44,3 @@ class EmailTriggerTransformer extends Transformer
         return $template ? $this->item($template, new EmailTemplateTransformer(), 'email_template') : null;
     }
 }
-

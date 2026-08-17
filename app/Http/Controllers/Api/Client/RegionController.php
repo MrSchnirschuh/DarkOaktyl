@@ -2,10 +2,10 @@
 
 namespace DarkOak\Http\Controllers\Api\Client;
 
-use DarkOak\Http\Controllers\ApplicationApiController;
-use DarkOak\Services\Regions\RegionService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use DarkOak\Services\Regions\RegionService;
+use DarkOak\Http\Controllers\ApplicationApiController;
 
 class RegionController extends ApplicationApiController
 {
@@ -17,7 +17,7 @@ class RegionController extends ApplicationApiController
     }
 
     /**
-     * List all active regions
+     * List all active regions.
      */
     public function index(Request $request): JsonResponse
     {
@@ -30,7 +30,7 @@ class RegionController extends ApplicationApiController
     }
 
     /**
-     * Get default region
+     * Get default region.
      */
     public function default(Request $request): JsonResponse
     {
@@ -54,7 +54,7 @@ class RegionController extends ApplicationApiController
     }
 
     /**
-     * Get single region
+     * Get single region.
      */
     public function show(Request $request, string $code): JsonResponse
     {
@@ -87,7 +87,7 @@ class RegionController extends ApplicationApiController
     }
 
     /**
-     * Get nodes for a region
+     * Get nodes for a region.
      */
     public function nodes(Request $request, string $code): JsonResponse
     {
@@ -108,7 +108,7 @@ class RegionController extends ApplicationApiController
     }
 
     /**
-     * Get region statistics
+     * Get region statistics.
      */
     public function stats(Request $request, string $code): JsonResponse
     {
@@ -128,12 +128,12 @@ class RegionController extends ApplicationApiController
     }
 
     /**
-     * Recommend best region for deployment
+     * Recommend best region for deployment.
      */
     public function recommend(Request $request): JsonResponse
     {
         $preferredRegion = $request->input('preferred');
-        
+
         $region = $this->regionService->selectBestRegion($preferredRegion);
 
         if (!$region) {
@@ -149,8 +149,8 @@ class RegionController extends ApplicationApiController
                 'code' => $region->code,
                 'display_name' => $region->display_name,
                 'is_default' => $region->is_default,
-                'reason' => $region->is_default && !$preferredRegion 
-                    ? 'Default region with available capacity' 
+                'reason' => $region->is_default && !$preferredRegion
+                    ? 'Default region with available capacity'
                     : 'Selected based on available capacity',
             ],
         ]);

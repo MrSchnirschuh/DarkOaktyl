@@ -24,4 +24,3 @@ class ServerVariableTransformer extends Transformer
         return $model->toArray();
     }
 }
-

@@ -212,4 +212,3 @@ abstract class Model extends IlluminateModel
         parent::initializeTraits();
     }
 }
-

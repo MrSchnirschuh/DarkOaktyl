@@ -18,4 +18,3 @@ class StoreNestRequest extends ApplicationApiRequest
         return AdminRole::NESTS_CREATE;
     }
 }
-

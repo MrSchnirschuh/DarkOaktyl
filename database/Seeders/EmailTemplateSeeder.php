@@ -2,12 +2,12 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Arr;
 use DarkOak\Models\Setting;
+use Illuminate\Support\Arr;
 use DarkOak\Models\EmailTheme;
-use DarkOak\Models\EmailTemplate;
+use Illuminate\Database\Seeder;
 use DarkOak\Models\EmailTrigger;
+use DarkOak\Models\EmailTemplate;
 use DarkOak\Services\Themes\ThemePaletteService;
 
 class EmailTemplateSeeder extends Seeder
@@ -277,4 +277,3 @@ MD,
         }
     }
 }
-

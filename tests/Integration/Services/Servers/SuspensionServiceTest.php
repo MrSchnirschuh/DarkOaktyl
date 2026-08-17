@@ -69,4 +69,3 @@ class SuspensionServiceTest extends IntegrationTestCase
         return $this->app->make(SuspensionService::class);
     }
 }
-

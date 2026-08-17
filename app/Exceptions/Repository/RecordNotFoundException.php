@@ -23,4 +23,3 @@ class RecordNotFoundException extends RepositoryException implements HttpExcepti
         return [];
     }
 }
-

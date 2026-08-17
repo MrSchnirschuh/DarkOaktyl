@@ -73,4 +73,3 @@ class EmailTheme extends Model
         return $this->hasMany(EmailTemplate::class, 'theme_id');
     }
 }
-

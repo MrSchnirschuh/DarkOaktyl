@@ -12,4 +12,3 @@ class StoreBillingCategoryRequest extends ApplicationApiRequest
         return AdminRole::BILLING_CATEGORIES_CREATE;
     }
 }
-

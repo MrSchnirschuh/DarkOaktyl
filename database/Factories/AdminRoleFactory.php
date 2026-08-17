@@ -27,4 +27,3 @@ class AdminRoleFactory extends Factory
         ];
     }
 }
-

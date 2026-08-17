@@ -15,4 +15,3 @@ class LogTarget extends Facade
         return ActivityLogTargetableService::class;
     }
 }
-

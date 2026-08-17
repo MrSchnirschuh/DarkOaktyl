@@ -2,24 +2,23 @@
 
 use Illuminate\Support\Facades\Route;
 use DarkOak\Http\Controllers\Api\Client;
-use DarkOak\Http\Controllers\Api\Client\Notifications\PushSubscriptionController;
-use DarkOak\Http\Controllers\Api\Client\AutoScalingController;
-use DarkOak\Http\Controllers\Api\Client\BillingController as ClientBillingController;
-use DarkOak\Http\Controllers\Api\Client\ServerTemplateController;
-use DarkOak\Http\Controllers\Api\Client\RegionController;
-use DarkOak\Http\Controllers\Api\Client\Organizations\OrganizationController;
-use DarkOak\Http\Controllers\Api\Client\LinksController;
-use DarkOak\Http\Controllers\Api\Client\AccountController;
-use DarkOak\Http\Controllers\Api\Client\PasskeyController;
 use DarkOak\Http\Middleware\BillingEnabled;
 use DarkOak\Http\Middleware\SuspendedAccount;
 use DarkOak\Http\Middleware\Activity\ServerSubject;
 use DarkOak\Http\Middleware\Activity\AccountSubject;
+use DarkOak\Http\Controllers\Api\Client\LinksController;
+use DarkOak\Http\Controllers\Api\Client\RegionController;
+use DarkOak\Http\Controllers\Api\Client\AccountController;
+use DarkOak\Http\Controllers\Api\Client\PasskeyController;
 use DarkOak\Http\Middleware\RequireTwoFactorAuthentication;
+use DarkOak\Http\Controllers\Api\Client\AutoScalingController;
+use DarkOak\Http\Controllers\Api\Client\ServerTemplateController;
 use DarkOak\Http\Middleware\Api\Client\Server\BillingUpgradesEnabled;
 use DarkOak\Http\Middleware\Api\Client\Server\ResourceBelongsToServer;
 use DarkOak\Http\Middleware\Api\Client\Server\AuthenticateServerAccess;
-
+use DarkOak\Http\Controllers\Api\Client\Organizations\OrganizationController;
+use DarkOak\Http\Controllers\Api\Client\Notifications\PushSubscriptionController;
+use DarkOak\Http\Controllers\Api\Client\BillingController as ClientBillingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,7 +48,7 @@ Route::prefix('/')->middleware([SuspendedAccount::class])->group(function () {
     // Account (2FA excluded from 2FA requirement)
     Route::prefix('/account')->middleware(AccountSubject::class)->group(function () {
         Route::prefix('/')->withoutMiddleware(RequireTwoFactorAuthentication::class)->group(function () {
-            Route::get('/', [Client\AccountController::class, 'index'])->name('api:client.account');
+            Route::get('/', [AccountController::class, 'index'])->name('api:client.account');
             Route::get('/two-factor', [Client\TwoFactorController::class, 'index']);
             Route::post('/two-factor', [Client\TwoFactorController::class, 'store']);
             Route::post('/two-factor/disable', [Client\TwoFactorController::class, 'delete']);
@@ -57,17 +56,17 @@ Route::prefix('/')->middleware([SuspendedAccount::class])->group(function () {
             // A passkey satisfies the forced two-factor requirement, so these must stay
             // reachable for an account that has not enrolled in TOTP.
             Route::prefix('/passkeys')->group(function () {
-                Route::get('/', [Client\PasskeyController::class, 'index']);
-                Route::post('/options', [Client\PasskeyController::class, 'options']);
-                Route::post('/', [Client\PasskeyController::class, 'store']);
-                Route::post('/remove', [Client\PasskeyController::class, 'delete']);
+                Route::get('/', [PasskeyController::class, 'index']);
+                Route::post('/options', [PasskeyController::class, 'options']);
+                Route::post('/', [PasskeyController::class, 'store']);
+                Route::post('/remove', [PasskeyController::class, 'delete']);
             });
         });
 
-        Route::put('/email', [Client\AccountController::class, 'updateEmail'])->name('api:client.account.update-email');
-        Route::put('/password', [Client\AccountController::class, 'updatePassword'])->name('api:client.account.update-password');
-        Route::post('/avatar', [Client\AccountController::class, 'updateAvatar'])->name('api:client.account.update-avatar');
-        Route::delete('/avatar', [Client\AccountController::class, 'removeAvatar'])->name('api:client.account.remove-avatar');
+        Route::put('/email', [AccountController::class, 'updateEmail'])->name('api:client.account.update-email');
+        Route::put('/password', [AccountController::class, 'updatePassword'])->name('api:client.account.update-password');
+        Route::post('/avatar', [AccountController::class, 'updateAvatar'])->name('api:client.account.update-avatar');
+        Route::delete('/avatar', [AccountController::class, 'removeAvatar'])->name('api:client.account.remove-avatar');
 
         Route::get('/activity', Client\ActivityLogController::class)->name('api:client.account.activity');
 
@@ -105,7 +104,7 @@ Route::prefix('/')->middleware([SuspendedAccount::class])->group(function () {
             Route::post('/{ticket:id}/messages', [Client\TicketController::class, 'message']);
         });
 
-        Route::post('/setup', [Client\AccountController::class, 'setup']);
+        Route::post('/setup', [AccountController::class, 'setup']);
 
         // Push Notifications (service worker)
         Route::prefix('/notifications/push')->group(function () {

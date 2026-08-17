@@ -12,4 +12,3 @@ class GetApplicationApiKeysRequest extends ApplicationApiRequest
         return AdminRole::API_READ;
     }
 }
-

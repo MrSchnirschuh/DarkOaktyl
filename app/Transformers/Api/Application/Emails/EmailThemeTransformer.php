@@ -3,8 +3,8 @@
 namespace DarkOak\Transformers\Api\Application\Emails;
 
 use DarkOak\Models\EmailTheme;
-use DarkOak\Services\Themes\ThemePaletteService;
 use DarkOak\Transformers\Api\Transformer;
+use DarkOak\Services\Themes\ThemePaletteService;
 
 class EmailThemeTransformer extends Transformer
 {
@@ -81,4 +81,3 @@ class EmailThemeTransformer extends Transformer
         ];
     }
 }
-

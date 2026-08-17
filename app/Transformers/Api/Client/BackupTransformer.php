@@ -27,4 +27,3 @@ class BackupTransformer extends Transformer
         ];
     }
 }
-

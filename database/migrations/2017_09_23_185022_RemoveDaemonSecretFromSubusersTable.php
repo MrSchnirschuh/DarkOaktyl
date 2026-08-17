@@ -56,4 +56,3 @@ class RemoveDaemonSecretFromSubusersTable extends Migration
         });
     }
 }
-

@@ -13,7 +13,7 @@ namespace DarkOak\Models;
 class ApiKeyScope
 {
     /**
-     * Server-Scopes
+     * Server-Scopes.
      */
     public const SERVER_READ = 'server:read';
     public const SERVER_WRITE = 'server:write';
@@ -21,80 +21,80 @@ class ApiKeyScope
     public const SERVER_CONSOLE = 'server:console';
 
     /**
-     * Node-Scopes
+     * Node-Scopes.
      */
     public const NODE_READ = 'node:read';
     public const NODE_WRITE = 'node:write';
 
     /**
-     * User-Scopes
+     * User-Scopes.
      */
     public const USER_READ = 'user:read';
     public const USER_WRITE = 'user:write';
 
     /**
-     * Billing-Scopes
+     * Billing-Scopes.
      */
     public const BILLING_READ = 'billing:read';
     public const BILLING_WRITE = 'billing:write';
 
     /**
-     * Allocation-Scopes
+     * Allocation-Scopes.
      */
     public const ALLOCATION_READ = 'allocation:read';
     public const ALLOCATION_WRITE = 'allocation:write';
 
     /**
-     * Database-Scopes
+     * Database-Scopes.
      */
     public const DATABASE_READ = 'database:read';
     public const DATABASE_WRITE = 'database:write';
 
     /**
-     * Backup-Scopes
+     * Backup-Scopes.
      */
     public const BACKUP_READ = 'backup:read';
     public const BACKUP_WRITE = 'backup:write';
 
     /**
-     * Network-Scopes
+     * Network-Scopes.
      */
     public const NETWORK_READ = 'network:read';
     public const NETWORK_WRITE = 'network:write';
 
     /**
-     * File-Scopes
+     * File-Scopes.
      */
     public const FILE_READ = 'file:read';
     public const FILE_WRITE = 'file:write';
     public const FILE_DELETE = 'file:delete';
 
     /**
-     * Schedule-Scopes
+     * Schedule-Scopes.
      */
     public const SCHEDULE_READ = 'schedule:read';
     public const SCHEDULE_WRITE = 'schedule:write';
 
     /**
-     * Startup-Scopes
+     * Startup-Scopes.
      */
     public const STARTUP_READ = 'startup:read';
     public const STARTUP_WRITE = 'startup:write';
 
     /**
-     * Settings-Scopes
+     * Settings-Scopes.
      */
     public const SETTINGS_READ = 'settings:read';
     public const SETTINGS_WRITE = 'settings:write';
 
     /**
-     * Weclapp-Scopes (externe Integration)
+     * Weclapp-Scopes (externe Integration).
      */
     public const WECLAPP_READ = 'weclapp:read';
     public const WECLAPP_WRITE = 'weclapp:write';
 
     /**
-     * Alle verfügbaren Scopes
+     * Alle verfügbaren Scopes.
      */
     public const ALL_SCOPES = [
         self::SERVER_READ,
@@ -129,7 +129,7 @@ class ApiKeyScope
     ];
 
     /**
-     * Scope-Gruppen für UI-Gruppierung
+     * Scope-Gruppen für UI-Gruppierung.
      */
     public const SCOPE_GROUPS = [
         'server' => [

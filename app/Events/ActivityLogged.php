@@ -32,4 +32,3 @@ class ActivityLogged extends Event
         return is_null($this->model->actor_id);
     }
 }
-

@@ -48,4 +48,3 @@ class CleanupOrdersCommand extends Command
         }
     }
 }
-

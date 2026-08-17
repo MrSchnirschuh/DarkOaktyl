@@ -4,8 +4,8 @@ namespace DarkOak\Services\Webhooks;
 
 use DarkOak\Models\Webhook;
 use DarkOak\Models\WebhookLog;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Http;
 
 class WebhookDispatcher
 {
@@ -117,7 +117,7 @@ class WebhookDispatcher
         int $attempt,
         bool $success,
         ?\Illuminate\Http\Client\Response $response = null,
-        ?string $error = null
+        ?string $error = null,
     ): WebhookLog {
         return WebhookLog::create([
             'webhook_id' => $webhook->id,

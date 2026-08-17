@@ -64,4 +64,3 @@ class UsernameTest extends TestCase
         ];
     }
 }
-

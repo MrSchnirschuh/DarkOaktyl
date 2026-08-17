@@ -2,11 +2,11 @@
 
 namespace DarkOak\Models\Billing;
 
-use DarkOak\Models\Model;
 use DarkOak\Models\User;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use DarkOak\Models\Model;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property int $id
@@ -26,10 +26,10 @@ use Illuminate\Support\Str;
  * @property \Carbon\Carbon|null $expires_at
  * @property int|null $parent_coupon_id
  * @property int|null $personalized_for_id
- * @property \DarkOak\Models\Billing\BillingTerm|null $term
- * @property \DarkOak\Models\User|null $personalizedFor
- * @property \DarkOak\Models\Billing\Coupon|null $parent
- * @property \Illuminate\Database\Eloquent\Collection<int, \DarkOak\Models\Billing\CouponRedemption> $redemptions
+ * @property BillingTerm|null $term
+ * @property User|null $personalizedFor
+ * @property Coupon|null $parent
+ * @property \Illuminate\Database\Eloquent\Collection<int, CouponRedemption> $redemptions
  */
 class Coupon extends Model
 {
@@ -48,11 +48,11 @@ class Coupon extends Model
         'max_usages',
         'per_user_limit',
         'applies_to_term_id',
-    'created_by_id',
-    'updated_by_id',
-    'personalized_for_id',
-    'parent_coupon_id',
-    'usage_count',
+        'created_by_id',
+        'updated_by_id',
+        'personalized_for_id',
+        'parent_coupon_id',
+        'usage_count',
         'starts_at',
         'expires_at',
         'is_active',
@@ -127,4 +127,3 @@ class Coupon extends Model
         return $this->hasMany(CouponRedemption::class, 'coupon_id');
     }
 }
-

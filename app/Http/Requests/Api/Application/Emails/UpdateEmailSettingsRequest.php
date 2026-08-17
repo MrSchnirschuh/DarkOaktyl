@@ -20,4 +20,3 @@ class UpdateEmailSettingsRequest extends ApplicationApiRequest
         ];
     }
 }
-

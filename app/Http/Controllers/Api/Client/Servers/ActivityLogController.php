@@ -50,4 +50,3 @@ class ActivityLogController extends ClientApiController
         return $this->transform($activity, ActivityLogTransformer::class);
     }
 }
-

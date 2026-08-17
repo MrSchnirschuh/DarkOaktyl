@@ -2,7 +2,6 @@
 
 namespace DarkOak\Http\Middleware;
 
-use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -22,7 +21,7 @@ class SecurityHeaders
     /**
      * Handle an incoming request.
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, \Closure $next)
     {
         /** @var Response $response */
         $response = $next($request);

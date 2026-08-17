@@ -4,14 +4,14 @@ namespace DarkOak\Jobs;
 
 use DarkOak\Models\Server;
 use DarkOak\Models\AutoScalingRule;
+use Illuminate\Support\Facades\Log;
 use DarkOak\Models\AutoScalingHistory;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use DarkOak\Repositories\Eloquent\ServerRepository;
 use DarkOak\Repositories\Wings\DaemonServerRepository;
 use DarkOak\Exceptions\Http\Connection\DaemonConnectionException;
-use DarkOak\Repositories\Eloquent\ServerRepository;
-use Illuminate\Support\Facades\Log;
 
 class AutoScalingCheckJob extends Job implements ShouldQueue
 {
@@ -31,11 +31,12 @@ class AutoScalingCheckJob extends Job implements ShouldQueue
      */
     public function handle(
         DaemonServerRepository $daemonRepository,
-        ServerRepository $serverRepository
+        ServerRepository $serverRepository,
     ): void {
         // If no specific server, check all enabled rules
         if (!$this->server) {
             $this->checkAllServers($daemonRepository, $serverRepository);
+
             return;
         }
 
@@ -48,7 +49,7 @@ class AutoScalingCheckJob extends Job implements ShouldQueue
      */
     private function checkAllServers(
         DaemonServerRepository $daemonRepository,
-        ServerRepository $serverRepository
+        ServerRepository $serverRepository,
     ): void {
         $rules = AutoScalingRule::where('enabled', true)->get();
 
@@ -75,7 +76,7 @@ class AutoScalingCheckJob extends Job implements ShouldQueue
     private function checkServer(
         Server $server,
         DaemonServerRepository $daemonRepository,
-        ServerRepository $serverRepository
+        ServerRepository $serverRepository,
     ): void {
         $rule = AutoScalingRule::where('server_id', $server->id)->first();
 
@@ -89,6 +90,7 @@ class AutoScalingCheckJob extends Job implements ShouldQueue
                 'server_id' => $server->id,
                 'remaining_minutes' => $rule->getRemainingCooldownMinutes(),
             ]);
+
             return;
         }
 
@@ -101,6 +103,7 @@ class AutoScalingCheckJob extends Job implements ShouldQueue
                 'server_id' => $server->id,
                 'error' => $e->getMessage(),
             ]);
+
             return;
         }
 
@@ -257,7 +260,7 @@ class AutoScalingCheckJob extends Job implements ShouldQueue
         AutoScalingRule $rule,
         array $scaleAction,
         array $metrics,
-        ServerRepository $serverRepository
+        ServerRepository $serverRepository,
     ): void {
         $oldMemory = $server->memory;
         $oldCpu = $server->cpu;
@@ -353,6 +356,7 @@ class AutoScalingCheckJob extends Job implements ShouldQueue
         if (str_contains($trigger, 'disk')) {
             return AutoScalingHistory::TRIGGER_DISK;
         }
+
         return AutoScalingHistory::TRIGGER_MANUAL;
     }
 }

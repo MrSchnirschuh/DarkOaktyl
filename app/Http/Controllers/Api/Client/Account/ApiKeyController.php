@@ -3,14 +3,14 @@
 namespace DarkOak\Http\Controllers\Api\Client\Account;
 
 use DarkOak\Models\ApiKey;
-use DarkOak\Models\ApiKeyScope;
 use DarkOak\Facades\Activity;
+use DarkOak\Models\ApiKeyScope;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Cache;
 use DarkOak\Exceptions\DisplayException;
-use DarkOak\Http\Controllers\Api\Client\ClientApiController;
 use DarkOak\Http\Requests\Api\Client\ClientApiRequest;
 use DarkOak\Transformers\Api\Client\ApiKeyTransformer;
+use DarkOak\Http\Controllers\Api\Client\ClientApiController;
 use DarkOak\Http\Requests\Api\Client\Account\StoreApiKeyRequest;
 use DarkOak\Http\Requests\Api\Client\Account\UpdateApiKeyScopesRequest;
 
@@ -50,7 +50,7 @@ class ApiKeyController extends ClientApiController
      * Store a new API key for a user's account.
      * Unterstützt optionale Scope-Einschränkungen.
      *
-     * @throws \DarkOak\Exceptions\DisplayException
+     * @throws DisplayException
      */
     public function store(StoreApiKeyRequest $request): array
     {
@@ -59,7 +59,7 @@ class ApiKeyController extends ClientApiController
         }
 
         $scopes = $request->input('scopes', []);
-        
+
         // Validiere Scopes
         if (!empty($scopes)) {
             $invalidScopes = ApiKeyScope::validateScopes($scopes);
@@ -98,14 +98,14 @@ class ApiKeyController extends ClientApiController
      */
     public function updateScopes(UpdateApiKeyScopesRequest $request, string $identifier): array
     {
-        /** @var \DarkOak\Models\ApiKey $key */
+        /** @var ApiKey $key */
         $key = $request->user()->apiKeys()
             ->where('key_type', ApiKey::TYPE_ACCOUNT)
             ->where('identifier', $identifier)
             ->firstOrFail();
 
         $scopes = $request->input('scopes', []);
-        
+
         // Validiere Scopes
         if (!empty($scopes)) {
             $invalidScopes = ApiKeyScope::validateScopes($scopes);
@@ -135,7 +135,7 @@ class ApiKeyController extends ClientApiController
      */
     public function delete(ClientApiRequest $request, string $identifier): JsonResponse
     {
-        /** @var \DarkOak\Models\ApiKey $key */
+        /** @var ApiKey $key */
         $key = $request->user()->apiKeys()
             ->where('key_type', ApiKey::TYPE_ACCOUNT)
             ->where('identifier', $identifier)
@@ -168,7 +168,7 @@ class ApiKeyController extends ClientApiController
      */
     public function show(ClientApiRequest $request, string $identifier): array
     {
-        /** @var \DarkOak\Models\ApiKey $key */
+        /** @var ApiKey $key */
         $key = $request->user()->apiKeys()
             ->where('key_type', ApiKey::TYPE_ACCOUNT)
             ->where('identifier', $identifier)

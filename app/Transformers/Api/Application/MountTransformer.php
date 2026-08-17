@@ -73,4 +73,3 @@ class MountTransformer extends Transformer
         return $this->collection($mount->servers, new ServerTransformer());
     }
 }
-

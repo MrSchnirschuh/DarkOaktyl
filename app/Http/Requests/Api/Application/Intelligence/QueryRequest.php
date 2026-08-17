@@ -19,4 +19,3 @@ class AIQueryRequest extends ApplicationApiRequest
         return AdminRole::AI_READ;
     }
 }
-

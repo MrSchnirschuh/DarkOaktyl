@@ -29,4 +29,3 @@ class StoreEmailTriggerRequest extends ApplicationApiRequest
         ];
     }
 }
-

@@ -17,7 +17,7 @@ class DaemonPowerRepository extends DaemonRepository
     /**
      * Sends a power action to the server instance.
      *
-     * @throws \DarkOak\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws DaemonConnectionException
      */
     public function send(string $action): ResponseInterface
     {
@@ -33,4 +33,3 @@ class DaemonPowerRepository extends DaemonRepository
         }
     }
 }
-

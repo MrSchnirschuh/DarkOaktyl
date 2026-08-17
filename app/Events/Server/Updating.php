@@ -17,4 +17,3 @@ class Updating extends Event
     {
     }
 }
-

@@ -48,4 +48,3 @@ class ServerFactory extends Factory
         ];
     }
 }
-

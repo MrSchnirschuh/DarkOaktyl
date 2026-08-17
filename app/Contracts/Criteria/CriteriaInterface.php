@@ -12,4 +12,3 @@ interface CriteriaInterface
      */
     public function apply(Model $model, Repository $repository): mixed;
 }
-

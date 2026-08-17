@@ -56,5 +56,3 @@ class DarkOaktylSerializer extends ArraySerializer
         return $transformedData;
     }
 }
-
-

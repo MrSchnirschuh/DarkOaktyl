@@ -7,4 +7,3 @@ use DarkOak\Exceptions\DisplayException;
 class InvalidFileUploadException extends DisplayException
 {
 }
-

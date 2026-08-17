@@ -2,11 +2,10 @@
 
 namespace DarkOak\Tests\Integration\Services;
 
-use DarkOak\Models\Server;
 use DarkOak\Models\AutoScalingRule;
 use DarkOak\Models\AutoScalingHistory;
-use DarkOak\Repositories\Wings\DaemonServerRepository;
 use DarkOak\Services\AutoScaling\AutoScalingService;
+use DarkOak\Repositories\Wings\DaemonServerRepository;
 use DarkOak\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 
 class AutoScalingServiceTest extends ClientApiIntegrationTestCase

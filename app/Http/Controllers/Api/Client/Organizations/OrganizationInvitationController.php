@@ -2,15 +2,15 @@
 
 namespace DarkOak\Http\Controllers\Api\Client\Organizations;
 
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use DarkOak\Http\Controllers\Api\Client\ClientApiController;
-use DarkOak\Models\Organization;
-use DarkOak\Models\OrganizationInvitation;
 use DarkOak\Models\User;
+use Illuminate\Http\Request;
+use DarkOak\Models\Organization;
+use Illuminate\Http\JsonResponse;
+use DarkOak\Models\OrganizationInvitation;
+use DarkOak\Http\Controllers\Api\Client\ClientApiController;
 use DarkOak\Services\Organizations\OrganizationInvitationService;
-use DarkOak\Transformers\Api\Client\OrganizationInvitationTransformer;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use DarkOak\Transformers\Api\Client\OrganizationInvitationTransformer;
 
 class OrganizationInvitationController extends ClientApiController
 {
@@ -166,6 +166,7 @@ class OrganizationInvitationController extends ClientApiController
 
         if ($invitation->isExpired()) {
             $invitation->markAsExpired();
+
             return new JsonResponse([
                 'error' => 'This invitation has expired.',
             ], 410);
@@ -208,6 +209,7 @@ class OrganizationInvitationController extends ClientApiController
 
         if ($invitation->isExpired()) {
             $invitation->markAsExpired();
+
             return new JsonResponse([
                 'error' => 'This invitation has expired.',
             ], 410);

@@ -12,4 +12,3 @@ class GetNestsRequest extends ApplicationApiRequest
         return AdminRole::NESTS_READ;
     }
 }
-

@@ -210,4 +210,3 @@ class DatabaseManagementServiceTest extends IntegrationTestCase
         return $this->app->make(DatabaseManagementService::class);
     }
 }
-

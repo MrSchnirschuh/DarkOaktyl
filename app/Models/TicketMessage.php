@@ -82,4 +82,3 @@ class TicketMessage extends Model
         return self::$validationRules;
     }
 }
-

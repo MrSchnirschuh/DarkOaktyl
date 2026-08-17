@@ -81,4 +81,3 @@ class DeleteServerScheduleTest extends ClientApiIntegrationTestCase
         return [[[]], [[Permission::ACTION_SCHEDULE_DELETE]]];
     }
 }
-

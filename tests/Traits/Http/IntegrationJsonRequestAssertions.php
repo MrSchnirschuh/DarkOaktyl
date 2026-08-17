@@ -45,4 +45,3 @@ trait IntegrationJsonRequestAssertions
         ], true);
     }
 }
-

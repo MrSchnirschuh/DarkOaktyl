@@ -62,4 +62,3 @@ class ActivityLogTargetableService
         $this->isAdmin = false;
     }
 }
-

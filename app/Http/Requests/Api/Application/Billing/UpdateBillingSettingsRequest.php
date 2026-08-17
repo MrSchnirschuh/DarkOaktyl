@@ -12,4 +12,3 @@ class UpdateBillingSettingsRequest extends ApplicationApiRequest
         return AdminRole::BILLING_UPDATE;
     }
 }
-

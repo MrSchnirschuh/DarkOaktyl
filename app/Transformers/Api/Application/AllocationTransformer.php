@@ -60,4 +60,3 @@ class AllocationTransformer extends Transformer
         return $this->item($allocation->server, new ServerTransformer());
     }
 }
-

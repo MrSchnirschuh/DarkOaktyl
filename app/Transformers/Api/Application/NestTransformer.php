@@ -61,4 +61,3 @@ class NestTransformer extends Transformer
         return $this->collection($model->servers, new ServerTransformer());
     }
 }
-

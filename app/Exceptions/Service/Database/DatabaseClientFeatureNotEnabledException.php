@@ -11,5 +11,3 @@ class DatabaseClientFeatureNotEnabledException extends DarkOaktylException
         parent::__construct('Client database creation is not enabled in this Panel.');
     }
 }
-
-

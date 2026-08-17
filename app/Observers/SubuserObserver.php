@@ -39,4 +39,3 @@ class SubuserObserver
         event(new Events\Subuser\Deleted($subuser));
     }
 }
-

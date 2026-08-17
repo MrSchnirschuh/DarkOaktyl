@@ -16,7 +16,7 @@ class ModuleController extends ApplicationApiController
      * ModuleController constructor.
      */
     public function __construct(
-        private SettingsRepositoryInterface $settings
+        private SettingsRepositoryInterface $settings,
     ) {
         parent::__construct();
     }
@@ -78,4 +78,3 @@ class ModuleController extends ApplicationApiController
         return $this->returnNoContent();
     }
 }
-

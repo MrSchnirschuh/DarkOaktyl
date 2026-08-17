@@ -11,4 +11,3 @@ class ProvidedAuthenticationToken extends Event
     {
     }
 }
-

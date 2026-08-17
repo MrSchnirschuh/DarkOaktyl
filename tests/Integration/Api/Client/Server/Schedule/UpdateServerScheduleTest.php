@@ -30,7 +30,7 @@ class UpdateServerScheduleTest extends ClientApiIntegrationTestCase
     {
         [$user, $server] = $this->generateTestAccount($permissions);
 
-        /** @var \DarkOak\Models\Schedule $schedule */
+        /** @var Schedule $schedule */
         $schedule = Schedule::factory()->create(['server_id' => $server->id]);
         $expected = Utilities::getScheduleNextRunDate('5', '*', '*', '*', '*');
 
@@ -88,7 +88,7 @@ class UpdateServerScheduleTest extends ClientApiIntegrationTestCase
     {
         [$user, $server] = $this->generateTestAccount();
 
-        /** @var \DarkOak\Models\Schedule $schedule */
+        /** @var Schedule $schedule */
         $schedule = Schedule::factory()->create([
             'server_id' => $server->id,
             'is_active' => true,
@@ -113,5 +113,3 @@ class UpdateServerScheduleTest extends ClientApiIntegrationTestCase
         return [[[]], [[Permission::ACTION_SCHEDULE_UPDATE]]];
     }
 }
-
-

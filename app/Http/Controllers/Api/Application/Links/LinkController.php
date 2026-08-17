@@ -114,4 +114,3 @@ class LinkController extends ApplicationApiController
         return $this->returnNoContent();
     }
 }
-

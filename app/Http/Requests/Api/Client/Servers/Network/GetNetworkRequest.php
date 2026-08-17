@@ -16,4 +16,3 @@ class GetNetworkRequest extends ClientApiRequest
         return Permission::ACTION_ALLOCATION_READ;
     }
 }
-

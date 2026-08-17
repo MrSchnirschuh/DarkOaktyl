@@ -30,4 +30,3 @@ class TaskTransformer extends Transformer
         ];
     }
 }
-

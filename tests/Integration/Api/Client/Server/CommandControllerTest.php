@@ -90,4 +90,3 @@ class CommandControllerTest extends ClientApiIntegrationTestCase
         $response->assertJsonPath('errors.0.detail', 'Server must be online in order to send commands.');
     }
 }
-

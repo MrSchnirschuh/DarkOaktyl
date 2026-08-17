@@ -11,4 +11,3 @@ interface ReceivesEvents
      */
     public function handle(Event $notification): void;
 }
-

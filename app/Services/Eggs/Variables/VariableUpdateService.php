@@ -33,8 +33,8 @@ class VariableUpdateService
     /**
      * Update a specific egg variable.
      *
-     * @throws \DarkOak\Exceptions\DisplayException
-     * @throws \DarkOak\Exceptions\Service\Egg\Variable\ReservedVariableNameException
+     * @throws DisplayException
+     * @throws ReservedVariableNameException
      */
     public function handle(Egg $egg, array $data): void
     {
@@ -74,4 +74,3 @@ class VariableUpdateService
         ]);
     }
 }
-

@@ -24,9 +24,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $default_io
  * @property bool $is_active
  * @property bool $is_featured
- * @property \DarkOak\Models\ServerTemplateCategory|null $category
- * @property \DarkOak\Models\Egg|null $egg
- * @property \DarkOak\Models\Nest|null $nest
+ * @property ServerTemplateCategory|null $category
+ * @property Egg|null $egg
+ * @property Nest|null $nest
  */
 class ServerTemplate extends Model
 {

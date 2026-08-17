@@ -75,4 +75,3 @@ class CalculateOrderThreatIndexCommand extends Command
         }
     }
 }
-

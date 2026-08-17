@@ -2,9 +2,9 @@
 
 namespace DarkOak\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * @property int $id
@@ -18,8 +18,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Illuminate\Support\Carbon|null $last_payment_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \DarkOak\Models\User $user
- * @property-read \DarkOak\Models\Organization $organization
+ * @property-read User $user
+ * @property-read Organization $organization
+ *
  * @method bool isOwner()
  * @method bool isAdmin()
  * @method int getRoleLevel()
@@ -59,9 +60,9 @@ class OrganizationMember extends Model
     ];
 
     // Payment methods
-    const PAYMENT_MANUAL = 'manual';
-    const PAYMENT_STRIPE = 'stripe';
-    const PAYMENT_PAYPAL = 'paypal';
+    public const PAYMENT_MANUAL = 'manual';
+    public const PAYMENT_STRIPE = 'stripe';
+    public const PAYMENT_PAYPAL = 'paypal';
 
     public function organization(): BelongsTo
     {

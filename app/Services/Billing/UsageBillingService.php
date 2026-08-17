@@ -3,12 +3,12 @@
 namespace DarkOak\Services\Billing;
 
 use Carbon\Carbon;
+use DarkOak\Models\Server;
+use Illuminate\Support\Facades\Log;
 use DarkOak\Models\Billing\BillingRecord;
 use DarkOak\Models\Billing\CreditBalance;
 use DarkOak\Models\Billing\CreditTransaction;
-use DarkOak\Models\Server;
 use DarkOak\Services\PushNotifications\PushNotificationService;
-use Illuminate\Support\Facades\Log;
 
 class UsageBillingService
 {
@@ -20,7 +20,7 @@ class UsageBillingService
     }
 
     /**
-     * Calculate hourly rate for a server based on resources
+     * Calculate hourly rate for a server based on resources.
      */
     public function calculateHourlyRate(Server $server): float
     {
@@ -41,7 +41,7 @@ class UsageBillingService
     }
 
     /**
-     * Record usage hours for a server
+     * Record usage hours for a server.
      */
     public function recordUsage(Server $server, Carbon $startTime, Carbon $endTime): BillingRecord
     {
@@ -76,7 +76,7 @@ class UsageBillingService
     }
 
     /**
-     * Process pending billing records
+     * Process pending billing records.
      */
     public function processPendingBilling(): array
     {
@@ -90,11 +90,11 @@ class UsageBillingService
         foreach ($records as $record) {
             try {
                 $this->processBillingRecord($record);
-                $results['processed']++;
+                ++$results['processed'];
                 $results['total_amount'] += $record->amount;
             } catch (\Exception $e) {
                 $record->markAsFailed($e->getMessage());
-                $results['failed']++;
+                ++$results['failed'];
 
                 Log::error('Billing processing failed', [
                     'record_id' => $record->id,
@@ -107,7 +107,7 @@ class UsageBillingService
     }
 
     /**
-     * Process a single billing record
+     * Process a single billing record.
      */
     private function processBillingRecord(BillingRecord $record): void
     {
@@ -116,6 +116,7 @@ class UsageBillingService
         if (!$creditBalance->hasSufficientBalance($record->amount)) {
             // Insufficient funds
             $this->handleInsufficientFunds($record, $creditBalance);
+
             return;
         }
 
@@ -137,7 +138,7 @@ class UsageBillingService
     }
 
     /**
-     * Handle insufficient funds scenario
+     * Handle insufficient funds scenario.
      */
     private function handleInsufficientFunds(BillingRecord $record, CreditBalance $creditBalance): void
     {
@@ -176,7 +177,7 @@ class UsageBillingService
     }
 
     /**
-     * Send low balance warning
+     * Send low balance warning.
      */
     private function sendLowBalanceWarning($user, CreditBalance $creditBalance): void
     {
@@ -197,7 +198,7 @@ class UsageBillingService
     }
 
     /**
-     * Get usage summary for user
+     * Get usage summary for user.
      */
     public function getUsageSummary(int $userId, ?Carbon $startDate = null, ?Carbon $endDate = null): array
     {
@@ -229,7 +230,7 @@ class UsageBillingService
     }
 
     /**
-     * Get current month estimate
+     * Get current month estimate.
      */
     public function getMonthlyEstimate(Server $server): array
     {
@@ -249,7 +250,7 @@ class UsageBillingService
     }
 
     /**
-     * Add credits to user account
+     * Add credits to user account.
      */
     public function addCredits(int $userId, float $amount, string $description = 'Credit purchase', string $paymentMethod = 'stripe'): CreditTransaction
     {

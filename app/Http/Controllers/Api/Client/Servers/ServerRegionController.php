@@ -2,11 +2,11 @@
 
 namespace DarkOak\Http\Controllers\Api\Client\Servers;
 
-use DarkOak\Models\Allocation;
 use DarkOak\Models\Node;
 use DarkOak\Models\Region;
 use DarkOak\Models\Server;
 use Illuminate\Http\Request;
+use DarkOak\Models\Allocation;
 use DarkOak\Models\Permission;
 use DarkOak\Exceptions\DisplayException;
 use DarkOak\Services\Servers\ServerUpdateService;
@@ -20,7 +20,7 @@ class ServerRegionController extends ClientApiController
      * ServerRegionController constructor.
      */
     public function __construct(
-        private ServerUpdateService $updateService
+        private ServerUpdateService $updateService,
     ) {
         parent::__construct();
     }
@@ -37,10 +37,10 @@ class ServerRegionController extends ClientApiController
 
         // Get all active regions except current
         $currentRegionId = $server->node->region_id;
-        
+
         $regions = Region::active()
             ->where('id', '!=', $currentRegionId)
-            ->with(['nodes' => function ($query) use ($server) {
+            ->with(['nodes' => function ($query) {
                 // Only get nodes that can accommodate this server
                 $query->where('public', true)
                     ->where('maintenance_mode', false)

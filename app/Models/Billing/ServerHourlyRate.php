@@ -63,7 +63,7 @@ class ServerHourlyRate extends Model
     /**
      * Calculate the hourly rate based on server resources.
      */
-    public static function calculateRate(Server $server, Product $product = null): float
+    public static function calculateRate(Server $server, ?Product $product = null): float
     {
         if ($product) {
             // Convert monthly price to hourly (approximate: 730 hours/month)

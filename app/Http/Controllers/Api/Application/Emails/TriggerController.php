@@ -2,33 +2,33 @@
 
 namespace DarkOak\Http\Controllers\Api\Application\Emails;
 
-use Carbon\CarbonImmutable;
 use Cron\CronExpression;
-use DarkOak\Facades\Activity;
-use DarkOak\Models\EmailTemplate;
-use DarkOak\Models\EmailTrigger;
-use Illuminate\Http\Response;
-use Illuminate\Http\JsonResponse;
+use Carbon\CarbonImmutable;
 use Illuminate\Support\Arr;
-use Illuminate\Validation\ValidationException;
-use Spatie\QueryBuilder\AllowedFilter;
+use DarkOak\Facades\Activity;
+use Illuminate\Http\Response;
+use DarkOak\Models\EmailTrigger;
+use DarkOak\Models\EmailTemplate;
+use Illuminate\Http\JsonResponse;
 use Spatie\QueryBuilder\QueryBuilder;
-use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
-use DarkOak\Http\Requests\Api\Application\Emails\DeleteEmailTriggerRequest;
-use DarkOak\Http\Requests\Api\Application\Emails\GetEmailTriggersRequest;
-use DarkOak\Http\Requests\Api\Application\Emails\RunEmailTriggerRequest;
-use DarkOak\Http\Requests\Api\Application\Emails\StoreEmailTriggerRequest;
-use DarkOak\Http\Requests\Api\Application\Emails\UpdateEmailTriggerRequest;
+use Spatie\QueryBuilder\AllowedFilter;
+use Illuminate\Validation\ValidationException;
 use DarkOak\Services\Emails\EmailEventRegistry;
 use DarkOak\Services\Emails\EmailTriggerProcessor;
-use DarkOak\Transformers\Api\Application\Emails\EmailTriggerTransformer;
 use DarkOak\Exceptions\Http\QueryValueOutOfRangeHttpException;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Http\Requests\Api\Application\Emails\RunEmailTriggerRequest;
+use DarkOak\Transformers\Api\Application\Emails\EmailTriggerTransformer;
+use DarkOak\Http\Requests\Api\Application\Emails\GetEmailTriggersRequest;
+use DarkOak\Http\Requests\Api\Application\Emails\StoreEmailTriggerRequest;
+use DarkOak\Http\Requests\Api\Application\Emails\DeleteEmailTriggerRequest;
+use DarkOak\Http\Requests\Api\Application\Emails\UpdateEmailTriggerRequest;
 
 class TriggerController extends ApplicationApiController
 {
     public function __construct(
         private EmailTriggerProcessor $processor,
-        private EmailEventRegistry $events
+        private EmailEventRegistry $events,
     ) {
         parent::__construct();
     }
@@ -177,11 +177,11 @@ class TriggerController extends ApplicationApiController
             $payload['is_active'] = $request->boolean('is_active');
         }
 
-    $payload = $this->prepareScheduleAttributes($payload, $existing);
+        $payload = $this->prepareScheduleAttributes($payload, $existing);
 
-    $this->assertEventKeyRequirement($payload, $existing);
+        $this->assertEventKeyRequirement($payload, $existing);
 
-    return $payload;
+        return $payload;
     }
 
     private function prepareScheduleAttributes(array $payload, ?EmailTrigger $existing = null): array
@@ -209,9 +209,7 @@ class TriggerController extends ApplicationApiController
 
         if ($scheduleType === EmailTrigger::SCHEDULE_RECURRING) {
             if (empty($cronExpression) || !CronExpression::isValidExpression($cronExpression)) {
-                throw ValidationException::withMessages([
-                    'cron_expression' => 'The provided cron expression is invalid.',
-                ]);
+                throw ValidationException::withMessages(['cron_expression' => 'The provided cron expression is invalid.']);
             }
 
             $payload['cron_expression'] = $cronExpression;
@@ -267,10 +265,7 @@ class TriggerController extends ApplicationApiController
 
         $eventKey = $payload['event_key'] ?? $existing?->event_key;
         if (empty($eventKey)) {
-            throw ValidationException::withMessages([
-                'event_key' => 'An event key is required when using event triggers.',
-            ]);
+            throw ValidationException::withMessages(['event_key' => 'An event key is required when using event triggers.']);
         }
     }
 }
-

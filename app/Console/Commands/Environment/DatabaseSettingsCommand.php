@@ -111,5 +111,3 @@ class DatabaseSettingsCommand extends Command
         $this->database->connection('_DarkOaktyl_command_test')->getPdo();
     }
 }
-
-

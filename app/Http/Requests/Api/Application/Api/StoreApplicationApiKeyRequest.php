@@ -23,4 +23,3 @@ class StoreApplicationApiKeyRequest extends ApplicationApiRequest
         return AdminRole::API_CREATE;
     }
 }
-

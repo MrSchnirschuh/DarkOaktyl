@@ -12,4 +12,3 @@ class GetBillingCouponRequest extends ApplicationApiRequest
         return AdminRole::BILLING_READ;
     }
 }
-

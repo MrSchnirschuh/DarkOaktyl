@@ -12,4 +12,3 @@ class ImportEggRequest extends ApplicationApiRequest
         return AdminRole::EGGS_IMPORT;
     }
 }
-

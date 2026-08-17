@@ -1,12 +1,12 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Migrations\Migration;
 
 return new class () extends Migration {
     /**
-     * Foreign Key Type Consistency Check
+     * Foreign Key Type Consistency Check.
      *
      * DarkOaktyl-spezifische Typ-Inkonsistenzen dokumentieren und beheben:
      * - servers.id: INT UNSIGNED (increments)

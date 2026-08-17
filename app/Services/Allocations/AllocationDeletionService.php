@@ -19,7 +19,7 @@ class AllocationDeletionService
      * Delete an allocation from the database only if it does not have a server
      * that is actively attached to it.
      *
-     * @throws \DarkOak\Exceptions\Service\Allocation\ServerUsingAllocationException
+     * @throws ServerUsingAllocationException
      */
     public function handle(Allocation $allocation): int
     {
@@ -30,4 +30,3 @@ class AllocationDeletionService
         return $this->repository->delete($allocation->id);
     }
 }
-

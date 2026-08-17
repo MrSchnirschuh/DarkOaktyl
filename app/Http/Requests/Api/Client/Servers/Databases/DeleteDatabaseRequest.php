@@ -13,4 +13,3 @@ class DeleteDatabaseRequest extends ClientApiRequest implements ClientPermission
         return Permission::ACTION_DATABASE_DELETE;
     }
 }
-

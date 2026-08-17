@@ -4,10 +4,10 @@ namespace DarkOak\Tests\Integration\Api\Remote;
 
 use DarkOak\Models\Node;
 use DarkOak\Models\User;
+use phpseclib3\Crypt\EC;
 use DarkOak\Models\Server;
 use DarkOak\Models\Permission;
 use DarkOak\Models\UserSSHKey;
-use phpseclib3\Crypt\EC;
 use DarkOak\Tests\Integration\IntegrationTestCase;
 
 class SftpAuthenticationControllerTest extends IntegrationTestCase

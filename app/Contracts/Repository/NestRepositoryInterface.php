@@ -28,4 +28,3 @@ interface NestRepositoryInterface extends RepositoryInterface
      */
     public function getWithEggServers(int $id): Nest;
 }
-

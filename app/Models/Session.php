@@ -19,4 +19,3 @@ class Session extends Model
         'user_id' => 'integer',
     ];
 }
-

@@ -51,7 +51,7 @@ class AllocationSelectionService
      * empty, all ports will be considered when finding an allocation. If set, only ports appearing
      * in the array or range will be used.
      *
-     * @throws \DarkOak\Exceptions\DisplayException
+     * @throws DisplayException
      */
     public function setPorts(array $ports): self
     {
@@ -80,7 +80,7 @@ class AllocationSelectionService
     /**
      * Return a single allocation that should be used as the default allocation for a server.
      *
-     * @throws \DarkOak\Exceptions\Service\Deployment\NoViableAllocationException
+     * @throws NoViableAllocationException
      */
     public function handle(): Allocation
     {
@@ -93,4 +93,3 @@ class AllocationSelectionService
         return $allocation;
     }
 }
-

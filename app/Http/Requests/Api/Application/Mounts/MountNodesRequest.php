@@ -17,4 +17,3 @@ class MountNodesRequest extends ApplicationApiRequest
         return AdminRole::MOUNTS_UPDATE;
     }
 }
-

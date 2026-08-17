@@ -12,4 +12,3 @@ class UploadFileRequest extends ClientApiRequest
         return Permission::ACTION_FILE_CREATE;
     }
 }
-

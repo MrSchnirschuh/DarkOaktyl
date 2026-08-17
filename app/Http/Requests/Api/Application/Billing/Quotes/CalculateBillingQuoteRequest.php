@@ -2,10 +2,10 @@
 
 namespace DarkOak\Http\Requests\Api\Application\Billing\Quotes;
 
-use DarkOak\Models\AdminRole;
-use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 use Illuminate\Support\Str;
+use DarkOak\Models\AdminRole;
 use Illuminate\Validation\Rule;
+use DarkOak\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class CalculateBillingQuoteRequest extends ApplicationApiRequest
 {
@@ -71,4 +71,3 @@ class CalculateBillingQuoteRequest extends ApplicationApiRequest
         parent::prepareForValidation();
     }
 }
-

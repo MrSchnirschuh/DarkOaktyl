@@ -12,4 +12,3 @@ class DeleteBillingProductRequest extends ApplicationApiRequest
         return AdminRole::BILLING_PRODUCTS_DELETE;
     }
 }
-

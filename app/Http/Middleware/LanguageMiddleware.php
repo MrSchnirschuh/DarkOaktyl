@@ -24,4 +24,3 @@ class LanguageMiddleware
         return $next($request);
     }
 }
-

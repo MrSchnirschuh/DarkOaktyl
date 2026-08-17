@@ -95,4 +95,3 @@ class PowerControllerTest extends ClientApiIntegrationTestCase
         ];
     }
 }
-

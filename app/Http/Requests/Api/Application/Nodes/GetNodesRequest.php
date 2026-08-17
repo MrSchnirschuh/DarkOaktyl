@@ -12,4 +12,3 @@ class GetNodesRequest extends ApplicationApiRequest
         return AdminRole::NODES_READ;
     }
 }
-

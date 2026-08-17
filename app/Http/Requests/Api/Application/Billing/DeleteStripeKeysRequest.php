@@ -12,4 +12,3 @@ class DeleteStripeKeysRequest extends ApplicationApiRequest
         return AdminRole::BILLING_DELETE_KEYS;
     }
 }
-

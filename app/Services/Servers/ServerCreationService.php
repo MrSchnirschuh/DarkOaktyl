@@ -12,6 +12,7 @@ use Illuminate\Support\Arr;
 use Webmozart\Assert\Assert;
 use DarkOak\Models\Allocation;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Schema;
 use DarkOak\Models\Billing\BillingTerm;
 use DarkOak\Models\Objects\DeploymentObject;
 use Illuminate\Database\ConnectionInterface;
@@ -21,7 +22,6 @@ use DarkOak\Services\Deployment\FindViableNodesService;
 use DarkOak\Repositories\Eloquent\ServerVariableRepository;
 use DarkOak\Services\Deployment\AllocationSelectionService;
 use DarkOak\Exceptions\Http\Connection\DaemonConnectionException;
-use Illuminate\Support\Facades\Schema;
 
 class ServerCreationService
 {
@@ -266,4 +266,3 @@ class ServerCreationService
         return $uuid;
     }
 }
-

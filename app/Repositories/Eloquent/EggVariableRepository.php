@@ -29,4 +29,3 @@ class EggVariableRepository extends EloquentRepository implements EggVariableRep
         ])->get($this->getColumns());
     }
 }
-

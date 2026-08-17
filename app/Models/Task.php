@@ -19,8 +19,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property string $hashid
- * @property \DarkOak\Models\Schedule $schedule
- * @property \DarkOak\Models\Server $server
+ * @property Schedule $schedule
+ * @property Server $server
  */
 class Task extends Model
 {
@@ -93,9 +93,6 @@ class Task extends Model
         'continue_on_failure' => 'boolean',
     ];
 
-    /**
-     * {@inheritDoc}
-     */
     public function getRouteKeyName(): string
     {
         return $this->getKeyName();
@@ -125,5 +122,3 @@ class Task extends Model
         return $this->belongsToThrough(Server::class, Schedule::class);
     }
 }
-
-

@@ -205,5 +205,3 @@ class TwoFactorControllerTest extends ClientApiIntegrationTestCase
         $this->assertTrue($user->refresh()->use_totp);
     }
 }
-
-

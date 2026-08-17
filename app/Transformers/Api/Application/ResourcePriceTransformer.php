@@ -3,8 +3,8 @@
 namespace DarkOak\Transformers\Api\Application;
 
 use DarkOak\Models\Billing\ResourcePrice;
-use DarkOak\Models\Billing\ResourceScalingRule;
 use DarkOak\Transformers\Api\Transformer;
+use DarkOak\Models\Billing\ResourceScalingRule;
 
 class ResourcePriceTransformer extends Transformer
 {
@@ -52,4 +52,3 @@ class ResourcePriceTransformer extends Transformer
         ];
     }
 }
-

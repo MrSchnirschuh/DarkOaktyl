@@ -12,4 +12,3 @@ class GetBillingProductRequest extends ApplicationApiRequest
         return AdminRole::BILLING_READ;
     }
 }
-

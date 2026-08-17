@@ -22,4 +22,3 @@ class StoreAllocationRequest extends ApplicationApiRequest
         return AdminRole::NODES_UPDATE;
     }
 }
-

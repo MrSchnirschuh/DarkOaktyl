@@ -15,4 +15,3 @@ class ServerVariableRepository extends EloquentRepository implements ServerVaria
         return ServerVariable::class;
     }
 }
-

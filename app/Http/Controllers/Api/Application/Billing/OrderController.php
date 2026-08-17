@@ -37,4 +37,3 @@ class OrderController extends ApplicationApiController
         return $this->transform($orders, OrderTransformer::class);
     }
 }
-

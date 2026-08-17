@@ -17,4 +17,3 @@ class UpdateUserRequest extends StoreUserRequest
         return AdminRole::USERS_UPDATE;
     }
 }
-

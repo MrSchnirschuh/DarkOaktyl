@@ -38,11 +38,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string|null $inherit_config_stop
  * @property string $inherit_file_denylist
  * @property array|null $inherit_features
- * @property \DarkOak\Models\Nest $nest
- * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\Server[] $servers
- * @property \Illuminate\Database\Eloquent\Collection|\DarkOak\Models\EggVariable[] $variables
- * @property \DarkOak\Models\Egg|null $scriptFrom
- * @property \DarkOak\Models\Egg|null $configFrom
+ * @property Nest $nest
+ * @property \Illuminate\Database\Eloquent\Collection|Server[] $servers
+ * @property \Illuminate\Database\Eloquent\Collection|EggVariable[] $variables
+ * @property Egg|null $scriptFrom
+ * @property Egg|null $configFrom
  */
 class Egg extends Model
 {
@@ -283,4 +283,3 @@ class Egg extends Model
         return $this->belongsTo(self::class, 'config_from');
     }
 }
-

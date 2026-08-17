@@ -23,4 +23,3 @@ class PreviewEmailTemplateRequest extends ApplicationApiRequest
         ];
     }
 }
-

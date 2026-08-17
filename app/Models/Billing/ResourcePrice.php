@@ -2,9 +2,9 @@
 
 namespace DarkOak\Models\Billing;
 
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use DarkOak\Models\Model;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
@@ -86,4 +86,3 @@ class ResourcePrice extends Model
         return $this->hasMany(ResourceScalingRule::class, 'resource_price_id')->orderBy('threshold');
     }
 }
-

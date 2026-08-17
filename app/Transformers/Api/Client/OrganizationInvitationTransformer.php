@@ -2,8 +2,8 @@
 
 namespace DarkOak\Transformers\Api\Client;
 
-use DarkOak\Models\OrganizationInvitation;
 use DarkOak\Transformers\Api\Transformer;
+use DarkOak\Models\OrganizationInvitation;
 
 class OrganizationInvitationTransformer extends Transformer
 {

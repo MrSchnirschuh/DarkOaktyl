@@ -24,7 +24,7 @@ class NetworkAllocationController extends ClientApiController
      */
     public function __construct(
         private FindAssignableAllocationService $assignableAllocationService,
-        private ServerRepository $serverRepository
+        private ServerRepository $serverRepository,
     ) {
         parent::__construct();
     }
@@ -88,7 +88,7 @@ class NetworkAllocationController extends ClientApiController
      * Set the notes for the allocation for a server.
      *s.
      *
-     * @throws \DarkOak\Exceptions\DisplayException
+     * @throws DisplayException
      */
     public function store(NewAllocationRequest $request, Server $server): array
     {
@@ -112,7 +112,7 @@ class NetworkAllocationController extends ClientApiController
     /**
      * Delete an allocation from a server.
      *
-     * @throws \DarkOak\Exceptions\DisplayException
+     * @throws DisplayException
      */
     public function delete(DeleteAllocationRequest $request, Server $server, Allocation $allocation): JsonResponse
     {
@@ -139,4 +139,3 @@ class NetworkAllocationController extends ClientApiController
         return new JsonResponse([], JsonResponse::HTTP_NO_CONTENT);
     }
 }
-

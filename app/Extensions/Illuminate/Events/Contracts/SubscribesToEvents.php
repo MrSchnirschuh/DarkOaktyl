@@ -8,4 +8,3 @@ interface SubscribesToEvents
 {
     public function subscribe(Dispatcher $events): void;
 }
-

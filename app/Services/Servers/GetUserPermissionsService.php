@@ -32,4 +32,3 @@ class GetUserPermissionsService
         return $subuserPermissions ? $subuserPermissions->permissions : [];
     }
 }
-

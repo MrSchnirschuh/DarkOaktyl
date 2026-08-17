@@ -39,4 +39,3 @@ class LoginCheckpointRequest extends FormRequest
         ];
     }
 }
-

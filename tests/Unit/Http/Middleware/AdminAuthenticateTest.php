@@ -54,4 +54,3 @@ class AdminAuthenticateTest extends MiddlewareTestCase
         return new AdminAuthenticate();
     }
 }
-

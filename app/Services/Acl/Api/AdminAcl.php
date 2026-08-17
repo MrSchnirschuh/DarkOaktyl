@@ -69,4 +69,3 @@ class AdminAcl
         })->values()->toArray();
     }
 }
-

@@ -2,9 +2,7 @@
 
 namespace DarkOak\Http\Middleware;
 
-use Illuminate\Routing\Middleware\ThrottleRequests as BaseThrottleRequests;
 use Illuminate\Http\Request;
-use Closure;
 
 /**
  * Rate Limiting Middleware for DarkOaktyl API Routes.
@@ -59,11 +57,12 @@ class ApiRateLimit
 
     /**
      * Get the throttle middleware string for a group.
-     * Usage: ->middleware('throttle:' . ApiRateLimit::for('client-api'))
+     * Usage: ->middleware('throttle:' . ApiRateLimit::for('client-api')).
      */
     public static function for(string $group): string
     {
         $config = static::getLimit($group);
+
         return "{$config['max_attempts']},{$config['decay_minutes']}";
     }
 

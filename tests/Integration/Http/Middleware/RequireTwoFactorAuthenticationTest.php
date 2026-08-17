@@ -6,8 +6,8 @@ use DarkOak\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Config;
-use DarkOak\Http\Middleware\RequireTwoFactorAuthentication;
 use DarkOak\Exceptions\Http\TwoFactorAuthRequiredException;
+use DarkOak\Http\Middleware\RequireTwoFactorAuthentication;
 
 class RequireTwoFactorAuthenticationTest extends \DarkOak\Tests\TestCase
 {

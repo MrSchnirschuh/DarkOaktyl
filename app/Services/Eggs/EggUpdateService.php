@@ -20,7 +20,7 @@ class EggUpdateService
      *
      * @throws \DarkOak\Exceptions\Model\DataValidationException
      * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
-     * @throws \DarkOak\Exceptions\Service\Egg\NoParentConfigurationFoundException
+     * @throws NoParentConfigurationFoundException
      */
     public function handle(Egg $egg, array $data): void
     {
@@ -42,4 +42,3 @@ class EggUpdateService
         $this->repository->withoutFreshModel()->update($egg->id, $data);
     }
 }
-

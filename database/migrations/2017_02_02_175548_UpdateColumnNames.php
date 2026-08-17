@@ -55,19 +55,24 @@ class UpdateColumnNames extends Migration
             // Always ensure foreign keys exist (harmless if already there)
             try {
                 $table->foreign('node_id')->references('id')->on('nodes');
-            } catch (\Exception $e) {}
+            } catch (Exception $e) {
+            }
             try {
                 $table->foreign('owner_id')->references('id')->on('users');
-            } catch (\Exception $e) {}
+            } catch (Exception $e) {
+            }
             try {
                 $table->foreign('allocation_id')->references('id')->on('allocations');
-            } catch (\Exception $e) {}
+            } catch (Exception $e) {
+            }
             try {
                 $table->foreign('service_id')->references('id')->on('services');
-            } catch (\Exception $e) {}
+            } catch (Exception $e) {
+            }
             try {
                 $table->foreign('option_id')->references('id')->on('service_options');
-            } catch (\Exception $e) {}
+            } catch (Exception $e) {
+            }
         });
     }
 

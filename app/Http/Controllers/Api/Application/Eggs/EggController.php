@@ -141,4 +141,3 @@ class EggController extends ApplicationApiController
         return new JsonResponse($this->eggExporterService->handle($eggId));
     }
 }
-

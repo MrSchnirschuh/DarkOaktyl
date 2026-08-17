@@ -3,9 +3,9 @@
 namespace DarkOak\Console\Commands\Emails;
 
 use Carbon\CarbonImmutable;
+use Illuminate\Console\Command;
 use DarkOak\Models\EmailTrigger;
 use DarkOak\Services\Emails\EmailTriggerProcessor;
-use Illuminate\Console\Command;
 
 class DispatchEmailTriggersCommand extends Command
 {
@@ -49,4 +49,3 @@ class DispatchEmailTriggersCommand extends Command
         return self::SUCCESS;
     }
 }
-

@@ -23,4 +23,3 @@ abstract class MiddlewareTestCase extends TestCase
         $this->buildRequestMock();
     }
 }
-

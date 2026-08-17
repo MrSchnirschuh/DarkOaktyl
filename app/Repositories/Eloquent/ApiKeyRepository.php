@@ -38,4 +38,3 @@ class ApiKeyRepository extends EloquentRepository implements ApiKeyRepositoryInt
             ->delete();
     }
 }
-

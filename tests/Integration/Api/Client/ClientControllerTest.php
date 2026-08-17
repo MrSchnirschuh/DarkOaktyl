@@ -336,4 +336,3 @@ class ClientControllerTest extends ClientApiIntegrationTestCase
         return [['admin'], ['admin-all']];
     }
 }
-

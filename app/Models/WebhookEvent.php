@@ -20,4 +20,3 @@ class WebhookEvent extends Model
         'enabled' => 'sometimes|bool',
     ];
 }
-

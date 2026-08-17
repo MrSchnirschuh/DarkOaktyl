@@ -98,4 +98,3 @@ class AllocationRepository extends EloquentRepository implements AllocationRepos
         return $query->inRandomOrder()->first();
     }
 }
-

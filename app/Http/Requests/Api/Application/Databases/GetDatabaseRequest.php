@@ -11,4 +11,3 @@ class GetDatabaseRequest extends GetDatabasesRequest
         return AdminRole::DATABASES_READ;
     }
 }
-

@@ -12,4 +12,3 @@ class DisableAuthModuleRequest extends ApplicationApiRequest
         return AdminRole::AUTH_DELETE;
     }
 }
-

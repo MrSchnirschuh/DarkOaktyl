@@ -29,7 +29,7 @@ class ScheduleRepository extends EloquentRepository implements ScheduleRepositor
     /**
      * Return a schedule model with all the associated tasks as a relationship.
      *
-     * @throws \DarkOak\Exceptions\Repository\RecordNotFoundException
+     * @throws RecordNotFoundException
      */
     public function getScheduleWithTasks(int $schedule): Schedule
     {
@@ -40,4 +40,3 @@ class ScheduleRepository extends EloquentRepository implements ScheduleRepositor
         }
     }
 }
-

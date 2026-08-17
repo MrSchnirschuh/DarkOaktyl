@@ -203,4 +203,3 @@ class ServerTransformer extends Transformer
         return $this->item($server->product, new ProductTransformer());
     }
 }
-

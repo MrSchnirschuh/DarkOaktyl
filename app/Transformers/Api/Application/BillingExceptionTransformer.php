@@ -29,4 +29,3 @@ class BillingExceptionTransformer extends Transformer
         ];
     }
 }
-

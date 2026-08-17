@@ -2,9 +2,8 @@
 
 namespace DarkOak\Models\Billing;
 
-use DarkOak\Models\Billing\Order;
-use DarkOak\Models\Model;
 use DarkOak\Models\User;
+use DarkOak\Models\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
@@ -55,4 +54,3 @@ class CouponRedemption extends Model
         return $this->belongsTo(Order::class, 'order_id');
     }
 }
-

@@ -29,4 +29,3 @@ class ServerStateConflictException extends ConflictHttpException
         parent::__construct($message, $previous);
     }
 }
-

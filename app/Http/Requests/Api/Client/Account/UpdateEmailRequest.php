@@ -12,7 +12,7 @@ class UpdateEmailRequest extends ClientApiRequest
 {
     /**
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     * @throws \DarkOak\Exceptions\Http\Base\InvalidPasswordProvidedException
+     * @throws InvalidPasswordProvidedException
      */
     public function authorize(): bool
     {
@@ -37,4 +37,3 @@ class UpdateEmailRequest extends ClientApiRequest
         return ['email' => $rules['email']];
     }
 }
-

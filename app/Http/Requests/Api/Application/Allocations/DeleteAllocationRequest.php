@@ -12,4 +12,3 @@ class DeleteAllocationRequest extends ApplicationApiRequest
         return AdminRole::NODES_UPDATE;
     }
 }
-

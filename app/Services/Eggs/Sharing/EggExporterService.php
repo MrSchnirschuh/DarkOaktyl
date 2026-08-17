@@ -65,5 +65,3 @@ class EggExporterService
         return json_encode($struct, JSON_PRETTY_PRINT);
     }
 }
-
-

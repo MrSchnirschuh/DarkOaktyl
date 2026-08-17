@@ -2,19 +2,18 @@
 
 namespace DarkOak\Services\Templates;
 
+use DarkOak\Models\User;
 use DarkOak\Models\Server;
 use DarkOak\Models\ServerTemplate;
-use DarkOak\Models\User;
-use DarkOak\Services\Servers\ServerCreationService;
-use Illuminate\Database\ConnectionInterface;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Database\ConnectionInterface;
+use DarkOak\Services\Servers\ServerCreationService;
 
 class TemplateDeployService
 {
     public function __construct(
         private ServerCreationService $serverCreationService,
-        private ConnectionInterface $connection
+        private ConnectionInterface $connection,
     ) {
     }
 
@@ -33,7 +32,7 @@ class TemplateDeployService
         int $nodeId,
         int $allocationId,
         array $customResources = [],
-        array $customEnvVars = []
+        array $customEnvVars = [],
     ): Server {
         // Merge default resources with custom resources
         $resources = $this->buildResources($template, $customResources);

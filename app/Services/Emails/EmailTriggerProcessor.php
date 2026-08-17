@@ -3,11 +3,12 @@
 namespace DarkOak\Services\Emails;
 
 use Carbon\Carbon;
-use Carbon\CarbonImmutable;
 use Cron\CronExpression;
-use DarkOak\Models\EmailTemplate;
-use DarkOak\Models\EmailTrigger;use DarkOak\Models\User;
+use DarkOak\Models\User;
+use Carbon\CarbonImmutable;
 use Illuminate\Support\Arr;
+use DarkOak\Models\EmailTrigger;
+use DarkOak\Models\EmailTemplate;
 use Illuminate\Support\Collection;
 
 class EmailTriggerProcessor
@@ -88,4 +89,3 @@ class EmailTriggerProcessor
         return $entities->unique(fn (User $user) => $user->id);
     }
 }
-

@@ -146,4 +146,3 @@ class EggControllerTest extends ApplicationApiIntegrationTestCase
         $response->assertJsonPath('attributes.description', 'Updated description');
     }
 }
-

@@ -33,4 +33,3 @@ class ServerController extends ClientApiController
             ->toArray();
     }
 }
-

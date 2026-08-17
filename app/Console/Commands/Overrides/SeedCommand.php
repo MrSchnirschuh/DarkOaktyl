@@ -24,4 +24,3 @@ class SeedCommand extends BaseSeedCommand
         return parent::handle();
     }
 }
-

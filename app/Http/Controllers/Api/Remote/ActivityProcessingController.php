@@ -27,7 +27,7 @@ class ActivityProcessingController extends Controller
 
         $logs = [];
         foreach ($request->input('data') as $datum) {
-            /** @var \DarkOak\Models\Server|null $server */
+            /** @var Server|null $server */
             $server = $servers->get($datum['server']);
             if (is_null($server) || !Str::startsWith($datum['event'], 'server:')) {
                 continue;
@@ -88,4 +88,3 @@ class ActivityProcessingController extends Controller
         }
     }
 }
-

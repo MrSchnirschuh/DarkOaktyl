@@ -20,4 +20,3 @@ class ExternalServerController extends ApplicationApiController
 
     }
 }
-

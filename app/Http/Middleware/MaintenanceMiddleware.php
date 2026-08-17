@@ -30,4 +30,3 @@ class MaintenanceMiddleware
         return $next($request);
     }
 }
-

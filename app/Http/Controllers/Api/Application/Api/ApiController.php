@@ -83,4 +83,3 @@ class ApiController extends ApplicationApiController
         return $this->returnNoContent();
     }
 }
-

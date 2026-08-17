@@ -41,4 +41,3 @@ class UserObserver
         event(new Events\User\Deleted($user));
     }
 }
-

@@ -2,20 +2,19 @@
 
 namespace DarkOak\Http\Controllers\Api\Application\Domains;
 
-use DarkOak\Models\DomainRoot;
 use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
+use DarkOak\Models\DomainRoot;
 use Illuminate\Http\JsonResponse;
-use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
-use DarkOak\Http\Requests\Api\Application\Domains\StoreDomainRootRequest;
-use DarkOak\Http\Requests\Api\Application\Domains\UpdateDomainRootRequest;
-use DarkOak\Http\Requests\Api\Application\Domains\DeleteDomainRootRequest;
-use DarkOak\Http\Requests\Api\Application\Domains\GetDomainRootsRequest;
-use DarkOak\Transformers\Api\Application\Domains\DomainRootTransformer;
-use DarkOak\Services\Domains\CloudflareService;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
-use Illuminate\Support\Facades\Cache;
+use DarkOak\Services\Domains\CloudflareService;
+use DarkOak\Http\Controllers\Api\Application\ApplicationApiController;
+use DarkOak\Transformers\Api\Application\Domains\DomainRootTransformer;
+use DarkOak\Http\Requests\Api\Application\Domains\GetDomainRootsRequest;
+use DarkOak\Http\Requests\Api\Application\Domains\StoreDomainRootRequest;
+use DarkOak\Http\Requests\Api\Application\Domains\DeleteDomainRootRequest;
+use DarkOak\Http\Requests\Api\Application\Domains\UpdateDomainRootRequest;
 
 class DomainRootController extends ApplicationApiController
 {

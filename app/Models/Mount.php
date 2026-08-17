@@ -16,9 +16,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property string $target
  * @property bool $read_only
  * @property bool $user_mountable
- * @property \DarkOak\Models\Egg[]|\Illuminate\Database\Eloquent\Collection $eggs
- * @property \DarkOak\Models\Node[]|\Illuminate\Database\Eloquent\Collection $nodes
- * @property \DarkOak\Models\Server[]|\Illuminate\Database\Eloquent\Collection $servers
+ * @property Egg[]|\Illuminate\Database\Eloquent\Collection $eggs
+ * @property Node[]|\Illuminate\Database\Eloquent\Collection $nodes
+ * @property Server[]|\Illuminate\Database\Eloquent\Collection $servers
  */
 #[Attributes\Identifiable('moun')]
 class Mount extends Model implements Identifiable
@@ -127,5 +127,3 @@ class Mount extends Model implements Identifiable
         return $this->belongsToMany(Server::class);
     }
 }
-
-

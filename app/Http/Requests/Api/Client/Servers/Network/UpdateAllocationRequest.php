@@ -22,4 +22,3 @@ class UpdateAllocationRequest extends ClientApiRequest
         ];
     }
 }
-

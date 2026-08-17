@@ -12,4 +12,3 @@ class DeleteUserRequest extends ApplicationApiRequest
         return AdminRole::USERS_DELETE;
     }
 }
-

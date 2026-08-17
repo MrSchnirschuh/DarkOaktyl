@@ -29,4 +29,3 @@ trait MocksRequestException
         return $this->exception ?? $this->exception = \Mockery::mock($abstract);
     }
 }
-

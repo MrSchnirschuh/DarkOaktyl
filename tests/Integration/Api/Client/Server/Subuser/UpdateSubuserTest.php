@@ -57,7 +57,7 @@ class UpdateSubuserTest extends ClientApiIntegrationTestCase
     {
         [$user, $server] = $this->generateTestAccount();
 
-        /** @var \DarkOak\Models\Subuser $subuser */
+        /** @var Subuser $subuser */
         $subuser = Subuser::factory()
             ->for(User::factory()->create())
             ->for($server)
@@ -131,4 +131,3 @@ class UpdateSubuserTest extends ClientApiIntegrationTestCase
             ->assertNotFound();
     }
 }
-

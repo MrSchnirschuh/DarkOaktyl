@@ -54,4 +54,3 @@ class LanguageMiddlewareTest extends MiddlewareTestCase
         return new LanguageMiddleware($this->appMock);
     }
 }
-

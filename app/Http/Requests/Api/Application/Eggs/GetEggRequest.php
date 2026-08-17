@@ -11,4 +11,3 @@ class GetEggRequest extends GetEggsRequest
         return AdminRole::EGGS_READ;
     }
 }
-

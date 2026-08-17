@@ -12,4 +12,3 @@ class UpdateAuthModuleRequest extends ApplicationApiRequest
         return AdminRole::AUTH_UPDATE;
     }
 }
-
