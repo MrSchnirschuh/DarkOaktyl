@@ -95,7 +95,7 @@ class PasskeyService
             ),
             PublicKeyCredentialCreationOptions::ATTESTATION_CONVEYANCE_PREFERENCE_NONE,
             $exclude,
-            (int) config('everest.auth.passkeys.timeout'),
+            (int) config('darkoak.auth.passkeys.timeout'),
         );
     }
 
@@ -112,7 +112,7 @@ class PasskeyService
             $this->rpId,
             [],
             PublicKeyCredentialRequestOptions::USER_VERIFICATION_REQUIREMENT_REQUIRED,
-            (int) config('everest.auth.passkeys.timeout'),
+            (int) config('darkoak.auth.passkeys.timeout'),
         );
     }
 
