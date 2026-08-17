@@ -59,5 +59,8 @@ composer.phar
 # graphify persistent knowledge graph output
 /graphify-out/
 
+# Tool caches
+.php-cs-fixer.cache
+
 # phpunit cache
 .phpunit.result.cache
