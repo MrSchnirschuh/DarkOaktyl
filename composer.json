@@ -75,7 +75,11 @@
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
-        "post-create-project-cmd": [
+        "scripts": {
+        "test-unit": "SKIP_MIGRATIONS=true DB_CONNECTION=sqlite DB_DATABASE=storage/testing.sqlite vendor/bin/phpunit --testsuite Unit",
+        "test-integration": "vendor/bin/phpunit --testsuite Integration"
+    },
+    "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
         ]
     },
