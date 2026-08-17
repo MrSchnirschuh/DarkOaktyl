@@ -16,6 +16,8 @@ class RequireTwoFactorAuthenticationTest extends MiddlewareTestCase
         config()->set('modules.auth.security.force2fa', true);
 
         $this->request->shouldReceive('getRequestUri')->andReturn('/');
+        $this->request->shouldReceive('hasSession')->andReturn(false);
+        $this->request->shouldReceive('isJson')->andReturn(false);
         $this->setRequestRouteName('index');
     }
 
