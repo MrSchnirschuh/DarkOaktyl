@@ -2,7 +2,7 @@
 
 namespace DarkOak\Tests\Integration\Http\Controllers\Base;
 
-use Everest\Models\User;
+use DarkOak\Models\User;
 use DarkOak\Tests\Integration\Http\HttpTestCase;
 
 /**
