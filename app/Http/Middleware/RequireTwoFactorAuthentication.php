@@ -63,7 +63,8 @@ class RequireTwoFactorAuthentication
         }
 
         // Already using TOTP or authenticated with a passkey satisfies MFA.
-        if ($user->use_totp || $request->session()->get('auth_passkey', false)) {
+        $hasPasskeySession = $request->hasSession() && $request->session()->get('auth_passkey', false);
+        if ($user->use_totp || $hasPasskeySession) {
             return $next($request);
         }
 
