@@ -10,7 +10,7 @@
 
 ## Overview
 
-DarkOaktyl is a modern, high-performance **game server management panel** built on **Jexpanel** and **Pterodactyl Panel**, offering enhanced security, detailed customization, an email system for coupons and notifications, integrated billing (Stripe + PayPal), and optional **Auto-Scaling** for server resources.
+DarkOaktyl is a modern, high-performance **game server management panel** forked from **Jexpanel** (itself based on **Pterodactyl Panel**), offering enhanced security, detailed customization, an email system for coupons and notifications, integrated billing (Stripe + PayPal), and optional **Auto-Scaling** for server resources.
 
 ## Tech Stack
 
