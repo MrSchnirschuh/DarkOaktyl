@@ -64,3 +64,7 @@ composer.phar
 
 # phpunit cache
 .phpunit.result.cache
+
+storage/testing.sqlite
+
+.php-cs-fixer.cache
