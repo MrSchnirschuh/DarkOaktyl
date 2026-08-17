@@ -1,44 +1,60 @@
-import tw from 'twin.macro';
-import { Link } from '@inertiajs/react';
-import { SubNavigationProps } from '@/types/components/SubNavigation';
+import { useStoreState } from '@/state/hooks';
+import classNames from 'classnames';
+import type { ComponentType, ReactNode } from 'react';
+import { NavLink } from 'react-router-dom';
+import tw, { styled } from 'twin.macro';
+import { SiteTheme } from '@/state/theme';
 
-const StyledNavigation = tw.nav`
-    bg-[var(--color-headers)]
-    border
-    border-[rgba(0,0,0,0.05)]
-    rounded
-    p-2
-    shadow-sm
+const StyledSubNavigation = styled.div<{ $theme: SiteTheme }>`
+    ${tw`flex flex-row items-center flex-shrink-0 h-12 mb-4 border-b border-neutral-700 overflow-x-auto`};
+
+    & > a {
+        ${tw`flex flex-row items-center h-full px-4 border-b text-base whitespace-nowrap border-transparent`};
+
+        & > svg {
+            ${tw`w-6 h-6 mr-2`};
+        }
+
+        &:active,
+        &.active {
+            color: ${({ $theme }) => $theme.colors.primary};
+            border-color: ${({ $theme }) => $theme.colors.primary};
+        }
+    }
 `;
 
-const StyledNavigationLink = tw(Link)`
-    inline-flex
-    items-center
-    px-4
-    py-2
-    text-sm
-    font-medium
-    rounded
-    text-[var(--color-headers-contrast)]
-    hover:bg-[rgba(0,0,0,0.04)]
-`;
+export const SubNavigation = ({ children }: { children: ReactNode }) => {
+    const theme = useStoreState(state => state.theme.data!);
+    return <StyledSubNavigation $theme={theme}>{children}</StyledSubNavigation>;
+};
 
-export default function SubNavigation(props: SubNavigationProps) {
-    return (
-        <StyledNavigation aria-label="Secondary">
-            <ul css={tw`flex flex-wrap gap-2`}>
-                {props.links.map(link => (
-                    <li key={link.url}>
-                        <StyledNavigationLink
-                            href={link.url}
-                            aria-current={link.active ? 'page' : undefined}
-                            css={link.active ? tw`bg-[rgba(0,0,0,0.08)]` : null}
-                        >
-                            {link.label}
-                        </StyledNavigationLink>
-                    </li>
-                ))}
-            </ul>
-        </StyledNavigation>
-    );
+interface Props {
+    to: string;
+    name: string;
+    base?: boolean;
+    disabled?: boolean;
 }
+
+interface PropsWithIcon extends Props {
+    icon: ComponentType;
+    children?: never;
+}
+
+interface PropsWithoutIcon extends Props {
+    icon?: never;
+    children: ReactNode;
+}
+
+export const SubNavigationLink = ({
+    base,
+    to,
+    name,
+    icon: IconComponent,
+    children,
+    disabled,
+}: PropsWithIcon | PropsWithoutIcon) => (
+    <NavLink to={to} end={base} className={classNames(disabled ? 'text-gray-500' : 'text-neutral-300')}>
+        {IconComponent ? <IconComponent /> : children}
+        {name}
+    </NavLink>
+);

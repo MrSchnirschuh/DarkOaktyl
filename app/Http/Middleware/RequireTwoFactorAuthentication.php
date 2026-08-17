@@ -1,11 +1,11 @@
 <?php
 
-namespace DarkOak\Http\Middleware;
+namespace Everest\Http\Middleware;
 
-use DarkOak\Models\User;
+use Everest\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use DarkOak\Exceptions\Http\TwoFactorAuthRequiredException;
+use Everest\Exceptions\Http\TwoFactorAuthRequiredException;
 
 class RequireTwoFactorAuthentication
 {
@@ -16,39 +16,7 @@ class RequireTwoFactorAuthentication
     /**
      * The route to redirect a user to enable 2FA.
      */
-    protected string $redirectRoute = '/account';
-
-    /**
-     * Get the current 2FA enforcement level from config.
-     * Supports new '2fa.enforcement' format with fallback to legacy 'force2fa'.
-     */
-    protected function getEnforcementLevel(): string
-    {
-        $config = config('modules.auth.security');
-
-        // New format: 2fa.enforcement
-        if (isset($config['2fa']['enforcement'])) {
-            $level = strtoupper($config['2fa']['enforcement']);
-            if (in_array($level, ['NONE', 'ADMIN', 'ALL'])) {
-                return $level;
-            }
-        }
-
-        // Legacy fallback: force2fa boolean
-        if (!empty($config['force2fa'])) {
-            return 'ALL';
-        }
-
-        return 'NONE';
-    }
-
-    /**
-     * Check if user is an admin based on root_admin flag or admin_role_id.
-     */
-    protected function isAdmin(User $user): bool
-    {
-        return $user->root_admin || !is_null($user->admin_role_id);
-    }
+    protected string $redirectRoute = '/account/security';
 
     /**
      * Check the user state on the incoming request to determine if they should be allowed to
@@ -56,49 +24,41 @@ class RequireTwoFactorAuthentication
      * order to perform actions. If so, we check the level at which it is required (all users
      * or just admins) and then check if the user has enabled it for their account.
      *
-     * @throws \DarkOak\Exceptions\Http\TwoFactorAuthRequiredException
+     * @throws TwoFactorAuthRequiredException
      */
     public function handle(Request $request, \Closure $next): mixed
     {
         $user = $request->user();
         $uri = rtrim($request->getRequestUri(), '/') . '/';
-        $current = $request->route()?->getName();
+        $current = $request->route()->getName();
 
         // Must be logged in
         if (!$user instanceof User) {
             return $next($request);
         }
 
-        // Allow access to auth and account routes regardless of 2FA status
-        if (Str::startsWith($uri, ['/auth/', '/account/']) || ($current !== null && Str::startsWith($current, ['auth.', 'account.']))) {
+        if (Str::startsWith($uri, ['/auth/']) || Str::startsWith($current, ['auth.', 'account.'])) {
             return $next($request);
         }
 
-        // Get enforcement level
-        $enforcementLevel = $this->getEnforcementLevel();
-
-        // NONE = No enforcement required
-        if ($enforcementLevel === 'NONE') {
+        $twoFactorRequired = (bool) config('modules.auth.security.force2fa');
+        // If this setting is not configured, or the user is already using 2FA then we can just
+        // send them right through, nothing else needs to be checked.
+        //
+        // A session established with a passkey is let through too: a discoverable credential
+        // gated behind user verification already satisfies multi-factor authentication, so
+        // there is nothing to be gained by pushing those users towards TOTP enrolment.
+        //
+        // If the level is set as admin and the user is not an admin, pass them through as well.
+        if (!$twoFactorRequired || $user->use_totp || $request->session()->get('auth_passkey', false)) {
             return $next($request);
         }
 
-        // User already has 2FA enabled - allow through
-        if ($user->use_totp) {
-            return $next($request);
-        }
-
-        // ADMIN = Only require 2FA for admin users
-        if ($enforcementLevel === 'ADMIN' && !$this->isAdmin($user)) {
-            return $next($request);
-        }
-
-        // At this point, 2FA is required but user doesn't have it enabled
         // For API calls return an exception which gets rendered nicely in the API response.
         if ($request->isJson() || Str::startsWith($uri, '/api/')) {
             throw new TwoFactorAuthRequiredException();
         }
 
-        return new \Illuminate\Http\RedirectResponse($this->redirectRoute);
+        return redirect()->to($this->redirectRoute);
     }
 }
-

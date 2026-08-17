@@ -1,136 +1,114 @@
 <?php
 
-namespace DarkOak\Http\Controllers\Api\Client;
+namespace Everest\Http\Controllers\Api\Client;
 
-use DarkOak\Facades\Activity;
+use Everest\Models\User;
+use Illuminate\Http\Request;
+use Everest\Facades\Activity;
+use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Cache;
-use DarkOak\Http\Requests\Api\Client\ClientApiRequest;
-use DarkOak\Transformers\Api\Client\PasskeyTransformer;
+use Everest\Exceptions\DisplayException;
+use Everest\Services\Users\PasskeyService;
+use Webauthn\PublicKeyCredentialCreationOptions;
+use Everest\Transformers\Api\Client\UserPasskeyTransformer;
+use Illuminate\Contracts\Cache\Repository as CacheRepository;
+use Illuminate\Contracts\Validation\Factory as ValidationFactory;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class PasskeyController extends ClientApiController
 {
-    private const CACHE_PREFIX = 'client.account.passkeys.';
-
     /**
-     * Returns all WebAuthn passkeys registered for the authenticated user.
+     * How long a half-finished registration ceremony stays valid, mirroring the window the
+     * two-factor checkpoint allows.
      */
-    public function index(ClientApiRequest $request): array
-    {
-        $user = $request->user();
+    public const CEREMONY_TTL = 300;
 
-        $passkeys = Cache::remember(
-            self::CACHE_PREFIX . $user->id,
-            now()->addSeconds(30),
-            static fn () => $user->passkeys()
-                ->orderByDesc('created_at')
-                ->get([
-                    'id',
-                    'name',
-                    'credential_id',
-                    'type',
-                    'last_used_at',
-                    'created_at',
-                ]),
-        );
-
-        return $this->fractal->collection($passkeys)
-            ->transformWith(PasskeyTransformer::class)
-            ->toArray();
+    public function __construct(
+        private PasskeyService $passkeys,
+        private ValidationFactory $validation,
+        private CacheRepository $cache,
+    ) {
+        parent::__construct();
     }
 
     /**
-     * Generate WebAuthn registration options.
+     * Returns every passkey registered against the logged-in account.
      */
-    public function options(ClientApiRequest $request): array
+    public function index(Request $request): array
     {
-        $user = $request->user();
-
-        // Generate a random challenge
-        $challenge = bin2hex(random_bytes(32));
-
-        // Store challenge in session for verification during registration
-        session()->put('webauthn_challenge_' . $user->id, $challenge);
-
-        // Get existing credential IDs for excludeCredentials
-        $existingCredentials = $user->passkeys()
-            ->pluck('credential_id')
-            ->map(fn ($id) => ['id' => $id, 'type' => 'public-key'])
-            ->values()
-            ->toArray();
-
-        $options = [
-            'challenge' => $challenge,
-            'rp' => [
-                'name' => config('app.name', 'DarkOaktyl'),
-                'id' => request()->getHost(),
-            ],
-            'user' => [
-                'id' => bin2hex((string) $user->id),
-                'name' => $user->email,
-                'displayName' => $user->name ?? $user->username,
-            ],
-            'pubKeyCredParams' => [
-                ['type' => 'public-key', 'alg' => -7],    // ES256
-                ['type' => 'public-key', 'alg' => -257],  // RS256
-            ],
-            'timeout' => 60000,
-            'attestation' => 'none',
-            'excludeCredentials' => $existingCredentials,
-        ];
-
-        return [
-            'token' => csrf_token(),
-            'options' => $options,
-        ];
+        return $this->transform($request->user()->passkeys, UserPasskeyTransformer::class);
     }
 
     /**
-     * Register a new WebAuthn passkey for the authenticated user.
+     * Begins a passkey registration ceremony.
+     *
+     * The password is confirmed here rather than on store() so that a wrong password fails
+     * before the browser prompts the user for a fingerprint.
      */
-    public function store(ClientApiRequest $request): array
+    public function options(Request $request): JsonResponse
     {
-        $validated = $this->validate($request, [
-            'name' => ['required', 'string', 'max:255'],
-            'credential_id' => ['required', 'string'],
-            'public_key' => ['required', 'string'],
-            'attestation_data' => ['nullable', 'string'],
-            'transports' => ['nullable', 'json'],
-            'type' => ['sometimes', 'string', 'max:50'],
-        ]);
+        $this->assertPasswordConfirmed($request);
 
-        $model = $request->user()->passkeys()->create([
-            'name' => $validated['name'],
-            'credential_id' => $validated['credential_id'],
-            'public_key' => $validated['public_key'],
-            'attestation_data' => $validated['attestation_data'] ?? null,
-            'transports' => $validated['transports'] ?? null,
-            'type' => $validated['type'] ?? 'public-key',
-        ]);
+        $options = $this->passkeys->creationOptions($request->user());
 
-        Cache::forget(self::CACHE_PREFIX . $request->user()->id);
-        session()->forget('webauthn_challenge_' . $request->user()->id);
+        $this->cache->put($this->cacheKey($request), $this->passkeys->encodeOptions($options), self::CEREMONY_TTL);
+
+        return new JsonResponse($this->passkeys->browserOptions($options));
+    }
+
+    /**
+     * Stores the credential produced by a registration ceremony.
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function store(Request $request): array
+    {
+        $data = $this->validation->make($request->all(), [
+            'name' => ['required', 'string', 'max:191'],
+            'credential' => ['required', 'array'],
+        ])->validate();
+
+        $encoded = $this->cache->pull($this->cacheKey($request));
+
+        if (!is_string($encoded)) {
+            throw new BadRequestHttpException('No passkey registration is currently in progress.');
+        }
+
+        $options = $this->passkeys->decodeOptions($encoded, PublicKeyCredentialCreationOptions::class);
+
+        try {
+            $passkey = $this->passkeys->verifyRegistration(
+                $request->user(),
+                $data['name'],
+                $data['credential'],
+                $options,
+            );
+        } catch (DisplayException $exception) {
+            throw new BadRequestHttpException($exception->getMessage());
+        }
 
         Activity::event('user:passkey.create')
-            ->subject($model)
-            ->property('name', $model->name)
+            ->subject($passkey)
+            ->property('name', $passkey->name)
             ->log();
 
-        return $this->fractal->item($model)
-            ->transformWith(PasskeyTransformer::class)
-            ->toArray();
+        return $this->transform($passkey, UserPasskeyTransformer::class);
     }
 
     /**
-     * Remove a passkey from the authenticated user's account.
+     * Removes a passkey from the account.
+     *
+     * @throws \Illuminate\Validation\ValidationException
      */
-    public function delete(ClientApiRequest $request): JsonResponse
+    public function delete(Request $request): Response
     {
-        $this->validate($request, ['id' => ['required', 'integer']]);
+        $data = $this->validation->make($request->all(), [
+            'uuid' => ['required', 'string'],
+        ])->validate();
 
-        $passkey = $request->user()->passkeys()
-            ->where('id', $request->input('id'))
-            ->first();
+        $this->assertPasswordConfirmed($request);
+
+        $passkey = $request->user()->passkeys()->where('uuid', $data['uuid'])->first();
 
         if (!is_null($passkey)) {
             $passkey->delete();
@@ -139,40 +117,39 @@ class PasskeyController extends ClientApiController
                 ->subject($passkey)
                 ->property('name', $passkey->name)
                 ->log();
-
-            Cache::forget(self::CACHE_PREFIX . $request->user()->id);
         }
 
-        return new JsonResponse([], JsonResponse::HTTP_NO_CONTENT);
+        return $this->returnNoContent();
     }
 
     /**
-     * Update the name of an existing passkey.
+     * Where the in-flight registration ceremony is held.
+     *
+     * These routes live under the API middleware group, which only has a session when the
+     * request carries the frontend's cookie — so the ceremony is parked in the cache rather
+     * than the session, keyed to the account it belongs to.
      */
-    public function update(ClientApiRequest $request): array
+    private function cacheKey(Request $request): string
     {
-        $this->validate($request, [
-            'id' => ['required', 'integer'],
-            'name' => ['required', 'string', 'max:255'],
-        ]);
+        return 'passkey:registration:' . $request->user()->id;
+    }
 
-        $passkey = $request->user()->passkeys()
-            ->where('id', $request->input('id'))
-            ->firstOrFail();
+    /**
+     * Accounts created through an SSO module have no usable password, so there is nothing to
+     * confirm for them — the active session and the authenticator's own user verification are
+     * all the assurance available.
+     */
+    private function assertPasswordConfirmed(Request $request): void
+    {
+        /** @var User $user */
+        $user = $request->user();
 
-        $passkey->update([
-            'name' => $request->input('name'),
-        ]);
+        if (empty($user->password)) {
+            return;
+        }
 
-        Cache::forget(self::CACHE_PREFIX . $request->user()->id);
-
-        Activity::event('user:passkey.update')
-            ->subject($passkey)
-            ->property('name', $passkey->name)
-            ->log();
-
-        return $this->fractal->item($passkey)
-            ->transformWith(PasskeyTransformer::class)
-            ->toArray();
+        if (!password_verify($request->input('password') ?? '', $user->password)) {
+            throw new BadRequestHttpException('The password provided was not valid.');
+        }
     }
 }
