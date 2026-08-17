@@ -38,7 +38,7 @@ class RequireTwoFactorAuthentication
             return $next($request);
         }
 
-        if (Str::startsWith($uri, ['/auth/']) || Str::startsWith($current, ['auth.', 'account.'])) {
+        if (Str::startsWith($uri, ['/auth/', '/account/']) || Str::startsWith($current, ['auth.', 'account.'])) {
             return $next($request);
         }
 

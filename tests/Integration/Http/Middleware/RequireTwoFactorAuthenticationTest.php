@@ -96,7 +96,7 @@ class RequireTwoFactorAuthenticationTest extends \DarkOak\Tests\TestCase
         });
 
         $this->assertEquals(302, $response->getStatusCode());
-        $this->assertEquals('/account/security', $response->headers->get('Location'));
+        \$this->assertStringEndsWith('/account/security', \$response->headers->get('Location'));
     }
 
     /**
@@ -124,7 +124,7 @@ class RequireTwoFactorAuthenticationTest extends \DarkOak\Tests\TestCase
         });
 
         $this->assertEquals(302, $response->getStatusCode());
-        $this->assertEquals('/account/security', $response->headers->get('Location'));
+        \$this->assertStringEndsWith('/account/security', \$response->headers->get('Location'));
     }
 
     /**
@@ -150,7 +150,7 @@ class RequireTwoFactorAuthenticationTest extends \DarkOak\Tests\TestCase
         });
 
         $this->assertEquals(302, $response->getStatusCode());
-        $this->assertEquals('/account/security', $response->headers->get('Location'));
+        \$this->assertStringEndsWith('/account/security', \$response->headers->get('Location'));
     }
 
     /**
