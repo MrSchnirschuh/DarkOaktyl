@@ -52,7 +52,7 @@ class RequireTwoFactorAuthenticationTest extends MiddlewareTestCase
 
         $response = $this->getMiddleware()->handle($this->request, $this->getClosureAssertions());
 
-        $this->assertStringEndsWith('/account', $response->getTargetUrl());
+        $this->assertStringEndsWith('/account/security', $response->getTargetUrl());
     }
 
     public function testRequirementIsSkippedEntirelyWhenNotForced()
