@@ -5,10 +5,14 @@ on:
     branches:
       - "develop"
       - "3.x-develop"
+      - "feat/jexpanel-sync"
+      - "main"
   pull_request:
     branches:
       - "develop"
       - "3.x-develop"
+      - "feat/jexpanel-sync"
+      - "main"
 
 jobs:
   phpstan:
