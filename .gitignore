@@ -63,3 +63,5 @@ composer.phar
 .phpunit.result.cache
 
 storage/testing.sqlite
+
+.php-cs-fixer.cache
