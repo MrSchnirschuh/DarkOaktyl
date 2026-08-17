@@ -2,10 +2,10 @@
 
 namespace Everest\Http\Middleware;
 
-use Everest\Models\User;
+use DarkOak\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Everest\Exceptions\Http\TwoFactorAuthRequiredException;
+use DarkOak\Exceptions\Http\TwoFactorAuthRequiredException;
 
 class RequireTwoFactorAuthentication
 {

@@ -3,7 +3,7 @@
 namespace DarkOak\Tests\Unit\Http\Middleware;
 
 use Mockery as m;
-use Everest\Models\User;
+use DarkOak\Models\User;
 use Illuminate\Session\Store;
 use Everest\Http\Middleware\RequireTwoFactorAuthentication;
 
