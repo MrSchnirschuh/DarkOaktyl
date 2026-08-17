@@ -8,11 +8,11 @@ WORKDIR     /var/www/DarkOaktyl
 
 COPY        --chown=1001:0 public ./public
 COPY        --chown=1001:0 resources/scripts ./resources/scripts
-COPY        --chown=1001:0 .eslintignore .eslintrc.js .prettierrc.json package.json pnpm-lock.yaml tailwind.config.js tsconfig.json vite.config.ts .
+COPY        --chown=1001:0 .eslintignore .eslintrc.js .prettierrc.json package.json pnpm-lock.yaml tailwind.config.js tsconfig.json vite.config.mts .
 
 RUN         /opt/app-root/src/.npm-global/bin/pnpm install \
                 && /opt/app-root/src/.npm-global/bin/pnpm build \
-                && rm -rf resources/scripts .eslintignore .eslintrc.yml .npmrc package.json pnpm-lock.yaml tailwind.config.js tsconfig.json vite.config.ts node_modules
+                && rm -rf resources/scripts .eslintignore .eslintrc.yml .npmrc package.json pnpm-lock.yaml tailwind.config.js tsconfig.json vite.config.mts node_modules
 
 USER        1001
 
