@@ -30,7 +30,8 @@ class RequireTwoFactorAuthentication
     {
         $user = $request->user();
         $uri = rtrim($request->getRequestUri(), '/') . '/';
-        $current = $request->route()->getName();
+        $route = $request->route();
+        $current = $route ? $route->getName() : null;
 
         // Must be logged in
         if (!$user instanceof User) {
