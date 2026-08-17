@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "659628eb6b00024fd35ac477c4a1b4ea",
+    "content-hash": "9f3aa42ba9959d3b0d4fd586407cce10",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -1183,16 +1183,16 @@
         },
         {
             "name": "gemini-api-php/client",
-            "version": "v1.4.4",
+            "version": "v1.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/gemini-api-php/client.git",
-                "reference": "84741c6e01c76d17e2786bd454e9f8bdf32e250f"
+                "reference": "a48e61285d82b24117a5c8928dd1e504818f908b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/gemini-api-php/client/zipball/84741c6e01c76d17e2786bd454e9f8bdf32e250f",
-                "reference": "84741c6e01c76d17e2786bd454e9f8bdf32e250f",
+                "url": "https://api.github.com/repos/gemini-api-php/client/zipball/a48e61285d82b24117a5c8928dd1e504818f908b",
+                "reference": "a48e61285d82b24117a5c8928dd1e504818f908b",
                 "shasum": ""
             },
             "require": {
@@ -1244,9 +1244,9 @@
             ],
             "support": {
                 "issues": "https://github.com/gemini-api-php/client/issues",
-                "source": "https://github.com/gemini-api-php/client/tree/v1.4.4"
+                "source": "https://github.com/gemini-api-php/client/tree/v1.7.2"
             },
-            "time": "2024-08-10T13:21:31+00:00"
+            "time": "2025-01-31T15:31:02+00:00"
         },
         {
             "name": "graham-campbell/result-type",
