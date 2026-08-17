@@ -2,13 +2,13 @@
 
 namespace DarkOak\Tests\Integration\Http\Controllers\Auth;
 
-use Everest\Models\User;
+use DarkOak\Models\User;
 use Illuminate\Auth\Events\Failed;
-use Everest\Events\Auth\DirectLogin;
+use DarkOak\Events\Auth\DirectLogin;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Session;
 use DarkOak\Tests\Integration\Http\HttpTestCase;
-use Everest\Http\Controllers\Auth\PasskeyLoginController;
+use DarkOak\Http\Controllers\Auth\PasskeyLoginController;
 
 /**
  * Covers the passkey login endpoints.

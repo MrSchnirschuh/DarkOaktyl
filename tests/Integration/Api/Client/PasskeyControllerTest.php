@@ -2,8 +2,8 @@
 
 namespace DarkOak\Tests\Integration\Api\Client;
 
-use Everest\Models\User;
-use Everest\Models\UserPasskey;
+use DarkOak\Models\User;
+use DarkOak\Models\UserPasskey;
 
 /**
  * Covers the passkey management endpoints on the account.

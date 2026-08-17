@@ -1,12 +1,12 @@
 <?php
 
-namespace Everest\Services\Users;
+namespace DarkOak\Services\Users;
 
-use Everest\Models\User;
+use DarkOak\Models\User;
 use Webauthn\CredentialRecord;
-use Everest\Models\UserPasskey;
+use DarkOak\Models\UserPasskey;
 use Webauthn\PublicKeyCredential;
-use Everest\Exceptions\DisplayException;
+use DarkOak\Exceptions\DisplayException;
 use ParagonIE\ConstantTime\Base64UrlSafe;
 use Webauthn\PublicKeyCredentialRpEntity;
 use Webauthn\PublicKeyCredentialParameters;

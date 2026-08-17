@@ -1,16 +1,16 @@
 <?php
 
-namespace Everest\Http\Controllers\Api\Client;
+namespace DarkOak\Http\Controllers\Api\Client;
 
-use Everest\Models\User;
+use DarkOak\Models\User;
 use Illuminate\Http\Request;
-use Everest\Facades\Activity;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
-use Everest\Exceptions\DisplayException;
-use Everest\Services\Users\PasskeyService;
+use DarkOak\Exceptions\DisplayException;
+use DarkOak\Services\Users\PasskeyService;
 use Webauthn\PublicKeyCredentialCreationOptions;
-use Everest\Transformers\Api\Client\UserPasskeyTransformer;
+use DarkOak\Transformers\Api\Client\UserPasskeyTransformer;
 use Illuminate\Contracts\Cache\Repository as CacheRepository;
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;

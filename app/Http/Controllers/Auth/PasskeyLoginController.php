@@ -1,13 +1,13 @@
 <?php
 
-namespace Everest\Http\Controllers\Auth;
+namespace DarkOak\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
-use Everest\Facades\Activity;
+use DarkOak\Facades\Activity;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Container\Container;
-use Everest\Exceptions\DisplayException;
-use Everest\Services\Users\PasskeyService;
+use DarkOak\Exceptions\DisplayException;
+use DarkOak\Services\Users\PasskeyService;
 use Webauthn\PublicKeyCredentialRequestOptions;
 
 class PasskeyLoginController extends AbstractLoginController
