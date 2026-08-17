@@ -1,13 +1,13 @@
 <?php
 
-namespace Everest\Tests\Integration\Http\Controllers\Auth;
+namespace DarkOak\Tests\Integration\Http\Controllers\Auth;
 
 use Everest\Models\User;
 use Illuminate\Auth\Events\Failed;
 use Everest\Events\Auth\DirectLogin;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Session;
-use Everest\Tests\Integration\Http\HttpTestCase;
+use DarkOak\Tests\Integration\Http\HttpTestCase;
 use Everest\Http\Controllers\Auth\PasskeyLoginController;
 
 /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Tests\Unit\Http\Middleware;
+namespace DarkOak\Tests\Unit\Http\Middleware;
 
 use Mockery as m;
 use Everest\Models\User;

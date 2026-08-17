@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Tests\Integration\Api\Client;
+namespace DarkOak\Tests\Integration\Api\Client;
 
 use Everest\Models\User;
 use Everest\Models\UserPasskey;

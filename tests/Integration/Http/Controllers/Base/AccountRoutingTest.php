@@ -1,9 +1,9 @@
 <?php
 
-namespace Everest\Tests\Integration\Http\Controllers\Base;
+namespace DarkOak\Tests\Integration\Http\Controllers\Base;
 
 use Everest\Models\User;
-use Everest\Tests\Integration\Http\HttpTestCase;
+use DarkOak\Tests\Integration\Http\HttpTestCase;
 
 /**
  * Two-factor enrolment lives under the security tab, so the pages a user needs in order to
