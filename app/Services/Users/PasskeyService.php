@@ -48,9 +48,9 @@ class PasskeyService
         $host = parse_url($appUrl, PHP_URL_HOST) ?: 'localhost';
 
         $this->origin = rtrim($appUrl, '/');
-        $this->rpId = config('everest.auth.passkeys.rp_id') ?: $host;
+        $this->rpId = config('darkoak.auth.passkeys.rp_id') ?: $host;
         $this->rp = PublicKeyCredentialRpEntity::create(
-            config('everest.auth.passkeys.rp_name') ?: config('app.name'),
+            config('darkoak.auth.passkeys.rp_name') ?: config('app.name'),
             $this->rpId,
         );
 
