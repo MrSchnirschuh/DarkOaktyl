@@ -16,7 +16,7 @@ class RequireTwoFactorAuthentication
     /**
      * The route to redirect a user to enable 2FA.
      */
-    protected string $redirectRoute = '/account/security';
+    protected string $redirectRoute = '/account';
 
     /**
      * Check the user state on the incoming request to determine if they should be allowed to
@@ -42,16 +42,33 @@ class RequireTwoFactorAuthentication
             return $next($request);
         }
 
-        $twoFactorRequired = (bool) config('modules.auth.security.force2fa');
-        // If this setting is not configured, or the user is already using 2FA then we can just
-        // send them right through, nothing else needs to be checked.
-        //
-        // A session established with a passkey is let through too: a discoverable credential
-        // gated behind user verification already satisfies multi-factor authentication, so
-        // there is nothing to be gained by pushing those users towards TOTP enrolment.
-        //
-        // If the level is set as admin and the user is not an admin, pass them through as well.
-        if (!$twoFactorRequired || $user->use_totp || $request->session()->get('auth_passkey', false)) {
+        $enforcement = config('modules.auth.security.2fa.enforcement');
+        $legacyForce = config('modules.auth.security.force2fa');
+
+        // Determine required level: legacy boolean maps to ALL.
+        $level = match (strtoupper((string) $enforcement)) {
+            'ADMIN' => self::LEVEL_ADMIN,
+            'ALL' => self::LEVEL_ALL,
+            'NONE' => self::LEVEL_NONE,
+            default => self::LEVEL_NONE,
+        };
+
+        // Legacy boolean force2fa takes precedence: true maps to requiring ALL users.
+        if ($legacyForce) {
+            $level = self::LEVEL_ALL;
+        }
+
+        if ($level === self::LEVEL_NONE) {
+            return $next($request);
+        }
+
+        // Already using TOTP or authenticated with a passkey satisfies MFA.
+        if ($user->use_totp || $request->session()->get('auth_passkey', false)) {
+            return $next($request);
+        }
+
+        // Admin-level enforcement only applies to admins.
+        if ($level === self::LEVEL_ADMIN && !$this->isAdmin($user)) {
             return $next($request);
         }
 
@@ -61,5 +78,10 @@ class RequireTwoFactorAuthentication
         }
 
         return redirect()->to($this->redirectRoute);
+    }
+
+    private function isAdmin(User $user): bool
+    {
+        return $user->root_admin || $user->admin_role_id !== null;
     }
 }
