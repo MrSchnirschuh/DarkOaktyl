@@ -16,7 +16,6 @@ class RequireTwoFactorAuthenticationTest extends MiddlewareTestCase
         config()->set('modules.auth.security.force2fa', true);
 
         $this->request->shouldReceive('getRequestUri')->andReturn('/');
-        $this->request->shouldReceive('hasSession')->andReturn(false);
         $this->request->shouldReceive('isJson')->andReturn(false);
         $this->setRequestRouteName('index');
     }
@@ -30,7 +29,12 @@ class RequireTwoFactorAuthenticationTest extends MiddlewareTestCase
         $this->generateRequestUserModel(['use_totp' => false]);
         $this->mockSession(passkey: true);
 
-        $this->getMiddleware()->handle($this->request, $this->getClosureAssertions());
+        $response = $this->getMiddleware()->handle($this->request, function ($req) {
+            $this->assertSame($this->request, $req);
+            return $req;
+        });
+
+        $this->assertInstanceOf(\Illuminate\Http\Request::class, $response);
     }
 
     public function testUserWithTotpIsPassedThrough()
@@ -78,6 +82,7 @@ class RequireTwoFactorAuthenticationTest extends MiddlewareTestCase
         $session = m::mock(Store::class);
         $session->shouldReceive('get')->with('auth_passkey', false)->andReturn($passkey);
 
+        $this->request->shouldReceive('hasSession')->andReturn(true);
         $this->request->shouldReceive('session')->andReturn($session);
     }
 
