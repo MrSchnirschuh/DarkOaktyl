@@ -5,7 +5,7 @@ namespace DarkOak\Tests\Unit\Http\Middleware;
 use Mockery as m;
 use DarkOak\Models\User;
 use Illuminate\Session\Store;
-use Everest\Http\Middleware\RequireTwoFactorAuthentication;
+use DarkOak\Http\Middleware\RequireTwoFactorAuthentication;
 
 class RequireTwoFactorAuthenticationTest extends MiddlewareTestCase
 {
