@@ -33,8 +33,8 @@
         "staudenmeir/belongs-to-through": "^2.18",
         "stripe/stripe-php": "^17.3",
         "symfony/http-client": "^7.4",
-        "symfony/mailgun-mailer": "^7.4",
-        "symfony/postmark-mailer": "^7.4",
+        "symfony/mailgun-mailer": "^8.0",
+        "symfony/postmark-mailer": "^8.0",
         "symfony/yaml": "^8.0",
         "web-auth/webauthn-lib": "^5.3",
         "webmozart/assert": "^1.11"
