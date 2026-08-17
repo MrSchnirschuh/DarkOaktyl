@@ -22,7 +22,7 @@
         "lcobucci/jwt": "^4.3",
         "league/flysystem-aws-s3-v3": "^3.12",
         "league/flysystem-memory": "^3.10",
-        "matriphe/iso-639": "^1.2",
+        "matriphe/iso-639": "^2.0",
         "phpseclib/phpseclib": "^3.0",
         "pragmarx/google2fa": "^9.0",
         "predis/predis": "^2.1",

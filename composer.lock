@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b279deec70c8a485ffd97e6eb9e86866",
+    "content-hash": "60f23c5311d47c1092ccd300ec3c266e",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -3482,20 +3482,28 @@
         },
         {
             "name": "matriphe/iso-639",
-            "version": "1.3",
+            "version": "v2.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/matriphe/php-iso-639.git",
-                "reference": "9a4a5823147890e70e0e0f60f3baea95e8d3b5f1"
+                "reference": "aa2ddce7eb9000570e6398bf52f114ebf9f0691a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/matriphe/php-iso-639/zipball/9a4a5823147890e70e0e0f60f3baea95e8d3b5f1",
-                "reference": "9a4a5823147890e70e0e0f60f3baea95e8d3b5f1",
+                "url": "https://api.github.com/repos/matriphe/php-iso-639/zipball/aa2ddce7eb9000570e6398bf52f114ebf9f0691a",
+                "reference": "aa2ddce7eb9000570e6398bf52f114ebf9f0691a",
                 "shasum": ""
             },
+            "require": {
+                "php": "8.*"
+            },
             "require-dev": {
-                "phpunit/phpunit": "^4.7"
+                "friendsofphp/php-cs-fixer": "^3.75",
+                "phpunit/phpunit": ">=10"
+            },
+            "suggest": {
+                "ext-mbstring": "For better multibyte character support in text transformations",
+                "ext-xdebug": "For code coverage when running tests"
             },
             "type": "library",
             "autoload": {
@@ -3524,9 +3532,9 @@
             ],
             "support": {
                 "issues": "https://github.com/matriphe/php-iso-639/issues",
-                "source": "https://github.com/matriphe/php-iso-639/tree/1.3"
+                "source": "https://github.com/matriphe/php-iso-639/tree/v2.0.10"
             },
-            "time": "2024-03-17T21:30:14+00:00"
+            "time": "2025-10-05T21:40:44+00:00"
         },
         {
             "name": "monolog/monolog",
