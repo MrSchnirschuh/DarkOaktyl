@@ -7,10 +7,10 @@ use DarkOak\Models\User;
 use DarkOak\Enum\JwtScope;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Str;
-use Lcobucci\JWT\Token\Plain;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
 use Lcobucci\JWT\Signer\Key\InMemory;
+use Lcobucci\JWT\UnencryptedToken;
 use DarkOak\Extensions\Lcobucci\JWT\Encoding\TimestampDates;
 
 class NodeJWTService
@@ -75,7 +75,7 @@ class NodeJWTService
     /**
      * Generate a new JWT for a given node.
      */
-    public function handle(Node $node, ?string $identifiedBy, string $algo = 'md5'): Plain
+    public function handle(Node $node, ?string $identifiedBy, string $algo = 'md5'): UnencryptedToken
     {
         $identifier = hash($algo, $identifiedBy);
         $config = Configuration::forSymmetricSigner(new Sha256(), InMemory::plainText($node->getDecryptedKey()));

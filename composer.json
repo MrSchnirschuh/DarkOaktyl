@@ -19,7 +19,7 @@
         "laravel/socialite": "^5.12",
         "laravel/tinker": "^3.0",
         "laravel/ui": "^4.2",
-        "lcobucci/jwt": "^4.3",
+        "lcobucci/jwt": "^5.0",
         "league/flysystem-aws-s3-v3": "^3.12",
         "league/flysystem-memory": "^3.10",
         "matriphe/iso-639": "^2.0",

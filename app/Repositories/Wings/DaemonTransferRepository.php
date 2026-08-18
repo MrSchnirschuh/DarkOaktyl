@@ -3,7 +3,7 @@
 namespace DarkOak\Repositories\Wings;
 
 use DarkOak\Models\Node;
-use Lcobucci\JWT\Token\Plain;
+use Lcobucci\JWT\UnencryptedToken;
 use GuzzleHttp\Exception\GuzzleException;
 use DarkOak\Exceptions\Http\Connection\DaemonConnectionException;
 
@@ -16,7 +16,7 @@ class DaemonTransferRepository extends DaemonRepository
     /**
      * @throws DaemonConnectionException
      */
-    public function notify(Node $targetNode, Plain $token): void
+    public function notify(Node $targetNode, UnencryptedToken $token): void
     {
         try {
             $this->getHttpClient()->post(sprintf('/api/servers/%s/transfer', $this->server->uuid), [
