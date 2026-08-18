@@ -24,6 +24,7 @@
         "league/flysystem-memory": "^3.10",
         "matriphe/iso-639": "^2.0",
         "phpseclib/phpseclib": "^3.0",
+        "phpunit/phpunit": "^12.0",
         "pragmarx/google2fa": "^9.0",
         "predis/predis": "^3.0",
         "psr/cache": "^3.0",
@@ -48,7 +49,6 @@
         "nunomaduro/collision": "^8.0",
         "phpstan/phpstan": "^2.2",
         "phpstan/phpstan-webmozart-assert": "^2.0",
-        "phpunit/phpunit": "^11.5",
         "spatie/laravel-ignition": "^2.9"
     },
     "autoload": {

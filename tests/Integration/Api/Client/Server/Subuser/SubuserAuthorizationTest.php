@@ -1,6 +1,7 @@
 <?php
 
 namespace DarkOak\Tests\Integration\Api\Client\Server\Subuser;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 use DarkOak\Models\User;
 use DarkOak\Models\Subuser;
@@ -12,8 +13,8 @@ class SubuserAuthorizationTest extends ClientApiIntegrationTestCase
     /**
      * Test that mismatched subusers are not accessible to a server.
      *
-     * @dataProvider methodDataProvider
      */
+    #[DataProvider('methodDataProvider')]
     public function testUserCannotAccessResourceBelongingToOtherServers(string $method)
     {
         // Generic subuser, the specific resource we're trying to access.

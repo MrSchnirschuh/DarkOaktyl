@@ -1,6 +1,7 @@
 <?php
 
 namespace DarkOak\Tests\Integration\Api\Remote;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 use DarkOak\Models\Node;
 use DarkOak\Models\User;
@@ -95,7 +96,6 @@ class SftpAuthenticationControllerTest extends IntegrationTestCase
      * Test that providing an invalid key and/or invalid username triggers the throttle on
      * the endpoint.
      *
-     * @dataProvider authorizationTypeDataProvider
      */
     public function testUserIsThrottledIfInvalidCredentialsAreProvided()
     {
@@ -129,8 +129,8 @@ class SftpAuthenticationControllerTest extends IntegrationTestCase
      * Test that a request is rejected if the credentials are valid but the username indicates
      * a server on a different node.
      *
-     * @dataProvider authorizationTypeDataProvider
      */
+    #[DataProvider('authorizationTypeDataProvider')]
     public function testRequestIsRejectedIfServerBelongsToDifferentNode(string $type)
     {
         $node2 = $this->createServerModel()->node;
@@ -166,8 +166,8 @@ class SftpAuthenticationControllerTest extends IntegrationTestCase
     }
 
     /**
-     * @dataProvider serverStateDataProvider
      */
+    #[DataProvider('serverStateDataProvider')]
     public function testInvalidServerStateReturnsConflictError(string $status)
     {
         $this->server->update(['status' => $status]);
