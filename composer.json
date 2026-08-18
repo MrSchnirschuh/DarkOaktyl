@@ -23,6 +23,7 @@
         "league/flysystem-aws-s3-v3": "^3.12",
         "league/flysystem-memory": "^3.10",
         "matriphe/iso-639": "^2.0",
+        "nunomaduro/collision": "^8.9.5",
         "phpseclib/phpseclib": "^3.0",
         "phpunit/phpunit": "^12.0",
         "pragmarx/google2fa": "^9.0",
@@ -46,7 +47,6 @@
         "larastan/larastan": "^3.0",
         "laravel/sail": "^1.21",
         "mockery/mockery": "^1.5",
-        "nunomaduro/collision": "^8.0",
         "phpstan/phpstan": "^2.2",
         "phpstan/phpstan-webmozart-assert": "^2.0",
         "spatie/laravel-ignition": "^2.9"
