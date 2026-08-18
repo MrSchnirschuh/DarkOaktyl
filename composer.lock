@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1f6eb292bc7509e8f1f185fea646b2c9",
+    "content-hash": "2d9c55a6f2c73659547a95dd2e9662c0",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -6180,28 +6180,28 @@
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v17.6.0",
+            "version": "v21.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "a6219df5df1324a0d3f1da25fb5e4b8a3307ea16"
+                "reference": "edf8118f0b96d69f06f372da9168d613d1aed072"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/a6219df5df1324a0d3f1da25fb5e4b8a3307ea16",
-                "reference": "a6219df5df1324a0d3f1da25fb5e4b8a3307ea16",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/edf8118f0b96d69f06f372da9168d613d1aed072",
+                "reference": "edf8118f0b96d69f06f372da9168d613d1aed072",
                 "shasum": ""
             },
             "require": {
                 "ext-curl": "*",
                 "ext-json": "*",
                 "ext-mbstring": "*",
-                "php": ">=5.6.0"
+                "php": ">=7.2.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "3.72.0",
+                "friendsofphp/php-cs-fixer": "3.94.0",
                 "phpstan/phpstan": "^1.2",
-                "phpunit/phpunit": "^5.7 || ^9.0"
+                "phpunit/phpunit": "^8.0 || ^9.0"
             },
             "type": "library",
             "extra": {
@@ -6210,6 +6210,10 @@
                 }
             },
             "autoload": {
+                "files": [
+                    "lib/version_check.php",
+                    "lib/agent_plugin_hint.php"
+                ],
                 "psr-4": {
                     "Stripe\\": "lib/"
                 }
@@ -6233,9 +6237,9 @@
             ],
             "support": {
                 "issues": "https://github.com/stripe/stripe-php/issues",
-                "source": "https://github.com/stripe/stripe-php/tree/v17.6.0"
+                "source": "https://github.com/stripe/stripe-php/tree/v21.2.0"
             },
-            "time": "2025-08-27T19:32:42+00:00"
+            "time": "2026-08-10T22:11:35+00:00"
         },
         {
             "name": "symfony/clock",
