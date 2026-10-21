@@ -18,7 +18,7 @@ use DarkOak\Http\Requests\Api\Client\Billing\GetUpgradeOptionsRequest;
 
 class UpgradeController extends ClientApiController
 {
-    private StripeClient $stripe;
+    private ?StripeClient $stripe = null;
 
     public function __construct(
         private UpgradeService $upgradeService,
@@ -26,8 +26,11 @@ class UpgradeController extends ClientApiController
         private CreateOrderService $orderService,
     ) {
         parent::__construct();
+    }
 
-        $this->stripe = new StripeClient(config('modules.billing.keys.secret'));
+    private function stripe(): StripeClient
+    {
+        return $this->stripe ??= new StripeClient(config('modules.billing.keys.secret'));
     }
 
     /**
@@ -89,7 +92,7 @@ class UpgradeController extends ClientApiController
             'order_type' => Order::TYPE_UPGRADE,
         ];
 
-        $transaction = $this->paymentService->create($this->stripe, $request->user(), $new_product, $metadata, $price);
+        $transaction = $this->paymentService->create($this->stripe(), $request->user(), $new_product, $metadata, $price);
 
         $order = $this->orderService->create(
             $transaction->id,

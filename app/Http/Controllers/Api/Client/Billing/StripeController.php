@@ -29,7 +29,7 @@ use DarkOak\Http\Requests\Api\Client\Billing\ValidateDiscountCodeRequest;
 
 class StripeController extends ClientApiController
 {
-    private StripeClient $stripe;
+    private ?StripeClient $stripe = null;
 
     public function __construct(
         private UpgradeService $upgradeService,
@@ -40,10 +40,17 @@ class StripeController extends ClientApiController
         private ServerDeploymentService $deploymentService,
     ) {
         parent::__construct();
+    }
 
-        $this->stripe = app()->bound(StripeClient::class)
-            ? app(StripeClient::class)
-            : new StripeClient(config('modules.billing.keys.secret'));
+    private function stripe(): StripeClient
+    {
+        if ($this->stripe === null) {
+            $this->stripe = app()->bound(StripeClient::class)
+                ? app(StripeClient::class)
+                : new StripeClient(config('modules.billing.keys.secret'));
+        }
+
+        return $this->stripe;
     }
 
     /**
@@ -106,7 +113,7 @@ class StripeController extends ClientApiController
             'subtotal' => $price !== null ? $product->price : null,
         ], fn ($value) => $value !== null) ?: null;
 
-        $transaction = $this->paymentService->create($this->stripe, $request->user(), $product, $metadata, $price, $deploymentFee);
+        $transaction = $this->paymentService->create($this->stripe(), $request->user(), $product, $metadata, $price, $deploymentFee);
 
         $order = $this->orderService->create(
             $transaction->id,
@@ -131,7 +138,7 @@ class StripeController extends ClientApiController
     public function process(ProcessStripePaymentRequest $request): array
     {
         try {
-            $transaction = $this->stripe->checkout->sessions->retrieve($request->input('session'));
+            $transaction = $this->stripe()->checkout->sessions->retrieve($request->input('session'));
         } catch (DisplayException $ex) {
             throw new DisplayException('Failed to process order: unable to retrieve session');
         }

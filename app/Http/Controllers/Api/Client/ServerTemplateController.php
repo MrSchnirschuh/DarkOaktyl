@@ -10,11 +10,9 @@ use DarkOak\Http\Controllers\ApplicationApiController;
 
 class ServerTemplateController extends ApplicationApiController
 {
-    private ServerTemplateService $templateService;
-
-    public function __construct()
-    {
-        $this->templateService = new ServerTemplateService();
+    public function __construct(
+        private ServerTemplateService $templateService,
+    ) {
     }
 
     /**

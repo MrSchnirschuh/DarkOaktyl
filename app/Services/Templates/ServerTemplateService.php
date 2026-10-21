@@ -12,11 +12,9 @@ use DarkOak\Services\Servers\ServerCreationService;
 
 class ServerTemplateService
 {
-    private ServerCreationService $creationService;
-
-    public function __construct()
-    {
-        $this->creationService = new ServerCreationService();
+    public function __construct(
+        private ServerCreationService $creationService,
+    ) {
     }
 
     /**
